@@ -48,7 +48,7 @@ int CheckGLError(char *file, int line)		// GL ERROR CHECK
    
 #define CHECK_GL_ERROR() CheckGLError(__FILE__, __LINE__)
 
-//----------------------------------------------------------------------------- 
+//----------r------------------------------------------------------------------- 
 bool InitOpenGLExtensions(void)
 {
     if (extensions_init) return true;
