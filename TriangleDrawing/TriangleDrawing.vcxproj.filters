@@ -22,6 +22,9 @@
     <Filter Include="shaders">
       <UniqueIdentifier>{af0cc0d1-901c-49b8-82b7-327c880b66c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{bc7708d0-f150-4bf3-8db7-3a86a790806f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glew\include\Gl\glew.h">
@@ -50,6 +53,9 @@
     </ClInclude>
     <ClInclude Include="freeglut\source\freeglut_teapot_data.h">
       <Filter>freeglut\source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ShaderProgram.h">
+      <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -122,7 +128,12 @@
     <ClCompile Include="freeglut\source\freeglut_window.c">
       <Filter>freeglut\source</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="source\main.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ShaderProgram.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="freeglut\source\freeglutdll.def">
