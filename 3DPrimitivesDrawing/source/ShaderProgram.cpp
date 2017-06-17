@@ -138,6 +138,36 @@ GLint ShaderProgram::CompileShader(const char* shaderFilePath, GLenum shaderType
 	return shaderObject;
 }
 
+GLuint ShaderProgram::GetProgramObject()
+{
+	return programID;
+}
+
+void ShaderProgram::SetUniform4fv(const GLchar* name, float* arr)
+{
+	GLint loc = glGetUniformLocation(programID, name);
+
+	if (loc != -1)
+		glUniform4fv(loc, 1, arr);
+}
+
+void ShaderProgram::SetUniform4fv(const GLchar* name, float val1, float val2, float val3, float val4)
+{
+	GLint loc = glGetUniformLocation(programID, name);
+
+	if (loc != -1)
+	{
+		GLfloat arr[4];
+
+		arr[0] = val1;
+		arr[1] = val2;
+		arr[2] = val3;
+		arr[3] = val4;
+
+		glUniform4fv(loc, 1, arr);
+	}
+}
+
 void ShaderProgram::Begin()
 {
 	glUseProgram(programID);
