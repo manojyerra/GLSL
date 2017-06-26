@@ -53,7 +53,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>freeglut/include;glew/include;cwc/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>freeglut/include;glew/include;cwc/include;source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;FREEGLUT_STATIC;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -98,6 +98,17 @@
     <ClInclude Include="freeglut\include\Gl\glut.h" />
     <ClInclude Include="freeglut\source\freeglut_internal.h" />
     <ClInclude Include="freeglut\source\freeglut_teapot_data.h" />
+    <ClInclude Include="source\Cam.h" />
+    <ClInclude Include="source\DefinesAndIncludes.h" />
+    <ClInclude Include="source\Floor.h" />
+    <ClInclude Include="source\GLUtil\GLBatch.h" />
+    <ClInclude Include="source\Math\GLMat.h" />
+    <ClInclude Include="source\Math\Line2D.h" />
+    <ClInclude Include="source\Math\TransformVertexBuf.h" />
+    <ClInclude Include="source\Math\Triangle2D.h" />
+    <ClInclude Include="source\Math\Vector3.h" />
+    <ClInclude Include="source\Primitives2D\Rect2D.h" />
+    <ClInclude Include="source\Primitives2D\Triangle2D.h" />
     <ClInclude Include="source\ShaderProgram.h" />
   </ItemGroup>
   <ItemGroup>
@@ -124,7 +135,18 @@
     <ClCompile Include="freeglut\source\freeglut_teapot.c" />
     <ClCompile Include="freeglut\source\freeglut_videoresize.c" />
     <ClCompile Include="freeglut\source\freeglut_window.c" />
+    <ClCompile Include="source\Cam.cpp" />
+    <ClCompile Include="source\DefinesAndIncludes.cpp" />
+    <ClCompile Include="source\Floor.cpp" />
+    <ClCompile Include="source\GLUtil\GLBatch.cpp" />
     <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\Math\GLMat.cpp" />
+    <ClCompile Include="source\Math\Line2D.cpp" />
+    <ClCompile Include="source\Math\TransformVertexBuf.cpp" />
+    <ClCompile Include="source\Math\Triangle2D.cpp" />
+    <ClCompile Include="source\Math\Vector3.cpp" />
+    <ClCompile Include="source\Primitives2D\Rect2D.cpp" />
+    <ClCompile Include="source\Primitives2D\Triangle2D.cpp" />
     <ClCompile Include="source\ShaderProgram.cpp" />
   </ItemGroup>
   <ItemGroup>

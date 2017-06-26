@@ -25,6 +25,15 @@
     <Filter Include="source">
       <UniqueIdentifier>{bc7708d0-f150-4bf3-8db7-3a86a790806f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\GLUtil">
+      <UniqueIdentifier>{bb2bd6c1-fe73-4d5a-9694-ccd9649abdc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Primitives2D">
+      <UniqueIdentifier>{495c535c-345d-4b76-bb32-2df1da963a17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Math">
+      <UniqueIdentifier>{09a91444-62be-4bcb-9c3f-fddfbd5e23e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glew\include\Gl\glew.h">
@@ -55,6 +64,39 @@
       <Filter>freeglut\source</Filter>
     </ClInclude>
     <ClInclude Include="source\ShaderProgram.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GLUtil\GLBatch.h">
+      <Filter>source\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Primitives2D\Triangle2D.h">
+      <Filter>source\Primitives2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Math\GLMat.h">
+      <Filter>source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Math\Line2D.h">
+      <Filter>source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Math\TransformVertexBuf.h">
+      <Filter>source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Math\Triangle2D.h">
+      <Filter>source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Math\Vector3.h">
+      <Filter>source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DefinesAndIncludes.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Primitives2D\Rect2D.h">
+      <Filter>source\Primitives2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Cam.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Floor.h">
       <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
@@ -132,6 +174,39 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="source\ShaderProgram.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GLUtil\GLBatch.cpp">
+      <Filter>source\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Primitives2D\Triangle2D.cpp">
+      <Filter>source\Primitives2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Math\GLMat.cpp">
+      <Filter>source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Math\Line2D.cpp">
+      <Filter>source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Math\TransformVertexBuf.cpp">
+      <Filter>source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Math\Triangle2D.cpp">
+      <Filter>source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Math\Vector3.cpp">
+      <Filter>source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DefinesAndIncludes.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Primitives2D\Rect2D.cpp">
+      <Filter>source\Primitives2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Cam.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Floor.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,20 +1,25 @@
-#include <GL/glew.h>
+#include "DefinesAndIncludes.h"
 #include <GL/freeglut.h>
 #include "ShaderProgram.h"
+#include "GLUtil/GLBatch.h"
+#include "Primitives2D/Triangle2D.h"
+#include "Primitives2D/Rect2D.h"
+#include "Floor.h"
+#include "Cam.h"
 
 int CreateGlutWindow(char* title, int x, int y, int w, int h);
 void Display();
 
-GLuint vertexbuffer;
+Triangle2D* _triangle2D;
+Rect2D* _rect2D;
+Floor* _floor;
+Cam* _cam;
 
-static const GLfloat g_vertex_buffer_data[] =
-{
-   -1.0f, -1.0f, 0.0f,
-   1.0f, -1.0f, 0.0f,
-   0.0f,  1.0f, 0.0f,
-};
-
-ShaderProgram* shaderProgram;
+float _sw = 500.0f;
+float _sh = 500.0f;
+float _zNear = 1.0f;
+float _zFar = 10000.0f;
+float _zNearPlaneW = 0.2f;
 
 int main(int argc, char **argv)
 {
@@ -23,11 +28,21 @@ int main(int argc, char **argv)
 	CreateGlutWindow("First Window", 0,0,500,500);
 	glewInit();
 
-	shaderProgram = new ShaderProgram("shaders/passThroughShader.vs", "shaders/passThroughShader.fs");
+	//CVector3 v1(-1.0f, -1.0f, 0.0f);
+	//CVector3 v2(1.0f, -1.0f, 0.0f);
+	//CVector3 v3(0.0f,  1.0f, 0.0f);
 
-	glGenBuffers(1, &vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+	_cam = Cam::GetInstance();
+	_cam->Init(500, 500, _zNear, _zFar, _zNearPlaneW);
+
+	CVector3 v1(-1.0f, 1.0f, 0.0f);
+	CVector3 v2(0.5f, 0.5f, 0.0f);
+	CVector3 v3(0.0f, 0.5f, 0.0f);
+
+	_triangle2D = new Triangle2D(v1, v2, v3);
+	_rect2D = new Rect2D(-1, -1, 2, 1.98);
+
+	_floor = new Floor();
 
 	glutDisplayFunc(Display);
 	glutMainLoop();
@@ -39,31 +54,24 @@ int CreateGlutWindow(char* title, int x, int y, int w, int h)
 {
 	glutInitWindowPosition(x,y);
 	glutInitWindowSize(w,h);
-	return glutCreateWindow(title);
+	glutCreateWindow(title);
+	//glutReshapeWindow(w, h);
+	//glutFullScreen();
+	return 1;
 }
 
 void Display()
 {
 	glClearColor(1,1,1,1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
 	
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	
-	glTranslatef(0.1, 0, 0);
+	_cam->SetProjection();
+	_cam->SetModelViewMatrix();
 
-	shaderProgram->Begin();
-
-	shaderProgram->SetUniform4fv("uColor", 0.0f, 1.0f, 0.0f, 1.0f);
-
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	//glVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid* pointer);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glDrawArrays(GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
-	glDisableVertexAttribArray(0);
-
-	shaderProgram->End();
+	//_triangle2D->Draw();
+	_rect2D->Draw();
+	_floor->Draw();
 
 	glutSwapBuffers();
 }
