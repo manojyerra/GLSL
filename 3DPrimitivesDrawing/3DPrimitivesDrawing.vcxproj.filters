@@ -40,6 +40,9 @@
     <Filter Include="source\Util">
       <UniqueIdentifier>{405632e7-e83b-461b-923a-7f360b5677ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="shaders\Floor">
+      <UniqueIdentifier>{66651736-b09c-4062-9438-c46c0d22dab8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glew\include\Gl\glew.h">
@@ -262,11 +265,11 @@
     <None Include="freeglut\source\freeglutdll.def">
       <Filter>freeglut\source</Filter>
     </None>
-    <None Include="shaders\passThroughShader.fs">
-      <Filter>shaders</Filter>
+    <None Include="shaders\Floor\Floor.fs">
+      <Filter>shaders\Floor</Filter>
     </None>
-    <None Include="shaders\passThroughShader.vs">
-      <Filter>shaders</Filter>
+    <None Include="shaders\Floor\Floor.vs">
+      <Filter>shaders\Floor</Filter>
     </None>
   </ItemGroup>
 </Project>

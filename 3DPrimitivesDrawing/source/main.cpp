@@ -102,7 +102,7 @@ int CreateGlutWindow(char* title, int x, int y, int w, int h)
 
 void MouseInput(int button, int updown, int x, int y)
 {
-	printf("\nButton = %d, updown = %d, x = %d, y = %d", button, updown, x, y);
+	//printf("\nButton = %d, updown = %d, x = %d, y = %d", button, updown, x, y);
 
 	if(button == 0)
 	{
@@ -139,16 +139,14 @@ void Display()
 	//_rect2D->Draw();
 	_floor->Draw();
 
-	shaderProgram->Begin();
-
-	glEnable( GL_CULL_FACE );
-  	glCullFace ( GL_BACK );
-  	//glColor3f( 1.0, 0.0, 0.0 );           //red
-   	glFrontFace ( GL_CCW );
-	glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-	glutSolidTeapot(5.0);
-
-	shaderProgram->End();
+	//shaderProgram->Begin();
+	//glEnable( GL_CULL_FACE );
+	//glCullFace ( GL_BACK );
+	////glColor3f( 1.0, 0.0, 0.0 );           //red
+	//glFrontFace ( GL_CCW );
+	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+	//glutSolidTeapot(5.0);
+	//shaderProgram->End();
 
 	glutSwapBuffers();
 	glutPostRedisplay();

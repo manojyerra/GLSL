@@ -58,6 +58,11 @@ public:
 	GLubyte* GetColorArr();
 	GLfloat* GetNormalArr();
 
+	GLuint GetVertexBufferID();
+	GLuint GetColorBufferID();
+	GLuint GetUVBufferID();
+	GLuint GetNormalBufferID();
+
 	void Draw(GLuint programID);
 
 	void ResetCount();

@@ -40,8 +40,6 @@ void Rect2D::Draw()
 
 	shaderProgram->Begin();
 
-	shaderProgram->SetUniform4fv("uColor", 0.0f, 1.0f, 0.0f, 1.0f);
-
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, bufferID);
 	//glVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid* pointer);

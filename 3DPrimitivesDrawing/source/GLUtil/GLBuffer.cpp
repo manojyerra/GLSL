@@ -153,25 +153,15 @@ void GLBuffer::glNormal3f(GLfloat x, GLfloat y, GLfloat z)
 	_nz = z;
 }
 
-GLfloat* GLBuffer::GetVertexArr()
-{
-	return _vertexArr;
-}
+GLfloat* GLBuffer::GetVertexArr()		{	return _vertexArr;	}
+GLfloat* GLBuffer::GetUVArr()			{	return _uvArr;		}
+GLubyte* GLBuffer::GetColorArr()		{	return _colorArr;	}
+GLfloat* GLBuffer::GetNormalArr()		{	return _normalArr;	}
 
-GLfloat* GLBuffer::GetUVArr()
-{
-	return _uvArr;
-}
-
-GLubyte* GLBuffer::GetColorArr()
-{
-	return _colorArr;
-}
-
-GLfloat* GLBuffer::GetNormalArr()
-{
-	return _normalArr;
-}
+GLuint GLBuffer::GetVertexBufferID()	{	return _vertexBufferID;		}
+GLuint GLBuffer::GetColorBufferID()		{	return _colorBufferID;		}
+GLuint GLBuffer::GetUVBufferID()		{	return _uvBufferID;			}
+GLuint GLBuffer::GetNormalBufferID()	{	return _normalBufferID;		}
 
 void GLBuffer::glEnd()
 {
@@ -211,11 +201,6 @@ void GLBuffer::glEnd()
 
 void GLBuffer::Draw(GLuint programID)
 {
-	glDisable( GL_TEXTURE_2D );
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
 	glEnable(GL_BLEND);
 
 	if(_normalBufferID)
@@ -253,10 +238,6 @@ void GLBuffer::Draw(GLuint programID)
 	glVertexPointer(3, GL_FLOAT, 0, (void*)0);
 
 	glDrawArrays(_mode, 0, _count);
-
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
 
 	glBindBuffer( GL_ARRAY_BUFFER, 0);
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0);
