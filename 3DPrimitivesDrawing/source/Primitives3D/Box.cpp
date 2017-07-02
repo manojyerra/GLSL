@@ -370,10 +370,10 @@ void Box::GenerateBufferID()
 	if(_useRandomColors) buffer->glColoruia(_randomColor.NextColor(), _randomColorAlpha);
 	buffer->glVertex3f(-w, +h, -d);
 	buffer->glVertex3f(+w, +h, +d);
-	buffer->glVertex3f(-w, +h, +d);
+	buffer->glVertex3f(-w, +h, -d);
 	buffer->glVertex3f(+w, +h, +d);
 	if(_useRandomColors) buffer->glColoruia(_randomColor.NextColor(), _randomColorAlpha);
-	buffer->glVertex3f(-w, +h, -d);
+	buffer->glVertex3f(-w, +h, +d);
 	
 	////Bottom face
 	if(_useRandomColors) buffer->glColoruia(_randomColor.NextColor(), _randomColorAlpha);
@@ -381,10 +381,10 @@ void Box::GenerateBufferID()
 	if(_useRandomColors) buffer->glColoruia(_randomColor.NextColor(), _randomColorAlpha);
 	buffer->glVertex3f(-w, -h, -d);
 	buffer->glVertex3f(+w, -h, +d);
-	buffer->glVertex3f(-w, -h, +d);
+	buffer->glVertex3f(-w, -h, -d);
 	buffer->glVertex3f(+w, -h, +d);
 	if(_useRandomColors) buffer->glColoruia(_randomColor.NextColor(), _randomColorAlpha);
-	buffer->glVertex3f(-w, -h, -d);
+	buffer->glVertex3f(-w, -h, +d);
 
 
 	//Right face
