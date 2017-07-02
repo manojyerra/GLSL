@@ -99,6 +99,14 @@ void GLBuffer::glColor4ub(unsigned char r, unsigned char g, unsigned char b, uns
 	_a = (GLubyte)a;
 }
 
+void GLBuffer::glColoruia(unsigned int color, unsigned char alpha)
+{
+    _r	= (color >> 24) & 255;
+	_g	= (color >> 16) & 255;
+	_b	= (color >> 8) & 255;
+	_a = alpha;		
+}
+
 void GLBuffer::glColor4f(float r, float g, float b, float a)
 {
 	_r = (GLubyte)(r*255.0f);
@@ -199,49 +207,49 @@ void GLBuffer::glEnd()
 	}
 }
 
-void GLBuffer::Draw(GLuint programID)
-{
-	glEnable(GL_BLEND);
-
-	if(_normalBufferID)
-	{
-		GLuint vertexNormalID = glGetAttribLocation(programID, "vertexNormal");
-		glEnableVertexAttribArray(vertexNormalID);
-		glBindBuffer(GL_ARRAY_BUFFER, _normalBufferID);
-		glVertexAttribPointer(
-			vertexNormalID,				// The attribute we want to configure
-			3,							// size
-			GL_FLOAT,					// type
-			GL_FALSE,					// normalized?
-			0,							// stride
-			(void*)0					// array buffer offset
-		);
-	}
-
-	if(_colorBufferID)
-	{
-		GLuint vertexColorID = glGetAttribLocation(programID, "vertexColor");
-		glEnableVertexAttribArray(vertexColorID);
-		glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-		glVertexAttribPointer(
-			vertexColorID,              // The attribute we want to configure
-			4,                          // size
-			GL_UNSIGNED_BYTE,           // type
-			GL_TRUE,                    // normalized?
-			0,                          // stride
-			(void*)0                    // array buffer offset
-		);
-	}
-
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glBindBuffer( GL_ARRAY_BUFFER, _vertexBufferID );
-	glVertexPointer(3, GL_FLOAT, 0, (void*)0);
-
-	glDrawArrays(_mode, 0, _count);
-
-	glBindBuffer( GL_ARRAY_BUFFER, 0);
-	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0);
-}
+//void GLBuffer::Draw(GLuint programID)
+//{
+//	glEnable(GL_BLEND);
+//
+//	if(_normalBufferID)
+//	{
+//		GLuint vertexNormalID = glGetAttribLocation(programID, "vertexNormal");
+//		glEnableVertexAttribArray(vertexNormalID);
+//		glBindBuffer(GL_ARRAY_BUFFER, _normalBufferID);
+//		glVertexAttribPointer(
+//			vertexNormalID,				// The attribute we want to configure
+//			3,							// size
+//			GL_FLOAT,					// type
+//			GL_FALSE,					// normalized?
+//			0,							// stride
+//			(void*)0					// array buffer offset
+//		);
+//	}
+//
+//	if(_colorBufferID)
+//	{
+//		GLuint vertexColorID = glGetAttribLocation(programID, "vertexColor");
+//		glEnableVertexAttribArray(vertexColorID);
+//		glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
+//		glVertexAttribPointer(
+//			vertexColorID,              // The attribute we want to configure
+//			4,                          // size
+//			GL_UNSIGNED_BYTE,           // type
+//			GL_TRUE,                    // normalized?
+//			0,                          // stride
+//			(void*)0                    // array buffer offset
+//		);
+//	}
+//
+//	glEnableClientState(GL_VERTEX_ARRAY);
+//	glBindBuffer( GL_ARRAY_BUFFER, _vertexBufferID );
+//	glVertexPointer(3, GL_FLOAT, 0, (void*)0);
+//
+//	glDrawArrays(_mode, 0, _count);
+//
+//	glBindBuffer( GL_ARRAY_BUFFER, 0);
+//	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0);
+//}
 
 void GLBuffer::ResetCount()
 {

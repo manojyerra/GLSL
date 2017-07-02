@@ -7,6 +7,7 @@
 #include "Floor.h"
 #include "Cam.h"
 #include "Input.h"
+#include "Primitives3D/Box.h"
 
 ShaderProgram* shaderProgram;
   void DemoLight(void);
@@ -19,6 +20,7 @@ Triangle2D* _triangle2D;
 Rect2D* _rect2D;
 Floor* _floor;
 Cam* _cam;
+Box* _box;
 
 float _sw = 1300.0f;
 float _sh = 600.0f;
@@ -64,6 +66,8 @@ int main(int argc, char **argv)
 	_rect2D = new Rect2D(-1, -1, 2, 2);
 
 	_floor = new Floor();
+	_box = new Box(0,0,0, 2,3,4);
+	_box->SetRandomColorAlpha(128);
 
 	DemoLight();
 	shaderProgram = new ShaderProgram("shaders/passThroughShader.vs", "shaders/passThroughShader.fs");
@@ -138,7 +142,7 @@ void Display()
 	//_triangle2D->Draw();
 	//_rect2D->Draw();
 	_floor->Draw();
-
+	_box->Draw();
 	//shaderProgram->Begin();
 	//glEnable( GL_CULL_FACE );
 	//glCullFace ( GL_BACK );

@@ -6,7 +6,7 @@ Floor::Floor()
 {
 	_visible = true;
 	_axisVisible = true;
-	_gridVisible = true;
+	_gridVisible = false;
 	_gridLinesVisible = true;
 
 	shaderProgram = new ShaderProgram("shaders/Floor/Floor.vs", "shaders/Floor/Floor.fs");

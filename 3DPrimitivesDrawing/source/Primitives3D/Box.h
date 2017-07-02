@@ -5,6 +5,7 @@
 #include "Shape.h"
 #include "Util/RandomColor.h"
 #include "ShaderProgram.h"
+#include "GLUtil/GLBuffer.h"
 
 class Box : public Shape
 {
@@ -13,8 +14,16 @@ private:
 	float _h;
 	float _d;
 
+	GLuint _vertexBufferID;
+	GLuint _colorBufferID;
+
+	GLuint _vertexCount;
+
 	RandomColor _randomColor;
-	ShaderProgram* shaderProgram;
+	ShaderProgram* _shaderProgram;
+	
+	void CalculateVertex();
+	void GenerateBufferID();
 
 public:
 	Box();
@@ -22,7 +31,6 @@ public:
 	Box(float* mat, CVector3 size);
 	Box(float x, float y, float z, float w, float h, float d);
 	~Box();
-
 
 	void Set(Box* box);
 
