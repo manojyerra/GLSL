@@ -113,7 +113,10 @@
     <ClInclude Include="source\Primitives2D\Rect2D.h" />
     <ClInclude Include="source\Primitives2D\Triangle2D.h" />
     <ClInclude Include="source\Primitives3D\Box.h" />
+    <ClInclude Include="source\Primitives3D\Cone.h" />
+    <ClInclude Include="source\Primitives3D\Cylinder.h" />
     <ClInclude Include="source\Primitives3D\Shape.h" />
+    <ClInclude Include="source\Primitives3D\Sphere.h" />
     <ClInclude Include="source\ShaderProgram.h" />
     <ClInclude Include="source\Util\RandomColor.h" />
     <ClInclude Include="source\Util\StringUtils.h" />
@@ -158,7 +161,10 @@
     <ClCompile Include="source\Primitives2D\Rect2D.cpp" />
     <ClCompile Include="source\Primitives2D\Triangle2D.cpp" />
     <ClCompile Include="source\Primitives3D\Box.cpp" />
+    <ClCompile Include="source\Primitives3D\Cone.cpp" />
+    <ClCompile Include="source\Primitives3D\Cylinder.cpp" />
     <ClCompile Include="source\Primitives3D\Shape.cpp" />
+    <ClCompile Include="source\Primitives3D\Sphere.cpp" />
     <ClCompile Include="source\ShaderProgram.cpp" />
     <ClCompile Include="source\Util\RandomColor.cpp" />
     <ClCompile Include="source\Util\StringUtils.cpp" />

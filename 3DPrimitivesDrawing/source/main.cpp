@@ -8,9 +8,12 @@
 #include "Cam.h"
 #include "Input.h"
 #include "Primitives3D/Box.h"
+#include "Primitives3D/Cylinder.h"
+#include "Primitives3D/Cone.h"
+#include "Primitives3D/Sphere.h"
 
 ShaderProgram* shaderProgram;
-  void DemoLight(void);
+void DemoLight(void);
 
 int CreateGlutWindow(char* title, int x, int y, int w, int h);
 void MouseInput(int button, int updown, int x, int y);
@@ -21,6 +24,9 @@ Rect2D* _rect2D;
 Floor* _floor;
 Cam* _cam;
 Box* _box;
+Cylinder* _cylinder;
+Cone* _cone;
+Sphere* _sphere;
 
 float _sw = 1300.0f;
 float _sh = 600.0f;
@@ -67,10 +73,27 @@ int main(int argc, char **argv)
 
 	_floor = new Floor();
 	_box = new Box(0,0,0, 2,3,4);
-	_box->SetRandomColorAlpha(128);
+	_box->SetSize(3, 1, 6);
+	_box->SetPos(-10, 0, -10);
+
+	//_box->SetRandomColorAlpha(128);
+
+	_cylinder = new Cylinder(0,0,0, 3,2);
+	_cylinder->SetRadius(1.5);
+	_cylinder->SetHeight(2);
+	_cylinder->SetPos(0, 0, -10);
+
+	_cone = new Cone(0,0,0, 2,3);
+	_cone->SetRadius(1.5);
+	_cone->SetHeight(2);
+	_cone->SetPos(-5, 0, -10);
+
+	_sphere = new Sphere(-5, 0, -3, 2);
+	_sphere->SetPos(-5, 0, -2);
+	_sphere->SetRadius(2.5);
 
 	DemoLight();
-	shaderProgram = new ShaderProgram("shaders/passThroughShader.vs", "shaders/passThroughShader.fs");
+	//shaderProgram = new ShaderProgram("shaders/passThroughShader.vs", "shaders/passThroughShader.fs");
 
 	glutDisplayFunc(Display);
 	glutMainLoop();
@@ -143,6 +166,10 @@ void Display()
 	//_rect2D->Draw();
 	_floor->Draw();
 	_box->Draw();
+	_cylinder->Draw();
+	_cone->Draw();
+	_sphere->Draw();
+
 	//shaderProgram->Begin();
 	//glEnable( GL_CULL_FACE );
 	//glCullFace ( GL_BACK );

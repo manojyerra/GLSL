@@ -14,15 +14,13 @@ private:
 	float _h;
 	float _d;
 
+	RandomColor _randomColor;
+
 	GLuint _vertexBufferID;
 	GLuint _colorBufferID;
-
 	GLuint _vertexCount;
-
-	RandomColor _randomColor;
 	ShaderProgram* _shaderProgram;
 	
-	void CalculateVertex();
 	void GenerateBufferID();
 
 public:

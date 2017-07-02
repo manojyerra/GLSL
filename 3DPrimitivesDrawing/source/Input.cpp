@@ -124,7 +124,7 @@ void Input::Update(float deltaTime)
 	MX = pos.x; //- WIN_MOVE_X;
 	MY = pos.y; //- WIN_MOVE_Y;
 
-	printf("\nmouse x = %d, mouse y = %d", MX, MY);
+	//printf("\nmouse x = %d, mouse y = %d", MX, MY);
 
 	if(IsMouseClicked() || IsRightMouseClicked() || IsMiddleMouseClicked())
 	{

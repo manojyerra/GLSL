@@ -129,6 +129,15 @@
     <ClInclude Include="source\Input.h">
       <Filter>source</Filter>
     </ClInclude>
+    <ClInclude Include="source\Primitives3D\Cylinder.h">
+      <Filter>source\Primitives3D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Primitives3D\Cone.h">
+      <Filter>source\Primitives3D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Primitives3D\Sphere.h">
+      <Filter>source\Primitives3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glew\source\glew.c">
@@ -259,6 +268,15 @@
     </ClCompile>
     <ClCompile Include="source\Input.cpp">
       <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Primitives3D\Cylinder.cpp">
+      <Filter>source\Primitives3D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Primitives3D\Cone.cpp">
+      <Filter>source\Primitives3D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Primitives3D\Sphere.cpp">
+      <Filter>source\Primitives3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
