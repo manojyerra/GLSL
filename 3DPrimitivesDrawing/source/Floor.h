@@ -3,6 +3,7 @@
 
 #include "ShaderProgram.h"
 #include "GLUtil/GLBatch.h"
+#include "GLUtil/GLBuffer.h"
 
 class Floor
 {
@@ -13,10 +14,10 @@ private:
 	bool _gridLinesVisible;
 
 	ShaderProgram* shaderProgram;
-	GLuint bufferID;
-	int _numVertex;
-
-	void AddVertex(GLBatch* batch);
+	
+	GLBuffer* _axisBuffer;
+	GLBuffer* _gridBuffer;
+	GLBuffer* _gridLinesBuffer;
 
 public:
 	Floor();

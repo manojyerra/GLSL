@@ -23,10 +23,7 @@ public:
 	ShaderProgram(const char* vertexShaderFilePath, const char* fragmentShaderFilePath);
 	~ShaderProgram();
 
-	GLuint GetProgramObject();
-
-	void SetUniform4fv(const GLchar* name, float* arr);
-	void SetUniform4fv(const GLchar* name, float val1, float val2, float val3, float val4);
+	GLuint ProgramID();
 
 	void Begin();
 	void End();

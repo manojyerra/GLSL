@@ -1,5 +1,5 @@
 #include "Cam.h"
-//#include "Input.h"
+#include "Input.h"
 #include <math.h>
 
 Cam* Cam::_ref = NULL;
@@ -114,7 +114,6 @@ void Cam::SetModelViewMatrix()
 
 bool Cam::UpdateCamera()
 {
-	/*
 	if( Input::IsKeyPressed(VK_SHIFT) && Input::IsMiddleMousePressed())
 	{
 		float dx = (float)(Input::MX - Input::PrevMX);
@@ -158,7 +157,6 @@ bool Cam::UpdateCamera()
 		_trans.z += 45.0f;
 		return true;
 	}
-	*/
 
 	return false;
 }

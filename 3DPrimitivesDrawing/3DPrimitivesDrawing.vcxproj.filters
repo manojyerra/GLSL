@@ -34,6 +34,12 @@
     <Filter Include="source\Math">
       <UniqueIdentifier>{09a91444-62be-4bcb-9c3f-fddfbd5e23e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\Primitives3D">
+      <UniqueIdentifier>{8361e4ad-b6e7-42be-9d19-31d29e2ca4e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Util">
+      <UniqueIdentifier>{405632e7-e83b-461b-923a-7f360b5677ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glew\include\Gl\glew.h">
@@ -72,9 +78,6 @@
     <ClInclude Include="source\Primitives2D\Triangle2D.h">
       <Filter>source\Primitives2D</Filter>
     </ClInclude>
-    <ClInclude Include="source\Math\GLMat.h">
-      <Filter>source\Math</Filter>
-    </ClInclude>
     <ClInclude Include="source\Math\Line2D.h">
       <Filter>source\Math</Filter>
     </ClInclude>
@@ -97,6 +100,30 @@
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="source\Floor.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GLUtil\GLUtil.h">
+      <Filter>source\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GLUtil\GLMat.h">
+      <Filter>source\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GLUtil\GLBuffer.h">
+      <Filter>source\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Primitives3D\Box.h">
+      <Filter>source\Primitives3D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Primitives3D\Shape.h">
+      <Filter>source\Primitives3D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Util\RandomColor.h">
+      <Filter>source\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Util\StringUtils.h">
+      <Filter>source\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Input.h">
       <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
@@ -182,9 +209,6 @@
     <ClCompile Include="source\Primitives2D\Triangle2D.cpp">
       <Filter>source\Primitives2D</Filter>
     </ClCompile>
-    <ClCompile Include="source\Math\GLMat.cpp">
-      <Filter>source\Math</Filter>
-    </ClCompile>
     <ClCompile Include="source\Math\Line2D.cpp">
       <Filter>source\Math</Filter>
     </ClCompile>
@@ -207,6 +231,30 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="source\Floor.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GLUtil\GLUtil.cpp">
+      <Filter>source\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GLUtil\GLMat.cpp">
+      <Filter>source\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GLUtil\GLBuffer.cpp">
+      <Filter>source\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Primitives3D\Box.cpp">
+      <Filter>source\Primitives3D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Primitives3D\Shape.cpp">
+      <Filter>source\Primitives3D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Util\RandomColor.cpp">
+      <Filter>source\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Util\StringUtils.cpp">
+      <Filter>source\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Input.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

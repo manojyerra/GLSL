@@ -27,7 +27,9 @@ void Triangle2D::Draw()
 {
 	shaderProgram->Begin();
 
-	shaderProgram->SetUniform4fv("uColor", 0.0f, 1.0f, 0.0f, 1.0f);
+	//shaderProgram->SetUniform4fv("uColor", 0.0f, 1.0f, 0.0f, 1.0f);
+
+	glUniform4f( glGetUniformLocation(shaderProgram->ProgramID(), "uColor"), 0.0f, 1.0f, 0.0f, 1.0f );
 
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, bufferID);
