@@ -2,15 +2,15 @@
 #include <GL/freeglut.h>
 #include "ShaderProgram.h"
 #include "GLUtil/GLBatch.h"
-#include "Primitives2D/Triangle2D.h"
-#include "Primitives2D/Rect2D.h"
+#include "Shapes2D/Triangle2D.h"
+#include "Shapes2D/Rect2D.h"
 #include "Floor.h"
 #include "Cam.h"
 #include "Input.h"
-#include "Primitives3D/Box.h"
-#include "Primitives3D/Cylinder.h"
-#include "Primitives3D/Cone.h"
-#include "Primitives3D/Sphere.h"
+#include "Shapes3D/Box.h"
+#include "Shapes3D/Cylinder.h"
+#include "Shapes3D/Cone.h"
+#include "Shapes3D/Sphere.h"
 
 ShaderProgram* shaderProgram;
 void DemoLight(void);
@@ -92,7 +92,7 @@ int main(int argc, char **argv)
 	_sphere->SetPos(-5, 0, -2);
 	_sphere->SetRadius(2.5);
 
-	DemoLight();
+	//DemoLight();
 	//shaderProgram = new ShaderProgram("shaders/passThroughShader.vs", "shaders/passThroughShader.fs");
 
 	glutDisplayFunc(Display);
