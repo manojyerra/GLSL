@@ -11,11 +11,11 @@ Sphere::Sphere(float x, float y, float z, float r) : Shape(Shape::SPHERE)
 	_r = r;
 
 	_vertexBufferID = 0;
-	_colorBufferID = 0;
+	_normalBufferID = 0;
 
 	_vertexCount = 0;
 
-	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
+	_shaderProgram = new ShaderProgram("shaders/NormalsAndMaterial/NormalsAndMaterial.vs", "shaders/NormalsAndMaterial/NormalsAndMaterial.fs");
 	GenerateBufferID();
 }
 
@@ -27,11 +27,11 @@ Sphere::Sphere(Sphere* sphere) : Shape(Shape::SPHERE)
 	_r = sphere->GetRadius();
 
 	_vertexBufferID = 0;
-	_colorBufferID = 0;
+	_normalBufferID = 0;
 
 	_vertexCount = 0;
 
-	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
+	_shaderProgram = new ShaderProgram("shaders/NormalsAndMaterial/NormalsAndMaterial.vs", "shaders/NormalsAndMaterial/NormalsAndMaterial.fs");
 	GenerateBufferID();
 }
 
@@ -43,11 +43,11 @@ Sphere::Sphere(float* mat, float r) : Shape(Shape::SPHERE)
 	_r = r;
 
 	_vertexBufferID = 0;
-	_colorBufferID = 0;
+	_normalBufferID = 0;
 
 	_vertexCount = 0;
 
-	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
+	_shaderProgram = new ShaderProgram("shaders/NormalsAndMaterial/NormalsAndMaterial.vs", "shaders/NormalsAndMaterial/NormalsAndMaterial.fs");
 	GenerateBufferID();
 }
 
@@ -61,11 +61,11 @@ Sphere::Sphere(CVector3 pos, float r) : Shape(Shape::SPHERE)
 	_r = r;
 
 	_vertexBufferID = 0;
-	_colorBufferID = 0;
+	_normalBufferID = 0;
 
 	_vertexCount = 0;
 
-	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
+	_shaderProgram = new ShaderProgram("shaders/NormalsAndMaterial/NormalsAndMaterial.vs", "shaders/NormalsAndMaterial/NormalsAndMaterial.fs");
 	GenerateBufferID();
 }
 
@@ -121,13 +121,19 @@ void Sphere::Draw()
 	glMultMatrixf(m);
 	glScalef(_r, _r, _r);
 
-
 	_shaderProgram->Begin();
 
-	GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertexColor");
-	glEnableVertexAttribArray(colorID );
-	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-	glVertexAttribPointer( colorID, 4, GL_UNSIGNED_BYTE, GL_TRUE, 0, (void*)0);
+	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "lightPos"), 0.0f, 0.0f, 0.0f);
+	
+	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "ambient"), 0.2f, 0.2f, 0.2f, 1.0f);
+	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "diffuse"), 0.8f, 0.8f, 0.8f, 1.0f);
+	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "specular"), 0.0f, 0.0f, 0.0f, 1.0f);
+	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "shininess"), 1.0f);
+
+	GLuint normalID = glGetAttribLocation(_shaderProgram->ProgramID(), "normal");
+	glEnableVertexAttribArray(normalID );
+	glBindBuffer(GL_ARRAY_BUFFER, _normalBufferID);
+	glVertexAttribPointer( normalID, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 	GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
 	glEnableVertexAttribArray(vertexID);
@@ -144,7 +150,7 @@ void Sphere::Draw()
 
 void Sphere::GenerateBufferID()
 {
-	GLBuffer* buffer = new GLBuffer(100, true, false, false);
+	GLBuffer* buffer = new GLBuffer(100, false, false, true);
 
 	float radius = 0.5f;
 	float piVal = 3.14159265f;
@@ -159,7 +165,7 @@ void Sphere::GenerateBufferID()
 	float y = 0;
 	float z = 0;
 
-	buffer->glColor(0xff0000ff);
+	//buffer->glColor(0xff0000ff);
 
 	for(int zAngle=-90; zAngle<90; zAngle+=2*delta)
 	{
@@ -187,30 +193,22 @@ void Sphere::GenerateBufferID()
 			rot(2, yAngle+delta, Xz1, Yz1, Zz1, &x3, &y3, &z3);
 			rot(2, yAngle+delta, Xz2, Yz2, Zz2, &x4, &y4, &z4);
 
-			//buffer->glNormal3f(x1, y1, z1);
-			//buffer->glVertex3f(x1, y1, z1);
-
-			//buffer->glNormal3f(x2, y2, z2);
-			//buffer->glVertex3f(x2, y2, z2);
-
-			//buffer->glNormal3f(x2, y2, z2);
-			//buffer->glVertex3f(x2, y2, z2);
-
-			//buffer->glNormal3f(x2, y2, z2);
-			//buffer->glVertex3f(x2, y2, z2);
-
-			//buffer->glNormal3f(x3, y3, z3);
-			//buffer->glVertex3f(x3, y3, z3);
-
-			//buffer->glNormal3f(x4, y4, z4);
-			//buffer->glVertex3f(x4, y4, z4);
-
+			buffer->glNormal3f(x1, y1, z1);
 			buffer->glVertex3f(x1, y1, z1);
+
+			buffer->glNormal3f(x2, y2, z2);
 			buffer->glVertex3f(x2, y2, z2);
+
+			buffer->glNormal3f(x3, y3, z3);
 			buffer->glVertex3f(x3, y3, z3);
 
+			buffer->glNormal3f(x2, y2, z2);
 			buffer->glVertex3f(x2, y2, z2);
+
+			buffer->glNormal3f(x3, y3, z3);
 			buffer->glVertex3f(x3, y3, z3);
+
+			buffer->glNormal3f(x4, y4, z4);
 			buffer->glVertex3f(x4, y4, z4);
 		}
 	}
@@ -218,7 +216,7 @@ void Sphere::GenerateBufferID()
 	buffer->glEnd();
 
 	_vertexBufferID = buffer->GetVertexBufferID();
-	_colorBufferID = buffer->GetColorBufferID();
+	_normalBufferID = buffer->GetNormalBufferID();
 
 	_vertexCount = buffer->GetVertexCount();
 
@@ -275,3 +273,9 @@ Sphere::~Sphere()
 	//glMaterialfv(GL_FRONT, GL_DIFFUSE, cyan);
 	//glMaterialfv(GL_FRONT, GL_SPECULAR, white);
 	//glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+
+
+	//glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "ambient"), 0.5f, 0.0f, 0.0f, 1.0f);
+	//glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "diffuse"), 0.4f, 0.4f, 0.5f, 1.0f);
+	//glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "specular"), 0.8f, 0.8f, 0.0f, 1.0f);
+	//glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "shininess"), 0.5f);

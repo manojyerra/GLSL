@@ -13,7 +13,7 @@ Box::Box() : Shape(Shape::BOX)
 
 	_vertexCount = 0;
 
-	_shaderProgram = new ShaderProgram("shaders/Floor/Floor.vs", "shaders/Floor/Floor.fs");
+	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
 	GenerateBufferID();
 }
 
@@ -32,7 +32,7 @@ Box::Box(float x, float y, float z, float w, float h, float d) : Shape(Shape::BO
 
 	_vertexCount = 0;
 
-	_shaderProgram = new ShaderProgram("shaders/Floor/Floor.vs", "shaders/Floor/Floor.fs");
+	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
 	GenerateBufferID();
 }
 
@@ -49,7 +49,7 @@ Box::Box(float* mat, CVector3 size) : Shape(Shape::BOX)
 
 	_vertexCount = 0;
 
-	_shaderProgram = new ShaderProgram("shaders/Floor/Floor.vs", "shaders/Floor/Floor.fs");
+	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
 	GenerateBufferID();
 }
 
@@ -68,7 +68,7 @@ Box::Box(Box* box) : Shape(Shape::BOX)
 
 	_vertexCount = 0;
 
-	_shaderProgram = new ShaderProgram("shaders/Floor/Floor.vs", "shaders/Floor/Floor.fs");
+	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
 	GenerateBufferID();
 }
 

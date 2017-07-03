@@ -11,7 +11,7 @@ private:
 	float _r;
 
 	GLuint _vertexBufferID;
-	GLuint _colorBufferID;
+	GLuint _normalBufferID;
 	GLuint _vertexCount;
 	ShaderProgram* _shaderProgram;
 
@@ -34,3 +34,22 @@ public:
 };
 
 #endif
+
+
+	//varying vec3 N;
+	//varying vec3 v;
+
+	//v = vec3(gl_ModelViewMatrix * gl_Vertex);       
+	//N = normalize(gl_NormalMatrix * gl_Normal);
+
+	//gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+
+	//vec3 L = normalize(gl_LightSource[0].position.xyz - v);   
+	//vec3 E = normalize(-v); // we are in Eye Coordinates, so EyePos is (0,0,0)  
+	//vec3 R = normalize(-reflect(L,N)); 
+
+	//vec4 Iamb = gl_FrontLightProduct[0].ambient;															//calculate Ambient Term: 
+	//vec4 Idiff = gl_FrontLightProduct[0].diffuse * max(dot(N,L), 0.0);										//calculate Diffuse Term:
+	//vec4 Ispec = gl_FrontLightProduct[0].specular * pow(max(dot(R,E),0.0),0.3*gl_FrontMaterial.shininess);	//calculate Specular Term:
+
+	//gl_FragColor = gl_FrontLightModelProduct.sceneColor + Iamb + Idiff + Ispec;		// write Total Color:  

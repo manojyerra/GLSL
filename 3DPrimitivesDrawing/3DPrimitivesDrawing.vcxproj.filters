@@ -40,8 +40,11 @@
     <Filter Include="source\Util">
       <UniqueIdentifier>{405632e7-e83b-461b-923a-7f360b5677ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="shaders\Floor">
-      <UniqueIdentifier>{66651736-b09c-4062-9438-c46c0d22dab8}</UniqueIdentifier>
+    <Filter Include="shaders\ColorArray">
+      <UniqueIdentifier>{77a44c34-7383-4d1f-9608-f04ea2a8b3ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\NormalsAndMaterial">
+      <UniqueIdentifier>{65feae3e-487f-40c2-a36d-1554ea80f42a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -283,11 +286,17 @@
     <None Include="freeglut\source\freeglutdll.def">
       <Filter>freeglut\source</Filter>
     </None>
-    <None Include="shaders\Floor\Floor.fs">
-      <Filter>shaders\Floor</Filter>
+    <None Include="shaders\ColorArray\ColorArray.fs">
+      <Filter>shaders\ColorArray</Filter>
     </None>
-    <None Include="shaders\Floor\Floor.vs">
-      <Filter>shaders\Floor</Filter>
+    <None Include="shaders\ColorArray\ColorArray.vs">
+      <Filter>shaders\ColorArray</Filter>
+    </None>
+    <None Include="shaders\NormalsAndMaterial\NormalsAndMaterial.fs">
+      <Filter>shaders\NormalsAndMaterial</Filter>
+    </None>
+    <None Include="shaders\NormalsAndMaterial\NormalsAndMaterial.vs">
+      <Filter>shaders\NormalsAndMaterial</Filter>
     </None>
   </ItemGroup>
 </Project>

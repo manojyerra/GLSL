@@ -171,8 +171,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="freeglut\source\freeglutdll.def" />
-    <None Include="shaders\Floor\Floor.fs" />
-    <None Include="shaders\Floor\Floor.vs" />
+    <None Include="shaders\ColorArray\ColorArray.fs" />
+    <None Include="shaders\ColorArray\ColorArray.vs" />
+    <None Include="shaders\NormalsAndMaterial\NormalsAndMaterial.fs" />
+    <None Include="shaders\NormalsAndMaterial\NormalsAndMaterial.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
