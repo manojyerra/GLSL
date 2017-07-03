@@ -9,7 +9,7 @@ Floor::Floor()
 	_gridVisible = false;
 	_gridLinesVisible = true;
 
-	shaderProgram = new ShaderProgram("shaders/Floor/Floor.vs", "shaders/Floor/Floor.fs");
+	shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
 
 	float start = -16;
 	float end = 16;

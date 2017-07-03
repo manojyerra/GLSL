@@ -15,7 +15,7 @@ Sphere::Sphere(float x, float y, float z, float r) : Shape(Shape::SPHERE)
 
 	_vertexCount = 0;
 
-	_shaderProgram = new ShaderProgram("shaders/Floor/Floor.vs", "shaders/Floor/Floor.fs");
+	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
 	GenerateBufferID();
 }
 
@@ -31,7 +31,7 @@ Sphere::Sphere(Sphere* sphere) : Shape(Shape::SPHERE)
 
 	_vertexCount = 0;
 
-	_shaderProgram = new ShaderProgram("shaders/Floor/Floor.vs", "shaders/Floor/Floor.fs");
+	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
 	GenerateBufferID();
 }
 
@@ -47,7 +47,7 @@ Sphere::Sphere(float* mat, float r) : Shape(Shape::SPHERE)
 
 	_vertexCount = 0;
 
-	_shaderProgram = new ShaderProgram("shaders/Floor/Floor.vs", "shaders/Floor/Floor.fs");
+	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
 	GenerateBufferID();
 }
 
@@ -65,7 +65,7 @@ Sphere::Sphere(CVector3 pos, float r) : Shape(Shape::SPHERE)
 
 	_vertexCount = 0;
 
-	_shaderProgram = new ShaderProgram("shaders/Floor/Floor.vs", "shaders/Floor/Floor.fs");
+	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
 	GenerateBufferID();
 }
 
@@ -124,10 +124,10 @@ void Sphere::Draw()
 
 	_shaderProgram->Begin();
 
-	GLuint vertexColorID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertexColor");
-	glEnableVertexAttribArray(vertexColorID);
+	GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertexColor");
+	glEnableVertexAttribArray(colorID );
 	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-	glVertexAttribPointer( vertexColorID, 4, GL_UNSIGNED_BYTE, GL_TRUE, 0, (void*)0);
+	glVertexAttribPointer( colorID, 4, GL_UNSIGNED_BYTE, GL_TRUE, 0, (void*)0);
 
 	GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
 	glEnableVertexAttribArray(vertexID);
@@ -187,18 +187,28 @@ void Sphere::GenerateBufferID()
 			rot(2, yAngle+delta, Xz1, Yz1, Zz1, &x3, &y3, &z3);
 			rot(2, yAngle+delta, Xz2, Yz2, Zz2, &x4, &y4, &z4);
 
-			//glNormal3f(x1, y1, z1);
-			//glVertex3f(x1, y1, z1);
-			//glNormal3f(x2, y2, z2);
-			//glVertex3f(x2, y2, z2);
-			//glNormal3f(x3, y3, z3);
-			//glVertex3f(x3, y3, z3);
-			//glNormal3f(x4, y4, z4);
-			//glVertex3f(x4, y4, z4);
+			//buffer->glNormal3f(x1, y1, z1);
+			//buffer->glVertex3f(x1, y1, z1);
+
+			//buffer->glNormal3f(x2, y2, z2);
+			//buffer->glVertex3f(x2, y2, z2);
+
+			//buffer->glNormal3f(x2, y2, z2);
+			//buffer->glVertex3f(x2, y2, z2);
+
+			//buffer->glNormal3f(x2, y2, z2);
+			//buffer->glVertex3f(x2, y2, z2);
+
+			//buffer->glNormal3f(x3, y3, z3);
+			//buffer->glVertex3f(x3, y3, z3);
+
+			//buffer->glNormal3f(x4, y4, z4);
+			//buffer->glVertex3f(x4, y4, z4);
 
 			buffer->glVertex3f(x1, y1, z1);
 			buffer->glVertex3f(x2, y2, z2);
 			buffer->glVertex3f(x3, y3, z3);
+
 			buffer->glVertex3f(x2, y2, z2);
 			buffer->glVertex3f(x3, y3, z3);
 			buffer->glVertex3f(x4, y4, z4);

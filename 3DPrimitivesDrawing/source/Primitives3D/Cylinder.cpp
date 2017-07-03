@@ -14,7 +14,7 @@ Cylinder::Cylinder() : Shape(Shape::CYLINDER)
 
 	_vertexCount = 0;
 
-	_shaderProgram = new ShaderProgram("shaders/Floor/Floor.vs", "shaders/Floor/Floor.fs");
+	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
 	GenerateBufferID();
 }
 
@@ -31,7 +31,7 @@ Cylinder::Cylinder(float* mat, float r, float h) : Shape(Shape::CYLINDER)
 
 	_vertexCount = 0;
 
-	_shaderProgram = new ShaderProgram("shaders/Floor/Floor.vs", "shaders/Floor/Floor.fs");
+	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
 	GenerateBufferID();
 }
 
@@ -49,7 +49,7 @@ Cylinder::Cylinder(Cylinder* cylinder)
 
 	_vertexCount = 0;
 
-	_shaderProgram = new ShaderProgram("shaders/Floor/Floor.vs", "shaders/Floor/Floor.fs");
+	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
 	GenerateBufferID();
 }
 
@@ -68,7 +68,7 @@ Cylinder::Cylinder(float x, float y, float z, float r, float h) : Shape(Shape::C
 
 	_vertexCount = 0;
 
-	_shaderProgram = new ShaderProgram("shaders/Floor/Floor.vs", "shaders/Floor/Floor.fs");
+	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
 	GenerateBufferID();
 }
 
@@ -231,10 +231,10 @@ void Cylinder::Draw()
 
 	_shaderProgram->Begin();
 
-	GLuint vertexColorID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertexColor");
-	glEnableVertexAttribArray(vertexColorID);
+	GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertexColor");
+	glEnableVertexAttribArray(colorID);
 	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-	glVertexAttribPointer( vertexColorID, 4, GL_UNSIGNED_BYTE, GL_TRUE, 0, (void*)0);
+	glVertexAttribPointer( colorID, 4, GL_UNSIGNED_BYTE, GL_TRUE, 0, (void*)0);
 
 	GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
 	glEnableVertexAttribArray(vertexID);
