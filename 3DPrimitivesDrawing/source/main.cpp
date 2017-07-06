@@ -62,13 +62,13 @@ int main(int argc, char **argv)
 
 	_floor = new Floor();
 
-	//CVector3 v1(-1.0f, 1.0f, 0.0f);
-	//CVector3 v2(0.5f, 0.5f, 0.0f);
-	//CVector3 v3(0.0f, 0.5f, 0.0f);
+	CVector3 v1(0.0f, 0.0f, 0.0f);
+	CVector3 v2(1.0f, 1.0f, 0.0f);
+	CVector3 v3(1.0f, 0.0f, 0.0f);
 
-	//_triangle2D = new Triangle2D(v1, v2, v3);
+	_triangle2D = new Triangle2D(v1, v2, v3);
 	
-	_rect2D = new Rect2D(0, 0, 2, 3);
+	_rect2D = new Rect2D(4, 0, 2, 3);
 
 	_box = new Box(0,0,0, 2,3,4);
 	_box->SetSize(3, 1, 6);
@@ -159,7 +159,7 @@ void Display()
 
 	_floor->Draw();
 
-	//_triangle2D->Draw();
+	_triangle2D->Draw();
 	_rect2D->Draw();
 
 	_box->Draw();

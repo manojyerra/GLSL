@@ -1,51 +1,59 @@
 #include "Triangle2D.h"
-#include "GLUtil/GLBatch.h"
+#include "GLUtil/GLBuffer.h"
 
 Triangle2D::Triangle2D(CVector3 v1, CVector3 v2, CVector3 v3)
 {
-	shaderProgram = new ShaderProgram("shaders/passThroughShader.vs", "shaders/passThroughShader.fs");
+	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
 
-	GLBatch* batch = new GLBatch(50, false, false, false);
+	GLBuffer* glBuffer = new GLBuffer(50, true, false, false);
 
-	batch->glBegin(GL_TRIANGLES);
-	batch->glVertex3f(v1.x, v1.y, v1.z);
-	batch->glVertex3f(v2.x, v2.y, v2.z);
-	batch->glVertex3f(v3.x, v3.y, v3.z);
+	glBuffer->glBegin(GL_TRIANGLES);
+	glBuffer->glColor4ub(255,0,0,255);
+	glBuffer->glVertex3f(v1.x, v1.y, v1.z);
+	glBuffer->glVertex3f(v2.x, v2.y, v2.z);
+	glBuffer->glVertex3f(v3.x, v3.y, v3.z);
 
-	glGenBuffers(1, &bufferID);
-	glBindBuffer(GL_ARRAY_BUFFER, bufferID);
-	glBufferData(GL_ARRAY_BUFFER, batch->GetVertexCount() * 3 * 4, batch->GetVertexArr(), GL_STATIC_DRAW);
+	glBuffer->glEnd();
 
-	if(batch)
+	_vertexBufferID = glBuffer->GetVertexBufferID();
+	_colorBufferID = glBuffer->GetColorBufferID();
+	_vertexCount = glBuffer->GetVertexCount();
+
+	if(glBuffer)
 	{
-		delete batch;
-		batch = NULL;
+		delete glBuffer;
+		glBuffer = NULL;
 	}
 }
 
 void Triangle2D::Draw()
 {
-	shaderProgram->Begin();
+	glPushMatrix();
 
-	//shaderProgram->SetUniform4fv("uColor", 0.0f, 1.0f, 0.0f, 1.0f);
+	_shaderProgram->Begin();
 
-	glUniform4f( glGetUniformLocation(shaderProgram->ProgramID(), "uColor"), 0.0f, 1.0f, 0.0f, 1.0f );
+	GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
+	glEnableVertexAttribArray(colorID);
+	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
+	glVertexAttribPointer(colorID, 4, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
 
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, bufferID);
-	//glVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid* pointer);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glDrawArrays(GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
-	glDisableVertexAttribArray(0);
+	GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
+	glEnableVertexAttribArray(vertexID);
+	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
+	glVertexAttribPointer(vertexID, 3, GL_FLOAT, GL_TRUE, 0, (void*)0);
 
-	shaderProgram->End();
+	glDrawArrays(GL_TRIANGLES, 0, _vertexCount);
+
+	_shaderProgram->End();
+
+	glPopMatrix();
 }
 
 Triangle2D::~Triangle2D()
 {
-	if(shaderProgram)
+	if(_shaderProgram)
 	{
-		delete shaderProgram;
-		shaderProgram = NULL;
+		delete _shaderProgram;
+		_shaderProgram = NULL;
 	}
 }

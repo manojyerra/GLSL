@@ -6,8 +6,10 @@
 
 class Triangle2D
 {
-	ShaderProgram* shaderProgram;
-	GLuint bufferID;
+	ShaderProgram* _shaderProgram;
+	GLint _vertexBufferID;
+	GLuint _colorBufferID;
+	GLuint _vertexCount;
 
 public:
 	Triangle2D(CVector3 v1, CVector3 v2, CVector3 v3);
