@@ -60,23 +60,19 @@ int main(int argc, char **argv)
 	_cam = Cam::GetInstance();
 	_cam->Init(_sw, _sh, _zNear, _zFar, _zNearPlaneW);
 
-	//CVector3 v1(-1.0f, -1.0f, 0.0f);
-	//CVector3 v2(1.0f, -1.0f, 0.0f);
-	//CVector3 v3(0.0f,  1.0f, 0.0f);
-
-	CVector3 v1(-1.0f, 1.0f, 0.0f);
-	CVector3 v2(0.5f, 0.5f, 0.0f);
-	CVector3 v3(0.0f, 0.5f, 0.0f);
-
-	_triangle2D = new Triangle2D(v1, v2, v3);
-	_rect2D = new Rect2D(-1, -1, 2, 2);
-
 	_floor = new Floor();
+
+	//CVector3 v1(-1.0f, 1.0f, 0.0f);
+	//CVector3 v2(0.5f, 0.5f, 0.0f);
+	//CVector3 v3(0.0f, 0.5f, 0.0f);
+
+	//_triangle2D = new Triangle2D(v1, v2, v3);
+	
+	_rect2D = new Rect2D(0, 0, 2, 3);
+
 	_box = new Box(0,0,0, 2,3,4);
 	_box->SetSize(3, 1, 6);
 	_box->SetPos(-10, 0, -10);
-
-	//_box->SetRandomColorAlpha(128);
 
 	_cylinder = new Cylinder(0,0,0, 3,2);
 	_cylinder->SetRadius(1.5);
@@ -89,11 +85,10 @@ int main(int argc, char **argv)
 	_cone->SetPos(-5, 0, -10);
 
 	_sphere = new Sphere(-5, 0, -3, 2);
-	_sphere->SetPos(-5, 0, -2);
-	_sphere->SetRadius(2.5);
+	_sphere->SetPos(-10, 0, 0);
+	_sphere->SetRadius(5);
 
 	//DemoLight();
-	//shaderProgram = new ShaderProgram("shaders/passThroughShader.vs", "shaders/passThroughShader.fs");
 
 	glutDisplayFunc(Display);
 	glutMainLoop();
@@ -162,22 +157,15 @@ void Display()
 	_cam->SetModelViewMatrix();
 	_cam->UpdateCamera();
 
-	//_triangle2D->Draw();
-	//_rect2D->Draw();
 	_floor->Draw();
+
+	//_triangle2D->Draw();
+	_rect2D->Draw();
+
 	_box->Draw();
 	_cylinder->Draw();
 	_cone->Draw();
 	_sphere->Draw();
-
-	//shaderProgram->Begin();
-	//glEnable( GL_CULL_FACE );
-	//glCullFace ( GL_BACK );
-	////glColor3f( 1.0, 0.0, 0.0 );           //red
-	//glFrontFace ( GL_CCW );
-	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-	//glutSolidTeapot(5.0);
-	//shaderProgram->End();
 
 	glutSwapBuffers();
 	glutPostRedisplay();

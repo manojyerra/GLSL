@@ -15,7 +15,8 @@ Sphere::Sphere(float x, float y, float z, float r) : Shape(Shape::SPHERE)
 
 	_vertexCount = 0;
 
-	_shaderProgram = new ShaderProgram("shaders/NormalsAndMaterial/NormalsAndMaterial.vs", "shaders/NormalsAndMaterial/NormalsAndMaterial.fs");
+	_shaderProgram = new ShaderProgram("shaders/NormalsAndMaterial/NormalsAndMaterial.vs", 
+										"shaders/NormalsAndMaterial/NormalsAndMaterial.fs");
 	GenerateBufferID();
 }
 
@@ -118,6 +119,7 @@ void Sphere::Draw()
 		return;
 	
 	glPushMatrix();
+
 	glMultMatrixf(m);
 	glScalef(_r, _r, _r);
 
@@ -128,7 +130,7 @@ void Sphere::Draw()
 	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "ambient"), 0.2f, 0.2f, 0.2f, 1.0f);
 	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "diffuse"), 0.8f, 0.8f, 0.8f, 1.0f);
 	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "specular"), 0.0f, 0.0f, 0.0f, 1.0f);
-	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "shininess"), 1.0f);
+	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "shininess"), 0.52f);
 
 	GLuint normalID = glGetAttribLocation(_shaderProgram->ProgramID(), "normal");
 	glEnableVertexAttribArray(normalID );

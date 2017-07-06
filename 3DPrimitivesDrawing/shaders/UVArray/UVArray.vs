@@ -1,5 +1,3 @@
-#version 120
-
 attribute vec4 color;
 attribute vec4 vertex;
 

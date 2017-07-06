@@ -6,8 +6,12 @@
 
 class Rect2D
 {
-	ShaderProgram* shaderProgram;
-	GLuint bufferID;
+	ShaderProgram* _shaderProgram;
+	
+	GLint _vertexBufferID;
+	GLuint _colorBufferID;
+	GLuint _vertexCount;
+
 	float _x;
 	float _y;
 	float _w;

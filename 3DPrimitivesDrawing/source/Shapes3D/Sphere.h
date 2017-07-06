@@ -53,3 +53,15 @@ public:
 	//vec4 Ispec = gl_FrontLightProduct[0].specular * pow(max(dot(R,E),0.0),0.3*gl_FrontMaterial.shininess);	//calculate Specular Term:
 
 	//gl_FragColor = gl_FrontLightModelProduct.sceneColor + Iamb + Idiff + Ispec;		// write Total Color:  
+
+
+
+	//vec3 L = normalize( lightPos - V );
+	//vec3 E = normalize(-V); // we are in Eye Coordinates, so EyePos is (0,0,0)  
+	//vec3 R = normalize(-reflect(L,N)); 
+	//	
+	//vec4 Iamb = ambient;
+	//vec4 Idiff = diffuse * max(dot(N,L), 0.0);
+	//vec4 Ispec = specular * pow(max(dot(R,E),0.0), shininess*0.3);
+
+	//fragColor = Iamb + Idiff + Ispec;

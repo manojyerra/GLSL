@@ -9,7 +9,7 @@ Floor::Floor()
 	_gridVisible = false;
 	_gridLinesVisible = true;
 
-	shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
+	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
 
 	float start = -16;
 	float end = 16;
@@ -136,18 +136,18 @@ void Floor::Draw()
 	GLboolean blend = GLUtil::GLEnable(GL_BLEND, true);
 	GLboolean depthTest = GLUtil::GLEnable(GL_DEPTH_TEST, true);
 
-	shaderProgram->Begin();
+	_shaderProgram->Begin();
 
 	if(_axisVisible)
 	{
 		glLineWidth(2.0f);
 
-		GLuint vertexColorID = glGetAttribLocation(shaderProgram->ProgramID(), "vertexColor");
-		glEnableVertexAttribArray(vertexColorID);
+		GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
+		glEnableVertexAttribArray(colorID);
 		glBindBuffer(GL_ARRAY_BUFFER, _axisBuffer->GetColorBufferID());
-		glVertexAttribPointer( vertexColorID, 4, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
+		glVertexAttribPointer( colorID, 4, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
 
-		GLuint vertexID = glGetAttribLocation(shaderProgram->ProgramID(), "vertex");
+		GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
 		glEnableVertexAttribArray(vertexID);
 		glBindBuffer(GL_ARRAY_BUFFER, _axisBuffer->GetVertexBufferID());
 		glVertexAttribPointer( vertexID, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
@@ -159,12 +159,12 @@ void Floor::Draw()
 	{
 		glLineWidth(1.0f);
 
-		GLuint vertexColorID = glGetAttribLocation(shaderProgram->ProgramID(), "vertexColor");
-		glEnableVertexAttribArray(vertexColorID);
+		GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
+		glEnableVertexAttribArray(colorID);
 		glBindBuffer(GL_ARRAY_BUFFER, _gridLinesBuffer->GetColorBufferID());
-		glVertexAttribPointer( vertexColorID, 4, GL_UNSIGNED_BYTE, GL_TRUE, 0, (void*)0);
+		glVertexAttribPointer( colorID, 4, GL_UNSIGNED_BYTE, GL_TRUE, 0, (void*)0);
 
-		GLuint vertexID = glGetAttribLocation(shaderProgram->ProgramID(), "vertex");
+		GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
 		glEnableVertexAttribArray(vertexID);
 		glBindBuffer(GL_ARRAY_BUFFER, _gridLinesBuffer->GetVertexBufferID());
 		glVertexAttribPointer( vertexID, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
@@ -174,12 +174,12 @@ void Floor::Draw()
 
 	if(_gridVisible)
 	{
-		GLuint vertexColorID = glGetAttribLocation(shaderProgram->ProgramID(), "vertexColor");
-		glEnableVertexAttribArray(vertexColorID);
+		GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
+		glEnableVertexAttribArray(colorID);
 		glBindBuffer(GL_ARRAY_BUFFER, _gridBuffer->GetColorBufferID());
-		glVertexAttribPointer( vertexColorID, 4, GL_UNSIGNED_BYTE, GL_TRUE, 0, (void*)0);
+		glVertexAttribPointer(colorID, 4, GL_UNSIGNED_BYTE, GL_TRUE, 0, (void*)0);
 
-		GLuint vertexID = glGetAttribLocation(shaderProgram->ProgramID(), "vertex");
+		GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
 		glEnableVertexAttribArray(vertexID);
 		glBindBuffer(GL_ARRAY_BUFFER, _gridBuffer->GetVertexBufferID());
 		glVertexAttribPointer( vertexID, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
@@ -187,7 +187,7 @@ void Floor::Draw()
 		glDrawArrays(GL_QUADS, 0, _gridBuffer->GetVertexCount());
 	}
 
-	shaderProgram->End();
+	_shaderProgram->End();
 
 	GLUtil::GLLineWidth(lineWidth_bk);
 	GLUtil::GLEnable(GL_LIGHTING, glLighting);

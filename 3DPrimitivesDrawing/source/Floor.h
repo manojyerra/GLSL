@@ -13,7 +13,7 @@ private:
 	bool _gridVisible;
 	bool _gridLinesVisible;
 
-	ShaderProgram* shaderProgram;
+	ShaderProgram* _shaderProgram;
 	
 	GLBuffer* _axisBuffer;
 	GLBuffer* _gridBuffer;

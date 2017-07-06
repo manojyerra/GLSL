@@ -217,7 +217,7 @@ void Cone::Draw()
 
 	_shaderProgram->Begin();
 
-	GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertexColor");
+	GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
 	glEnableVertexAttribArray(colorID);
 	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
 	glVertexAttribPointer( colorID, 4, GL_UNSIGNED_BYTE, GL_TRUE, 0, (void*)0);
