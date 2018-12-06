@@ -52,7 +52,7 @@ public:
 	void SetVisible(bool visible);
 	bool IsVisible();
 	
-	//static Shape* GetBestFitBoundingShape(float* vertexBuf, int arrSize);
+	static Shape* GetBestFitBoundingShape(float* vertexBuf, int arrSize);
 	static Shape* GetBoundingShape(float* vertexBuf, int arrSize, int boundingShapeID);
 
 	virtual float Volume() = 0;

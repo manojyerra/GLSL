@@ -61,6 +61,15 @@
     <Filter Include="source\BulletPhysics">
       <UniqueIdentifier>{4e886670-b324-450b-a3f5-fbf6b7abeaed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="shaders\UVArray">
+      <UniqueIdentifier>{faded70d-5aa1-40f3-bff7-8f5118df4afc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Model3D">
+      <UniqueIdentifier>{cbc009d5-f6b5-48ca-a783-90a4b02d4bf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\ImageFilters">
+      <UniqueIdentifier>{02b611c0-0e25-4e70-b295-891f073cc7f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glew\include\Gl\glew.h">
@@ -882,6 +891,24 @@
     <ClInclude Include="source\CFileReader.h">
       <Filter>source</Filter>
     </ClInclude>
+    <ClInclude Include="source\Model3D\FLModel.h">
+      <Filter>source\Model3D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Model3D\FLModelBorder.h">
+      <Filter>source\Model3D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Model3D\FLModelBoundingShapes.h">
+      <Filter>source\Model3D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Model3D\FLModelReaderWriter.h">
+      <Filter>source\Model3D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GLUtil\GL2DState.h">
+      <Filter>source\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Shapes2D\Texture2D.h">
+      <Filter>source\Shapes2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glew\source\glew.c">
@@ -1565,6 +1592,24 @@
     <ClCompile Include="source\CFileReader.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="source\Model3D\FLModel.cpp">
+      <Filter>source\Model3D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Model3D\FLModelBorder.cpp">
+      <Filter>source\Model3D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Model3D\FLModelBoundingShapes.cpp">
+      <Filter>source\Model3D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Model3D\FLModelReaderWriter.cpp">
+      <Filter>source\Model3D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GLUtil\GL2DState.cpp">
+      <Filter>source\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Shapes2D\Texture2D.cpp">
+      <Filter>source\Shapes2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="freeglut\source\freeglutdll.def">
@@ -1581,6 +1626,18 @@
     </None>
     <None Include="shaders\NormalsAndMaterial\NormalsAndMaterial.vs">
       <Filter>shaders\NormalsAndMaterial</Filter>
+    </None>
+    <None Include="shaders\UVArray\UVArray.fs">
+      <Filter>shaders\UVArray</Filter>
+    </None>
+    <None Include="shaders\UVArray\UVArray.vs">
+      <Filter>shaders\UVArray</Filter>
+    </None>
+    <None Include="shaders\ImageFilters\ImageFilters.fs">
+      <Filter>shaders\ImageFilters</Filter>
+    </None>
+    <None Include="shaders\ImageFilters\ImageFilters.vs">
+      <Filter>shaders\ImageFilters</Filter>
     </None>
   </ItemGroup>
 </Project>

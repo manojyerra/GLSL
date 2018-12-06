@@ -258,8 +258,9 @@ void Cone::GenerateBufferID()
 		buffer->glVertex3f(0, halfLength, 0);
 
 		buffer->glColor4ub(80, 80, 80, 255);
-		buffer->glVertex3f(radius*cos(theta),	-halfLength,	radius*sin(theta));
 		buffer->glVertex3f(radius*cos(nextTheta),	-halfLength,	radius*sin(nextTheta));
+		buffer->glVertex3f(radius*cos(theta),	-halfLength,	radius*sin(theta));
+
 		buffer->glVertex3f(0, -halfLength, 0);
 
 		if(_useRandomColors)

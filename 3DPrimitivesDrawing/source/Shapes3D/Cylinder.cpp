@@ -271,30 +271,25 @@ void Cylinder::GenerateBufferID()
 		if(_useRandomColors)
 			buffer->glColor( _randomColor.NextColor() );
 		
-		buffer->glVertex3f(radius*cos(theta),	halfLength,		radius*sin(theta));
-		buffer->glVertex3f(radius*cos(theta),	-halfLength,	radius*sin(theta));
 		buffer->glVertex3f(radius*cos(nextTheta),	halfLength,		radius*sin(nextTheta));
+		buffer->glVertex3f(radius*cos(theta),	-halfLength,	radius*sin(theta));
+		buffer->glVertex3f(radius*cos(theta),	halfLength,		radius*sin(theta));
 
 		buffer->glVertex3f(radius*cos(theta),	-halfLength,	radius*sin(theta));
 		buffer->glVertex3f(radius*cos(nextTheta),	halfLength,		radius*sin(nextTheta));
 		buffer->glVertex3f(radius*cos(nextTheta),	-halfLength,	radius*sin(nextTheta));
 
-		buffer->glVertex3f(0, halfLength, 0);
-
-		if(_useRandomColors)
-			buffer->glColor( _randomColor.NextColor() );
-
-		buffer->glVertex3f(radius*cos(theta),	halfLength,		radius*sin(theta));
+		buffer->glColor( _randomColor.NextColor() );
 		buffer->glVertex3f(radius*cos(nextTheta),	halfLength,		radius*sin(nextTheta));
 
-		if(_useRandomColors)
-			buffer->glColor( _randomColor.NextColor() );
+		if(_useRandomColors) buffer->glColor( _randomColor.NextColor() );
+		buffer->glVertex3f(radius*cos(theta),	halfLength,		radius*sin(theta));
+		buffer->glVertex3f(0, halfLength, 0);		
 
+		if(_useRandomColors) buffer->glColor( _randomColor.NextColor() );
 		buffer->glVertex3f(0, -halfLength, 0);
 		
-		if(_useRandomColors)
-			buffer->glColor( _randomColor.NextColor() );
-
+		if(_useRandomColors) buffer->glColor( _randomColor.NextColor() );
 		buffer->glVertex3f(radius*cos(theta),	-halfLength,		radius*sin(theta));
 		buffer->glVertex3f(radius*cos(nextTheta),	-halfLength,		radius*sin(nextTheta));
 	}

@@ -11,6 +11,7 @@
 #include "Shapes3D/Cylinder.h"
 #include "Shapes3D/Cone.h"
 #include "Shapes3D/Sphere.h"
+#include "Model3D/FLModel.h"
 
 ShaderProgram* shaderProgram;
 void DemoLight(void);
@@ -27,12 +28,17 @@ Box* _box;
 Cylinder* _cylinder;
 Cone* _cone;
 Sphere* _sphere;
+FLModel* model;
 
 float _sw = 1300.0f;
 float _sh = 600.0f;
 float _zNear = 1.0f;
 float _zFar = 10000.0f;
 float _zNearPlaneW = 0.2f;
+
+int _frameCount = 0;
+unsigned long _startTime = 0;
+bool _once = true;
 
 
 int main(int argc, char **argv)
@@ -44,15 +50,16 @@ int main(int argc, char **argv)
 	glewInit();
 
 	glShadeModel( GL_SMOOTH		);
-	glCullFace	( GL_BACK		);
-	glFrontFace	( GL_CCW		);
-	
+	//glFrontFace	( GL_CCW		);
 	glDisable	( GL_FOG		);
 	glDisable	( GL_LIGHTING	);
-	glDisable	( GL_CULL_FACE	);
+	
 	glDisable	( GL_LINE_SMOOTH);
 	glHint		( GL_LINE_SMOOTH_HINT, GL_NICEST);
 	
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CCW);
+
 	glEnable	( GL_DEPTH_TEST	);
 	glEnable	( GL_BLEND		);
 	glBlendFunc	( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -63,12 +70,12 @@ int main(int argc, char **argv)
 	_floor = new Floor();
 
 	CVector3 v1(0.0f, 0.0f, 0.0f);
-	CVector3 v2(1.0f, 1.0f, 0.0f);
-	CVector3 v3(1.0f, 0.0f, 0.0f);
+	CVector3 v2(1.0f, 0.0f, 0.0f);
+	CVector3 v3(1.0f, 1.0f, 0.0f);
 
 	_triangle2D = new Triangle2D(v1, v2, v3);
 	
-	_rect2D = new Rect2D(4, 0, 2, 3);
+	_rect2D = new Rect2D(0, 10, 8, 6);
 
 	_box = new Box(0,0,0, 2,3,4);
 	_box->SetSize(3, 1, 6);
@@ -84,10 +91,12 @@ int main(int argc, char **argv)
 	_cone->SetHeight(2);
 	_cone->SetPos(-5, 0, -10);
 
-	_sphere = new Sphere(-5, 0, -3, 2);
-	_sphere->SetPos(-10, 0, 0);
+	_sphere = new Sphere(0, 0, 0, 2);
+	_sphere->SetPos(5, 0, 0);
 	_sphere->SetRadius(5);
 
+	//model = new FLModel("data/cat", CVector3(0,0,0));
+	//model->SetBoundingBoxEnabled(true);
 	//DemoLight();
 
 	glutDisplayFunc(Display);
@@ -142,6 +151,12 @@ void MouseInput(int button, int updown, int x, int y)
 
 void Display()
 {
+	if(_once)
+	{
+		_startTime = GetTickCount();
+		_once = false;
+	}
+
 	Input::Update(1.0f/30.0f);
 
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
@@ -149,26 +164,41 @@ void Display()
 	glEnable(GL_DEPTH_TEST);
 	
 	glViewport(0,0,_sw,_sh);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(0.0f,_sw,_sh,0.0f,0.0f,1.0f);
+	//glMatrixMode(GL_PROJECTION);
+	//glLoadIdentity();
+	//glOrtho(0.0f,_sw,_sh,0.0f,0.0f,1.0f);
 
 	_cam->SetProjection();
 	_cam->SetModelViewMatrix();
 	_cam->UpdateCamera();
 
-	_floor->Draw();
+	//glDisable(GL_CULL_FACE);
+	//_floor->Draw();
+	//_triangle2D->Draw();
+	//_rect2D->Draw();
 
-	_triangle2D->Draw();
-	_rect2D->Draw();
+	//glEnable(GL_CULL_FACE);
+	//_box->Draw();
+	//_cylinder->Draw();
+	//_cone->Draw();
 
-	_box->Draw();
-	_cylinder->Draw();
-	_cone->Draw();
-	_sphere->Draw();
+	//_sphere->Draw();
+	//model->Draw();
+
 
 	glutSwapBuffers();
 	glutPostRedisplay();
+
+	_frameCount++;
+
+	if(_frameCount == 120)
+	{
+		_frameCount = 0;
+
+		unsigned long timeTaken = GetTickCount() - _startTime;
+		printf("\nTime taken %d", (int)timeTaken);
+		_startTime = GetTickCount();
+	}
 }
 
 
@@ -234,4 +264,5 @@ void Display()
      glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, material_Ks);
      glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, material_Ke);
      glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, material_Se);
-   }
+}
+

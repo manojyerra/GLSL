@@ -195,14 +195,14 @@ void Sphere::GenerateBufferID()
 			rot(2, yAngle+delta, Xz1, Yz1, Zz1, &x3, &y3, &z3);
 			rot(2, yAngle+delta, Xz2, Yz2, Zz2, &x4, &y4, &z4);
 
-			buffer->glNormal3f(x1, y1, z1);
-			buffer->glVertex3f(x1, y1, z1);
+			buffer->glNormal3f(x3, y3, z3);
+			buffer->glVertex3f(x3, y3, z3);
 
 			buffer->glNormal3f(x2, y2, z2);
 			buffer->glVertex3f(x2, y2, z2);
 
-			buffer->glNormal3f(x3, y3, z3);
-			buffer->glVertex3f(x3, y3, z3);
+			buffer->glNormal3f(x1, y1, z1);
+			buffer->glVertex3f(x1, y1, z1);
 
 			buffer->glNormal3f(x2, y2, z2);
 			buffer->glVertex3f(x2, y2, z2);
