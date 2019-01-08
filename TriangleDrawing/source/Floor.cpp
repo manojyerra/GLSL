@@ -21,40 +21,40 @@ Floor::Floor()
 
 	_axisBuffer->glBegin(GL_LINES);
 
-		_axisBuffer->glColor4ub(255,0,0,255);
-		_axisBuffer->glVertex3f(start,	0.0f,	0.0f);
-		_axisBuffer->glVertex3f(end,	0.0f,	0.0f);
+	_axisBuffer->glColor4ub(255, 0, 0, 255);
+	_axisBuffer->glVertex3f(start, 0.0f, 0.0f);
+	_axisBuffer->glVertex3f(end, 0.0f, 0.0f);
 
-		_axisBuffer->glColor4ub(0,0,255,255);
-		_axisBuffer->glVertex3f(0.0f,	0.0f,	start);
-		_axisBuffer->glVertex3f(0.0f,	0.0f,	end);
+	_axisBuffer->glColor4ub(0, 0, 255, 255);
+	_axisBuffer->glVertex3f(0.0f, 0.0f, start);
+	_axisBuffer->glVertex3f(0.0f, 0.0f, end);
 
-		_axisBuffer->glColor4ub(0,255,0,255);
-		_axisBuffer->glVertex3f(0.0f,	0.0f,	(start+end)/2.0f);
-		_axisBuffer->glVertex3f(0.0f,	end,	0);
+	_axisBuffer->glColor4ub(0, 255, 0, 255);
+	_axisBuffer->glVertex3f(0.0f, 0.0f, (start + end) / 2.0f);
+	_axisBuffer->glVertex3f(0.0f, end, 0);
 
 	_axisBuffer->glEnd();
 
 
 	_gridLinesBuffer->glBegin(GL_LINES);
-	_gridLinesBuffer->glColor4ub(255,0,0,60);
+	_gridLinesBuffer->glColor4ub(255, 0, 0, 60);
 
-	for(int i=(int)start; i<=end; i+=(int)gap)
+	for (int i = (int)start; i <= end; i += (int)gap)
 	{
-		if(i == 0)
+		if (i == 0)
 			continue;
 
-		_gridLinesBuffer->glVertex3f(start,	0.01f,	(float)i);
-		_gridLinesBuffer->glVertex3f(end,		0.01f,	(float)i);
+		_gridLinesBuffer->glVertex3f(start, 0.01f, (float)i);
+		_gridLinesBuffer->glVertex3f(end, 0.01f, (float)i);
 	}
 
-	for(int i=(int)start; i<=end; i+=(int)gap)
+	for (int i = (int)start; i <= end; i += (int)gap)
 	{
-		if(i == 0)
+		if (i == 0)
 			continue;
 
-		_gridLinesBuffer->glVertex3f((float)i,	0.01f,	start);
-		_gridLinesBuffer->glVertex3f((float)i,	0.01f,	end);
+		_gridLinesBuffer->glVertex3f((float)i, 0.01f, start);
+		_gridLinesBuffer->glVertex3f((float)i, 0.01f, end);
 	}
 	_gridLinesBuffer->glEnd();
 
@@ -63,22 +63,22 @@ Floor::Floor()
 
 	int c1 = 255;
 	int c2 = 158;
-	for(int outer = (int)start; outer < end; outer++)
+	for (int outer = (int)start; outer < end; outer++)
 	{
 		int temp = c1;
 		c1 = c2;
 		c2 = temp;
-		for(int i=(int)start; i<end; i+=(int)gap)
+		for (int i = (int)start; i < end; i += (int)gap)
 		{
-			if(i%2 == 0)
-				_gridBuffer->glColor4ub(c1,c2,158,255);
+			if (i % 2 == 0)
+				_gridBuffer->glColor4ub(c1, c2, 158, 255);
 			else
-				_gridBuffer->glColor4ub(c2,c1,158,255);
+				_gridBuffer->glColor4ub(c2, c1, 158, 255);
 
-			_gridBuffer->glVertex3f((float)i,		0, outer*gap);
-			_gridBuffer->glVertex3f((float)i+gap,	0, outer*gap);
-			_gridBuffer->glVertex3f((float)i+gap,	0, (outer+1)*gap);
-			_gridBuffer->glVertex3f((float)i,		0, (outer+1)*gap);
+			_gridBuffer->glVertex3f((float)i, 0, outer*gap);
+			_gridBuffer->glVertex3f((float)i + gap, 0, outer*gap);
+			_gridBuffer->glVertex3f((float)i + gap, 0, (outer + 1)*gap);
+			_gridBuffer->glVertex3f((float)i, 0, (outer + 1)*gap);
 		}
 	}
 	_gridBuffer->glEnd();
@@ -126,9 +126,9 @@ void Floor::SetGridLinesVisible(bool gridLinesVisible)
 
 void Floor::Draw()
 {
-	if(_visible == false)
+	if (_visible == false)
 		return;
-	
+
 	glPushMatrix();
 
 	float lineWidth_bk = GLUtil::GLLineWidth(1.0f);
@@ -138,43 +138,43 @@ void Floor::Draw()
 
 	_shaderProgram->Begin();
 
-	if(_axisVisible)
+	if (_axisVisible)
 	{
 		glLineWidth(2.0f);
 
 		GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
 		glEnableVertexAttribArray(colorID);
 		glBindBuffer(GL_ARRAY_BUFFER, _axisBuffer->GetColorBufferID());
-		glVertexAttribPointer( colorID, 4, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
+		glVertexAttribPointer(colorID, 4, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
 
 		GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
 		glEnableVertexAttribArray(vertexID);
 		glBindBuffer(GL_ARRAY_BUFFER, _axisBuffer->GetVertexBufferID());
-		glVertexAttribPointer( vertexID, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+		glVertexAttribPointer(vertexID, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 		glDrawArrays(GL_LINES, 0, _axisBuffer->GetVertexCount());
 		//disable vertexattibarray here...
 	}
 
-	if(_gridLinesVisible)
+	if (_gridLinesVisible)
 	{
 		glLineWidth(1.0f);
 
 		GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
 		glEnableVertexAttribArray(colorID);
 		glBindBuffer(GL_ARRAY_BUFFER, _gridLinesBuffer->GetColorBufferID());
-		glVertexAttribPointer( colorID, 4, GL_UNSIGNED_BYTE, GL_TRUE, 0, (void*)0);
+		glVertexAttribPointer(colorID, 4, GL_UNSIGNED_BYTE, GL_TRUE, 0, (void*)0);
 
 		GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
 		glEnableVertexAttribArray(vertexID);
 		glBindBuffer(GL_ARRAY_BUFFER, _gridLinesBuffer->GetVertexBufferID());
-		glVertexAttribPointer( vertexID, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+		glVertexAttribPointer(vertexID, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 		glDrawArrays(GL_LINES, 0, _gridLinesBuffer->GetVertexCount());
 		//disable vertexattibarray here...
 	}
 
-	if(_gridVisible)
+	if (_gridVisible)
 	{
 		GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
 		glEnableVertexAttribArray(colorID);
@@ -184,7 +184,7 @@ void Floor::Draw()
 		GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
 		glEnableVertexAttribArray(vertexID);
 		glBindBuffer(GL_ARRAY_BUFFER, _gridBuffer->GetVertexBufferID());
-		glVertexAttribPointer( vertexID, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+		glVertexAttribPointer(vertexID, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 		glDrawArrays(GL_QUADS, 0, _gridBuffer->GetVertexCount());
 		//disable vertexattibarray here...

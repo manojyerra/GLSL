@@ -1,35 +1,51 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include "ShaderProgram.h"
+#include "ImageBuffer.h"
+#include "Input.h"
+#include "GLMat.h"
+#include "Floor.h"
+#include "Box.h"
+#include "Cam.h"
+#include "Sphere.h"
 
 int CreateGlutWindow(char* title, int x, int y, int w, int h);
 void Display();
+void MouseInput(int button, int updown, int x, int y);
 
 GLuint vertexbuffer;
+GLuint uvbuffer;
 
-static const GLfloat g_vertex_buffer_data[] =
-{
-   -1.0f, -1.0f, 0.0f,
-   1.0f, -1.0f, 0.0f,
-   0.0f,  1.0f, 0.0f,
-};
+int frameW;
+int frameH;
+ImageBuffer* _img;
+GLuint _textureID;
 
-ShaderProgram* shaderProgram;
+Box* _box; 
+Sphere* _sphere;
+Floor* _floor;
+
 
 int main(int argc, char **argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-	CreateGlutWindow("First Window", 0,0,500,500);
+	CreateGlutWindow("First Window", 0,0,1000,700);
 	glewInit();
 
-	shaderProgram = new ShaderProgram("shaders/vertexshader.txt", "shaders/fragmentshader.txt");
+	float zNear = 1.0f;
+	float zFar = 10000.0f;
+	float zNearPlaneW = 1.0f;
+	float zNearPlaneHalfW = zNearPlaneW / 2.0f;
 
-	glGenBuffers(1, &vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+	Cam::GetInstance()->Init(frameW, frameH, zNear, zFar, zNearPlaneHalfW);
+	
+	_floor = new Floor();
+	_box = new Box(0,0,0, 4,4,4);
+	_sphere = new Sphere(0, 0, 0, 5);
 
 	glutDisplayFunc(Display);
+	glutMouseFunc(MouseInput);
 	glutMainLoop();
 
 	return 0;
@@ -39,24 +55,55 @@ int CreateGlutWindow(char* title, int x, int y, int w, int h)
 {
 	glutInitWindowPosition(x,y);
 	glutInitWindowSize(w,h);
+
+	frameW = w;
+	frameH = h;
+
 	return glutCreateWindow(title);
 }
 
+void MouseInput(int button, int updown, int x, int y)
+{
+	//printf("\nButton = %d, updown = %d, x = %d, y = %d", button, updown, x, y);
+
+	if (button == 0)
+	{
+		Input::LEFT_BUTTON_DOWN = (updown == 0);
+	}
+	else if (button == 1)
+	{
+		Input::MIDDLE_BUTTON_DOWN = (updown == 0);
+	}
+	else if (button == 2)
+	{
+		Input::RIGHT_BUTTON_DOWN = (updown == 0);
+	}
+}
+
+
 void Display()
 {
-	glClearColor(1,1,1,1);
+	Input::Update(1.0f/30.0f);
+
+	glClearColor(0,0,0,1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	shaderProgram->Begin();
+	Cam::GetInstance()->UpdateCamera();
+	Cam::GetInstance()->SetModelViewMatrix();
 
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	//glVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid* pointer);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glDrawArrays(GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
-	glDisableVertexAttribArray(0);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	shaderProgram->End();
+	glEnable(GL_SHADE_MODEL);
+	glEnable(GL_LINE_SMOOTH);
+
+	glEnable(GL_DEPTH_TEST);
+
+	//_floor->Draw();
+	//_box->Draw();
+	_sphere->Draw();
 
 	glutSwapBuffers();
+	glutPostRedisplay();
 }
+

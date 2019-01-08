@@ -10,3 +10,4 @@
 *.pdb
 *.opensdf
 *.user
+*/.vs

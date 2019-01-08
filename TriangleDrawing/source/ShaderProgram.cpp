@@ -148,6 +148,11 @@ void ShaderProgram::End()
 	glUseProgram(0);
 }
 
+GLuint ShaderProgram::ProgramID()
+{
+	return programID;
+}
+
 ShaderProgram::~ShaderProgram()
 {
 	if(programID)

@@ -23,6 +23,7 @@ public:
 	ShaderProgram(const char* vertexShaderFilePath, const char* fragmentShaderFilePath);
 	~ShaderProgram();
 
+	GLuint ProgramID();
 	void Begin();
 	void End();
 };
