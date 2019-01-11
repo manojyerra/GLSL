@@ -1,10 +1,10 @@
-#ifndef Triangle2D_H
-#define Triangle2D_H
+#ifndef Triangle_H
+#define Triangle_H
 
 #include "Math/Vector3.h"
 #include "ShaderProgram.h"
 
-class Triangle2D
+class Triangle
 {
 	ShaderProgram* _shaderProgram;
 	GLint _vertexBufferID;
@@ -12,9 +12,10 @@ class Triangle2D
 	GLuint _vertexCount;
 
 public:
-	Triangle2D(CVector3 v1, CVector3 v2, CVector3 v3);
+	Triangle(CVector3 v1, CVector3 v2, CVector3 v3);
+	~Triangle();
+
 	void Draw();
-	~Triangle2D();
 };
 
 #endif

@@ -8,10 +8,14 @@
 #include "Box.h"
 #include "Cam.h"
 #include "Sphere.h"
+#include <iostream>
+#include <fstream>
+
 
 int CreateGlutWindow(char* title, int x, int y, int w, int h);
 void Display();
 void MouseInput(int button, int updown, int x, int y);
+void MouseWheel(int button, int dir, int x, int y);
 
 GLuint vertexbuffer;
 GLuint uvbuffer;
@@ -28,6 +32,29 @@ Floor* _floor;
 
 int main(int argc, char **argv)
 {
+	//char data[100];
+
+	//// open a file in write mode.
+	//ofstream outfile;
+	//outfile.open("afile.txt");
+
+	//cout << "Writing to the file" << endl;
+	//cout << "Enter your name: ";
+	//cin.getline(data, 100);
+
+	//// write inputted data into the file.
+	//outfile << data << endl;
+
+	//cout << "Enter your age: ";
+	//cin >> data;
+	//cin.ignore();
+
+	//// again write inputted data into the file.
+	//outfile << data << endl;
+
+	//// close the opened file.
+	//outfile.close();
+
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 	CreateGlutWindow("First Window", 0,0,1000,700);
@@ -46,6 +73,8 @@ int main(int argc, char **argv)
 
 	glutDisplayFunc(Display);
 	glutMouseFunc(MouseInput);
+	glutMouseWheelFunc(MouseWheel);
+
 	glutMainLoop();
 
 	return 0;
@@ -78,6 +107,20 @@ void MouseInput(int button, int updown, int x, int y)
 	{
 		Input::RIGHT_BUTTON_DOWN = (updown == 0);
 	}
+}
+
+void MouseWheel(int button, int dir, int x, int y)
+{
+	if (dir > 0)
+	{
+		Input::SCROLL_STATE_STORE = Input::SCROLL_UP;
+	}
+	else
+	{
+		Input::SCROLL_STATE_STORE = Input::SCROLL_DOWN;
+	}
+
+	return;
 }
 
 

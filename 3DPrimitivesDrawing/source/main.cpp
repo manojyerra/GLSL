@@ -2,7 +2,7 @@
 #include <GL/freeglut.h>
 #include "ShaderProgram.h"
 #include "GLUtil/GLBatch.h"
-#include "Shapes2D/Triangle2D.h"
+#include "Shapes2D/Triangle.h"
 #include "Shapes2D/Rect2D.h"
 #include "Floor.h"
 #include "Cam.h"
@@ -20,7 +20,7 @@ int CreateGlutWindow(char* title, int x, int y, int w, int h);
 void MouseInput(int button, int updown, int x, int y);
 void Display();
 
-Triangle2D* _triangle2D;
+Triangle* _triangle;
 Rect2D* _rect2D;
 Floor* _floor;
 Cam* _cam;
@@ -73,27 +73,27 @@ int main(int argc, char **argv)
 	CVector3 v2(1.0f, 0.0f, 0.0f);
 	CVector3 v3(1.0f, 1.0f, 0.0f);
 
-	_triangle2D = new Triangle2D(v1, v2, v3);
+	_triangle = new Triangle(v1, v2, v3);
 	
-	_rect2D = new Rect2D(0, 10, 8, 6);
+	//_rect2D = new Rect2D(0, 10, 8, 6);
 
-	_box = new Box(0,0,0, 2,3,4);
-	_box->SetSize(3, 1, 6);
-	_box->SetPos(-10, 0, -10);
+	//_box = new Box(0,0,0, 2,3,4);
+	//_box->SetSize(3, 1, 6);
+	//_box->SetPos(-10, 0, -10);
 
-	_cylinder = new Cylinder(0,0,0, 3,2);
-	_cylinder->SetRadius(1.5);
-	_cylinder->SetHeight(2);
-	_cylinder->SetPos(0, 0, -10);
+	//_cylinder = new Cylinder(0,0,0, 3,2);
+	//_cylinder->SetRadius(1.5);
+	//_cylinder->SetHeight(2);
+	//_cylinder->SetPos(0, 0, -10);
 
-	_cone = new Cone(0,0,0, 2,3);
-	_cone->SetRadius(1.5);
-	_cone->SetHeight(2);
-	_cone->SetPos(-5, 0, -10);
+	//_cone = new Cone(0,0,0, 2,3);
+	//_cone->SetRadius(1.5);
+	//_cone->SetHeight(2);
+	//_cone->SetPos(-5, 0, -10);
 
-	_sphere = new Sphere(0, 0, 0, 2);
-	_sphere->SetPos(5, 0, 0);
-	_sphere->SetRadius(5);
+	//_sphere = new Sphere(0, 0, 0, 2);
+	//_sphere->SetPos(5, 0, 0);
+	//_sphere->SetRadius(5);
 
 	//model = new FLModel("data/cat", CVector3(0,0,0));
 	//model->SetBoundingBoxEnabled(true);
@@ -174,7 +174,7 @@ void Display()
 
 	//glDisable(GL_CULL_FACE);
 	//_floor->Draw();
-	//_triangle2D->Draw();
+	_triangle->Draw();
 	//_rect2D->Draw();
 
 	//glEnable(GL_CULL_FACE);

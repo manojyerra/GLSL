@@ -1,7 +1,7 @@
-#include "Triangle2D.h"
+#include "Triangle.h"
 #include "GLUtil/GLBuffer.h"
 
-Triangle2D::Triangle2D(CVector3 v1, CVector3 v2, CVector3 v3)
+Triangle::Triangle(CVector3 v1, CVector3 v2, CVector3 v3)
 {
 	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
 
@@ -26,7 +26,7 @@ Triangle2D::Triangle2D(CVector3 v1, CVector3 v2, CVector3 v3)
 	}
 }
 
-void Triangle2D::Draw()
+void Triangle::Draw()
 {
 	glPushMatrix();
 
@@ -49,7 +49,7 @@ void Triangle2D::Draw()
 	glPopMatrix();
 }
 
-Triangle2D::~Triangle2D()
+Triangle::~Triangle()
 {
 	if(_shaderProgram)
 	{

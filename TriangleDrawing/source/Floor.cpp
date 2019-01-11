@@ -16,8 +16,8 @@ Floor::Floor()
 	float gap = 1;
 
 	_axisBuffer = new GLBuffer(100, true, false, false);
-	_gridBuffer = new GLBuffer(100, true, false, false);;
-	_gridLinesBuffer = new GLBuffer(100, true, false, false);;
+	_gridBuffer = new GLBuffer(100, true, false, false);
+	_gridLinesBuffer = new GLBuffer(100, true, false, false);
 
 	_axisBuffer->glBegin(GL_LINES);
 
