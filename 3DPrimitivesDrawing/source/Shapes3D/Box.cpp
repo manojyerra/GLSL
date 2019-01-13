@@ -1,20 +1,13 @@
 #include "Box.h"
 #include "GLUtil/GLUtil.h"
 #include "Math/TransformVertexBuf.h"
+#include "ShadersManager.h"
 
 Box::Box() : Shape(Shape::BOX)
 {
 	_w = 0;
 	_h = 0;
 	_d = 0;
-
-	_vertexBufferID = 0;
-	_colorBufferID = 0;
-
-	_vertexCount = 0;
-
-	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
-	GenerateBufferID();
 }
 
 Box::Box(float x, float y, float z, float w, float h, float d) : Shape(Shape::BOX)
@@ -27,13 +20,7 @@ Box::Box(float x, float y, float z, float w, float h, float d) : Shape(Shape::BO
 	_h = h;
 	_d = d;
 
-	_vertexBufferID = 0;
-	_colorBufferID = 0;
-
-	_vertexCount = 0;
-
-	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
-	GenerateBufferID();
+	InitCommon();
 }
 
 Box::Box(float* mat, CVector3 size) : Shape(Shape::BOX)
@@ -44,13 +31,7 @@ Box::Box(float* mat, CVector3 size) : Shape(Shape::BOX)
 	_h = size.y;
 	_d = size.z;
 
-	_vertexBufferID = 0;
-	_colorBufferID = 0;
-
-	_vertexCount = 0;
-
-	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
-	GenerateBufferID();
+	InitCommon();
 }
 
 Box::Box(Box* box) : Shape(Shape::BOX)
@@ -63,12 +44,17 @@ Box::Box(Box* box) : Shape(Shape::BOX)
 
 	_id = box->GetID();
 
+	InitCommon();
+}
+
+void Box::InitCommon()
+{
 	_vertexBufferID = 0;
 	_colorBufferID = 0;
-
 	_vertexCount = 0;
 
-	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
+	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
+
 	GenerateBufferID();
 }
 
@@ -320,6 +306,10 @@ void Box::Draw()
 
 	glDrawArrays(GL_TRIANGLES, 0, _vertexCount);
 	
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glDisableVertexAttribArray(vertexID);
+	glDisableVertexAttribArray(colorID);
+
 	_shaderProgram->End();
 
 	glPopMatrix();
@@ -420,4 +410,11 @@ void Box::GenerateBufferID()
 
 Box::~Box()
 {
+	if (_shaderProgram != NULL)
+	{
+		string vertexShaderPath = _shaderProgram->GetVertexShaderFilePath();
+		string fragementShaderPath = _shaderProgram->GetFragmentShaderFilePath();
+
+		ShadersManager::GetInstance()->DeleteShaderProgram(vertexShaderPath, fragementShaderPath);
+	}
 }

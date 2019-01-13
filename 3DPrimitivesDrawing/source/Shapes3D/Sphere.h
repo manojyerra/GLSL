@@ -16,6 +16,7 @@ private:
 	ShaderProgram* _shaderProgram;
 
 	void GenerateBufferID();
+	void InitCommon();
 	void rot(int axis, float angleInDegrees, float x, float y, float z, float* newX, float* newY, float* newZ);
 
 public:

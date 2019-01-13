@@ -195,9 +195,6 @@
     <ClInclude Include="source\Shapes2D\Rect2D.h">
       <Filter>source\Shapes2D</Filter>
     </ClInclude>
-    <ClInclude Include="source\Shapes2D\Triangle2D.h">
-      <Filter>source\Shapes2D</Filter>
-    </ClInclude>
     <ClInclude Include="source\Shapes3D\Box.h">
       <Filter>source\Shapes3D</Filter>
     </ClInclude>
@@ -909,6 +906,15 @@
     <ClInclude Include="source\Shapes2D\Texture2D.h">
       <Filter>source\Shapes2D</Filter>
     </ClInclude>
+    <ClInclude Include="source\Shapes2D\Triangle.h">
+      <Filter>source\Shapes2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ShadersManager.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GameLoop.h">
+      <Filter>source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glew\source\glew.c">
@@ -1131,9 +1137,6 @@
       <Filter>source\PNG</Filter>
     </ClCompile>
     <ClCompile Include="source\Shapes2D\Rect2D.cpp">
-      <Filter>source\Shapes2D</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Shapes2D\Triangle2D.cpp">
       <Filter>source\Shapes2D</Filter>
     </ClCompile>
     <ClCompile Include="source\Shapes3D\Box.cpp">
@@ -1609,6 +1612,15 @@
     </ClCompile>
     <ClCompile Include="source\Shapes2D\Texture2D.cpp">
       <Filter>source\Shapes2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Shapes2D\Triangle.cpp">
+      <Filter>source\Shapes2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ShadersManager.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GameLoop.cpp">
+      <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

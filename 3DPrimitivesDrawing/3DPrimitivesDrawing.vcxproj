@@ -54,7 +54,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>freeglut/include;glew/include;cwc/include;source;source/BulletPhysics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>freeglut/include;glew/include;cwc/include;source;source/BulletPhysics;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;FREEGLUT_STATIC;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -69,6 +69,7 @@
       <ProgramDatabaseFile>$(OutDir)3DPrimitivesDrawing.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalDependencies>lib/*.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -322,6 +323,7 @@
     <ClInclude Include="source\CFileReader.h" />
     <ClInclude Include="source\DefinesAndIncludes.h" />
     <ClInclude Include="source\Floor.h" />
+    <ClInclude Include="source\GameLoop.h" />
     <ClInclude Include="source\GLUtil\GL2DState.h" />
     <ClInclude Include="source\GLUtil\GLBatch.h" />
     <ClInclude Include="source\GLUtil\GLBuffer.h" />
@@ -359,9 +361,10 @@
     <ClInclude Include="source\PNG\zlib\zlib.h" />
     <ClInclude Include="source\PNG\zlib\zutil.h" />
     <ClInclude Include="source\ShaderProgram.h" />
+    <ClInclude Include="source\ShadersManager.h" />
     <ClInclude Include="source\Shapes2D\Rect2D.h" />
     <ClInclude Include="source\Shapes2D\Texture2D.h" />
-    <ClInclude Include="source\Shapes2D\Triangle2D.h" />
+    <ClInclude Include="source\Shapes2D\Triangle.h" />
     <ClInclude Include="source\Shapes3D\Box.h" />
     <ClInclude Include="source\Shapes3D\Cone.h" />
     <ClInclude Include="source\Shapes3D\Cylinder.h" />
@@ -538,6 +541,7 @@
     <ClCompile Include="source\CFileReader.cpp" />
     <ClCompile Include="source\DefinesAndIncludes.cpp" />
     <ClCompile Include="source\Floor.cpp" />
+    <ClCompile Include="source\GameLoop.cpp" />
     <ClCompile Include="source\GLUtil\GL2DState.cpp" />
     <ClCompile Include="source\GLUtil\GLBatch.cpp" />
     <ClCompile Include="source\GLUtil\GLBuffer.cpp" />
@@ -594,9 +598,10 @@
     <ClCompile Include="source\PNG\zlib\uncompr.c" />
     <ClCompile Include="source\PNG\zlib\zutil.c" />
     <ClCompile Include="source\ShaderProgram.cpp" />
+    <ClCompile Include="source\ShadersManager.cpp" />
     <ClCompile Include="source\Shapes2D\Rect2D.cpp" />
     <ClCompile Include="source\Shapes2D\Texture2D.cpp" />
-    <ClCompile Include="source\Shapes2D\Triangle2D.cpp" />
+    <ClCompile Include="source\Shapes2D\Triangle.cpp" />
     <ClCompile Include="source\Shapes3D\Box.cpp" />
     <ClCompile Include="source\Shapes3D\Cone.cpp" />
     <ClCompile Include="source\Shapes3D\Cylinder.cpp" />

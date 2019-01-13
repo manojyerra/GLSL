@@ -123,10 +123,9 @@ void Texture2D::Draw()
 
 	glDrawArrays(GL_TRIANGLES, 0, _vertexCount);
 
-	GLenum error = glGetError();
-
-	if(error != GL_NO_ERROR)
-		printf("\n ERROR : %d", error);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glDisableVertexAttribArray(vertexID);
+	glDisableVertexAttribArray(uvID);
 
 	_shaderProgram->End();
 

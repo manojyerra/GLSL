@@ -1,55 +1,31 @@
 #include "Sphere.h"
 #include "GLUtil/GLUtil.h"
 #include "Math/TransformVertexBuf.h"
+#include "ShadersManager.h"
 
 Sphere::Sphere(float x, float y, float z, float r) : Shape(Shape::SPHERE)
 {
 	m[12] = x;
 	m[13] = y;
 	m[14] = z;
-
 	_r = r;
-
-	_vertexBufferID = 0;
-	_normalBufferID = 0;
-
-	_vertexCount = 0;
-
-	_shaderProgram = new ShaderProgram("shaders/NormalsAndMaterial/NormalsAndMaterial.vs", 
-										"shaders/NormalsAndMaterial/NormalsAndMaterial.fs");
-	GenerateBufferID();
+	InitCommon();
 }
 
 
 Sphere::Sphere(Sphere* sphere) : Shape(Shape::SPHERE)
 {
 	memcpy(m, sphere->m, 16*4);
-
 	_r = sphere->GetRadius();
-
-	_vertexBufferID = 0;
-	_normalBufferID = 0;
-
-	_vertexCount = 0;
-
-	_shaderProgram = new ShaderProgram("shaders/NormalsAndMaterial/NormalsAndMaterial.vs", "shaders/NormalsAndMaterial/NormalsAndMaterial.fs");
-	GenerateBufferID();
+	InitCommon();
 }
 
 
 Sphere::Sphere(float* mat, float r) : Shape(Shape::SPHERE)
 {
 	memcpy(m, mat, 16*4);
-	
 	_r = r;
-
-	_vertexBufferID = 0;
-	_normalBufferID = 0;
-
-	_vertexCount = 0;
-
-	_shaderProgram = new ShaderProgram("shaders/NormalsAndMaterial/NormalsAndMaterial.vs", "shaders/NormalsAndMaterial/NormalsAndMaterial.fs");
-	GenerateBufferID();
+	InitCommon();
 }
 
 
@@ -58,15 +34,18 @@ Sphere::Sphere(CVector3 pos, float r) : Shape(Shape::SPHERE)
 	m[12] = pos.x;
 	m[13] = pos.y;
 	m[14] = pos.z;
-
 	_r = r;
+	InitCommon();
+}
 
+void Sphere::InitCommon()
+{
 	_vertexBufferID = 0;
 	_normalBufferID = 0;
-
 	_vertexCount = 0;
 
-	_shaderProgram = new ShaderProgram("shaders/NormalsAndMaterial/NormalsAndMaterial.vs", "shaders/NormalsAndMaterial/NormalsAndMaterial.fs");
+	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/NormalsAndMaterial/NormalsAndMaterial.vs", "shaders/NormalsAndMaterial/NormalsAndMaterial.fs");
+
 	GenerateBufferID();
 }
 
@@ -144,6 +123,10 @@ void Sphere::Draw()
 
 	glDrawArrays(GL_TRIANGLES, 0, _vertexCount);
 	
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glDisableVertexAttribArray(vertexID);
+	glDisableVertexAttribArray(normalID);
+
 	_shaderProgram->End();
 
 
@@ -254,6 +237,13 @@ void Sphere::rot(int axis, float angleInDegrees, float x, float y, float z, floa
 
 Sphere::~Sphere()
 {
+	if (_shaderProgram != NULL)
+	{
+		string vertexShaderPath = _shaderProgram->GetVertexShaderFilePath();
+		string fragementShaderPath = _shaderProgram->GetFragmentShaderFilePath();
+
+		ShadersManager::GetInstance()->DeleteShaderProgram(vertexShaderPath, fragementShaderPath);
+	}
 }
 
 

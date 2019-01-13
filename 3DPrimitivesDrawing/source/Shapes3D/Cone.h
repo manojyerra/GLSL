@@ -20,6 +20,7 @@ private:
 	ShaderProgram* _shaderProgram;
 
 	void GenerateBufferID();
+	void InitCommon();
 
 public:
 	Cone();

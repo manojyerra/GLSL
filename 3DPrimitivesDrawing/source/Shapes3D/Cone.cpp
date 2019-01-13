@@ -3,19 +3,14 @@
 #include "GLUtil/GLUtil.h"
 #include "Math/TransformVertexBuf.h"
 #include "Cylinder.h"
+#include "ShadersManager.h"
 
 Cone::Cone() : Shape(Shape::CONE)
 {
 	_r = 0;
 	_h = 0;
 
-	_vertexBufferID = 0;
-	_colorBufferID = 0;
-
-	_vertexCount = 0;
-
-	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
-	GenerateBufferID();
+	InitCommon();
 }
 
 
@@ -26,13 +21,7 @@ Cone::Cone(float* mat, float r, float h) : Shape(Shape::CONE)
 	_r = r;
 	_h = h;
 
-	_vertexBufferID = 0;
-	_colorBufferID = 0;
-
-	_vertexCount = 0;
-
-	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
-	GenerateBufferID();
+	InitCommon();
 }
 
 
@@ -45,13 +34,7 @@ Cone::Cone(float x, float y, float z, float r, float h) : Shape(Shape::CONE)
 	_r = r;
 	_h = h;
 
-	_vertexBufferID = 0;
-	_colorBufferID = 0;
-
-	_vertexCount = 0;
-
-	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
-	GenerateBufferID();
+	InitCommon();
 }
 
 
@@ -63,12 +46,19 @@ Cone::Cone(Cone* cone)
 	_h = cone->GetHeight();
 	_id = cone->GetID();
 
+	InitCommon();
+}
+
+
+void Cone::InitCommon()
+{
 	_vertexBufferID = 0;
 	_colorBufferID = 0;
 
 	_vertexCount = 0;
 
-	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
+	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
+
 	GenerateBufferID();
 }
 
@@ -229,6 +219,10 @@ void Cone::Draw()
 
 	glDrawArrays(GL_TRIANGLES, 0, _vertexCount);
 	
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glDisableVertexAttribArray(vertexID);
+	glDisableVertexAttribArray(colorID);
+
 	_shaderProgram->End();
 
 	glPopMatrix();
@@ -282,4 +276,11 @@ void Cone::GenerateBufferID()
 
 Cone::~Cone()
 {
+	if (_shaderProgram != NULL)
+	{
+		string vertexShaderPath = _shaderProgram->GetVertexShaderFilePath();
+		string fragementShaderPath = _shaderProgram->GetFragmentShaderFilePath();
+
+		ShadersManager::GetInstance()->DeleteShaderProgram(vertexShaderPath, fragementShaderPath);
+	}
 }

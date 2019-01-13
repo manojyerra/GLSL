@@ -1,39 +1,47 @@
 #include "ShaderProgram.h"
 
 
-ShaderProgram::ShaderProgram(const char* vertexShaderFilePath, const char* fragmentShaderFilePath)
+ShaderProgram::ShaderProgram(string vertexShaderFilePath, string fragmentShaderFilePath)
 {
-	programID = 0;
+	_programID = 0;
+	_vertexShaderPath = vertexShaderFilePath;
+	_fragmentShaderPath = fragmentShaderFilePath;
 
 	printf("\nCompiling vertex shader...\n");
-	GLint vertexShaderObj = CompileShader(vertexShaderFilePath, GL_VERTEX_SHADER);
+	GLint vertexShaderObj = CompileShader(_vertexShaderPath.c_str(), GL_VERTEX_SHADER);
 
-	if(!vertexShaderObj)
+	if (vertexShaderObj == -1)
+	{
+		throw std::exception("Compiling vertex shader failed.");
 		return;
+	}
 
 	printf("\nCompiling fragment shader...\n");
-	GLint fragmentShaderObj = CompileShader(fragmentShaderFilePath, GL_FRAGMENT_SHADER);
+	GLint fragmentShaderObj = CompileShader(_fragmentShaderPath.c_str(), GL_FRAGMENT_SHADER);
 
-	if(!fragmentShaderObj)
+	if (fragmentShaderObj == -1)
+	{
+		throw std::exception("Compiling fragment shader failed.");
 		return;
+	}
 
 	// Link the program
 	printf("\nLinking program\n");
 
-	programID = glCreateProgram();
-	glAttachShader(programID, vertexShaderObj);
-	glAttachShader(programID, fragmentShaderObj);
-	glLinkProgram(programID);
+	_programID = glCreateProgram();
+	glAttachShader(_programID, vertexShaderObj);
+	glAttachShader(_programID, fragmentShaderObj);
+	glLinkProgram(_programID);
 
 	// Check the program
 	GLint linkStatus = GL_FALSE;
 	int infoLogLength;
 
-	glGetProgramiv(programID, GL_LINK_STATUS, &linkStatus);
-	glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &infoLogLength);
+	glGetProgramiv(_programID, GL_LINK_STATUS, &linkStatus);
+	glGetProgramiv(_programID, GL_INFO_LOG_LENGTH, &infoLogLength);
 	
-	glDetachShader(programID, vertexShaderObj);
-	glDetachShader(programID, fragmentShaderObj);
+	glDetachShader(_programID, vertexShaderObj);
+	glDetachShader(_programID, fragmentShaderObj);
 	
 	glDeleteShader(vertexShaderObj);
 	glDeleteShader(fragmentShaderObj);
@@ -45,10 +53,11 @@ ShaderProgram::ShaderProgram(const char* vertexShaderFilePath, const char* fragm
 		if(infoLogLength > 0)
 		{
 			std::vector<char> programInfoLog(infoLogLength+1);
-			glGetProgramInfoLog(programID, infoLogLength, NULL, &programInfoLog[0]);
+			glGetProgramInfoLog(_programID, infoLogLength, NULL, &programInfoLog[0]);
 			printf("%s\n", &programInfoLog[0]);
 		}
 
+		throw std::exception("\nLinking failed...");
 		return;
 	}
 	else
@@ -56,7 +65,7 @@ ShaderProgram::ShaderProgram(const char* vertexShaderFilePath, const char* fragm
 		if(infoLogLength > 0)
 		{
 			std::vector<char> programInfoLog(infoLogLength+1);
-			glGetProgramInfoLog(programID, infoLogLength, NULL, &programInfoLog[0]);
+			glGetProgramInfoLog(_programID, infoLogLength, NULL, &programInfoLog[0]);
 			printf("%s\n", &programInfoLog[0]);
 		}
 	}
@@ -140,12 +149,12 @@ GLint ShaderProgram::CompileShader(const char* shaderFilePath, GLenum shaderType
 
 GLuint ShaderProgram::ProgramID()
 {
-	return programID;
+	return _programID;
 }
 
 void ShaderProgram::Begin()
 {
-	glUseProgram(programID);
+	glUseProgram(_programID);
 }
 
 void ShaderProgram::End()
@@ -153,8 +162,19 @@ void ShaderProgram::End()
 	glUseProgram(0);
 }
 
+string ShaderProgram::GetVertexShaderFilePath()
+{
+	return _vertexShaderPath;
+}
+
+string ShaderProgram::GetFragmentShaderFilePath()
+{
+	return _fragmentShaderPath;
+}
+
+
 ShaderProgram::~ShaderProgram()
 {
-	if(programID)
-		glDeleteProgram(programID);
+	if(_programID)
+		glDeleteProgram(_programID);
 }
