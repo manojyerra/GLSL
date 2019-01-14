@@ -115,7 +115,7 @@ GLint ShaderProgram::CompileShader(const char* shaderFilePath, GLenum shaderType
 	}
 
 	GLuint shaderObject =  glCreateShader(shaderType);
-	glShaderSourceARB(shaderObject, 1, (const char**)(&(shaderFileData)), NULL);
+	glShaderSource(shaderObject, 1, (const char**)(&(shaderFileData)), NULL);
 	glCompileShader(shaderObject);
 
 	free(shaderFileData);
