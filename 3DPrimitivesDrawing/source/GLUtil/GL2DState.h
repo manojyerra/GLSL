@@ -2,7 +2,7 @@
 #define GL2DState_H
 #pragma once
 
-#include "Defines.h"
+#include "Macros.h"
 
 class GL2DState
 {

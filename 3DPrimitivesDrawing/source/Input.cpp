@@ -1,6 +1,6 @@
 #include "Input.h"
 #include "math.h"
-#include "Defines.h"
+#include "Macros.h"
 
 int Input::MX = 0;
 int Input::MY = 0;

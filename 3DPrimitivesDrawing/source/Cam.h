@@ -1,7 +1,7 @@
 #ifndef Cam_H
 #define Cam_H
 
-#include "Defines.h"
+#include "Macros.h"
 #include "GLMat.h"
 #include "Math/Vector3.h"
 

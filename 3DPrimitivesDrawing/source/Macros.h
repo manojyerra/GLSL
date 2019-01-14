@@ -11,7 +11,7 @@
 #define RAD_DEG 57.295780490443f
 #define PI_VAL 3.1415926f
 
-#define writeConsole Defines::write
+#define writeConsole Macros::write
 
 //Begin : MessageBox related
 
@@ -44,7 +44,7 @@
 //#endif
 
 
-class Defines
+class Macros
 {
 public:
 	static void write(const char * pszFormat, ...);

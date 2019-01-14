@@ -1,7 +1,7 @@
 #ifndef GLUtil_H
 #define GLUtil_H
 
-#include "Defines.h"
+#include "Macros.h"
 #include "GLMat.h"
 #include "Math/Vector3.h"
 

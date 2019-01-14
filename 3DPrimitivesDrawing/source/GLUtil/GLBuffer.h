@@ -2,7 +2,7 @@
 #define GLBuffer_H
 #pragma once
 
-#include "Defines.h"
+#include "Macros.h"
 
 class GLBuffer
 {

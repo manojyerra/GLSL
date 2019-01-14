@@ -101,7 +101,7 @@
     <ClInclude Include="freeglut\source\freeglut_internal.h" />
     <ClInclude Include="freeglut\source\freeglut_teapot_data.h" />
     <ClInclude Include="source\Cam.h" />
-    <ClInclude Include="source\Defines.h" />
+    <ClInclude Include="source\Macros.h" />
     <ClInclude Include="source\Floor.h" />
     <ClInclude Include="source\GameLoop.h" />
     <ClInclude Include="source\GLUtil\GL2DState.h" />
@@ -150,7 +150,7 @@
     <ClCompile Include="freeglut\source\freeglut_videoresize.c" />
     <ClCompile Include="freeglut\source\freeglut_window.c" />
     <ClCompile Include="source\Cam.cpp" />
-    <ClCompile Include="source\Defines.cpp" />
+    <ClCompile Include="source\Macros.cpp" />
     <ClCompile Include="source\Floor.cpp" />
     <ClCompile Include="source\GameLoop.cpp" />
     <ClCompile Include="source\GLUtil\GL2DState.cpp" />
