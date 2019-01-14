@@ -3,7 +3,7 @@
 
 #include "Shape.h"
 #include "ShaderProgram.h"
-#include "GLUtil/GLBuffer.h"
+#include "GLBuffer.h"
 
 class Sphere : public Shape
 {

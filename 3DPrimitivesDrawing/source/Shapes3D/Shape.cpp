@@ -3,7 +3,7 @@
 #include "Cone.h"
 #include "Cylinder.h"
 #include "Sphere.h"
-#include "GLUtil/GLMat.h"
+#include "GLMat.h"
 
 Shape::Shape()
 {

@@ -1,6 +1,6 @@
 #include "Floor.h"
 #include "Macros.h"
-#include "GLUtil/GLUtil.h"
+#include "GLUtil.h"
 #include "ShadersManager.h"
 
 Floor::Floor()

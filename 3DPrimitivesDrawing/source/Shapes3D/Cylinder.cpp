@@ -1,7 +1,7 @@
 #include "Cylinder.h"
 #include "math.h"
-#include "GLUtil/GLUtil.h"
-#include "Math/TransformVertexBuf.h"
+#include "GLUtil.h"
+#include "TransformVertexBuf.h"
 #include "ShadersManager.h"
 
 Cylinder::Cylinder() : Shape(Shape::CYLINDER)

@@ -1,6 +1,6 @@
 #include "Sphere.h"
-#include "GLUtil/GLUtil.h"
-#include "Math/TransformVertexBuf.h"
+#include "GLUtil.h"
+#include "TransformVertexBuf.h"
 #include "ShadersManager.h"
 
 Sphere::Sphere(float x, float y, float z, float r) : Shape(Shape::SPHERE)

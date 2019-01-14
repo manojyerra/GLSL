@@ -1,5 +1,5 @@
 #include "Triangle.h"
-#include "GLUtil/GLBuffer.h"
+#include "GLBuffer.h"
 #include "ShadersManager.h"
 
 Triangle::Triangle(CVector3 v1, CVector3 v2, CVector3 v3)

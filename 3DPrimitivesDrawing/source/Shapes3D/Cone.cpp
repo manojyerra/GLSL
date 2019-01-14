@@ -1,7 +1,7 @@
 #include "Cone.h"
 #include "math.h"
-#include "GLUtil/GLUtil.h"
-#include "Math/TransformVertexBuf.h"
+#include "GLUtil.h"
+#include "TransformVertexBuf.h"
 #include "Cylinder.h"
 #include "ShadersManager.h"
 

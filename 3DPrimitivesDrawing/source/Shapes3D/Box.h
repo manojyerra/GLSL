@@ -3,9 +3,9 @@
 
 #include "Macros.h"
 #include "Shape.h"
-#include "Util/RandomColor.h"
+#include "RandomColor.h"
 #include "ShaderProgram.h"
-#include "GLUtil/GLBuffer.h"
+#include "GLBuffer.h"
 
 class Box : public Shape
 {

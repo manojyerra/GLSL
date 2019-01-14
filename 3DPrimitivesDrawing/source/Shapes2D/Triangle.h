@@ -1,7 +1,7 @@
 #ifndef Triangle_H
 #define Triangle_H
 
-#include "Math/Vector3.h"
+#include "Vector3.h"
 #include "ShaderProgram.h"
 
 class Triangle

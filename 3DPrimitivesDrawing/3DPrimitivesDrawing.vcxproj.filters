@@ -52,6 +52,9 @@
     <Filter Include="shaders\ImageFilters">
       <UniqueIdentifier>{02b611c0-0e25-4e70-b295-891f073cc7f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\ShaderProgram">
+      <UniqueIdentifier>{02b786d8-8df9-4d6c-af99-c3e2c4181792}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glew\include\Gl\glew.h">
@@ -80,9 +83,6 @@
     </ClInclude>
     <ClInclude Include="freeglut\source\freeglut_teapot_data.h">
       <Filter>freeglut\source</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ShaderProgram.h">
-      <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="source\GLUtil\GLBatch.h">
       <Filter>source\GLUtil</Filter>
@@ -144,14 +144,17 @@
     <ClInclude Include="source\Shapes2D\Triangle.h">
       <Filter>source\Shapes2D</Filter>
     </ClInclude>
-    <ClInclude Include="source\ShadersManager.h">
-      <Filter>source</Filter>
-    </ClInclude>
     <ClInclude Include="source\GameLoop.h">
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="source\Macros.h">
       <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ShaderProgram\ShaderProgram.h">
+      <Filter>source\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ShaderProgram\ShadersManager.h">
+      <Filter>source\ShaderProgram</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -227,9 +230,6 @@
     <ClCompile Include="source\main.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="source\ShaderProgram.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="source\GLUtil\GLBatch.cpp">
       <Filter>source\GLUtil</Filter>
     </ClCompile>
@@ -290,14 +290,17 @@
     <ClCompile Include="source\Shapes2D\Triangle.cpp">
       <Filter>source\Shapes2D</Filter>
     </ClCompile>
-    <ClCompile Include="source\ShadersManager.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="source\GameLoop.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="source\Macros.cpp">
       <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ShaderProgram\ShaderProgram.cpp">
+      <Filter>source\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ShaderProgram\ShadersManager.cpp">
+      <Filter>source\ShaderProgram</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

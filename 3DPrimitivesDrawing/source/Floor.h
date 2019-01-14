@@ -2,8 +2,8 @@
 #define Floor_H
 
 #include "ShaderProgram.h"
-#include "GLUtil/GLBatch.h"
-#include "GLUtil/GLBuffer.h"
+#include "GLBatch.h"
+#include "GLBuffer.h"
 
 class Floor
 {

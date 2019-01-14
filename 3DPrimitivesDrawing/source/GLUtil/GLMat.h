@@ -2,7 +2,7 @@
 #define GLMat_H
 
 #include "Macros.h"
-#include "Math/Vector3.h"
+#include "Vector3.h"
 
 class GLMat
 {

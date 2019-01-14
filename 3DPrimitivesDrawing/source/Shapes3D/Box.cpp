@@ -1,6 +1,6 @@
 #include "Box.h"
-#include "GLUtil/GLUtil.h"
-#include "Math/TransformVertexBuf.h"
+#include "GLUtil.h"
+#include "TransformVertexBuf.h"
 #include "ShadersManager.h"
 
 Box::Box() : Shape(Shape::BOX)

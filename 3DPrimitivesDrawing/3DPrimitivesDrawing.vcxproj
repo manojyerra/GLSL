@@ -54,7 +54,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>freeglut/include;glew/include;cwc/include;source;include;source/GLUtil;source/Math;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>freeglut/include;glew/include;cwc/include;include;source/GLUtil;source/Math;source/ShaderProgram;source/Shapes2D;source/Shapes3D;source/Util;source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;FREEGLUT_STATIC;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -114,8 +114,8 @@
     <ClInclude Include="source\Math\TransformVertexBuf.h" />
     <ClInclude Include="source\Math\Triangle2D.h" />
     <ClInclude Include="source\Math\Vector3.h" />
-    <ClInclude Include="source\ShaderProgram.h" />
-    <ClInclude Include="source\ShadersManager.h" />
+    <ClInclude Include="source\ShaderProgram\ShaderProgram.h" />
+    <ClInclude Include="source\ShaderProgram\ShadersManager.h" />
     <ClInclude Include="source\Shapes2D\Triangle.h" />
     <ClInclude Include="source\Shapes3D\Box.h" />
     <ClInclude Include="source\Shapes3D\Cone.h" />
@@ -164,8 +164,8 @@
     <ClCompile Include="source\Math\TransformVertexBuf.cpp" />
     <ClCompile Include="source\Math\Triangle2D.cpp" />
     <ClCompile Include="source\Math\Vector3.cpp" />
-    <ClCompile Include="source\ShaderProgram.cpp" />
-    <ClCompile Include="source\ShadersManager.cpp" />
+    <ClCompile Include="source\ShaderProgram\ShaderProgram.cpp" />
+    <ClCompile Include="source\ShaderProgram\ShadersManager.cpp" />
     <ClCompile Include="source\Shapes2D\Triangle.cpp" />
     <ClCompile Include="source\Shapes3D\Box.cpp" />
     <ClCompile Include="source\Shapes3D\Cone.cpp" />
