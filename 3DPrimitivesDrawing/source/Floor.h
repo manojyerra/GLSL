@@ -21,6 +21,7 @@ private:
 
 public:
 	Floor();
+	~Floor();
 
 	bool IsVisible();
 	bool IsAxisVisible();

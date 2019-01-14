@@ -281,6 +281,6 @@ Cone::~Cone()
 		string vertexShaderPath = _shaderProgram->GetVertexShaderFilePath();
 		string fragementShaderPath = _shaderProgram->GetFragmentShaderFilePath();
 
-		ShadersManager::GetInstance()->DeleteShaderProgram(vertexShaderPath, fragementShaderPath);
+		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
 	}
 }

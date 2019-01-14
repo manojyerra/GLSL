@@ -20,6 +20,8 @@ ShadersManager* ShadersManager::GetInstance()
 	return _ref;
 }
 
+
+
 ShaderProgram* ShadersManager::CreateShaderProgram(string vertexShader, string fragmentShader)
 {
 	string key = vertexShader;
@@ -43,8 +45,11 @@ ShaderProgram* ShadersManager::CreateShaderProgram(string vertexShader, string f
 	return shaderProgram;
 }
 
-void ShadersManager::DeleteShaderProgram(string vertexShader, string fragmentShader)
+void ShadersManager::DeleteShaderProgram(ShaderProgram* shaderProgram)
 {
+	string vertexShader = shaderProgram->GetVertexShaderFilePath();
+	string fragmentShader = shaderProgram->GetFragmentShaderFilePath();
+
 	string key = vertexShader.append(":").append(fragmentShader);
 
 	if (shadersMap.find(key) != shadersMap.end())
@@ -54,6 +59,7 @@ void ShadersManager::DeleteShaderProgram(string vertexShader, string fragmentSha
 
 		if (shaderInfo->GetRefCount() == 0)
 		{
+			delete shaderInfo->GetShaderProgram();
 			delete shaderInfo;
 			shadersMap.erase(shadersMap.find(key));
 		}
@@ -62,5 +68,10 @@ void ShadersManager::DeleteShaderProgram(string vertexShader, string fragmentSha
 
 void ShadersManager::DeleteInstance()
 {
+	if (_ref)
+	{
+		delete _ref;
+		_ref = NULL;
+	}
 }
 

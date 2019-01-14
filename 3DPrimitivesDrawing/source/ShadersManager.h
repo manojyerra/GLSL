@@ -64,7 +64,7 @@ public:
 	static ShadersManager* GetInstance();
 
 	ShaderProgram* CreateShaderProgram(string vertexShader, string fragmentShader);
-	void DeleteShaderProgram(string vertexShader, string fragmentShader);
+	void DeleteShaderProgram(ShaderProgram* shaderProgram);
 
 	static void DeleteInstance();
 };

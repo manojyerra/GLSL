@@ -1,6 +1,7 @@
 #include "Floor.h"
 #include "DefinesAndIncludes.h"
 #include "GLUtil/GLUtil.h"
+#include "ShadersManager.h"
 
 Floor::Floor()
 {
@@ -9,7 +10,7 @@ Floor::Floor()
 	_gridVisible = false;
 	_gridLinesVisible = true;
 
-	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
+	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
 
 	float start = -16;
 	float end = 16;
@@ -199,3 +200,26 @@ void Floor::Draw()
 
 	glPopMatrix();
 }
+
+Floor::~Floor()
+{
+	ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
+
+	if (_axisBuffer != NULL)
+	{
+		delete _axisBuffer;
+	}
+
+	if (_gridBuffer != NULL)
+	{
+		delete _gridBuffer;
+	}
+
+	if (_gridLinesBuffer != NULL)
+	{
+		delete _gridLinesBuffer;
+	}
+}
+
+
+

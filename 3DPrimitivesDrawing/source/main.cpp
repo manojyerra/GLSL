@@ -92,7 +92,7 @@ void CloseWindow()
 		_gameLoop = NULL;
 	}
 
-	VLDReportLeaks();
+	//VLDReportLeaks();
 }
 
 void Display()
