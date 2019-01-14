@@ -1,7 +1,7 @@
 #ifndef GLMat_H
 #define GLMat_H
 
-#include "DefinesAndIncludes.h"
+#include "Defines.h"
 #include "Math/Vector3.h"
 
 class GLMat

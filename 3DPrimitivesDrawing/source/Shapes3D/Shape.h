@@ -1,7 +1,7 @@
 #ifndef Shape_H
 #define Shape_H
 
-#include "DefinesAndIncludes.h"
+#include "Defines.h"
 #include "Math/Vector3.h"
 
 class Shape

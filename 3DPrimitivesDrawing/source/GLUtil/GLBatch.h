@@ -2,7 +2,7 @@
 #define GLBatch_H
 #pragma once
 
-#include "DefinesAndIncludes.h"
+#include "Defines.h"
 
 class GLBatch
 {

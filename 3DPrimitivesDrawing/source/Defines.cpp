@@ -1,6 +1,6 @@
-#include "DefinesAndIncludes.h"
+#include "Defines.h"
 
-void DefinesAndIncludes::write(const char * pszFormat, ...)
+void Defines::write(const char * pszFormat, ...)
 {
 	const int MAX_LEN = 10000;
 	char szBuf[MAX_LEN];

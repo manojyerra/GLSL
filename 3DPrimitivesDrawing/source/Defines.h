@@ -1,12 +1,9 @@
-#ifndef DefinesAndIncludes_H
-#define DefinesAndIncludes_H
+#ifndef Defines_H
+#define Defines_H
 
 #include <windows.h>
-//#include <gl/gl.h>
-//#include <gl/glu.h>
 #include <GL/glew.h>
 #include <stdio.h>
-//#include "MemTrace.h"
 
 #define glColorui(c) glColor4ub((c >> 24) & 255, (c >> 16) & 255, (c >> 8) & 255, (c) & 255)
 #define glColorA(c,a) glColor4ub((c >> 24) & 255, (c >> 16) & 255, (c >> 8) & 255, a)
@@ -14,7 +11,7 @@
 #define RAD_DEG 57.295780490443f
 #define PI_VAL 3.1415926f
 
-#define writeConsole DefinesAndIncludes::write
+#define writeConsole Defines::write
 
 //Begin : MessageBox related
 
@@ -47,7 +44,7 @@
 //#endif
 
 
-class DefinesAndIncludes
+class Defines
 {
 public:
 	static void write(const char * pszFormat, ...);

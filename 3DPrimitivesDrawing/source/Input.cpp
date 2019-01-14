@@ -1,6 +1,6 @@
 #include "Input.h"
 #include "math.h"
-#include "DefinesAndIncludes.h"
+#include "Defines.h"
 
 int Input::MX = 0;
 int Input::MY = 0;

@@ -1,4 +1,4 @@
-#include "DefinesAndIncludes.h"
+#include "Defines.h"
 #include <GL/freeglut.h>
 #include "Input.h"
 #include "GameLoop.h"

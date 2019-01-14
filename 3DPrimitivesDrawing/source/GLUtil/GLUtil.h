@@ -1,8 +1,8 @@
 #ifndef GLUtil_H
 #define GLUtil_H
 
-#include "DefinesAndIncludes.h"
-#include "Math/GLMat.h"
+#include "Defines.h"
+#include "GLMat.h"
 #include "Math/Vector3.h"
 
 #include <vector>

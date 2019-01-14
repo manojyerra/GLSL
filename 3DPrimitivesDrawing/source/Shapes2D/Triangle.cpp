@@ -1,9 +1,10 @@
 #include "Triangle.h"
 #include "GLUtil/GLBuffer.h"
+#include "ShadersManager.h"
 
 Triangle::Triangle(CVector3 v1, CVector3 v2, CVector3 v3)
 {
-	_shaderProgram = new ShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
+	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
 
 	GLBuffer* glBuffer = new GLBuffer(50, true, false, false);
 
@@ -56,7 +57,7 @@ Triangle::~Triangle()
 {
 	if(_shaderProgram)
 	{
-		delete _shaderProgram;
+		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
 		_shaderProgram = NULL;
 	}
 }

@@ -1,7 +1,7 @@
 #ifndef Box_H
 #define Box_H
 
-#include "DefinesAndIncludes.h"
+#include "Defines.h"
 #include "Shape.h"
 #include "Util/RandomColor.h"
 #include "ShaderProgram.h"

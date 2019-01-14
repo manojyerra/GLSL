@@ -3,7 +3,6 @@
 
 #include "Cam.h"
 #include "Shapes2D/Triangle.h"
-#include "Shapes2D/Rect2D.h"
 #include "Floor.h"
 #include "Cam.h"
 #include "Input.h"
@@ -11,7 +10,6 @@
 #include "Shapes3D/Cylinder.h"
 #include "Shapes3D/Cone.h"
 #include "Shapes3D/Sphere.h"
-#include "Model3D/FLModel.h"
 #include "ShadersManager.h"
 #include "GLUtil/GLBatch.h"
 
