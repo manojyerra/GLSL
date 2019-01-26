@@ -10,5 +10,5 @@
 *.pdb
 *.opensdf
 *.user
-*/.vs
+.vs
 Debug
