@@ -55,6 +55,15 @@
     <Filter Include="source\ShaderProgram">
       <UniqueIdentifier>{02b786d8-8df9-4d6c-af99-c3e2c4181792}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\PNG">
+      <UniqueIdentifier>{12d89c4c-6489-4cf5-a7e2-1f2ec6ff82b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\PNG\libpng">
+      <UniqueIdentifier>{08849a25-11df-4e8b-ba64-53295075c5fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\PNG\zlib">
+      <UniqueIdentifier>{fa275f65-28a6-4b78-8a76-6cdeb9c2d383}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glew\include\Gl\glew.h">
@@ -155,6 +164,60 @@
     </ClInclude>
     <ClInclude Include="source\ShaderProgram\ShadersManager.h">
       <Filter>source\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GLUtil\GLFBO.h">
+      <Filter>source\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GLUtil\GLTexture.h">
+      <Filter>source\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\crc32.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\deflate.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\gzguts.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\inffast.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\inffixed.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\inflate.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\inftrees.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\trees.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\zconf.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\zlib.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\zutil.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\libpng\png.h">
+      <Filter>source\PNG\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\libpng\pngconf.h">
+      <Filter>source\PNG\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\libpng\pngpriv.h">
+      <Filter>source\PNG\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\PNGReadWrite.h">
+      <Filter>source\PNG</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ImageBuffer.h">
+      <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +364,114 @@
     </ClCompile>
     <ClCompile Include="source\ShaderProgram\ShadersManager.cpp">
       <Filter>source\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GLUtil\GLFBO.cpp">
+      <Filter>source\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GLUtil\GLTexture.cpp">
+      <Filter>source\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\adler32.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\compress.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\crc32.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\deflate.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\gzclose.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\gzlib.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\gzread.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\gzwrite.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\infback.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\inffast.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\inflate.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\inftrees.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\minigzip.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\trees.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\uncompr.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\zutil.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\png.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngerror.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngget.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngmem.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngpread.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngread.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngrio.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngrtran.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngrutil.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngset.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngtest.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngtrans.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngwio.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngwrite.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngwtran.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngwutil.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\PNGReadWrite.cpp">
+      <Filter>source\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ImageBuffer.cpp">
+      <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

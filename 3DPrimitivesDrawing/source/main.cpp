@@ -2,7 +2,7 @@
 #include <GL/freeglut.h>
 #include "Input.h"
 #include "GameLoop.h"
-#include <vld.h>
+//#include <vld.h>
 
 int CreateGlutWindow(char* title, int x, int y, int w, int h);
 void MouseInput(int button, int updown, int x, int y);

@@ -39,10 +39,17 @@ GameLoop::GameLoop(int sw, int sh)
 	_sphere = new Sphere(0, 0, 0, 2);
 	_sphere->SetPos(5, 0, 0);
 	_sphere->SetRadius(5);
+
+	_fbo = new GLFBO(_sw*0.7, _sh*0.7);
+	_texture = new GLTexture(_sw*0.7, _sh*0.7);
 }
 
 void GameLoop::GLSettings()
 {
+	//unsigned int framebuffer;
+	//glGenFramebuffersEXT(1, &framebuffer);
+	//glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, framebuffer);
+
 	glShadeModel(GL_SMOOTH);
 	//glFrontFace	( GL_CCW		);
 	glDisable(GL_FOG);
@@ -66,10 +73,12 @@ void GameLoop::Update(float deltaTime)
 
 void GameLoop::Draw()
 {
+	_fbo->BindFBO();
+
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glViewport(0, 0, _sw, _sh);
-	glEnable(GL_CULL_FACE);
+	glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
+	//glEnable(GL_CULL_FACE);
 
 	_cam->SetProjection();
 	_cam->SetModelViewMatrix();
@@ -81,6 +90,26 @@ void GameLoop::Draw()
 	_cylinder->Draw();
 	_cone->Draw();
 	_sphere->Draw();
+
+	_fbo->UnBindFBO();
+	
+
+	glClearColor(0.5f, 0.0f, 0.5f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glViewport(0, 0, _sw, _sh);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0, _sw, _sh, 0, 0, 1);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	glBindTexture(GL_TEXTURE_2D, _fbo->GetTextureID());
+
+	_texture->Draw();
+
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 GameLoop::~GameLoop()

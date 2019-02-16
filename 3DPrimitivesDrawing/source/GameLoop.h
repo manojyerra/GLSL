@@ -12,7 +12,8 @@
 #include "Sphere.h"
 #include "ShadersManager.h"
 #include "GLBatch.h"
-
+#include "GLFBO.h"
+#include "GLTexture.h"
 
 class GameLoop 
 {
@@ -31,8 +32,11 @@ private:
 	Cylinder* _cylinder;
 	Cone* _cone;
 	Sphere* _sphere;
+	GLFBO* _fbo;
+	GLTexture* _texture;
 
 	void GLSettings();
+	
 
 public:
 	GameLoop(int sw, int sh);
