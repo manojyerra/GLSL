@@ -1,8 +1,11 @@
-#include <GLFW/glfw3.h>
+#include "Macros.h"
 
 int main(void)
 {
 	glfwInit();
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+
 	GLFWwindow* window = glfwCreateWindow(800, 600, "GLFW Window", NULL, NULL);
 
 	glfwMakeContextCurrent(window);

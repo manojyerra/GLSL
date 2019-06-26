@@ -18,6 +18,35 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\GLUtil\GL2DState.cpp" />
+    <ClCompile Include="src\GLUtil\GLBatch.cpp" />
+    <ClCompile Include="src\GLUtil\GLBuffer.cpp" />
+    <ClCompile Include="src\GLUtil\GLFBO.cpp" />
+    <ClCompile Include="src\GLUtil\GLMat.cpp" />
+    <ClCompile Include="src\GLUtil\GLTexture.cpp" />
+    <ClCompile Include="src\GLUtil\GLUtil.cpp" />
+    <ClCompile Include="src\Macros.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Math\Line2D.cpp" />
+    <ClCompile Include="src\Math\TransformVertexBuf.cpp" />
+    <ClCompile Include="src\Math\Triangle2D.cpp" />
+    <ClCompile Include="src\Math\Vector3.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\GLUtil\GL2DState.h" />
+    <ClInclude Include="src\GLUtil\GLBatch.h" />
+    <ClInclude Include="src\GLUtil\GLBuffer.h" />
+    <ClInclude Include="src\GLUtil\GLFBO.h" />
+    <ClInclude Include="src\GLUtil\GLMat.h" />
+    <ClInclude Include="src\GLUtil\GLTexture.h" />
+    <ClInclude Include="src\GLUtil\GLUtil.h" />
+    <ClInclude Include="src\Macros.h" />
+    <ClInclude Include="src\Math\Line2D.h" />
+    <ClInclude Include="src\Math\TransformVertexBuf.h" />
+    <ClInclude Include="src\Math\Triangle2D.h" />
+    <ClInclude Include="src\Math\Vector3.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{AC787D9D-37DE-48BA-995C-300D338F9B12}</ProjectGuid>
@@ -88,7 +117,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;src;src/Math;src/GLUtil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>lib/*.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -122,9 +151,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="src\main.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
