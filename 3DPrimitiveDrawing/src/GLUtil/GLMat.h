@@ -44,6 +44,8 @@ public:
 	void AddRotateInWorld(char axis, float angle);
 	void AddRotateInLocal(char axis, float angle);
 
+	void glFrustum(float left, float right, float bottom, float top, float zNear, float zFar);
+	
 	static void MultMat(float* a, float* b, float* result);
 	static int InvertMatrix(const float src[16], float inverse[16]);
 	static void GetGluLookAtParameters(float* m, float* gluLookAtParams);

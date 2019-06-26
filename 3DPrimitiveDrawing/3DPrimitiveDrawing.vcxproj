@@ -19,6 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="glew\source\glew.c" />
+    <ClCompile Include="src\Cam.cpp" />
+    <ClCompile Include="src\Floor.cpp" />
+    <ClCompile Include="src\GameLoop.cpp" />
     <ClCompile Include="src\GLUtil\GL2DState.cpp" />
     <ClCompile Include="src\GLUtil\GLBatch.cpp" />
     <ClCompile Include="src\GLUtil\GLBuffer.cpp" />
@@ -26,14 +30,57 @@
     <ClCompile Include="src\GLUtil\GLMat.cpp" />
     <ClCompile Include="src\GLUtil\GLTexture.cpp" />
     <ClCompile Include="src\GLUtil\GLUtil.cpp" />
+    <ClCompile Include="src\ImageBuffer.cpp" />
+    <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Macros.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Math\Line2D.cpp" />
     <ClCompile Include="src\Math\TransformVertexBuf.cpp" />
     <ClCompile Include="src\Math\Triangle2D.cpp" />
     <ClCompile Include="src\Math\Vector3.cpp" />
+    <ClCompile Include="src\PNG\libpng\png.c" />
+    <ClCompile Include="src\PNG\libpng\pngerror.c" />
+    <ClCompile Include="src\PNG\libpng\pngget.c" />
+    <ClCompile Include="src\PNG\libpng\pngmem.c" />
+    <ClCompile Include="src\PNG\libpng\pngpread.c" />
+    <ClCompile Include="src\PNG\libpng\pngread.c" />
+    <ClCompile Include="src\PNG\libpng\pngrio.c" />
+    <ClCompile Include="src\PNG\libpng\pngrtran.c" />
+    <ClCompile Include="src\PNG\libpng\pngrutil.c" />
+    <ClCompile Include="src\PNG\libpng\pngset.c" />
+    <ClCompile Include="src\PNG\libpng\pngtest.c" />
+    <ClCompile Include="src\PNG\libpng\pngtrans.c" />
+    <ClCompile Include="src\PNG\libpng\pngwio.c" />
+    <ClCompile Include="src\PNG\libpng\pngwrite.c" />
+    <ClCompile Include="src\PNG\libpng\pngwtran.c" />
+    <ClCompile Include="src\PNG\libpng\pngwutil.c" />
+    <ClCompile Include="src\PNG\PNGReadWrite.cpp" />
+    <ClCompile Include="src\PNG\zlib\adler32.c" />
+    <ClCompile Include="src\PNG\zlib\compress.c" />
+    <ClCompile Include="src\PNG\zlib\crc32.c" />
+    <ClCompile Include="src\PNG\zlib\deflate.c" />
+    <ClCompile Include="src\PNG\zlib\gzclose.c" />
+    <ClCompile Include="src\PNG\zlib\gzlib.c" />
+    <ClCompile Include="src\PNG\zlib\gzread.c" />
+    <ClCompile Include="src\PNG\zlib\gzwrite.c" />
+    <ClCompile Include="src\PNG\zlib\infback.c" />
+    <ClCompile Include="src\PNG\zlib\inffast.c" />
+    <ClCompile Include="src\PNG\zlib\inflate.c" />
+    <ClCompile Include="src\PNG\zlib\inftrees.c" />
+    <ClCompile Include="src\PNG\zlib\minigzip.c" />
+    <ClCompile Include="src\PNG\zlib\trees.c" />
+    <ClCompile Include="src\PNG\zlib\uncompr.c" />
+    <ClCompile Include="src\PNG\zlib\zutil.c" />
+    <ClCompile Include="src\ShaderProgram\ShaderProgram.cpp" />
+    <ClCompile Include="src\ShaderProgram\ShadersManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="glew\include\GL\glew.h" />
+    <ClInclude Include="glew\include\GL\glxew.h" />
+    <ClInclude Include="glew\include\GL\wglew.h" />
+    <ClInclude Include="src\Cam.h" />
+    <ClInclude Include="src\Floor.h" />
+    <ClInclude Include="src\GameLoop.h" />
     <ClInclude Include="src\GLUtil\GL2DState.h" />
     <ClInclude Include="src\GLUtil\GLBatch.h" />
     <ClInclude Include="src\GLUtil\GLBuffer.h" />
@@ -41,11 +88,35 @@
     <ClInclude Include="src\GLUtil\GLMat.h" />
     <ClInclude Include="src\GLUtil\GLTexture.h" />
     <ClInclude Include="src\GLUtil\GLUtil.h" />
+    <ClInclude Include="src\ImageBuffer.h" />
+    <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\Macros.h" />
     <ClInclude Include="src\Math\Line2D.h" />
     <ClInclude Include="src\Math\TransformVertexBuf.h" />
     <ClInclude Include="src\Math\Triangle2D.h" />
     <ClInclude Include="src\Math\Vector3.h" />
+    <ClInclude Include="src\PNG\libpng\png.h" />
+    <ClInclude Include="src\PNG\libpng\pngconf.h" />
+    <ClInclude Include="src\PNG\libpng\pngpriv.h" />
+    <ClInclude Include="src\PNG\PNGReadWrite.h" />
+    <ClInclude Include="src\PNG\zlib\crc32.h" />
+    <ClInclude Include="src\PNG\zlib\deflate.h" />
+    <ClInclude Include="src\PNG\zlib\gzguts.h" />
+    <ClInclude Include="src\PNG\zlib\inffast.h" />
+    <ClInclude Include="src\PNG\zlib\inffixed.h" />
+    <ClInclude Include="src\PNG\zlib\inflate.h" />
+    <ClInclude Include="src\PNG\zlib\inftrees.h" />
+    <ClInclude Include="src\PNG\zlib\trees.h" />
+    <ClInclude Include="src\PNG\zlib\zconf.h" />
+    <ClInclude Include="src\PNG\zlib\zlib.h" />
+    <ClInclude Include="src\PNG\zlib\zutil.h" />
+    <ClInclude Include="src\ShaderProgram\ShaderProgram.h" />
+    <ClInclude Include="src\ShaderProgram\ShadersManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\ColorArray\ColorArray.fs" />
+    <None Include="shaders\ColorArray\ColorArray.vs" />
+    <None Include="shaders\SingleColorPrim.fs" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -117,7 +188,8 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;src;src/Math;src/GLUtil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/ShaderProgram;src/PNG;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>lib/*.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>

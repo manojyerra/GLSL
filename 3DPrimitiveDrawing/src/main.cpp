@@ -1,4 +1,5 @@
 #include "Macros.h"
+#include "GameLoop.h"
 
 int main(void)
 {
@@ -6,17 +7,28 @@ int main(void)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
-	GLFWwindow* window = glfwCreateWindow(800, 600, "GLFW Window", NULL, NULL);
+	int sw = 800;
+	int sh = 600;
+
+	GLFWwindow* window = glfwCreateWindow(sw, sh, "GLFW Window", NULL, NULL);
 
 	glfwMakeContextCurrent(window);
+
+	if (glewInit() != GLEW_OK)
+	{
+		std::cout << "Error" << std::endl;
+	}
+
 	glfwSwapInterval(1);
+
+	GameLoop* gameLoop = new GameLoop(sw, sh);
 
 	while (!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents();
 
-		glClearColor(0.0, 0.0, 1.0, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		gameLoop->Update(1.0f/30.0f);
+		gameLoop->Draw();
 
 		glfwSwapBuffers(window);
 	}

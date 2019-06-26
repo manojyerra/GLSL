@@ -10,6 +10,33 @@
     <Filter Include="src\GLUtil">
       <UniqueIdentifier>{712e43ab-f0d9-4303-a127-8f6e9a1ee049}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\glew">
+      <UniqueIdentifier>{db46c4aa-3a21-4613-b08c-482f97d5b395}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\glew\include">
+      <UniqueIdentifier>{1e52c67f-cdaf-42ec-80d7-077994aa8d5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\glew\source">
+      <UniqueIdentifier>{594cab06-661c-4e9d-990e-ced5a33ab06a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ShaderProgram">
+      <UniqueIdentifier>{53332d39-de2f-44fb-b9c0-b9ee4c2f3607}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\PNG">
+      <UniqueIdentifier>{879afbda-f01c-4163-afda-4238328bc1bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\PNG\libpng">
+      <UniqueIdentifier>{127ed357-3f9d-4c41-bbc0-8cb27090db76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\PNG\zlib">
+      <UniqueIdentifier>{b092127e-716e-474c-b1a3-9ac4ef102da9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{471835b5-7bfc-4b32-a662-2977e193b4e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\ColorArray">
+      <UniqueIdentifier>{d341525e-1bb2-4b22-a4ea-b41530c2f1fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Macros.cpp">
@@ -51,6 +78,129 @@
     <ClCompile Include="src\Math\Vector3.cpp">
       <Filter>src\Math</Filter>
     </ClCompile>
+    <ClCompile Include="glew\source\glew.c">
+      <Filter>src\glew\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ShaderProgram\ShaderProgram.cpp">
+      <Filter>src\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ShaderProgram\ShadersManager.cpp">
+      <Filter>src\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImageBuffer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\PNGReadWrite.cpp">
+      <Filter>src\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\libpng\png.c">
+      <Filter>src\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\libpng\pngerror.c">
+      <Filter>src\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\libpng\pngget.c">
+      <Filter>src\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\libpng\pngmem.c">
+      <Filter>src\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\libpng\pngpread.c">
+      <Filter>src\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\libpng\pngread.c">
+      <Filter>src\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\libpng\pngrio.c">
+      <Filter>src\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\libpng\pngrtran.c">
+      <Filter>src\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\libpng\pngrutil.c">
+      <Filter>src\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\libpng\pngset.c">
+      <Filter>src\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\libpng\pngtest.c">
+      <Filter>src\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\libpng\pngtrans.c">
+      <Filter>src\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\libpng\pngwio.c">
+      <Filter>src\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\libpng\pngwrite.c">
+      <Filter>src\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\libpng\pngwtran.c">
+      <Filter>src\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\libpng\pngwutil.c">
+      <Filter>src\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\zlib\adler32.c">
+      <Filter>src\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\zlib\compress.c">
+      <Filter>src\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\zlib\crc32.c">
+      <Filter>src\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\zlib\deflate.c">
+      <Filter>src\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\zlib\gzclose.c">
+      <Filter>src\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\zlib\gzlib.c">
+      <Filter>src\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\zlib\gzread.c">
+      <Filter>src\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\zlib\gzwrite.c">
+      <Filter>src\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\zlib\infback.c">
+      <Filter>src\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\zlib\inffast.c">
+      <Filter>src\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\zlib\inflate.c">
+      <Filter>src\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\zlib\inftrees.c">
+      <Filter>src\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\zlib\minigzip.c">
+      <Filter>src\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\zlib\trees.c">
+      <Filter>src\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\zlib\uncompr.c">
+      <Filter>src\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PNG\zlib\zutil.c">
+      <Filter>src\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Cam.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Floor.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Input.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLoop.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -89,5 +239,91 @@
     <ClInclude Include="src\Math\Vector3.h">
       <Filter>src\Math</Filter>
     </ClInclude>
+    <ClInclude Include="glew\include\GL\glew.h">
+      <Filter>src\glew\include</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\include\GL\glxew.h">
+      <Filter>src\glew\include</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\include\GL\wglew.h">
+      <Filter>src\glew\include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ShaderProgram\ShaderProgram.h">
+      <Filter>src\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ShaderProgram\ShadersManager.h">
+      <Filter>src\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImageBuffer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PNG\PNGReadWrite.h">
+      <Filter>src\PNG</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PNG\libpng\png.h">
+      <Filter>src\PNG\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PNG\libpng\pngconf.h">
+      <Filter>src\PNG\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PNG\libpng\pngpriv.h">
+      <Filter>src\PNG\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PNG\zlib\crc32.h">
+      <Filter>src\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PNG\zlib\deflate.h">
+      <Filter>src\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PNG\zlib\gzguts.h">
+      <Filter>src\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PNG\zlib\inffast.h">
+      <Filter>src\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PNG\zlib\inffixed.h">
+      <Filter>src\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PNG\zlib\inflate.h">
+      <Filter>src\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PNG\zlib\inftrees.h">
+      <Filter>src\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PNG\zlib\trees.h">
+      <Filter>src\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PNG\zlib\zconf.h">
+      <Filter>src\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PNG\zlib\zlib.h">
+      <Filter>src\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PNG\zlib\zutil.h">
+      <Filter>src\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Cam.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Floor.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Input.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLoop.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\SingleColorPrim.fs">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\ColorArray\ColorArray.fs">
+      <Filter>shaders\ColorArray</Filter>
+    </None>
+    <None Include="shaders\ColorArray\ColorArray.vs">
+      <Filter>shaders\ColorArray</Filter>
+    </None>
   </ItemGroup>
 </Project>

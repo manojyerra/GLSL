@@ -1,11 +1,11 @@
 #ifndef Defines_H
 #define Defines_H
 
-#define GLFW_VERSION_MAJOR   3
-
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <windows.h>
 #include <stdio.h>
+#include <Windows.h>
+#include <iostream>
 
 #define glColorui(c) glColor4ub((c >> 24) & 255, (c >> 16) & 255, (c >> 8) & 255, (c) & 255)
 #define glColorA(c,a) glColor4ub((c >> 24) & 255, (c >> 16) & 255, (c >> 8) & 255, a)

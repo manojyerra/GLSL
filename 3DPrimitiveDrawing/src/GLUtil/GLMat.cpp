@@ -76,6 +76,27 @@ void GLMat::glScalef(float x, float y, float z, bool reverseOrder)
 	memcpy(m, result, 16*sizeof(float));
 }
 
+void GLMat::glFrustum(float left, float right, float bottom, float top, float zNear, float zFar)
+{
+	float a = (right + left) / (right - left);
+	float b = (top + bottom) / (top - bottom);
+	float c = -(zFar + zNear) / (zFar - zNear);
+	float d = -(2.0*zFar*zNear) / (zFar - zNear);
+
+	float x = 2.0 * zNear / (right - left);
+	float y = 2.0 * zNear / (top - bottom);
+	float e = -1.0;
+
+	float arr[16] = {
+			x, 0, 0, 0,
+			0, y, 0, 0,
+			a, b, c, e,
+			0, 0, d, 0
+	};
+
+	memcpy(m, arr, 16 * sizeof(float));
+}
+
 void GLMat::glMultMatrixf(float* mat)
 {
 	float result[16];
