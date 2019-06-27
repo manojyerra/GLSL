@@ -43,6 +43,18 @@
     <Filter Include="shaders\NormalsAndMaterial">
       <UniqueIdentifier>{7e280d1a-831a-4a1a-a7b3-793e3a926ed7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Util">
+      <UniqueIdentifier>{185a35b1-5272-4410-80dc-70c5b00da491}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Shapes3D">
+      <UniqueIdentifier>{eb378a22-0163-4abf-bb9c-53bfd1f30953}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Shapes2D">
+      <UniqueIdentifier>{0db66925-22d3-48d2-9220-f3852ebb094e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\ColorAndScale">
+      <UniqueIdentifier>{fdf68867-c341-489c-9c31-0d58c85ef5c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Macros.cpp">
@@ -213,6 +225,30 @@
     <ClCompile Include="src\CFileReader.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Shapes3D\Box.cpp">
+      <Filter>src\Shapes3D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shapes3D\Cone.cpp">
+      <Filter>src\Shapes3D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shapes3D\Cylinder.cpp">
+      <Filter>src\Shapes3D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shapes3D\Shape.cpp">
+      <Filter>src\Shapes3D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shapes3D\Sphere.cpp">
+      <Filter>src\Shapes3D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\RandomColor.cpp">
+      <Filter>src\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\StringUtils.cpp">
+      <Filter>src\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shapes2D\Triangle.cpp">
+      <Filter>src\Shapes2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -332,6 +368,30 @@
     <ClInclude Include="src\CFileReader.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\Shapes3D\Box.h">
+      <Filter>src\Shapes3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shapes3D\Cone.h">
+      <Filter>src\Shapes3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shapes3D\Cylinder.h">
+      <Filter>src\Shapes3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shapes3D\Shape.h">
+      <Filter>src\Shapes3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shapes3D\Sphere.h">
+      <Filter>src\Shapes3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\RandomColor.h">
+      <Filter>src\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\StringUtils.h">
+      <Filter>src\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shapes2D\Triangle.h">
+      <Filter>src\Shapes2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\ColorArray\ColorArray.fs">
@@ -345,6 +405,12 @@
     </None>
     <None Include="shaders\NormalsAndMaterial\NormalsAndMaterial.vs">
       <Filter>shaders\NormalsAndMaterial</Filter>
+    </None>
+    <None Include="shaders\ColorAndScale\ColorAndScale.fs">
+      <Filter>shaders\ColorAndScale</Filter>
+    </None>
+    <None Include="shaders\ColorAndScale\ColorAndScale.vs">
+      <Filter>shaders\ColorAndScale</Filter>
     </None>
   </ItemGroup>
 </Project>

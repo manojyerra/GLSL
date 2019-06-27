@@ -10,11 +10,11 @@
 #include "GLFBO.h"
 #include "GLTexture.h"
 
-//#include "Triangle.h"
-//#include "Box.h"
-//#include "Cylinder.h"
-//#include "Cone.h"
-//#include "Sphere.h"
+#include "Triangle.h"
+#include "Box.h"
+#include "Cylinder.h"
+#include "Cone.h"
+#include "Sphere.h"
 #include "ObjLoader.h"
 
 class GameLoop 
@@ -29,11 +29,11 @@ private:
 	Cam* _cam;
 
 	Floor* _floor;
-	//Triangle* _triangle;
-	//Box* _box;
-	//Cylinder* _cylinder;
-	//Cone* _cone;
-	//Sphere* _sphere;
+	Triangle* _triangle;
+	Box* _box;
+	Cylinder* _cylinder;
+	Cone* _cone;
+	Sphere* _sphere;
 	ObjLoader* _objLoader;
 	GLFBO* _fbo;
 	GLTexture* _texture;

@@ -75,6 +75,14 @@
     <ClCompile Include="src\PNG\zlib\zutil.c" />
     <ClCompile Include="src\ShaderProgram\ShaderProgram.cpp" />
     <ClCompile Include="src\ShaderProgram\ShadersManager.cpp" />
+    <ClCompile Include="src\Shapes2D\Triangle.cpp" />
+    <ClCompile Include="src\Shapes3D\Box.cpp" />
+    <ClCompile Include="src\Shapes3D\Cone.cpp" />
+    <ClCompile Include="src\Shapes3D\Cylinder.cpp" />
+    <ClCompile Include="src\Shapes3D\Shape.cpp" />
+    <ClCompile Include="src\Shapes3D\Sphere.cpp" />
+    <ClCompile Include="src\Util\RandomColor.cpp" />
+    <ClCompile Include="src\Util\StringUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glew\include\GL\glew.h" />
@@ -116,8 +124,18 @@
     <ClInclude Include="src\PNG\zlib\zutil.h" />
     <ClInclude Include="src\ShaderProgram\ShaderProgram.h" />
     <ClInclude Include="src\ShaderProgram\ShadersManager.h" />
+    <ClInclude Include="src\Shapes2D\Triangle.h" />
+    <ClInclude Include="src\Shapes3D\Box.h" />
+    <ClInclude Include="src\Shapes3D\Cone.h" />
+    <ClInclude Include="src\Shapes3D\Cylinder.h" />
+    <ClInclude Include="src\Shapes3D\Shape.h" />
+    <ClInclude Include="src\Shapes3D\Sphere.h" />
+    <ClInclude Include="src\Util\RandomColor.h" />
+    <ClInclude Include="src\Util\StringUtils.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="shaders\ColorAndScale\ColorAndScale.fs" />
+    <None Include="shaders\ColorAndScale\ColorAndScale.vs" />
     <None Include="shaders\ColorArray\ColorArray.fs" />
     <None Include="shaders\ColorArray\ColorArray.vs" />
     <None Include="shaders\NormalsAndMaterial\NormalsAndMaterial.fs" />
@@ -193,7 +211,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/ShaderProgram;src/PNG;src/Model3D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/ShaderProgram;src/PNG;src/Model3D;src/Shapes2D;src/Shapes3D;src/Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

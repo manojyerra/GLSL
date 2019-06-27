@@ -16,29 +16,29 @@ GameLoop::GameLoop(int sw, int sh)
 
 	_floor = new Floor();
 
-	//CVector3 v1(0.0f, 0.0f, 0.0f);
-	//CVector3 v2(1.0f, 0.0f, 0.0f);
-	//CVector3 v3(1.0f, 1.0f, 0.0f);
+	CVector3 v1(0.0f, 0.0f, 0.0f);
+	CVector3 v2(1.0f, 0.0f, 0.0f);
+	CVector3 v3(1.0f, 1.0f, 0.0f);
 
-	//_triangle = new Triangle(v1, v2, v3);
+	_triangle = new Triangle(v1, v2, v3);
 
-	//_box = new Box(0, 0, 0, 2, 3, 4);
-	//_box->SetSize(3, 1, 6);
-	//_box->SetPos(-10, 0, -10);
+	_box = new Box(0, 0, 0, 2, 3, 4);
+	_box->SetSize(3, 1, 6);
+	_box->SetPos(-10, 0, -10);
 
-	//_cylinder = new Cylinder(0, 0, 0, 3, 2);
-	//_cylinder->SetRadius(1.5);
-	//_cylinder->SetHeight(2);
-	//_cylinder->SetPos(0, 0, -10);
+	_cylinder = new Cylinder(0, 0, 0, 3, 2);
+	_cylinder->SetRadius(1.5);
+	_cylinder->SetHeight(2);
+	_cylinder->SetPos(0, 0, -10);
 
-	//_cone = new Cone(0, 0, 0, 2, 3);
-	//_cone->SetRadius(1.5);
-	//_cone->SetHeight(2);
-	//_cone->SetPos(-5, 0, -10);
+	_cone = new Cone(0, 0, 0, 2, 3);
+	_cone->SetRadius(1.5);
+	_cone->SetHeight(2);
+	_cone->SetPos(-5, 0, -10);
 
-	//_sphere = new Sphere(0, 0, 0, 2);
-	//_sphere->SetPos(5, 0, 0);
-	//_sphere->SetRadius(5);
+	_sphere = new Sphere(0, 0, 0, 2);
+	_sphere->SetPos(5, 0, 0);
+	_sphere->SetRadius(5);
 
 	_objLoader = new ObjLoader("data/teapot");
 
@@ -88,13 +88,13 @@ void GameLoop::Draw()
 	_cam->UpdateCamera();
 
 	_floor->Draw();
-	_objLoader->Draw();
+	//_objLoader->Draw();
 
-	//_triangle->Draw();
-	//_box->Draw();
-	//_cylinder->Draw();
-	//_cone->Draw();
-	//_sphere->Draw();
+	_triangle->Draw();
+	_box->Draw();
+	_cylinder->Draw();
+	_cone->Draw();
+	_sphere->Draw();
 
 	//_fbo->UnBindFBO();
 	
@@ -119,35 +119,35 @@ void GameLoop::Draw()
 
 GameLoop::~GameLoop()
 {
-	//if (_sphere != NULL)
-	//{
-	//	delete _sphere;
-	//	_sphere = NULL;
-	//}
+	if (_sphere != NULL)
+	{
+		delete _sphere;
+		_sphere = NULL;
+	}
 
-	//if (_cone != NULL)
-	//{
-	//	delete _cone;
-	//	_cone = NULL;
-	//}
+	if (_cone != NULL)
+	{
+		delete _cone;
+		_cone = NULL;
+	}
 
-	//if (_cylinder != NULL)
-	//{
-	//	delete _cylinder;
-	//	_cylinder = NULL;
-	//}
+	if (_cylinder != NULL)
+	{
+		delete _cylinder;
+		_cylinder = NULL;
+	}
 
-	//if (_box != NULL)
-	//{
-	//	delete _box;
-	//	_box = NULL;
-	//}
+	if (_box != NULL)
+	{
+		delete _box;
+		_box = NULL;
+	}
 
-	//if (_triangle != NULL)
-	//{
-	//	delete _triangle;
-	//	_triangle = NULL;
-	//}
+	if (_triangle != NULL)
+	{
+		delete _triangle;
+		_triangle = NULL;
+	}
 
 	if (_floor != NULL)
 	{

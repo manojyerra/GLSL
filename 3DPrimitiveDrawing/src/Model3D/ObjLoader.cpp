@@ -124,10 +124,6 @@ void ObjLoader::ReadObjFile(string filePath)
 
 void ObjLoader::Draw()
 {
-	//GLboolean glLighting = GLUtil::GLEnable(GL_LIGHTING, false);
-	GLboolean blend = GLUtil::GLEnable(GL_BLEND, false);
-	GLboolean depthTest = GLUtil::GLEnable(GL_DEPTH_TEST, true);
-
 	_shaderProgram->Begin();
 
 	GLint projMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "projMat");
@@ -155,11 +151,6 @@ void ObjLoader::Draw()
 	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "specular"), Ks[0], Ks[1], Ks[2], Ks[3]);
 	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "shininess"), Se);
 
-	//GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
-	//glEnableVertexAttribArray(colorID);
-	//glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-	//glVertexAttribPointer(colorID, 4, GL_UNSIGNED_BYTE, GL_TRUE, 0, (void*)0);
-
 	GLuint normalID = glGetAttribLocation(_shaderProgram->ProgramID(), "normal");
 	glEnableVertexAttribArray(normalID);
 	glBindBuffer(GL_ARRAY_BUFFER, _normalBufferID);
@@ -174,15 +165,8 @@ void ObjLoader::Draw()
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glDisableVertexAttribArray(vertexID);
-	//glDisableVertexAttribArray(colorID);
 
 	_shaderProgram->End();
-
-	//glPopMatrix();
-
-	//GLUtil::GLEnable(GL_LIGHTING, glLighting);
-	GLUtil::GLEnable(GL_BLEND, blend);
-	GLUtil::GLEnable(GL_DEPTH_TEST, depthTest);
 }
 
 
