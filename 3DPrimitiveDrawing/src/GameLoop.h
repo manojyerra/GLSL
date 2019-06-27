@@ -15,7 +15,7 @@
 //#include "Cylinder.h"
 //#include "Cone.h"
 //#include "Sphere.h"
-
+#include "ObjLoader.h"
 
 class GameLoop 
 {
@@ -34,6 +34,7 @@ private:
 	//Cylinder* _cylinder;
 	//Cone* _cone;
 	//Sphere* _sphere;
+	ObjLoader* _objLoader;
 	GLFBO* _fbo;
 	GLTexture* _texture;
 

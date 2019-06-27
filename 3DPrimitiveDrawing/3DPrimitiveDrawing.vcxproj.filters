@@ -37,6 +37,12 @@
     <Filter Include="shaders\ColorArray">
       <UniqueIdentifier>{d341525e-1bb2-4b22-a4ea-b41530c2f1fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Model3D">
+      <UniqueIdentifier>{d06bb947-b175-4bd9-970b-731c66364815}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\NormalsAndMaterial">
+      <UniqueIdentifier>{7e280d1a-831a-4a1a-a7b3-793e3a926ed7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Macros.cpp">
@@ -201,6 +207,12 @@
     <ClCompile Include="src\GameLoop.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Model3D\ObjLoader.cpp">
+      <Filter>src\Model3D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CFileReader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -314,16 +326,25 @@
     <ClInclude Include="src\GameLoop.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\Model3D\ObjLoader.h">
+      <Filter>src\Model3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CFileReader.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\SingleColorPrim.fs">
-      <Filter>shaders</Filter>
-    </None>
     <None Include="shaders\ColorArray\ColorArray.fs">
       <Filter>shaders\ColorArray</Filter>
     </None>
     <None Include="shaders\ColorArray\ColorArray.vs">
       <Filter>shaders\ColorArray</Filter>
+    </None>
+    <None Include="shaders\NormalsAndMaterial\NormalsAndMaterial.fs">
+      <Filter>shaders\NormalsAndMaterial</Filter>
+    </None>
+    <None Include="shaders\NormalsAndMaterial\NormalsAndMaterial.vs">
+      <Filter>shaders\NormalsAndMaterial</Filter>
     </None>
   </ItemGroup>
 </Project>

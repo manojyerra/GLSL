@@ -40,6 +40,8 @@ GameLoop::GameLoop(int sw, int sh)
 	//_sphere->SetPos(5, 0, 0);
 	//_sphere->SetRadius(5);
 
+	_objLoader = new ObjLoader("data/teapot");
+
 	//_fbo = new GLFBO(_sw*0.7, _sh*0.7);
 	//_texture = new GLTexture(_sw*0.7, _sh*0.7);
 }
@@ -86,6 +88,8 @@ void GameLoop::Draw()
 	_cam->UpdateCamera();
 
 	_floor->Draw();
+	_objLoader->Draw();
+
 	//_triangle->Draw();
 	//_box->Draw();
 	//_cylinder->Draw();

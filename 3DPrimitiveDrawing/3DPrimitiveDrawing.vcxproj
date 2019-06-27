@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="glew\source\glew.c" />
     <ClCompile Include="src\Cam.cpp" />
+    <ClCompile Include="src\CFileReader.cpp" />
     <ClCompile Include="src\Floor.cpp" />
     <ClCompile Include="src\GameLoop.cpp" />
     <ClCompile Include="src\GLUtil\GL2DState.cpp" />
@@ -38,6 +39,7 @@
     <ClCompile Include="src\Math\TransformVertexBuf.cpp" />
     <ClCompile Include="src\Math\Triangle2D.cpp" />
     <ClCompile Include="src\Math\Vector3.cpp" />
+    <ClCompile Include="src\Model3D\ObjLoader.cpp" />
     <ClCompile Include="src\PNG\libpng\png.c" />
     <ClCompile Include="src\PNG\libpng\pngerror.c" />
     <ClCompile Include="src\PNG\libpng\pngget.c" />
@@ -79,6 +81,7 @@
     <ClInclude Include="glew\include\GL\glxew.h" />
     <ClInclude Include="glew\include\GL\wglew.h" />
     <ClInclude Include="src\Cam.h" />
+    <ClInclude Include="src\CFileReader.h" />
     <ClInclude Include="src\Floor.h" />
     <ClInclude Include="src\GameLoop.h" />
     <ClInclude Include="src\GLUtil\GL2DState.h" />
@@ -95,6 +98,7 @@
     <ClInclude Include="src\Math\TransformVertexBuf.h" />
     <ClInclude Include="src\Math\Triangle2D.h" />
     <ClInclude Include="src\Math\Vector3.h" />
+    <ClInclude Include="src\Model3D\ObjLoader.h" />
     <ClInclude Include="src\PNG\libpng\png.h" />
     <ClInclude Include="src\PNG\libpng\pngconf.h" />
     <ClInclude Include="src\PNG\libpng\pngpriv.h" />
@@ -116,7 +120,8 @@
   <ItemGroup>
     <None Include="shaders\ColorArray\ColorArray.fs" />
     <None Include="shaders\ColorArray\ColorArray.vs" />
-    <None Include="shaders\SingleColorPrim.fs" />
+    <None Include="shaders\NormalsAndMaterial\NormalsAndMaterial.fs" />
+    <None Include="shaders\NormalsAndMaterial\NormalsAndMaterial.vs" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -188,7 +193,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/ShaderProgram;src/PNG;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/ShaderProgram;src/PNG;src/Model3D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

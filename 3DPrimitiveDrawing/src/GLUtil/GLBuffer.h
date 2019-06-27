@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Macros.h"
+#include "Vector3.h"
 
 class GLBuffer
 {
@@ -52,7 +53,14 @@ public:
 	void glVertex3f(GLfloat x, GLfloat y, GLfloat z);
 	void glTexCoord2f(GLfloat u, GLfloat v);
 	void glNormal3f(GLfloat x, GLfloat y, GLfloat z);
+	
+	void glVertex3f(const CVector3& vec);
+	void glNormal3f(const CVector3& vec);
+	void glTexCoord2f(const CVector3& vec);
+
 	void glEnd();
+
+
 
 	GLfloat* GetVertexArr();
 	GLfloat* GetUVArr();

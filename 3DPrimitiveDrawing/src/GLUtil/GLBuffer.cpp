@@ -115,6 +115,21 @@ void GLBuffer::glColor4f(float r, float g, float b, float a)
 	_a = (GLubyte)(a*255.0f);
 }
 
+void GLBuffer::glVertex3f(const CVector3& vec)
+{
+	this->glVertex3f(vec.x, vec.y, vec.z);
+}
+
+void GLBuffer::glNormal3f(const CVector3& vec)
+{
+	this->glNormal3f(vec.x, vec.y, vec.z);
+}
+
+void GLBuffer::glTexCoord2f(const CVector3& vec)
+{
+	this->glTexCoord2f(vec.x, vec.y);
+}
+
 void GLBuffer::glVertex3f(GLfloat x, GLfloat y, GLfloat z)
 {
 	if(_colorArr)

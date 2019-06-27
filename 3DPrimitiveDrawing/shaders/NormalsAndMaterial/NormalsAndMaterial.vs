@@ -1,4 +1,10 @@
+/*
 #version 120
+
+uniform mat4 projMat;
+uniform mat4 modelMat;
+uniform mat3 normalMat;
+uniform mat4 oriMat;
 
 attribute vec4 vertex;
 attribute vec3 normal;
@@ -26,27 +32,33 @@ void CalcFragColor(vec3 V, vec3 N)
 
 void main(void)
 {
-	vec3 V1 = vec3( gl_ModelViewMatrix * vertex );
-	vec3 N1 = normalize( gl_NormalMatrix * normal );
+	vec3 V1 = vec3( modelMat * vertex );
+	vec3 N1 = normalize( normalMat * normal );
 	
 	CalcFragColor(V1, N1);
 
-	gl_Position = gl_ModelViewProjectionMatrix * vertex;
+	gl_Position = projMat * modelMat * oriMat * vertex;
 }
+*/
 
 
-// #version 120
+#version 120
 
-// attribute vec4 vertex;
-// attribute vec3 normal;
+uniform mat4 projMat;
+uniform mat4 modelMat;
+uniform mat3 normalMat;
+uniform mat4 oriMat;
 
-// varying vec3 V;
-// varying vec3 N;
+attribute vec4 vertex;
+attribute vec3 normal;
 
-// void main(void)
-// {
-	// V = vec3( gl_ModelViewMatrix * vertex );
-	// N = normalize( gl_NormalMatrix * normal );
+varying vec3 V;
+varying vec3 N;
 
-	// gl_Position = gl_ModelViewProjectionMatrix * vertex;
-// }
+void main(void)
+{
+	V = vec3( modelMat * vertex );
+	N = normalize( normalMat * normal );
+
+	gl_Position = projMat * modelMat * oriMat * vertex;
+}
