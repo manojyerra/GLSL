@@ -140,10 +140,26 @@ void ObjLoader::Draw()
 	//GLfloat Kd[] = { 1.0f, 0.1f, 0.1f, 1.0f };
 	//GLfloat Ks[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-	GLfloat Ka[] = { 0.5f, 0.0f, 0.0f, 1.0f };
-	GLfloat Kd[] = { 0.4f, 0.4f, 0.5f, 1.0f };
-	GLfloat Ks[] = { 0.8f, 0.8f, 0.0f, 1.0f };
-	GLfloat Se = 20.0f;
+	//GLfloat Ka[] = { 0.329412,	0.223529,	0.027451,	1 };
+	//GLfloat Kd[] = { 0.780392,	0.568627,	0.113725,	1 };
+	//GLfloat Ks[] = { 0.992157,	0.941176,	0.807843,	1 };
+	//GLfloat Se = 27.8974;
+
+	//GLfloat Ka[] = { 0.19225,	0.19225,	0.19225,	1 };
+	//GLfloat Kd[] = { 0.50754,	0.50754,	0.50754,	1 };
+	//GLfloat Ks[] = { 0.508273,	0.508273,	0.508273,	1 };
+	//GLfloat Se = 51.2;
+
+	GLfloat Ka[] = { 0.05375,	0.05,	0.06625,	0.82 };
+	GLfloat Kd[] = { 0.18275,	0.17,	0.22525,	0.82 };
+	GLfloat Ks[] = { 0.332741,	0.328634,	0.346435,	0.82 };
+	GLfloat Se = 38.4;
+
+
+	//GLfloat Ka[] = { 0.5f, 0.0f, 0.0f, 1.0f };
+	//GLfloat Kd[] = { 0.4f, 0.4f, 0.5f, 1.0f };
+	//GLfloat Ks[] = { 0.8f, 0.8f, 0.0f, 1.0f };
+	//GLfloat Se = 25.0f;
 
 	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "lightPos"), 0.0, 0.0, 0.0);
 	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "ambient"), Ka[0], Ka[1], Ka[2], Ka[3]);

@@ -16,9 +16,9 @@ GameLoop::GameLoop(int sw, int sh)
 
 	_floor = new Floor();
 
-	CVector3 v1(0.0f, 0.0f, 0.0f);
-	CVector3 v2(1.0f, 0.0f, 0.0f);
-	CVector3 v3(1.0f, 1.0f, 0.0f);
+	CVector3 v1(-5.0f, 0.0f, 0.0f);
+	CVector3 v2(-4.0f, 0.0f, 0.0f);
+	CVector3 v3(-4.0f, 1.0f, 0.0f);
 
 	_triangle = new Triangle(v1, v2, v3);
 
@@ -88,7 +88,7 @@ void GameLoop::Draw()
 	_cam->UpdateCamera();
 
 	_floor->Draw();
-	//_objLoader->Draw();
+	_objLoader->Draw();
 
 	_triangle->Draw();
 	_box->Draw();
