@@ -8,7 +8,7 @@ GameLoop::GameLoop(int sw, int sh)
 	GLSettings();
 
 	_zNear = 1.0f;
-	_zFar = 10000.0f;
+	_zFar = 1000000.0f;
 	_zNearPlaneW = 0.2f;
 
 	_cam = Cam::GetInstance();
@@ -40,7 +40,7 @@ GameLoop::GameLoop(int sw, int sh)
 	_sphere->SetPos(5, 0, 0);
 	_sphere->SetRadius(5);
 
-	_objLoader = new ObjLoader("data/teapot");
+	_objLoader = new ObjLoader("data/car");
 
 	//_fbo = new GLFBO(_sw*0.7, _sh*0.7);
 	//_texture = new GLTexture(_sw*0.7, _sh*0.7);
@@ -90,11 +90,11 @@ void GameLoop::Draw()
 	_floor->Draw();
 	_objLoader->Draw();
 
-	_triangle->Draw();
-	_box->Draw();
-	_cylinder->Draw();
-	_cone->Draw();
-	_sphere->Draw();
+	//_triangle->Draw();
+	//_box->Draw();
+	//_cylinder->Draw();
+	//_cone->Draw();
+	//_sphere->Draw();
 
 	//_fbo->UnBindFBO();
 	

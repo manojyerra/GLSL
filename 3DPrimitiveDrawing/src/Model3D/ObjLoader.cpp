@@ -6,9 +6,19 @@
 #include "GLBuffer.h"
 #include "Vector3.h"
 #include "Cam.h"
+#include "UtilFuncs.h"
+#include "FloatArray.h"
+#include "ULongArray.h"
+#include "VoidPtrArray.h"
 
 ObjLoader::ObjLoader(string folderPath)
 {
+	_vertexCount = 0;
+	
+	_vertexBufferID = 0;
+	_normalBufferID = 0;
+	_uvBufferID = 0;
+
 	ReadObjFile(folderPath+"/objFile.obj");
 	//LoadTextures(folderPath);
 
@@ -18,9 +28,9 @@ ObjLoader::ObjLoader(string folderPath)
 
 void ObjLoader::ReadObjFile(string filePath)
 {
-	CFileReader fileReader(filePath.c_str(), "rb");
-	
-	char* line = NULL;
+	unsigned int startTime = GetTickCount();
+
+	CFileReader fileReader(filePath, "rb");
 
 	float vx, vy, vz;
 	float tx, ty;
@@ -30,34 +40,47 @@ void ObjLoader::ReadObjFile(string filePath)
 	vector<CVector3> uvVec;
 	vector<CVector3> normalVec;
 
-	while( (line = fileReader.ReadLine())!= NULL)
+	VoidPtrArray facesArr(1024 * 1024);
+
+	char* line = NULL;
+
+	int charSize = sizeof(char*);
+	unsigned long tempLong = 2111463936;
+	unsigned char* tempChar = (unsigned char*)intptr_t(tempLong);
+	unsigned long temp2 = (unsigned long)tempChar;
+	char* tempChar2 = (char*)temp2;
+
+	while ((line = fileReader.ReadLine()) != NULL)
 	{
-		if(line[0] == 'v' && line[1] == ' ')
+		if (line[0] == 'v' && line[1] == ' ')
 		{
-			sscanf(line, "v %f %f %f", &vx, &vy, &vz);
+			UtilFuncs::scan_vertex(line, &vx, &vy, &vz);
 			vertexVec.push_back(CVector3(vx, vy, vz));
+			free(line);
 		}
-		else if(line[0] == 'v' && line[1] == 't')
+		else if (line[0] == 'v' && line[1] == 't')
 		{
-			sscanf(line, "vt %f %f", &tx, &ty);
-			uvVec.push_back(CVector3(tx, 1-ty, 0));
+			UtilFuncs::scan_uv(line, &tx, &ty);
+			uvVec.push_back(CVector3(tx, 1 - ty, 0));
+			free(line);
 		}
-		else if(line[0] == 'v' && line[1] == 'n')
+		else if (line[0] == 'v' && line[1] == 'n')
 		{
-			sscanf(line, "vn %f %f %f", &nx, &ny, &nz);
+			UtilFuncs::scan_normal(line, &nx, &ny, &nz);
 			normalVec.push_back(CVector3(nx, ny, nz));
+			free(line);
 		}
-
-		free(line);
+		else if (line[0] == 'f' && line[1] == ' ')
+		{
+			facesArr.push_back(line);
+		}
 	}
-
-	fileReader.Reset();
 
 	int v[3];
 	int t[3];
 	int n[3];
-			
-	for(int i=0; i<3; i++)
+
+	for (int i = 0; i < 3; i++)
 	{
 		v[i] = 0;
 		t[i] = 0;
@@ -67,59 +90,109 @@ void ObjLoader::ReadObjFile(string filePath)
 	bool uvsExist = uvVec.size() > 1;
 	bool normalsExist = normalVec.size() > 1;
 
-	GLBuffer* buffer = new GLBuffer(1024, false, uvsExist, normalsExist);
+	unsigned int initSize = 1024 * 1024;
 
-	buffer->glBegin(GL_TRIANGLES);
+	FloatArray vertexFloatArr(initSize * 4);
+	FloatArray uvFloatArr(initSize * 3);
+	FloatArray normalFloatArr(initSize * 4);
 
+	//unsigned int fileParseStartTime = GetTickCount();
 
-	while((line = fileReader.ReadLine())!= NULL)
+	unsigned int facesStrArrSize = facesArr.size();
+	void** facesStrArrPtr = facesArr.getArray();
+
+	if (uvsExist && normalsExist)
 	{
-		if(line[0] == 'f' && line[1] == ' ')
+		for (int arrIndex = 0; arrIndex < facesStrArrSize; arrIndex++)
 		{
-			if(uvsExist && normalsExist)
-				sscanf(line, "f %d/%d/%d %d/%d/%d %d/%d/%d", &v[0],&t[0],&n[0], &v[1],&t[1],&n[1], &v[2],&t[2],&n[2]);
-			else if(uvsExist && !normalsExist)
-				sscanf(line, "f %d/%d %d/%d %d/%d", &v[0],&t[0], &v[1],&t[1], &v[2],&t[2]);
-			else if(!uvsExist && normalsExist)
-				sscanf(line, "f %d//%d %d//%d %d//%d", &v[0],&n[0], &v[1],&n[1], &v[2],&n[2]);
-			else if(!uvsExist && !normalsExist)
-				sscanf(line, "f %d %d %d", &v[0], &v[1], &v[2]);
+			char* line = (char*)facesStrArrPtr[arrIndex];
 
-			for(int i=0; i<3; i++)
+			UtilFuncs::scanFace_VTN(line, &v[0], &t[0], &n[0], &v[1], &t[1], &n[1], &v[2], &t[2], &n[2]);
+
+			for (int i = 0; i < 3; i++)
 			{
-				v[i]--;
-				t[i]--;
-				n[i]--;
+				vertexFloatArr.push_back_3(vertexVec[v[i] - 1]);
+				uvFloatArr.push_back_2(uvVec[t[i] - 1]);
+				normalFloatArr.push_back_3(normalVec[n[i] - 1]);
 			}
 
-			for(int i=0; i<3; i++)
-			{
-				if(uvsExist)
-				{
-					buffer->glTexCoord2f(uvVec[t[i]]);
-				}
-
-				if(normalsExist)
-				{
-					buffer->glNormal3f(normalVec[n[i]]);	
-				}
-
-				buffer->glVertex3f(vertexVec[v[i]]);
-			}
+			free(line);
 		}
+	}
+	else if (uvsExist && !normalsExist)
+	{
+		for (int arrIndex = 0; arrIndex < facesStrArrSize; arrIndex++)
+		{
+			char* line = (char*)facesStrArrPtr[arrIndex];
 
-		free(line);
+			UtilFuncs::scanFace_VT(line, &v[0], &t[0], &v[1], &t[1], &v[2], &t[2]);
+
+			for (int i = 0; i < 3; i++)
+			{
+				vertexFloatArr.push_back_3(vertexVec[v[i] - 1]);
+				uvFloatArr.push_back_2(uvVec[t[i] - 1]);
+			}
+
+			free(line);
+		}
+	}
+	else if (!uvsExist && normalsExist)
+	{
+		for (int arrIndex = 0; arrIndex < facesStrArrSize; arrIndex++)
+		{
+			char* line = (char*)facesStrArrPtr[arrIndex];
+
+			UtilFuncs::scanFace_VN(line, &v[0], &n[0], &v[1], &n[1], &v[2], &n[2]);
+
+			for (int i = 0; i < 3; i++)
+			{
+				vertexFloatArr.push_back_3(vertexVec[v[i] - 1]);
+				normalFloatArr.push_back_3(normalVec[n[i] - 1]);
+			}
+
+			free(line);
+		}
+	}
+	else if (!uvsExist && !normalsExist)
+	{
+		for (int arrIndex = 0; arrIndex < facesStrArrSize; arrIndex++)
+		{
+			char* line = (char*)facesStrArrPtr[arrIndex];
+
+			UtilFuncs::scanFace_V(line, &v[0], &v[1], &v[2]);
+
+			for (int i = 0; i < 3; i++)
+			{
+				vertexFloatArr.push_back_3(vertexVec[v[i] - 1]);
+			}
+
+			free(line);
+		}
 	}
 
-	buffer->glEnd();
+	glGenBuffers(1, &_vertexBufferID);
+	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
+	glBufferData(GL_ARRAY_BUFFER, vertexFloatArr.size() * 4, vertexFloatArr.getArray(), GL_STATIC_DRAW);
 
-	_vertexBufferID = buffer->GetVertexBufferID();
-	_normalBufferID = buffer->GetNormalBufferID();
-	_uvBufferID = buffer->GetUVBufferID();
+	if (uvFloatArr.size() > 0)
+	{
+		glGenBuffers(1, &_uvBufferID);
+		glBindBuffer(GL_ARRAY_BUFFER, _uvBufferID);
+		glBufferData(GL_ARRAY_BUFFER, uvFloatArr.size() * 4, uvFloatArr.getArray(), GL_STATIC_DRAW);
+	}
 
-	_vertexCount = buffer->GetVertexCount();
+	if (normalFloatArr.size() > 0)
+	{
+		glGenBuffers(1, &_normalBufferID);
+		glBindBuffer(GL_ARRAY_BUFFER, _normalBufferID);
+		glBufferData(GL_ARRAY_BUFFER, normalFloatArr.size() * 4, normalFloatArr.getArray(), GL_STATIC_DRAW);
+	}
 
-	delete buffer;
+	//_vertexBufferID = buffer->GetVertexBufferID();
+	//_normalBufferID = buffer->GetNormalBufferID();
+	//_uvBufferID = buffer->GetUVBufferID();
+
+	_vertexCount = vertexFloatArr.size() / 3;
 }
 
 void ObjLoader::Draw()

@@ -81,8 +81,13 @@
     <ClCompile Include="src\Shapes3D\Cylinder.cpp" />
     <ClCompile Include="src\Shapes3D\Shape.cpp" />
     <ClCompile Include="src\Shapes3D\Sphere.cpp" />
+    <ClCompile Include="src\Util\Arrays\FloatArray.cpp" />
+    <ClCompile Include="src\Util\Arrays\UIntArray.cpp" />
+    <ClCompile Include="src\Util\Arrays\ULongArray.cpp" />
+    <ClCompile Include="src\Util\Arrays\VoidPtrArray.cpp" />
     <ClCompile Include="src\Util\RandomColor.cpp" />
     <ClCompile Include="src\Util\StringUtils.cpp" />
+    <ClCompile Include="src\Util\UtilFuncs.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glew\include\GL\glew.h" />
@@ -130,8 +135,13 @@
     <ClInclude Include="src\Shapes3D\Cylinder.h" />
     <ClInclude Include="src\Shapes3D\Shape.h" />
     <ClInclude Include="src\Shapes3D\Sphere.h" />
+    <ClInclude Include="src\Util\Arrays\FloatArray.h" />
+    <ClInclude Include="src\Util\Arrays\UIntArray.h" />
+    <ClInclude Include="src\Util\Arrays\ULongArray.h" />
+    <ClInclude Include="src\Util\Arrays\VoidPtrArray.h" />
     <ClInclude Include="src\Util\RandomColor.h" />
     <ClInclude Include="src\Util\StringUtils.h" />
+    <ClInclude Include="src\Util\UtilFuncs.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\ColorAndScale\ColorAndScale.fs" />
@@ -211,7 +221,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/ShaderProgram;src/PNG;src/Model3D;src/Shapes2D;src/Shapes3D;src/Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/ShaderProgram;src/PNG;src/Model3D;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

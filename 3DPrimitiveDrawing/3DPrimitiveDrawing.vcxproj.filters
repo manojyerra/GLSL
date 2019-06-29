@@ -55,6 +55,9 @@
     <Filter Include="shaders\ColorAndScale">
       <UniqueIdentifier>{fdf68867-c341-489c-9c31-0d58c85ef5c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Util\Arrays">
+      <UniqueIdentifier>{0900d298-520b-4864-827c-835d38101284}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Macros.cpp">
@@ -249,6 +252,21 @@
     <ClCompile Include="src\Shapes2D\Triangle.cpp">
       <Filter>src\Shapes2D</Filter>
     </ClCompile>
+    <ClCompile Include="src\Util\UtilFuncs.cpp">
+      <Filter>src\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\Arrays\FloatArray.cpp">
+      <Filter>src\Util\Arrays</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\Arrays\UIntArray.cpp">
+      <Filter>src\Util\Arrays</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\Arrays\ULongArray.cpp">
+      <Filter>src\Util\Arrays</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\Arrays\VoidPtrArray.cpp">
+      <Filter>src\Util\Arrays</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -391,6 +409,21 @@
     </ClInclude>
     <ClInclude Include="src\Shapes2D\Triangle.h">
       <Filter>src\Shapes2D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\UtilFuncs.h">
+      <Filter>src\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\Arrays\FloatArray.h">
+      <Filter>src\Util\Arrays</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\Arrays\UIntArray.h">
+      <Filter>src\Util\Arrays</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\Arrays\ULongArray.h">
+      <Filter>src\Util\Arrays</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\Arrays\VoidPtrArray.h">
+      <Filter>src\Util\Arrays</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
