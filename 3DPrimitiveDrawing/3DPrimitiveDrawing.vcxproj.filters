@@ -267,6 +267,9 @@
     <ClCompile Include="src\Util\Arrays\VoidPtrArray.cpp">
       <Filter>src\Util\Arrays</Filter>
     </ClCompile>
+    <ClCompile Include="src\Model3D\BinaryObjLoader.cpp">
+      <Filter>src\Model3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -424,6 +427,9 @@
     </ClInclude>
     <ClInclude Include="src\Util\Arrays\VoidPtrArray.h">
       <Filter>src\Util\Arrays</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Model3D\BinaryObjLoader.h">
+      <Filter>src\Model3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,5 @@
-#ifndef ObjLoader_H
-#define ObjLoader_H
+#ifndef BinaryObjLoader_H
+#define BinaryObjLoader_H
 
 #include "ShaderProgram.h"
 #include "GLMat.h"
@@ -12,7 +12,7 @@
 using namespace std;
 
 
-class ObjLoader
+class BinaryObjLoader
 {
 private:
 	unsigned int _vertexCount;
@@ -26,20 +26,13 @@ private:
 	ShaderProgram* _shaderProgram;
 
 	GLMat _oriMat;
-	bool _writeBinaryToFile;
 
 	void ReadObjFile(string folderPath);
 	void LoadTextures(string folderPath);
 
-	void Init(string filePath, bool writeBinaryToFile);
-	void WriteBinaryToFile(string folderPath,
-		FloatArray& vertexFloatArr, FloatArray& uvFloatArr, FloatArray& normalFloatArr);
-
 public:
-	ObjLoader(string folderPath);
-	ObjLoader(string folderPath, bool writeBinaryToFile);
-
-    void Draw();
+	BinaryObjLoader(string folderPath);
+	void Draw();
 };
 
 #endif

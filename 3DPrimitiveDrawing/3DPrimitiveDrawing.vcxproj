@@ -39,6 +39,7 @@
     <ClCompile Include="src\Math\TransformVertexBuf.cpp" />
     <ClCompile Include="src\Math\Triangle2D.cpp" />
     <ClCompile Include="src\Math\Vector3.cpp" />
+    <ClCompile Include="src\Model3D\BinaryObjLoader.cpp" />
     <ClCompile Include="src\Model3D\ObjLoader.cpp" />
     <ClCompile Include="src\PNG\libpng\png.c" />
     <ClCompile Include="src\PNG\libpng\pngerror.c" />
@@ -111,6 +112,7 @@
     <ClInclude Include="src\Math\TransformVertexBuf.h" />
     <ClInclude Include="src\Math\Triangle2D.h" />
     <ClInclude Include="src\Math\Vector3.h" />
+    <ClInclude Include="src\Model3D\BinaryObjLoader.h" />
     <ClInclude Include="src\Model3D\ObjLoader.h" />
     <ClInclude Include="src\PNG\libpng\png.h" />
     <ClInclude Include="src\PNG\libpng\pngconf.h" />

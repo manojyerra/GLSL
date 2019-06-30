@@ -7,28 +7,40 @@
 #include "Vector3.h"
 #include "Cam.h"
 #include "UtilFuncs.h"
-#include "FloatArray.h"
-#include "ULongArray.h"
-#include "VoidPtrArray.h"
+
 
 ObjLoader::ObjLoader(string folderPath)
 {
+	Init(folderPath, false);
+}
+
+ObjLoader::ObjLoader(string folderPath, bool writeBinaryToFile)
+{
+	Init(folderPath, writeBinaryToFile);
+}
+
+void ObjLoader::Init(string folderPath, bool writeBinaryToFile)
+{
 	_vertexCount = 0;
-	
+
 	_vertexBufferID = 0;
 	_normalBufferID = 0;
 	_uvBufferID = 0;
 
-	ReadObjFile(folderPath+"/objFile.obj");
+	_writeBinaryToFile = writeBinaryToFile;
+
+	ReadObjFile(folderPath);
 	//LoadTextures(folderPath);
 
 	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/NormalsAndMaterial/NormalsAndMaterial.vs",
 		"shaders/NormalsAndMaterial/NormalsAndMaterial.fs");
 }
 
-void ObjLoader::ReadObjFile(string filePath)
+void ObjLoader::ReadObjFile(string folderPath)
 {
 	unsigned int startTime = GetTickCount();
+
+	string filePath = folderPath + "/objFile.obj";
 
 	CFileReader fileReader(filePath, "rb");
 
@@ -43,12 +55,6 @@ void ObjLoader::ReadObjFile(string filePath)
 	VoidPtrArray facesArr(1024 * 1024);
 
 	char* line = NULL;
-
-	int charSize = sizeof(char*);
-	unsigned long tempLong = 2111463936;
-	unsigned char* tempChar = (unsigned char*)intptr_t(tempLong);
-	unsigned long temp2 = (unsigned long)tempChar;
-	char* tempChar2 = (char*)temp2;
 
 	while ((line = fileReader.ReadLine()) != NULL)
 	{
@@ -95,8 +101,6 @@ void ObjLoader::ReadObjFile(string filePath)
 	FloatArray vertexFloatArr(initSize * 4);
 	FloatArray uvFloatArr(initSize * 3);
 	FloatArray normalFloatArr(initSize * 4);
-
-	//unsigned int fileParseStartTime = GetTickCount();
 
 	unsigned int facesStrArrSize = facesArr.size();
 	void** facesStrArrPtr = facesArr.getArray();
@@ -188,11 +192,43 @@ void ObjLoader::ReadObjFile(string filePath)
 		glBufferData(GL_ARRAY_BUFFER, normalFloatArr.size() * 4, normalFloatArr.getArray(), GL_STATIC_DRAW);
 	}
 
-	//_vertexBufferID = buffer->GetVertexBufferID();
-	//_normalBufferID = buffer->GetNormalBufferID();
-	//_uvBufferID = buffer->GetUVBufferID();
-
 	_vertexCount = vertexFloatArr.size() / 3;
+
+	if (_writeBinaryToFile)
+	{
+		WriteBinaryToFile(folderPath, vertexFloatArr, uvFloatArr, normalFloatArr);
+	}
+}
+
+void ObjLoader::WriteBinaryToFile(string folderPath, 
+	FloatArray& vertexFloatArr, FloatArray& uvFloatArr, FloatArray& normalFloatArr)
+{
+	if (vertexFloatArr.size() > 0)
+	{
+		string bufFilePath = folderPath + "/vertex.buf";
+		FILE* bufFile = fopen(bufFilePath.c_str(), "wb");
+		fwrite(vertexFloatArr.getArray(), 4, vertexFloatArr.size(), bufFile);
+		fflush(bufFile);
+		fclose(bufFile);
+	}
+
+	if (uvFloatArr.size() > 0)
+	{
+		string bufFilePath = folderPath + "/uv.buf";
+		FILE* bufFile = fopen(bufFilePath.c_str(), "wb");
+		fwrite(uvFloatArr.getArray(), 4, uvFloatArr.size(), bufFile);
+		fflush(bufFile);
+		fclose(bufFile);
+	}
+
+	if (normalFloatArr.size() > 0)
+	{
+		string bufFilePath = folderPath + "/normal.buf";
+		FILE* bufFile = fopen(bufFilePath.c_str(), "wb");
+		fwrite(normalFloatArr.getArray(), 4, normalFloatArr.size(), bufFile);
+		fflush(bufFile);
+		fclose(bufFile);
+	}
 }
 
 void ObjLoader::Draw()
@@ -208,31 +244,11 @@ void ObjLoader::Draw()
 	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, Cam::GetInstance()->modelMat.m);
 	glUniformMatrix3fv(normalMatLoc, 1, GL_FALSE, Cam::GetInstance()->normalMat);
 	glUniformMatrix4fv(oriMatLoc, 1, GL_FALSE, _oriMat.m);
-	
-	//GLfloat Ka[] = { 1.0f, 0.5f, 0.5f, 1.0f };
-	//GLfloat Kd[] = { 1.0f, 0.1f, 0.1f, 1.0f };
-	//GLfloat Ks[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-
-	//GLfloat Ka[] = { 0.329412,	0.223529,	0.027451,	1 };
-	//GLfloat Kd[] = { 0.780392,	0.568627,	0.113725,	1 };
-	//GLfloat Ks[] = { 0.992157,	0.941176,	0.807843,	1 };
-	//GLfloat Se = 27.8974;
-
-	//GLfloat Ka[] = { 0.19225,	0.19225,	0.19225,	1 };
-	//GLfloat Kd[] = { 0.50754,	0.50754,	0.50754,	1 };
-	//GLfloat Ks[] = { 0.508273,	0.508273,	0.508273,	1 };
-	//GLfloat Se = 51.2;
 
 	GLfloat Ka[] = { 0.05375,	0.05,	0.06625,	0.82 };
 	GLfloat Kd[] = { 0.18275,	0.17,	0.22525,	0.82 };
 	GLfloat Ks[] = { 0.332741,	0.328634,	0.346435,	0.82 };
 	GLfloat Se = 38.4;
-
-
-	//GLfloat Ka[] = { 0.5f, 0.0f, 0.0f, 1.0f };
-	//GLfloat Kd[] = { 0.4f, 0.4f, 0.5f, 1.0f };
-	//GLfloat Ks[] = { 0.8f, 0.8f, 0.0f, 1.0f };
-	//GLfloat Se = 25.0f;
 
 	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "lightPos"), 0.0, 0.0, 0.0);
 	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "ambient"), Ka[0], Ka[1], Ka[2], Ka[3]);
@@ -268,3 +284,22 @@ void ObjLoader::LoadTextures(string folderPath)
 
 	delete imgBuf;
 }
+
+//GLfloat Ka[] = { 1.0f, 0.5f, 0.5f, 1.0f };
+//GLfloat Kd[] = { 1.0f, 0.1f, 0.1f, 1.0f };
+//GLfloat Ks[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+//GLfloat Ka[] = { 0.329412,	0.223529,	0.027451,	1 };
+//GLfloat Kd[] = { 0.780392,	0.568627,	0.113725,	1 };
+//GLfloat Ks[] = { 0.992157,	0.941176,	0.807843,	1 };
+//GLfloat Se = 27.8974;
+
+//GLfloat Ka[] = { 0.19225,	0.19225,	0.19225,	1 };
+//GLfloat Kd[] = { 0.50754,	0.50754,	0.50754,	1 };
+//GLfloat Ks[] = { 0.508273,	0.508273,	0.508273,	1 };
+//GLfloat Se = 51.2;
+
+//GLfloat Ka[] = { 0.5f, 0.0f, 0.0f, 1.0f };
+//GLfloat Kd[] = { 0.4f, 0.4f, 0.5f, 1.0f };
+//GLfloat Ks[] = { 0.8f, 0.8f, 0.0f, 1.0f };
+//GLfloat Se = 25.0f;
