@@ -72,6 +72,7 @@ void GameLoop::GLSettings()
 void GameLoop::Update(float deltaTime)
 {
 
+
 }
 
 void GameLoop::Draw()
