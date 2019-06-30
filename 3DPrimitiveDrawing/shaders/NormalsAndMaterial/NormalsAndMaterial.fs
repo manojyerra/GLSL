@@ -32,4 +32,6 @@ void main(void)
 	vec4 Ispec = specular * pow(max(dot(R,E),0.0), shininess*0.3);
 
 	gl_FragColor =  Iamb + Idiff + Ispec;
+	//gl_FragColor = vec4(gl_FragColor.rgb, 1.0);
+	//gl_FragColor = vec4(1.0, 1.0, 0.0, 1.0);
 }
