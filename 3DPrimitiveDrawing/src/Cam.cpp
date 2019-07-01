@@ -37,8 +37,8 @@ void Cam::Init(int screenW, int screenH, float zNear, float zFar, float zNearPla
 	_zNearPlaneHalfW = zNearPlaneW/2.0f;
 
 	_pivot = CVector3(0, 0, 0);
-	_trans = CVector3(0, 0, -170.0f);
-	_angle = CVector3(30, 0, 0);
+	_trans = CVector3(0, -70, -2500.0f);
+	_angle = CVector3(30, 60, 0);
 
 	_viewType = 5;
 

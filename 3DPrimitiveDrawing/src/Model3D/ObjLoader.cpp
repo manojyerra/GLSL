@@ -7,6 +7,10 @@
 #include "Vector3.h"
 #include "Cam.h"
 #include "UtilFuncs.h"
+#include <glm/mat4x4.hpp>
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+#include "glm/ext.hpp"
 
 
 ObjLoader::ObjLoader(string folderPath)
@@ -32,8 +36,11 @@ void ObjLoader::Init(string folderPath, bool writeBinaryToFile)
 	ReadObjFile(folderPath);
 	//LoadTextures(folderPath);
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/NormalsAndMaterial/NormalsAndMaterial.vs",
-		"shaders/NormalsAndMaterial/NormalsAndMaterial.fs");
+	//_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/NormalsAndMaterial/NormalsAndMaterial.vs", 
+	//"shaders/NormalsAndMaterial/NormalsAndMaterial.fs");
+
+	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/PBR/PBR.vs", "shaders/PBR/PBR.fs");
+
 }
 
 void ObjLoader::ReadObjFile(string folderPath)
@@ -236,7 +243,7 @@ void ObjLoader::Draw()
 	_shaderProgram->Begin();
 
 	GLint projMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "projMat");
-	GLint modelMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "modelMat");
+	GLint modelMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "viewMat");
 	GLint normalMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "normalMat");
 	GLint oriMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "oriMat");
 
@@ -245,16 +252,32 @@ void ObjLoader::Draw()
 	glUniformMatrix3fv(normalMatLoc, 1, GL_FALSE, Cam::GetInstance()->normalMat);
 	glUniformMatrix4fv(oriMatLoc, 1, GL_FALSE, _oriMat.m);
 
-	GLfloat Ka[] = { 0.05375,	0.05,	0.06625,	0.82 };
-	GLfloat Kd[] = { 0.18275,	0.17,	0.22525,	0.82 };
-	GLfloat Ks[] = { 0.332741,	0.328634,	0.346435,	0.82 };
-	GLfloat Se = 38.4;
+	//GLfloat Ka[] = { 0.05375,	0.05,	0.06625,	0.82 };
+	//GLfloat Kd[] = { 0.18275,	0.17,	0.22525,	0.82 };
+	//GLfloat Ks[] = { 0.332741,	0.328634,	0.346435,	0.82 };
+	//GLfloat Se = 38.4;
 
-	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "lightPos"), 0.0, 0.0, 0.0);
-	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "ambient"), Ka[0], Ka[1], Ka[2], Ka[3]);
-	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "diffuse"), Kd[0], Kd[1], Kd[2], Kd[3]);
-	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "specular"), Ks[0], Ks[1], Ks[2], Ks[3]);
-	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "shininess"), Se);
+	//glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "lightPos"), 0.0, 0.0, 0.0);
+	//glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "ambient"), Ka[0], Ka[1], Ka[2], Ka[3]);
+	//glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "diffuse"), Kd[0], Kd[1], Kd[2], Kd[3]);
+	//glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "specular"), Ks[0], Ks[1], Ks[2], Ks[3]);
+	//glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "shininess"), Se);
+
+	//CVector3 dir = GLMat::MultVector(Cam::GetInstance()->modelMat.m, CVector3(0, -1, 1));
+
+	glm::mat4 lookMatrix = glm::make_mat4(Cam::GetInstance()->modelMat.m);
+
+	glm::vec4 dir = glm::vec4(0, -1, 1, 0);
+	dir = glm::normalize(dir);
+	dir = glm::normalize(lookMatrix * dir);
+
+	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "direction"), dir.x, dir.y, dir.z);
+	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "color"), 1.0, 1.0, 1.0);
+
+	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "metallic"), 0.8);
+	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "roughness"), 0.1);
+	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "albedo"), 0.560, 0.570, 0.580);
+
 
 	GLuint normalID = glGetAttribLocation(_shaderProgram->ProgramID(), "normal");
 	glEnableVertexAttribArray(normalID);

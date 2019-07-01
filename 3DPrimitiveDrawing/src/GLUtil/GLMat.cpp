@@ -177,6 +177,18 @@ void GLMat::MultMat(float* a, float* b, float* result)
 	}
 }
 
+CVector3 GLMat::MultVector(float* a, CVector3 vec)
+{
+	CVector3 retVec;
+	int b[4] = {vec.x, vec.y, vec.z, 0};
+
+	retVec.x = a[0] * b[0] + a[4] * b[1] + a[8] * b[2] + a[12] * b[3];
+	retVec.y = a[1] * b[0] + a[5] * b[1] + a[9] * b[2] + a[13] * b[3];
+	retVec.z = a[2] * b[0] + a[6] * b[1] + a[10] * b[2] + a[14] * b[3];
+	
+	return retVec;
+}
+
 int GLMat::InvertMatrix(const float src[16], float inverse[16])
 {
     int i, j, k, swap;

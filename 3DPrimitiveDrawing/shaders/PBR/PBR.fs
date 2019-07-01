@@ -5,10 +5,10 @@ const float PI = 3.14159265359;
 varying vec3 viewNormal;
 varying vec4 viewPosition;
 
-uniform vec4 direction;
-uniform vec4 color;
+uniform vec3 direction;
+uniform vec3 color;
 
-uniform vec4 albedo;
+uniform vec3 albedo;
 uniform float metallic;
 uniform float roughness;
 
@@ -48,7 +48,7 @@ void main()
 	vec3 normal = normalize(viewNormal);
 	vec3 viewDir = normalize(-viewPosition.xyz);
 	vec3 f0 = vec3(0.04);
-	f0 = mix(f0, albedo.rgb, metallic);
+	f0 = mix(f0, albedo, metallic);
 	vec3 lo = vec3(0.0);
 
 	vec3 lightDir = normalize(-direction.xyz);
@@ -70,12 +70,14 @@ void main()
 	float denominator = 4 * ndotv * ndotl + 0.00001;
 	vec3 specular = nominator / denominator;
 
-	lo += (kD * albedo.rgb / PI + specular) * color.rgb * ndotl;
-	vec3 ambient = vec3(0.03) * albedo.rgb;
-	vec3 color = lo + ambient;
+	lo += (kD * albedo / PI + specular) * color.rgb * ndotl;
+	vec3 ambient = vec3(0.03) * albedo;
+	vec3 finalColor = lo + ambient;
 
-	color = color / (color + vec3(1.0));
-    color = pow(color, vec3(1.0/2.2));  
+	finalColor = finalColor / (finalColor + vec3(1.0));
+    finalColor = pow(finalColor, vec3(1.0/2.2));  
 
-	gl_FragColor = vec4(color, 1);
+	gl_FragColor = vec4(finalColor, 1.0);
+	//gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 }
+

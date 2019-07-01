@@ -22,6 +22,7 @@ public:
 	void glRotatef(float angleInDegrees, int isX, int isY, int isZ, bool reverseOrder = false);
 	void glScalef(float x, float y, float z, bool reverseOrder = false);
 	void glMultMatrixf(float* mat);
+	CVector3 MultVector(CVector3 vec);
 
 	float* Get();
 	void Copy(float* mat);
@@ -46,6 +47,7 @@ public:
 
 	void glFrustum(float left, float right, float bottom, float top, float zNear, float zFar);
 	
+	static CVector3 MultVector(float* a, CVector3 vec);
 	static void MultMat(float* a, float* b, float* result);
 	static int InvertMatrix(const float src[16], float inverse[16]);
 	static void GetGluLookAtParameters(float* m, float* gluLookAtParams);
