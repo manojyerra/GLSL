@@ -58,6 +58,12 @@
     <Filter Include="src\Util\Arrays">
       <UniqueIdentifier>{0900d298-520b-4864-827c-835d38101284}</UniqueIdentifier>
     </Filter>
+    <Filter Include="shaders\PBR">
+      <UniqueIdentifier>{b1f37f91-4dc7-42f6-816c-2a528a993f3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\PBR_MultipleLights">
+      <UniqueIdentifier>{095f975d-6171-4db0-8b48-432b316510bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Macros.cpp">
@@ -450,6 +456,18 @@
     </None>
     <None Include="shaders\ColorAndScale\ColorAndScale.vs">
       <Filter>shaders\ColorAndScale</Filter>
+    </None>
+    <None Include="shaders\PBR\PBR.fs">
+      <Filter>shaders\PBR</Filter>
+    </None>
+    <None Include="shaders\PBR\PBR.vs">
+      <Filter>shaders\PBR</Filter>
+    </None>
+    <None Include="shaders\PBR_MultipleLights\PBR.fs">
+      <Filter>shaders\PBR_MultipleLights</Filter>
+    </None>
+    <None Include="shaders\PBR_MultipleLights\PBR.vs">
+      <Filter>shaders\PBR_MultipleLights</Filter>
     </None>
   </ItemGroup>
 </Project>

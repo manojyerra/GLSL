@@ -39,8 +39,8 @@ void ObjLoader::Init(string folderPath, bool writeBinaryToFile)
 	//_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/NormalsAndMaterial/NormalsAndMaterial.vs", 
 	//"shaders/NormalsAndMaterial/NormalsAndMaterial.fs");
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/PBR/PBR.vs", "shaders/PBR/PBR.fs");
-
+	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/PBR_MultipleLights/PBR.vs", 
+		"shaders/PBR_MultipleLights/PBR.fs");
 }
 
 void ObjLoader::ReadObjFile(string folderPath)
@@ -252,6 +252,9 @@ void ObjLoader::Draw()
 	glUniformMatrix3fv(normalMatLoc, 1, GL_FALSE, Cam::GetInstance()->normalMat);
 	glUniformMatrix4fv(oriMatLoc, 1, GL_FALSE, _oriMat.m);
 
+	modelMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "camMat");
+	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, Cam::GetInstance()->modelMat.m);
+
 	//GLfloat Ka[] = { 0.05375,	0.05,	0.06625,	0.82 };
 	//GLfloat Kd[] = { 0.18275,	0.17,	0.22525,	0.82 };
 	//GLfloat Ks[] = { 0.332741,	0.328634,	0.346435,	0.82 };
@@ -272,11 +275,11 @@ void ObjLoader::Draw()
 	dir = glm::normalize(lookMatrix * dir);
 
 	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "direction"), dir.x, dir.y, dir.z);
-	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "color"), 1.0, 1.0, 1.0);
+	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "color"), 1.0, 1.0, 0.0);
 
 	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "metallic"), 0.8);
-	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "roughness"), 0.1);
-	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "albedo"), 0.560, 0.570, 0.580);
+	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "roughness"), 0.2);
+	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "albedo"), 0.80, 0.0, 0.0);
 
 
 	GLuint normalID = glGetAttribLocation(_shaderProgram->ProgramID(), "normal");
