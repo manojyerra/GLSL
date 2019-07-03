@@ -276,6 +276,9 @@
     <ClCompile Include="src\Model3D\BinaryObjLoader.cpp">
       <Filter>src\Model3D</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\SSAO.cpp">
+      <Filter>src\GLUtil</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -436,6 +439,9 @@
     </ClInclude>
     <ClInclude Include="src\Model3D\BinaryObjLoader.h">
       <Filter>src\Model3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\SSAO.h">
+      <Filter>src\GLUtil</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

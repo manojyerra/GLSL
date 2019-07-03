@@ -1,28 +1,28 @@
-#ifndef GBufferFBO_H
-#define GBufferFBO_H
+#ifndef SSAO_H
+#define SSAO_H
 
 #include "Macros.h"
 
-class GBufferFBO
+class SSAO
 {
 private:
 	unsigned int _w;
 	unsigned int _h;
 
-	unsigned int _gBuffer;
-
-	unsigned int _rboDepth;
-
+	unsigned int _gBufferFBO;
 	unsigned int _ssaoFBO;
 	unsigned int _ssaoBlurFBO;
 
+	unsigned int CreateGBufferFBO(unsigned int w, unsigned int h);
 
 public:
-	GBufferFBO(int w, int h);
-	~GBufferFBO();
+	SSAO(int w, int h);
+	~SSAO();
 
 	unsigned int GetW();
 	unsigned int GetH();
+
+
 };
 
 #endif

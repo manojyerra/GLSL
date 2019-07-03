@@ -242,6 +242,11 @@ void ObjLoader::Draw()
 {
 	_shaderProgram->Begin();
 
+	glm::mat4 lookMatrix = glm::make_mat4(Cam::GetInstance()->modelMat.m);
+	glm::mat4 modelMatrix = glm::make_mat4(_oriMat.m);
+	glm::mat4 modelViewMatrix = lookMatrix * modelMatrix;
+	glm::mat4 normalMatrix = glm::transpose(glm::inverse(modelViewMatrix));
+
 	GLint projMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "projMat");
 	GLint modelMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "viewMat");
 	GLint normalMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "normalMat");
@@ -268,7 +273,7 @@ void ObjLoader::Draw()
 
 	//CVector3 dir = GLMat::MultVector(Cam::GetInstance()->modelMat.m, CVector3(0, -1, 1));
 
-	glm::mat4 lookMatrix = glm::make_mat4(Cam::GetInstance()->modelMat.m);
+	
 
 	glm::vec4 dir = glm::vec4(0, -1, 1, 0);
 	dir = glm::normalize(dir);
