@@ -10,10 +10,16 @@ private:
 	unsigned int _h;
 
 	unsigned int _gBufferFBO;
+	unsigned int _gPosition;
+	unsigned int _gNormal;
+	unsigned int _gAlbedo;
+
 	unsigned int _ssaoFBO;
 	unsigned int _ssaoBlurFBO;
 
-	unsigned int CreateGBufferFBO(unsigned int w, unsigned int h);
+	void CreateGBufferFBO(unsigned int w, unsigned int h);
+	void CreateSSAOFBO(unsigned int w, unsigned int h);
+	void CreateSSAOBlurFBO(unsigned int w, unsigned int h);
 
 public:
 	SSAO(int w, int h);
@@ -21,8 +27,6 @@ public:
 
 	unsigned int GetW();
 	unsigned int GetH();
-
-
 };
 
 #endif
