@@ -29,8 +29,6 @@ Triangle::Triangle(CVector3& v1, CVector3& v2, CVector3& v3)
 
 void Triangle::Draw()
 {
-	glPushMatrix();
-
 	_shaderProgram->Begin();
 
 	GLint projMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "projMat");
@@ -49,7 +47,7 @@ void Triangle::Draw()
 	GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
 	glEnableVertexAttribArray(vertexID);
 	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-	glVertexAttribPointer(vertexID, 3, GL_FLOAT, GL_TRUE, 0, (void*)0);
+	glVertexAttribPointer(vertexID, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 	glDrawArrays(GL_TRIANGLES, 0, _vertexCount);
 
@@ -58,8 +56,6 @@ void Triangle::Draw()
 	glDisableVertexAttribArray(colorID);
 
 	_shaderProgram->End();
-
-	glPopMatrix();
 }
 
 Triangle::~Triangle()
