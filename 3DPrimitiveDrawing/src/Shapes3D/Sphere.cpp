@@ -109,7 +109,7 @@ void Sphere::Draw()
 	//GLint scaleMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "scaleMat");
 
 	glUniformMatrix4fv(projMatLoc, 1, GL_FALSE, Cam::GetInstance()->projMat.m);
-	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, Cam::GetInstance()->modelMat.m);
+	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
 	glUniformMatrix4fv(normalMatLoc, 1, GL_FALSE, Cam::GetInstance()->normalMat);
 	glUniformMatrix4fv(oriMatLoc, 1, GL_FALSE, m);
 	//glUniformMatrix4fv(scaleMatLoc, 1, GL_FALSE, _scaleMat.m);
