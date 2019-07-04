@@ -1,6 +1,8 @@
-uniform lowp vec4 color;
+#version 120
 
-void main (void)  
-{     
+uniform highp vec4 color;
+
+void main (void)
+{
    gl_FragColor = color;
 }
