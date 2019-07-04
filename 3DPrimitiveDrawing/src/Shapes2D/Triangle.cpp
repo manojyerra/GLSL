@@ -39,15 +39,15 @@ void Triangle::Draw()
 	glUniformMatrix4fv(viewMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
 	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, _modelMat.m);
 
-	GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
-	glEnableVertexAttribArray(colorID);
+	GLuint colorLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
+	glEnableVertexAttribArray(colorLoc);
 	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-	glVertexAttribPointer(colorID, 4, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
+	glVertexAttribPointer(colorLoc, 4, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
 
-	GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
-	glEnableVertexAttribArray(vertexID);
+	GLuint vertexLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
+	glEnableVertexAttribArray(vertexLoc);
 	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-	glVertexAttribPointer(vertexID, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glVertexAttribPointer(vertexLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 	glDrawArrays(GL_TRIANGLES, 0, _vertexCount);
 

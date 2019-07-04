@@ -288,31 +288,30 @@ void Box::Draw()
 	_scaleMat.m[5] = _h;
 	_scaleMat.m[10] = _d;
 
-	GLboolean glLighting = GLUtil::GLEnable(GL_LIGHTING, false);
 	GLboolean blend = GLUtil::GLEnable(GL_BLEND, true);
 	GLboolean depthTest = GLUtil::GLEnable(GL_DEPTH_TEST, true);
 
 	_shaderProgram->Begin();
 
 	GLint projMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "projMat");
+	GLint viewMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "viewMat");
 	GLint modelMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "modelMat");
-	GLint oriMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "oriMat");
 	GLint scaleMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "scaleMat");
 
 	glUniformMatrix4fv(projMatLoc, 1, GL_FALSE, Cam::GetInstance()->projMat.m);
-	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
-	glUniformMatrix4fv(oriMatLoc, 1, GL_FALSE, m);
+	glUniformMatrix4fv(viewMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
+	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, m);
 	glUniformMatrix4fv(scaleMatLoc, 1, GL_FALSE, _scaleMat.m);
 
 	GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
 	glEnableVertexAttribArray(colorID);
 	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-	glVertexAttribPointer( colorID, 4, GL_UNSIGNED_BYTE, GL_TRUE, 0, (void*)0);
+	glVertexAttribPointer( colorID, 4, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
 
 	GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
 	glEnableVertexAttribArray(vertexID);
 	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-	glVertexAttribPointer(vertexID, 3, GL_FLOAT, GL_TRUE, 0, (void*)0);
+	glVertexAttribPointer(vertexID, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 	glDrawArrays(GL_TRIANGLES, 0, _vertexCount);
 	
@@ -322,7 +321,6 @@ void Box::Draw()
 
 	_shaderProgram->End();
 
-	GLUtil::GLEnable(GL_LIGHTING, glLighting);
 	GLUtil::GLEnable(GL_BLEND, blend);
 	GLUtil::GLEnable(GL_DEPTH_TEST, depthTest);
 }
