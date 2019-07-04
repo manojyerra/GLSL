@@ -1,15 +1,15 @@
-#version 120
+#version 450
 
 uniform mat4 projMat;
 uniform mat4 modelMat;
-uniform mat3 normalMat;
 uniform mat4 oriMat;
+uniform mat3 normalMat;
 
-attribute vec4 vertex;
-attribute vec3 normal;
+layout (location = 0) in vec4 vertex;
+layout (location = 1) in vec3 normal;
 
-varying vec3 V;
-varying vec3 N;
+layout (location = 0) out vec3 V;
+layout (location = 1) out vec3 N;
 
 void main(void)
 {
