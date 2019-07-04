@@ -1,12 +1,9 @@
-#version 120
+#version 450
 
 uniform mat4 projMat;
+uniform mat4 viewMat;
 uniform mat4 modelMat;
 uniform mat3 normalMat;
-uniform mat4 oriMat;
-
-attribute vec4 vertex;
-attribute vec3 normal;
 
 uniform vec3 lightPos;
 uniform vec4 ambient;
@@ -14,7 +11,10 @@ uniform vec4 diffuse;
 uniform vec4 specular;
 uniform float shininess;
 
-varying vec4 fragColor;
+layout (location = 0) in vec4 vertex;
+layout (location = 1) in vec3 normal;
+
+layout (location = 0) out vec4 fragColor;
 
 void CalcFragColor(vec3 V, vec3 N)
 {
@@ -36,5 +36,5 @@ void main(void)
 	
 	CalcFragColor(V1, N1);
 
-	gl_Position = projMat * modelMat * oriMat * vertex;
+	gl_Position = projMat * viewMat * modelMat * vertex;
 }

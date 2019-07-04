@@ -1,8 +1,10 @@
-#version 120
+#version 450
 
-varying vec4 fragColor;
+layout(location = 0) in vec4 fragColor;
+
+layout(location = 0) out vec4 outColor;
 
 void main (void)  
 {     
-	gl_FragColor = fragColor;
+	outColor = fragColor;
 }
