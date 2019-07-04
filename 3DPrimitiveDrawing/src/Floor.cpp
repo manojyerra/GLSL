@@ -8,7 +8,7 @@ Floor::Floor()
 {
 	_visible = true;
 	_axisVisible = true;
-	_gridVisible = false;
+	_gridVisible = true;
 	_gridLinesVisible = true;
 
 	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
@@ -61,26 +61,29 @@ Floor::Floor()
 	_gridLinesBuffer->glEnd();
 
 
-	_gridBuffer->glBegin(GL_QUADS);
+	_gridBuffer->glBegin(GL_TRIANGLES);
 
 	int c1 = 255;
 	int c2 = 158;
-	for(int outer = (int)start; outer < end; outer++)
+	for (int outer = (int)start; outer < end; outer++)
 	{
 		int temp = c1;
 		c1 = c2;
 		c2 = temp;
-		for(int i=(int)start; i<end; i+=(int)gap)
+		for (int i = (int)start; i < end; i += (int)gap)
 		{
-			if(i%2 == 0)
-				_gridBuffer->glColor4ub(c1,c2,158,255);
+			if (i % 2 == 0)
+				_gridBuffer->glColor4ub(c1, c2, 158, 255);
 			else
-				_gridBuffer->glColor4ub(c2,c1,158,255);
+				_gridBuffer->glColor4ub(c2, c1, 158, 255);
 
 			_gridBuffer->glVertex3f((float)i,		0, outer*gap);
 			_gridBuffer->glVertex3f((float)i+gap,	0, outer*gap);
+			_gridBuffer->glVertex3f((float)i, 0, (outer + 1)*gap);
+
+			_gridBuffer->glVertex3f((float)i + gap, 0, outer*gap);
+			_gridBuffer->glVertex3f((float)i, 0, (outer + 1)*gap);
 			_gridBuffer->glVertex3f((float)i+gap,	0, (outer+1)*gap);
-			_gridBuffer->glVertex3f((float)i,		0, (outer+1)*gap);
 		}
 	}
 	_gridBuffer->glEnd();
@@ -131,9 +134,8 @@ void Floor::Draw()
 	if(_visible == false)
 		return;
 
-	float lineWidth_bk = GLUtil::GLLineWidth(1.0f);
+	float lineWidth = GLUtil::GLLineWidth(1.0f);
 	GLboolean blend = GLUtil::GLEnable(GL_BLEND, true);
-	GLboolean depthTest = GLUtil::GLEnable(GL_DEPTH_TEST, true);
 
 	_shaderProgram->Begin();
 
@@ -193,15 +195,14 @@ void Floor::Draw()
 		glBindBuffer(GL_ARRAY_BUFFER, _gridBuffer->GetVertexBufferID());
 		glVertexAttribPointer( vertexID, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
-		glDrawArrays(GL_QUADS, 0, _gridBuffer->GetVertexCount());
+		glDrawArrays(GL_TRIANGLES, 0, _gridBuffer->GetVertexCount());
 		//disable vertexattibarray here...
 	}
 
 	_shaderProgram->End();
 
-	GLUtil::GLLineWidth(lineWidth_bk);
+	GLUtil::GLLineWidth(lineWidth);
 	GLUtil::GLEnable(GL_BLEND, blend);
-	GLUtil::GLEnable(GL_DEPTH_TEST, depthTest);
 }
 
 Floor::~Floor()
