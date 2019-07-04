@@ -25,7 +25,7 @@ private:
 
 	ShaderProgram* _shaderProgram;
 
-	GLMat _oriMat;
+	GLMat _modelMat;
 	bool _writeBinaryToFile;
 
 	void ReadObjFile(string folderPath);
