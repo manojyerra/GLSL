@@ -7,9 +7,9 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 int main(void)
 {
 	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-	glfwWindowHint(GLFW_SAMPLES, 8);
+	glfwWindowHint(GLFW_SAMPLES, 4);
 
 	int sw = 1500;
 	int sh = 800;
