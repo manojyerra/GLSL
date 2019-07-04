@@ -45,7 +45,7 @@ void Sphere::InitCommon()
 	_normalBufferID = 0;
 	_vertexCount = 0;
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/NormalsAndMaterial/NormalsAndMaterial.vs", "shaders/NormalsAndMaterial/NormalsAndMaterial.fs");
+	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/Phong/Phong.vs", "shaders/Phong/Phong.fs");
 
 	GenerateBufferID();
 }
