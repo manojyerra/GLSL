@@ -67,7 +67,7 @@ void BinaryObjLoader::Draw()
 	GLint oriMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "oriMat");
 
 	glUniformMatrix4fv(projMatLoc, 1, GL_FALSE, Cam::GetInstance()->projMat.m);
-	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, Cam::GetInstance()->modelMat.m);
+	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
 	glUniformMatrix3fv(normalMatLoc, 1, GL_FALSE, Cam::GetInstance()->normalMat);
 	glUniformMatrix4fv(oriMatLoc, 1, GL_FALSE, _oriMat.m);
 
