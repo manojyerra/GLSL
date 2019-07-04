@@ -37,8 +37,8 @@ void Cam::Init(int screenW, int screenH, float zNear, float zFar, float zNearPla
 	_zNearPlaneHalfW = zNearPlaneW/2.0f;
 
 	_pivot = CVector3(0, 0, 0);
-	_trans = CVector3(0, -70, -2500.0f);
-	_angle = CVector3(30, 60, 0);
+	_trans = CVector3(0, 0, -170.0f);
+	_angle = CVector3(30, 0, 0);
 
 	_viewType = 5;
 
@@ -105,23 +105,23 @@ void Cam::SetModelViewMatrix()
 	//glRotatef(_angle.y,0,1,0);
 	//glTranslatef(-_pivot.x, -_pivot.y, -_pivot.z);
 
-	modelMat.glLoadIdentity();
-	modelMat.glTranslatef(_trans.x, _trans.y, _trans.z);
-	modelMat.glRotatef(_angle.x, 1, 0, 0);
-	modelMat.glRotatef(_angle.y, 0, 1, 0);
-	modelMat.glTranslatef(-_pivot.x, -_pivot.y, -_pivot.z);
+	viewMat.glLoadIdentity();
+	viewMat.glTranslatef(_trans.x, _trans.y, _trans.z);
+	viewMat.glRotatef(_angle.x, 1, 0, 0);
+	viewMat.glRotatef(_angle.y, 0, 1, 0);
+	viewMat.glTranslatef(-_pivot.x, -_pivot.y, -_pivot.z);
 
-	normalMat[0] = modelMat.m[0];
-	normalMat[1] = modelMat.m[1];
-	normalMat[2] = modelMat.m[2];
+	normalMat[0] = viewMat.m[0];
+	normalMat[1] = viewMat.m[1];
+	normalMat[2] = viewMat.m[2];
 				
-	normalMat[3] = modelMat.m[4];
-	normalMat[4] = modelMat.m[5];
-	normalMat[5] = modelMat.m[6];
+	normalMat[3] = viewMat.m[4];
+	normalMat[4] = viewMat.m[5];
+	normalMat[5] = viewMat.m[6];
 				
-	normalMat[6] = modelMat.m[8];
-	normalMat[7] = modelMat.m[9];
-	normalMat[8] = modelMat.m[10];
+	normalMat[6] = viewMat.m[8];
+	normalMat[7] = viewMat.m[9];
+	normalMat[8] = viewMat.m[10];
 }
 
 

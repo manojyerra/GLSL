@@ -36,7 +36,7 @@ private:
 
 public:
 	GLMat projMat;
-	GLMat modelMat;
+	GLMat viewMat;
 	float normalMat[9];
 
 	static Cam* GetInstance();
