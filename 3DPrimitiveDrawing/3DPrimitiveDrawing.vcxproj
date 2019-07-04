@@ -152,12 +152,8 @@
     <None Include="shaders\ColorAndScale\ColorAndScale.vs" />
     <None Include="shaders\ColorArray\ColorArray.fs" />
     <None Include="shaders\ColorArray\ColorArray.vs" />
-    <None Include="shaders\NormalsAndMaterial\NormalsAndMaterial.fs" />
-    <None Include="shaders\NormalsAndMaterial\NormalsAndMaterial.vs" />
     <None Include="shaders\PBR\PBR.fs" />
     <None Include="shaders\PBR\PBR.vs" />
-    <None Include="shaders\PBR_MultipleLights\PBR.fs" />
-    <None Include="shaders\PBR_MultipleLights\PBR.vs" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

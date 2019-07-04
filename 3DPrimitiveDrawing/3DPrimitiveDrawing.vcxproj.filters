@@ -40,9 +40,6 @@
     <Filter Include="src\Model3D">
       <UniqueIdentifier>{d06bb947-b175-4bd9-970b-731c66364815}</UniqueIdentifier>
     </Filter>
-    <Filter Include="shaders\NormalsAndMaterial">
-      <UniqueIdentifier>{7e280d1a-831a-4a1a-a7b3-793e3a926ed7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Util">
       <UniqueIdentifier>{185a35b1-5272-4410-80dc-70c5b00da491}</UniqueIdentifier>
     </Filter>
@@ -60,9 +57,6 @@
     </Filter>
     <Filter Include="shaders\PBR">
       <UniqueIdentifier>{b1f37f91-4dc7-42f6-816c-2a528a993f3c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="shaders\PBR_MultipleLights">
-      <UniqueIdentifier>{095f975d-6171-4db0-8b48-432b316510bc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -451,12 +445,6 @@
     <None Include="shaders\ColorArray\ColorArray.vs">
       <Filter>shaders\ColorArray</Filter>
     </None>
-    <None Include="shaders\NormalsAndMaterial\NormalsAndMaterial.fs">
-      <Filter>shaders\NormalsAndMaterial</Filter>
-    </None>
-    <None Include="shaders\NormalsAndMaterial\NormalsAndMaterial.vs">
-      <Filter>shaders\NormalsAndMaterial</Filter>
-    </None>
     <None Include="shaders\ColorAndScale\ColorAndScale.fs">
       <Filter>shaders\ColorAndScale</Filter>
     </None>
@@ -468,12 +456,6 @@
     </None>
     <None Include="shaders\PBR\PBR.vs">
       <Filter>shaders\PBR</Filter>
-    </None>
-    <None Include="shaders\PBR_MultipleLights\PBR.fs">
-      <Filter>shaders\PBR_MultipleLights</Filter>
-    </None>
-    <None Include="shaders\PBR_MultipleLights\PBR.vs">
-      <Filter>shaders\PBR_MultipleLights</Filter>
     </None>
   </ItemGroup>
 </Project>
