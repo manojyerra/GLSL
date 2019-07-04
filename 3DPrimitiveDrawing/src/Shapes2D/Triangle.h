@@ -12,7 +12,7 @@ class Triangle
 	GLuint _colorBufferID;
 	GLuint _vertexCount;
 
-	GLMat _oriMat;
+	GLMat _modelMat;
 
 public:
 	Triangle(CVector3& v1, CVector3& v2, CVector3& v3);
