@@ -97,14 +97,6 @@ bool Cam::IsOrthoView()
 
 void Cam::SetModelViewMatrix()
 {
-	//glMatrixMode(GL_MODELVIEW);
-	//glLoadIdentity();
-	//glTranslatef(_trans.x, _trans.y, _trans.z);
-	////glTranslatef(_pivot.x, _pivot.y, _pivot.z);
-	//glRotatef(_angle.x,1,0,0);
-	//glRotatef(_angle.y,0,1,0);
-	//glTranslatef(-_pivot.x, -_pivot.y, -_pivot.z);
-
 	viewMat.glLoadIdentity();
 	viewMat.glTranslatef(_trans.x, _trans.y, _trans.z);
 	viewMat.glRotatef(_angle.x, 1, 0, 0);
