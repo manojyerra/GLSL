@@ -58,6 +58,9 @@
     <Filter Include="shaders\PBR">
       <UniqueIdentifier>{b1f37f91-4dc7-42f6-816c-2a528a993f3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="shaders\Phong">
+      <UniqueIdentifier>{10c3093c-112d-430b-8aed-23802493ed83}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Macros.cpp">
@@ -456,6 +459,12 @@
     </None>
     <None Include="shaders\PBR\PBR.vs">
       <Filter>shaders\PBR</Filter>
+    </None>
+    <None Include="shaders\Phong\Phone.fs">
+      <Filter>shaders\Phong</Filter>
+    </None>
+    <None Include="shaders\Phong\Phong.vs">
+      <Filter>shaders\Phong</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -154,6 +154,8 @@
     <None Include="shaders\ColorArray\ColorArray.vs" />
     <None Include="shaders\PBR\PBR.fs" />
     <None Include="shaders\PBR\PBR.vs" />
+    <None Include="shaders\Phong\Phone.fs" />
+    <None Include="shaders\Phong\Phong.vs" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
