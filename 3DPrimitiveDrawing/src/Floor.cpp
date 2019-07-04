@@ -132,19 +132,18 @@ void Floor::Draw()
 		return;
 
 	float lineWidth_bk = GLUtil::GLLineWidth(1.0f);
-	GLboolean glLighting = GLUtil::GLEnable(GL_LIGHTING, false);
 	GLboolean blend = GLUtil::GLEnable(GL_BLEND, true);
 	GLboolean depthTest = GLUtil::GLEnable(GL_DEPTH_TEST, true);
 
 	_shaderProgram->Begin();
 
 	GLint projMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "projMat");
+	GLint viewMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "viewMat");
 	GLint modelMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "modelMat");
-	GLint oriMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "oriMat");
 
 	glUniformMatrix4fv(projMatLoc, 1, GL_FALSE, Cam::GetInstance()->projMat.m);
-	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, Cam::GetInstance()->modelMat.m);
-	glUniformMatrix4fv(oriMatLoc, 1, GL_FALSE, _oriMat.m);
+	glUniformMatrix4fv(viewMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
+	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, _modelMat.m);
 
 	if(_axisVisible)
 	{
@@ -171,7 +170,7 @@ void Floor::Draw()
 		GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
 		glEnableVertexAttribArray(colorID);
 		glBindBuffer(GL_ARRAY_BUFFER, _gridLinesBuffer->GetColorBufferID());
-		glVertexAttribPointer( colorID, 4, GL_UNSIGNED_BYTE, GL_TRUE, 0, (void*)0);
+		glVertexAttribPointer( colorID, 4, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
 
 		GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
 		glEnableVertexAttribArray(vertexID);
@@ -187,7 +186,7 @@ void Floor::Draw()
 		GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
 		glEnableVertexAttribArray(colorID);
 		glBindBuffer(GL_ARRAY_BUFFER, _gridBuffer->GetColorBufferID());
-		glVertexAttribPointer(colorID, 4, GL_UNSIGNED_BYTE, GL_TRUE, 0, (void*)0);
+		glVertexAttribPointer(colorID, 4, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
 
 		GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
 		glEnableVertexAttribArray(vertexID);
@@ -201,7 +200,6 @@ void Floor::Draw()
 	_shaderProgram->End();
 
 	GLUtil::GLLineWidth(lineWidth_bk);
-	GLUtil::GLEnable(GL_LIGHTING, glLighting);
 	GLUtil::GLEnable(GL_BLEND, blend);
 	GLUtil::GLEnable(GL_DEPTH_TEST, depthTest);
 }

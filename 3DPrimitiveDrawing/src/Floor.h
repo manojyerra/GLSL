@@ -19,7 +19,7 @@ private:
 	GLBuffer* _gridBuffer;
 	GLBuffer* _gridLinesBuffer;
 
-	GLMat _oriMat;
+	GLMat _modelMat;
 
 public:
 	Floor();
