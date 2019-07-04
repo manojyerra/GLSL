@@ -1,15 +1,22 @@
 #version 120
 
+uniform mat4 projMat;
+uniform mat4 modelMat;
+uniform mat3 normalMat;
+uniform mat4 oriMat;
+
+attribute vec4 vertex;
+attribute vec3 normal;
+
 uniform vec3 lightPos;
 uniform vec4 ambient;
 uniform vec4 diffuse;
 uniform vec4 specular;
 uniform float shininess;
 
-varying vec3 V;
-varying vec3 N;
+varying vec4 fragColor;
 
-void main(void)
+void CalcFragColor(vec3 V, vec3 N)
 {
 	vec3 L = normalize( lightPos - V );
 	vec3 E = normalize(-V); // we are in Eye Coordinates, so EyePos is (0,0,0)  
@@ -19,7 +26,15 @@ void main(void)
 	vec4 Idiff = diffuse * max(dot(N,L), 0.0);
 	vec4 Ispec = specular * pow(max(dot(R,E),0.0), shininess*0.3);
 
-	gl_FragColor =  Iamb + Idiff + Ispec;
-	//gl_FragColor = vec4(gl_FragColor.rgb, 1.0);
-	//gl_FragColor = vec4(1.0, 1.0, 0.0, 1.0);
+	fragColor =  Iamb + Idiff + Ispec;
+}
+
+void main(void)
+{
+	vec3 V1 = vec3( modelMat * vertex );
+	vec3 N1 = normalize( normalMat * normal );
+	
+	CalcFragColor(V1, N1);
+
+	gl_Position = projMat * modelMat * oriMat * vertex;
 }
