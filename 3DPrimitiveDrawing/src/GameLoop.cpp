@@ -16,11 +16,11 @@ GameLoop::GameLoop(int sw, int sh)
 
 	_floor = new Floor();
 
-	CVector3 v1(0.0f, 0.0f, 0.0f);
-	CVector3 v2(0.0f, 5.0f, 0.0f);
-	CVector3 v3(5.0f, 0.0f, 0.0f);
+	//CVector3 v1(0.0f, 0.0f, 0.0f);
+	//CVector3 v2(0.0f, 5.0f, 0.0f);
+	//CVector3 v3(5.0f, 0.0f, 0.0f);
 
-	_triangle = new Triangle(v1, v2, v3);
+	//_triangle = new Triangle(v1, v2, v3);
 
 	//_box = new Box(0, 0, 0, 2, 3, 4);
 	//_box->SetSize(3, 1, 6);
@@ -40,11 +40,18 @@ GameLoop::GameLoop(int sw, int sh)
 	//_sphere->SetPos(5, 0, 0);
 	//_sphere->SetRadius(5);
 
-	//_objLoader = new ObjLoader("data/Container", true);
+	//_objLoader = new ObjLoader("data/Container", false);
 	//_binaryObjLoader = new BinaryObjLoader("data/carScaled");
 
 	//_fbo = new GLFBO(_sw*0.7, _sh*0.7);
 	//_texture = new GLTexture(_sw*0.7, _sh*0.7);
+
+
+	CVector3 v1(0.0f, 0.0f, 0.0f);
+	CVector3 v2(0.0f, 5.0f, 0.0f);
+	CVector3 v3(5.0f, 0.0f, 0.0f);
+
+	_particleLoader = new ParticleLoader(v1, v2, v3);
 }
 
 void GameLoop::GLSettings()
@@ -72,15 +79,13 @@ void GameLoop::GLSettings()
 
 void GameLoop::Update(float deltaTime)
 {
-
-
 }
 
 void GameLoop::Draw()
 {
 	//_fbo->BindFBO();
 
-	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+	glClearColor(0.15f, 0.15f, 0.1f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glViewport(0, 0, _sw, _sh);
 	//glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
@@ -90,11 +95,12 @@ void GameLoop::Draw()
 	_cam->SetModelViewMatrix();
 	_cam->UpdateCamera();
 
-	_floor->Draw();
+	//_floor->Draw();
 	//_objLoader->Draw();
 	//_binaryObjLoader->Draw();
+	_particleLoader->Draw();
 
-	_triangle->Draw();
+	//_triangle->Draw();
 	//_box->Draw();
 	//_cylinder->Draw();
 	//_cone->Draw();

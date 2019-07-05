@@ -22,7 +22,7 @@ CFileReader::CFileReader(string filePath, string readMode)
 	}
 }
 
-int CFileReader::GetLength(string filePath)
+unsigned int CFileReader::GetLength(string filePath)
 {
 	FILE  *fp = fopen(filePath.c_str(), "rb");
     

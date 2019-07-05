@@ -1,8 +1,8 @@
-#version 120
+#version 450
 
-uniform highp vec4 color;
+layout (location = 0) out vec4 outColor;
 
 void main (void)
 {
-   gl_FragColor = color;
+   outColor = vec4(1.0, 0.0, 0.0, 1.0);
 }

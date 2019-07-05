@@ -18,7 +18,7 @@ public:
 	CFileReader(string filePath, string readMode);
 	~CFileReader();
 
-	static int GetLength(string filePath);
+	static unsigned int GetLength(string filePath);
 	static bool IsFileExists(string filePath);
 
 	int GetLength();

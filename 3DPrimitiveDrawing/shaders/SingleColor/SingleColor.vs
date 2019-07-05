@@ -1,10 +1,10 @@
-#version 120
+#version 450
 
 uniform mat4 projMat;
 uniform mat4 viewMat;
 uniform mat4 modelMat;
 
-attribute vec4 vertex;
+layout (location = 0) in vec4 vertex;
 
 void main (void)  
 {     

@@ -37,9 +37,6 @@
     <Filter Include="shaders\ColorArray">
       <UniqueIdentifier>{d341525e-1bb2-4b22-a4ea-b41530c2f1fd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Model3D">
-      <UniqueIdentifier>{d06bb947-b175-4bd9-970b-731c66364815}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Util">
       <UniqueIdentifier>{185a35b1-5272-4410-80dc-70c5b00da491}</UniqueIdentifier>
     </Filter>
@@ -63,6 +60,18 @@
     </Filter>
     <Filter Include="shaders\PhongPerVertex">
       <UniqueIdentifier>{dc7a316e-f79b-4ee1-bf04-3bcd1abe40a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\PBR_ML">
+      <UniqueIdentifier>{a97dd78f-fc72-45bb-9da5-c2aa4c7c70d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GLUtil\PhongShader">
+      <UniqueIdentifier>{37a8ea9e-302d-4837-9ffb-8e22961a6c0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\IO">
+      <UniqueIdentifier>{93cb02ec-00a4-4bb3-bbed-c53e8dbbf746}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\IO\Model3D">
+      <UniqueIdentifier>{108b285b-5f3d-4f02-821a-8b6009272d8a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -228,9 +237,6 @@
     <ClCompile Include="src\GameLoop.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Model3D\ObjLoader.cpp">
-      <Filter>src\Model3D</Filter>
-    </ClCompile>
     <ClCompile Include="src\CFileReader.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -273,11 +279,20 @@
     <ClCompile Include="src\Util\Arrays\VoidPtrArray.cpp">
       <Filter>src\Util\Arrays</Filter>
     </ClCompile>
-    <ClCompile Include="src\Model3D\BinaryObjLoader.cpp">
-      <Filter>src\Model3D</Filter>
-    </ClCompile>
     <ClCompile Include="src\GLUtil\SSAO.cpp">
       <Filter>src\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLUtil\PhongShader\PhongShader.cpp">
+      <Filter>src\GLUtil\PhongShader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IO\Model3D\BinaryObjLoader.cpp">
+      <Filter>src\IO\Model3D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IO\Model3D\ObjLoader.cpp">
+      <Filter>src\IO\Model3D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IO\ParticleLoader.cpp">
+      <Filter>src\IO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -392,9 +407,6 @@
     <ClInclude Include="src\GameLoop.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Model3D\ObjLoader.h">
-      <Filter>src\Model3D</Filter>
-    </ClInclude>
     <ClInclude Include="src\CFileReader.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -437,11 +449,20 @@
     <ClInclude Include="src\Util\Arrays\VoidPtrArray.h">
       <Filter>src\Util\Arrays</Filter>
     </ClInclude>
-    <ClInclude Include="src\Model3D\BinaryObjLoader.h">
-      <Filter>src\Model3D</Filter>
-    </ClInclude>
     <ClInclude Include="src\GLUtil\SSAO.h">
       <Filter>src\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\PhongShader\PhongShader.h">
+      <Filter>src\GLUtil\PhongShader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IO\Model3D\BinaryObjLoader.h">
+      <Filter>src\IO\Model3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IO\Model3D\ObjLoader.h">
+      <Filter>src\IO\Model3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IO\ParticleLoader.h">
+      <Filter>src\IO</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -474,6 +495,12 @@
     </None>
     <None Include="shaders\PhongPerVertex\PhongPerVertex.vs">
       <Filter>shaders\PhongPerVertex</Filter>
+    </None>
+    <None Include="shaders\PBR_ML\PBR_ML.fs">
+      <Filter>shaders\PBR_ML</Filter>
+    </None>
+    <None Include="shaders\PBR_ML\PBR_ML.vs">
+      <Filter>shaders\PBR_ML</Filter>
     </None>
   </ItemGroup>
 </Project>
