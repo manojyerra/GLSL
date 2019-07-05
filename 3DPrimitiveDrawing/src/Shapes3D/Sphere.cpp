@@ -45,7 +45,9 @@ void Sphere::InitCommon()
 	_normalBufferID = 0;
 	_vertexCount = 0;
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/Phong/Phong.vs", "shaders/Phong/Phong.fs");
+	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram(
+		"shaders/Phong/Phong.vs", 
+		"shaders/Phong/Phong.fs");
 
 	GenerateBufferID();
 }
@@ -97,39 +99,31 @@ void Sphere::Draw()
 {
 	if(!_visible)
 		return;
-	
-	//glScalef(_r, _r, _r);
 
 	_shaderProgram->Begin();
 
 	GLint projMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "projMat");
+	GLint viewMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "viewMat");
 	GLint modelMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "modelMat");
 	GLint normalMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "normalMat");
-	GLint oriMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "oriMat");
 	//GLint scaleMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "scaleMat");
 
 	glUniformMatrix4fv(projMatLoc, 1, GL_FALSE, Cam::GetInstance()->projMat.m);
-	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
+	glUniformMatrix4fv(viewMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
+	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, m);
 	glUniformMatrix4fv(normalMatLoc, 1, GL_FALSE, Cam::GetInstance()->normalMat);
-	glUniformMatrix4fv(oriMatLoc, 1, GL_FALSE, m);
 	//glUniformMatrix4fv(scaleMatLoc, 1, GL_FALSE, _scaleMat.m);
 
-	GLfloat Ka[] = { 0.2f, 0.2f, 0.2f, 1.0f };
-	GLfloat Kd[] = { 0.8f, 0.8f, 0.8f, 1.0f };
-	GLfloat Ks[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-	GLfloat Se = 2.0f;
+	GLfloat Ka[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat Kd[] = { 0.64, 0.64, 0.64, 1.0 };
+	GLfloat Ks[] = { 0.5, 0.5, 0.5, 1.0 };
+	GLfloat Se = 38.4;
 
 	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "lightPos"), 0.0, 0.0, 0.0);
 	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "ambient"), Ka[0], Ka[1], Ka[2], Ka[3]);
 	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "diffuse"), Kd[0], Kd[1], Kd[2], Kd[3]);
 	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "specular"), Ks[0], Ks[1], Ks[2], Ks[3]);
 	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "shininess"), Se);
-
-	//glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "lightPos"), 0.0f, 0.0f, 0.0f);
-	//glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "ambient"), 0.2f, 0.2f, 0.2f, 1.0f);
-	//glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "diffuse"), 0.8f, 0.8f, 0.8f, 1.0f);
-	//glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "specular"), 0.0f, 0.0f, 0.0f, 1.0f);
-	//glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "shininess"), 0.52f);
 
 	GLuint normalID = glGetAttribLocation(_shaderProgram->ProgramID(), "normal");
 	glEnableVertexAttribArray(normalID );
