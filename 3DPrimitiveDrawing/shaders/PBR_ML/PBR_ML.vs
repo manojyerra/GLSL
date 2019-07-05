@@ -1,15 +1,15 @@
-#version 120
+#version 450
 
-attribute vec4 vertex;
-attribute vec3 normal;
+layout (location = 0) in vec4 vertex;
+layout (location = 1) in vec3 normal;
 
 uniform mat4 projMat;
 uniform mat4 viewMat;
 uniform mat4 modelMat;
 uniform mat3 normalMat;
 
-varying vec3 viewNormal;
-varying vec4 viewPosition;
+layout (location = 0) out vec3 viewNormal;
+layout (location = 1) out vec4 viewPosition;
 
 void main()
 {

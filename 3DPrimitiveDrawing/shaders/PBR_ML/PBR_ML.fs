@@ -1,19 +1,19 @@
-#version 120
+#version 450
 
 const float PI = 3.14159265359;
 
-varying vec3 viewNormal;
-varying vec4 viewPosition;
+layout (location = 0) in vec3 viewNormal;
+layout (location = 1) in vec4 viewPosition;
 
 uniform vec3 direction;
 uniform vec3 color;
-
 uniform vec3 albedo;
 uniform float metallic;
 uniform float roughness;
 
 uniform mat4 camMat;
 
+layout (location = 0) out vec4 outColor;
 
 float distributionGGX(float ndoth, float roughness)
 {
@@ -100,5 +100,5 @@ void main()
 	finalColor = finalColor / (finalColor + vec3(1.0));
     finalColor = pow(finalColor, vec3(1.0/2.2));  
 
-	gl_FragColor = vec4(finalColor, 1.0);
+	outColor = vec4(finalColor, 1.0);
 }
