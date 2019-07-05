@@ -61,6 +61,9 @@
     <Filter Include="shaders\Phong">
       <UniqueIdentifier>{10c3093c-112d-430b-8aed-23802493ed83}</UniqueIdentifier>
     </Filter>
+    <Filter Include="shaders\PhongPerVertex">
+      <UniqueIdentifier>{dc7a316e-f79b-4ee1-bf04-3bcd1abe40a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Macros.cpp">
@@ -460,11 +463,17 @@
     <None Include="shaders\PBR\PBR.vs">
       <Filter>shaders\PBR</Filter>
     </None>
-    <None Include="shaders\Phong\Phone.fs">
-      <Filter>shaders\Phong</Filter>
-    </None>
     <None Include="shaders\Phong\Phong.vs">
       <Filter>shaders\Phong</Filter>
+    </None>
+    <None Include="shaders\Phong\Phong.fs">
+      <Filter>shaders\Phong</Filter>
+    </None>
+    <None Include="shaders\PhongPerVertex\PhongPerVertex.fs">
+      <Filter>shaders\PhongPerVertex</Filter>
+    </None>
+    <None Include="shaders\PhongPerVertex\PhongPerVertex.vs">
+      <Filter>shaders\PhongPerVertex</Filter>
     </None>
   </ItemGroup>
 </Project>
