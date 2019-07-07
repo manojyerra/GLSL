@@ -8,7 +8,7 @@ Floor::Floor()
 {
 	_visible = true;
 	_axisVisible = true;
-	_gridVisible = true;
+	_gridVisible = false;
 	_gridLinesVisible = true;
 
 	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");

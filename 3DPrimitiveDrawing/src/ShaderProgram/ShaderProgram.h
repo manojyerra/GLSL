@@ -29,6 +29,7 @@ public:
 	void End();
 
 	void SetUniformMatrix4fv(const char* str, float* mat);
+	void SetUniform1f(const char* str, float val);
 
 	string GetVertexShaderFilePath();
 	string GetGeometryShaderFilePath();

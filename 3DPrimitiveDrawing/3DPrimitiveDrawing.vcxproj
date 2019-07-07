@@ -156,6 +156,9 @@
     <None Include="shaders\ColorAndScale\ColorAndScale.vs" />
     <None Include="shaders\ColorArray\ColorArray.fs" />
     <None Include="shaders\ColorArray\ColorArray.vs" />
+    <None Include="shaders\CubeGeo\CubeGeo.fs" />
+    <None Include="shaders\CubeGeo\CubeGeo.gs" />
+    <None Include="shaders\CubeGeo\CubeGeo.vs" />
     <None Include="shaders\PBR\PBR.fs" />
     <None Include="shaders\PBR\PBR.vs" />
     <None Include="shaders\PBR_ML\PBR_ML.fs" />

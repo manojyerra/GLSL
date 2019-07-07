@@ -160,8 +160,13 @@ GLint ShaderProgram::CompileShader(const char* shaderFilePath, GLenum shaderType
 
 void ShaderProgram::SetUniformMatrix4fv(const char* str, float* mat)
 {
-	GLint uniformLoc = glGetUniformLocation(_programID, str);
-	glUniformMatrix4fv(uniformLoc, 1, GL_FALSE, mat);
+	GLint location = glGetUniformLocation(_programID, str);
+	glUniformMatrix4fv(location, 1, GL_FALSE, mat);
+}
+
+void ShaderProgram::SetUniform1f(const char* str, float val)
+{
+	glUniform1f( glGetUniformLocation(_programID, str), val);
 }
 
 GLuint ShaderProgram::ProgramID()

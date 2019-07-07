@@ -69,8 +69,8 @@ void GameLoop::GLSettings()
 	//glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 
 	//glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	glFrontFace(GL_CCW);
+	//glCullFace(GL_BACK);
+	//glFrontFace(GL_CCW);
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
@@ -95,7 +95,7 @@ void GameLoop::Draw()
 	_cam->SetModelViewMatrix();
 	_cam->UpdateCamera();
 
-	//_floor->Draw();
+	_floor->Draw();
 	//_objLoader->Draw();
 	//_binaryObjLoader->Draw();
 	_particleLoader->Draw();

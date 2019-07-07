@@ -73,6 +73,9 @@
     <Filter Include="src\IO\Model3D">
       <UniqueIdentifier>{108b285b-5f3d-4f02-821a-8b6009272d8a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="shaders\CubeGeo">
+      <UniqueIdentifier>{221b5d6b-5ec3-4ede-9357-cf29e5efc082}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Macros.cpp">
@@ -501,6 +504,15 @@
     </None>
     <None Include="shaders\PBR_ML\PBR_ML.vs">
       <Filter>shaders\PBR_ML</Filter>
+    </None>
+    <None Include="shaders\CubeGeo\CubeGeo.fs">
+      <Filter>shaders\CubeGeo</Filter>
+    </None>
+    <None Include="shaders\CubeGeo\CubeGeo.gs">
+      <Filter>shaders\CubeGeo</Filter>
+    </None>
+    <None Include="shaders\CubeGeo\CubeGeo.vs">
+      <Filter>shaders\CubeGeo</Filter>
     </None>
   </ItemGroup>
 </Project>
