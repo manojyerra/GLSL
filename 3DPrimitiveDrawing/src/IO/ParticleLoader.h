@@ -42,6 +42,7 @@ class ParticleLoader
 {
 	ShaderProgram* _shaderProgram;
 	GLuint _vertexBufferID;
+	GLuint _colorBufferID;
 	GLuint _vertexCount;
 
 	GLMat _modelMat;
