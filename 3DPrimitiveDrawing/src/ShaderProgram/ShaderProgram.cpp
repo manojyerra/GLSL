@@ -7,35 +7,19 @@ ShaderProgram::ShaderProgram(string vertexShaderFilePath, string fragmentShaderF
 	_vertexShaderPath = vertexShaderFilePath;
 	_fragmentShaderPath = fragmentShaderFilePath;
 
-	printf("\nCompiling vertex shader...\n");
+	printf("Compiling vertex shader. FilePath : %s\n", vertexShaderFilePath.c_str());
 	GLint vertexShaderObj = CompileShader(_vertexShaderPath.c_str(), GL_VERTEX_SHADER);
-
-	if (vertexShaderObj == -1)
-	{
-		throw std::exception("Compiling vertex shader failed.");
-		return;
-	}
-
-	printf("\nCompiling fragment shader...\n");
+	printf("Compiling fragment shader. FilePath : %s\n", fragmentShaderFilePath.c_str());
 	GLint fragmentShaderObj = CompileShader(_fragmentShaderPath.c_str(), GL_FRAGMENT_SHADER);
 
-	if (fragmentShaderObj == -1)
-	{
-		throw std::exception("Compiling fragment shader failed.");
-		return;
-	}
-
-	// Link the program
-	printf("\nLinking program\n");
-
+	printf("Linking program...\n");
 	_programID = glCreateProgram();
 	glAttachShader(_programID, vertexShaderObj);
 	glAttachShader(_programID, fragmentShaderObj);
 	glLinkProgram(_programID);
 
-	// Check the program
 	GLint linkStatus = GL_FALSE;
-	int infoLogLength;
+	int infoLogLength = 0;
 
 	glGetProgramiv(_programID, GL_LINK_STATUS, &linkStatus);
 	glGetProgramiv(_programID, GL_INFO_LOG_LENGTH, &infoLogLength);
@@ -46,29 +30,24 @@ ShaderProgram::ShaderProgram(string vertexShaderFilePath, string fragmentShaderF
 	glDeleteShader(vertexShaderObj);
 	glDeleteShader(fragmentShaderObj);
 
+	if (infoLogLength > 0)
+	{
+		std::vector<char> programInfoLog(infoLogLength + 1);
+		glGetProgramInfoLog(_programID, infoLogLength, NULL, &programInfoLog[0]);
+		printf("%s\n", &programInfoLog[0]);
+	}
+
 	if(!linkStatus)
 	{
-		printf("\nLinking failed...");
-
-		if(infoLogLength > 0)
-		{
-			std::vector<char> programInfoLog(infoLogLength+1);
-			glGetProgramInfoLog(_programID, infoLogLength, NULL, &programInfoLog[0]);
-			printf("%s\n", &programInfoLog[0]);
-		}
-
-		throw std::exception("\nLinking failed...");
-		return;
+		throw std::exception("Linking failed...");
+		exit(0);
 	}
-	else
-	{
-		if(infoLogLength > 0)
-		{
-			std::vector<char> programInfoLog(infoLogLength+1);
-			glGetProgramInfoLog(_programID, infoLogLength, NULL, &programInfoLog[0]);
-			printf("%s\n", &programInfoLog[0]);
-		}
-	}
+	printf("\n");
+}
+
+ShaderProgram::ShaderProgram(string vertexShaderFilePath, string geometryShaderFilePath, string fragmentShaderFilePath)
+{
+
 }
 
 unsigned int ShaderProgram::GetFileLength(string filePath)
@@ -90,19 +69,12 @@ unsigned int ShaderProgram::GetFileLength(string filePath)
 
 GLint ShaderProgram::CompileShader(const char* shaderFilePath, GLenum shaderType)
 {
-	unsigned int shaderFileLen = GetFileLength( shaderFilePath );
-	
-	if(shaderFileLen == 0)
-	{
-		printf("\nError : Shader file length is zero.\n");
-		return -1;
-	}
-
-	FILE* fp = fopen(shaderFilePath, "rb");
 	char* shaderFileData = NULL;
+	FILE* fp = fopen(shaderFilePath, "rb");
 
     if(fp)
     {
+		unsigned int shaderFileLen = GetFileLength(shaderFilePath);
 		shaderFileData = (char*)malloc(shaderFileLen+1);
 		memset(shaderFileData, (int)'\0', shaderFileLen+1);
 		fread(shaderFileData, 1, shaderFileLen, fp);
@@ -110,8 +82,8 @@ GLint ShaderProgram::CompileShader(const char* shaderFilePath, GLenum shaderType
 	}
 	else
 	{
-		printf("\nError : Unable to open shader file.\n");
-		return -1;	//unable to open file.
+		throw std::exception("\nError: Failed to open shader file.");
+		exit(0);
 	}
 
 	GLuint shaderObject =  glCreateShader(shaderType);
@@ -129,19 +101,13 @@ GLint ShaderProgram::CompileShader(const char* shaderFilePath, GLenum shaderType
 	std::vector<char> shaderCompileLog(compilationLogLength+1);
 	glGetShaderInfoLog(shaderObject, compilationLogLength, NULL, &shaderCompileLog[0]);
 
+	if (compilationLogLength > 0)
+		printf("\n%s\n", &shaderCompileLog[0]);
+
 	if(!shaderCompileStatus)
 	{
-		printf("\nCompilation Failed");
-			
-		if(compilationLogLength > 0)
-			printf("\n%s\n", &shaderCompileLog[0]);
-
-		return -1;
-	}
-	else
-	{
-		if(compilationLogLength > 0)
-			printf("\n%s\n", &shaderCompileLog[0]);
+		throw std::exception("\nError: Failed to compile shader.");
+		exit(0);
 	}
 
 	return shaderObject;
@@ -171,7 +137,6 @@ string ShaderProgram::GetFragmentShaderFilePath()
 {
 	return _fragmentShaderPath;
 }
-
 
 ShaderProgram::~ShaderProgram()
 {

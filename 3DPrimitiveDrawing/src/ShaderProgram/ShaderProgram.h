@@ -19,6 +19,8 @@ private:
 
 public:
 	ShaderProgram(string vertexShaderFilePath, string fragmentShaderFilePath);
+	ShaderProgram(string vertexShaderFilePath, string geometryShaderFilePath, string fragmentShaderFilePath);
+
 	~ShaderProgram();
 
 	GLuint ProgramID();
