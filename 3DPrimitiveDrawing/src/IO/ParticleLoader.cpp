@@ -67,10 +67,19 @@ void ParticleLoader::Draw()
 	glm::mat4 modelMat = glm::make_mat4(_modelMat.m);
 
 	glm::mat4 mvp = projMat * viewMat * modelMat;
+	glm::mat4 modelViewMat = viewMat * modelMat;
 	glm::mat3 normalMat = glm::mat3(viewMat);
 
 	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(mvp));
+	_shaderProgram->SetUniformMatrix3fv("normalMat", glm::value_ptr(normalMat));
+	_shaderProgram->SetUniformMatrix4fv("modelViewMat", glm::value_ptr(modelViewMat));
 	_shaderProgram->SetUniform1f("hLen", 0.001);
+
+	GLfloat Ka[] = { 0.329412,	0.223529,	0.027451,	1 };
+	GLfloat Kd[] = { 0.780392,	0.568627,	0.113725,	1 };
+
+	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "ambient"), Ka[0], Ka[1], Ka[2], Ka[3]);
+	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "diffuse"), Kd[0], Kd[1], Kd[2], Kd[3]);
 
 	GLuint vertexLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
 	glEnableVertexAttribArray(vertexLoc);
