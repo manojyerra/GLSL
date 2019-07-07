@@ -12,9 +12,9 @@ class ShaderProgram
 private:
 	GLuint _programID;
 	string _vertexShaderPath;
+	string _geometryShaderPath;
 	string _fragmentShaderPath;
 
-	unsigned int GetFileLength(string filePath);
 	GLint CompileShader(const char* shaderFilePath, GLenum shaderType);
 
 public:
@@ -29,8 +29,8 @@ public:
 	void End();
 
 	string GetVertexShaderFilePath();
+	string GetGeometryShaderFilePath();
 	string GetFragmentShaderFilePath();
-
 };
 
 #endif
