@@ -28,6 +28,8 @@ public:
 	void Begin();
 	void End();
 
+	void SetUniformMatrix4fv(const char* str, float* mat);
+
 	string GetVertexShaderFilePath();
 	string GetGeometryShaderFilePath();
 	string GetFragmentShaderFilePath();

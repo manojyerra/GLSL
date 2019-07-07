@@ -69,14 +69,9 @@ void ParticleLoader::Draw()
 {
 	_shaderProgram->Begin();
 
-	GLint projMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "projMat");
-	GLint viewMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "viewMat");
-	GLint modelMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "modelMat");
-
-	glUniformMatrix4fv(projMatLoc, 1, GL_FALSE, Cam::GetInstance()->projMat.m);
-	glUniformMatrix4fv(viewMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
-	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, _modelMat.m);
-
+	_shaderProgram->SetUniformMatrix4fv("projMat", Cam::GetInstance()->projMat.m);
+	_shaderProgram->SetUniformMatrix4fv("viewMat", Cam::GetInstance()->viewMat.m);
+	_shaderProgram->SetUniformMatrix4fv("modelMat", _modelMat.m);
 
 	GLuint vertexLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
 	glEnableVertexAttribArray(vertexLoc);
