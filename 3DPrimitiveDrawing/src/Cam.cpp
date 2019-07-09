@@ -139,6 +139,7 @@ bool Cam::UpdateCamera()
 	{
 		_trans.z += (float)(Input::PrevMY - Input::MY) * 2.0f;
 
+
 		return true;
 	}
 	else if(Input::IsMiddleMousePressed())

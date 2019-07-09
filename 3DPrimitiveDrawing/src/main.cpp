@@ -3,6 +3,7 @@
 #include "Input.h"
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
 int main(void)
 {
@@ -29,6 +30,7 @@ int main(void)
 
 	Input::Init();
 	glfwSetMouseButtonCallback(window, mouse_button_callback);
+	glfwSetScrollCallback(window, scroll_callback);
 
 	//std::cout << glGetString(GL_VERSION) << std::endl;
 	
@@ -84,6 +86,19 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		{
 			Input::RIGHT_BUTTON_DOWN = false;
 		}
+	}
+}
+
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	if(yoffset < 0)
+	{
+		Input::SCROLL_STATE_STORE = Input::SCROLL_DOWN;
+	}
+	else
+	{
+		Input::SCROLL_STATE_STORE = Input::SCROLL_UP;
 	}
 }
 

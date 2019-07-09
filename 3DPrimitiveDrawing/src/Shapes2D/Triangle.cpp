@@ -10,7 +10,7 @@ Triangle::Triangle(CVector3& v1, CVector3& v2, CVector3& v3)
 	GLBuffer* glBuffer = new GLBuffer(50, true, false, false);
 
 	glBuffer->glBegin(GL_TRIANGLES);
-	glBuffer->glColor4ub(255,0,0,255);
+	glBuffer->glColor3ub(255,0,0);
 	glBuffer->glVertex3f(v1.x, v1.y, v1.z);
 	glBuffer->glVertex3f(v2.x, v2.y, v2.z);
 	glBuffer->glVertex3f(v3.x, v3.y, v3.z);
@@ -42,7 +42,7 @@ void Triangle::Draw()
 	GLuint colorLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
 	glEnableVertexAttribArray(colorLoc);
 	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-	glVertexAttribPointer(colorLoc, 4, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
+	glVertexAttribPointer(colorLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 	GLuint vertexLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
 	glEnableVertexAttribArray(vertexLoc);

@@ -220,7 +220,7 @@ void Cone::Draw()
 	GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
 	glEnableVertexAttribArray(colorID);
 	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-	glVertexAttribPointer( colorID, 4, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
+	glVertexAttribPointer( colorID, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 	GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
 	glEnableVertexAttribArray(vertexID);
@@ -259,7 +259,7 @@ void Cone::GenerateBufferID()
 
 		buffer->glVertex3f(0, halfLength, 0);
 
-		buffer->glColor4ub(80, 80, 80, 255);
+		buffer->glColor3ub(80, 80, 80);
 		buffer->glVertex3f(radius*cos(nextTheta),	-halfLength,	radius*sin(nextTheta));
 		buffer->glVertex3f(radius*cos(theta),	-halfLength,	radius*sin(theta));
 

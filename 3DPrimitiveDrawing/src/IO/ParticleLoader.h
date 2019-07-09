@@ -48,7 +48,7 @@ class ParticleLoader
 	GLMat _modelMat;
 
 public:
-	ParticleLoader(CVector3& v1, CVector3& v2, CVector3& v3);
+	ParticleLoader();
 	~ParticleLoader();
 
 	void Draw();

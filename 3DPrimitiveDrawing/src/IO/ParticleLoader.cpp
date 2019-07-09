@@ -12,7 +12,7 @@
 #include <unordered_set>
 using namespace std;
 
-ParticleLoader::ParticleLoader(CVector3& v1, CVector3& v2, CVector3& v3)
+ParticleLoader::ParticleLoader()
 {
 	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram(
 		"shaders/CubeGeo/CubeGeo.vs",
@@ -23,6 +23,53 @@ ParticleLoader::ParticleLoader(CVector3& v1, CVector3& v2, CVector3& v3)
 	_colorBufferID = 0;
 	_vertexCount = 0;
 
+	unsigned int vertexBufLen = 36;
+	
+	float* vertexBuf = (float*)malloc(vertexBufLen);
+	
+	float y = 0.0f;
+	
+	vertexBuf[0] = 0.0f;
+	vertexBuf[1] = y;
+	vertexBuf[2] = 0.0f;
+	
+	vertexBuf[3] = -5.0f;
+	vertexBuf[4] = y;
+	vertexBuf[5] = 0.0f;
+	
+	vertexBuf[6] = 5.0f;
+	vertexBuf[7] = y;
+	vertexBuf[8] = 0.0f;
+	
+	glGenBuffers(1, &_vertexBufferID);
+	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
+	glBufferData(GL_ARRAY_BUFFER, vertexBufLen, vertexBuf, GL_STATIC_DRAW);
+	
+	
+	unsigned int colorBufLen = 12;
+	unsigned char* colorBuf = (unsigned char*)malloc(colorBufLen);
+	
+	colorBuf[0] = 255;
+	colorBuf[1] = 0;
+	colorBuf[2] = 0;
+	
+	colorBuf[3] = 0;
+	colorBuf[4] = 255;
+	colorBuf[5] = 0;
+	
+	colorBuf[6] = 0;
+	colorBuf[7] = 0;
+	colorBuf[8] = 255;
+	
+	glGenBuffers(1, &_colorBufferID);
+	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
+	glBufferData(GL_ARRAY_BUFFER, colorBufLen, colorBuf, GL_STATIC_DRAW);
+	
+	
+	_vertexCount = vertexBufLen / 12;
+	free(vertexBuf);
+
+	/*
 	FILE* fp = fopen("data/xData.bin", "rb");
 
 	if (fp)
@@ -56,6 +103,7 @@ ParticleLoader::ParticleLoader(CVector3& v1, CVector3& v2, CVector3& v3)
 		glBufferData(GL_ARRAY_BUFFER, colorBufLen, colorBuf, GL_STATIC_DRAW);
 		free(colorBuf);
 	}
+	*/
 }
 
 void ParticleLoader::Draw()
@@ -73,7 +121,7 @@ void ParticleLoader::Draw()
 	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(mvp));
 	_shaderProgram->SetUniformMatrix3fv("normalMat", glm::value_ptr(normalMat));
 	_shaderProgram->SetUniformMatrix4fv("modelViewMat", glm::value_ptr(modelViewMat));
-	_shaderProgram->SetUniform1f("hLen", 0.001);
+	_shaderProgram->SetUniform1f("hLen", 1.0);
 
 	GLfloat Ka[] = { 0.329412,	0.223529,	0.027451,	1 };
 	GLfloat Kd[] = { 0.780392,	0.568627,	0.113725,	1 };

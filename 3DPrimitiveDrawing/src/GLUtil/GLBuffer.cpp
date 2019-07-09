@@ -13,21 +13,20 @@ GLBuffer::GLBuffer(unsigned int capacity, bool colorDataPresent, bool uvDataPres
 	_normalArr = NULL;
 
 	_vertexArr = new GLfloat[_capacity*3];
-	if(colorDataPresent)	_colorArr = new GLubyte[_capacity*4];
+	if(colorDataPresent)	_colorArr = new GLfloat[_capacity*3];
 	if(uvDataPresent)		_uvArr = new GLfloat[_capacity*2];
 	if(normalsDataPresent)	_normalArr = new GLfloat[_capacity*3];
 
-	_r = (GLubyte)255;
-	_g = (GLubyte)255;
-	_b = (GLubyte)255;
-	_a = (GLubyte)255;
+	_r = 1.0f;
+	_g = 1.0f;
+	_b = 1.0f;
 
-	_u = 0;
-	_v = 0;
+	_u = 0.0f;
+	_v = 0.0f;
 
-	_nx = 0;
-	_ny = 0;
-	_nz = 0;
+	_nx = 0.0f;
+	_ny = 0.0f;
+	_nz = 0.0f;
 
 	_count = 0;
 	_mode = 0;
@@ -47,20 +46,18 @@ void GLBuffer::ReCreateMem()
 {
 	int newCapacity = _capacity + _incrementInCapacity;
 
-	//prinf("\n\tNew Capacity : %d\n", newCapacity);
-
 	GLfloat* newVertexArr = NULL;
-	GLubyte* newColorArr = NULL;
+	GLfloat* newColorArr = NULL;
 	GLfloat* newUVArr = NULL;
 	GLfloat* newNormalArr = NULL;
 
 	if(_vertexArr)	newVertexArr = new GLfloat[newCapacity*3];
-	if(_colorArr)	newColorArr = new GLubyte[newCapacity*4];
+	if(_colorArr)	newColorArr = new GLfloat[newCapacity*3];
 	if(_uvArr)		newUVArr = new GLfloat[newCapacity*2];
 	if(_normalArr)	newNormalArr = new GLfloat[newCapacity*3];
 
 	if(_vertexArr)	memcpy(newVertexArr,	_vertexArr,		_capacity*3*4);
-	if(_colorArr)	memcpy(newColorArr,		_colorArr,		_capacity*4*1);
+	if(_colorArr)	memcpy(newColorArr,		_colorArr,		_capacity*3*4);
 	if(_uvArr)		memcpy(newUVArr,		_uvArr,			_capacity*2*4);
 	if(_normalArr)	memcpy(newNormalArr,	_normalArr,		_capacity*3*4);
 
@@ -85,44 +82,23 @@ void GLBuffer::glBegin(GLenum mode)
 
 void GLBuffer::glColor(unsigned int color)
 {
-    _r	= (color >> 24) & 255;
-	_g	= (color >> 16) & 255;
-	_b	= (color >> 8) & 255;
-	_a	= (color ) & 255;
+	_r = ((color >> 24) & 255) / 255.0f;
+	_g = ((color >> 16) & 255) / 255.0f;
+	_b = ((color >> 8) & 255) / 255.0f;
 }
 
-void GLBuffer::glColor4ub(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+void GLBuffer::glColor3ub(unsigned char r, unsigned char g, unsigned char b)
 {
-	_r = (GLubyte)r;
-	_g = (GLubyte)g;
-	_b = (GLubyte)b;
-	_a = (GLubyte)a;
+	_r = r * 1.0f / 255.0f;
+	_g = g * 1.0f / 255.0f;
+	_b = b * 1.0f / 255.0f;
 }
 
-void GLBuffer::glColoruia(unsigned int color, unsigned char alpha)
+void GLBuffer::glColor3f(float r, float g, float b)
 {
-    _r	= (color >> 24) & 255;
-	_g	= (color >> 16) & 255;
-	_b	= (color >> 8) & 255;
-	_a = alpha;		
-}
-
-void GLBuffer::glColor4f(float r, float g, float b, float a)
-{
-	_r = (GLubyte)(r*255.0f);
-	_g = (GLubyte)(g*255.0f);
-	_b = (GLubyte)(b*255.0f);
-	_a = (GLubyte)(a*255.0f);
-}
-
-void GLBuffer::glVertex3f(const CVector3& vec)
-{
-	this->glVertex3f(vec.x, vec.y, vec.z);
-}
-
-void GLBuffer::glNormal3f(const CVector3& vec)
-{
-	this->glNormal3f(vec.x, vec.y, vec.z);
+	_r = r;
+	_g = g;
+	_b = b;
 }
 
 void GLBuffer::glTexCoord2f(const CVector3& vec)
@@ -130,14 +106,36 @@ void GLBuffer::glTexCoord2f(const CVector3& vec)
 	this->glTexCoord2f(vec.x, vec.y);
 }
 
+void GLBuffer::glTexCoord2f(GLfloat u, GLfloat v)
+{
+	_u = u;
+	_v = v;
+}
+
+void GLBuffer::glNormal3f(GLfloat x, GLfloat y, GLfloat z)
+{
+	_nx = x;
+	_ny = y;
+	_nz = z;
+}
+
+void GLBuffer::glNormal3f(const CVector3& vec)
+{
+	this->glNormal3f(vec.x, vec.y, vec.z);
+}
+
+void GLBuffer::glVertex3f(const CVector3& vec)
+{
+	this->glVertex3f(vec.x, vec.y, vec.z);
+}
+
 void GLBuffer::glVertex3f(GLfloat x, GLfloat y, GLfloat z)
 {
 	if(_colorArr)
 	{
-		_colorArr[_count*4 + 0] = _r;
-		_colorArr[_count*4 + 1] = _g;
-		_colorArr[_count*4 + 2] = _b;
-		_colorArr[_count*4 + 3] = _a;
+		_colorArr[_count*3 + 0] = _r;
+		_colorArr[_count*3 + 1] = _g;
+		_colorArr[_count*3 + 2] = _b;
 	}
 
 	if(_uvArr)
@@ -163,22 +161,9 @@ void GLBuffer::glVertex3f(GLfloat x, GLfloat y, GLfloat z)
 		ReCreateMem();
 }
 
-void GLBuffer::glTexCoord2f(GLfloat u, GLfloat v)
-{
-	_u = u;
-	_v = v;
-}
-
-void GLBuffer::glNormal3f(GLfloat x, GLfloat y, GLfloat z)
-{
-	_nx = x;
-	_ny = y;
-	_nz = z;
-}
-
 GLfloat* GLBuffer::GetVertexArr()		{	return _vertexArr;	}
 GLfloat* GLBuffer::GetUVArr()			{	return _uvArr;		}
-GLubyte* GLBuffer::GetColorArr()		{	return _colorArr;	}
+GLfloat* GLBuffer::GetColorArr()		{	return _colorArr;	}
 GLfloat* GLBuffer::GetNormalArr()		{	return _normalArr;	}
 
 GLuint GLBuffer::GetVertexBufferID()	{	return _vertexBufferID;		}
@@ -198,7 +183,7 @@ void GLBuffer::glEnd()
 		{
 			glGenBuffers(1, &_colorBufferID);
 			glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-			glBufferData(GL_ARRAY_BUFFER, _count * 4, _colorArr, GL_STATIC_DRAW);
+			glBufferData(GL_ARRAY_BUFFER, _count * 3 * 4, _colorArr, GL_STATIC_DRAW);
 		}
 
 		if(_uvArr)
