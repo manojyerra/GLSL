@@ -18,7 +18,7 @@ int main(void)
 	int sh = mode->height;
 
 	GLFWwindow* window = glfwCreateWindow(sw, sh, "GLFW Window", NULL, NULL);
-
+	glfwMaximizeWindow(window);
 	glfwMakeContextCurrent(window);
 
 	if (glewInit() != GLEW_OK)
@@ -33,7 +33,6 @@ int main(void)
 	Input::Init();
 	glfwSetMouseButtonCallback(window, mouse_button_callback);
 	glfwSetScrollCallback(window, scroll_callback);
-	//std::cout << glGetString(GL_VERSION) << std::endl;
 
 	double previousTime = glfwGetTime();
 	unsigned int frameCount = 0;
@@ -133,10 +132,20 @@ if (state == GLFW_PRESS)
 }
 
 
-	glfwWindowHint(GLFW_RED_BITS, mode->redBits);
-	glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
-	glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
-	glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
 
+
+glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+
+
+glfwSetWindowPos(window, 0, 0);
+
+std::cout << glGetString(GL_VERSION) << std::endl;
 
 */
