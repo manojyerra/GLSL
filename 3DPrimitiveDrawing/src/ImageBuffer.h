@@ -1,10 +1,6 @@
 #ifndef IMAGE_BUFFER_H
 #define IMAGE_BUFFER_H
 
-//#include "SuiIncludes.h"
-//#include "Sui/SuiRect.h"
-//#include "MathLib/Point.h"
-
 #include <string>
 #include <vector>
 
@@ -108,9 +104,9 @@ public:
 	void PixelateNearest(int level);				//1 to 100
 	void Explosion(int level);						//1 to 100
 	void BlackAndWhite(int level);					//1 to 100
-	void MotionBlur();								//
+	void MotionBlur();
 	bool SetTransparency(int level, bool add_AlphaLayer_if_not_exist);								//1 to 100
-	void InvertChannels(bool invertRedChannel, bool invertGreenChannel, bool invertBlueChannel);	//
+	void InvertChannels(bool invertRedChannel, bool invertGreenChannel, bool invertBlueChannel);
 	void GrayScale();
 	void PencilSketch();
 	void RemoveWhiteBGFromGrayScaleImage();

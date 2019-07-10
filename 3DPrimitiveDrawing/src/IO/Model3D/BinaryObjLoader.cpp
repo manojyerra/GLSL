@@ -68,8 +68,8 @@ void BinaryObjLoader::Draw()
 
 	glUniformMatrix4fv(projMatLoc, 1, GL_FALSE, Cam::GetInstance()->projMat.m);
 	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
-	glUniformMatrix3fv(normalMatLoc, 1, GL_FALSE, Cam::GetInstance()->normalMat);
-	glUniformMatrix4fv(oriMatLoc, 1, GL_FALSE, _oriMat.m);
+	glUniformMatrix3fv(normalMatLoc, 1, GL_FALSE, Cam::GetInstance()->GetNormalMat(_modelMat.m));
+	glUniformMatrix4fv(oriMatLoc, 1, GL_FALSE, _modelMat.m);
 
 	GLfloat Ka[] = { 0.05375,	0.05,	0.06625,	0.82 };
 	GLfloat Kd[] = { 0.18275,	0.17,	0.22525,	0.82 };

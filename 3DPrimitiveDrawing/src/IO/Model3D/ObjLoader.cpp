@@ -252,7 +252,7 @@ void ObjLoader::Draw()
 
 	glUniformMatrix4fv(projMatLoc, 1, GL_FALSE, Cam::GetInstance()->projMat.m);
 	glUniformMatrix4fv(viewMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
-	glUniformMatrix3fv(normalMatLoc, 1, GL_FALSE, Cam::GetInstance()->normalMat);
+	glUniformMatrix3fv(normalMatLoc, 1, GL_FALSE, Cam::GetInstance()->GetNormalMat(_modelMat.m));
 	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, _modelMat.m);
 
 	viewMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "camMat");

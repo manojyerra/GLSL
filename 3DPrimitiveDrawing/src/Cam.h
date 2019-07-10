@@ -30,6 +30,7 @@ private:
 	float SH;
 
 	int _viewType;
+	float normalMat[9];
 
 	Cam();
 	static Cam* _ref;
@@ -37,8 +38,7 @@ private:
 public:
 	GLMat projMat;
 	GLMat viewMat;
-	float normalMat[9];
-
+	
 	static Cam* GetInstance();
 	static void DeleteInstance();
 
@@ -50,6 +50,12 @@ public:
 	bool IsOrthoView();
 
 	void SetModelViewMatrix();
+	
+	const float* GetMVP(float* modelMat);
+	const float* GetModelViewMatrix(float* modelMat);
+	const float* GetNormalMat(float* modelMat);
+	
+
 	bool UpdateCamera();
 
 	void SetPivot(CVector3 pivotPoint);
@@ -62,10 +68,7 @@ public:
 	void SetRightView();
 	void SetTopView();
 	void SetBottomView();
-
 	void ChangeView();
-
-
 };
 
 #endif

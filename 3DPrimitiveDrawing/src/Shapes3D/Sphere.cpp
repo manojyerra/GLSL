@@ -13,7 +13,6 @@ Sphere::Sphere(float x, float y, float z, float r) : Shape(Shape::SPHERE)
 	InitCommon();
 }
 
-
 Sphere::Sphere(Sphere* sphere) : Shape(Shape::SPHERE)
 {
 	memcpy(m, sphere->m, 16*4);
@@ -21,14 +20,12 @@ Sphere::Sphere(Sphere* sphere) : Shape(Shape::SPHERE)
 	InitCommon();
 }
 
-
 Sphere::Sphere(float* mat, float r) : Shape(Shape::SPHERE)
 {
 	memcpy(m, mat, 16*4);
 	_r = r;
 	InitCommon();
 }
-
 
 Sphere::Sphere(CVector3 pos, float r) : Shape(Shape::SPHERE)
 {
@@ -111,7 +108,7 @@ void Sphere::Draw()
 	glUniformMatrix4fv(projMatLoc, 1, GL_FALSE, Cam::GetInstance()->projMat.m);
 	glUniformMatrix4fv(viewMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
 	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, m);
-	glUniformMatrix4fv(normalMatLoc, 1, GL_FALSE, Cam::GetInstance()->normalMat);
+	glUniformMatrix4fv(normalMatLoc, 1, GL_FALSE, Cam::GetInstance()->GetNormalMat(m));
 	//glUniformMatrix4fv(scaleMatLoc, 1, GL_FALSE, _scaleMat.m);
 
 	GLfloat Ka[] = { 1.0, 1.0, 1.0, 1.0 };

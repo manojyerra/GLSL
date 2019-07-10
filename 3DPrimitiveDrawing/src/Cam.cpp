@@ -1,6 +1,10 @@
 #include "Cam.h"
 #include "Input.h"
 #include <math.h>
+#include <glm/mat4x4.hpp>
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+#include "glm/ext.hpp"
 
 Cam* Cam::_ref = NULL;
 
@@ -103,19 +107,41 @@ void Cam::SetModelViewMatrix()
 	viewMat.glRotatef(_angle.y, 0, 1, 0);
 	viewMat.glTranslatef(-_pivot.x, -_pivot.y, -_pivot.z);
 
-	normalMat[0] = viewMat.m[0];
-	normalMat[1] = viewMat.m[1];
-	normalMat[2] = viewMat.m[2];
-				
-	normalMat[3] = viewMat.m[4];
-	normalMat[4] = viewMat.m[5];
-	normalMat[5] = viewMat.m[6];
-				
-	normalMat[6] = viewMat.m[8];
-	normalMat[7] = viewMat.m[9];
-	normalMat[8] = viewMat.m[10];
+	//normalMat[0] = viewMat.m[0];
+	//normalMat[1] = viewMat.m[1];
+	//normalMat[2] = viewMat.m[2];
+	//			
+	//normalMat[3] = viewMat.m[4];
+	//normalMat[4] = viewMat.m[5];
+	//normalMat[5] = viewMat.m[6];
+	//			
+	//normalMat[6] = viewMat.m[8];
+	//normalMat[7] = viewMat.m[9];
+	//normalMat[8] = viewMat.m[10];
 }
 
+const float* Cam::GetMVP(float* modelMat)
+{
+	glm::mat4 projMatrix = glm::make_mat4(projMat.m);
+	glm::mat4 viewMatrix = glm::make_mat4(viewMat.m);
+	glm::mat4 modelMatrix = glm::make_mat4(modelMat);
+	return glm::value_ptr(projMatrix * viewMatrix * modelMatrix);
+}
+
+const float* Cam::GetModelViewMatrix(float* modelMat)
+{
+	glm::mat4 viewMatrix = glm::make_mat4(viewMat.m);
+	glm::mat4 modelMatrix = glm::make_mat4(modelMat);
+	return glm::value_ptr(viewMatrix * modelMatrix);
+}
+
+const float* Cam::GetNormalMat(float* modelMat)
+{
+	glm::mat4 viewMatrix = glm::make_mat4(viewMat.m);
+	glm::mat4 modelMatrix = glm::make_mat4(modelMat);
+	glm::mat4 normalMatrix = glm::transpose(glm::inverse(viewMatrix * modelMatrix));
+	return glm::value_ptr(normalMatrix);
+}
 
 bool Cam::UpdateCamera()
 {

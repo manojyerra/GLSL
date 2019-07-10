@@ -25,7 +25,7 @@ private:
 
 	ShaderProgram* _shaderProgram;
 
-	GLMat _oriMat;
+	GLMat _modelMat;
 
 	void ReadObjFile(string folderPath);
 	void LoadTextures(string folderPath);
