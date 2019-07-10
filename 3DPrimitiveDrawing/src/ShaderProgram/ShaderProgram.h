@@ -28,8 +28,12 @@ public:
 	void Begin();
 	void End();
 
-	void SetUniformMatrix4fv(const char* str, float* mat);
-	void SetUniformMatrix3fv(const char* str, float* mat);
+	void SetUniformMatrix4fv(const char* str, const float* mat);
+	void SetUniformMatrix3fv(const char* str, const float* mat);
+	
+	void SetUniform4f(const char* str, float v1, float v2, float v3, float v4);
+	void SetUniform3f(const char* str, float v1, float v2, float v3);
+	void SetUniform2f(const char* str, float v1, float v2);
 	void SetUniform1f(const char* str, float val);
 
 	string GetVertexShaderFilePath();

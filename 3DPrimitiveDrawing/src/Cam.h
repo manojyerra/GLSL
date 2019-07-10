@@ -4,6 +4,10 @@
 #include "Macros.h"
 #include "GLMat.h"
 #include "Vector3.h"
+#include <glm/mat4x4.hpp>
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+#include "glm/ext.hpp"
 
 #include <vector>
 using namespace std;
@@ -11,6 +15,8 @@ using namespace std;
 class Cam
 {
 private:
+	static Cam* _ref;
+
 	float _left;
 	float _right;
 	float _bottom;
@@ -26,14 +32,14 @@ private:
 
 	bool _isOrtho;
 
-	float SW;
-	float SH;
+	float _sw;
+	float _sh;
 
 	int _viewType;
-	float normalMat[9];
 
 	Cam();
-	static Cam* _ref;
+
+	void SetProjection();
 
 public:
 	GLMat projMat;
@@ -43,20 +49,17 @@ public:
 	static void DeleteInstance();
 
 	void Init(int screenW, int screenH, float zNear, float zFar, float zNearPlaneW);
-
 	void SetScreenSize(int sw, int sh);
-	void SetProjection();
-	void SetPerspectiveView();
-	//void SetOrthoView();
-	bool IsOrthoView();
 
-	void SetModelViewMatrix();
+	void SetPerspectiveProjection();
+	void SetOrthoProjection();
+	void SetViewMatrix();
+	bool IsOrthoProjection();
 	
-	const float* GetMVP(float* modelMat);
-	const float* GetModelViewMatrix(float* modelMat);
-	const float* GetNormalMat(float* modelMat);
+	glm::mat4 GetMVP(float* modelMat);
+	glm::mat4 GetModelView(float* modelMat);
+	glm::mat3 GetNormalMat(float* modelMat);
 	
-
 	bool UpdateCamera();
 
 	void SetPivot(CVector3 pivotPoint);

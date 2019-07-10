@@ -12,8 +12,12 @@
 #include <glm/vec4.hpp>
 #include "glm/ext.hpp"
 
-PhongShader::PhongShader()
+PhongShader::PhongShader(int shaderType)
 {
+	_shaderType = shaderType;
+	_perPixelShader = NULL;
+	_perVertexShader = NULL;
+
 	_vertexBufferID = 0;
 	_normalBufferID = 0;
 	_uvBufferID = 0;
@@ -24,7 +28,50 @@ PhongShader::PhongShader()
 	Ks[0] = Ks[1] = Ks[2] = Ks[3] = 0.0f;
 	Se = 0.0f;
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/Phong/Phong.vs", "shaders/Phong/Phong.fs");
+	_alpha = 1.0f;
+
+	if (_shaderType == PER_PIXEL_SHADER)
+	{
+		_perPixelShader = ShadersManager::GetInstance()->CreateShaderProgram(
+			"shaders/Phong/Phong.vs", 
+			"shaders/Phong/Phong.fs");
+		_shaderProgram = _perPixelShader;
+	}
+	else if (_shaderType == PER_VERTEX_SHADER)
+	{
+		_perVertexShader = ShadersManager::GetInstance()->CreateShaderProgram(
+			"shaders/PhongPerVertex/PhongPerVertex.vs", 
+			"shaders/PhongPerVertex/PhongPerVertex.fs");
+		_shaderProgram = _perVertexShader;
+	}
+}
+
+void PhongShader::SetShaderType(int shaderType)
+{
+	_shaderType = shaderType;
+
+	if (_shaderType == PER_PIXEL_SHADER)
+	{
+		if (_perPixelShader == NULL)
+		{
+			_perPixelShader = ShadersManager::GetInstance()->CreateShaderProgram(
+				"shaders/Phong/Phong.vs", 
+				"shaders/Phong/Phong.fs");
+		}
+
+		_shaderProgram = _perPixelShader;
+	}
+	else if (_shaderType == PER_VERTEX_SHADER)
+	{
+		if (_perVertexShader == NULL)
+		{
+			_perVertexShader = ShadersManager::GetInstance()->CreateShaderProgram(
+				"shaders/PhongPerVertex/PhongPerVertex.vs", 
+				"shaders/PhongPerVertex/PhongPerVertex.fs");
+		}
+
+		_shaderProgram = _perPixelShader;
+	}
 }
 
 void PhongShader::SetVertexBufferID(unsigned int bufferID)
@@ -47,11 +94,16 @@ void PhongShader::SetBaseTexID(unsigned int texID)
 	_baseTexID = texID;
 }
 
-void PhongShader::SetLightPos(CVector3& vec)
+void PhongShader::SetModelMatrix(float* mat)
 {
-	lightPos.x = vec.x;
-	lightPos.y = vec.y;
-	lightPos.z = vec.z;
+	_modelMat.Copy(mat);
+}
+
+void PhongShader::SetLightPos(float x, float y, float z)
+{
+	lightPos.x = x;
+	lightPos.y = y;
+	lightPos.z = z;
 }
 
 void PhongShader::SetAmbientColor(float r, float g, float b, float a)
@@ -83,6 +135,11 @@ void PhongShader::SetShininess(float shininess)
 	Se = shininess;
 }
 
+void PhongShader::SetAlpha(float alpha)
+{
+	_alpha = alpha;
+}
+
 void PhongShader::Begin()
 {
 	_shaderProgram->Begin();
@@ -95,23 +152,22 @@ void PhongShader::SetUniformsAndAttributes()
 		glBindTexture(GL_TEXTURE_2D, _baseTexID);
 	}
 
+	Cam* cam = Cam::GetInstance();
+
 	GLuint programID = _shaderProgram->ProgramID();
 
-	GLint projMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "projMat");
-	GLint viewMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "viewMat");
-	GLint normalMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "normalMat");
-	GLint modelMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "modelMat");
+	float* m = _modelMat.m;
 
-	glUniformMatrix4fv(projMatLoc, 1, GL_FALSE, Cam::GetInstance()->projMat.m);
-	glUniformMatrix4fv(viewMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
-	glUniformMatrix3fv(normalMatLoc, 1, GL_FALSE, Cam::GetInstance()->GetNormalMat(_modelMat.m));
-	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, _modelMat.m);
+	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(cam->GetMVP(m)));
+	_shaderProgram->SetUniformMatrix4fv("modelView", glm::value_ptr(cam->GetModelView(m)));
+	_shaderProgram->SetUniformMatrix3fv("normalMat", glm::value_ptr(cam->GetNormalMat(m)));
+	_shaderProgram->SetUniform1f("alpha", 1.0);
 
-	glUniform3f(glGetUniformLocation(programID, "lightPos"), 0.0, 0.0, 0.0);
-	glUniform4f(glGetUniformLocation(programID, "ambient"), Ka[0], Ka[1], Ka[2], Ka[3]);
-	glUniform4f(glGetUniformLocation(programID, "diffuse"), Kd[0], Kd[1], Kd[2], Kd[3]);
-	glUniform4f(glGetUniformLocation(programID, "specular"), Ks[0], Ks[1], Ks[2], Ks[3]);
-	glUniform1f(glGetUniformLocation(programID, "shininess"), Se);
+	_shaderProgram->SetUniform3f("lightPos", lightPos.x, lightPos.y, lightPos.z);
+	_shaderProgram->SetUniform4f("ambient", Ka[0], Ka[1], Ka[2], Ka[3]);
+	_shaderProgram->SetUniform4f("diffuse", Kd[0], Kd[1], Kd[2], Kd[3]);
+	_shaderProgram->SetUniform4f("specular", Ks[0], Ks[1], Ks[2], Ks[3]);
+	_shaderProgram->SetUniform1f("shininess", Se);
 
 	if (_uvBufferID && _baseTexID)
 	{
@@ -156,4 +212,21 @@ void PhongShader::End()
 	glDisableVertexAttribArray(vertexLoc);
 
 	_shaderProgram->End();
+}
+
+PhongShader::~PhongShader()
+{
+	if (_perPixelShader)
+	{
+		ShadersManager::GetInstance()->DeleteShaderProgram(_perPixelShader);
+		_perPixelShader = NULL;
+	}
+
+	if (_perVertexShader)
+	{
+		ShadersManager::GetInstance()->DeleteShaderProgram(_perVertexShader);
+		_perVertexShader = NULL;
+	}
+
+	_shaderProgram = NULL;
 }

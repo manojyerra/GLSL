@@ -74,11 +74,22 @@ void GameLoop::GLSettings()
 
 void GameLoop::Update(float deltaTime)
 {
+
 }
 
 void GameLoop::Draw()
 {
 	//_fbo->BindFBO();
+
+	if (Input::IsKeyPressed(VK_SHIFT) && Input::IsMiddleMouseClicked())
+	{
+		_sphere->_phongShader->SetShaderType(PhongShader::PER_VERTEX_SHADER);
+	}
+	else if (Input::IsMiddleMouseClicked())
+	{
+		_sphere->_phongShader->SetShaderType(PhongShader::PER_PIXEL_SHADER);
+	}
+
 
 	glClearColor(57.0f/255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -86,16 +97,16 @@ void GameLoop::Draw()
 	//glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
 	//glEnable(GL_CULL_FACE);
 
-	_cam->SetProjection();
-	_cam->SetModelViewMatrix();
+	_cam->SetPerspectiveProjection();
+	_cam->SetViewMatrix();
 	_cam->UpdateCamera();
 
 	_floor->Draw();
-	_objLoader->Draw();
+	//_objLoader->Draw();
 	//_binaryObjLoader->Draw();
 	//_particleLoader->Draw();
 
-	_triangle->Draw();
+	//_triangle->Draw();
 	_box->Draw();
 	_cylinder->Draw();
 	_cone->Draw();

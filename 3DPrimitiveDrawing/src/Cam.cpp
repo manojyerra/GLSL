@@ -1,10 +1,7 @@
 #include "Cam.h"
 #include "Input.h"
 #include <math.h>
-#include <glm/mat4x4.hpp>
-#include <glm/vec3.hpp>
-#include <glm/vec4.hpp>
-#include "glm/ext.hpp"
+
 
 Cam* Cam::_ref = NULL;
 
@@ -33,8 +30,8 @@ void Cam::DeleteInstance()
 
 void Cam::Init(int screenW, int screenH, float zNear, float zFar, float zNearPlaneW)
 {
-	SW = (float)screenW;
-	SH = (float)screenH;
+	_sw = (float)screenW;
+	_sh = (float)screenH;
 
 	_zNear  = zNear;
 	_zFar = zFar;
@@ -45,107 +42,91 @@ void Cam::Init(int screenW, int screenH, float zNear, float zFar, float zNearPla
 	_angle = CVector3(30, 0, 0);
 
 	_viewType = 5;
+	_isOrtho = false;
 
-	SetPerspectiveView();
-	SetModelViewMatrix();
+	SetProjection();
+	SetViewMatrix();
 }
 
 void Cam::SetScreenSize(int sw, int sh)
 {
-	SW = sw;
-	SH = sh;
+	_sw = sw;
+	_sh = sh;
 }
 
 void Cam::SetProjection()
 {
-	//if(_isOrtho)
-	//{
-	//	SetOrthoView();
-	//}
-	//else
+	if(_isOrtho)
 	{
-		SetPerspectiveView();
+		SetOrthoProjection();
+	}
+	else
+	{
+		SetPerspectiveProjection();
 	}
 }
 
-
-void Cam::SetPerspectiveView()
+void Cam::SetPerspectiveProjection()
 {
 	_isOrtho = false;
 
 	_left = -_zNearPlaneHalfW;
 	_right = _zNearPlaneHalfW;
-	_bottom = -_zNearPlaneHalfW*SH/SW;
-	_top = _zNearPlaneHalfW*SH/SW;
+	_bottom = -_zNearPlaneHalfW * _sh / _sw;
+	_top = _zNearPlaneHalfW * _sh / _sw;
 
 	projMat.glLoadIdentity();
 	projMat.glFrustum(_left, _right, _bottom, _top, _zNear, _zFar);
 }
 
+void Cam::SetOrthoProjection()
+{
+	_isOrtho = true;
 
-//void Cam::SetOrthoView()
-//{
-//	_isOrtho = true;
-//
-//	_left = -(-_trans.z *_zNearPlaneHalfW) / _zNear;
-//	_right = (-_trans.z *_zNearPlaneHalfW) / _zNear;
-//	_bottom = -((-_trans.z *_zNearPlaneHalfW) / _zNear) * (SH/SW);
-//	_top = ((-_trans.z *_zNearPlaneHalfW) / _zNear) * (SH/SW);
-//
-//	glMatrixMode(GL_PROJECTION);
-//	glLoadIdentity();
-//	glOrtho(_left, _right, _bottom, _top, _zNear, _zFar);
-//}
+	_left = -(-_trans.z *_zNearPlaneHalfW) / _zNear;
+	_right = (-_trans.z *_zNearPlaneHalfW) / _zNear;
+	_bottom = -((-_trans.z *_zNearPlaneHalfW) / _zNear) * (_sh / _sw);
+	_top = ((-_trans.z *_zNearPlaneHalfW) / _zNear) * (_sh / _sw);
 
+	//glMatrixMode(GL_PROJECTION);
+	//glLoadIdentity();
+	//glOrtho(_left, _right, _bottom, _top, _zNear, _zFar);
+}
 
-bool Cam::IsOrthoView()
+bool Cam::IsOrthoProjection()
 {
 	return _isOrtho;
 }
 
-
-void Cam::SetModelViewMatrix()
+void Cam::SetViewMatrix()
 {
 	viewMat.glLoadIdentity();
 	viewMat.glTranslatef(_trans.x, _trans.y, _trans.z);
 	viewMat.glRotatef(_angle.x, 1, 0, 0);
 	viewMat.glRotatef(_angle.y, 0, 1, 0);
 	viewMat.glTranslatef(-_pivot.x, -_pivot.y, -_pivot.z);
-
-	//normalMat[0] = viewMat.m[0];
-	//normalMat[1] = viewMat.m[1];
-	//normalMat[2] = viewMat.m[2];
-	//			
-	//normalMat[3] = viewMat.m[4];
-	//normalMat[4] = viewMat.m[5];
-	//normalMat[5] = viewMat.m[6];
-	//			
-	//normalMat[6] = viewMat.m[8];
-	//normalMat[7] = viewMat.m[9];
-	//normalMat[8] = viewMat.m[10];
 }
 
-const float* Cam::GetMVP(float* modelMat)
+glm::mat4 Cam::GetMVP(float* modelMat)
 {
 	glm::mat4 projMatrix = glm::make_mat4(projMat.m);
 	glm::mat4 viewMatrix = glm::make_mat4(viewMat.m);
 	glm::mat4 modelMatrix = glm::make_mat4(modelMat);
-	return glm::value_ptr(projMatrix * viewMatrix * modelMatrix);
+	return glm::mat4(projMatrix * viewMatrix * modelMatrix);
 }
 
-const float* Cam::GetModelViewMatrix(float* modelMat)
+glm::mat4 Cam::GetModelView(float* modelMat)
 {
 	glm::mat4 viewMatrix = glm::make_mat4(viewMat.m);
 	glm::mat4 modelMatrix = glm::make_mat4(modelMat);
-	return glm::value_ptr(viewMatrix * modelMatrix);
+	return glm::mat4(viewMatrix * modelMatrix);
 }
 
-const float* Cam::GetNormalMat(float* modelMat)
+glm::mat3 Cam::GetNormalMat(float* modelMat)
 {
 	glm::mat4 viewMatrix = glm::make_mat4(viewMat.m);
 	glm::mat4 modelMatrix = glm::make_mat4(modelMat);
-	glm::mat4 normalMatrix = glm::transpose(glm::inverse(viewMatrix * modelMatrix));
-	return glm::value_ptr(normalMatrix);
+	return glm::mat3(glm::transpose(glm::inverse(viewMatrix * modelMatrix)));
 }
 
 bool Cam::UpdateCamera()
@@ -178,8 +159,8 @@ bool Cam::UpdateCamera()
 		float dx = (float)(Input::MX - Input::PrevMX);
 		float dy = (float)(Input::MY - Input::PrevMY);
 
-		_angle.y += dx * 180.0f / (SW*0.5f);
-		_angle.x += dy * 180.0f / (SH*0.5f);
+		_angle.y += dx * 180.0f / (_sw*0.5f);
+		_angle.x += dy * 180.0f / (_sh*0.5f);
 
 		return true;
 	}

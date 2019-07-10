@@ -16,7 +16,10 @@ public:
 	float m[16];
 
 	GLMat();
+	GLMat(float* arr);
 	~GLMat();
+
+	void glFrustum(float left, float right, float bottom, float top, float zNear, float zFar);
 	void glLoadIdentity();
 	void glTranslatef(float x, float y, float z, bool reverseOrder = false);
 	void glRotatef(float angleInDegrees, int isX, int isY, int isZ, bool reverseOrder = false);
@@ -45,7 +48,7 @@ public:
 	void AddRotateInWorld(char axis, float angle);
 	void AddRotateInLocal(char axis, float angle);
 
-	void glFrustum(float left, float right, float bottom, float top, float zNear, float zFar);
+	
 	
 	static CVector3 MultVector(float* a, CVector3 vec);
 	static void MultMat(float* a, float* b, float* result);

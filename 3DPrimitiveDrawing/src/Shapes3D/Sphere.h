@@ -5,6 +5,7 @@
 #include "ShaderProgram.h"
 #include "GLBuffer.h"
 #include "GLMat.h"
+#include "PhongShader/PhongShader.h"
 
 class Sphere : public Shape
 {
@@ -15,13 +16,14 @@ private:
 	GLuint _vertexBufferID;
 	GLuint _normalBufferID;
 	GLuint _vertexCount;
-	ShaderProgram* _shaderProgram;
 
 	void GenerateBufferID();
 	void InitCommon();
 	void rot(int axis, float angleInDegrees, float x, float y, float z, float* newX, float* newY, float* newZ);
 
 public:
+	PhongShader* _phongShader;
+
 	Sphere(float x, float y, float z, float r);
 	Sphere(Sphere* sphere);
 	Sphere(CVector3 pos, float r);

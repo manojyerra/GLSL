@@ -42,11 +42,22 @@ void Sphere::InitCommon()
 	_normalBufferID = 0;
 	_vertexCount = 0;
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram(
-		"shaders/Phong/Phong.vs", 
-		"shaders/Phong/Phong.fs");
-
 	GenerateBufferID();
+
+	GLfloat Ka[] = { 0.1, 0.1, 0.1, 1.0 };
+	GLfloat Kd[] = { 0.64, 0.64, 0.64, 1.0 };
+	GLfloat Ks[] = { 0.5, 0.5, 0.5, 1.0 };
+	GLfloat Se = 5.0;
+
+	_phongShader = new PhongShader(PhongShader::PER_PIXEL_SHADER);
+	_phongShader->SetLightPos(0.0, 0.0, 0.0);
+	_phongShader->SetAmbientColor(Ka[0], Ka[1], Ka[2], Ka[3]);
+	_phongShader->SetDiffuseColor(Kd[0], Kd[1], Kd[2], Kd[3]);
+	_phongShader->SetSpecularColor(Ks[0], Ks[1], Ks[2], Ks[3]);
+	_phongShader->SetShininess(Se);
+
+	_phongShader->SetVertexBufferID(_vertexBufferID);
+	_phongShader->SetNormalBufferID(_normalBufferID);
 }
 
 Sphere Sphere::CalcBoundingSphere(float* vertexBuf, int arrSize)
@@ -97,48 +108,13 @@ void Sphere::Draw()
 	if(!_visible)
 		return;
 
-	_shaderProgram->Begin();
-
-	GLint projMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "projMat");
-	GLint viewMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "viewMat");
-	GLint modelMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "modelMat");
-	GLint normalMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "normalMat");
-	//GLint scaleMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "scaleMat");
-
-	glUniformMatrix4fv(projMatLoc, 1, GL_FALSE, Cam::GetInstance()->projMat.m);
-	glUniformMatrix4fv(viewMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
-	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, m);
-	glUniformMatrix4fv(normalMatLoc, 1, GL_FALSE, Cam::GetInstance()->GetNormalMat(m));
-	//glUniformMatrix4fv(scaleMatLoc, 1, GL_FALSE, _scaleMat.m);
-
-	GLfloat Ka[] = { 1.0, 1.0, 1.0, 1.0 };
-	GLfloat Kd[] = { 0.64, 0.64, 0.64, 1.0 };
-	GLfloat Ks[] = { 0.5, 0.5, 0.5, 1.0 };
-	GLfloat Se = 38.4;
-
-	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "lightPos"), 0.0, 0.0, 0.0);
-	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "ambient"), Ka[0], Ka[1], Ka[2], Ka[3]);
-	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "diffuse"), Kd[0], Kd[1], Kd[2], Kd[3]);
-	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "specular"), Ks[0], Ks[1], Ks[2], Ks[3]);
-	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "shininess"), Se);
-
-	GLuint normalID = glGetAttribLocation(_shaderProgram->ProgramID(), "normal");
-	glEnableVertexAttribArray(normalID );
-	glBindBuffer(GL_ARRAY_BUFFER, _normalBufferID);
-	glVertexAttribPointer( normalID, 3, GL_FLOAT, GL_TRUE, 0, (void*)0);
-
-	GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
-	glEnableVertexAttribArray(vertexID);
-	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-	glVertexAttribPointer(vertexID, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	_phongShader->Begin();
+	_phongShader->SetModelMatrix(m);
+	_phongShader->SetUniformsAndAttributes();
 
 	glDrawArrays(GL_TRIANGLES, 0, _vertexCount);
-	
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glDisableVertexAttribArray(vertexID);
-	glDisableVertexAttribArray(normalID);
 
-	_shaderProgram->End();
+	_phongShader->End();
 }
 
 void Sphere::GenerateBufferID()
@@ -245,12 +221,10 @@ void Sphere::rot(int axis, float angleInDegrees, float x, float y, float z, floa
 
 Sphere::~Sphere()
 {
-	if (_shaderProgram != NULL)
+	if (_phongShader != NULL)
 	{
-		string vertexShaderPath = _shaderProgram->GetVertexShaderFilePath();
-		string fragementShaderPath = _shaderProgram->GetFragmentShaderFilePath();
-
-		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
+		delete _phongShader;
+		_phongShader = NULL;
 	}
 }
 

@@ -158,19 +158,34 @@ GLint ShaderProgram::CompileShader(const char* shaderFilePath, GLenum shaderType
 	return shaderObject;
 }
 
-void ShaderProgram::SetUniformMatrix4fv(const char* str, float* mat)
+void ShaderProgram::SetUniformMatrix4fv(const char* str, const float* mat)
 {
 	GLint location = glGetUniformLocation(_programID, str);
 	glUniformMatrix4fv(location, 1, GL_FALSE, mat);
 }
 
-void ShaderProgram::SetUniformMatrix3fv(const char* str, float* mat)
+void ShaderProgram::SetUniformMatrix3fv(const char* str, const float* mat)
 {
 	GLint location = glGetUniformLocation(_programID, str);
 	glUniformMatrix3fv(location, 1, GL_FALSE, mat);
 }
 
-void ShaderProgram::SetUniform1f(const char* str, float val)
+void ShaderProgram::SetUniform4f(const char* str, float v1, float v2, float v3, float v4)
+{
+	glUniform4f(glGetUniformLocation(_programID, str), v1, v2, v3, v4);
+}
+
+void ShaderProgram::SetUniform3f(const char* str, float v1, float v2, float v3)
+{
+	glUniform3f(glGetUniformLocation(_programID, str), v1, v2, v3);
+}
+
+void ShaderProgram::SetUniform2f(const char* str, float v1, float v2)
+{
+	glUniform2f(glGetUniformLocation(_programID, str), v1, v2);
+}
+
+void ShaderProgram::SetUniform1f(const char* str, const float val)
 {
 	glUniform1f(glGetUniformLocation(_programID, str), val);
 }

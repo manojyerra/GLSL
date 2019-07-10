@@ -7,6 +7,11 @@ GLMat::GLMat()
 	SetIdentityMatrix(m);
 }
 
+GLMat::GLMat(float* arr)
+{
+	Copy(arr);
+}
+
 GLMat::~GLMat()
 {
 }

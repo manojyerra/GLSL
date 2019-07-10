@@ -238,6 +238,8 @@ void ObjLoader::WriteBinaryToFile(string folderPath,
 
 void ObjLoader::Draw()
 {
+	Cam* cam = Cam::GetInstance();
+
 	_shaderProgram->Begin();
 
 	glm::mat4 viewMatrix = glm::make_mat4(Cam::GetInstance()->viewMat.m);
@@ -252,8 +254,8 @@ void ObjLoader::Draw()
 
 	glUniformMatrix4fv(projMatLoc, 1, GL_FALSE, Cam::GetInstance()->projMat.m);
 	glUniformMatrix4fv(viewMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
-	glUniformMatrix3fv(normalMatLoc, 1, GL_FALSE, Cam::GetInstance()->GetNormalMat(_modelMat.m));
 	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, _modelMat.m);
+	glUniformMatrix3fv(normalMatLoc, 1, GL_FALSE, glm::value_ptr(cam->GetNormalMat(_modelMat.m)));
 
 	viewMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "camMat");
 	glUniformMatrix4fv(viewMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
