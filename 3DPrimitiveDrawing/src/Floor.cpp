@@ -39,7 +39,7 @@ Floor::Floor()
 
 
 	_gridLinesBuffer->glBegin(GL_LINES);
-	_gridLinesBuffer->glColor3ub(255,0,0);
+	_gridLinesBuffer->glColor3ub(75,75,75);
 
 	for(int i=(int)start; i<=end; i+=(int)gap)
 	{

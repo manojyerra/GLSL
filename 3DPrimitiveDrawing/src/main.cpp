@@ -12,8 +12,10 @@ int main(void)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 	glfwWindowHint(GLFW_SAMPLES, 8);
 
-	int sw = 1500;
-	int sh = 800;
+	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+	int sw = mode->width;
+	int sh = mode->height;
 
 	GLFWwindow* window = glfwCreateWindow(sw, sh, "GLFW Window", NULL, NULL);
 
@@ -41,7 +43,7 @@ int main(void)
 		glfwPollEvents();
 
 		Input::Update(1.0f / 30.0f);
-		gameLoop->Update(1.0f/30.0f);
+		gameLoop->Update(1.0f / 30.0f);
 		gameLoop->Draw();
 
 		glfwSwapBuffers(window);
@@ -129,5 +131,12 @@ if (state == GLFW_PRESS)
 {
 	upgrade_cow();
 }
+
+
+	glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+	glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+	glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+	glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+
 
 */

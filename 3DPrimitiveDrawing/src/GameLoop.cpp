@@ -80,7 +80,7 @@ void GameLoop::Draw()
 {
 	//_fbo->BindFBO();
 
-	glClearColor(0.15f, 0.15f, 0.1f, 1.0f);
+	glClearColor(57.0f/255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glViewport(0, 0, _sw, _sh);
 	//glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
