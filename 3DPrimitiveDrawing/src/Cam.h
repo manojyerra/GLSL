@@ -44,6 +44,7 @@ public:
 
 	void Init(int screenW, int screenH, float zNear, float zFar, float zNearPlaneW);
 
+	void SetScreenSize(int sw, int sh);
 	void SetProjection();
 	void SetPerspectiveView();
 	//void SetOrthoView();

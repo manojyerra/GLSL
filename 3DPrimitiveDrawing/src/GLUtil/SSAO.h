@@ -20,6 +20,9 @@ private:
 	void CreateGBufferFBO(unsigned int w, unsigned int h);
 	void CreateSSAOFBO(unsigned int w, unsigned int h);
 	void CreateSSAOBlurFBO(unsigned int w, unsigned int h);
+	void GenerateSampleKernelAndNoiseTexture();
+
+	float lerp(float a, float b, float f);
 
 public:
 	SSAO(int w, int h);

@@ -50,6 +50,11 @@ void Cam::Init(int screenW, int screenH, float zNear, float zFar, float zNearPla
 	SetModelViewMatrix();
 }
 
+void Cam::SetScreenSize(int sw, int sh)
+{
+	SW = sw;
+	SH = sh;
+}
 
 void Cam::SetProjection()
 {

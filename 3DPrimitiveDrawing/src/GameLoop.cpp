@@ -122,6 +122,14 @@ void GameLoop::Draw()
 	//glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+void GameLoop::SetScreenSize(int sw, int sh)
+{
+	_sw = sw;
+	_sh = sh;
+
+	Cam::GetInstance()->SetScreenSize(_sw, _sh);
+}
+
 GameLoop::~GameLoop()
 {
 	if (_sphere != NULL)

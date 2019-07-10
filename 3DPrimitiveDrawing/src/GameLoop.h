@@ -51,6 +51,7 @@ public:
 	GameLoop(int sw, int sh);
 	~GameLoop();
 
+	void SetScreenSize(int sw, int sh);
 	void Update(float deltaTime);
 	void Draw();
 };

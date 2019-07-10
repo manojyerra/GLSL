@@ -4,13 +4,15 @@
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+GameLoop* gameLoop = NULL;
 
 int main(void)
 {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-	glfwWindowHint(GLFW_SAMPLES, 8);
+	//glfwWindowHint(GLFW_SAMPLES, 16);
 
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
@@ -20,6 +22,9 @@ int main(void)
 	GLFWwindow* window = glfwCreateWindow(sw, sh, "GLFW Window", NULL, NULL);
 	glfwMaximizeWindow(window);
 	glfwMakeContextCurrent(window);
+	glfwSetMouseButtonCallback(window, mouse_button_callback);
+	glfwSetScrollCallback(window, scroll_callback);
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	if (glewInit() != GLEW_OK)
 	{
@@ -28,11 +33,8 @@ int main(void)
 
 	glfwSwapInterval(1);
 
-	GameLoop* gameLoop = new GameLoop(sw, sh);
-
+	gameLoop = new GameLoop(sw, sh);
 	Input::Init();
-	glfwSetMouseButtonCallback(window, mouse_button_callback);
-	glfwSetScrollCallback(window, scroll_callback);
 
 	double previousTime = glfwGetTime();
 	unsigned int frameCount = 0;
@@ -68,6 +70,16 @@ int main(void)
 	return 0;
 }
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+	// make sure the viewport matches the new window dimensions; note that width and 
+	// height will be significantly larger than specified on retina displays.
+
+	if (gameLoop)
+	{
+		gameLoop->SetScreenSize(width, height);
+	}
+}
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
