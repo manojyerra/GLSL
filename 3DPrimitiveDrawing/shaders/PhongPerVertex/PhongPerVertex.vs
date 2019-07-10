@@ -1,8 +1,7 @@
 #version 450
 
-uniform mat4 projMat;
-uniform mat4 viewMat;
-uniform mat4 modelMat;
+uniform mat4 mvp;
+uniform mat4 modelView;
 uniform mat3 normalMat;
 
 uniform vec3 lightPos;
@@ -31,10 +30,10 @@ void CalcFragColor(vec3 V, vec3 N)
 
 void main(void)
 {
-	vec3 V1 = vec3( modelMat * vertex );
+	vec3 V1 = vec3( modelView * vertex );
 	vec3 N1 = normalize( normalMat * normal );
 	
 	CalcFragColor(V1, N1);
 
-	gl_Position = projMat * viewMat * modelMat * vertex;
+	gl_Position = mvp * vertex;
 }
