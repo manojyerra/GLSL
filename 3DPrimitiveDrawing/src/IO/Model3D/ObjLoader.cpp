@@ -272,7 +272,7 @@ void ObjLoader::Draw()
 	glm::vec4 dir = glm::vec4(0, -1, 0, 0);
 	dir = glm::normalize(viewMatrix * dir);
 	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "direction"), dir.x, dir.y, dir.z);
-	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "color"), 10, 10, 10);
+	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "color"), 20, 20, 20);
 
 	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "metallic"), 1.0);
 	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "roughness"), 0.1);

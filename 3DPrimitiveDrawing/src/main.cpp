@@ -10,7 +10,7 @@ int main(void)
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-	//glfwWindowHint(GLFW_SAMPLES, 16);
+	glfwWindowHint(GLFW_SAMPLES, 8);
 
 	int sw = 1500;
 	int sh = 800;
@@ -31,9 +31,10 @@ int main(void)
 	Input::Init();
 	glfwSetMouseButtonCallback(window, mouse_button_callback);
 	glfwSetScrollCallback(window, scroll_callback);
-
 	//std::cout << glGetString(GL_VERSION) << std::endl;
-	
+
+	double previousTime = glfwGetTime();
+	unsigned int frameCount = 0;
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -44,6 +45,21 @@ int main(void)
 		gameLoop->Draw();
 
 		glfwSwapBuffers(window);
+
+		frameCount++;
+		double currentTime = glfwGetTime();
+		double deltaTime = currentTime - previousTime;
+
+		if(deltaTime > 0.5)
+		{
+			frameCount = (unsigned int)(frameCount*1.0 / deltaTime);
+			char arr[128];
+			sprintf(arr, "FPS : %d", frameCount);
+			glfwSetWindowTitle(window, arr);
+
+			frameCount = 0;
+			previousTime = currentTime;
+		}
 	}
 
 	glfwDestroyWindow(window);
