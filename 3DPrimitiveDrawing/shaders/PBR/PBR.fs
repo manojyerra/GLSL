@@ -2,8 +2,8 @@
 
 const float PI = 3.14159265359;
 
-layout (location = 0) in vec3 viewNormal;
-layout (location = 1) in vec4 viewPosition;
+layout (location = 0) in vec4 viewPosition;
+layout (location = 1) in vec3 viewNormal;
 
 uniform vec3 direction;
 uniform vec3 color;

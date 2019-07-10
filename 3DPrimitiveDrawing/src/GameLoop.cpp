@@ -102,7 +102,7 @@ void GameLoop::Draw()
 	_cam->UpdateCamera();
 
 	_floor->Draw();
-	//_objLoader->Draw();
+	_objLoader->Draw();
 	//_binaryObjLoader->Draw();
 	//_particleLoader->Draw();
 

@@ -8,8 +8,8 @@ uniform mat4 viewMat;
 uniform mat4 modelMat;
 uniform mat3 normalMat;
 
-layout (location = 0) out vec3 viewNormal;
-layout (location = 1) out vec4 viewPosition;
+layout (location = 0) out vec4 viewPosition;
+layout (location = 1) out vec3 viewNormal;
 
 void main()
 {

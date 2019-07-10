@@ -2,8 +2,8 @@
 
 const float PI = 3.14159265359;
 
-layout (location = 0) in vec3 viewNormal;
-layout (location = 1) in vec4 viewPosition;
+layout (location = 0) in vec4 viewPosition;
+layout (location = 1) in vec3 viewNormal;
 
 uniform vec3 direction;
 uniform vec3 color;
@@ -83,7 +83,7 @@ vec3 calcFinalColor(vec3 lightPos)
 void main()
 {
 	vec3 finalColor = vec3(0.0, 0.0, 0.0);
-	finalColor = calcFinalColor(vec3(0.0, 0.0, 0.0) );
+	//finalColor = calcFinalColor(vec3(0.0, 0.0, 0.0) );
 	
 	vec4 lightPos = vec4(-3000.0, 6000.0, 3000.0, 0.0);
 	lightPos = camMat * lightPos;
