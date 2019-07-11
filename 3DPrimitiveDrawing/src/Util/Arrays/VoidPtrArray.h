@@ -1,9 +1,7 @@
 #ifndef VoidPtrArray_H
 #define VoidPtrArray_H
-#pragma once
 
 #include "Macros.h"
-#include "Vector3.h"
 
 class VoidPtrArray
 {

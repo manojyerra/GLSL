@@ -64,9 +64,9 @@ void Cone::InitCommon()
 }
 
 
-CVector3 Cone::GetPos()
+glm::vec3 Cone::GetPos()
 {
-	return CVector3(m[12], m[13], m[14]);
+	return glm::vec3(m[12], m[13], m[14]);
 }
 
 

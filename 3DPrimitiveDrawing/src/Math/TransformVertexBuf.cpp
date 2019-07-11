@@ -1,7 +1,7 @@
 #include "TransformVertexBuf.h"
 #include "math.h"
 
-CVector3 TransformVertexBuf::CalcCenter(float* vertexBuf, int arrSize)
+glm::vec3 TransformVertexBuf::CalcCenter(float* vertexBuf, int arrSize)
 {
 	float minX = vertexBuf[0];
 	float minY = vertexBuf[1];
@@ -22,7 +22,7 @@ CVector3 TransformVertexBuf::CalcCenter(float* vertexBuf, int arrSize)
 		if(vertexBuf[i+2] > maxZ)	maxZ = vertexBuf[i+2];
 	}
 
-	return CVector3((minX + maxX)/2.0f, (minY + maxY)/2.0f, (minZ + maxZ)/2.0f);
+	return glm::vec3((minX + maxX)/2.0f, (minY + maxY)/2.0f, (minZ + maxZ)/2.0f);
 }
 
 
@@ -136,7 +136,7 @@ void TransformVertexBuf::RotateBufZ(float* vertexBuf, int arrSize, float zAng)
 }
 
 
-void TransformVertexBuf::Add(float* vertexBuf, int arrSize, CVector3 move)
+void TransformVertexBuf::Add(float* vertexBuf, int arrSize, glm::vec3 move)
 {
 	for(int i=0; i<arrSize; i+=3)
 	{
@@ -147,7 +147,7 @@ void TransformVertexBuf::Add(float* vertexBuf, int arrSize, CVector3 move)
 }
 
 
-void TransformVertexBuf::Subtract(float* vertexBuf, int arrSize, CVector3 move)
+void TransformVertexBuf::Subtract(float* vertexBuf, int arrSize, glm::vec3 move)
 {
 	Add(vertexBuf, arrSize, -move);
 }

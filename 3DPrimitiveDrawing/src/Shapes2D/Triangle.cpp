@@ -3,7 +3,7 @@
 #include "ShadersManager.h"
 #include "Cam.h"
 
-Triangle::Triangle(CVector3& v1, CVector3& v2, CVector3& v3)
+Triangle::Triangle(glm::vec3& v1, glm::vec3& v2, glm::vec3& v3)
 {
 	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
 

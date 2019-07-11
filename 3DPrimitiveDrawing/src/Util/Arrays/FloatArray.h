@@ -1,9 +1,8 @@
 #ifndef FloatArray_H
 #define FloatArray_H
-#pragma once
 
 #include "Macros.h"
-#include "Vector3.h"
+#include "glm/glm.hpp"
 
 class FloatArray
 {
@@ -21,8 +20,8 @@ public:
 	~FloatArray();
 
 	void push_back(float val);
-	void push_back_2(const CVector3& vec);
-	void push_back_3(const CVector3& vec);
+	void push_back_2(const glm::vec3& vec);
+	void push_back_3(const glm::vec3& vec);
 	
 	unsigned int size();
 	unsigned int capacity();

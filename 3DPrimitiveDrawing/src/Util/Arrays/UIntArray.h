@@ -1,9 +1,7 @@
 #ifndef UIntArray_H
 #define UIntArray_H
-#pragma once
 
 #include "Macros.h"
-#include "Vector3.h"
 
 class UIntArray
 {

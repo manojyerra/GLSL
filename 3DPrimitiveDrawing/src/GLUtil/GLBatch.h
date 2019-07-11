@@ -1,6 +1,5 @@
 #ifndef GLBatch_H
 #define GLBatch_H
-#pragma once
 
 #include "Macros.h"
 

@@ -6,7 +6,7 @@ Triangle2D::Triangle2D()
 {
 }
 
-Triangle2D::Triangle2D( CVector3 p1, CVector3 p2, CVector3 p3 )
+Triangle2D::Triangle2D(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3 )
 {
 	P1 = p1;
 	P2 = p2;
@@ -31,10 +31,10 @@ Triangle2D::~Triangle2D()
 
 bool Triangle2D::Contains( float x, float y )
 {
-	return Contains( &CVector3(x,y) );
+	return Contains( &glm::vec3(x,y, 0.0f) );
 }
 
-bool Triangle2D::Contains(CVector3* p)
+bool Triangle2D::Contains(glm::vec3* p)
 {
 	return (Line2D(P1, P2).AtSameSide(p, &P3) && Line2D(P2, P3).AtSameSide(p, &P1) && Line2D(P3, P1).AtSameSide(p, &P2));
 }
@@ -45,7 +45,7 @@ bool Triangle2D::IsColliding(Triangle2D* triangle)
 		|| triangle->Contains(&P1) || triangle->Contains(&P2) || triangle->Contains(&P3) );
 }
 
-bool Triangle2D::Contains(CVector3* p1, CVector3* p2, CVector3* p3, CVector3* p )
+bool Triangle2D::Contains(glm::vec3* p1, glm::vec3* p2, glm::vec3* p3, glm::vec3* p )
 {
 	return (Line2D(p1,p2).AtSameSide(p,p3) && Line2D(p2,p3).AtSameSide(p,p1) && Line2D(p3,p1).AtSameSide(p, p2));
 }
@@ -71,10 +71,10 @@ bool Triangle2D::Contains(CVector3* p1, CVector3* p2, CVector3* p3, CVector3* p 
 //}
 
 
-CVector3 Triangle2D::FindIntersectionByPercentages(CVector3 t1, CVector3 t2, CVector3 t3, float percent13, float percent23)
+glm::vec3 Triangle2D::FindIntersectionByPercentages(glm::vec3 t1, glm::vec3 t2, glm::vec3 t3, float percent13, float percent23)
 {
-	CVector3 vec13( t3.x-t1.x, t3.y-t1.y );
-	CVector3 vec23( t3.x-t2.x, t3.y-t2.y );
+	glm::vec3 vec13(t3.x-t1.x, t3.y-t1.y, 0.0f);
+	glm::vec3 vec23(t3.x-t2.x, t3.y-t2.y, 0.0f);
 
 	float vec13Len = sqrtf(vec13.x*vec13.x + vec13.y*vec13.y);
 	float vec23Len = sqrtf(vec23.x*vec23.x + vec23.y*vec23.y);
@@ -85,21 +85,21 @@ CVector3 Triangle2D::FindIntersectionByPercentages(CVector3 t1, CVector3 t2, CVe
 	float dx = vec13.x * percent13Len / vec13Len;
 	float dy = vec13.y * percent13Len / vec13Len;
 
-	CVector3 pointOnP1P3( t1.x + dx, t1.y + dy );
+	glm::vec3 pointOnP1P3( t1.x + dx, t1.y + dy, 0.0f );
 
 	dx = vec23.x * percent23Len / vec23Len;
 	dy = vec23.y * percent23Len / vec23Len;
 
-	CVector3 pointOnP2P3( t2.x + dx, t2.y + dy );
+	glm::vec3 pointOnP2P3( t2.x + dx, t2.y + dy, 0.0f );
 
 	return IntersectionPoint(t2, pointOnP1P3, t1, pointOnP2P3);
 }
 
 
-CVector3 Triangle2D::FindPercentages(CVector3 p1, CVector3 p2, CVector3 p3, CVector3 p)
+glm::vec3 Triangle2D::FindPercentages(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec3 p)
 {
-	CVector3 pointOnP1P3 = IntersectionPoint(p2,p, p1,p3);
-	CVector3 pointOnP2P3 = IntersectionPoint(p1,p, p2,p3);
+	glm::vec3 pointOnP1P3 = IntersectionPoint(p2,p, p1,p3);
+	glm::vec3 pointOnP2P3 = IntersectionPoint(p1,p, p2,p3);
 
 	float p1p3Length = Dist(p1,p3);
 	float p2p3Length = Dist(p2,p3);
@@ -110,7 +110,7 @@ CVector3 Triangle2D::FindPercentages(CVector3 p1, CVector3 p2, CVector3 p3, CVec
 	float percent13 = length13 * 100.0f / p1p3Length;
 	float percent23 = length23 * 100.0f / p2p3Length;
 
-	return CVector3(percent13, percent23);
+	return glm::vec3(percent13, percent23, 0.0f);
 }
 
 
@@ -118,12 +118,12 @@ CVector3 Triangle2D::FindPercentages(CVector3 p1, CVector3 p2, CVector3 p3, CVec
 /////////////////////////////////////////////////////////////////////////////////
 
 
-float Triangle2D::Dist(CVector3 p1, CVector3 p2)
+float Triangle2D::Dist(glm::vec3 p1, glm::vec3 p2)
 {
 	return sqrtf ( (p2.x - p1.x)*(p2.x - p1.x) + (p2.y - p1.y)*(p2.y - p1.y) );
 }
 
-CVector3 Triangle2D::IntersectionPoint(CVector3 p1, CVector3 p2, CVector3 p3, CVector3 p4)
+glm::vec3 Triangle2D::IntersectionPoint(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec3 p4)
 {
 	float a1 = p2.y-p1.y;
 	float b1 = p1.x-p2.x;
@@ -138,5 +138,5 @@ CVector3 Triangle2D::IntersectionPoint(CVector3 p1, CVector3 p2, CVector3 p3, CV
 	float x = (b1*c2 - b2*c1)/denom;
 	float y = (c1*a2 - c2*a1)/denom;
 
-	return CVector3(x,y);
+	return glm::vec3(x,y,0.0f);
 }

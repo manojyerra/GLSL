@@ -27,7 +27,7 @@ Sphere::Sphere(float* mat, float r) : Shape(Shape::SPHERE)
 	InitCommon();
 }
 
-Sphere::Sphere(CVector3 pos, float r) : Shape(Shape::SPHERE)
+Sphere::Sphere(glm::vec3 pos, float r) : Shape(Shape::SPHERE)
 {
 	m[12] = pos.x;
 	m[13] = pos.y;
@@ -65,7 +65,7 @@ Sphere Sphere::CalcBoundingSphere(float* vertexBuf, int arrSize)
 	float* localVertexBuf = new float[arrSize];
 	memcpy(localVertexBuf, vertexBuf, arrSize*sizeof(float));
 
-	CVector3 center = TransformVertexBuf::CalcCenter(localVertexBuf, arrSize);
+	glm::vec3 center = TransformVertexBuf::CalcCenter(localVertexBuf, arrSize);
 	TransformVertexBuf::Subtract(localVertexBuf, arrSize, center);
         
 	float rPow2 = 0;

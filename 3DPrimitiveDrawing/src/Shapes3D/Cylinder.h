@@ -7,6 +7,7 @@
 #include "ShaderProgram.h"
 #include "GLBuffer.h"
 #include "GLMat.h"
+#include "glm/glm.hpp"
 
 class Cylinder : public Shape
 {
@@ -32,7 +33,7 @@ public:
 	Cylinder(float x, float y, float z, float r, float h);
 	~Cylinder();
 
-	CVector3 GetPos();
+	glm::vec3 GetPos();
 
 	float GetRadius();
 	float GetHeight();

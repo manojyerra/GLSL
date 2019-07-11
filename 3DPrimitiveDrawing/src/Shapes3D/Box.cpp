@@ -24,7 +24,7 @@ Box::Box(float x, float y, float z, float w, float h, float d) : Shape(Shape::BO
 	InitCommon();
 }
 
-Box::Box(float* mat, CVector3 size) : Shape(Shape::BOX)
+Box::Box(float* mat, glm::vec3 size) : Shape(Shape::BOX)
 {
 	memcpy(m, mat, 16*4);
 
@@ -75,14 +75,14 @@ void Box::SetPos(float x, float y, float z)
 	m[14] = z;
 }
 
-CVector3 Box::GetPos()
+glm::vec3 Box::GetPos()
 {
-	return CVector3(m[12], m[13], m[14]);
+	return glm::vec3(m[12], m[13], m[14]);
 }
 
-CVector3 Box::GetSize()
+glm::vec3 Box::GetSize()
 {
-	return CVector3(_w, _h, _d);
+	return glm::vec3(_w, _h, _d);
 }
 
 void Box::SetSize(float w, float h, float d)
@@ -133,24 +133,24 @@ Box Box::CalcAABB(float* vertexBuf, int arrSize)
 	return Box(x, y, z, w, h, d);
 }
 
-vector<CVector3> Box::GetAABBVertices()
+vector<glm::vec3> Box::GetAABBVertices()
 {
-	CVector3 pos = GetPos();
-	CVector3 size = GetSize() * 0.5f;
+	glm::vec3 pos = GetPos();
+	glm::vec3 size = GetSize() * 0.5f;
 
-	CVector3 minPos( pos.x - size.x, pos.y - size.y, pos.z - size.z);
-	CVector3 maxPos( pos.x + size.x, pos.y + size.y, pos.z + size.z);
+	glm::vec3 minPos( pos.x - size.x, pos.y - size.y, pos.z - size.z);
+	glm::vec3 maxPos( pos.x + size.x, pos.y + size.y, pos.z + size.z);
 
-	vector<CVector3> pos3D;
+	vector<glm::vec3> pos3D;
 	
-	pos3D.push_back( CVector3(minPos.x, minPos.y, minPos.z));
-	pos3D.push_back( CVector3(minPos.x, maxPos.y, minPos.z));
-	pos3D.push_back( CVector3(maxPos.x, minPos.y, minPos.z));
-	pos3D.push_back( CVector3(maxPos.x, maxPos.y, minPos.z));
-	pos3D.push_back( CVector3(minPos.x, minPos.y, maxPos.z));
-	pos3D.push_back( CVector3(minPos.x, maxPos.y, maxPos.z));
-	pos3D.push_back( CVector3(maxPos.x, minPos.y, maxPos.z));
-	pos3D.push_back( CVector3(maxPos.x, maxPos.y, maxPos.z));
+	pos3D.push_back(glm::vec3(minPos.x, minPos.y, minPos.z));
+	pos3D.push_back(glm::vec3(minPos.x, maxPos.y, minPos.z));
+	pos3D.push_back(glm::vec3(maxPos.x, minPos.y, minPos.z));
+	pos3D.push_back(glm::vec3(maxPos.x, maxPos.y, minPos.z));
+	pos3D.push_back(glm::vec3(minPos.x, minPos.y, maxPos.z));
+	pos3D.push_back(glm::vec3(minPos.x, maxPos.y, maxPos.z));
+	pos3D.push_back(glm::vec3(maxPos.x, minPos.y, maxPos.z));
+	pos3D.push_back(glm::vec3(maxPos.x, maxPos.y, maxPos.z));
 
 	return pos3D;
 }
@@ -160,15 +160,15 @@ Box Box::CalcBoundingBox(float* vertexBuf, int arrSize)
 	float* localVertexBuf = new float[arrSize];
 	memcpy(localVertexBuf, vertexBuf, arrSize*sizeof(float));
 
-	CVector3 center = TransformVertexBuf::CalcCenter(localVertexBuf, arrSize);
+	glm::vec3 center = TransformVertexBuf::CalcCenter(localVertexBuf, arrSize);
 	TransformVertexBuf::Subtract(localVertexBuf, arrSize, center);
 
 
 	float delta = 30.0f;
-	CVector3 start(0,0,0);
-	CVector3 end(360,360,360);
+	glm::vec3 start(0,0,0);
+	glm::vec3 end(360,360,360);
 
-	CVector3 rot(0,0,0);
+	glm::vec3 rot(0,0,0);
 	Box* prevBox = new Box(0,0,0, 0,0,0);
 	bool once = true;
 
@@ -176,8 +176,8 @@ Box Box::CalcBoundingBox(float* vertexBuf, int arrSize)
 	{
 		if(loop != 0)
 		{
-			start = CVector3(rot.x-delta, rot.y-delta, rot.z-delta);
-			end	  = CVector3(rot.x+delta, rot.y+delta, rot.z+delta);
+			start = glm::vec3(rot.x-delta, rot.y-delta, rot.z-delta);
+			end	  = glm::vec3(rot.x+delta, rot.y+delta, rot.z+delta);
 		}
 
         if(loop == 1)		delta = 10;
@@ -196,7 +196,7 @@ Box Box::CalcBoundingBox(float* vertexBuf, int arrSize)
 					if(once || bBox.Volume() < prevBox->Volume())
 					{
 						prevBox->Set( &bBox );
-						rot = CVector3(xAng, yAng, zAng);
+						rot = glm::vec3(xAng, yAng, zAng);
 						once = false;
 					}
 				}
@@ -212,8 +212,8 @@ Box Box::CalcBoundingBox(float* vertexBuf, int arrSize)
 	mat.glRotatef(-rot.y, 0,1,0);
 	mat.glRotatef(-rot.z, 0,0,1);
 
-	CVector3 trans = prevBox->GetPos();
-	CVector3 size = prevBox->GetSize();
+	glm::vec3 trans = prevBox->GetPos();
+	glm::vec3 size = prevBox->GetSize();
 	mat.glTranslatef(trans.x, trans.y, trans.z);
 	
 	delete prevBox;

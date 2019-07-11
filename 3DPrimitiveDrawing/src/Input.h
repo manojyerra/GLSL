@@ -1,4 +1,5 @@
-#pragma once
+#ifndef Input_H
+#define Input_H
 
 #include <vector>
 using namespace std;
@@ -125,3 +126,5 @@ public:
 	static float GetDragDist();
 	static float GetAngle();
 };
+
+#endif

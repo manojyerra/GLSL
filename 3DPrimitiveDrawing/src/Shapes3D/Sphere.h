@@ -6,6 +6,7 @@
 #include "GLBuffer.h"
 #include "GLMat.h"
 #include "PhongShader/PhongShader.h"
+#include "glm/glm.hpp"
 
 class Sphere : public Shape
 {
@@ -26,7 +27,7 @@ public:
 
 	Sphere(float x, float y, float z, float r);
 	Sphere(Sphere* sphere);
-	Sphere(CVector3 pos, float r);
+	Sphere(glm::vec3 pos, float r);
 	Sphere(float* mat, float r);
 	~Sphere();
 

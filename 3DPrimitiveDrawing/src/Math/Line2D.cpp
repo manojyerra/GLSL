@@ -7,7 +7,7 @@ Line2D::Line2D()
 }
 
 
-Line2D::Line2D( CVector3 p1, CVector3 p2 )
+Line2D::Line2D(glm::vec3 p1, glm::vec3 p2 )
 {
 	P1 = p1;
 	P2 = p2;
@@ -21,7 +21,7 @@ Line2D::Line2D( float x1, float y1, float x2, float y2 )
 	P2.y = y2;
 }
 
-Line2D::Line2D( CVector3* p1, CVector3* p2 )
+Line2D::Line2D(glm::vec3* p1, glm::vec3* p2 )
 {
 	P1.x = p1->x;
 	P1.y = p1->y;
@@ -49,7 +49,7 @@ Line2D::~Line2D()
 //	return atan(Slope()) * 180.0f/(22.0f/7.0f);
 //}
 
-bool Line2D::AtSameSide(CVector3* p1, CVector3* p2)
+bool Line2D::AtSameSide(glm::vec3* p1, glm::vec3* p2)
 {
 	float A = P2.y-P1.y;
 	float B = P1.x-P2.x;
@@ -62,7 +62,7 @@ bool Line2D::AtSameSide(CVector3* p1, CVector3* p2)
 }
 
 
-CVector3 Line2D::IntersectionPoint(Line2D* line, bool* intersectionPointExist)
+glm::vec3 Line2D::IntersectionPoint(Line2D* line, bool* intersectionPointExist)
 {
 	float A1 = P2.y- P1.y;
 	float B1 = P1.x - P2.x;
@@ -77,16 +77,16 @@ CVector3 Line2D::IntersectionPoint(Line2D* line, bool* intersectionPointExist)
 	if(denom == 0)
 	{
 		intersectionPointExist[0] = false;
-		return CVector3(0,0,0);
+		return glm::vec3(0,0,0);
 	}
 
 	float x = (B1*C2 - B2*C1)/denom;
 	float y = (C1*A2 - C2*A1)/denom;
 
-	return CVector3(x,y,0);
+	return glm::vec3(x,y,0);
 }
 
-float Line2D::PerpendicularDist(CVector3* p)
+float Line2D::PerpendicularDist(glm::vec3* p)
 {
 	float A = P2.y - P1.y;
 	float B = P1.x - P2.x;
@@ -99,7 +99,7 @@ float Line2D::PerpendicularDist(CVector3* p)
 	return numerator / denom;
 }
 
-float Line2D::PerpendicularDist( CVector3* p1, CVector3* p2, CVector3* p )
+float Line2D::PerpendicularDist(glm::vec3* p1, glm::vec3* p2, glm::vec3* p )
 {
 	float A = p2->y - p1->y;
 	float B = p1->x - p2->x;
@@ -112,7 +112,7 @@ float Line2D::PerpendicularDist( CVector3* p1, CVector3* p2, CVector3* p )
 	return numerator / denom;
 }
 
-CVector3 Line2D::FootOfPerpendicular( CVector3* p1, CVector3* p2, CVector3* p )
+glm::vec3 Line2D::FootOfPerpendicular(glm::vec3* p1, glm::vec3* p2, glm::vec3* p )
 {
 	float A = p2->y - p1->y;
 	float B = p1->x - p2->x;
@@ -123,6 +123,6 @@ CVector3 Line2D::FootOfPerpendicular( CVector3* p1, CVector3* p2, CVector3* p )
 	float h = (coff * A) + p->x;
 	float k = (coff * B) + p->y;
 
-	return CVector3(h, k);
+	return glm::vec3(h, k, 0.0f);
 }
 

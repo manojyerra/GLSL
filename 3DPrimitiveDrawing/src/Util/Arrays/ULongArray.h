@@ -1,9 +1,7 @@
 #ifndef ULongArray_H
 #define ULongArray_H
-#pragma once
 
 #include "Macros.h"
-#include "Vector3.h"
 
 class ULongArray
 {

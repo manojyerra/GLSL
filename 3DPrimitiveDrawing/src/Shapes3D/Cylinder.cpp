@@ -61,9 +61,9 @@ void Cylinder::InitCommon()
 }
 
 
-CVector3 Cylinder::GetPos()
+glm::vec3 Cylinder::GetPos()
 {
-	return CVector3(m[12], m[13], m[14]);
+	return glm::vec3(m[12], m[13], m[14]);
 }
 
 
@@ -93,14 +93,14 @@ Cylinder Cylinder::CalcBoundingCylinder(float* vertexBuf, int arrSize)
 	float* localVertexBuf = new float[arrSize];
 	memcpy(localVertexBuf, vertexBuf, arrSize*sizeof(float));
 
-	CVector3 center = TransformVertexBuf::CalcCenter(localVertexBuf, arrSize);
+	glm::vec3 center = TransformVertexBuf::CalcCenter(localVertexBuf, arrSize);
 	TransformVertexBuf::Subtract(localVertexBuf, arrSize, center);
 
 	float delta = 30.0f;
-	CVector3 start(0,0,0);
-	CVector3 end(360,360,360);
+	glm::vec3 start(0,0,0);
+	glm::vec3 end(360,360,360);
 
-	CVector3 rot(0,0,0);
+	glm::vec3 rot(0,0,0);
 	Cylinder prevCylinder;
 	bool once = true;
 
@@ -108,8 +108,8 @@ Cylinder Cylinder::CalcBoundingCylinder(float* vertexBuf, int arrSize)
 	{
 		if(loop != 0)
 		{
-			start = CVector3(rot.x-delta, rot.y-delta, rot.z-delta);
-			end	  = CVector3(rot.x+delta, rot.y+delta, rot.z+delta);
+			start = glm::vec3(rot.x-delta, rot.y-delta, rot.z-delta);
+			end	  = glm::vec3(rot.x+delta, rot.y+delta, rot.z+delta);
 		}
 
         if(loop == 1)		delta = 10;
@@ -128,7 +128,7 @@ Cylinder Cylinder::CalcBoundingCylinder(float* vertexBuf, int arrSize)
 					if(once || bCylinder.Volume() < prevCylinder.Volume())
 					{
 						prevCylinder = bCylinder;
-						rot = CVector3(xAng, yAng, zAng);
+						rot = glm::vec3(xAng, yAng, zAng);
 						once = false;
 					}
 				}
@@ -144,7 +144,7 @@ Cylinder Cylinder::CalcBoundingCylinder(float* vertexBuf, int arrSize)
 	mat.glRotatef(-rot.y, 0,1,0);
 	mat.glRotatef(-rot.z, 0,0,1);
 
-	CVector3 trans = prevCylinder.GetPos();
+	glm::vec3 trans = prevCylinder.GetPos();
 	mat.glTranslatef(trans.x, trans.y, trans.z);
 	
 	return Cylinder(mat.m, prevCylinder.GetRadius(), prevCylinder.GetHeight());
@@ -210,8 +210,6 @@ void Cylinder::Draw()
 	if(!_visible)
 		return;
 
-	unsigned int prevColor = GLUtil::GLColor(_color);
-
 	_scaleMat.m[0] = _r * 2;
 	_scaleMat.m[5] = _h;
 	_scaleMat.m[10] = _r * 2;
@@ -245,8 +243,6 @@ void Cylinder::Draw()
 	glDisableVertexAttribArray(colorID);
 
 	_shaderProgram->End();
-
-	GLUtil::GLColor(prevColor);
 }
 
 void Cylinder::GenerateBufferID()

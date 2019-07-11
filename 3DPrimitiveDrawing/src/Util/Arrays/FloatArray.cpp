@@ -41,7 +41,7 @@ void FloatArray::push_back(float val)
 	_size++;
 }
 
-void FloatArray::push_back_2(const CVector3& vec)
+void FloatArray::push_back_2(const glm::vec3& vec)
 {
 	if (_size + 2 >= _capacity)
 	{
@@ -54,7 +54,7 @@ void FloatArray::push_back_2(const CVector3& vec)
 	_size += 2;
 }
 
-void FloatArray::push_back_3(const CVector3& vec)
+void FloatArray::push_back_3(const glm::vec3& vec)
 {
 	if (_size + 3 >= _capacity)
 	{

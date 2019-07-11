@@ -1,6 +1,5 @@
 #ifndef GL2DState_H
 #define GL2DState_H
-#pragma once
 
 #include "Macros.h"
 

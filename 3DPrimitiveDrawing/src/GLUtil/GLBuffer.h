@@ -1,4 +1,3 @@
-#pragma once
 #ifndef GLBuffer_H
 #define GLBuffer_H
 

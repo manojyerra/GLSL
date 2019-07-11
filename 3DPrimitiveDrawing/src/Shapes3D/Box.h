@@ -7,6 +7,7 @@
 #include "ShaderProgram.h"
 #include "GLBuffer.h"
 #include "GLMat.h"
+#include "glm/glm.hpp"
 
 class Box : public Shape
 {
@@ -30,7 +31,7 @@ private:
 public:
 	Box();
 	Box(Box* box);
-	Box(float* mat, CVector3 size);
+	Box(float* mat, glm::vec3 size);
 	Box(float x, float y, float z, float w, float h, float d);
 	~Box();
 
@@ -42,10 +43,10 @@ public:
 	
 	void SetPos(float x, float y, float z);
 	void SetSize(float w, float h, float d);
-	CVector3 GetPos();
-	CVector3 GetSize();
+	glm::vec3 GetPos();
+	glm::vec3 GetSize();
 	float Volume();
-	vector<CVector3> GetAABBVertices();
+	vector<glm::vec3> GetAABBVertices();
 
 	void Draw();
 };

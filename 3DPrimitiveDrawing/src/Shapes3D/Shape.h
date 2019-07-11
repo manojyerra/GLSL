@@ -2,7 +2,7 @@
 #define Shape_H
 
 #include "Macros.h"
-#include "Vector3.h"
+#include "glm/glm.hpp"
 
 class Shape
 {
@@ -33,8 +33,8 @@ public:
 	void SetGLMatrix(float* mat);
 	float* GetGLMatrix();
 	
-	CVector3 GetPos();
-	void SetPos(CVector3 pos);
+	glm::vec3 GetPos();
+	void SetPos(glm::vec3 pos);
 	void SetPos(float x, float y, float z);
 
 	void AddTransInWorld(float x, float y, float z);
@@ -44,7 +44,7 @@ public:
 	void AddRotateInLocal(char axis, float angle);
 
 	void AddUniformScale(float scale);
-	void AddScale(CVector3 scale);
+	void AddScale(glm::vec3 scale);
 
 	void SetColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 	void SetColor(unsigned int color);

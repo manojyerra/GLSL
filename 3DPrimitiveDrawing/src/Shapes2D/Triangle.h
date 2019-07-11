@@ -1,9 +1,9 @@
 #ifndef Triangle_H
 #define Triangle_H
 
-#include "Vector3.h"
 #include "ShaderProgram.h"
 #include "GLMat.h"
+#include "glm/glm.hpp"
 
 class Triangle
 {
@@ -15,7 +15,7 @@ class Triangle
 	GLMat _modelMat;
 
 public:
-	Triangle(CVector3& v1, CVector3& v2, CVector3& v3);
+	Triangle(glm::vec3& v1, glm::vec3& v2, glm::vec3& v3);
 	~Triangle();
 
 	void Draw();

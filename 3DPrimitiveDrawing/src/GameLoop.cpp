@@ -46,7 +46,7 @@ GameLoop::GameLoop(int sw, int sh)
 	//_fbo = new GLFBO(_sw*0.7, _sh*0.7);
 	//_texture = new GLTexture(_sw*0.7, _sh*0.7);
 
-	_particleLoader = new ParticleLoader();
+	//_particleLoader = new ParticleLoader();
 }
 
 void GameLoop::GLSettings()

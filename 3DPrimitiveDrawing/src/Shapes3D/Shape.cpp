@@ -64,16 +64,16 @@ void Shape::SetPos(float x, float y, float z)
 	m[14] = z;
 }
 
-void Shape::SetPos(CVector3 pos)
+void Shape::SetPos(glm::vec3 pos)
 {
 	m[12] = pos.x;
 	m[13] = pos.y;
 	m[14] = pos.z;
 }
 
-CVector3 Shape::GetPos()
+glm::vec3 Shape::GetPos()
 {
-	return CVector3(m[12], m[13], m[14]);
+	return glm::vec3(m[12], m[13], m[14]);
 }
 
 void Shape::AddTransInWorld(float x, float y, float z)
@@ -98,14 +98,13 @@ void Shape::AddRotateInWorld(char axis, float angle)
 
 void Shape::AddTransInLocal(char axis, float move)
 {
-	CVector3 vec;
+	glm::vec3 vec;
 
-	if(axis == 'x')			vec = CVector3( m[0], m[1], m[2] );
-	else if(axis == 'y')	vec = CVector3( m[4], m[5], m[6] );
-	else if(axis == 'z')	vec = CVector3( m[8], m[9], m[10] );
+	if(axis == 'x')			vec = glm::vec3( m[0], m[1], m[2] );
+	else if(axis == 'y')	vec = glm::vec3( m[4], m[5], m[6] );
+	else if(axis == 'z')	vec = glm::vec3( m[8], m[9], m[10] );
 	
-	vec.Normalize();
-	vec *= move;
+	vec = glm::normalize(vec) * move;
 
 	m[12] += vec.x;
 	m[13] += vec.y;
@@ -152,13 +151,13 @@ void Shape::AddUniformScale(float scale)
 	{
 		Box* box = (Box*)this;
 		
-		CVector3 size = box->GetSize();
+		glm::vec3 size = box->GetSize();
 
 		box->SetSize( size.x * scale, size.y * scale, size.z * scale );
 	}
 }
 
-void Shape::AddScale(CVector3 scale)
+void Shape::AddScale(glm::vec3 scale)
 {
 	if(_id == CYLINDER)
 	{
@@ -180,7 +179,7 @@ void Shape::AddScale(CVector3 scale)
 	else if(_id == BOX)
 	{
 		Box* box = (Box*)this;
-		CVector3 size = box->GetSize();
+		glm::vec3 size = box->GetSize();
 		box->SetSize( size.x + scale.x*2.0f, size.y + scale.y*2.0f, size.z + scale.z*2.0f );
 	}
 }
