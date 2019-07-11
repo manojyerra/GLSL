@@ -17,7 +17,7 @@
 #include "Sphere.h"
 #include "ObjLoader.h"
 #include "BinaryObjLoader.h"
-//#include "ParticleLoader.h"
+#include "ParticleLoader.h"
 
 class GameLoop 
 {
@@ -39,7 +39,7 @@ private:
 
 	ObjLoader* _objLoader;
 	BinaryObjLoader* _binaryObjLoader;
-	//ParticleLoader* _particleLoader;
+	ParticleLoader* _particleLoader;
 
 	GLFBO* _fbo;
 	GLTexture* _texture;

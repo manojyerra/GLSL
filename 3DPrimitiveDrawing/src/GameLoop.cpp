@@ -46,7 +46,7 @@ GameLoop::GameLoop(int sw, int sh)
 	//_fbo = new GLFBO(_sw*0.7, _sh*0.7);
 	//_texture = new GLTexture(_sw*0.7, _sh*0.7);
 
-	//_particleLoader = new ParticleLoader();
+	_particleLoader = new ParticleLoader();
 }
 
 void GameLoop::GLSettings()
@@ -102,15 +102,15 @@ void GameLoop::Draw()
 	_cam->UpdateCamera();
 
 	_floor->Draw();
-	_objLoader->Draw();
+	//_objLoader->Draw();
 	//_binaryObjLoader->Draw();
-	//_particleLoader->Draw();
+	_particleLoader->Draw();
 
 	//_triangle->Draw();
-	_box->Draw();
-	_cylinder->Draw();
-	_cone->Draw();
-	_sphere->Draw();
+	//_box->Draw();
+	//_cylinder->Draw();
+	//_cone->Draw();
+	//_sphere->Draw();
 
 	//_fbo->UnBindFBO();
 	
