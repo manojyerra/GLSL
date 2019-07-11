@@ -9,7 +9,6 @@ class GL2DState
 private:
 	float _projMat[16];
 	float _modelMat[16];
-	unsigned int _color;
 	GLfloat _lineWidth;
 	GLfloat _pointSize;
 

@@ -16,9 +16,9 @@ GameLoop::GameLoop(int sw, int sh)
 
 	_floor = new Floor();
 
-	CVector3 v1(0.0f, 0.0f, 0.0f);
-	CVector3 v2(0.0f, 5.0f, 0.0f);
-	CVector3 v3(5.0f, 0.0f, 0.0f);
+	glm::vec3 v1(0.0f, 0.0f, 0.0f);
+	glm::vec3 v2(0.0f, 5.0f, 0.0f);
+	glm::vec3 v3(5.0f, 0.0f, 0.0f);
 
 	_triangle = new Triangle(v1, v2, v3);
 

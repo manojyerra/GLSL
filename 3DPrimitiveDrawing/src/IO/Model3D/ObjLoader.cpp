@@ -4,7 +4,7 @@
 #include "GLUtil.h"
 #include "ShadersManager.h"
 #include "GLBuffer.h"
-#include "Vector3.h"
+#include "glm/glm.hpp"
 #include "Cam.h"
 #include "UtilFuncs.h"
 #include <glm/mat4x4.hpp>
@@ -53,9 +53,9 @@ void ObjLoader::ReadObjFile(string folderPath)
 	float tx, ty;
 	float nx, ny, nz;
 
-	vector<CVector3> vertexVec;
-	vector<CVector3> uvVec;
-	vector<CVector3> normalVec;
+	vector<glm::vec3> vertexVec;
+	vector<glm::vec3> uvVec;
+	vector<glm::vec3> normalVec;
 
 	VoidPtrArray facesArr(1024 * 1024);
 
@@ -66,19 +66,19 @@ void ObjLoader::ReadObjFile(string folderPath)
 		if (line[0] == 'v' && line[1] == ' ')
 		{
 			UtilFuncs::scan_vertex(line, &vx, &vy, &vz);
-			vertexVec.push_back(CVector3(vx, vy, vz));
+			vertexVec.push_back(glm::vec3(vx, vy, vz));
 			free(line);
 		}
 		else if (line[0] == 'v' && line[1] == 't')
 		{
 			UtilFuncs::scan_uv(line, &tx, &ty);
-			uvVec.push_back(CVector3(tx, 1 - ty, 0));
+			uvVec.push_back(glm::vec3(tx, 1 - ty, 0));
 			free(line);
 		}
 		else if (line[0] == 'v' && line[1] == 'n')
 		{
 			UtilFuncs::scan_normal(line, &nx, &ny, &nz);
-			normalVec.push_back(CVector3(nx, ny, nz));
+			normalVec.push_back(glm::vec3(nx, ny, nz));
 			free(line);
 		}
 		else if (line[0] == 'f' && line[1] == ' ')

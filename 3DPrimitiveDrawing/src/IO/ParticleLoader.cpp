@@ -23,6 +23,7 @@ ParticleLoader::ParticleLoader()
 	_colorBufferID = 0;
 	_vertexCount = 0;
 
+	/*
 	unsigned int vertexBufLen = 36;
 	
 	float* vertexBuf = (float*)malloc(vertexBufLen);
@@ -68,13 +69,14 @@ ParticleLoader::ParticleLoader()
 	
 	_vertexCount = vertexBufLen / 12;
 	free(vertexBuf);
+	*/
 
-	/*
+
 	FILE* fp = fopen("data/xData.bin", "rb");
 
 	if (fp)
 	{
-		unsigned int length = CFileReader::GetLength("data/xData.bin");
+		unsigned int length = FileReader::GetLength("data/xData.bin");
 		char* vertexBuf = (char*)malloc(length);
 
 		fread(vertexBuf, 1, length, fp);
@@ -103,7 +105,6 @@ ParticleLoader::ParticleLoader()
 		glBufferData(GL_ARRAY_BUFFER, colorBufLen, colorBuf, GL_STATIC_DRAW);
 		free(colorBuf);
 	}
-	*/
 }
 
 void ParticleLoader::Draw()
@@ -159,7 +160,7 @@ ParticleLoader::~ParticleLoader()
 
 
 
-//ParticleLoader::ParticleLoader(CVector3& v1, CVector3& v2, CVector3& v3)
+//ParticleLoader::ParticleLoader()
 //{
 //	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram(
 //		"shaders/SingleColor/SingleColor.vs",
@@ -212,7 +213,7 @@ ParticleLoader::~ParticleLoader()
 
 
 //
-//ParticleLoader::ParticleLoader(CVector3& v1, CVector3& v2, CVector3& v3)
+//ParticleLoader::ParticleLoader()
 //{
 //	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram(
 //		"shaders/CubeGeo/CubeGeo.vs",

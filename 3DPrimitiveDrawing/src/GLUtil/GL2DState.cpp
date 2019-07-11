@@ -9,7 +9,6 @@ GL2DState::GL2DState()
 	_projMat[0] = _projMat[5] = _projMat[10] = _projMat[15] = 1.0f;
 	_modelMat[0] = _modelMat[5] = _modelMat[10] = _modelMat[15] = 1.0f;
 
-	_color = 0xffffffff;
 	_lineWidth = 1.0f;
 	_pointSize = 1.0f;
 
@@ -29,7 +28,6 @@ void GL2DState::Begin(unsigned int color, GLfloat lineWidth, GLfloat pointSize, 
 	_blend = GLUtil::GLEnable(GL_BLEND, enableBlend);
 	_lineSmooth = GLUtil::GLEnable(GL_LINE_SMOOTH, lineSmooth);
 
-	_color = GLUtil::GLColor(color);
 	_pointSize = GLUtil::GLPointSize(pointSize);
 	_lineWidth = GLUtil::GLLineWidth(lineWidth);
 
@@ -53,7 +51,6 @@ void GL2DState::End()
 	GLUtil::GLEnable(GL_BLEND, _blend);
 	GLUtil::GLEnable(GL_LINE_SMOOTH, _lineSmooth);
 
-	GLUtil::GLColor(_color);
 	GLUtil::GLPointSize(_pointSize);
 	GLUtil::GLLineWidth(_lineWidth);
 

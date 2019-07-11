@@ -1,7 +1,7 @@
 #ifndef ParticleLoader_H
 #define ParticleLoader_H
 
-#include "Vector3.h"
+#include "glm/glm.hpp"
 #include "ShaderProgram.h"
 #include "GLMat.h"
 

@@ -4,7 +4,7 @@
 #include "GLUtil.h"
 #include "ShadersManager.h"
 #include "GLBuffer.h"
-#include "Vector3.h"
+#include "glm/glm.hpp"
 #include "Cam.h"
 #include "UtilFuncs.h"
 

@@ -20,7 +20,7 @@ private:
 	unsigned int _uvBufferID;
 	unsigned int _baseTexID;
 
-	CVector3 lightPos;
+	glm::vec3 lightPos;
 	float Ka[4];
 	float Kd[4];
 	float Ks[4];
