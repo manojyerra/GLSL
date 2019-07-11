@@ -88,9 +88,8 @@ void Cam::SetOrthoProjection()
 	_bottom = -((-_trans.z *_zNearPlaneHalfW) / _zNear) * (_sh / _sw);
 	_top = ((-_trans.z *_zNearPlaneHalfW) / _zNear) * (_sh / _sw);
 
-	//glMatrixMode(GL_PROJECTION);
-	//glLoadIdentity();
-	//glOrtho(_left, _right, _bottom, _top, _zNear, _zFar);
+	projMat.glLoadIdentity();
+	projMat.glOrtho(_left, _right, _bottom, _top, _zNear, _zFar);
 }
 
 bool Cam::IsOrthoProjection()
@@ -104,6 +103,7 @@ void Cam::SetViewMatrix()
 	viewMat.glTranslatef(_trans.x, _trans.y, _trans.z);
 	viewMat.glRotatef(_angle.x, 1, 0, 0);
 	viewMat.glRotatef(_angle.y, 0, 1, 0);
+	//viewMat.glRotatef(-90, 1, 0, 0);
 	viewMat.glTranslatef(-_pivot.x, -_pivot.y, -_pivot.z);
 }
 
