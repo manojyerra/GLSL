@@ -21,7 +21,7 @@
   <ItemGroup>
     <ClCompile Include="glew\source\glew.c" />
     <ClCompile Include="src\Cam.cpp" />
-    <ClCompile Include="src\CFileReader.cpp" />
+    <ClCompile Include="src\FileReader.cpp" />
     <ClCompile Include="src\Floor.cpp" />
     <ClCompile Include="src\GameLoop.cpp" />
     <ClCompile Include="src\GLUtil\GL2DState.cpp" />
@@ -98,7 +98,7 @@
     <ClInclude Include="glew\include\GL\glxew.h" />
     <ClInclude Include="glew\include\GL\wglew.h" />
     <ClInclude Include="src\Cam.h" />
-    <ClInclude Include="src\CFileReader.h" />
+    <ClInclude Include="src\FileReader.h" />
     <ClInclude Include="src\Floor.h" />
     <ClInclude Include="src\GameLoop.h" />
     <ClInclude Include="src\GLUtil\GL2DState.h" />

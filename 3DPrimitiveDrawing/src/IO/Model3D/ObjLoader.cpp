@@ -1,5 +1,5 @@
 #include "ObjLoader.h"
-#include "CFileReader.h"
+#include "FileReader.h"
 #include "ImageBuffer.h"
 #include "GLUtil.h"
 #include "ShadersManager.h"
@@ -47,7 +47,7 @@ void ObjLoader::ReadObjFile(string folderPath)
 
 	string filePath = folderPath + "/objFile.obj";
 
-	CFileReader fileReader(filePath, "rb");
+	FileReader fileReader(filePath, "rb");
 
 	float vx, vy, vz;
 	float tx, ty;

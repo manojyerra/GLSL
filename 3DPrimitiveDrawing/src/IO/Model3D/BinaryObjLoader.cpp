@@ -1,5 +1,5 @@
 #include "BinaryObjLoader.h"
-#include "CFileReader.h"
+#include "FileReader.h"
 #include "ImageBuffer.h"
 #include "GLUtil.h"
 #include "ShadersManager.h"
@@ -28,9 +28,9 @@ void BinaryObjLoader::ReadObjFile(string folderPath)
 {
 	unsigned int startTime = GetTickCount();
 
-	if (CFileReader::IsFileExists(folderPath + "/vertex.buf"))
+	if (FileReader::IsFileExists(folderPath + "/vertex.buf"))
 	{
-		CFileReader* fileReader = new CFileReader(folderPath + "/vertex.buf", "rb");
+		FileReader* fileReader = new FileReader(folderPath + "/vertex.buf", "rb");
 		glGenBuffers(1, &_vertexBufferID);
 		glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
 		glBufferData(GL_ARRAY_BUFFER, fileReader->GetLength(), fileReader->GetData(), GL_STATIC_DRAW);
@@ -38,18 +38,18 @@ void BinaryObjLoader::ReadObjFile(string folderPath)
 		delete fileReader;
 	}
 
-	if (CFileReader::IsFileExists(folderPath + "/normal.buf"))
+	if (FileReader::IsFileExists(folderPath + "/normal.buf"))
 	{
-		CFileReader* fileReader = new CFileReader(folderPath + "/normal.buf", "rb");
+		FileReader* fileReader = new FileReader(folderPath + "/normal.buf", "rb");
 		glGenBuffers(1, &_normalBufferID);
 		glBindBuffer(GL_ARRAY_BUFFER, _normalBufferID);
 		glBufferData(GL_ARRAY_BUFFER, fileReader->GetLength(), fileReader->GetData(), GL_STATIC_DRAW);
 		delete fileReader;
 	}
 
-	if (CFileReader::IsFileExists(folderPath + "/uv.buf"))
+	if (FileReader::IsFileExists(folderPath + "/uv.buf"))
 	{
-		CFileReader* fileReader = new CFileReader(folderPath + "/uv.buf", "rb");
+		FileReader* fileReader = new FileReader(folderPath + "/uv.buf", "rb");
 		glGenBuffers(1, &_uvBufferID);
 		glBindBuffer(GL_ARRAY_BUFFER, _uvBufferID);
 		glBufferData(GL_ARRAY_BUFFER, fileReader->GetLength(), fileReader->GetData(), GL_STATIC_DRAW);

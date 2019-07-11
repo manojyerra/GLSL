@@ -1,11 +1,11 @@
-#ifndef CFileReader_H
-#define CFileReader_H
+#ifndef FileReader_H
+#define FileReader_H
 
 #include <stdio.h>
 #include <string>
 using namespace std;
 
-class CFileReader
+class FileReader
 {
 private:
 	FILE* fp;
@@ -15,8 +15,8 @@ private:
 	char* buf;
 
 public:
-	CFileReader(string filePath, string readMode);
-	~CFileReader();
+	FileReader(string filePath, string readMode);
+	~FileReader();
 
 	static unsigned int GetLength(string filePath);
 	static bool IsFileExists(string filePath);

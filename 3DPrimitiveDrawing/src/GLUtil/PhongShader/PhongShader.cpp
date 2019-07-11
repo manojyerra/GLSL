@@ -1,5 +1,5 @@
 #include "PhongShader.h"
-#include "CFileReader.h"
+#include "FileReader.h"
 #include "ImageBuffer.h"
 #include "GLUtil.h"
 #include "ShadersManager.h"

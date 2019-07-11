@@ -1,5 +1,5 @@
 #include "ShaderProgram.h"
-#include "CFileReader.h"
+#include "FileReader.h"
 
 
 ShaderProgram::ShaderProgram(string vertexShaderFilePath, string fragmentShaderFilePath)
@@ -119,7 +119,7 @@ GLint ShaderProgram::CompileShader(const char* shaderFilePath, GLenum shaderType
 
     if(fp)
     {
-		unsigned int shaderFileLen = CFileReader::GetLength(shaderFilePath);
+		unsigned int shaderFileLen = FileReader::GetLength(shaderFilePath);
 		shaderFileData = (char*)malloc(shaderFileLen+1);
 		memset(shaderFileData, (int)'\0', shaderFileLen+1);
 		fread(shaderFileData, 1, shaderFileLen, fp);

@@ -240,9 +240,6 @@
     <ClCompile Include="src\GameLoop.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\CFileReader.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\Shapes3D\Box.cpp">
       <Filter>src\Shapes3D</Filter>
     </ClCompile>
@@ -296,6 +293,9 @@
     </ClCompile>
     <ClCompile Include="src\IO\ParticleLoader.cpp">
       <Filter>src\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FileReader.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -410,9 +410,6 @@
     <ClInclude Include="src\GameLoop.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\CFileReader.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\Shapes3D\Box.h">
       <Filter>src\Shapes3D</Filter>
     </ClInclude>
@@ -466,6 +463,9 @@
     </ClInclude>
     <ClInclude Include="src\IO\ParticleLoader.h">
       <Filter>src\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FileReader.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

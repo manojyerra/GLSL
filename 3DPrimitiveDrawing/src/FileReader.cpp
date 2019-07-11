@@ -1,7 +1,7 @@
-#include "CFileReader.h"
+#include "FileReader.h"
 #include "Macros.h"
 
-CFileReader::CFileReader(string filePath, string readMode)
+FileReader::FileReader(string filePath, string readMode)
 {
 	fp = fopen(filePath.c_str(), readMode.c_str());
 	pos = 0;
@@ -22,7 +22,7 @@ CFileReader::CFileReader(string filePath, string readMode)
 	}
 }
 
-unsigned int CFileReader::GetLength(string filePath)
+unsigned int FileReader::GetLength(string filePath)
 {
 	FILE  *fp = fopen(filePath.c_str(), "rb");
     
@@ -38,7 +38,7 @@ unsigned int CFileReader::GetLength(string filePath)
     return 0;
 }
 
-bool CFileReader::IsFileExists(string filePath)
+bool FileReader::IsFileExists(string filePath)
 {
 	FILE  *fp = fopen(filePath.c_str(), "r");
     
@@ -51,22 +51,22 @@ bool CFileReader::IsFileExists(string filePath)
 	return false;
 }
 
-char* CFileReader::GetData()
+char* FileReader::GetData()
 {
 	return buf;
 }
 
-int CFileReader::GetLength()
+int FileReader::GetLength()
 {
     return length;
 }
 
-void CFileReader::Reset()
+void FileReader::Reset()
 {
 	pos = 0;
 }
 
-char* CFileReader::ReadLine()
+char* FileReader::ReadLine()
 {
 	if(pos >= length)
 		return NULL;
@@ -92,7 +92,7 @@ char* CFileReader::ReadLine()
 	return NULL;
 }
 
-CFileReader::~CFileReader()
+FileReader::~FileReader()
 {
 	if(buf)
 	{
@@ -102,7 +102,7 @@ CFileReader::~CFileReader()
 }
 
 
-//char* CFileReader::GetData()
+//char* FileReader::GetData()
 //{
 //    if(fp)
 //    {
