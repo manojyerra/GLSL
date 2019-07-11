@@ -1,6 +1,7 @@
 #include "GLMat.h"
 #include "math.h"
 #include "string.h"
+#include "glm/geometric.hpp"
 
 GLMat::GLMat()
 {
@@ -182,9 +183,9 @@ void GLMat::MultMat(float* a, float* b, float* result)
 	}
 }
 
-CVector3 GLMat::MultVector(float* a, CVector3 vec)
+glm::vec3 GLMat::MultVector(float* a, glm::vec3 vec)
 {
-	CVector3 retVec;
+	glm::vec3 retVec;
 	int b[4] = {vec.x, vec.y, vec.z, 0};
 
 	retVec.x = a[0] * b[0] + a[4] * b[1] + a[8] * b[2] + a[12] * b[3];
@@ -253,13 +254,13 @@ int GLMat::InvertMatrix(const float src[16], float inverse[16])
 
 void GLMat::GetGluLookAtParameters(float* m, float* gluLookAtParams)
 {
-	CVector3 sideVector(m[0], m[4], m[8]);
-	CVector3 upVector(m[1], m[5], m[9]);
-	CVector3 forwardVector(-m[2], -m[6], -m[10]);
+	glm::vec3 sideVector(m[0], m[4], m[8]);
+	glm::vec3 upVector(m[1], m[5], m[9]);
+	glm::vec3 forwardVector(-m[2], -m[6], -m[10]);
 
-	sideVector.Normalize();
-	upVector.Normalize();
-	forwardVector.Normalize();
+	sideVector = glm::normalize(sideVector);
+	upVector = glm::normalize(upVector);
+	forwardVector = glm::normalize(forwardVector);
 	
 	float rotMat[16];
 	memcpy(rotMat, m, 16*sizeof(float));
@@ -286,24 +287,24 @@ void GLMat::GetGluLookAtParameters(float* m, float* gluLookAtParams)
 	gluLookAtParams[8] = upVector.z;
 }
 
-CVector3 GLMat::GetScale()
+glm::vec3 GLMat::GetScale()
 {
 	float scaleX = sqrt( m[0]*m[0] + m[1]*m[1] + m[2]*m[2] );
 	float scaleY = sqrt( m[4]*m[4] + m[5]*m[5] + m[6]*m[6] );
 	float scaleZ = sqrt( m[8]*m[8] + m[9]*m[9] + m[10]*m[10] );
 
-	return CVector3( scaleX, scaleY, scaleZ );
+	return glm::vec3( scaleX, scaleY, scaleZ );
 }
 
 void GLMat::RemoveScale()
 {
-	CVector3 xVec(m[0], m[1], m[2]);
-	CVector3 yVec(m[4], m[5], m[6]);
-	CVector3 zVec(m[8], m[9], m[10]);
+	glm::vec3 xVec(m[0], m[1], m[2]);
+	glm::vec3 yVec(m[4], m[5], m[6]);
+	glm::vec3 zVec(m[8], m[9], m[10]);
 
-	xVec.Normalize();
-	yVec.Normalize();
-	zVec.Normalize();
+	xVec = glm::normalize(xVec);
+	yVec = glm::normalize(yVec);
+	zVec = glm::normalize(zVec);
 
 	m[0] = xVec.x;
 	m[1] = xVec.y;
@@ -318,15 +319,15 @@ void GLMat::RemoveScale()
 	m[10] = zVec.z;
 }
 
-void GLMat::SetScale(CVector3 scale)
+void GLMat::SetScale(glm::vec3 scale)
 {
-	CVector3 xVec(m[0], m[1], m[2]);
-	CVector3 yVec(m[4], m[5], m[6]);
-	CVector3 zVec(m[8], m[9], m[10]);
+	glm::vec3 xVec(m[0], m[1], m[2]);
+	glm::vec3 yVec(m[4], m[5], m[6]);
+	glm::vec3 zVec(m[8], m[9], m[10]);
 
-	xVec.SetLength( scale.x );
-	yVec.SetLength( scale.y );
-	zVec.SetLength( scale.z );
+	xVec = glm::normalize(xVec) * scale.x;
+	yVec = glm::normalize(yVec) * scale.y;
+	zVec = glm::normalize(zVec) * scale.z;
 
 	m[0] = xVec.x;
 	m[1] = xVec.y;
@@ -348,19 +349,19 @@ void GLMat::SetPos(float x, float y, float z)
 	m[14] = z;
 }
 
-void GLMat::SetPos(CVector3 pos)
+void GLMat::SetPos(glm::vec3 pos)
 {
 	m[12] = pos.x;
 	m[13] = pos.y;
 	m[14] = pos.z;
 }
 
-CVector3 GLMat::GetPos()
+glm::vec3 GLMat::GetPos()
 {
-	return CVector3(m[12], m[13], m[14]);
+	return glm::vec3(m[12], m[13], m[14]);
 }
 
-CVector3 GLMat::GetRotation()
+glm::vec3 GLMat::GetRotation()
 {
 	GLMat newMat;
 	newMat.Copy(m);
@@ -369,9 +370,9 @@ CVector3 GLMat::GetRotation()
 	return newMat.GetEulerXYZRot_In_Degrees();
 }
 
-void GLMat::SetRotation(CVector3 rot)
+void GLMat::SetRotation(glm::vec3 rot)
 {
-	CVector3 scale = GetScale();
+	glm::vec3 scale = GetScale();
 	RemoveScale();
 
 	GLMat newMat;
@@ -407,18 +408,17 @@ void GLMat::AddRotateInWorld(char axis, float angle)
 
 void GLMat::AddTransInLocal(char axis, float move)
 {
-	CVector3 vec;
+	glm::vec3 vec;
 
-	if(axis == 'x')			vec = CVector3( m[0], m[1], m[2] );
-	else if(axis == 'y')	vec = CVector3( m[4], m[5], m[6] );
-	else if(axis == 'z')	vec = CVector3( m[8], m[9], m[10] );
+	if(axis == 'x')			vec = glm::vec3( m[0], m[1], m[2] );
+	else if(axis == 'y')	vec = glm::vec3( m[4], m[5], m[6] );
+	else if(axis == 'z')	vec = glm::vec3( m[8], m[9], m[10] );
 	else
 	{
 		return;
 	}
 	
-	vec.Normalize();
-	vec *= move;
+	vec = glm::normalize(vec) * move;
 
 	m[12] += vec.x;
 	m[13] += vec.y;
@@ -427,7 +427,7 @@ void GLMat::AddTransInLocal(char axis, float move)
 
 void GLMat::AddRotateInLocal(char axis, float angle)
 {
-	CVector3 scale = GetScale();
+	glm::vec3 scale = GetScale();
 
 	RemoveScale();
 
@@ -442,12 +442,10 @@ void GLMat::AddRotateInLocal(char axis, float angle)
 	SetScale( scale );
 }
 
-CVector3 GLMat::GetEulerXYZRot_In_Degrees()
+glm::vec3 GLMat::GetEulerXYZRot_In_Degrees()
 {
-	CVector3 xyzRot = GetEulerXYZRot_In_Radians();
-	xyzRot.x *= RAD_DEG;
-	xyzRot.y *= RAD_DEG;
-	xyzRot.z *= RAD_DEG;
+	glm::vec3 xyzRot = GetEulerXYZRot_In_Radians();
+	xyzRot *= RAD_DEG;
 
 	float decimX = xyzRot.x - (int)xyzRot.x;
 	float decimY = xyzRot.y - (int)xyzRot.y;
@@ -460,19 +458,19 @@ CVector3 GLMat::GetEulerXYZRot_In_Degrees()
 	return xyzRot;
 }
 
-CVector3 GLMat::GetEulerXYZRot_In_Radians()
+glm::vec3 GLMat::GetEulerXYZRot_In_Radians()
 {
 	GLMat newMat;
 
 	newMat.Copy(m);
 
-	CVector3 xVec(m[0], m[1], m[2]);
-	CVector3 yVec(m[4], m[5], m[6]);
-	CVector3 zVec(m[8], m[9], m[10]);
+	glm::vec3 xVec(m[0], m[1], m[2]);
+	glm::vec3 yVec(m[4], m[5], m[6]);
+	glm::vec3 zVec(m[8], m[9], m[10]);
 
-	xVec.Normalize();
-	yVec.Normalize();
-	zVec.Normalize();
+	xVec = glm::normalize(xVec);
+	yVec = glm::normalize(yVec);
+	zVec = glm::normalize(zVec);
 
 	newMat.m[0] = xVec.x;
 	newMat.m[1] = xVec.y;
@@ -488,7 +486,7 @@ CVector3 GLMat::GetEulerXYZRot_In_Radians()
 
 	float* a = newMat.m;
 
-	CVector3 xyzRot;
+	glm::vec3 xyzRot;
 	xyzRot.x = atan2( a[6], a[10] );
 	xyzRot.y = atan2( -a[2], sqrt(a[6]*a[6] + a[10]*a[10]) );
 	xyzRot.z = atan2( a[1], a[0] );

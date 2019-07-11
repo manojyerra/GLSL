@@ -3,7 +3,6 @@
 
 #include "Macros.h"
 #include "GLMat.h"
-#include "Vector3.h"
 #include <glm/mat4x4.hpp>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
@@ -26,9 +25,9 @@ private:
 	float _zFar;
 	float _zNearPlaneHalfW;
 
-	CVector3 _pivot;
-	CVector3 _angle;
-	CVector3 _trans;
+	glm::vec3 _pivot;
+	glm::vec3 _angle;
+	glm::vec3 _trans;
 
 	bool _isOrtho;
 
@@ -62,9 +61,9 @@ public:
 	
 	bool UpdateCamera();
 
-	void SetPivot(CVector3 pivotPoint);
-	void SetTrans(CVector3 trans);
-	void SetRot(CVector3 rot);
+	void SetPivot(glm::vec3 pivotPoint);
+	void SetTrans(glm::vec3 trans);
+	void SetRot(glm::vec3 rot);
 
 	void SetFrontView();
 	void SetBackView();

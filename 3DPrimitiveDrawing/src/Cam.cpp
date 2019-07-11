@@ -37,9 +37,9 @@ void Cam::Init(int screenW, int screenH, float zNear, float zFar, float zNearPla
 	_zFar = zFar;
 	_zNearPlaneHalfW = zNearPlaneW/2.0f;
 
-	_pivot = CVector3(0, 0, 0);
-	_trans = CVector3(0, 0, -170.0f);
-	_angle = CVector3(30, 0, 0);
+	_pivot = glm::vec3(0, 0, 0);
+	_trans = glm::vec3(0, 0, -170.0f);
+	_angle = glm::vec3(30, 0, 0);
 
 	_viewType = 5;
 	_isOrtho = false;
@@ -179,54 +179,54 @@ bool Cam::UpdateCamera()
 	return false;
 }
 
-void Cam::SetPivot(CVector3 pivotPoint)
+void Cam::SetPivot(glm::vec3 pivotPoint)
 {
 	_pivot = pivotPoint;
 }
 
-void Cam::SetTrans(CVector3 trans)
+void Cam::SetTrans(glm::vec3 trans)
 {
 	_trans = trans;
 }
 
-void Cam::SetRot(CVector3 rot)
+void Cam::SetRot(glm::vec3 rot)
 {
 	_angle = rot;
 }
 
 void Cam::SetFrontView()
 {
-	_angle.Set(0,0,0);
+	_angle = glm::vec3(0,0,0);
 	_viewType = 0;
 }
 
 void Cam::SetBackView()
 {
-	_angle.Set(0,180,0);
+	_angle = glm::vec3(0,180,0);
 	_viewType = 1;
 }
 
 void Cam::SetLeftView()
 {
-	_angle.Set(0,90,0);
+	_angle = glm::vec3(0,90,0);
 	_viewType = 2;
 }
 
 void Cam::SetRightView()
 {
-	_angle.Set(0,-90,0);
+	_angle = glm::vec3(0,-90,0);
 	_viewType = 3;
 }
 
 void Cam::SetTopView()
 {
-	_angle.Set(90,0,0);
+	_angle = glm::vec3(90,0,0);
 	_viewType = 4;
 }
 
 void Cam::SetBottomView()
 {
-	_angle.Set(-90,0,0);
+	_angle = glm::vec3(-90,0,0);
 	_viewType = 5;
 }
 

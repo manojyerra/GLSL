@@ -101,7 +101,7 @@ void GLBuffer::glColor3f(float r, float g, float b)
 	_b = b;
 }
 
-void GLBuffer::glTexCoord2f(const CVector3& vec)
+void GLBuffer::glTexCoord2f(const glm::vec3& vec)
 {
 	this->glTexCoord2f(vec.x, vec.y);
 }
@@ -119,12 +119,12 @@ void GLBuffer::glNormal3f(GLfloat x, GLfloat y, GLfloat z)
 	_nz = z;
 }
 
-void GLBuffer::glNormal3f(const CVector3& vec)
+void GLBuffer::glNormal3f(const glm::vec3& vec)
 {
 	this->glNormal3f(vec.x, vec.y, vec.z);
 }
 
-void GLBuffer::glVertex3f(const CVector3& vec)
+void GLBuffer::glVertex3f(const glm::vec3& vec)
 {
 	this->glVertex3f(vec.x, vec.y, vec.z);
 }

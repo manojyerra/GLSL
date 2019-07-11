@@ -1,5 +1,4 @@
 #include "GLUtil.h"
-//#include "Input.h"
 #include <math.h>
 
 float GLUtil::SW = 0;
@@ -77,36 +76,7 @@ GLfloat GLUtil::GLLineWidth(GLfloat width)
 	return lineWidth;
 }
 
-unsigned int GLUtil::GLColor(unsigned int color)
-{
-	float c[4];
-	glGetFloatv(GL_CURRENT_COLOR, c);
-
-	glColorui(color);
-
-	return GLUtil::GetUInt(c[0], c[1], c[2], c[3]);
-}
-
-unsigned int GLUtil::GLColor(unsigned char* color)
-{
-	float c[4];
-	glGetFloatv(GL_CURRENT_COLOR, c);
-
-	glColor4ub(color[0], color[1], color[2], color[3]);
-
-	return GLUtil::GetUInt(c[0], c[1], c[2], c[3]);
-}
-
-unsigned int GLUtil::GLColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
-{
-	float c[4];
-	glGetFloatv(GL_CURRENT_COLOR, c);
-
-	glColor4ub(r,g,b,a);
-
-	return GLUtil::GetUInt(c[0], c[1], c[2], c[3]);
-}
-
+//TODO : Below method should not be in this class
 unsigned int GLUtil::GetUInt(float r, float g, float b, float a)
 {
 	int rr = (int)(r*255);
@@ -147,11 +117,6 @@ GLMat GLUtil::GetProjectionMatrix()
 	return mat;
 }
 
-void GLUtil::GLReadPixelsFromTopLeft(int x, int y, int width, int height, GLenum format, GLenum type, GLvoid *pixels)
-{
-	glReadPixels(x, GetWindowHeight() - y - height, width, height, format, type, pixels);
-}
-
 void GLUtil::SetModelViewMatrix(GLMat mat)
 {
 	glMatrixMode(GL_MODELVIEW);
@@ -166,12 +131,9 @@ void GLUtil::SetProjectionMatrix(GLMat mat)
 	glMultMatrixf(mat.m);
 }
 
-void GLUtil::SetLightPosition(float x, float y, float z, unsigned int lightIndex)
+void GLUtil::GLReadPixelsFromTopLeft(int x, int y, int width, int height, GLenum format, GLenum type, GLvoid *pixels)
 {
-	GLfloat qaLightPos[] = {x, y, z, 1.0f};
-	glEnable(GL_LIGHTING);
-	glEnable(lightIndex);
-	glLightfv(lightIndex, GL_POSITION, qaLightPos);
+	glReadPixels(x, GetWindowHeight() - y - height, width, height, format, type, pixels);
 }
 
 void GLUtil::GetProjectionValues(float* ll, float* rr, float* bb, float* tt, float* nn, float* ff)
@@ -253,9 +215,9 @@ void GLUtil::Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelM
 }
 
 
-vector<CVector3> GLUtil::Get2DPosOnScreenFrom3DPos(vector<CVector3>* pos3DVec, float* modelMatrix)
+vector<glm::vec3> GLUtil::Get2DPosOnScreenFrom3DPos(vector<glm::vec3>* pos3DVec, float* modelMatrix)
 {
-	vector<CVector3> vec2d;
+	vector<glm::vec3> vec2d;
 
 	float l,r,b,t,n,f;
 
@@ -288,7 +250,7 @@ vector<CVector3> GLUtil::Get2DPosOnScreenFrom3DPos(vector<CVector3>* pos3DVec, f
 		float x2D = (( xOnZNear - l ) / zNearW) * SW;
 		float y2D = SH - ((( yOnZNear - b ) / zNearH) * SH);
 
-		vec2d.push_back( CVector3(x2D, y2D, 0) );
+		vec2d.push_back( glm::vec3(x2D, y2D, 0) );
 	}
 
 	return vec2d;
@@ -323,7 +285,7 @@ vector<float> GLUtil::GetVerticesOnRect(float* verArr, int numVertex, float* obj
 	return vec;
 }
 
-void GLUtil::GetMinMaxPoints(vector<CVector3>* points3D, CVector3* min, CVector3* max)
+void GLUtil::GetMinMaxPoints(vector<glm::vec3>* points3D, glm::vec3* min, glm::vec3* max)
 {
 	float minX = points3D->at(0).x;
 	float minY = points3D->at(0).y;

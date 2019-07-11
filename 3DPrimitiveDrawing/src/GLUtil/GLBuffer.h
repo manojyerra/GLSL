@@ -3,7 +3,7 @@
 #define GLBuffer_H
 
 #include "Macros.h"
-#include "Vector3.h"
+#include "glm/vec3.hpp"
 
 class GLBuffer
 {
@@ -50,12 +50,12 @@ public:
 	void glColor(unsigned int color);
 
 	void glTexCoord2f(GLfloat u, GLfloat v);
-	void glTexCoord2f(const CVector3& vec);
+	void glTexCoord2f(const glm::vec3& vec);
 
 	void glNormal3f(GLfloat x, GLfloat y, GLfloat z);
-	void glNormal3f(const CVector3& vec);
+	void glNormal3f(const glm::vec3& vec);
 
-	void glVertex3f(const CVector3& vec);
+	void glVertex3f(const glm::vec3& vec);
 	void glVertex3f(GLfloat x, GLfloat y, GLfloat z);
 
 	void glEnd();
