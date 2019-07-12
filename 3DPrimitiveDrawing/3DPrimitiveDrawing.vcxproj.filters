@@ -294,6 +294,9 @@
     <ClCompile Include="src\FileReader.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Cam2D.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -459,6 +462,9 @@
       <Filter>src\IO</Filter>
     </ClInclude>
     <ClInclude Include="src\FileReader.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Cam2D.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
