@@ -3,6 +3,7 @@
 #include "ShadersManager.h"
 #include "Cam.h"
 #include "FileReader.h"
+#include "Input.h"
 
 ParticleLoader::ParticleLoader()
 {
@@ -14,7 +15,9 @@ ParticleLoader::ParticleLoader()
 	_vertexBufferID = 0;
 	_colorBufferID = 0;
 	_vertexCount = 0;
-
+	_cubeHalfLen = 1.0f;
+	_methodNum = 1;
+	
 	/*
 	unsigned int vertexBufLen = 36;
 	
@@ -58,11 +61,12 @@ ParticleLoader::ParticleLoader()
 	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
 	glBufferData(GL_ARRAY_BUFFER, colorBufLen, colorBuf, GL_STATIC_DRAW);
 	
-	
 	_vertexCount = vertexBufLen / 12;
 	free(vertexBuf);
 	*/
 
+
+	_cubeHalfLen = 0.0015f;
 
 	FILE* fp = fopen("data/xData.bin", "rb");
 
@@ -70,14 +74,24 @@ ParticleLoader::ParticleLoader()
 	{
 		unsigned int length = FileReader::GetLength("data/xData.bin");
 		char* vertexBuf = (char*)malloc(length);
-
 		fread(vertexBuf, 1, length, fp);
 		fclose(fp);
+
+		//char* halfVertexBuf = (char*)malloc(length / 2);
+		//_vertexCount = 0;
+		//for (int i = 0, j = 0; i < length-384; i += 384, j += 12)
+		//{
+		//	memcpy(&halfVertexBuf[j], &vertexBuf[i], 12);
+		//	_vertexCount++;
+		//}
+		//free(vertexBuf);
+		//vertexBuf = halfVertexBuf;
+
 		_vertexCount = length / 12;
 
 		glGenBuffers(1, &_vertexBufferID);
 		glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-		glBufferData(GL_ARRAY_BUFFER, length, vertexBuf, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, _vertexCount*12, vertexBuf, GL_STATIC_DRAW);
 		free(vertexBuf);
 
 		unsigned int colorBufLen = _vertexCount * 3;
@@ -87,7 +101,7 @@ ParticleLoader::ParticleLoader()
 		{
 			int ii = i * 3;
 
-			colorBuf[ii + 0] = 255;
+			colorBuf[ii + 0] = 128;
 			colorBuf[ii + 1] = 0;
 			colorBuf[ii + 2] = 0;
 		}
@@ -101,6 +115,22 @@ ParticleLoader::ParticleLoader()
 
 void ParticleLoader::Draw()
 {
+	if (Input::IsKeyTyped((int)'1'))
+	{
+		_methodNum = 1;
+		printf("\nmethod 1");
+	}
+	else if (Input::IsKeyTyped((int)'2'))
+	{
+		_methodNum = 2;
+		printf("\nmethod 2");
+	}
+	else if (Input::IsKeyTyped((int)'3'))
+	{
+		_methodNum = 3;
+		printf("\nmethod 3");
+	}
+
 	_shaderProgram->Begin();
 
 	glm::mat4 projMat = glm::make_mat4(Cam::GetInstance()->projMat.m);
@@ -114,13 +144,9 @@ void ParticleLoader::Draw()
 	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(mvp));
 	_shaderProgram->SetUniformMatrix3fv("normalMat", glm::value_ptr(normalMat));
 	_shaderProgram->SetUniformMatrix4fv("modelViewMat", glm::value_ptr(modelViewMat));
-	_shaderProgram->SetUniform1f("hLen", 1.0);
+	_shaderProgram->SetUniform1f("hLen", _cubeHalfLen);
 
-	GLfloat Ka[] = { 0.329412,	0.223529,	0.027451,	1 };
-	GLfloat Kd[] = { 0.780392,	0.568627,	0.113725,	1 };
-
-	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "ambient"), Ka[0], Ka[1], Ka[2], Ka[3]);
-	glUniform4f(glGetUniformLocation(_shaderProgram->ProgramID(), "diffuse"), Kd[0], Kd[1], Kd[2], Kd[3]);
+	glUniform1i(glGetUniformLocation(_shaderProgram->ProgramID(), "methodNum"), _methodNum);
 
 	GLuint vertexLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
 	glEnableVertexAttribArray(vertexLoc);
@@ -130,7 +156,7 @@ void ParticleLoader::Draw()
 	GLuint colorLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
 	glEnableVertexAttribArray(colorLoc);
 	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-	glVertexAttribPointer(colorLoc, 3, GL_UNSIGNED_BYTE, GL_TRUE, 0, (void*)0);
+	glVertexAttribPointer(colorLoc, 3, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
 
 	glDrawArrays(GL_POINTS, 0, _vertexCount);
 

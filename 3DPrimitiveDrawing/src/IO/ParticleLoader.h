@@ -34,6 +34,8 @@ class ParticleLoader
 	GLuint _vertexCount;
 
 	GLMat _modelMat;
+	float _cubeHalfLen;
+	int _methodNum;
 
 public:
 	ParticleLoader();
