@@ -1,7 +1,7 @@
 #version 450
 
 layout ( points ) in;
-layout ( triangle_strip, max_vertices = 16) out;
+layout ( triangle_strip, max_vertices = 24) out;
 
 layout (location = 0) in vec3 color[];
 layout (location = 0) out vec3 outColor;
@@ -15,13 +15,13 @@ uniform int methodNum;
 
 vec3 CalcFragColor(vec4 vertex, vec3 normal)
 {
-	//vec3 V = vec3( modelViewMat * vertex );
-	//vec3 N = normalize( normalMat * normal );
+	vec3 V = vec3( modelViewMat * vertex );
+	vec3 N = normalize( normalMat * normal );
 
-	//vec3 L = normalize(-V);
-	//return color[0] * max(dot(N,L), 0.0);
+	vec3 L = normalize(-V);
+	return color[0] * max(dot(N,L), 0.0);
 
-	return color[0];
+	//return color[0];
 }
 
 void method1()
