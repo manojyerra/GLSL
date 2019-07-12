@@ -7,6 +7,7 @@ layout (location = 1) in vec3 viewNormal;
 
 uniform vec3 direction;
 uniform vec3 color;
+
 uniform vec3 albedo;
 uniform float metallic;
 uniform float roughness;
