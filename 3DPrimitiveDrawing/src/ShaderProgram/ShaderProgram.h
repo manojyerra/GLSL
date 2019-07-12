@@ -35,6 +35,7 @@ public:
 	void SetUniform3f(const char* str, float v1, float v2, float v3);
 	void SetUniform2f(const char* str, float v1, float v2);
 	void SetUniform1f(const char* str, float val);
+	void SetUniform1i(const char* str, int val);
 
 	string GetVertexShaderFilePath();
 	string GetGeometryShaderFilePath();

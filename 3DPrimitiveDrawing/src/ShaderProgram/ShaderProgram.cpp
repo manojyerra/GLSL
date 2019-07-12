@@ -190,6 +190,11 @@ void ShaderProgram::SetUniform1f(const char* str, const float val)
 	glUniform1f(glGetUniformLocation(_programID, str), val);
 }
 
+void ShaderProgram::SetUniform1i(const char* str, int val)
+{
+	glUniform1i(glGetUniformLocation(_programID, str), val);
+}
+
 GLuint ShaderProgram::ProgramID()
 {
 	return _programID;

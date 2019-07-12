@@ -7,16 +7,21 @@
 
 ParticleLoader::ParticleLoader()
 {
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram(
-		"shaders/CubeGeo/CubeGeo.vs",
-		"shaders/CubeGeo/CubeGeo.gs",
-		"shaders/CubeGeo/CubeGeo.fs");
+	_cubeParticleShader = ShadersManager::GetInstance()->CreateShaderProgram(
+		"shaders/CubeParticle/CubeParticle.vs",
+		"shaders/CubeParticle/CubeParticle.gs",
+		"shaders/CubeParticle/CubeParticle.fs");
 
 	_vertexBufferID = 0;
 	_colorBufferID = 0;
 	_vertexCount = 0;
+
+	_lowPolyVertexBufferID = 0;
+	_lowPolyColorBufferID = 0;
+	_lowPolyVertexCount = 0;
+
 	_cubeHalfLen = 1.0f;
-	_methodNum = 1;
+	_methodNum = 2;
 	
 	/*
 	unsigned int vertexBufLen = 36;
@@ -65,73 +70,113 @@ ParticleLoader::ParticleLoader()
 	free(vertexBuf);
 	*/
 
-
 	_cubeHalfLen = 0.0015f;
+
+	long startTime = GetTickCount();
 
 	FILE* fp = fopen("data/xData.bin", "rb");
 
 	if (fp)
 	{
-		unsigned int length = FileReader::GetLength("data/xData.bin");
-		char* vertexBuf = (char*)malloc(length);
-		fread(vertexBuf, 1, length, fp);
+		unsigned int fileLen = FileReader::GetLength("data/xData.bin");
+		char* fileData = (char*)malloc(fileLen);
+		fread(fileData, 1, fileLen, fp);
 		fclose(fp);
 
-		//char* halfVertexBuf = (char*)malloc(length / 2);
-		//_vertexCount = 0;
-		//for (int i = 0, j = 0; i < length-384; i += 384, j += 12)
-		//{
-		//	memcpy(&halfVertexBuf[j], &vertexBuf[i], 12);
-		//	_vertexCount++;
-		//}
-		//free(vertexBuf);
-		//vertexBuf = halfVertexBuf;
+		LoadData(fileData, fileLen);
+		LoadLowPolyData(fileData, fileLen);
 
-		_vertexCount = length / 12;
-
-		glGenBuffers(1, &_vertexBufferID);
-		glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-		glBufferData(GL_ARRAY_BUFFER, _vertexCount*12, vertexBuf, GL_STATIC_DRAW);
-		free(vertexBuf);
-
-		unsigned int colorBufLen = _vertexCount * 3;
-		char* colorBuf = (char*)malloc(colorBufLen);
-
-		for (unsigned int i = 0; i < _vertexCount; i++)
-		{
-			int ii = i * 3;
-
-			colorBuf[ii + 0] = 128;
-			colorBuf[ii + 1] = 0;
-			colorBuf[ii + 2] = 0;
-		}
-
-		glGenBuffers(1, &_colorBufferID);
-		glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-		glBufferData(GL_ARRAY_BUFFER, colorBufLen, colorBuf, GL_STATIC_DRAW);
-		free(colorBuf);
+		free(fileData);
 	}
+
+	long timeTaken = GetTickCount() - startTime;
+}
+
+void ParticleLoader::LoadData(const char* fileData, unsigned int length)
+{
+	long startTime = GetTickCount();
+
+	glGenBuffers(1, &_vertexBufferID);
+	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
+	glBufferData(GL_ARRAY_BUFFER, length, fileData, GL_STATIC_DRAW);
+
+	_vertexCount = length / BYTES_PER_VERTEX;
+
+	unsigned int colorBufLen = _vertexCount * 3;
+	char* colorBuf = (char*)malloc(colorBufLen);
+
+	for (unsigned int i = 0; i < _vertexCount; i++)
+	{
+		int ii = i * 3;
+
+		colorBuf[ii + 0] = 200;
+		colorBuf[ii + 1] = 0;
+		colorBuf[ii + 2] = 0;
+	}
+
+	glGenBuffers(1, &_colorBufferID);
+	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
+	glBufferData(GL_ARRAY_BUFFER, colorBufLen, colorBuf, GL_STATIC_DRAW);
+	free(colorBuf);
+
+	long timeTaken = GetTickCount() - startTime;
+}
+
+
+void ParticleLoader::LoadLowPolyData(const char* fileData, unsigned int length)
+{
+	int bpv = BYTES_PER_VERTEX;
+	int skipNumVertex = 25;
+	int skipBytes = skipNumVertex * bpv;
+	unsigned int bufLen = length / (skipNumVertex - 1);
+
+	char* lowPolyBuf = (char*)malloc(bufLen);
+	
+	_lowPolyVertexCount = 0;
+	
+	for (int i = 0, j = 0; i < length- skipBytes; i += skipBytes, j += bpv)
+	{
+		memcpy(&lowPolyBuf[j], &fileData[i], bpv);
+		_lowPolyVertexCount++;
+	}
+
+	glGenBuffers(1, &_lowPolyVertexBufferID);
+	glBindBuffer(GL_ARRAY_BUFFER, _lowPolyVertexBufferID);
+	glBufferData(GL_ARRAY_BUFFER, _lowPolyVertexCount * bpv, lowPolyBuf, GL_STATIC_DRAW);
+
+	unsigned int colorBufLen = _lowPolyVertexCount * 3;
+	char* colorBuf = (char*)malloc(colorBufLen);
+
+	for (unsigned int i = 0; i < _lowPolyVertexCount; i++)
+	{
+		int ii = i * 3;
+
+		colorBuf[ii + 0] = 200;
+		colorBuf[ii + 1] = 0;
+		colorBuf[ii + 2] = 0;
+	}
+
+	glGenBuffers(1, &_lowPolyColorBufferID);
+	glBindBuffer(GL_ARRAY_BUFFER, _lowPolyColorBufferID);
+	glBufferData(GL_ARRAY_BUFFER, colorBufLen, colorBuf, GL_STATIC_DRAW);
+	free(colorBuf);
 }
 
 void ParticleLoader::Draw()
 {
-	if (Input::IsKeyTyped((int)'1'))
+	if (Cam::GetInstance()->IsCameraUpdated())
 	{
-		_methodNum = 1;
-		printf("\nmethod 1");
+		DrawLowPolyParticles();
 	}
-	else if (Input::IsKeyTyped((int)'2'))
+	else if(Cam::GetInstance()->IsJustStoppedUpdate())
 	{
-		_methodNum = 2;
-		printf("\nmethod 2");
+		DrawAllParticles();
 	}
-	else if (Input::IsKeyTyped((int)'3'))
-	{
-		_methodNum = 3;
-		printf("\nmethod 3");
-	}
+}
 
-	_shaderProgram->Begin();
+void ParticleLoader::DrawAllParticles()
+{
+	_cubeParticleShader->Begin();
 
 	glm::mat4 projMat = glm::make_mat4(Cam::GetInstance()->projMat.m);
 	glm::mat4 viewMat = glm::make_mat4(Cam::GetInstance()->viewMat.m);
@@ -141,19 +186,18 @@ void ParticleLoader::Draw()
 	glm::mat4 modelViewMat = viewMat * modelMat;
 	glm::mat3 normalMat = glm::mat3(viewMat);
 
-	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(mvp));
-	_shaderProgram->SetUniformMatrix3fv("normalMat", glm::value_ptr(normalMat));
-	_shaderProgram->SetUniformMatrix4fv("modelViewMat", glm::value_ptr(modelViewMat));
-	_shaderProgram->SetUniform1f("hLen", _cubeHalfLen);
+	_cubeParticleShader->SetUniformMatrix4fv("mvp", glm::value_ptr(mvp));
+	_cubeParticleShader->SetUniformMatrix3fv("normalMat", glm::value_ptr(normalMat));
+	_cubeParticleShader->SetUniformMatrix4fv("modelViewMat", glm::value_ptr(modelViewMat));
+	_cubeParticleShader->SetUniform1f("hLen", _cubeHalfLen);
+	_cubeParticleShader->SetUniform1i("methodNum", _methodNum);
 
-	glUniform1i(glGetUniformLocation(_shaderProgram->ProgramID(), "methodNum"), _methodNum);
-
-	GLuint vertexLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
+	GLuint vertexLoc = glGetAttribLocation(_cubeParticleShader->ProgramID(), "vertex");
 	glEnableVertexAttribArray(vertexLoc);
 	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
 	glVertexAttribPointer(vertexLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
-	GLuint colorLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
+	GLuint colorLoc = glGetAttribLocation(_cubeParticleShader->ProgramID(), "color");
 	glEnableVertexAttribArray(colorLoc);
 	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
 	glVertexAttribPointer(colorLoc, 3, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
@@ -164,18 +208,71 @@ void ParticleLoader::Draw()
 	glDisableVertexAttribArray(vertexLoc);
 	glDisableVertexAttribArray(colorLoc);
 
-	_shaderProgram->End();
+	_cubeParticleShader->End();
+}
+
+void ParticleLoader::DrawLowPolyParticles()
+{
+	_cubeParticleShader->Begin();
+
+	glm::mat4 projMat = glm::make_mat4(Cam::GetInstance()->projMat.m);
+	glm::mat4 viewMat = glm::make_mat4(Cam::GetInstance()->viewMat.m);
+	glm::mat4 modelMat = glm::make_mat4(_modelMat.m);
+
+	glm::mat4 mvp = projMat * viewMat * modelMat;
+	glm::mat4 modelViewMat = viewMat * modelMat;
+	glm::mat3 normalMat = glm::mat3(viewMat);
+
+	_cubeParticleShader->SetUniformMatrix4fv("mvp", glm::value_ptr(mvp));
+	_cubeParticleShader->SetUniformMatrix3fv("normalMat", glm::value_ptr(normalMat));
+	_cubeParticleShader->SetUniformMatrix4fv("modelViewMat", glm::value_ptr(modelViewMat));
+	_cubeParticleShader->SetUniform1f("hLen", _cubeHalfLen);
+	_cubeParticleShader->SetUniform1i("methodNum", _methodNum);
+
+	GLuint vertexLoc = glGetAttribLocation(_cubeParticleShader->ProgramID(), "vertex");
+	glEnableVertexAttribArray(vertexLoc);
+	glBindBuffer(GL_ARRAY_BUFFER, _lowPolyVertexBufferID);
+	glVertexAttribPointer(vertexLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+	GLuint colorLoc = glGetAttribLocation(_cubeParticleShader->ProgramID(), "color");
+	glEnableVertexAttribArray(colorLoc);
+	glBindBuffer(GL_ARRAY_BUFFER, _lowPolyColorBufferID);
+	glVertexAttribPointer(colorLoc, 3, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
+
+	glDrawArrays(GL_POINTS, 0, _lowPolyVertexCount);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glDisableVertexAttribArray(vertexLoc);
+	glDisableVertexAttribArray(colorLoc);
+
+	_cubeParticleShader->End();
 }
 
 ParticleLoader::~ParticleLoader()
 {
-	if(_shaderProgram)
+	if(_cubeParticleShader)
 	{
-		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
-		_shaderProgram = NULL;
+		ShadersManager::GetInstance()->DeleteShaderProgram(_cubeParticleShader);
+		_cubeParticleShader = NULL;
 	}
 }
 
+
+//if (Input::IsKeyTyped((int)'1'))
+//{
+//	_methodNum = 1;
+//	printf("\nmethod 1");
+//}
+//else if (Input::IsKeyTyped((int)'2'))
+//{
+//	_methodNum = 2;
+//	printf("\nmethod 2");
+//}
+//else if (Input::IsKeyTyped((int)'3'))
+//{
+//	_methodNum = 3;
+//	printf("\nmethod 3");
+//}
 
 
 //ParticleLoader::ParticleLoader()
