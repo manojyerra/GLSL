@@ -1,7 +1,7 @@
 #version 450
 
 layout ( points ) in;
-layout ( triangle_strip, max_vertices = 36) out;
+layout ( triangle_strip, max_vertices = 24) out;
 
 layout (location = 0) in vec3 color[];
 layout (location = 0) out vec3 outColor;
@@ -200,11 +200,12 @@ void method3()
 	vec4 pos3 = vec4(pos.x - hLen, pos.y - hLen, pos.z + hLen, 1.0);
 	vec4 pos4 = vec4(pos.x + hLen, pos.y - hLen, pos.z + hLen, 1.0);
 
-	gl_Position = mvp * pos1;  outColor = CalcFragColor(pos1, vec3(0.0, 0.0, 1.0));  EmitVertex();
-	gl_Position = mvp * pos2;  outColor = CalcFragColor(pos2, vec3(0.0, 0.0, 1.0));  EmitVertex();
-	gl_Position = mvp * pos3;  outColor = CalcFragColor(pos3, vec3(0.0, 0.0, 1.0));  EmitVertex();
-	gl_Position = mvp * pos4;  outColor = CalcFragColor(pos4, vec3(0.0, 0.0, 1.0));  EmitVertex();
+	outColor = CalcFragColor(pos1, vec3(0.0, 0.0, 1.0));
 
+	gl_Position = mvp * pos1; EmitVertex();
+	gl_Position = mvp * pos2; EmitVertex();
+	gl_Position = mvp * pos3; EmitVertex();
+	gl_Position = mvp * pos4; EmitVertex();
 	EndPrimitive();
 
 	
@@ -214,25 +215,27 @@ void method3()
 	pos3 = vec4(pos.x - hLen, pos.y - hLen, pos.z - hLen, 1.0);
 	pos4 = vec4(pos.x + hLen, pos.y - hLen, pos.z - hLen, 1.0);
 
-	gl_Position = mvp * pos1;  outColor = CalcFragColor(pos1, vec3(0.0, 0.0, -1.0));  EmitVertex();
-	gl_Position = mvp * pos2;  outColor = CalcFragColor(pos2, vec3(0.0, 0.0, -1.0));  EmitVertex();
-	gl_Position = mvp * pos3;  outColor = CalcFragColor(pos3, vec3(0.0, 0.0, -1.0));  EmitVertex();
-	gl_Position = mvp * pos4;  outColor = CalcFragColor(pos4, vec3(0.0, 0.0, -1.0));  EmitVertex();
+	outColor = CalcFragColor(pos1, vec3(0.0, 0.0, -1.0));
 
+	gl_Position = mvp * pos1; EmitVertex();
+	gl_Position = mvp * pos2; EmitVertex();
+	gl_Position = mvp * pos3; EmitVertex();
+	gl_Position = mvp * pos4; EmitVertex();
 	EndPrimitive();
 
-
+	
 	//left face
 	pos1 = vec4(pos.x - hLen, pos.y + hLen, pos.z + hLen, 1.0);
 	pos2 = vec4(pos.x - hLen, pos.y + hLen, pos.z - hLen, 1.0);
 	pos3 = vec4(pos.x - hLen, pos.y - hLen, pos.z + hLen, 1.0);
 	pos4 = vec4(pos.x - hLen, pos.y - hLen, pos.z - hLen, 1.0);
 
-	gl_Position = mvp * pos1;  outColor = CalcFragColor(pos1, vec3(-1.0, 0.0, 0.0));  EmitVertex();
-	gl_Position = mvp * pos2;  outColor = CalcFragColor(pos2, vec3(-1.0, 0.0, 0.0));  EmitVertex();
-	gl_Position = mvp * pos3;  outColor = CalcFragColor(pos3, vec3(-1.0, 0.0, 0.0));  EmitVertex();
-	gl_Position = mvp * pos4;  outColor = CalcFragColor(pos4, vec3(-1.0, 0.0, 0.0));  EmitVertex();
+	outColor = CalcFragColor(pos1, vec3(-1.0, 0.0, 0.0));
 
+	gl_Position = mvp * pos1; EmitVertex();
+	gl_Position = mvp * pos2; EmitVertex();
+	gl_Position = mvp * pos3; EmitVertex();
+	gl_Position = mvp * pos4; EmitVertex();
 	EndPrimitive();
 	
 
@@ -242,25 +245,27 @@ void method3()
 	pos3 = vec4(pos.x + hLen, pos.y - hLen, pos.z + hLen, 1.0);
 	pos4 = vec4(pos.x + hLen, pos.y - hLen, pos.z - hLen, 1.0);
 
-	gl_Position = mvp * pos1;  outColor = CalcFragColor(pos1, vec3(1.0, 0.0, 0.0));  EmitVertex();
-	gl_Position = mvp * pos2;  outColor = CalcFragColor(pos2, vec3(1.0, 0.0, 0.0));  EmitVertex();
-	gl_Position = mvp * pos3;  outColor = CalcFragColor(pos3, vec3(1.0, 0.0, 0.0));  EmitVertex();
-	gl_Position = mvp * pos4;  outColor = CalcFragColor(pos4, vec3(1.0, 0.0, 0.0));  EmitVertex();
+	outColor = CalcFragColor(pos1, vec3(1.0, 0.0, 0.0));
 
+	gl_Position = mvp * pos1; EmitVertex();
+	gl_Position = mvp * pos2; EmitVertex();
+	gl_Position = mvp * pos3; EmitVertex();
+	gl_Position = mvp * pos4; EmitVertex();
 	EndPrimitive();
 
-
+	
 	//bottom face
 	pos1 = vec4(pos.x - hLen, pos.y - hLen, pos.z + hLen, 1.0);
 	pos2 = vec4(pos.x + hLen, pos.y - hLen, pos.z + hLen, 1.0);
 	pos3 = vec4(pos.x - hLen, pos.y - hLen, pos.z - hLen, 1.0);
 	pos4 = vec4(pos.x + hLen, pos.y - hLen, pos.z - hLen, 1.0);
 
-	gl_Position = mvp * pos1;  outColor = CalcFragColor(pos1, vec3(0.0, -1.0, 0.0));  EmitVertex();
-	gl_Position = mvp * pos2;  outColor = CalcFragColor(pos2, vec3(0.0, -1.0, 0.0));  EmitVertex();
-	gl_Position = mvp * pos3;  outColor = CalcFragColor(pos3, vec3(0.0, -1.0, 0.0));  EmitVertex();
-	gl_Position = mvp * pos4;  outColor = CalcFragColor(pos4, vec3(0.0, -1.0, 0.0));  EmitVertex();
+	outColor = CalcFragColor(pos1, vec3(0.0, -1.0, 0.0));
 
+	gl_Position = mvp * pos1; EmitVertex();
+	gl_Position = mvp * pos2; EmitVertex();
+	gl_Position = mvp * pos3; EmitVertex();
+	gl_Position = mvp * pos4; EmitVertex();
 	EndPrimitive();
 
 
@@ -270,11 +275,12 @@ void method3()
 	pos3 = vec4(pos.x - hLen, pos.y + hLen, pos.z - hLen, 1.0);
 	pos4 = vec4(pos.x + hLen, pos.y + hLen, pos.z - hLen, 1.0);
 
-	gl_Position = mvp * pos1;  outColor = CalcFragColor(pos1, vec3(0.0, 1.0, 0.0));  EmitVertex();
-	gl_Position = mvp * pos2;  outColor = CalcFragColor(pos2, vec3(0.0, 1.0, 0.0));  EmitVertex();
-	gl_Position = mvp * pos3;  outColor = CalcFragColor(pos3, vec3(0.0, 1.0, 0.0));  EmitVertex();
-	gl_Position = mvp * pos4;  outColor = CalcFragColor(pos4, vec3(0.0, 1.0, 0.0));  EmitVertex();
+	outColor = CalcFragColor(pos1, vec3(0.0, 1.0, 0.0));
 
+	gl_Position = mvp * pos1; EmitVertex();
+	gl_Position = mvp * pos2; EmitVertex();
+	gl_Position = mvp * pos3; EmitVertex();
+	gl_Position = mvp * pos4; EmitVertex();
 	EndPrimitive();
 }
 
