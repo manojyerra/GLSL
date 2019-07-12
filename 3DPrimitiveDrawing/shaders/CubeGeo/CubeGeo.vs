@@ -8,5 +8,5 @@ layout (location = 0) out vec3 outColour;
 void main(void)
 {
 	gl_Position = vec4(vertex,1.0);
-	outColour = color;
+	outColour = vec3(color.x/255.0, color.y/255.0, color.z/255.0);
 }
