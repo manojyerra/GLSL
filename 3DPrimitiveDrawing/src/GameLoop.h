@@ -2,6 +2,7 @@
 #define GameLoop_H
 
 #include "Cam.h"
+#include "Cam2D.h"
 #include "Floor.h"
 #include "Cam.h"
 #include "Input.h"
@@ -29,6 +30,7 @@ private:
 	float _zNearPlaneW;
 
 	Cam* _cam;
+	Cam2D* _cam2D;
 
 	Floor* _floor;
 	Triangle* _triangle;
@@ -44,8 +46,10 @@ private:
 	GLFBO* _fbo;
 	GLTexture* _texture;
 
+	bool _useFBO;
+
 	void GLSettings();
-	
+	void SetCamAndDrawObjects();
 
 public:
 	GameLoop(int sw, int sh);

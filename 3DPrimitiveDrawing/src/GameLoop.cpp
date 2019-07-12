@@ -5,6 +5,8 @@ GameLoop::GameLoop(int sw, int sh)
 	_sw = sw;
 	_sh = sh;
 
+	_useFBO = false;
+
 	GLSettings();
 
 	_zNear = 1.0f;
@@ -13,6 +15,9 @@ GameLoop::GameLoop(int sw, int sh)
 
 	_cam = Cam::GetInstance();
 	_cam->Init(_sw, _sh, _zNear, _zFar, _zNearPlaneW);
+
+	_cam2D = Cam2D::GetInstance();
+	_cam2D->Init(_sw, _sh);
 
 	_floor = new Floor();
 
@@ -40,11 +45,11 @@ GameLoop::GameLoop(int sw, int sh)
 	_sphere->SetPos(5, 0, 0);
 	_sphere->SetRadius(5);
 
-	_objLoader = new ObjLoader("data/lamp", false);
+	//_objLoader = new ObjLoader("data/teapot", false);
 	//_binaryObjLoader = new BinaryObjLoader("data/carScaled");
 
-	//_fbo = new GLFBO(_sw*0.7, _sh*0.7);
-	//_texture = new GLTexture(_sw*0.7, _sh*0.7);
+	_fbo = new GLFBO(_sw*0.8, _sh*0.8);
+	_texture = new GLTexture(_sw, _sh);
 
 	_particleLoader = new ParticleLoader();
 }
@@ -63,9 +68,9 @@ void GameLoop::GLSettings()
 	//glDisable(GL_LINE_SMOOTH);
 	//glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 
-	//glEnable(GL_CULL_FACE);
-	//glCullFace(GL_BACK);
-	//glFrontFace(GL_CCW);
+	glDisable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CCW);
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
@@ -74,63 +79,68 @@ void GameLoop::GLSettings()
 
 void GameLoop::Update(float deltaTime)
 {
-
 }
 
 void GameLoop::Draw()
 {
-	//_fbo->BindFBO();
-
-	if (Input::IsKeyPressed(VK_SHIFT) && Input::IsMiddleMouseClicked())
-	{
-		_sphere->_phongShader->SetShaderType(PhongShader::PER_VERTEX_SHADER);
-	}
-	else if (Input::IsMiddleMouseClicked())
-	{
-		_sphere->_phongShader->SetShaderType(PhongShader::PER_PIXEL_SHADER);
-	}
-
-
-	glClearColor(57.0f/255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glViewport(0, 0, _sw, _sh);
-	//glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
+	glEnable(GL_DEPTH_TEST);
 	//glEnable(GL_CULL_FACE);
 
+	if (_useFBO)
+	{
+		_fbo->BindFBO();
+
+		glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
+
+		SetCamAndDrawObjects();
+
+		_fbo->UnBindFBO();
+	}
+	else
+	{
+		glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glViewport(0, 0, _sw, _sh);
+
+		SetCamAndDrawObjects();
+	}
+	
+
+	if (_useFBO)
+	{
+		glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glViewport(0, 0, _sw, _sh);
+		glDisable(GL_DEPTH_TEST);
+		glDisable(GL_CULL_FACE);
+
+		_cam2D->SetProjection();
+
+		glBindTexture(GL_TEXTURE_2D, _fbo->GetTextureID());
+		_texture->Draw();
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+}
+
+void GameLoop::SetCamAndDrawObjects()
+{
 	_cam->SetPerspectiveProjection();
 	_cam->SetViewMatrix();
 	_cam->UpdateCamera();
 
 	_floor->Draw();
+	_particleLoader->Draw();
+
 	//_objLoader->Draw();
 	//_binaryObjLoader->Draw();
-	_particleLoader->Draw();
 
 	//_triangle->Draw();
 	//_box->Draw();
 	//_cylinder->Draw();
 	//_cone->Draw();
 	//_sphere->Draw();
-
-	//_fbo->UnBindFBO();
-	
-
-	//glClearColor(0.5f, 0.0f, 0.5f, 1.0f);
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//glViewport(0, 0, _sw, _sh);
-
-	//glMatrixMode(GL_PROJECTION);
-	//glLoadIdentity();
-	//glOrtho(0, _sw, _sh, 0, 0, 1);
-
-	//glMatrixMode(GL_MODELVIEW);
-	//glLoadIdentity();
-
-	//glBindTexture(GL_TEXTURE_2D, _fbo->GetTextureID());
-
-	//_texture->Draw();
-
-	//glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void GameLoop::SetScreenSize(int sw, int sh)
