@@ -103,6 +103,29 @@ void GLMat::glFrustum(float left, float right, float bottom, float top, float zN
 	memcpy(m, arr, 16 * sizeof(float));
 }
 
+void GLMat::glOrtho(float l, float r, float b, float t, float n, float f)
+{
+	m[0] = 2 / (r - l);
+	m[1] = 0;
+	m[2] = 0;
+	m[3] = 0;
+	
+	m[4] = 0;
+	m[5] = 2 / (t - b);
+	m[6] = 0;
+	m[7] = 0;
+	
+	m[8] = 0;
+	m[9] = 0;
+	m[10] = -2 / (f - n);
+	m[11] = 0;
+	
+	m[12] = -(r + l) / (r - l);
+	m[13] = -(t + b) / (t - b);
+	m[14] = -(f + n) / (f - n);
+	m[15] = 1;
+}
+
 void GLMat::glMultMatrixf(float* mat)
 {
 	float result[16];

@@ -5,6 +5,7 @@
 #include <string>
 #include "ShaderProgram.h"
 #include "GLBuffer.h"
+#include "GLMat.h"
 
 using namespace std;
 
@@ -21,6 +22,8 @@ private:
 	GLuint _uvBufferID;
 	GLuint _vertexCount;
 	ShaderProgram* _shaderProgram;
+
+	GLMat _modelMat;
 
 	void GenerateBufferID();
 	unsigned int GenerateGLTextureID(int width, int height, int bytesPP, void* buffer);

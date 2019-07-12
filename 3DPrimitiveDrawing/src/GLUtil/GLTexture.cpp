@@ -2,7 +2,7 @@
 #include "GLUtil.h"
 #include "TransformVertexBuf.h"
 #include "ImageBuffer.h"
-
+#include "Cam2D.h"
 
 GLTexture::GLTexture(int drawW, int drawH)
 {
@@ -26,6 +26,10 @@ void GLTexture::Draw()
 	//glBindTexture(GL_TEXTURE_2D, _textureID);
 
 	_shaderProgram->Begin();
+
+	glm::mat4 mvp = Cam2D::GetInstance()->GetMVP(_modelMat.m);
+
+	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(mvp));
 
 	GLuint uvLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "uv");
 	glEnableVertexAttribArray(uvLoc);
@@ -97,8 +101,8 @@ unsigned int GLTexture::GenerateGLTextureID(int width, int height, int bytesPP, 
 	else
 		return 0;
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 	//glBindTexture(GL_TEXTURE_2D, 0);
 	
