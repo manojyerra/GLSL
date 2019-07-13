@@ -34,7 +34,7 @@ void ObjLoader::Init(string folderPath, bool writeBinaryToFile)
 	_writeBinaryToFile = writeBinaryToFile;
 
 	ReadObjFile(folderPath);
-	//LoadTextures(folderPath);
+	LoadTextures(folderPath);
 
 	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram(
 		"shaders/PBR_ML/PBR_ML.vs", 
@@ -257,8 +257,8 @@ void ObjLoader::Draw()
 	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, _modelMat.m);
 	glUniformMatrix3fv(normalMatLoc, 1, GL_FALSE, glm::value_ptr(cam->GetNormalMat(_modelMat.m)));
 
-	viewMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "camMat");
-	glUniformMatrix4fv(viewMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
+	//viewMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "camMat");
+	//glUniformMatrix4fv(viewMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
 
 	//GLfloat Ka[] = { 0.329412,	0.223529,	0.027451,	1 };
 	//GLfloat Kd[] = { 0.780392,	0.568627,	0.113725,	1 };
@@ -274,16 +274,14 @@ void ObjLoader::Draw()
 	glm::vec4 dir = glm::vec4(0, -1, 0, 0);
 	dir = glm::normalize(viewMatrix * dir);
 	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "direction"), dir.x, dir.y, dir.z);
-	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "color"), 20, 20, 20);
+	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "color"), 23.47, 21.31, 20.79);
 
-	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "metallic"), 1.0);
-	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "roughness"), 0.1);
+	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "metallic"), 0.9);
+	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "roughness"), 0.3);
 	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "albedo"), 0.95, 0.93, 0.88);
 
-	//glm::vec4 dir = glm::vec4(0, -1, 0, 0);
-	//dir = glm::normalize(viewMatrix * dir);
-	//glUniform1i(glGetUniformLocation(_shaderProgram->ProgramID(), "enableDirLight"), 1);
-	//glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "dirLightVec"), dir.x, dir.y, dir.z);
+	//glm::vec3 camPos(cam->viewMat.m[12], cam->viewMat.m[13], cam->viewMat.m[14]);
+	//glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "camPos"), camPos.x, camPos.y, camPos.z);
 
 	GLuint normalID = glGetAttribLocation(_shaderProgram->ProgramID(), "normal");
 	glEnableVertexAttribArray(normalID);
@@ -306,12 +304,17 @@ void ObjLoader::Draw()
 
 void ObjLoader::LoadTextures(string folderPath)
 {
-	ImageBuffer* imgBuf = new ImageBuffer(folderPath + "/texture.png");
+	string filePath = folderPath + "/texture.png";
 
-	_baseTexID = GLUtil::GenerateGLTextureID(imgBuf->GetWidth(), imgBuf->GetHeight(),
-		imgBuf->GetBytesPerPixel(), imgBuf->GetBuffer());
+	if (FileReader::IsFileExists(filePath))
+	{
+		ImageBuffer* imgBuf = new ImageBuffer(filePath);
 
-	delete imgBuf;
+		_baseTexID = GLUtil::GenerateGLTextureID(imgBuf->GetWidth(), imgBuf->GetHeight(),
+			imgBuf->GetBytesPerPixel(), imgBuf->GetBuffer());
+
+		delete imgBuf;
+	}
 }
 
 //GLfloat Ka[] = { 1.0f, 0.5f, 0.5f, 1.0f };

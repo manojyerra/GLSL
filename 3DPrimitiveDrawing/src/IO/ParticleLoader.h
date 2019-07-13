@@ -55,8 +55,6 @@ public:
 
 	void DrawAllParticles();
 	void DrawLowPolyParticles();
-
-	void Draw();
 };
 
 #endif

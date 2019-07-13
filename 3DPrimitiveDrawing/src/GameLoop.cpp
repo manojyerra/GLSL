@@ -45,13 +45,14 @@ GameLoop::GameLoop(int sw, int sh)
 	_sphere->SetPos(5, 0, 0);
 	_sphere->SetRadius(5);
 
-	//_objLoader = new ObjLoader("data/teapot", false);
+	_objLoader = new ObjLoader("data/teapot", false);
 	//_binaryObjLoader = new BinaryObjLoader("data/carScaled");
 
-	_fbo = new GLFBO(_sw*0.8, _sh*0.8);
+	_fbo = new GLFBO(_sw, _sh);
 	_texture = new GLTexture(_sw, _sh);
 
-	_particleLoader = new ParticleLoader();
+	//_particleLoader = new ParticleLoader();
+	_drawAllParticles = true;
 }
 
 void GameLoop::GLSettings()
@@ -81,10 +82,60 @@ void GameLoop::Update(float deltaTime)
 {
 }
 
+void GameLoop::ParticleSpecificDraw()
+{
+	_cam->SetPerspectiveProjection();
+	_cam->SetViewMatrix();
+	_cam->UpdateCamera();
+
+	if (Cam::GetInstance()->IsCameraUpdated())
+	{
+		glEnable(GL_DEPTH_TEST);
+		glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
+
+		_floor->Draw();
+		_particleLoader->DrawLowPolyParticles();
+		_drawAllParticles = true;
+	}
+	else
+	{
+		if (_drawAllParticles)
+		{
+			_fbo->BindFBO();
+
+			glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
+
+			_floor->Draw();
+			_particleLoader->DrawAllParticles();
+
+			_fbo->UnBindFBO();
+			_drawAllParticles = false;
+		}
+
+		glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glViewport(0, 0, _sw, _sh);
+		glDisable(GL_DEPTH_TEST);
+		glDisable(GL_CULL_FACE);
+
+		_cam2D->SetProjection();
+
+		glBindTexture(GL_TEXTURE_2D, _fbo->GetTextureID());
+		_texture->Draw();
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+}
+
 void GameLoop::Draw()
 {
+	//ParticleSpecificDraw();
+	//return;
+
 	glEnable(GL_DEPTH_TEST);
-	//glEnable(GL_CULL_FACE);
 
 	if (_useFBO)
 	{
@@ -106,7 +157,6 @@ void GameLoop::Draw()
 
 		SetCamAndDrawObjects();
 	}
-	
 
 	if (_useFBO)
 	{
@@ -131,16 +181,7 @@ void GameLoop::SetCamAndDrawObjects()
 	_cam->UpdateCamera();
 
 	_floor->Draw();
-	_particleLoader->Draw();
-
-	//_objLoader->Draw();
-	//_binaryObjLoader->Draw();
-
-	//_triangle->Draw();
-	//_box->Draw();
-	//_cylinder->Draw();
-	//_cone->Draw();
-	//_sphere->Draw();
+	_objLoader->Draw();
 }
 
 void GameLoop::SetScreenSize(int sw, int sh)

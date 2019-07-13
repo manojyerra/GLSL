@@ -38,11 +38,12 @@ void Cam::Init(int screenW, int screenH, float zNear, float zFar, float zNearPla
 	_zNearPlaneHalfW = zNearPlaneW/2.0f;
 
 	_pivot = glm::vec3(0, 0, 0);
-	_trans = glm::vec3(0, 0, -170.0f);
+	_trans = glm::vec3(0, 0, -70.0f);
 	_angle = glm::vec3(30, 0, 0);
 
 	_viewType = 5;
 	_isOrtho = false;
+	_camUpdated = false;
 
 	SetProjection();
 	SetViewMatrix();
@@ -131,6 +132,8 @@ glm::mat3 Cam::GetNormalMat(float* modelMat)
 
 bool Cam::UpdateCamera()
 {
+	_camUpdated = false;
+
 	if( Input::IsKeyPressed(VK_SHIFT) && Input::IsMiddleMousePressed())
 	{
 		float dx = (float)(Input::MX - Input::PrevMX);
@@ -145,14 +148,23 @@ bool Cam::UpdateCamera()
 		_trans.x += dx*z;
 		_trans.y += -dy*z;
 
-		return true;
+		_camUpdated = true;
 	}
 	else if(Input::IsKeyPressed(VK_CONTROL) && Input::IsMiddleMousePressed())
 	{
-		_trans.z += (float)(Input::PrevMY - Input::MY) * 2.0f;
+		//_trans.z += (float)(Input::PrevMY - Input::MY) * 2.0f;
 
+		float dy = (float)(Input::MY - Input::PrevMY);
 
-		return true;
+		float z = _trans.z;
+		if (z < 0)
+			z = -z;
+
+		z /= 300;
+
+		_trans.z += -dy * z;
+
+		_camUpdated = true;
 	}
 	else if(Input::IsMiddleMousePressed())
 	{
@@ -162,21 +174,25 @@ bool Cam::UpdateCamera()
 		_angle.y += dx * 180.0f / (_sw*0.5f);
 		_angle.x += dy * 180.0f / (_sh*0.5f);
 
-		return true;
+		_camUpdated = true;
 	}
-
-	if(Input::IsScrollDown())
+	else if(Input::IsScrollDown())
 	{
 		_trans.z -= 45.0f;
-		return true;
+		_camUpdated = true;
 	}
 	else if(Input::IsScrollUp())
 	{
 		_trans.z += 45.0f;
-		return true;
+		_camUpdated = true;
 	}
 
-	return false;
+	return _camUpdated;
+}
+
+bool Cam::IsCameraUpdated()
+{
+	return _camUpdated;
 }
 
 void Cam::SetPivot(glm::vec3 pivotPoint)

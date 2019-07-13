@@ -47,6 +47,7 @@ private:
 	GLTexture* _texture;
 
 	bool _useFBO;
+	bool _drawAllParticles;
 
 	void GLSettings();
 	void SetCamAndDrawObjects();
@@ -58,6 +59,7 @@ public:
 	void SetScreenSize(int sw, int sh);
 	void Update(float deltaTime);
 	void Draw();
+	void ParticleSpecificDraw();
 };
 
 #endif

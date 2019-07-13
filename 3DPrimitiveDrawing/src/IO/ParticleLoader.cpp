@@ -162,18 +162,6 @@ void ParticleLoader::LoadLowPolyData(const char* fileData, unsigned int length)
 	free(colorBuf);
 }
 
-void ParticleLoader::Draw()
-{
-	if (Cam::GetInstance()->IsCameraUpdated())
-	{
-		DrawLowPolyParticles();
-	}
-	else if(Cam::GetInstance()->IsJustStoppedUpdate())
-	{
-		DrawAllParticles();
-	}
-}
-
 void ParticleLoader::DrawAllParticles()
 {
 	_cubeParticleShader->Begin();

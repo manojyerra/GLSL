@@ -12,15 +12,15 @@ int main(void)
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-	//glfwWindowHint(GLFW_SAMPLES, 16);
+	//glfwWindowHint(GLFW_SAMPLES, 8);
 
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-	int sw = mode->width;
-	int sh = mode->height;
+	int sw = mode->width*0.75;
+	int sh = mode->height*0.75;
 
 	GLFWwindow* window = glfwCreateWindow(sw, sh, "GLFW Window", NULL, NULL);
-	glfwMaximizeWindow(window);
+	//glfwMaximizeWindow(window);
 	glfwMakeContextCurrent(window);
 	glfwSetMouseButtonCallback(window, mouse_button_callback);
 	glfwSetScrollCallback(window, scroll_callback);

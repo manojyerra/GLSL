@@ -32,6 +32,7 @@ private:
 	float _sh;
 
 	int _viewType;
+	bool _camUpdated;
 
 	Cam();
 
@@ -57,6 +58,7 @@ public:
 	glm::mat3 GetNormalMat(float* modelMat);
 	
 	bool UpdateCamera();
+	bool IsCameraUpdated();
 
 	void SetPivot(glm::vec3 pivotPoint);
 	void SetTrans(glm::vec3 trans);
