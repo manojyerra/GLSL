@@ -15,6 +15,8 @@ private:
 	string _geometryShaderPath;
 	string _fragmentShaderPath;
 
+	bool _hasGeometryShader;
+
 	GLint CompileShader(const char* shaderFilePath, GLenum shaderType);
 
 public:
@@ -40,6 +42,8 @@ public:
 	string GetVertexShaderFilePath();
 	string GetGeometryShaderFilePath();
 	string GetFragmentShaderFilePath();
+
+	bool HasGeometryShader();
 };
 
 #endif

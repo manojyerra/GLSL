@@ -3,6 +3,7 @@
 #include "TransformVertexBuf.h"
 #include "ImageBuffer.h"
 #include "Cam2D.h"
+#include "ShadersManager.h"
 
 GLTexture::GLTexture(int drawW, int drawH)
 {
@@ -13,12 +14,14 @@ GLTexture::GLTexture(int drawW, int drawH)
 	_drawW = drawW;
 	_drawH = drawH;
 
-	_shaderProgram = new ShaderProgram("shaders/UVArray/UVArray.vs", "shaders/UVArray/UVArray.fs");
+	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/UVArray/UVArray.vs", "shaders/UVArray/UVArray.fs");
 	GenerateBufferID();
 
 	ImageBuffer* imgBuf = new ImageBuffer("data/Sample.png");
 	_textureID = GenerateGLTextureID(imgBuf->GetWidth(), imgBuf->GetHeight(), 
 		imgBuf->GetBytesPerPixel(), imgBuf->GetBuffer());
+
+	delete imgBuf;
 }
 
 void GLTexture::Draw()
@@ -78,10 +81,6 @@ void GLTexture::GenerateBufferID()
 	delete buffer;
 }
 
-GLTexture::~GLTexture()
-{
-}
-
 unsigned int GLTexture::GenerateGLTextureID(int width, int height, int bytesPP, void* buffer)
 {
 	unsigned int textureID = 0;
@@ -109,4 +108,13 @@ unsigned int GLTexture::GenerateGLTextureID(int width, int height, int bytesPP, 
 	unsigned int errorID = glGetError();
 
 	return textureID;
+}
+
+GLTexture::~GLTexture()
+{
+	if (_shaderProgram)
+	{
+		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
+		_shaderProgram = NULL;
+	}
 }

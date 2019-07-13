@@ -72,7 +72,16 @@ void ShadersManager::DeleteShaderProgram(ShaderProgram* shaderProgram)
 	string geometryShader = shaderProgram->GetGeometryShaderFilePath();
 	string fragmentShader = shaderProgram->GetFragmentShaderFilePath();
 
-	string key = vertexShader.append(":").append(geometryShader).append(":").append(fragmentShader);
+	string key = "";
+	
+	if(shaderProgram->HasGeometryShader())
+	{
+		key.append(vertexShader).append(":").append(geometryShader).append(":").append(fragmentShader);
+	}
+	else
+	{
+		key.append(vertexShader).append(":").append(fragmentShader);
+	}
 
 	if (shadersMap.find(key) != shadersMap.end())
 	{

@@ -29,9 +29,6 @@ private:
 	float _zFar;
 	float _zNearPlaneW;
 
-	Cam* _cam;
-	Cam2D* _cam2D;
-
 	Floor* _floor;
 	Triangle* _triangle;
 	Box* _box;

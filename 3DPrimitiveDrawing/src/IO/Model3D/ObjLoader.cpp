@@ -63,27 +63,29 @@ void ObjLoader::ReadObjFile(string folderPath)
 
 	while ((line = fileReader.ReadLine()) != NULL)
 	{
-		if (line[0] == 'v' && line[1] == ' ')
-		{
-			UtilFuncs::scan_vertex(line, &vx, &vy, &vz);
-			vertexVec.push_back(glm::vec3(vx, vy, vz));
-			free(line);
-		}
-		else if (line[0] == 'v' && line[1] == 't')
-		{
-			UtilFuncs::scan_uv(line, &tx, &ty);
-			uvVec.push_back(glm::vec3(tx, 1 - ty, 0));
-			free(line);
-		}
-		else if (line[0] == 'v' && line[1] == 'n')
-		{
-			UtilFuncs::scan_normal(line, &nx, &ny, &nz);
-			normalVec.push_back(glm::vec3(nx, ny, nz));
-			free(line);
-		}
-		else if (line[0] == 'f' && line[1] == ' ')
+		if (line[0] == 'f' && line[1] == ' ')
 		{
 			facesArr.push_back(line);
+		}
+		else
+		{
+			if (line[0] == 'v' && line[1] == ' ')
+			{
+				UtilFuncs::scan_vertex(line, &vx, &vy, &vz);
+				vertexVec.push_back(glm::vec3(vx, vy, vz));
+			}
+			else if (line[0] == 'v' && line[1] == 't')
+			{
+				UtilFuncs::scan_uv(line, &tx, &ty);
+				uvVec.push_back(glm::vec3(tx, 1 - ty, 0));
+			}
+			else if (line[0] == 'v' && line[1] == 'n')
+			{
+				UtilFuncs::scan_normal(line, &nx, &ny, &nz);
+				normalVec.push_back(glm::vec3(nx, ny, nz));
+			}
+			
+			free(line);
 		}
 	}
 
@@ -316,6 +318,16 @@ void ObjLoader::LoadTextures(string folderPath)
 		delete imgBuf;
 	}
 }
+
+ObjLoader::~ObjLoader()
+{
+	if(_shaderProgram)
+	{
+		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
+		_shaderProgram = NULL;
+	}
+}
+
 
 //GLfloat Ka[] = { 1.0f, 0.5f, 0.5f, 1.0f };
 //GLfloat Kd[] = { 1.0f, 0.1f, 0.1f, 1.0f };

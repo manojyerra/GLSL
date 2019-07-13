@@ -143,6 +143,7 @@ void ParticleLoader::LoadLowPolyData(const char* fileData, unsigned int length)
 	glGenBuffers(1, &_lowPolyVertexBufferID);
 	glBindBuffer(GL_ARRAY_BUFFER, _lowPolyVertexBufferID);
 	glBufferData(GL_ARRAY_BUFFER, _lowPolyVertexCount * bpv, lowPolyBuf, GL_STATIC_DRAW);
+	free(lowPolyBuf);
 
 	unsigned int colorBufLen = _lowPolyVertexCount * 3;
 	char* colorBuf = (char*)malloc(colorBufLen);

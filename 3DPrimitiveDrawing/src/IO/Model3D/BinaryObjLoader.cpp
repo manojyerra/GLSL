@@ -18,10 +18,10 @@ BinaryObjLoader::BinaryObjLoader(string folderPath)
 	_uvBufferID = 0;
 
 	ReadObjFile(folderPath);
-	//LoadTextures(folderPath);
+	LoadTextures(folderPath);
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/NormalsAndMaterial/NormalsAndMaterial.vs",
-		"shaders/NormalsAndMaterial/NormalsAndMaterial.fs");
+	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/Phong/Phong.vs",
+		"shaders/Phong/Phong.fs");
 }
 
 void BinaryObjLoader::ReadObjFile(string folderPath)
@@ -105,13 +105,28 @@ void BinaryObjLoader::Draw()
 
 void BinaryObjLoader::LoadTextures(string folderPath)
 {
-	ImageBuffer* imgBuf = new ImageBuffer(folderPath + "/texture.png");
+	string filePath = folderPath + "/texture.png";
 
-	_baseTexID = GLUtil::GenerateGLTextureID(imgBuf->GetWidth(), imgBuf->GetHeight(),
-		imgBuf->GetBytesPerPixel(), imgBuf->GetBuffer());
+	if (FileReader::IsFileExists(filePath))
+	{
+		ImageBuffer* imgBuf = new ImageBuffer(filePath);
 
-	delete imgBuf;
+		_baseTexID = GLUtil::GenerateGLTextureID(imgBuf->GetWidth(), imgBuf->GetHeight(),
+			imgBuf->GetBytesPerPixel(), imgBuf->GetBuffer());
+
+		delete imgBuf;
+	}
 }
+
+BinaryObjLoader::~BinaryObjLoader()
+{
+	if (_shaderProgram)
+	{
+		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
+		_shaderProgram = NULL;
+	}
+}
+
 
 //GLfloat Ka[] = { 1.0f, 0.5f, 0.5f, 1.0f };
 //GLfloat Kd[] = { 1.0f, 0.1f, 0.1f, 1.0f };

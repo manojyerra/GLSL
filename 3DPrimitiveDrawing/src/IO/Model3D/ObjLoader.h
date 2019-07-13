@@ -40,6 +40,8 @@ public:
 	ObjLoader(string folderPath, bool writeBinaryToFile);
 
     void Draw();
+
+	~ObjLoader();
 };
 
 #endif

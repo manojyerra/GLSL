@@ -207,7 +207,11 @@ void Floor::Draw()
 
 Floor::~Floor()
 {
-	ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
+	if (_shaderProgram)
+	{
+		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
+		_shaderProgram = NULL;
+	}
 
 	if (_axisBuffer != NULL)
 	{

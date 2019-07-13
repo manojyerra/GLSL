@@ -5,19 +5,26 @@ GameLoop::GameLoop(int sw, int sh)
 	_sw = sw;
 	_sh = sh;
 
-	_useFBO = false;
-
-	GLSettings();
-
 	_zNear = 1.0f;
 	_zFar = 1000000.0f;
 	_zNearPlaneW = 0.2f;
 
-	_cam = Cam::GetInstance();
-	_cam->Init(_sw, _sh, _zNear, _zFar, _zNearPlaneW);
+	_useFBO = false;
 
-	_cam2D = Cam2D::GetInstance();
-	_cam2D->Init(_sw, _sh);
+	GLSettings();
+
+	_floor = NULL;
+	_box = NULL;
+	_cylinder = NULL;
+	_cone = NULL;
+	_sphere = NULL;
+	_objLoader = NULL;
+	_binaryObjLoader = NULL;
+	_fbo = NULL;
+	_texture = NULL;
+
+	Cam::GetInstance()->Init(_sw, _sh, _zNear, _zFar, _zNearPlaneW);
+	Cam2D::GetInstance()->Init(_sw, _sh);
 
 	_floor = new Floor();
 
@@ -45,33 +52,27 @@ GameLoop::GameLoop(int sw, int sh)
 	_sphere->SetPos(5, 0, 0);
 	_sphere->SetRadius(5);
 
-	_objLoader = new ObjLoader("data/teapot", false);
+	//_objLoader = new ObjLoader("data/teapot", false);
 	//_binaryObjLoader = new BinaryObjLoader("data/carScaled");
 
 	_fbo = new GLFBO(_sw, _sh);
 	_texture = new GLTexture(_sw, _sh);
 
-	//_particleLoader = new ParticleLoader();
+	_particleLoader = new ParticleLoader();
 	_drawAllParticles = true;
 }
 
 void GameLoop::GLSettings()
 {
-	//unsigned int framebuffer;
-	//glGenFramebuffersEXT(1, &framebuffer);
-	//glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, framebuffer);
-
 	//glShadeModel(GL_SMOOTH);
-	//glFrontFace	( GL_CCW		);
 	//glDisable(GL_FOG);
-	//glDisable(GL_LIGHTING);
 
 	//glDisable(GL_LINE_SMOOTH);
 	//glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 
-	glDisable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
+	glDisable(GL_CULL_FACE);
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
@@ -84,9 +85,9 @@ void GameLoop::Update(float deltaTime)
 
 void GameLoop::ParticleSpecificDraw()
 {
-	_cam->SetPerspectiveProjection();
-	_cam->SetViewMatrix();
-	_cam->UpdateCamera();
+	Cam::GetInstance()->SetPerspectiveProjection();
+	Cam::GetInstance()->SetViewMatrix();
+	Cam::GetInstance()->UpdateCamera();
 
 	if (Cam::GetInstance()->IsCameraUpdated())
 	{
@@ -122,7 +123,7 @@ void GameLoop::ParticleSpecificDraw()
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_CULL_FACE);
 
-		_cam2D->SetProjection();
+		Cam2D::GetInstance()->SetProjection();
 
 		glBindTexture(GL_TEXTURE_2D, _fbo->GetTextureID());
 		_texture->Draw();
@@ -166,7 +167,7 @@ void GameLoop::Draw()
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_CULL_FACE);
 
-		_cam2D->SetProjection();
+		Cam2D::GetInstance()->SetProjection();
 
 		glBindTexture(GL_TEXTURE_2D, _fbo->GetTextureID());
 		_texture->Draw();
@@ -176,9 +177,9 @@ void GameLoop::Draw()
 
 void GameLoop::SetCamAndDrawObjects()
 {
-	_cam->SetPerspectiveProjection();
-	_cam->SetViewMatrix();
-	_cam->UpdateCamera();
+	Cam::GetInstance()->SetPerspectiveProjection();
+	Cam::GetInstance()->SetViewMatrix();
+	Cam::GetInstance()->UpdateCamera();
 
 	_floor->Draw();
 	_objLoader->Draw();
@@ -194,6 +195,36 @@ void GameLoop::SetScreenSize(int sw, int sh)
 
 GameLoop::~GameLoop()
 {
+	if (_particleLoader)
+	{
+		delete _particleLoader;
+		_particleLoader = NULL;
+	}
+
+	if (_texture)
+	{
+		delete _texture;
+		_texture = NULL;
+	}
+
+	if (_fbo)
+	{
+		delete _fbo;
+		_fbo = NULL;
+	}
+
+	//if (_binaryObjLoader)
+	//{
+	//	delete _binaryObjLoader;
+	//	_binaryObjLoader = NULL;
+	//}
+
+	//if (_objLoader)
+	//{
+	//	delete _objLoader;
+	//	_objLoader = NULL;
+	//}
+	
 	if (_sphere != NULL)
 	{
 		delete _sphere;
@@ -231,5 +262,6 @@ GameLoop::~GameLoop()
 	}
 
 	Cam::GetInstance()->DeleteInstance();
+	Cam2D::GetInstance()->DeleteInstance();
 	ShadersManager::GetInstance()->DeleteInstance();
 }

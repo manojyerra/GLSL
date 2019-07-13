@@ -32,6 +32,8 @@ private:
 
 public:
 	BinaryObjLoader(string folderPath);
+	~BinaryObjLoader();
+
 	void Draw();
 };
 

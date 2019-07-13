@@ -9,6 +9,8 @@ ShaderProgram::ShaderProgram(string vertexShaderFilePath, string fragmentShaderF
 	_geometryShaderPath = "";
 	_fragmentShaderPath = fragmentShaderFilePath;
 
+	_hasGeometryShader = false;
+
 	printf("Compiling vertex shader. FilePath : %s\n", vertexShaderFilePath.c_str());
 	GLint vertexShaderObj = CompileShader(_vertexShaderPath.c_str(), GL_VERTEX_SHADER);
 	printf("Compiling fragment shader. FilePath : %s\n", fragmentShaderFilePath.c_str());
@@ -54,6 +56,8 @@ ShaderProgram::ShaderProgram(string vertexShaderFilePath, string geometryShaderF
 	_geometryShaderPath = geometryShaderFilePath;
 	_fragmentShaderPath = fragmentShaderFilePath;
 
+	_hasGeometryShader = true;
+
 	printf("Compiling vertex shader. FilePath : %s\n", vertexShaderFilePath.c_str());
 	GLint vertexShaderObj = CompileShader(_vertexShaderPath.c_str(), GL_VERTEX_SHADER);
 	printf("Compiling geometry shader. FilePath : %s\n", geometryShaderFilePath.c_str());
@@ -95,6 +99,11 @@ ShaderProgram::ShaderProgram(string vertexShaderFilePath, string geometryShaderF
 		exit(0);
 	}
 	printf("\n");
+}
+
+bool ShaderProgram::HasGeometryShader()
+{
+	return _hasGeometryShader;
 }
 
 string ShaderProgram::GetVertexShaderFilePath()
