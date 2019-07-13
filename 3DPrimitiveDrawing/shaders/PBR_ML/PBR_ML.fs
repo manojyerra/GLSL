@@ -46,60 +46,106 @@ vec3 fresnelSchlick(float cosTheta, vec3 f0)
 	return f0 + (1.0 - f0) * pow(1.0 - cosTheta, 5.0);
 }
 
-vec3 calcFinalColor(vec3 lightPos)
-{
-	vec3 normal = normalize(viewNormal);
-	vec3 viewDir = normalize(-viewPosition.xyz);
-	vec3 f0 = vec3(0.04);
-	f0 = mix(f0, albedo, metallic);
-	vec3 lo = vec3(0.0);
-
-	vec3 lightDir = normalize( lightPos - viewPosition.xyz );
-
-	vec3 halfDir = normalize(lightDir + viewDir);
-	float hdotv = max(dot(halfDir, viewDir), 0.0);
-	float ndotl = max(dot(normal, lightDir), 0.0);
-	float ndotv = max(dot(normal, viewDir), 0.0);
-	float ndoth = max(dot(normal, halfDir), 0.0);
-
-	float ndf = distributionGGX(ndoth, roughness);
-	float g = geometrySmith(ndotv, ndotl, roughness);
-	vec3 f = fresnelSchlick(hdotv, f0);
-
-	vec3 kS = f;
-	vec3 kD = vec3(1.0) - kS;
-	kD *= 1.0 - metallic;
-
-	vec3 nominator = ndf * g * f;
-	float denominator = 4 * ndotv * ndotl + 0.00001;
-	vec3 specular = nominator / denominator;
-
-	lo += (kD * albedo / PI + specular) * color.rgb * ndotl;
-	vec3 ambient = vec3(0.03) * albedo;
-	vec3 finalColor = lo + ambient;
-	
-	return finalColor;
-}
-
 void main()
 {
-	vec3 finalColor = vec3(0.0, 0.0, 0.0);
-	//finalColor = calcFinalColor(vec3(0.0, 0.0, 0.0) );
-	
-	vec4 lightPos = vec4(-3000.0, 6000.0, 3000.0, 0.0);
-	lightPos = camMat * lightPos;
-	finalColor += calcFinalColor(lightPos.xyz );
+	vec3 lo = vec3(0.0);
+	vec4 dir = vec4(0.0);
+	vec3 col = vec3(23.47, 21.31, 20.79);
+	float rough = roughness;
+	float metal = metallic;
 
-	lightPos = vec4(3000.0, -1000.0, -3000.0, 0.0);
-	lightPos = camMat * lightPos;
-	finalColor += calcFinalColor(lightPos.xyz );
+	for(int i=0; i<4; i++)
+	{
+		if(i == 0)
+		{
+			dir = vec4(0.0, -1.0, 0.0, 1.0);
+			//rough = 0.1;
+			//metal = 0.5;
+		}
+		else if(i == 1)
+		{
+			dir = vec4(0.0, 1.0, 0.0, 1.0);
+			//rough = 0.2;
+			//metal = 0.8;
+		}
+		else if(i == 2)
+		{
+			dir = vec4(1.0, 0.0, 0.0, 1.0);
+			//rough = 0.3;
+			//metal = 0.2;
+		}
+		else if(i == 3)
+		{
+			dir = vec4(-1.0, 0.0, 0.0, 1.0);
+			//rough = 0.1;
+			//metal = 0.8;
+		}
+		else if(i == 4)
+		{
+			dir = vec4(0.0, 0.0, 1.0, 1.0);
+			//rough = 0.5;
+			//metal = 0.5;
+		}
+		else if(i == 5)
+		{
+			dir = vec4(0.0, 0.0, -1.0, 1.0);
+			//rough = 0.4;
+			//metal = 0.4;
+		}
 	
-	lightPos = vec4(-3000.0, 3000.0, 0.0, 0.0);
-	lightPos = camMat * lightPos;
-	finalColor += calcFinalColor(lightPos.xyz );
-	
+	/*
+		if(i == 0)
+		{
+			dir = vec4(1.0, 1.0, -1.0, 1.0);
+		}
+		else if(i == 1)
+		{
+			dir = vec4(-1.0, 1.0, -1.0, 1.0);	
+		}
+		else if(i == 2)
+		{
+			dir = vec4(-1.0, -1.0, 1.0, 1.0);
+		}
+		else if(i == 3)
+		{
+			dir = vec4(1.0, -1.0, 1.0, 1.0);
+		}
+	*/
+		dir = normalize(dir);
+
+		vec3 normal = normalize(viewNormal);
+		vec3 viewDir = normalize(-viewPosition.xyz);
+		vec3 f0 = vec3(0.04);
+		f0 = mix(f0, albedo, metallic);
+
+		vec3 lightDir = normalize(-dir.xyz);
+		vec3 halfDir = normalize(lightDir + viewDir);
+		float hdotv = max(dot(halfDir, viewDir), 0.0);
+		float ndotl = max(dot(normal, lightDir), 0.0);
+		float ndotv = max(dot(normal, viewDir), 0.0);
+		float ndoth = max(dot(normal, halfDir), 0.0);
+
+		float ndf = distributionGGX(ndoth, rough);
+		float g = geometrySmith(ndotv, ndotl, rough);
+		vec3 f = fresnelSchlick(hdotv, f0);
+
+		vec3 kS = f;
+		vec3 kD = vec3(1.0) - kS;
+		kD *= 1.0 - metallic;
+
+		vec3 nominator = ndf * g * f;
+		float denominator = 4 * ndotv * ndotl + 0.00001;
+		vec3 specular = nominator / denominator;
+
+		lo += (kD * albedo / PI + specular) * col.rgb * ndotl;
+	}
+
+	vec3 ambient = vec3(0.03) * albedo;
+	vec3 finalColor = lo + ambient;
+
 	finalColor = finalColor / (finalColor + vec3(1.0));
     finalColor = pow(finalColor, vec3(1.0/2.2));  
 
 	outColor = vec4(finalColor, 1.0);
 }
+
