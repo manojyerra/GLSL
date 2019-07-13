@@ -264,4 +264,6 @@ GameLoop::~GameLoop()
 	Cam::GetInstance()->DeleteInstance();
 	Cam2D::GetInstance()->DeleteInstance();
 	ShadersManager::GetInstance()->DeleteInstance();
+
+	Macros::printBuffersInfo();
 }

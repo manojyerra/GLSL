@@ -44,26 +44,26 @@ int main(void)
 	{
 		glfwPollEvents();
 
-		//Input::Update(1.0f / 30.0f);
-		//gameLoop->Update(1.0f / 30.0f);
-		//gameLoop->Draw();
+		Input::Update(1.0f / 30.0f);
+		gameLoop->Update(1.0f / 30.0f);
+		gameLoop->Draw();
 
-		//glfwSwapBuffers(window);
+		glfwSwapBuffers(window);
 
-		//frameCount++;
-		//double currentTime = glfwGetTime();
-		//double deltaTime = currentTime - previousTime;
+		frameCount++;
+		double currentTime = glfwGetTime();
+		double deltaTime = currentTime - previousTime;
 
-		//if(deltaTime > 0.5)
-		//{
-		//	frameCount = (unsigned int)(frameCount*1.0 / deltaTime);
-		//	char arr[128];
-		//	sprintf(arr, "FPS : %d", frameCount);
-		//	glfwSetWindowTitle(window, arr);
+		if(deltaTime > 0.5)
+		{
+			frameCount = (unsigned int)(frameCount*1.0 / deltaTime);
+			char arr[128];
+			sprintf(arr, "FPS : %d", frameCount);
+			glfwSetWindowTitle(window, arr);
 
-		//	frameCount = 0;
-		//	previousTime = currentTime;
-		//}
+			frameCount = 0;
+			previousTime = currentTime;
+		}
 	}
 
 	if (gameLoop)
