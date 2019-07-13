@@ -133,8 +133,8 @@ void GameLoop::ParticleSpecificDraw()
 
 void GameLoop::Draw()
 {
-	//ParticleSpecificDraw();
-	//return;
+	ParticleSpecificDraw();
+	return;
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -182,7 +182,7 @@ void GameLoop::SetCamAndDrawObjects()
 	Cam::GetInstance()->UpdateCamera();
 
 	_floor->Draw();
-	_objLoader->Draw();
+	//_objLoader->Draw();
 }
 
 void GameLoop::SetScreenSize(int sw, int sh)

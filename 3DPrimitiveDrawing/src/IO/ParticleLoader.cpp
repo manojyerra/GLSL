@@ -100,7 +100,7 @@ void ParticleLoader::LoadData(const char* fileData, unsigned int length)
 	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
 	glBufferData(GL_ARRAY_BUFFER, length, fileData, GL_STATIC_DRAW);
 
-	_vertexCount = length / BYTES_PER_VERTEX;
+ 	_vertexCount = length / BYTES_PER_VERTEX;
 
 	unsigned int colorBufLen = _vertexCount * 3;
 	char* colorBuf = (char*)malloc(colorBufLen);
@@ -185,15 +185,16 @@ void ParticleLoader::DrawAllParticles()
 	glEnableVertexAttribArray(vertexLoc);
 	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
 	glVertexAttribPointer(vertexLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	GLuint colorLoc = glGetAttribLocation(_cubeParticleShader->ProgramID(), "color");
 	glEnableVertexAttribArray(colorLoc);
 	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
 	glVertexAttribPointer(colorLoc, 3, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glDrawArrays(GL_POINTS, 0, _vertexCount);
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glDisableVertexAttribArray(vertexLoc);
 	glDisableVertexAttribArray(colorLoc);
 
@@ -222,15 +223,16 @@ void ParticleLoader::DrawLowPolyParticles()
 	glEnableVertexAttribArray(vertexLoc);
 	glBindBuffer(GL_ARRAY_BUFFER, _lowPolyVertexBufferID);
 	glVertexAttribPointer(vertexLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	GLuint colorLoc = glGetAttribLocation(_cubeParticleShader->ProgramID(), "color");
 	glEnableVertexAttribArray(colorLoc);
 	glBindBuffer(GL_ARRAY_BUFFER, _lowPolyColorBufferID);
 	glVertexAttribPointer(colorLoc, 3, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glDrawArrays(GL_POINTS, 0, _lowPolyVertexCount);
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glDisableVertexAttribArray(vertexLoc);
 	glDisableVertexAttribArray(colorLoc);
 
@@ -243,6 +245,30 @@ ParticleLoader::~ParticleLoader()
 	{
 		ShadersManager::GetInstance()->DeleteShaderProgram(_cubeParticleShader);
 		_cubeParticleShader = NULL;
+	}
+
+	if (_vertexBufferID)
+	{
+		glDeleteBuffers(1, &_vertexBufferID);
+		_vertexBufferID = 0;
+	}
+
+	if (_lowPolyColorBufferID)
+	{
+		glDeleteBuffers(1, &_lowPolyColorBufferID);
+		_lowPolyColorBufferID = 0;
+	}
+
+	if (_colorBufferID)
+	{
+		glDeleteBuffers(1, &_colorBufferID);
+		_colorBufferID = 0;
+	}
+
+	if (_lowPolyVertexBufferID)
+	{
+		glDeleteBuffers(1, &_lowPolyVertexBufferID);
+		_lowPolyVertexBufferID = 0;
 	}
 }
 

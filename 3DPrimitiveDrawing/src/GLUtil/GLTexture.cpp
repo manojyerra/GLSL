@@ -103,9 +103,7 @@ unsigned int GLTexture::GenerateGLTextureID(int width, int height, int bytesPP, 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-	//glBindTexture(GL_TEXTURE_2D, 0);
-	
-	unsigned int errorID = glGetError();
+	glBindTexture(GL_TEXTURE_2D, 0);
 
 	return textureID;
 }
@@ -116,5 +114,11 @@ GLTexture::~GLTexture()
 	{
 		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
 		_shaderProgram = NULL;
+	}
+
+	if (_textureID)
+	{
+		glDeleteTextures(1, &_textureID);
+		_textureID = 0;
 	}
 }
