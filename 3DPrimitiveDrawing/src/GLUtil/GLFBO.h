@@ -13,9 +13,7 @@ private:
 	unsigned int _w;
 	unsigned int _h;
 
-	unsigned int GenerateEmptyTexture(int w, int h);
 	void AttachTexToFBO(unsigned int texID);
-	void BindFBO(int fboID);
 	unsigned int CreateDepthBuffer(int w, int h);
 	void AttachDepthBufferToFBO(unsigned int depthBufferID);
 

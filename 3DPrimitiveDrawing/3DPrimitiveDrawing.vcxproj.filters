@@ -300,6 +300,9 @@
     <ClCompile Include="src\GLUtil\GLMemoryTrace.cpp">
       <Filter>src\GLUtil</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\GLMemory.cpp">
+      <Filter>src\GLUtil</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -471,6 +474,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\GLUtil\GLMemoryTrace.h">
+      <Filter>src\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\GLMemory.h">
       <Filter>src\GLUtil</Filter>
     </ClInclude>
   </ItemGroup>

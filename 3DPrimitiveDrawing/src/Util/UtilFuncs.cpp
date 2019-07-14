@@ -1,76 +1,6 @@
 #include "UtilFuncs.h"
-#include "math.h"
-#include "GLMemoryTrace.h"
-
-unsigned int UtilFuncs::GenerateGLTextureID(ImageBuffer* imgBuf)
-{
-	void* buffer = imgBuf->GetBuffer();
-	
-	if(buffer == NULL)
-		return 0;
-
-	int width = imgBuf->GetWidth();
-	int height = imgBuf->GetHeight();
-	int bytesPerPixel = imgBuf->GetBytesPerPixel();
-	
-	unsigned int textureID;
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
-	glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	if(bytesPerPixel == 4)
-		__glTexImage2D(textureID, GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
-	else if(bytesPerPixel == 3)
-		__glTexImage2D(textureID, GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, buffer);
-	else if(bytesPerPixel == 1)
-		__glTexImage2D(textureID, GL_TEXTURE_2D, 0, GL_LUMINANCE, width, height, 0, GL_RGB8, GL_UNSIGNED_BYTE, buffer);
-	else
-		return 0;
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
-	return textureID;
-}
-
-unsigned int UtilFuncs::GenerateGLTextureID(int width, int height, bool hasAlpha, unsigned char r, unsigned char g, unsigned char b, unsigned char a)
-{
-	int bytesPerPixel = hasAlpha ? 4 : 3;
-	int size = width * height * bytesPerPixel;
-	unsigned char* buffer = (unsigned char*)malloc(size);
-
-	for(int i=0; i<size; i+=bytesPerPixel)
-	{
-		buffer[i+0] = r;
-		buffer[i+1] = g;
-		buffer[i+2] = b;
-
-		if(bytesPerPixel == 4)
-			buffer[i+3] = a;
-	}
-
-	unsigned int textureID = 0;
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
-	glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	if(bytesPerPixel == 4)
-		__glTexImage2D(textureID, GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
-	else if(bytesPerPixel == 3)
-		__glTexImage2D(textureID, GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, buffer);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
-	free(buffer);
-
-	return textureID;
-}
-
+//#include "math.h"
+#include <string>
 
 void UtilFuncs::scanFace_VTN(char* str,
 	int* v1, int* t1, int* n1,
@@ -329,6 +259,8 @@ double UtilFuncs::atof_naive(const char *p) {
 			++p;
 			++n;
 		}
+		
+		//TODO : check the performance difference between math funtion pow and std function pow
 		r += f / std::pow(10.0, n);
 	}
 	if (neg) {

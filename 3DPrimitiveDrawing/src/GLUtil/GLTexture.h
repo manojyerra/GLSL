@@ -28,7 +28,6 @@ private:
 	GLMat _modelMat;
 
 	void GenerateBufferID();
-	unsigned int GenerateGLTextureID(int width, int height, int bytesPP, void* buffer);
 
 public:
 	GLTexture(int drawW, int drawH);

@@ -1,5 +1,6 @@
 #include "GLBuffer.h"
 #include "GLMemoryTrace.h"
+#include "GLMemory.h"
 
 GLBuffer::GLBuffer(unsigned int capacity, bool colorDataPresent, bool uvDataPresent, bool normalsDataPresent)
 {
@@ -174,37 +175,29 @@ void GLBuffer::glEnd()
 {
 	if(_vertexBufferID == 0)
 	{
-		glGenBuffers(1, &_vertexBufferID);
-		glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-		__glBufferData(_vertexBufferID, GL_ARRAY_BUFFER, _count * 3 * 4, _vertexArr, GL_STATIC_DRAW);
+		_vertexBufferID = GLCreateBuffer(_count * 3 * 4, _vertexArr);
 
 		if(_colorArr)
 		{
-			glGenBuffers(1, &_colorBufferID);
-			glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-			__glBufferData(_colorBufferID, GL_ARRAY_BUFFER, _count * 3 * 4, _colorArr, GL_STATIC_DRAW);
+			_colorBufferID = GLCreateBuffer(_count * 3 * 4, _colorArr);
 		}
 
 		if(_uvArr)
 		{
-			glGenBuffers(1, &_uvBufferID);
-			glBindBuffer(GL_ARRAY_BUFFER, _uvBufferID);
-			__glBufferData(_uvBufferID, GL_ARRAY_BUFFER, _count * 2 * 4, _uvArr, GL_STATIC_DRAW);
+			_uvBufferID = GLCreateBuffer(_count * 2 * 4, _uvArr);
 		}
 
 		if(_normalArr)
 		{
-			glGenBuffers(1, &_normalBufferID);
-			glBindBuffer(GL_ARRAY_BUFFER, _normalBufferID);
-			__glBufferData(_normalBufferID, GL_ARRAY_BUFFER, _count * 3 * 4, _normalArr, GL_STATIC_DRAW);
+			_normalBufferID = GLCreateBuffer(_count * 3 * 4, _normalArr);
 		}
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-		if(_vertexArr)	delete[] _vertexArr;
-		if(_colorArr)	delete[] _colorArr;
-		if(_uvArr)		delete[] _uvArr;
-		if(_normalArr)	delete[] _normalArr;
+		if (_vertexArr) { delete[] _vertexArr;	_vertexArr = NULL;	}
+		if(_colorArr)	{ delete[] _colorArr;	_colorArr = NULL;	}
+		if(_uvArr)		{ delete[] _uvArr;		_uvArr = NULL;		}
+		if(_normalArr)	{ delete[] _normalArr;	_normalArr = NULL;	}
 	}
 }
 
@@ -266,25 +259,25 @@ GLBuffer::~GLBuffer()
 {
 	if (_vertexBufferID)
 	{
-		__glDeleteBuffers(1, &_vertexBufferID);
+		GLDeleteBuffer(_vertexBufferID);
 		_vertexBufferID = 0;
 	}
 
 	if (_colorBufferID)
 	{
-		__glDeleteBuffers(1, &_colorBufferID);
+		GLDeleteBuffer(_colorBufferID);
 		_colorBufferID = 0;
 	}
 
 	if (_normalBufferID)
 	{
-		__glDeleteBuffers(1, &_normalBufferID);
+		GLDeleteBuffer(_normalBufferID);
 		_normalBufferID = 0;
 	}
 
 	if (_uvBufferID)
 	{
-		__glDeleteBuffers(1, &_uvBufferID);
+		GLDeleteBuffer(_uvBufferID);
 		_uvBufferID = 0;
 	}
 }

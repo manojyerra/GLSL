@@ -317,28 +317,3 @@ void GLUtil::GetMinMaxPoints(vector<glm::vec3>* points3D, glm::vec3* min, glm::v
 	max->y = maxY;
 	max->z = maxZ;
 }
-
-unsigned int GLUtil::GenerateGLTextureID(int width, int height, int bytesPP, void* buffer)
-{
-	unsigned int textureID = 0;
-
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
-	glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	if(bytesPP == 4)
-		__glTexImage2D(textureID, GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
-	else if(bytesPP == 3)
-		__glTexImage2D(textureID, GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, buffer);
-	else if(bytesPP == 1)
-		__glTexImage2D(textureID, GL_TEXTURE_2D, 0, GL_LUMINANCE, width, height, 0, GL_RGB8, GL_UNSIGNED_BYTE, buffer);
-	else
-		return 0;
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
-	return textureID;
-}

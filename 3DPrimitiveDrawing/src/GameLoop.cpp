@@ -1,5 +1,6 @@
 #include "GameLoop.h"
 #include "GLMemoryTrace.h"
+#include "GLMemory.h"
 
 GameLoop::GameLoop(int sw, int sh)
 {
@@ -134,8 +135,8 @@ void GameLoop::ParticleSpecificDraw()
 
 void GameLoop::Draw()
 {
-	//ParticleSpecificDraw();
-	//return;
+	ParticleSpecificDraw();
+	return;
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -271,8 +272,5 @@ GameLoop::~GameLoop()
 	Cam2D::GetInstance()->DeleteInstance();
 	ShadersManager::GetInstance()->DeleteInstance();
 
-	if (GLMemoryTrace::hasMemoryLeaks())
-	{
-		GLMemoryTrace::printMemoryLeaks();
-	}
+	GLMemory::printMemoryLeaks();
 }

@@ -1,6 +1,7 @@
 #include "GLFBO.h"
 #include <assert.h>
 #include "GLMemoryTrace.h"
+#include "GLMemory.h"
 
 GLFBO::GLFBO(int w, int h)
 {
@@ -8,8 +9,8 @@ GLFBO::GLFBO(int w, int h)
 	_h = h;
 
 	glGenFramebuffersEXT(1, &_fboID);
-	BindFBO(_fboID);
-	_texID = GenerateEmptyTexture(_w, _h);
+	BindFBO();
+	_texID = GLCreateTexture(w, h, 3, NULL); //Creating empty texture
 	AttachTexToFBO(_texID);
 	_depthBufID = CreateDepthBuffer(_w, _h);
 	AttachDepthBufferToFBO(_depthBufID);
@@ -17,14 +18,9 @@ GLFBO::GLFBO(int w, int h)
 	assert(isFBOCreated());
 }
 
-void GLFBO::BindFBO(int fboID)
-{
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fboID);
-}
-
 void GLFBO::BindFBO()
 {
-	BindFBO(_fboID);
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _fboID);
 }
 
 void GLFBO::UnBindFBO()
@@ -37,19 +33,6 @@ unsigned int GLFBO::GetTextureID()
 	return _texID;
 }
 
-unsigned int GLFBO::GenerateEmptyTexture(int w, int h)
-{
-	unsigned int texID;
-	glGenTextures(1, &texID);
-	glBindTexture(GL_TEXTURE_2D, texID);
-	__glTexImage2D(texID, GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	return texID;
-}
-
 void GLFBO::AttachTexToFBO(unsigned int texID)
 {
 	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, texID, 0);
@@ -57,13 +40,7 @@ void GLFBO::AttachTexToFBO(unsigned int texID)
 
 unsigned int GLFBO::CreateDepthBuffer(int w, int h)
 {
-	unsigned int rbo;
-	glGenRenderbuffersEXT(1, &rbo);
-	glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, rbo);
-	__glRenderbufferStorageEXT(rbo, GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT24, w, h);
-	glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, 0);
-
-	return rbo;
+	return GLCreateRenderBuffer(w, h, GL_DEPTH_COMPONENT24);
 }
 
 void GLFBO::AttachDepthBufferToFBO(unsigned int depthBufferID)
@@ -73,13 +50,9 @@ void GLFBO::AttachDepthBufferToFBO(unsigned int depthBufferID)
 
 bool GLFBO::isFBOCreated()
 {
-	bool created = false;
-
-	if (glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) == GL_FRAMEBUFFER_COMPLETE_EXT)
-		created = true;
-
+	BindFBO();
+	bool created = (glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) == GL_FRAMEBUFFER_COMPLETE_EXT);
 	UnBindFBO();
-
 	return created;
 }
 
@@ -96,8 +69,9 @@ unsigned int GLFBO::GetH()
 GLFBO::~GLFBO()
 {
 	//Delete resources
-	__glDeleteTextures(1, &_texID);
-	__glDeleteRenderbuffersEXT(1, &_depthBufID);
+	GLDeleteTexture(_texID);
+	GLDeleteRenderBuffer(_depthBufID);
+
 	//Bind 0, which means render to back buffer, as a result, fb is unbound
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 	glDeleteFramebuffersEXT(1, &_fboID);

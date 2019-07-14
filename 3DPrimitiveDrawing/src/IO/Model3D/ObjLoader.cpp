@@ -12,6 +12,7 @@
 #include <glm/vec4.hpp>
 #include "glm/ext.hpp"
 #include "GLMemoryTrace.h"
+#include "GLMemory.h"
 
 ObjLoader::ObjLoader(string folderPath)
 {
@@ -181,22 +182,16 @@ void ObjLoader::ReadObjFile(string folderPath)
 		}
 	}
 
-	glGenBuffers(1, &_vertexBufferID);
-	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-	__glBufferData(_vertexBufferID, GL_ARRAY_BUFFER, vertexFloatArr.size() * 4, vertexFloatArr.getArray(), GL_STATIC_DRAW);
+	_vertexBufferID = GLCreateBuffer(vertexFloatArr.size() * 4, (GLvoid*)vertexFloatArr.getArray());
 
 	if (uvFloatArr.size() > 0)
 	{
-		glGenBuffers(1, &_uvBufferID);
-		glBindBuffer(GL_ARRAY_BUFFER, _uvBufferID);
-		__glBufferData(_uvBufferID, GL_ARRAY_BUFFER, uvFloatArr.size() * 4, uvFloatArr.getArray(), GL_STATIC_DRAW);
+		_uvBufferID = GLCreateBuffer(uvFloatArr.size() * 4, (GLvoid*)uvFloatArr.getArray());
 	}
 
 	if (normalFloatArr.size() > 0)
 	{
-		glGenBuffers(1, &_normalBufferID);
-		glBindBuffer(GL_ARRAY_BUFFER, _normalBufferID);
-		__glBufferData(_normalBufferID, GL_ARRAY_BUFFER, normalFloatArr.size() * 4, normalFloatArr.getArray(), GL_STATIC_DRAW);
+		_normalBufferID = GLCreateBuffer(normalFloatArr.size() * 4, (GLvoid*)normalFloatArr.getArray());
 	}
 
 	_vertexCount = vertexFloatArr.size() / 3;
@@ -312,9 +307,8 @@ void ObjLoader::LoadTextures(string folderPath)
 	{
 		ImageBuffer* imgBuf = new ImageBuffer(filePath);
 
-		_baseTexID = GLUtil::GenerateGLTextureID(imgBuf->GetWidth(), imgBuf->GetHeight(),
-			imgBuf->GetBytesPerPixel(), imgBuf->GetBuffer());
-
+		_baseTexID = GLCreateTexture(imgBuf->GetWidth(), imgBuf->GetHeight(),
+												imgBuf->GetBytesPerPixel(), imgBuf->GetBuffer());
 		delete imgBuf;
 	}
 }
@@ -329,19 +323,19 @@ ObjLoader::~ObjLoader()
 
 	if (_vertexBufferID)
 	{
-		__glDeleteBuffers(1, &_vertexBufferID);
+		GLDeleteBuffer(_vertexBufferID);
 		_vertexBufferID = 0;
 	}
 
 	if (_normalBufferID)
 	{
-		__glDeleteBuffers(1, &_normalBufferID);
+		GLDeleteBuffer(_normalBufferID);
 		_normalBufferID = 0;
 	}
 
 	if (_uvBufferID)
 	{
-		__glDeleteBuffers(1, &_uvBufferID);
+		GLDeleteBuffer(_uvBufferID);
 		_uvBufferID = 0;
 	}
 }

@@ -5,6 +5,7 @@
 #include "FileReader.h"
 #include "Input.h"
 #include "GLMemoryTrace.h"
+#include "GLMemory.h"
 
 ParticleLoader::ParticleLoader()
 {
@@ -43,10 +44,7 @@ ParticleLoader::ParticleLoader()
 	vertexBuf[7] = y;
 	vertexBuf[8] = 0.0f;
 	
-	glGenBuffers(1, &_vertexBufferID);
-	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-	__glBufferData(GL_ARRAY_BUFFER, vertexBufLen, vertexBuf, GL_STATIC_DRAW);
-	
+	_vertexBufferID = GLMemory::CreateBuffer(vertexBufLen, vertexBuf);
 	
 	unsigned int colorBufLen = 12;
 	unsigned char* colorBuf = (unsigned char*)malloc(colorBufLen);
@@ -62,10 +60,8 @@ ParticleLoader::ParticleLoader()
 	colorBuf[6] = 0;
 	colorBuf[7] = 0;
 	colorBuf[8] = 255;
-	
-	glGenBuffers(1, &_colorBufferID);
-	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-	__glBufferData(_colorBufferID, GL_ARRAY_BUFFER, colorBufLen, colorBuf, GL_STATIC_DRAW);
+
+	_colorBufferID = GLMemory::CreateBuffer(colorBufLen, colorBuf);
 	
 	_vertexCount = vertexBufLen / 12;
 	free(vertexBuf);
@@ -95,10 +91,7 @@ ParticleLoader::ParticleLoader()
 
 void ParticleLoader::LoadData(const char* fileData, unsigned int length)
 {
-	glGenBuffers(1, &_vertexBufferID);
-	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-	__glBufferData(_vertexBufferID, GL_ARRAY_BUFFER, length, fileData, GL_STATIC_DRAW);
-
+	_vertexBufferID = GLCreateBuffer(length, (GLvoid*)fileData);
  	_vertexCount = length / BYTES_PER_VERTEX;
 
 	unsigned int colorBufLen = _vertexCount * 3;
@@ -113,12 +106,8 @@ void ParticleLoader::LoadData(const char* fileData, unsigned int length)
 		colorBuf[ii + 2] = 0;
 	}
 
-	glGenBuffers(1, &_colorBufferID);
-	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-	__glBufferData(_colorBufferID, GL_ARRAY_BUFFER, colorBufLen, colorBuf, GL_STATIC_DRAW);
+	_colorBufferID = GLCreateBuffer(colorBufLen, (GLvoid*)colorBuf);
 	free(colorBuf);
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 
@@ -139,9 +128,7 @@ void ParticleLoader::LoadLowPolyData(const char* fileData, unsigned int length)
 		_lowPolyVertexCount++;
 	}
 
-	glGenBuffers(1, &_lowPolyVertexBufferID);
-	glBindBuffer(GL_ARRAY_BUFFER, _lowPolyVertexBufferID);
-	__glBufferData(_lowPolyVertexBufferID, GL_ARRAY_BUFFER, _lowPolyVertexCount * bpv, lowPolyBuf, GL_STATIC_DRAW);
+	_lowPolyVertexBufferID = GLCreateBuffer(_lowPolyVertexCount * bpv, (GLvoid*)lowPolyBuf);
 	free(lowPolyBuf);
 
 	unsigned int colorBufLen = _lowPolyVertexCount * 3;
@@ -156,12 +143,8 @@ void ParticleLoader::LoadLowPolyData(const char* fileData, unsigned int length)
 		colorBuf[ii + 2] = 0;
 	}
 
-	glGenBuffers(1, &_lowPolyColorBufferID);
-	glBindBuffer(GL_ARRAY_BUFFER, _lowPolyColorBufferID);
-	__glBufferData(_lowPolyColorBufferID, GL_ARRAY_BUFFER, colorBufLen, colorBuf, GL_STATIC_DRAW);
+	_lowPolyColorBufferID = GLCreateBuffer(colorBufLen, (GLvoid*)colorBuf);
 	free(colorBuf);
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void ParticleLoader::DrawAllParticles()
@@ -250,154 +233,25 @@ ParticleLoader::~ParticleLoader()
 
 	if (_vertexBufferID)
 	{
-		__glDeleteBuffers(1, &_vertexBufferID);
+		GLDeleteBuffer(_vertexBufferID);
 		_vertexBufferID = 0;
 	}
 
 	if (_lowPolyColorBufferID)
 	{
-		__glDeleteBuffers(1, &_lowPolyColorBufferID);
+		GLDeleteBuffer(_lowPolyColorBufferID);
 		_lowPolyColorBufferID = 0;
 	}
 
 	if (_colorBufferID)
 	{
-		__glDeleteBuffers(1, &_colorBufferID);
+		GLDeleteBuffer(_colorBufferID);
 		_colorBufferID = 0;
 	}
 
 	if (_lowPolyVertexBufferID)
 	{
-		__glDeleteBuffers(1, &_lowPolyVertexBufferID);
+		GLDeleteBuffer(_lowPolyVertexBufferID);
 		_lowPolyVertexBufferID = 0;
 	}
 }
-
-
-//if (Input::IsKeyTyped((int)'1'))
-//{
-//	_methodNum = 1;
-//	printf("\nmethod 1");
-//}
-//else if (Input::IsKeyTyped((int)'2'))
-//{
-//	_methodNum = 2;
-//	printf("\nmethod 2");
-//}
-//else if (Input::IsKeyTyped((int)'3'))
-//{
-//	_methodNum = 3;
-//	printf("\nmethod 3");
-//}
-
-
-//ParticleLoader::ParticleLoader()
-//{
-//	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram(
-//		"shaders/SingleColor/SingleColor.vs",
-//		"shaders/SingleColor/SingleColor.fs");
-//
-//
-//	_vertexBufferID = 0;
-//	_vertexCount = 0;
-//
-//	FILE* fp = fopen("data/xData.bin", "rb");
-//
-//	if (fp)
-//	{
-//		unsigned int length = CFileReader::GetLength("data/xData.bin");
-//		char* buf = (char*)malloc(length);
-//
-//		fread(buf, 1, length, fp);
-//		fclose(fp);
-//
-//		glGenBuffers(1, &_vertexBufferID);
-//		glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-//		__glBufferData(_vertexBufferID, GL_ARRAY_BUFFER, length, buf, GL_STATIC_DRAW);
-//
-//		_vertexCount = length / 12;
-//
-//		char arr[64];
-//		unordered_set<Tuple, MyHashFunction> dupRemSet;
-//		float* values = (float*)buf;
-//		unsigned int numFloats = length / 4;
-//
-//		for (int i = 0; i < numFloats; i += 3)
-//		{
-//			float x = values[i + 0];
-//			float y = values[i + 1];
-//			float z = values[i + 2];
-//
-//			//x = (float)(((int)(x * 1000)) / 1000.0f);
-//			//y = (float)(((int)(y * 1000)) / 1000.0f);
-//			//z = (float)(((int)(z * 1000)) / 1000.0f);
-//
-//			//dupRemSet.insert(Tuple(x, y, z));
-//		}
-//
-//		//int setSize = dupRemSet.size();
-//
-//		free(buf);
-//	}
-//}
-
-
-
-//
-//ParticleLoader::ParticleLoader()
-//{
-//	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram(
-//		"shaders/CubeGeo/CubeGeo.vs",
-//		"shaders/CubeGeo/CubeGeo.gs",
-//		"shaders/CubeGeo/CubeGeo.fs");
-//
-//	_vertexBufferID = 0;
-//	_colorBufferID = 0;
-//	_vertexCount = 0;
-//
-//	unsigned int vertexBufLen = 36;
-//
-//	float* vertexBuf = (float*)malloc(vertexBufLen);
-//
-//	float y = 0.0f;
-//
-//	vertexBuf[0] = 0.0f;
-//	vertexBuf[1] = y;
-//	vertexBuf[2] = 0.0f;
-//
-//	vertexBuf[3] = -5.0f;
-//	vertexBuf[4] = y;
-//	vertexBuf[5] = 0.0f;
-//
-//	vertexBuf[6] = 5.0f;
-//	vertexBuf[7] = y;
-//	vertexBuf[8] = 0.0f;
-//
-//	glGenBuffers(1, &_vertexBufferID);
-//	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-//	glBufferData(GL_ARRAY_BUFFER, vertexBufLen, vertexBuf, GL_STATIC_DRAW);
-//
-//
-//	unsigned int colorBufLen = 12;
-//	unsigned char* colorBuf = (unsigned char*)malloc(colorBufLen);
-//
-//	colorBuf[0] = 255;
-//	colorBuf[1] = 0;
-//	colorBuf[2] = 0;
-//
-//	colorBuf[3] = 0;
-//	colorBuf[4] = 255;
-//	colorBuf[5] = 0;
-//
-//	colorBuf[6] = 0;
-//	colorBuf[7] = 0;
-//	colorBuf[8] = 255;
-//
-//	glGenBuffers(1, &_colorBufferID);
-//	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-//	glBufferData(GL_ARRAY_BUFFER, colorBufLen, colorBuf, GL_STATIC_DRAW);
-//
-//
-//	_vertexCount = vertexBufLen / 12;
-//	free(vertexBuf);
-//}

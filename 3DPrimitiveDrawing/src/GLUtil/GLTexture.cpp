@@ -5,6 +5,7 @@
 #include "Cam2D.h"
 #include "ShadersManager.h"
 #include "GLMemoryTrace.h"
+#include "GLMemory.h"
 
 GLTexture::GLTexture(int drawW, int drawH)
 {
@@ -19,8 +20,8 @@ GLTexture::GLTexture(int drawW, int drawH)
 	GenerateBufferID();
 
 	ImageBuffer* imgBuf = new ImageBuffer("data/Sample.png");
-	_textureID = GenerateGLTextureID(imgBuf->GetWidth(), imgBuf->GetHeight(), 
-		imgBuf->GetBytesPerPixel(), imgBuf->GetBuffer());
+	_textureID = GLCreateTexture(imgBuf->GetWidth(), imgBuf->GetHeight(),
+											imgBuf->GetBytesPerPixel(), imgBuf->GetBuffer());
 
 	delete imgBuf;
 }
@@ -80,33 +81,6 @@ void GLTexture::GenerateBufferID()
 	_vertexCount = _buffer->GetVertexCount();
 }
 
-unsigned int GLTexture::GenerateGLTextureID(int width, int height, int bytesPP, void* buffer)
-{
-	unsigned int textureID = 0;
-
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	if (bytesPP == 4)
-		__glTexImage2D(textureID, GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
-	else if (bytesPP == 3)
-		__glTexImage2D(textureID, GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, buffer);
-	else if (bytesPP == 1)
-		__glTexImage2D(textureID, GL_TEXTURE_2D, 0, GL_LUMINANCE, width, height, 0, GL_RGB8, GL_UNSIGNED_BYTE, buffer);
-	else
-		return 0;
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	return textureID;
-}
-
 GLTexture::~GLTexture()
 {
 	if (_shaderProgram)
@@ -117,7 +91,7 @@ GLTexture::~GLTexture()
 
 	if (_textureID)
 	{
-		__glDeleteTextures(1, &_textureID);
+		GLDeleteTexture(_textureID);
 		_textureID = 0;
 	}
 

@@ -8,6 +8,7 @@
 #include "Cam.h"
 #include "UtilFuncs.h"
 #include "GLMemoryTrace.h"
+#include "GLMemory.h"
 
 
 BinaryObjLoader::BinaryObjLoader(string folderPath)
@@ -44,9 +45,7 @@ void BinaryObjLoader::ReadObjFile(string folderPath)
 	if (FileReader::IsFileExists(folderPath + "/vertex.buf"))
 	{
 		FileReader* fileReader = new FileReader(folderPath + "/vertex.buf", "rb");
-		glGenBuffers(1, &_vertexBufferID);
-		glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-		__glBufferData(_vertexBufferID, GL_ARRAY_BUFFER, fileReader->GetLength(), fileReader->GetData(), GL_STATIC_DRAW);
+		_vertexBufferID = GLCreateBuffer(fileReader->GetLength(), fileReader->GetData());
 		_vertexCount = fileReader->GetLength() / 12;
 		delete fileReader;
 	}
@@ -54,18 +53,14 @@ void BinaryObjLoader::ReadObjFile(string folderPath)
 	if (FileReader::IsFileExists(folderPath + "/normal.buf"))
 	{
 		FileReader* fileReader = new FileReader(folderPath + "/normal.buf", "rb");
-		glGenBuffers(1, &_normalBufferID);
-		glBindBuffer(GL_ARRAY_BUFFER, _normalBufferID);
-		__glBufferData(_normalBufferID, GL_ARRAY_BUFFER, fileReader->GetLength(), fileReader->GetData(), GL_STATIC_DRAW);
+		_normalBufferID = GLCreateBuffer(fileReader->GetLength(), fileReader->GetData());
 		delete fileReader;
 	}
 
 	if (FileReader::IsFileExists(folderPath + "/uv.buf"))
 	{
 		FileReader* fileReader = new FileReader(folderPath + "/uv.buf", "rb");
-		glGenBuffers(1, &_uvBufferID);
-		glBindBuffer(GL_ARRAY_BUFFER, _uvBufferID);
-		__glBufferData(_uvBufferID, GL_ARRAY_BUFFER, fileReader->GetLength(), fileReader->GetData(), GL_STATIC_DRAW);
+		_uvBufferID = GLCreateBuffer(fileReader->GetLength(), fileReader->GetData());
 		delete fileReader;
 	}
 }
@@ -90,9 +85,8 @@ void BinaryObjLoader::LoadTextures(string folderPath)
 	{
 		ImageBuffer* imgBuf = new ImageBuffer(filePath);
 
-		_baseTexID = GLUtil::GenerateGLTextureID(imgBuf->GetWidth(), imgBuf->GetHeight(),
-			imgBuf->GetBytesPerPixel(), imgBuf->GetBuffer());
-
+		_baseTexID = GLCreateTexture(imgBuf->GetWidth(), imgBuf->GetHeight(),
+												imgBuf->GetBytesPerPixel(), imgBuf->GetBuffer());
 		delete imgBuf;
 	}
 }
@@ -107,19 +101,19 @@ BinaryObjLoader::~BinaryObjLoader()
 
 	if (_vertexBufferID)
 	{
-		__glDeleteBuffers(1, &_vertexBufferID);
+		GLDeleteBuffer(_vertexBufferID);
 		_vertexBufferID = 0;
 	}
 
 	if (_normalBufferID)
 	{
-		__glDeleteBuffers(1, &_normalBufferID);
+		GLDeleteBuffer(_normalBufferID);
 		_normalBufferID = 0;
 	}
 
 	if (_uvBufferID)
 	{
-		__glDeleteBuffers(1, &_uvBufferID);
+		GLDeleteBuffer(_uvBufferID);
 		_uvBufferID = 0;
 	}
 }
