@@ -85,6 +85,9 @@
     <Filter Include="src\Common\IO\ImageIO\PNG\zlib">
       <UniqueIdentifier>{441d3d5e-2c19-4cda-8a3a-8ad20b1483d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Common\IO\FileIO">
+      <UniqueIdentifier>{1b9d37ea-a301-4d43-9b51-d229aa4daf04}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Macros.cpp">
@@ -198,9 +201,6 @@
     <ClCompile Include="src\IO\ParticleLoader.cpp">
       <Filter>src\IO</Filter>
     </ClCompile>
-    <ClCompile Include="src\FileReader.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\Cam2D.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -308,6 +308,9 @@
     </ClCompile>
     <ClCompile Include="src\Common\IO\ImageIO\PNG\zlib\zutil.c">
       <Filter>src\Common\IO\ImageIO\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\IO\FileIO\FileReader.cpp">
+      <Filter>src\Common\IO\FileIO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -425,9 +428,6 @@
     <ClInclude Include="src\IO\ParticleLoader.h">
       <Filter>src\IO</Filter>
     </ClInclude>
-    <ClInclude Include="src\FileReader.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\Cam2D.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -481,6 +481,9 @@
     </ClInclude>
     <ClInclude Include="src\Common\IO\ImageIO\PNG\zlib\zutil.h">
       <Filter>src\Common\IO\ImageIO\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO\FileIO\FileReader.h">
+      <Filter>src\Common\IO\FileIO</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

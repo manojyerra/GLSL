@@ -1,5 +1,4 @@
 #include "FileReader.h"
-#include "Macros.h"
 
 FileReader::FileReader(string filePath, string readMode)
 {

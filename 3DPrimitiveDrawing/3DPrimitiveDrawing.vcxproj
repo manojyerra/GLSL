@@ -22,6 +22,7 @@
     <ClCompile Include="glew\source\glew.c" />
     <ClCompile Include="src\Cam.cpp" />
     <ClCompile Include="src\Cam2D.cpp" />
+    <ClCompile Include="src\Common\IO\FileIO\FileReader.cpp" />
     <ClCompile Include="src\Common\IO\ImageIO\PNG\libpng\png.c" />
     <ClCompile Include="src\Common\IO\ImageIO\PNG\libpng\pngerror.c" />
     <ClCompile Include="src\Common\IO\ImageIO\PNG\libpng\pngget.c" />
@@ -55,7 +56,6 @@
     <ClCompile Include="src\Common\IO\ImageIO\PNG\zlib\trees.c" />
     <ClCompile Include="src\Common\IO\ImageIO\PNG\zlib\uncompr.c" />
     <ClCompile Include="src\Common\IO\ImageIO\PNG\zlib\zutil.c" />
-    <ClCompile Include="src\FileReader.cpp" />
     <ClCompile Include="src\Floor.cpp" />
     <ClCompile Include="src\GameLoop.cpp" />
     <ClCompile Include="src\GLUtil\GL2DState.cpp" />
@@ -100,6 +100,7 @@
     <ClInclude Include="glew\include\GL\wglew.h" />
     <ClInclude Include="src\Cam.h" />
     <ClInclude Include="src\Cam2D.h" />
+    <ClInclude Include="src\Common\IO\FileIO\FileReader.h" />
     <ClInclude Include="src\Common\IO\ImageIO\PNG\libpng\png.h" />
     <ClInclude Include="src\Common\IO\ImageIO\PNG\libpng\pngconf.h" />
     <ClInclude Include="src\Common\IO\ImageIO\PNG\libpng\pngpriv.h" />
@@ -115,7 +116,6 @@
     <ClInclude Include="src\Common\IO\ImageIO\PNG\zlib\zconf.h" />
     <ClInclude Include="src\Common\IO\ImageIO\PNG\zlib\zlib.h" />
     <ClInclude Include="src\Common\IO\ImageIO\PNG\zlib\zutil.h" />
-    <ClInclude Include="src\FileReader.h" />
     <ClInclude Include="src\Floor.h" />
     <ClInclude Include="src\GameLoop.h" />
     <ClInclude Include="src\GLUtil\GL2DState.h" />
@@ -240,7 +240,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/ShaderProgram;src/IO;src/IO/Model3D;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/IO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/ShaderProgram;src/IO;src/IO/Model3D;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>
