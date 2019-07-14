@@ -86,7 +86,8 @@ public:
 
 	static void deleteBuffers(GLsizei n, const GLuint* buffers, const char* fileName, long lineNum);
 
-	static void printBuffersInfo();
+	static void printMemoryLeaks();
+	static bool hasMemoryLeaks();
 };
 
 

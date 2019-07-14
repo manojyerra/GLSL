@@ -25,13 +25,18 @@ void Macros::deleteBuffers(GLsizei n, const GLuint* buffers, const char* fileNam
 	glFinish();
 }
 
-void Macros::printBuffersInfo()
+void Macros::printMemoryLeaks()
 {
 	map<GLuint, GLBufferInfo>::iterator itr;
 
 	for (itr = _bufferMap.begin(); itr != _bufferMap.end(); ++itr) {
 		printf("\n FileName: %s, LineNumber: %ld", itr->second.fileName.c_str(), itr->second.lineNum);
 	}
+}
+
+bool Macros::hasMemoryLeaks()
+{
+	return (_bufferMap.size() > 0);
 }
 
 

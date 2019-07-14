@@ -265,5 +265,8 @@ GameLoop::~GameLoop()
 	Cam2D::GetInstance()->DeleteInstance();
 	ShadersManager::GetInstance()->DeleteInstance();
 
-	Macros::printBuffersInfo();
+	if (Macros::hasMemoryLeaks())
+	{
+		Macros::printMemoryLeaks();
+	}
 }
