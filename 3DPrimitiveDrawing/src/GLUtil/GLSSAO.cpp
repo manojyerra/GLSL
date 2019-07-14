@@ -1,4 +1,4 @@
-#include "SSAO.h"
+#include "GLSSAO.h"
 #include <assert.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -6,7 +6,7 @@
 #include <iostream>
 #include <random>
 
-SSAO::SSAO(int w, int h)
+GLSSAO::GLSSAO(int w, int h)
 {
 	_w = w;
 	_h = h;
@@ -25,7 +25,7 @@ SSAO::SSAO(int w, int h)
 	 GenerateSampleKernelAndNoiseTexture();
 }
 
-void SSAO::CreateGBufferFBO(unsigned int w, unsigned int h)
+void GLSSAO::CreateGBufferFBO(unsigned int w, unsigned int h)
 {
 	unsigned int gBufferFBO;
 	glGenFramebuffersEXT(1, &gBufferFBO);
@@ -80,7 +80,7 @@ void SSAO::CreateGBufferFBO(unsigned int w, unsigned int h)
 	_gAlbedo = gAlbedo;
 }
 
-void SSAO::CreateSSAOFBO(unsigned int w, unsigned int h)
+void GLSSAO::CreateSSAOFBO(unsigned int w, unsigned int h)
 {
 	// SSAO color buffer
 	unsigned int ssaoFBO;
@@ -100,7 +100,7 @@ void SSAO::CreateSSAOFBO(unsigned int w, unsigned int h)
 	_ssaoFBO = ssaoFBO;
 }
 
-void SSAO::CreateSSAOBlurFBO(unsigned int w, unsigned int h)
+void GLSSAO::CreateSSAOBlurFBO(unsigned int w, unsigned int h)
 {
 	unsigned int ssaoBlurFBO;
 	glGenFramebuffersEXT(1, &ssaoBlurFBO);
@@ -120,7 +120,7 @@ void SSAO::CreateSSAOBlurFBO(unsigned int w, unsigned int h)
 	_ssaoBlurFBO = ssaoBlurFBO;
 }
 
-void SSAO::GenerateSampleKernelAndNoiseTexture()
+void GLSSAO::GenerateSampleKernelAndNoiseTexture()
 {
 	std::uniform_real_distribution<GLfloat> randomFloats(0.0, 1.0); // generates random floats between 0.0 and 1.0
 	std::default_random_engine generator;
@@ -156,22 +156,22 @@ void SSAO::GenerateSampleKernelAndNoiseTexture()
 }
 
 
-float SSAO::lerp(float a, float b, float f)
+float GLSSAO::lerp(float a, float b, float f)
 {
 	return a + f * (b - a);
 }
 
-unsigned int SSAO::GetW()
+unsigned int GLSSAO::GetW()
 {
 	return _w;
 }
 
-unsigned int SSAO::GetH()
+unsigned int GLSSAO::GetH()
 {
 	return _h;
 }
 
-SSAO::~SSAO()
+GLSSAO::~GLSSAO()
 {
 	////Delete resources
 	//glDeleteTextures(1, &_texID);

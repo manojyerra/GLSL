@@ -1,9 +1,9 @@
-#ifndef SSAO_H
-#define SSAO_H
+#ifndef GLSSAO_H
+#define GLSSAO_H
 
 #include "Macros.h"
 
-class SSAO
+class GLSSAO
 {
 private:
 	unsigned int _w;
@@ -25,8 +25,8 @@ private:
 	float lerp(float a, float b, float f);
 
 public:
-	SSAO(int w, int h);
-	~SSAO();
+	GLSSAO(int w, int h);
+	~GLSSAO();
 
 	unsigned int GetW();
 	unsigned int GetH();

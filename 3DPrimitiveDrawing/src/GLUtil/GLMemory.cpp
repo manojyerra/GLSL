@@ -11,7 +11,6 @@ GLuint GLMemory::CreateBuffer(GLsizeiptr size, GLvoid* data, const char* filePat
 	glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-
 	GLMemoryInfo memInfo(filePath, lineNum, size);
 	std::string str = "Buffer_" + std::to_string(bufferID);
 	_memInfoMap.insert(std::make_pair(str, memInfo));
@@ -120,7 +119,8 @@ void GLMemory::printMemoryLeaks()
 
 	std::map<std::string, GLMemoryInfo>::iterator itr;
 
-	for (itr = _memInfoMap.begin(); itr != _memInfoMap.end(); ++itr) {
+	for (itr = _memInfoMap.begin(); itr != _memInfoMap.end(); ++itr) 
+	{
 		sprintf(arr, "\n FileName: %s, LineNumber: %ld", itr->second.fileName.c_str(), itr->second.lineNum);
 		OutputDebugString(arr);
 	}
@@ -129,7 +129,8 @@ void GLMemory::printMemoryLeaks()
 
 #else
 
-	for (itr = _bufferMap.begin(); itr != _bufferMap.end(); ++itr) {
+	for (itr = _memInfoMap.begin(); itr != _memInfoMap.end(); ++itr) 
+	{
 		printf("\n FileName: %s, LineNumber: %ld", itr->second.fileName.c_str(), itr->second.lineNum);
 	}
 
