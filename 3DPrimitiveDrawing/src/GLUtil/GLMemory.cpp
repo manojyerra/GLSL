@@ -3,7 +3,7 @@
 
 std::map<std::string, GLMemoryInfo> GLMemory::_memInfoMap;
 
-GLuint GLMemory::_CreateBuffer(GLsizeiptr size, GLvoid* data, const char* filePath, long lineNum)
+GLuint GLMemory::CreateBuffer(GLsizeiptr size, GLvoid* data, const char* filePath, long lineNum)
 {
 	GLuint bufferID;
 	glGenBuffers(1, &bufferID);
@@ -19,7 +19,7 @@ GLuint GLMemory::_CreateBuffer(GLsizeiptr size, GLvoid* data, const char* filePa
 	return bufferID;
 }
 
-GLuint GLMemory::_CreateTexture(GLsizei width, GLsizei height, unsigned int bytesPP, GLvoid* buffer, const char* filePath, long lineNum)
+GLuint GLMemory::CreateTexture(GLsizei width, GLsizei height, unsigned int bytesPP, GLvoid* buffer, const char* filePath, long lineNum)
 {
 	unsigned int textureID = 0;
 
@@ -50,7 +50,7 @@ GLuint GLMemory::_CreateTexture(GLsizei width, GLsizei height, unsigned int byte
 	return textureID;
 }
 
-GLuint GLMemory::_CreateRenderBuffer(GLsizei width, GLsizei height, GLenum internalformat, const char* filePath, long lineNum)
+GLuint GLMemory::CreateRenderBuffer(GLsizei width, GLsizei height, GLenum internalformat, const char* filePath, long lineNum)
 {
 	unsigned int rbo;
 	glGenRenderbuffersEXT(1, &rbo);
@@ -65,7 +65,7 @@ GLuint GLMemory::_CreateRenderBuffer(GLsizei width, GLsizei height, GLenum inter
 	return rbo;
 }
 
-void GLMemory::_DeleteBuffer(GLuint id)
+void GLMemory::DeleteBuffer(GLuint id)
 {
 	std::string key = "Buffer_"+ std::to_string(id);
 	
@@ -78,7 +78,7 @@ void GLMemory::_DeleteBuffer(GLuint id)
 	glFinish();
 }
 
-void GLMemory::_DeleteTexture(GLuint id)
+void GLMemory::DeleteTexture(GLuint id)
 {
 	std::string key = "Texture_" + std::to_string(id);
 
@@ -91,7 +91,7 @@ void GLMemory::_DeleteTexture(GLuint id)
 	glFinish();
 }
 
-void GLMemory::_DeleteRenderBuffer(GLuint id)
+void GLMemory::DeleteRenderBuffer(GLuint id)
 {
 	std::string key = "RenderBuffer_" + std::to_string(id);
 

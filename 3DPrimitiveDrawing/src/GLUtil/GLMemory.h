@@ -5,13 +5,13 @@
 #include <string>
 #include <map>
 
-#define GLCreateBuffer(a, b)			GLMemory::_CreateBuffer(a, b, __FILE__, __LINE__)
-#define GLCreateTexture(a, b, c, d)		GLMemory::_CreateTexture(a, b, c, d, __FILE__, __LINE__)
-#define GLCreateRenderBuffer(a, b, c)	GLMemory::_CreateRenderBuffer(a, b, c, __FILE__, __LINE__)
+#define GLCreateBuffer(a, b)			GLMemory::CreateBuffer(a, b, __FILE__, __LINE__)
+#define GLCreateTexture(a, b, c, d)		GLMemory::CreateTexture(a, b, c, d, __FILE__, __LINE__)
+#define GLCreateRenderBuffer(a, b, c)	GLMemory::CreateRenderBuffer(a, b, c, __FILE__, __LINE__)
 
-#define GLDeleteBuffer(a)			GLMemory::_DeleteBuffer(a)
-#define GLDeleteTexture(a)			GLMemory::_DeleteTexture(a)
-#define GLDeleteRenderBuffer(a)		GLMemory::_DeleteRenderBuffer(a)
+#define GLDeleteBuffer(a)			GLMemory::DeleteBuffer(a)
+#define GLDeleteTexture(a)			GLMemory::DeleteTexture(a)
+#define GLDeleteRenderBuffer(a)		GLMemory::DeleteRenderBuffer(a)
 
 
 class GLMemoryInfo
@@ -41,13 +41,13 @@ private:
 	static std::map<std::string, GLMemoryInfo> _memInfoMap;
 
 public:
-	static GLuint _CreateBuffer(GLsizeiptr size, GLvoid* data, const char* filePath, long lineNum);
-	static GLuint _CreateTexture(GLsizei width, GLsizei height, unsigned int bytesPP, GLvoid* buffer, const char* filePath, long lineNum);
-	static GLuint _CreateRenderBuffer(GLsizei width, GLsizei height, GLenum internalformat, const char* filePath, long lineNum);
+	static GLuint CreateBuffer(GLsizeiptr size, GLvoid* data, const char* filePath, long lineNum);
+	static GLuint CreateTexture(GLsizei width, GLsizei height, unsigned int bytesPP, GLvoid* buffer, const char* filePath, long lineNum);
+	static GLuint CreateRenderBuffer(GLsizei width, GLsizei height, GLenum internalformat, const char* filePath, long lineNum);
 
-	static void _DeleteBuffer(GLuint id);
-	static void _DeleteTexture(GLuint id);
-	static void _DeleteRenderBuffer(GLuint id);
+	static void DeleteBuffer(GLuint id);
+	static void DeleteTexture(GLuint id);
+	static void DeleteRenderBuffer(GLuint id);
 
 	static bool hasMemoryLeaks();
 	static void printMemoryLeaks();
