@@ -22,6 +22,12 @@
     <ClCompile Include="glew\source\glew.c" />
     <ClCompile Include="src\Cam.cpp" />
     <ClCompile Include="src\Cam2D.cpp" />
+    <ClCompile Include="src\Common\Arrays\FloatArray.cpp" />
+    <ClCompile Include="src\Common\Arrays\UIntArray.cpp" />
+    <ClCompile Include="src\Common\Arrays\ULongArray.cpp" />
+    <ClCompile Include="src\Common\Arrays\VoidPtrArray.cpp" />
+    <ClCompile Include="src\Common\Geometry\Line2D.cpp" />
+    <ClCompile Include="src\Common\Geometry\Triangle2D.cpp" />
     <ClCompile Include="src\Common\IO\FileIO\FileReader.cpp" />
     <ClCompile Include="src\Common\IO\ImageIO\PNG\libpng\png.c" />
     <ClCompile Include="src\Common\IO\ImageIO\PNG\libpng\pngerror.c" />
@@ -75,9 +81,7 @@
     <ClCompile Include="src\IO\ParticleLoader.cpp" />
     <ClCompile Include="src\Macros.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Math\Line2D.cpp" />
     <ClCompile Include="src\Math\TransformVertexBuf.cpp" />
-    <ClCompile Include="src\Math\Triangle2D.cpp" />
     <ClCompile Include="src\ShaderProgram\ShaderProgram.cpp" />
     <ClCompile Include="src\ShaderProgram\ShadersManager.cpp" />
     <ClCompile Include="src\Shapes2D\Triangle.cpp" />
@@ -86,10 +90,6 @@
     <ClCompile Include="src\Shapes3D\Cylinder.cpp" />
     <ClCompile Include="src\Shapes3D\Shape.cpp" />
     <ClCompile Include="src\Shapes3D\Sphere.cpp" />
-    <ClCompile Include="src\Util\Arrays\FloatArray.cpp" />
-    <ClCompile Include="src\Util\Arrays\UIntArray.cpp" />
-    <ClCompile Include="src\Util\Arrays\ULongArray.cpp" />
-    <ClCompile Include="src\Util\Arrays\VoidPtrArray.cpp" />
     <ClCompile Include="src\Util\RandomColor.cpp" />
     <ClCompile Include="src\Util\StringUtils.cpp" />
     <ClCompile Include="src\Util\UtilFuncs.cpp" />
@@ -100,6 +100,12 @@
     <ClInclude Include="glew\include\GL\wglew.h" />
     <ClInclude Include="src\Cam.h" />
     <ClInclude Include="src\Cam2D.h" />
+    <ClInclude Include="src\Common\Arrays\FloatArray.h" />
+    <ClInclude Include="src\Common\Arrays\UIntArray.h" />
+    <ClInclude Include="src\Common\Arrays\ULongArray.h" />
+    <ClInclude Include="src\Common\Arrays\VoidPtrArray.h" />
+    <ClInclude Include="src\Common\Geometry\Line2D.h" />
+    <ClInclude Include="src\Common\Geometry\Triangle2D.h" />
     <ClInclude Include="src\Common\IO\FileIO\FileReader.h" />
     <ClInclude Include="src\Common\IO\ImageIO\PNG\libpng\png.h" />
     <ClInclude Include="src\Common\IO\ImageIO\PNG\libpng\pngconf.h" />
@@ -134,9 +140,7 @@
     <ClInclude Include="src\IO\Model3D\ObjLoader.h" />
     <ClInclude Include="src\IO\ParticleLoader.h" />
     <ClInclude Include="src\Macros.h" />
-    <ClInclude Include="src\Math\Line2D.h" />
     <ClInclude Include="src\Math\TransformVertexBuf.h" />
-    <ClInclude Include="src\Math\Triangle2D.h" />
     <ClInclude Include="src\ShaderProgram\ShaderProgram.h" />
     <ClInclude Include="src\ShaderProgram\ShadersManager.h" />
     <ClInclude Include="src\Shapes2D\Triangle.h" />
@@ -145,10 +149,6 @@
     <ClInclude Include="src\Shapes3D\Cylinder.h" />
     <ClInclude Include="src\Shapes3D\Shape.h" />
     <ClInclude Include="src\Shapes3D\Sphere.h" />
-    <ClInclude Include="src\Util\Arrays\FloatArray.h" />
-    <ClInclude Include="src\Util\Arrays\UIntArray.h" />
-    <ClInclude Include="src\Util\Arrays\ULongArray.h" />
-    <ClInclude Include="src\Util\Arrays\VoidPtrArray.h" />
     <ClInclude Include="src\Util\RandomColor.h" />
     <ClInclude Include="src\Util\StringUtils.h" />
     <ClInclude Include="src\Util\UtilFuncs.h" />
@@ -240,7 +240,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/ShaderProgram;src/IO;src/IO/Model3D;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/ShaderProgram;src/IO;src/IO/Model3D;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/Arrays;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>

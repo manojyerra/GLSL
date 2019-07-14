@@ -40,9 +40,6 @@
     <Filter Include="shaders\ColorAndScale">
       <UniqueIdentifier>{fdf68867-c341-489c-9c31-0d58c85ef5c5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Util\Arrays">
-      <UniqueIdentifier>{0900d298-520b-4864-827c-835d38101284}</UniqueIdentifier>
-    </Filter>
     <Filter Include="shaders\PBR">
       <UniqueIdentifier>{b1f37f91-4dc7-42f6-816c-2a528a993f3c}</UniqueIdentifier>
     </Filter>
@@ -88,6 +85,12 @@
     <Filter Include="src\Common\IO\FileIO">
       <UniqueIdentifier>{1b9d37ea-a301-4d43-9b51-d229aa4daf04}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Common\Arrays">
+      <UniqueIdentifier>{0840f106-1e9d-4d0a-9b6e-70acb632bc63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\Geometry">
+      <UniqueIdentifier>{1483ba95-2bd7-4a70-a2f2-791f483a7aad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Macros.cpp">
@@ -117,13 +120,7 @@
     <ClCompile Include="src\GLUtil\GLUtil.cpp">
       <Filter>src\GLUtil</Filter>
     </ClCompile>
-    <ClCompile Include="src\Math\Line2D.cpp">
-      <Filter>src\Math</Filter>
-    </ClCompile>
     <ClCompile Include="src\Math\TransformVertexBuf.cpp">
-      <Filter>src\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Math\Triangle2D.cpp">
       <Filter>src\Math</Filter>
     </ClCompile>
     <ClCompile Include="glew\source\glew.c">
@@ -176,18 +173,6 @@
     </ClCompile>
     <ClCompile Include="src\Util\UtilFuncs.cpp">
       <Filter>src\Util</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Util\Arrays\FloatArray.cpp">
-      <Filter>src\Util\Arrays</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Util\Arrays\UIntArray.cpp">
-      <Filter>src\Util\Arrays</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Util\Arrays\ULongArray.cpp">
-      <Filter>src\Util\Arrays</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Util\Arrays\VoidPtrArray.cpp">
-      <Filter>src\Util\Arrays</Filter>
     </ClCompile>
     <ClCompile Include="src\GLUtil\PhongShader\PhongShader.cpp">
       <Filter>src\GLUtil\PhongShader</Filter>
@@ -312,6 +297,24 @@
     <ClCompile Include="src\Common\IO\FileIO\FileReader.cpp">
       <Filter>src\Common\IO\FileIO</Filter>
     </ClCompile>
+    <ClCompile Include="src\Common\Arrays\FloatArray.cpp">
+      <Filter>src\Common\Arrays</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\Arrays\UIntArray.cpp">
+      <Filter>src\Common\Arrays</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\Arrays\ULongArray.cpp">
+      <Filter>src\Common\Arrays</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\Arrays\VoidPtrArray.cpp">
+      <Filter>src\Common\Arrays</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\Geometry\Line2D.cpp">
+      <Filter>src\Common\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\Geometry\Triangle2D.cpp">
+      <Filter>src\Common\Geometry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -338,13 +341,7 @@
     <ClInclude Include="src\GLUtil\GLUtil.h">
       <Filter>src\GLUtil</Filter>
     </ClInclude>
-    <ClInclude Include="src\Math\Line2D.h">
-      <Filter>src\Math</Filter>
-    </ClInclude>
     <ClInclude Include="src\Math\TransformVertexBuf.h">
-      <Filter>src\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Math\Triangle2D.h">
       <Filter>src\Math</Filter>
     </ClInclude>
     <ClInclude Include="glew\include\GL\glew.h">
@@ -403,18 +400,6 @@
     </ClInclude>
     <ClInclude Include="src\Util\UtilFuncs.h">
       <Filter>src\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Util\Arrays\FloatArray.h">
-      <Filter>src\Util\Arrays</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Util\Arrays\UIntArray.h">
-      <Filter>src\Util\Arrays</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Util\Arrays\ULongArray.h">
-      <Filter>src\Util\Arrays</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Util\Arrays\VoidPtrArray.h">
-      <Filter>src\Util\Arrays</Filter>
     </ClInclude>
     <ClInclude Include="src\GLUtil\PhongShader\PhongShader.h">
       <Filter>src\GLUtil\PhongShader</Filter>
@@ -484,6 +469,24 @@
     </ClInclude>
     <ClInclude Include="src\Common\IO\FileIO\FileReader.h">
       <Filter>src\Common\IO\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Arrays\FloatArray.h">
+      <Filter>src\Common\Arrays</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Arrays\UIntArray.h">
+      <Filter>src\Common\Arrays</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Arrays\ULongArray.h">
+      <Filter>src\Common\Arrays</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Arrays\VoidPtrArray.h">
+      <Filter>src\Common\Arrays</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Geometry\Line2D.h">
+      <Filter>src\Common\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Geometry\Triangle2D.h">
+      <Filter>src\Common\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
