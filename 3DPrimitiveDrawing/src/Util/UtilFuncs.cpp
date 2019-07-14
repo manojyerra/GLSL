@@ -1,7 +1,6 @@
 #include "UtilFuncs.h"
 #include "math.h"
-#include <windows.h>
-#include <gl/gl.h>
+#include "GLMemoryTrace.h"
 
 unsigned int UtilFuncs::GenerateGLTextureID(ImageBuffer* imgBuf)
 {
@@ -14,7 +13,6 @@ unsigned int UtilFuncs::GenerateGLTextureID(ImageBuffer* imgBuf)
 	int height = imgBuf->GetHeight();
 	int bytesPerPixel = imgBuf->GetBytesPerPixel();
 	
-
 	unsigned int textureID;
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
@@ -22,13 +20,12 @@ unsigned int UtilFuncs::GenerateGLTextureID(ImageBuffer* imgBuf)
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-
 	if(bytesPerPixel == 4)
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+		__glTexImage2D(textureID, GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 	else if(bytesPerPixel == 3)
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, buffer);
+		__glTexImage2D(textureID, GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, buffer);
 	else if(bytesPerPixel == 1)
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, width, height, 0, GL_RGB8, GL_UNSIGNED_BYTE, buffer);
+		__glTexImage2D(textureID, GL_TEXTURE_2D, 0, GL_LUMINANCE, width, height, 0, GL_RGB8, GL_UNSIGNED_BYTE, buffer);
 	else
 		return 0;
 
@@ -62,9 +59,9 @@ unsigned int UtilFuncs::GenerateGLTextureID(int width, int height, bool hasAlpha
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	if(bytesPerPixel == 4)
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+		__glTexImage2D(textureID, GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 	else if(bytesPerPixel == 3)
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, buffer);
+		__glTexImage2D(textureID, GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, buffer);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);

@@ -1,6 +1,5 @@
 #include "GLBuffer.h"
-//#include "stdio.h"
-//#include "string.h"
+#include "GLMemoryTrace.h"
 
 GLBuffer::GLBuffer(unsigned int capacity, bool colorDataPresent, bool uvDataPresent, bool normalsDataPresent)
 {
@@ -177,28 +176,30 @@ void GLBuffer::glEnd()
 	{
 		glGenBuffers(1, &_vertexBufferID);
 		glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-		glBufferData(GL_ARRAY_BUFFER, _count * 3 * 4, _vertexArr, GL_STATIC_DRAW);
+		__glBufferData(_vertexBufferID, GL_ARRAY_BUFFER, _count * 3 * 4, _vertexArr, GL_STATIC_DRAW);
 
 		if(_colorArr)
 		{
 			glGenBuffers(1, &_colorBufferID);
 			glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-			glBufferData(GL_ARRAY_BUFFER, _count * 3 * 4, _colorArr, GL_STATIC_DRAW);
+			__glBufferData(_colorBufferID, GL_ARRAY_BUFFER, _count * 3 * 4, _colorArr, GL_STATIC_DRAW);
 		}
 
 		if(_uvArr)
 		{
 			glGenBuffers(1, &_uvBufferID);
 			glBindBuffer(GL_ARRAY_BUFFER, _uvBufferID);
-			glBufferData(GL_ARRAY_BUFFER, _count * 2 * 4, _uvArr, GL_STATIC_DRAW);
+			__glBufferData(_uvBufferID, GL_ARRAY_BUFFER, _count * 2 * 4, _uvArr, GL_STATIC_DRAW);
 		}
 
 		if(_normalArr)
 		{
 			glGenBuffers(1, &_normalBufferID);
 			glBindBuffer(GL_ARRAY_BUFFER, _normalBufferID);
-			glBufferData(GL_ARRAY_BUFFER, _count * 3 * 4, _normalArr, GL_STATIC_DRAW);
+			__glBufferData(_normalBufferID, GL_ARRAY_BUFFER, _count * 3 * 4, _normalArr, GL_STATIC_DRAW);
 		}
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		if(_vertexArr)	delete[] _vertexArr;
 		if(_colorArr)	delete[] _colorArr;
@@ -263,4 +264,27 @@ unsigned int GLBuffer::GetVertexCount()
 
 GLBuffer::~GLBuffer()
 {
+	if (_vertexBufferID)
+	{
+		__glDeleteBuffers(1, &_vertexBufferID);
+		_vertexBufferID = 0;
+	}
+
+	if (_colorBufferID)
+	{
+		__glDeleteBuffers(1, &_colorBufferID);
+		_colorBufferID = 0;
+	}
+
+	if (_normalBufferID)
+	{
+		__glDeleteBuffers(1, &_normalBufferID);
+		_normalBufferID = 0;
+	}
+
+	if (_uvBufferID)
+	{
+		__glDeleteBuffers(1, &_uvBufferID);
+		_uvBufferID = 0;
+	}
 }

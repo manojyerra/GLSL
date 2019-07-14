@@ -23,6 +23,8 @@ private:
 	GLuint _vertexCount;
 	ShaderProgram* _shaderProgram;
 
+	GLBuffer* _buffer;
+
 	GLMat _modelMat;
 
 	void GenerateBufferID();

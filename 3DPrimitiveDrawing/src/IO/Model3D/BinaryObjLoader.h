@@ -6,6 +6,7 @@
 #include "FloatArray.h"
 #include "ULongArray.h"
 #include "VoidPtrArray.h"
+#include "PhongShader/PhongShader.h"
 
 #include <vector>
 #include <string>
@@ -23,7 +24,7 @@ private:
 
 	unsigned int _baseTexID;
 
-	ShaderProgram* _shaderProgram;
+	PhongShader* _phongShader;
 
 	GLMat _modelMat;
 

@@ -11,7 +11,7 @@
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 #include "glm/ext.hpp"
-
+#include "GLMemoryTrace.h"
 
 ObjLoader::ObjLoader(string folderPath)
 {
@@ -183,20 +183,20 @@ void ObjLoader::ReadObjFile(string folderPath)
 
 	glGenBuffers(1, &_vertexBufferID);
 	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-	glBufferData(GL_ARRAY_BUFFER, vertexFloatArr.size() * 4, vertexFloatArr.getArray(), GL_STATIC_DRAW);
+	__glBufferData(_vertexBufferID, GL_ARRAY_BUFFER, vertexFloatArr.size() * 4, vertexFloatArr.getArray(), GL_STATIC_DRAW);
 
 	if (uvFloatArr.size() > 0)
 	{
 		glGenBuffers(1, &_uvBufferID);
 		glBindBuffer(GL_ARRAY_BUFFER, _uvBufferID);
-		glBufferData(GL_ARRAY_BUFFER, uvFloatArr.size() * 4, uvFloatArr.getArray(), GL_STATIC_DRAW);
+		__glBufferData(_uvBufferID, GL_ARRAY_BUFFER, uvFloatArr.size() * 4, uvFloatArr.getArray(), GL_STATIC_DRAW);
 	}
 
 	if (normalFloatArr.size() > 0)
 	{
 		glGenBuffers(1, &_normalBufferID);
 		glBindBuffer(GL_ARRAY_BUFFER, _normalBufferID);
-		glBufferData(GL_ARRAY_BUFFER, normalFloatArr.size() * 4, normalFloatArr.getArray(), GL_STATIC_DRAW);
+		__glBufferData(_normalBufferID, GL_ARRAY_BUFFER, normalFloatArr.size() * 4, normalFloatArr.getArray(), GL_STATIC_DRAW);
 	}
 
 	_vertexCount = vertexFloatArr.size() / 3;
@@ -325,6 +325,24 @@ ObjLoader::~ObjLoader()
 	{
 		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
 		_shaderProgram = NULL;
+	}
+
+	if (_vertexBufferID)
+	{
+		__glDeleteBuffers(1, &_vertexBufferID);
+		_vertexBufferID = 0;
+	}
+
+	if (_normalBufferID)
+	{
+		__glDeleteBuffers(1, &_normalBufferID);
+		_normalBufferID = 0;
+	}
+
+	if (_uvBufferID)
+	{
+		__glDeleteBuffers(1, &_uvBufferID);
+		_uvBufferID = 0;
 	}
 }
 

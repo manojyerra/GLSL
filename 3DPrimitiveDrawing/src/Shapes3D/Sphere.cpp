@@ -119,12 +119,12 @@ void Sphere::Draw()
 
 void Sphere::GenerateBufferID()
 {
-	GLBuffer* buffer = new GLBuffer(100, false, false, true);
+	_buffer = new GLBuffer(100, false, false, true);
 
 	float radius = 0.5f;
 	float piVal = 3.14159265f;
 
-	buffer->glBegin(GL_TRIANGLES);
+	_buffer->glBegin(GL_TRIANGLES);
 	
 	float degToRad = 0.017453f;
 
@@ -134,7 +134,7 @@ void Sphere::GenerateBufferID()
 	float y = 0;
 	float z = 0;
 
-	//buffer->glColor(0xff0000ff);
+	//_buffer->glColor(0xff0000ff);
 
 	for(int zAngle=-90; zAngle<90; zAngle+=2*delta)
 	{
@@ -162,34 +162,32 @@ void Sphere::GenerateBufferID()
 			rot(2, yAngle+delta, Xz1, Yz1, Zz1, &x3, &y3, &z3);
 			rot(2, yAngle+delta, Xz2, Yz2, Zz2, &x4, &y4, &z4);
 
-			buffer->glNormal3f(x3, y3, z3);
-			buffer->glVertex3f(x3, y3, z3);
+			_buffer->glNormal3f(x3, y3, z3);
+			_buffer->glVertex3f(x3, y3, z3);
 
-			buffer->glNormal3f(x2, y2, z2);
-			buffer->glVertex3f(x2, y2, z2);
+			_buffer->glNormal3f(x2, y2, z2);
+			_buffer->glVertex3f(x2, y2, z2);
 
-			buffer->glNormal3f(x1, y1, z1);
-			buffer->glVertex3f(x1, y1, z1);
+			_buffer->glNormal3f(x1, y1, z1);
+			_buffer->glVertex3f(x1, y1, z1);
 
-			buffer->glNormal3f(x2, y2, z2);
-			buffer->glVertex3f(x2, y2, z2);
+			_buffer->glNormal3f(x2, y2, z2);
+			_buffer->glVertex3f(x2, y2, z2);
 
-			buffer->glNormal3f(x3, y3, z3);
-			buffer->glVertex3f(x3, y3, z3);
+			_buffer->glNormal3f(x3, y3, z3);
+			_buffer->glVertex3f(x3, y3, z3);
 
-			buffer->glNormal3f(x4, y4, z4);
-			buffer->glVertex3f(x4, y4, z4);
+			_buffer->glNormal3f(x4, y4, z4);
+			_buffer->glVertex3f(x4, y4, z4);
 		}
 	}
 
-	buffer->glEnd();
+	_buffer->glEnd();
 
-	_vertexBufferID = buffer->GetVertexBufferID();
-	_normalBufferID = buffer->GetNormalBufferID();
+	_vertexBufferID = _buffer->GetVertexBufferID();
+	_normalBufferID = _buffer->GetNormalBufferID();
 
-	_vertexCount = buffer->GetVertexCount();
-
-	delete buffer;
+	_vertexCount = _buffer->GetVertexCount();
 }
 
 void Sphere::rot(int axis, float angleInDegrees, float x, float y, float z, float* newX, float* newY, float* newZ)
@@ -225,6 +223,12 @@ Sphere::~Sphere()
 	{
 		delete _phongShader;
 		_phongShader = NULL;
+	}
+
+	if (_buffer)
+	{
+		delete _buffer;
+		_buffer = NULL;
 	}
 }
 

@@ -238,13 +238,13 @@ void Cone::Draw()
 
 void Cone::GenerateBufferID()
 {
-	GLBuffer* buffer = new GLBuffer(100, true, false, false);
+	_buffer = new GLBuffer(100, true, false, false);
 
 	float radius = 0.5f;
 	float halfLength = 0.5f;
 	float piVal = 3.14159265f;
 
-	buffer->glBegin(GL_TRIANGLES);
+	_buffer->glBegin(GL_TRIANGLES);
 
 	if(_useRandomColors)
 		_randomColor.Reset();
@@ -255,31 +255,29 @@ void Cone::GenerateBufferID()
 		float nextTheta = (i+20)*piVal/180.0f;
 
 		if(_useRandomColors)
-			buffer->glColor(_randomColor.NextColor());
+			_buffer->glColor(_randomColor.NextColor());
 
-		buffer->glVertex3f(0, halfLength, 0);
+		_buffer->glVertex3f(0, halfLength, 0);
 
-		buffer->glColor3ub(80, 80, 80);
-		buffer->glVertex3f(radius*cos(nextTheta),	-halfLength,	radius*sin(nextTheta));
-		buffer->glVertex3f(radius*cos(theta),	-halfLength,	radius*sin(theta));
+		_buffer->glColor3ub(80, 80, 80);
+		_buffer->glVertex3f(radius*cos(nextTheta),	-halfLength,	radius*sin(nextTheta));
+		_buffer->glVertex3f(radius*cos(theta),	-halfLength,	radius*sin(theta));
 
-		buffer->glVertex3f(0, -halfLength, 0);
+		_buffer->glVertex3f(0, -halfLength, 0);
 
 		if(_useRandomColors)
-			buffer->glColor(_randomColor.NextColor());
+			_buffer->glColor(_randomColor.NextColor());
 
-		buffer->glVertex3f(radius*cos(theta),	-halfLength,	radius*sin(theta));
-		buffer->glVertex3f(radius*cos(nextTheta),	-halfLength,	radius*sin(nextTheta));
+		_buffer->glVertex3f(radius*cos(theta),	-halfLength,	radius*sin(theta));
+		_buffer->glVertex3f(radius*cos(nextTheta),	-halfLength,	radius*sin(nextTheta));
 	}
 
-	buffer->glEnd();
+	_buffer->glEnd();
 
-	_vertexBufferID = buffer->GetVertexBufferID();
-	_colorBufferID = buffer->GetColorBufferID();
+	_vertexBufferID = _buffer->GetVertexBufferID();
+	_colorBufferID = _buffer->GetColorBufferID();
 
-	_vertexCount = buffer->GetVertexCount();
-
-	delete buffer;
+	_vertexCount = _buffer->GetVertexCount();
 }
 
 Cone::~Cone()
@@ -290,5 +288,11 @@ Cone::~Cone()
 		string fragementShaderPath = _shaderProgram->GetFragmentShaderFilePath();
 
 		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
+	}
+
+	if (_buffer)
+	{
+		delete _buffer;
+		_buffer = NULL;
 	}
 }

@@ -54,6 +54,8 @@ void Box::InitCommon()
 	_colorBufferID = 0;
 	_vertexCount = 0;
 
+	_buffer = NULL;
+
 	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/ColorAndScale/ColorAndScale.vs", "shaders/ColorAndScale/ColorAndScale.fs");
 
 	GenerateBufferID();
@@ -329,9 +331,9 @@ void Box::Draw()
 
 void Box::GenerateBufferID()
 {
-	GLBuffer* buffer = new GLBuffer(100, true, false, false);
+	_buffer = new GLBuffer(100, true, false, false);
 
-	buffer->glBegin(GL_TRIANGLES);
+	_buffer->glBegin(GL_TRIANGLES);
 
 	if(_useRandomColors)
 		_randomColor.Reset();
@@ -341,79 +343,77 @@ void Box::GenerateBufferID()
 	float d = 1.0f/2.0f;
 
 	//Front face
-	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
-	buffer->glVertex3f(+w, -h, +d);
-	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
-	buffer->glVertex3f(+w, +h, +d);
-	buffer->glVertex3f(-w, -h, +d);
-	buffer->glVertex3f(-w, -h, +d);
-	buffer->glVertex3f(+w, +h, +d);
-	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
-	buffer->glVertex3f(-w, +h, +d);
+	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
+	_buffer->glVertex3f(+w, -h, +d);
+	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
+	_buffer->glVertex3f(+w, +h, +d);
+	_buffer->glVertex3f(-w, -h, +d);
+	_buffer->glVertex3f(-w, -h, +d);
+	_buffer->glVertex3f(+w, +h, +d);
+	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
+	_buffer->glVertex3f(-w, +h, +d);
 
 	//Back face
-	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
-	buffer->glVertex3f(+w, -h, -d);
-	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
-	buffer->glVertex3f(-w, -h, -d);
-	buffer->glVertex3f(+w, +h, -d);
-	buffer->glVertex3f(+w, +h, -d);
-	buffer->glVertex3f(-w, -h, -d);
-	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
-	buffer->glVertex3f(-w, +h, -d);
+	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
+	_buffer->glVertex3f(+w, -h, -d);
+	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
+	_buffer->glVertex3f(-w, -h, -d);
+	_buffer->glVertex3f(+w, +h, -d);
+	_buffer->glVertex3f(+w, +h, -d);
+	_buffer->glVertex3f(-w, -h, -d);
+	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
+	_buffer->glVertex3f(-w, +h, -d);
 
 	//Top face
-	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
-	buffer->glVertex3f(+w, +h, -d);
-	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
-	buffer->glVertex3f(-w, +h, -d);
-	buffer->glVertex3f(+w, +h, +d);
-	buffer->glVertex3f(+w, +h, +d);
-	buffer->glVertex3f(-w, +h, -d);
-	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
-	buffer->glVertex3f(-w, +h, +d);
+	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
+	_buffer->glVertex3f(+w, +h, -d);
+	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
+	_buffer->glVertex3f(-w, +h, -d);
+	_buffer->glVertex3f(+w, +h, +d);
+	_buffer->glVertex3f(+w, +h, +d);
+	_buffer->glVertex3f(-w, +h, -d);
+	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
+	_buffer->glVertex3f(-w, +h, +d);
 
 	//Bottom face
-	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
-	buffer->glVertex3f(+w, -h, -d);
-	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
-	buffer->glVertex3f(+w, -h, +d);
-	buffer->glVertex3f(-w, -h, -d);
-	buffer->glVertex3f(-w, -h, -d);
-	buffer->glVertex3f(+w, -h, +d);
-	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
-	buffer->glVertex3f(-w, -h, +d);
+	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
+	_buffer->glVertex3f(+w, -h, -d);
+	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
+	_buffer->glVertex3f(+w, -h, +d);
+	_buffer->glVertex3f(-w, -h, -d);
+	_buffer->glVertex3f(-w, -h, -d);
+	_buffer->glVertex3f(+w, -h, +d);
+	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
+	_buffer->glVertex3f(-w, -h, +d);
 
 	//Right face
-	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
-	buffer->glVertex3f(+w, +h, -d);
-	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
-	buffer->glVertex3f(+w, +h, +d);
-	buffer->glVertex3f(+w, -h, -d);
-	buffer->glVertex3f(+w, -h, -d);
-	buffer->glVertex3f(+w, +h, +d);
-	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
-	buffer->glVertex3f(+w, -h, +d);
+	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
+	_buffer->glVertex3f(+w, +h, -d);
+	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
+	_buffer->glVertex3f(+w, +h, +d);
+	_buffer->glVertex3f(+w, -h, -d);
+	_buffer->glVertex3f(+w, -h, -d);
+	_buffer->glVertex3f(+w, +h, +d);
+	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
+	_buffer->glVertex3f(+w, -h, +d);
 
 	//Left face
-	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
-	buffer->glVertex3f(-w, +h, -d);
-	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
-	buffer->glVertex3f(-w, -h, -d);
-	buffer->glVertex3f(-w, +h, +d);
-	buffer->glVertex3f(-w, +h, +d);
-	buffer->glVertex3f(-w, -h, -d);
-	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
-	buffer->glVertex3f(-w, -h, +d);
+	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
+	_buffer->glVertex3f(-w, +h, -d);
+	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
+	_buffer->glVertex3f(-w, -h, -d);
+	_buffer->glVertex3f(-w, +h, +d);
+	_buffer->glVertex3f(-w, +h, +d);
+	_buffer->glVertex3f(-w, -h, -d);
+	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
+	_buffer->glVertex3f(-w, -h, +d);
 
-	buffer->glEnd();
+	_buffer->glEnd();
 
-	_vertexBufferID = buffer->GetVertexBufferID();
-	_colorBufferID = buffer->GetColorBufferID();
+	_vertexBufferID = _buffer->GetVertexBufferID();
+	_colorBufferID = _buffer->GetColorBufferID();
 
-	_vertexCount = buffer->GetVertexCount();
-
-	delete buffer;
+	_vertexCount = _buffer->GetVertexCount();
 }
 
 Box::~Box()
@@ -424,5 +424,11 @@ Box::~Box()
 		string fragementShaderPath = _shaderProgram->GetFragmentShaderFilePath();
 
 		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
+	}
+
+	if (_buffer)
+	{
+		delete _buffer;
+		_buffer = NULL;
 	}
 }

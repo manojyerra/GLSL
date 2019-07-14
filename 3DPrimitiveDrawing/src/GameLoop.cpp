@@ -53,8 +53,8 @@ GameLoop::GameLoop(int sw, int sh)
 	_sphere->SetPos(5, 0, 0);
 	_sphere->SetRadius(5);
 
-	//_objLoader = new ObjLoader("data/teapot", false);
-	//_binaryObjLoader = new BinaryObjLoader("data/carScaled");
+	_objLoader = new ObjLoader("data/lamp", false);
+	_binaryObjLoader = new BinaryObjLoader("data/hipolyTeapot");
 
 	_fbo = new GLFBO(_sw, _sh);
 	_texture = new GLTexture(_sw, _sh);
@@ -134,8 +134,8 @@ void GameLoop::ParticleSpecificDraw()
 
 void GameLoop::Draw()
 {
-	ParticleSpecificDraw();
-	return;
+	//ParticleSpecificDraw();
+	//return;
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -183,7 +183,12 @@ void GameLoop::SetCamAndDrawObjects()
 	Cam::GetInstance()->UpdateCamera();
 
 	_floor->Draw();
-	//_objLoader->Draw();
+	_objLoader->Draw();
+	_binaryObjLoader->Draw();
+	_box->Draw();
+	_cone->Draw();
+	_sphere->Draw();
+	_cylinder->Draw();
 }
 
 void GameLoop::SetScreenSize(int sw, int sh)
@@ -214,17 +219,17 @@ GameLoop::~GameLoop()
 		_fbo = NULL;
 	}
 
-	//if (_binaryObjLoader)
-	//{
-	//	delete _binaryObjLoader;
-	//	_binaryObjLoader = NULL;
-	//}
+	if (_binaryObjLoader)
+	{
+		delete _binaryObjLoader;
+		_binaryObjLoader = NULL;
+	}
 
-	//if (_objLoader)
-	//{
-	//	delete _objLoader;
-	//	_objLoader = NULL;
-	//}
+	if (_objLoader)
+	{
+		delete _objLoader;
+		_objLoader = NULL;
+	}
 	
 	if (_sphere != NULL)
 	{

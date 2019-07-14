@@ -45,7 +45,7 @@ ParticleLoader::ParticleLoader()
 	
 	glGenBuffers(1, &_vertexBufferID);
 	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-	glBufferData(GL_ARRAY_BUFFER, vertexBufLen, vertexBuf, GL_STATIC_DRAW);
+	__glBufferData(GL_ARRAY_BUFFER, vertexBufLen, vertexBuf, GL_STATIC_DRAW);
 	
 	
 	unsigned int colorBufLen = 12;
@@ -65,7 +65,7 @@ ParticleLoader::ParticleLoader()
 	
 	glGenBuffers(1, &_colorBufferID);
 	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-	glBufferData(GL_ARRAY_BUFFER, colorBufLen, colorBuf, GL_STATIC_DRAW);
+	__glBufferData(_colorBufferID, GL_ARRAY_BUFFER, colorBufLen, colorBuf, GL_STATIC_DRAW);
 	
 	_vertexCount = vertexBufLen / 12;
 	free(vertexBuf);
@@ -95,11 +95,9 @@ ParticleLoader::ParticleLoader()
 
 void ParticleLoader::LoadData(const char* fileData, unsigned int length)
 {
-	long startTime = GetTickCount();
-
 	glGenBuffers(1, &_vertexBufferID);
-	__glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-	__glBufferData(GL_ARRAY_BUFFER, length, fileData, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
+	__glBufferData(_vertexBufferID, GL_ARRAY_BUFFER, length, fileData, GL_STATIC_DRAW);
 
  	_vertexCount = length / BYTES_PER_VERTEX;
 
@@ -116,11 +114,11 @@ void ParticleLoader::LoadData(const char* fileData, unsigned int length)
 	}
 
 	glGenBuffers(1, &_colorBufferID);
-	__glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-	__glBufferData(GL_ARRAY_BUFFER, colorBufLen, colorBuf, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
+	__glBufferData(_colorBufferID, GL_ARRAY_BUFFER, colorBufLen, colorBuf, GL_STATIC_DRAW);
 	free(colorBuf);
 
-	long timeTaken = GetTickCount() - startTime;
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 
@@ -142,8 +140,8 @@ void ParticleLoader::LoadLowPolyData(const char* fileData, unsigned int length)
 	}
 
 	glGenBuffers(1, &_lowPolyVertexBufferID);
-	__glBindBuffer(GL_ARRAY_BUFFER, _lowPolyVertexBufferID);
-	__glBufferData(GL_ARRAY_BUFFER, _lowPolyVertexCount * bpv, lowPolyBuf, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, _lowPolyVertexBufferID);
+	__glBufferData(_lowPolyVertexBufferID, GL_ARRAY_BUFFER, _lowPolyVertexCount * bpv, lowPolyBuf, GL_STATIC_DRAW);
 	free(lowPolyBuf);
 
 	unsigned int colorBufLen = _lowPolyVertexCount * 3;
@@ -159,9 +157,11 @@ void ParticleLoader::LoadLowPolyData(const char* fileData, unsigned int length)
 	}
 
 	glGenBuffers(1, &_lowPolyColorBufferID);
-	__glBindBuffer(GL_ARRAY_BUFFER, _lowPolyColorBufferID);
-	__glBufferData(GL_ARRAY_BUFFER, colorBufLen, colorBuf, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, _lowPolyColorBufferID);
+	__glBufferData(_lowPolyColorBufferID, GL_ARRAY_BUFFER, colorBufLen, colorBuf, GL_STATIC_DRAW);
 	free(colorBuf);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void ParticleLoader::DrawAllParticles()
@@ -313,7 +313,7 @@ ParticleLoader::~ParticleLoader()
 //
 //		glGenBuffers(1, &_vertexBufferID);
 //		glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-//		glBufferData(GL_ARRAY_BUFFER, length, buf, GL_STATIC_DRAW);
+//		__glBufferData(_vertexBufferID, GL_ARRAY_BUFFER, length, buf, GL_STATIC_DRAW);
 //
 //		_vertexCount = length / 12;
 //

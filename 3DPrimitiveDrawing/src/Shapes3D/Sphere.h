@@ -18,6 +18,8 @@ private:
 	GLuint _normalBufferID;
 	GLuint _vertexCount;
 
+	GLBuffer* _buffer;
+
 	void GenerateBufferID();
 	void InitCommon();
 	void rot(int axis, float angleInDegrees, float x, float y, float z, float* newX, float* newY, float* newZ);

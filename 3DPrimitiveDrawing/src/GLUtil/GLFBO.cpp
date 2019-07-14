@@ -1,5 +1,6 @@
 #include "GLFBO.h"
 #include <assert.h>
+#include "GLMemoryTrace.h"
 
 GLFBO::GLFBO(int w, int h)
 {
@@ -41,7 +42,7 @@ unsigned int GLFBO::GenerateEmptyTexture(int w, int h)
 	unsigned int texID;
 	glGenTextures(1, &texID);
 	glBindTexture(GL_TEXTURE_2D, texID);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	__glTexImage2D(texID, GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -59,7 +60,7 @@ unsigned int GLFBO::CreateDepthBuffer(int w, int h)
 	unsigned int rbo;
 	glGenRenderbuffersEXT(1, &rbo);
 	glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, rbo);
-	glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT24, w, h);
+	__glRenderbufferStorageEXT(rbo, GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT24, w, h);
 	glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, 0);
 
 	return rbo;
@@ -95,8 +96,8 @@ unsigned int GLFBO::GetH()
 GLFBO::~GLFBO()
 {
 	//Delete resources
-	glDeleteTextures(1, &_texID);
-	glDeleteRenderbuffersEXT(1, &_depthBufID);
+	__glDeleteTextures(1, &_texID);
+	__glDeleteRenderbuffersEXT(1, &_depthBufID);
 	//Bind 0, which means render to back buffer, as a result, fb is unbound
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 	glDeleteFramebuffersEXT(1, &_fboID);

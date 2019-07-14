@@ -4,6 +4,7 @@
 #include "ShaderProgram.h"
 #include "GLMat.h"
 #include "glm/glm.hpp"
+#include "GLBuffer.h"
 
 class Triangle
 {
@@ -13,6 +14,7 @@ class Triangle
 	GLuint _vertexCount;
 
 	GLMat _modelMat;
+	GLBuffer* _glBuffer;
 
 public:
 	Triangle(glm::vec3& v1, glm::vec3& v2, glm::vec3& v3);

@@ -5,9 +5,14 @@
 #include <GLFW/glfw3.h>
 #include <map>
 
-#define __glBindBuffer(a, b) GLMemoryTrace::bindBuffer(a, b)
-#define __glBufferData(a, b, c, d) GLMemoryTrace::bufferData(a, b, c, d, __FILE__, __LINE__)
-#define __glDeleteBuffers(a, b) GLMemoryTrace::deleteBuffers(a, b, __FILE__, __LINE__)
+#define __glBufferData(a, b, c, d, e) GLMemoryTrace::bufferData(a, b, c, d, e, __FILE__, __LINE__)
+#define __glDeleteBuffers(a, b) GLMemoryTrace::deleteBuffers(a, b)
+
+#define __glTexImage2D(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10) GLMemoryTrace::texImage2D(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, __FILE__, __LINE__)
+#define __glDeleteTextures(v1, v2) GLMemoryTrace::deleteTextures(v1, v2)
+
+#define __glRenderbufferStorageEXT(v1, v2, v3, v4, v5) GLMemoryTrace::renderbufferStorageEXT(v1, v2, v3, v4, v5, __FILE__, __LINE__)
+#define __glDeleteRenderbuffersEXT(v1, v2)
 
 
 class GLBufferInfo
@@ -34,14 +39,22 @@ public:
 class GLMemoryTrace
 {
 private:
-	static GLuint _bufferID;
 	static std::map<GLuint, GLBufferInfo> _bufferMap;
+	static std::map<GLuint, GLBufferInfo> _textureMap;
+	static std::map<GLuint, GLBufferInfo> _renderBufferMap;
 
 public:
-	static void bindBuffer(GLenum target, GLuint bufferID);
-	static void bufferData(GLenum target, GLsizeiptr size, const GLvoid* data, GLenum usage, const char* fileName, long lineNum);
+	static void bufferData(GLuint bufferID, GLenum target, GLsizeiptr size, const GLvoid* data, GLenum usage, const char* fileName, long lineNum);
+	static void deleteBuffers(GLsizei n, const GLuint* buffers);
 
-	static void deleteBuffers(GLsizei n, const GLuint* buffers, const char* fileName, long lineNum);
+	static void texImage2D(GLuint textureID, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, 
+						GLint border, GLenum format, GLenum type, const GLvoid *pixels, const char* fileName, long lineNum);
+	static void deleteTextures(GLsizei n, const GLuint *textures);
+
+	static void renderbufferStorageEXT(GLuint rboID, GLenum target, GLenum internalformat, 
+						GLsizei width, GLsizei height, const char* fileName, long lineNum);
+
+	static void deleteRenderbuffersEXT(GLsizei n, const GLuint* renderbuffers);
 
 	static void printMemoryLeaks();
 	static bool hasMemoryLeaks();

@@ -4,6 +4,7 @@
 #include "ImageBuffer.h"
 #include "Cam2D.h"
 #include "ShadersManager.h"
+#include "GLMemoryTrace.h"
 
 GLTexture::GLTexture(int drawW, int drawH)
 {
@@ -53,32 +54,30 @@ void GLTexture::Draw()
 
 void GLTexture::GenerateBufferID()
 {
-	GLBuffer* buffer = new GLBuffer(100, true, true, false);
+	_buffer = new GLBuffer(100, true, true, false);
 
-	buffer->glBegin(GL_TRIANGLE_STRIP);
+	_buffer->glBegin(GL_TRIANGLE_STRIP);
 
 	float w = _drawW;
 	float h = _drawH;
 
-	buffer->glTexCoord2f(0, 1);
-	buffer->glVertex3f(0, 0, 0);
+	_buffer->glTexCoord2f(0, 1);
+	_buffer->glVertex3f(0, 0, 0);
 
-	buffer->glTexCoord2f(1, 1);
-	buffer->glVertex3f(+w, 0, 0);
+	_buffer->glTexCoord2f(1, 1);
+	_buffer->glVertex3f(+w, 0, 0);
 
-	buffer->glTexCoord2f(0, 0);
-	buffer->glVertex3f(0, h, 0);
+	_buffer->glTexCoord2f(0, 0);
+	_buffer->glVertex3f(0, h, 0);
 
-	buffer->glTexCoord2f(1, 0);
-	buffer->glVertex3f(w, h, 0);
+	_buffer->glTexCoord2f(1, 0);
+	_buffer->glVertex3f(w, h, 0);
 
-	buffer->glEnd();
+	_buffer->glEnd();
 
-	_vertexBufferID = buffer->GetVertexBufferID();
-	_uvBufferID = buffer->GetUVBufferID();
-	_vertexCount = buffer->GetVertexCount();
-
-	delete buffer;
+	_vertexBufferID = _buffer->GetVertexBufferID();
+	_uvBufferID = _buffer->GetUVBufferID();
+	_vertexCount = _buffer->GetVertexCount();
 }
 
 unsigned int GLTexture::GenerateGLTextureID(int width, int height, int bytesPP, void* buffer)
@@ -92,11 +91,11 @@ unsigned int GLTexture::GenerateGLTextureID(int width, int height, int bytesPP, 
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	if (bytesPP == 4)
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+		__glTexImage2D(textureID, GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 	else if (bytesPP == 3)
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, buffer);
+		__glTexImage2D(textureID, GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, buffer);
 	else if (bytesPP == 1)
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, width, height, 0, GL_RGB8, GL_UNSIGNED_BYTE, buffer);
+		__glTexImage2D(textureID, GL_TEXTURE_2D, 0, GL_LUMINANCE, width, height, 0, GL_RGB8, GL_UNSIGNED_BYTE, buffer);
 	else
 		return 0;
 
@@ -118,7 +117,13 @@ GLTexture::~GLTexture()
 
 	if (_textureID)
 	{
-		glDeleteTextures(1, &_textureID);
+		__glDeleteTextures(1, &_textureID);
 		_textureID = 0;
+	}
+
+	if (_buffer)
+	{
+		delete _buffer;
+		_buffer = NULL;
 	}
 }

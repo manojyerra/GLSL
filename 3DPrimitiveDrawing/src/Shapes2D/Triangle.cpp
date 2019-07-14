@@ -1,5 +1,4 @@
 #include "Triangle.h"
-#include "GLBuffer.h"
 #include "ShadersManager.h"
 #include "Cam.h"
 
@@ -7,24 +6,18 @@ Triangle::Triangle(glm::vec3& v1, glm::vec3& v2, glm::vec3& v3)
 {
 	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
 
-	GLBuffer* glBuffer = new GLBuffer(50, true, false, false);
+	_glBuffer = new GLBuffer(50, true, false, false);
 
-	glBuffer->glBegin(GL_TRIANGLES);
-	glBuffer->glColor3ub(255,0,0);
-	glBuffer->glVertex3f(v1.x, v1.y, v1.z);
-	glBuffer->glVertex3f(v2.x, v2.y, v2.z);
-	glBuffer->glVertex3f(v3.x, v3.y, v3.z);
-	glBuffer->glEnd();
+	_glBuffer->glBegin(GL_TRIANGLES);
+	_glBuffer->glColor3ub(255,0,0);
+	_glBuffer->glVertex3f(v1.x, v1.y, v1.z);
+	_glBuffer->glVertex3f(v2.x, v2.y, v2.z);
+	_glBuffer->glVertex3f(v3.x, v3.y, v3.z);
+	_glBuffer->glEnd();
 
-	_vertexBufferID = glBuffer->GetVertexBufferID();
-	_colorBufferID = glBuffer->GetColorBufferID();
-	_vertexCount = glBuffer->GetVertexCount();
-
-	if(glBuffer)
-	{
-		delete glBuffer;
-		glBuffer = NULL;
-	}
+	_vertexBufferID = _glBuffer->GetVertexBufferID();
+	_colorBufferID = _glBuffer->GetColorBufferID();
+	_vertexCount = _glBuffer->GetVertexCount();
 }
 
 void Triangle::Draw()
@@ -64,5 +57,11 @@ Triangle::~Triangle()
 	{
 		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
 		_shaderProgram = NULL;
+	}
+
+	if (_glBuffer)
+	{
+		delete _glBuffer;
+		_glBuffer = NULL;
 	}
 }

@@ -24,6 +24,8 @@ private:
 	GLuint _colorBufferID;
 	GLuint _vertexCount;
 	ShaderProgram* _shaderProgram;
+
+	GLBuffer* _buffer;
 	
 	void GenerateBufferID();
 	void InitCommon();
