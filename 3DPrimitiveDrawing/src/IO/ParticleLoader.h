@@ -47,8 +47,6 @@ class ParticleLoader
 	void LoadData(const char* fileData, unsigned int length);
 	void LoadLowPolyData(const char* fileData, unsigned int length);
 
-
-
 public:
 	ParticleLoader();
 	~ParticleLoader();

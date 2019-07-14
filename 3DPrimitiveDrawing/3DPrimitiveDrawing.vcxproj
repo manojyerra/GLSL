@@ -30,6 +30,7 @@
     <ClCompile Include="src\GLUtil\GLBuffer.cpp" />
     <ClCompile Include="src\GLUtil\GLFBO.cpp" />
     <ClCompile Include="src\GLUtil\GLMat.cpp" />
+    <ClCompile Include="src\GLUtil\GLMemoryTrace.cpp" />
     <ClCompile Include="src\GLUtil\GLTexture.cpp" />
     <ClCompile Include="src\GLUtil\GLUtil.cpp" />
     <ClCompile Include="src\GLUtil\PhongShader\PhongShader.cpp" />
@@ -107,6 +108,7 @@
     <ClInclude Include="src\GLUtil\GLBuffer.h" />
     <ClInclude Include="src\GLUtil\GLFBO.h" />
     <ClInclude Include="src\GLUtil\GLMat.h" />
+    <ClInclude Include="src\GLUtil\GLMemoryTrace.h" />
     <ClInclude Include="src\GLUtil\GLTexture.h" />
     <ClInclude Include="src\GLUtil\GLUtil.h" />
     <ClInclude Include="src\GLUtil\PhongShader\PhongShader.h" />

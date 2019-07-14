@@ -1,4 +1,5 @@
 #include "GameLoop.h"
+#include "GLMemoryTrace.h"
 
 GameLoop::GameLoop(int sw, int sh)
 {
@@ -265,8 +266,8 @@ GameLoop::~GameLoop()
 	Cam2D::GetInstance()->DeleteInstance();
 	ShadersManager::GetInstance()->DeleteInstance();
 
-	if (Macros::hasMemoryLeaks())
+	if (GLMemoryTrace::hasMemoryLeaks())
 	{
-		Macros::printMemoryLeaks();
+		GLMemoryTrace::printMemoryLeaks();
 	}
 }
