@@ -1,6 +1,5 @@
 #include "GLFBO.h"
 #include <assert.h>
-#include "GLMemoryTrace.h"
 #include "GLMemory.h"
 
 GLFBO::GLFBO(int w, int h)

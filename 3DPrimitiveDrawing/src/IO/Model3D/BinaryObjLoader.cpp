@@ -7,7 +7,6 @@
 #include "glm/glm.hpp"
 #include "Cam.h"
 #include "UtilFuncs.h"
-#include "GLMemoryTrace.h"
 #include "GLMemory.h"
 
 

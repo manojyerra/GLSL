@@ -4,7 +4,6 @@
 #include "ImageBuffer.h"
 #include "Cam2D.h"
 #include "ShadersManager.h"
-#include "GLMemoryTrace.h"
 #include "GLMemory.h"
 
 GLTexture::GLTexture(int drawW, int drawH)

@@ -1,6 +1,5 @@
 #include "GLUtil.h"
 #include <math.h>
-#include "GLMemoryTrace.h"
 
 float GLUtil::SW = 0;
 float GLUtil::SH = 0;

@@ -11,7 +11,6 @@
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 #include "glm/ext.hpp"
-#include "GLMemoryTrace.h"
 #include "GLMemory.h"
 
 ObjLoader::ObjLoader(string folderPath)

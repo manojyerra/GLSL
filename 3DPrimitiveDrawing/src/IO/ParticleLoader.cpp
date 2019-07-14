@@ -4,7 +4,6 @@
 #include "Cam.h"
 #include "FileReader.h"
 #include "Input.h"
-#include "GLMemoryTrace.h"
 #include "GLMemory.h"
 
 ParticleLoader::ParticleLoader()

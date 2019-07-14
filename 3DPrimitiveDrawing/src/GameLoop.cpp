@@ -1,5 +1,4 @@
 #include "GameLoop.h"
-#include "GLMemoryTrace.h"
 #include "GLMemory.h"
 
 GameLoop::GameLoop(int sw, int sh)

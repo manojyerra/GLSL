@@ -1,5 +1,4 @@
 #include "GLBuffer.h"
-#include "GLMemoryTrace.h"
 #include "GLMemory.h"
 
 GLBuffer::GLBuffer(unsigned int capacity, bool colorDataPresent, bool uvDataPresent, bool normalsDataPresent)
