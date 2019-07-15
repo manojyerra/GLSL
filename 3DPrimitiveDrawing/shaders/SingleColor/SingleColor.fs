@@ -2,7 +2,10 @@
 
 layout (location = 0) out vec4 outColor;
 
+uniform vec3 color;
+uniform float alpha;
+
 void main (void)
 {
-   outColor = vec4(1.0, 0.0, 0.0, 1.0);
+   outColor = vec4(color, alpha);
 }
