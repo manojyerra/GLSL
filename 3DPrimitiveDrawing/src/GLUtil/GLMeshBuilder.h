@@ -12,24 +12,32 @@ private:
 	GLuint _uvBufferID;
 	GLuint _baseTexID;
 
-	const GLvoid* _vertexArr;
-	const GLvoid* _normalArr;
-	const GLvoid* _uvArr;
+	const GLvoid* _vertexBuffer;
+	const GLvoid* _normalBuffer;
+	const GLvoid* _uvBuffer;
 	ImageBuffer* _imageBuffer;
 
-	GLsizeiptr _vertexArrLen;
-	GLsizeiptr _normalArrLen;
-	GLsizeiptr _uvArrLen;
+	GLsizeiptr _vertexBufferLen;
+	GLsizeiptr _normalBufferLen;
+	GLsizeiptr _uvBufferLen;
 
 public:
 	GLMeshBuilder();
 	~GLMeshBuilder();
 
-	GLMeshBuilder* SetVertexBuffer(const GLvoid* arr, GLsizeiptr len);
-	GLMeshBuilder* SetNormalBuffer(const GLvoid* arr, GLsizeiptr len);
-	GLMeshBuilder* SetUVBuffer(const GLvoid* arr, GLsizeiptr len);
+	GLMeshBuilder* SetVertexBuffer(const GLvoid* buffer, GLsizeiptr len);
+	GLMeshBuilder* SetNormalBuffer(const GLvoid* buffer, GLsizeiptr len);
+	GLMeshBuilder* SetUVBuffer(const GLvoid* buffer, GLsizeiptr len);
 	GLMeshBuilder* SetImageBuffer(ImageBuffer* imgBuf);
-	bool build();
+	void build();
+
+	GLuint GetVertexBufferID();
+	GLuint GetNormalBufferID();
+	GLuint GetUvBufferID();
+	GLuint GetBaseTexID();
+
+	GLuint GetVertexBufferSize();
+
 };
 
 #endif

@@ -139,13 +139,8 @@ void Floor::Draw()
 
 	_shaderProgram->Begin();
 
-	GLint projMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "projMat");
-	GLint viewMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "viewMat");
-	GLint modelMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "modelMat");
-
-	glUniformMatrix4fv(projMatLoc, 1, GL_FALSE, Cam::GetInstance()->projMat.m);
-	glUniformMatrix4fv(viewMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
-	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, _modelMat.m);
+	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(Cam::GetInstance()->GetMVP(_modelMat.m)));
+	_shaderProgram->SetUniform1f("alpha", 1.0f);
 
 	if(_axisVisible)
 	{

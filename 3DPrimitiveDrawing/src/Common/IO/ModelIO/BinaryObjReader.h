@@ -1,12 +1,8 @@
 #ifndef BinaryObjReader_H
 #define BinaryObjReader_H
 
-#include "FloatArray.h"
-
-#include <vector>
-#include <string>
-using namespace std;
-
+#include "FileReader.h"
+#include "ImageBuffer.h"
 
 class BinaryObjReader
 {
@@ -26,11 +22,15 @@ public:
 	BinaryObjReader(string folderPath);
 	~BinaryObjReader();
 
-	const float* GetVertexArr();
-	const float* GetUVArr();
-	const float* GetNormalArr();
+	const char* GetVertexBuffer();
+	const char* GetUVBuffer();
+	const char* GetNormalBuffer();
 	unsigned int GetVertexCount();
 	ImageBuffer* GetImageBuffer();
+
+	unsigned int GetVertexBufferSize();
+	unsigned int GetUVBufferSize();
+	unsigned int GetNoralBufferSize();
 };
 
 #endif

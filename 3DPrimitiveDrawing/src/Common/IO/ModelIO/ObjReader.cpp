@@ -258,10 +258,6 @@ ObjReader::~ObjReader()
 		_imageBuffer = NULL;
 	}
 
-	FloatArray* _vertexFloatArr;
-	FloatArray* _uvFloatArr;
-	FloatArray* _normalFloatArr;
-
 	if (_vertexFloatArr)
 	{
 		delete _vertexFloatArr;

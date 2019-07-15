@@ -19,6 +19,7 @@
 #include "ObjLoader.h"
 #include "BinaryObjLoader.h"
 #include "ParticleLoader.h"
+#include "GLMeshRenderer.h"
 
 class GameLoop 
 {
@@ -39,6 +40,10 @@ private:
 	ObjLoader* _objLoader;
 	BinaryObjLoader* _binaryObjLoader;
 	ParticleLoader* _particleLoader;
+	ParticleLoader* _particleLoader2;
+	ParticleLoader* _particleLoader3;
+	ParticleLoader* _particleLoader4;
+	ParticleLoader* _particleLoader5;
 
 	GLFBO* _fbo;
 	GLTexture* _texture;
@@ -48,6 +53,8 @@ private:
 
 	void GLSettings();
 	void SetCamAndDrawObjects();
+	
+	GLMeshRenderer* _meshRenderer;
 
 public:
 	GameLoop(int sw, int sh);

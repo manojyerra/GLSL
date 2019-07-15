@@ -17,8 +17,6 @@ BinaryObjReader::BinaryObjReader(string folderPath)
 
 void BinaryObjReader::ReadObjFile(string folderPath)
 {
-	unsigned int startTime = GetTickCount();
-
 	if (FileReader::IsFileExists(folderPath + "/vertex.buf"))
 	{
 		_vertexFileReader = new FileReader(folderPath + "/vertex.buf", "rb");
@@ -36,19 +34,20 @@ void BinaryObjReader::ReadObjFile(string folderPath)
 	}
 }
 
-const float* BinaryObjReader::GetVertexArr()
+
+const char* BinaryObjReader::GetVertexBuffer()
 {
-	return (const float*)_vertexFileReader->GetData();
+	return (const char*)_vertexFileReader->GetData();
 }
 
-const float* BinaryObjReader::GetUVArr()
+const char* BinaryObjReader::GetUVBuffer()
 {
-	return (const float*)_uvFileReader->GetData();
+	return (const char*)_uvFileReader->GetData();
 }
 
-const float* BinaryObjReader::GetNormalArr()
+const char* BinaryObjReader::GetNormalBuffer()
 {
-	return (const float*)_normalFileReader->GetData();
+	return (const char*)_normalFileReader->GetData();
 }
 
 unsigned int BinaryObjReader::GetVertexCount()
@@ -59,6 +58,22 @@ unsigned int BinaryObjReader::GetVertexCount()
 ImageBuffer* BinaryObjReader::GetImageBuffer()
 {
 	return _imageBuffer;
+}
+
+//TODO : Think of having sizeInBytes method in FloatArray class instead of multiplying it with sizeof(float)
+unsigned int BinaryObjReader::GetVertexBufferSize()
+{
+	return _vertexFileReader ? _vertexFileReader->GetLength() : 0;
+}
+
+unsigned int BinaryObjReader::GetUVBufferSize()
+{
+	return _uvFileReader ? _uvFileReader->GetLength() : 0;
+}
+
+unsigned int BinaryObjReader::GetNoralBufferSize()
+{
+	return _normalFileReader ? _normalFileReader->GetLength() : 0;
 }
 
 void BinaryObjReader::LoadTextures(string folderPath)

@@ -63,21 +63,27 @@
     <ClCompile Include="src\Common\IO\ImageIO\PNG\zlib\trees.c" />
     <ClCompile Include="src\Common\IO\ImageIO\PNG\zlib\uncompr.c" />
     <ClCompile Include="src\Common\IO\ImageIO\PNG\zlib\zutil.c" />
+    <ClCompile Include="src\Common\IO\ModelIO\BinaryObjReader.cpp" />
+    <ClCompile Include="src\Common\IO\ModelIO\ObjReader.cpp" />
     <ClCompile Include="src\Floor.cpp" />
     <ClCompile Include="src\GameLoop.cpp" />
+    <ClCompile Include="src\GLUtil\BasicShader\BasicShader.cpp" />
+    <ClCompile Include="src\GLUtil\ColorShader\ColorShader.cpp" />
     <ClCompile Include="src\GLUtil\GL2DState.cpp" />
     <ClCompile Include="src\GLUtil\GLBatch.cpp" />
     <ClCompile Include="src\GLUtil\GLBuffer.cpp" />
     <ClCompile Include="src\GLUtil\GLFBO.cpp" />
     <ClCompile Include="src\GLUtil\GLMat.cpp" />
     <ClCompile Include="src\GLUtil\GLMemory.cpp" />
+    <ClCompile Include="src\GLUtil\GLMeshBuilder.cpp" />
+    <ClCompile Include="src\GLUtil\GLMeshRenderer.cpp" />
     <ClCompile Include="src\GLUtil\GLSSAO.cpp" />
     <ClCompile Include="src\GLUtil\GLTexture.cpp" />
     <ClCompile Include="src\GLUtil\GLUtil.cpp" />
+    <ClCompile Include="src\GLUtil\PBRShader\PBRShader.cpp" />
     <ClCompile Include="src\GLUtil\PhongShader\PhongShader.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\IO\Model3D\BinaryObjLoader.cpp" />
-    <ClCompile Include="src\IO\Model3D\GLMesh.cpp" />
     <ClCompile Include="src\IO\Model3D\ObjLoader.cpp" />
     <ClCompile Include="src\IO\ParticleLoader.cpp" />
     <ClCompile Include="src\Macros.cpp" />
@@ -124,21 +130,27 @@
     <ClInclude Include="src\Common\IO\ImageIO\PNG\zlib\zconf.h" />
     <ClInclude Include="src\Common\IO\ImageIO\PNG\zlib\zlib.h" />
     <ClInclude Include="src\Common\IO\ImageIO\PNG\zlib\zutil.h" />
+    <ClInclude Include="src\Common\IO\ModelIO\BinaryObjReader.h" />
+    <ClInclude Include="src\Common\IO\ModelIO\ObjReader.h" />
     <ClInclude Include="src\Floor.h" />
     <ClInclude Include="src\GameLoop.h" />
+    <ClInclude Include="src\GLUtil\BasicShader\BasicShader.h" />
+    <ClInclude Include="src\GLUtil\ColorShader\ColorShader.h" />
     <ClInclude Include="src\GLUtil\GL2DState.h" />
     <ClInclude Include="src\GLUtil\GLBatch.h" />
     <ClInclude Include="src\GLUtil\GLBuffer.h" />
     <ClInclude Include="src\GLUtil\GLFBO.h" />
     <ClInclude Include="src\GLUtil\GLMat.h" />
     <ClInclude Include="src\GLUtil\GLMemory.h" />
+    <ClInclude Include="src\GLUtil\GLMeshBuilder.h" />
+    <ClInclude Include="src\GLUtil\GLMeshRenderer.h" />
     <ClInclude Include="src\GLUtil\GLSSAO.h" />
     <ClInclude Include="src\GLUtil\GLTexture.h" />
     <ClInclude Include="src\GLUtil\GLUtil.h" />
+    <ClInclude Include="src\GLUtil\PBRShader\PBRShader.h" />
     <ClInclude Include="src\GLUtil\PhongShader\PhongShader.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\IO\Model3D\BinaryObjLoader.h" />
-    <ClInclude Include="src\IO\Model3D\GLMesh.h" />
     <ClInclude Include="src\IO\Model3D\ObjLoader.h" />
     <ClInclude Include="src\IO\ParticleLoader.h" />
     <ClInclude Include="src\Macros.h" />
@@ -225,7 +237,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/ShaderProgram;src/IO;src/IO/Model3D;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/Arrays;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/ShaderProgram;src/IO;src/IO/Model3D;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/Arrays;src/Common/IO/ModelIO;src/GLUtil/BasicShader;src/GLUtil/ColorShader;src/GLUtil/PBRShader;src/GLUtil/PhongShader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>

@@ -67,6 +67,18 @@
     <Filter Include="src\Common\Geometry">
       <UniqueIdentifier>{1483ba95-2bd7-4a70-a2f2-791f483a7aad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GLUtil\BasicShader">
+      <UniqueIdentifier>{3e38abd9-fd22-46c0-8b2a-323c12bb26e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GLUtil\ColorShader">
+      <UniqueIdentifier>{b5788e42-7390-4666-8211-de18102536e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GLUtil\PBRShader">
+      <UniqueIdentifier>{494003bc-a4ad-4411-a46e-ea6692a12216}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\IO\ModelIO">
+      <UniqueIdentifier>{a9d4f5f1-f3c3-4012-952c-0bff17848587}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Macros.cpp">
@@ -288,11 +300,29 @@
     <ClCompile Include="src\Common\Geometry\Triangle2D.cpp">
       <Filter>src\Common\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="src\IO\Model3D\GLMesh.cpp">
-      <Filter>src\IO\Model3D</Filter>
-    </ClCompile>
     <ClCompile Include="src\Common\ImageBuffer.cpp">
       <Filter>src\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLUtil\BasicShader\BasicShader.cpp">
+      <Filter>src\GLUtil\BasicShader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLUtil\ColorShader\ColorShader.cpp">
+      <Filter>src\GLUtil\ColorShader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLUtil\PBRShader\PBRShader.cpp">
+      <Filter>src\GLUtil\PBRShader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLUtil\GLMeshBuilder.cpp">
+      <Filter>src\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\IO\ModelIO\BinaryObjReader.cpp">
+      <Filter>src\Common\IO\ModelIO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\IO\ModelIO\ObjReader.cpp">
+      <Filter>src\Common\IO\ModelIO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLUtil\GLMeshRenderer.cpp">
+      <Filter>src\GLUtil</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -464,11 +494,29 @@
     <ClInclude Include="src\Common\Geometry\Triangle2D.h">
       <Filter>src\Common\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="src\IO\Model3D\GLMesh.h">
-      <Filter>src\IO\Model3D</Filter>
-    </ClInclude>
     <ClInclude Include="src\Common\ImageBuffer.h">
       <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\BasicShader\BasicShader.h">
+      <Filter>src\GLUtil\BasicShader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\ColorShader\ColorShader.h">
+      <Filter>src\GLUtil\ColorShader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\PBRShader\PBRShader.h">
+      <Filter>src\GLUtil\PBRShader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\GLMeshBuilder.h">
+      <Filter>src\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO\ModelIO\BinaryObjReader.h">
+      <Filter>src\Common\IO\ModelIO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO\ModelIO\ObjReader.h">
+      <Filter>src\Common\IO\ModelIO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\GLMeshRenderer.h">
+      <Filter>src\GLUtil</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
