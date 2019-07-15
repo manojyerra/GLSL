@@ -146,6 +146,11 @@ void ParticleLoader::LoadLowPolyData(const char* fileData, unsigned int length)
 	free(colorBuf);
 }
 
+void ParticleLoader::SetPosition(float x, float y, float z)
+{
+	_modelMat.SetPos(x, y, z);
+}
+
 void ParticleLoader::DrawAllParticles()
 {
 	_cubeParticleShader->Begin();

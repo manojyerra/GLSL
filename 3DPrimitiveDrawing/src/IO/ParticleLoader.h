@@ -51,6 +51,8 @@ public:
 	ParticleLoader();
 	~ParticleLoader();
 
+	void SetPosition(float x, float y, float z);
+
 	void DrawAllParticles();
 	void DrawLowPolyParticles();
 };
