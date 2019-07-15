@@ -1,39 +1,35 @@
-//#ifndef GLMesh_H
-//#define GLMesh_H
-//
-//#include "ShaderProgram.h"
-//#include "GLMat.h"
-//#include "ImageBuffer.h"
-//
-//class GLMesh
-//{
-//private:
-//	unsigned int _vertexBufferID;
-//	unsigned int _normalBufferID;
-//	unsigned int _uvBufferID;
-//	unsigned int _baseTexID;
-//	unsigned int _vertexCount;
-//
-//	ShaderProgram* _shaderProgram;
-//
-//	GLMat _modelMat;
-//
-//	GLMesh* SetVertexArray(const float* arr);
-//	GLMesh* SetNormalArray(const float* arr);
-//	GLMesh* SetUVArray(const float* arr);
-//	GLMesh* SetImageBuffer(ImageBuffer* imgBuf);
-//	bool build();
-//
-//public:
-//	static const int OBJ = 1;
-//	static const int BINARY = 2;
-//
-//	GLMesh(string folderPath, int type);
-//
-//
-//    void Draw();
-//
-//	~GLMesh();
-//};
-//
-//#endif
+#ifndef GLMeshBuilder_H
+#define GLMeshBuilder_H
+
+#include "GLMat.h"
+#include "ImageBuffer.h"
+
+class GLMeshBuilder
+{
+private:
+	GLuint _vertexBufferID;
+	GLuint _normalBufferID;
+	GLuint _uvBufferID;
+	GLuint _baseTexID;
+
+	const GLvoid* _vertexArr;
+	const GLvoid* _normalArr;
+	const GLvoid* _uvArr;
+	ImageBuffer* _imageBuffer;
+
+	GLsizeiptr _vertexArrLen;
+	GLsizeiptr _normalArrLen;
+	GLsizeiptr _uvArrLen;
+
+public:
+	GLMeshBuilder();
+	~GLMeshBuilder();
+
+	GLMeshBuilder* SetVertexArray(const GLvoid* arr, GLsizeiptr len);
+	GLMeshBuilder* SetNormalArray(const GLvoid* arr, GLsizeiptr len);
+	GLMeshBuilder* SetUVArray(const GLvoid* arr, GLsizeiptr len);
+	GLMeshBuilder* SetImageBuffer(ImageBuffer* imgBuf);
+	bool build();
+};
+
+#endif
