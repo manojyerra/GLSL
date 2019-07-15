@@ -3,9 +3,6 @@
 
 #include "ShaderProgram.h"
 #include "GLMat.h"
-#include "FloatArray.h"
-#include "ULongArray.h"
-#include "VoidPtrArray.h"
 
 #include <vector>
 #include <string>

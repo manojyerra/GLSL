@@ -1,16 +1,6 @@
 #include "PhongShader.h"
-#include "FileReader.h"
-#include "ImageBuffer.h"
-#include "GLUtil.h"
 #include "ShadersManager.h"
-#include "GLBuffer.h"
-#include "glm/glm.hpp"
 #include "Cam.h"
-#include "UtilFuncs.h"
-#include <glm/mat4x4.hpp>
-#include <glm/vec3.hpp>
-#include <glm/vec4.hpp>
-#include "glm/ext.hpp"
 
 PhongShader::PhongShader(int shaderType)
 {
