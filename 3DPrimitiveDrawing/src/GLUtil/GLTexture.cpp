@@ -11,6 +11,7 @@ GLTexture::GLTexture(int drawW, int drawH)
 	_vertexBufferID = 0;
 	_colorBufferID = 0;
 	_vertexCount = 0;
+	_textureID = 0;
 
 	_drawW = drawW;
 	_drawH = drawH;
