@@ -6,7 +6,7 @@
 #include "FloatArray.h"
 #include "ULongArray.h"
 #include "VoidPtrArray.h"
-#include "PhongShader/PhongShader.h"
+#include "PhongShader.h"
 
 #include <vector>
 #include <string>

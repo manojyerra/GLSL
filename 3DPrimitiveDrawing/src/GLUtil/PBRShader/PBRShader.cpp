@@ -16,8 +16,8 @@ PBRShader::PBRShader()
 	_metallic = 0.9f;
 	_roughness = 0.1f;
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/PBR/PBR.vs",
-																		"shaders/PBR/PBR.fs");
+	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/PBR_ML/PBR_ML.vs",
+																		"shaders/PBR_ML/PBR_ML.fs");
 }
 
 void PBRShader::SetVertexBufferID(unsigned int bufferID)
@@ -79,15 +79,16 @@ void PBRShader::SetUniformsAndAttributes()
 	float* m = _modelMat.m;
 
 	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(cam->GetMVP(m)));
-	_shaderProgram->SetUniformMatrix4fv("modelView", glm::value_ptr(cam->GetModelView(m)));
+	_shaderProgram->SetUniformMatrix4fv("modelView", glm::value_ptr(cam->GetModelViewMat(m)));
 	_shaderProgram->SetUniformMatrix3fv("normalMat", glm::value_ptr(cam->GetNormalMat(m)));
+	//_shaderProgram->SetUniformMatrix4fv("camMat", cam->viewMat.m);
 
-	_shaderProgram->SetUniform1f("alpha", 1.0);
 	_shaderProgram->SetUniform3f("direction", _lightDir.x, _lightDir.y, _lightDir.z);
 	_shaderProgram->SetUniform3f("color", _lightColor.r, _lightColor.g, _lightColor.b);
 	_shaderProgram->SetUniform3f("albedo", _albedo.r, _albedo.g, _albedo.b);
 	_shaderProgram->SetUniform1f("metallic", _metallic);
 	_shaderProgram->SetUniform1f("roughness", _roughness);
+	_shaderProgram->SetUniform1f("alpha", _alpha);
 
 	if(_normalBufferID)
 	{

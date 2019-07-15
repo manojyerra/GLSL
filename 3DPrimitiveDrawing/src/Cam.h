@@ -54,7 +54,7 @@ public:
 	bool IsOrthoProjection();
 	
 	glm::mat4 GetMVP(float* modelMat);
-	glm::mat4 GetModelView(float* modelMat);
+	glm::mat4 GetModelViewMat(float* modelMat);
 	glm::mat3 GetNormalMat(float* modelMat);
 	
 	bool UpdateCamera();

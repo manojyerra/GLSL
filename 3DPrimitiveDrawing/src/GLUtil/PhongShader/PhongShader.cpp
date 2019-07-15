@@ -5,18 +5,25 @@
 PhongShader::PhongShader(int shaderType)
 {
 	_shaderType = shaderType;
+
 	_perPixelShader = NULL;
 	_perVertexShader = NULL;
+	_shaderProgram = NULL;
 
 	_vertexBufferID = 0;
 	_normalBufferID = 0;
 	_uvBufferID = 0;
 	_baseTexID = 0;
 
-	Ka[0] = Ka[1] = Ka[2] = Ka[3] = 0.0f;
-	Kd[0] = Kd[1] = Kd[2] = Kd[3] = 0.0f;
-	Ks[0] = Ks[1] = Ks[2] = Ks[3] = 0.0f;
-	Se = 0.0f;
+	Ka[0] = Ka[1] = Ka[2] = 0.05f;
+	Kd[0] = Kd[1] = Kd[2] = 0.20f;
+	Ks[0] = Ks[1] = Ks[2] = 0.32f;
+
+	Ka[3] = 1.0f;
+	Kd[3] = 1.0f;
+	Ks[3] = 1.0f;
+	
+	Se = 38.4f;
 
 	_alpha = 1.0f;
 
@@ -47,7 +54,7 @@ void PhongShader::SetShaderType(int shaderType)
 				"shaders/PhongPerVertex/PhongPerVertex.fs");
 		}
 
-		_shaderProgram = _perPixelShader;
+		_shaderProgram = _perVertexShader;
 	}
 }
 
@@ -136,9 +143,9 @@ void PhongShader::SetUniformsAndAttributes()
 	float* m = _modelMat.m;
 
 	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(cam->GetMVP(m)));
-	_shaderProgram->SetUniformMatrix4fv("modelView", glm::value_ptr(cam->GetModelView(m)));
+	_shaderProgram->SetUniformMatrix4fv("modelView", glm::value_ptr(cam->GetModelViewMat(m)));
 	_shaderProgram->SetUniformMatrix3fv("normalMat", glm::value_ptr(cam->GetNormalMat(m)));
-	_shaderProgram->SetUniform1f("alpha", 1.0);
+	_shaderProgram->SetUniform1f("alpha", _alpha);
 
 	_shaderProgram->SetUniform3f("lightPos", lightPos.x, lightPos.y, lightPos.z);
 	_shaderProgram->SetUniform4f("ambient", Ka[0], Ka[1], Ka[2], Ka[3]);

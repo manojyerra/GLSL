@@ -11,8 +11,9 @@ uniform vec3 color;
 uniform vec3 albedo;
 uniform float metallic;
 uniform float roughness;
+uniform float alpha;
 
-uniform mat4 camMat;
+//uniform mat4 camMat;
 
 layout (location = 0) out vec4 outColor;
 
@@ -146,6 +147,6 @@ void main()
 	finalColor = finalColor / (finalColor + vec3(1.0));
     finalColor = pow(finalColor, vec3(1.0/2.2));  
 
-	outColor = vec4(finalColor, 1.0);
+	outColor = vec4(finalColor, alpha);
 }
 

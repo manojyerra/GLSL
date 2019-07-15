@@ -116,7 +116,7 @@ glm::mat4 Cam::GetMVP(float* modelMat)
 	return glm::mat4(projMatrix * viewMatrix * modelMatrix);
 }
 
-glm::mat4 Cam::GetModelView(float* modelMat)
+glm::mat4 Cam::GetModelViewMat(float* modelMat)
 {
 	glm::mat4 viewMatrix = glm::make_mat4(viewMat.m);
 	glm::mat4 modelMatrix = glm::make_mat4(modelMat);

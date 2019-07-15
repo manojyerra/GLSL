@@ -61,20 +61,24 @@ GameLoop::GameLoop(int sw, int sh)
 	_texture = new GLTexture(_sw, _sh);
 
 	_particleLoader = new ParticleLoader();
-	_particleLoader2 = new ParticleLoader();
-	_particleLoader3 = new ParticleLoader();
-	_particleLoader4 = new ParticleLoader();
-	_particleLoader5 = new ParticleLoader();
+	//_particleLoader2 = new ParticleLoader();
+	//_particleLoader3 = new ParticleLoader();
+	//_particleLoader4 = new ParticleLoader();
+	//_particleLoader5 = new ParticleLoader();
 
-	_particleLoader2->SetPosition(0, 2, 0);
-	_particleLoader3->SetPosition(0, 4, 0);
-	_particleLoader4->SetPosition(0, -2, 0);
-	_particleLoader5->SetPosition(0, -4, 0);
+	//_particleLoader2->SetPosition(0, 2, 0);
+	//_particleLoader3->SetPosition(0, 4, 0);
+	//_particleLoader4->SetPosition(0, -2, 0);
+	//_particleLoader5->SetPosition(0, -4, 0);
 
 	_drawAllParticles = true;
 
 	ObjReader objReader("data/teapot");
 	_meshRenderer = new GLMeshRenderer(&objReader);
+	//_meshRenderer->SetShader(GLMeshRenderer::BASIC_SHADER);
+	//_meshRenderer->SetShader(GLMeshRenderer::PHONG_PER_VERTEX_SHADER);
+	//_meshRenderer->SetShader(GLMeshRenderer::PHONG_PER_PIXEL_SHADER);
+	_meshRenderer->SetShader(GLMeshRenderer::PBR_SHADER);
 }
 
 void GameLoop::GLSettings()
@@ -113,10 +117,10 @@ void GameLoop::ParticleSpecificDraw()
 
 		_floor->Draw();
 		_particleLoader->DrawLowPolyParticles();
-		_particleLoader2->DrawLowPolyParticles();
-		_particleLoader3->DrawLowPolyParticles();
-		_particleLoader4->DrawLowPolyParticles();
-		_particleLoader5->DrawLowPolyParticles();
+		//_particleLoader2->DrawLowPolyParticles();
+		//_particleLoader3->DrawLowPolyParticles();
+		//_particleLoader4->DrawLowPolyParticles();
+		//_particleLoader5->DrawLowPolyParticles();
 
 		_drawAllParticles = true;
 	}
@@ -132,10 +136,10 @@ void GameLoop::ParticleSpecificDraw()
 
 			_floor->Draw();
 			_particleLoader->DrawAllParticles();
-			_particleLoader2->DrawAllParticles();
-			_particleLoader3->DrawAllParticles();
-			_particleLoader4->DrawAllParticles();
-			_particleLoader5->DrawAllParticles();
+			//_particleLoader2->DrawAllParticles();
+			//_particleLoader3->DrawAllParticles();
+			//_particleLoader4->DrawAllParticles();
+			//_particleLoader5->DrawAllParticles();
 
 			_fbo->UnBindFBO();
 			_drawAllParticles = false;
@@ -289,6 +293,12 @@ GameLoop::~GameLoop()
 	{
 		delete _floor;
 		_floor = NULL;
+	}
+
+	if (_meshRenderer)
+	{
+		delete _meshRenderer;
+		_meshRenderer = NULL;
 	}
 
 	Cam::GetInstance()->DeleteInstance();

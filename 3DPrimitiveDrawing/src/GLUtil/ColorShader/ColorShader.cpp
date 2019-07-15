@@ -49,7 +49,7 @@ void ColorShader::SetUniformsAndAttributes()
 	float* m = _modelMat.m;
 
 	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(cam->GetMVP(m)));
-	_shaderProgram->SetUniform1f("alpha", 1.0);
+	_shaderProgram->SetUniform1f("alpha", _alpha);
 
 	if(_colorBufferID)
 	{

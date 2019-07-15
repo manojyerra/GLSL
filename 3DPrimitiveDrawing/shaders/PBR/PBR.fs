@@ -5,13 +5,13 @@ const float PI = 3.14159265359;
 layout (location = 0) in vec4 viewPosition;
 layout (location = 1) in vec3 viewNormal;
 
-uniform float alpha;
 uniform vec3 direction;
 uniform vec3 color;
 
 uniform vec3 albedo;
 uniform float metallic;
 uniform float roughness;
+uniform float alpha;
 
 layout (location = 0) out vec4 outColor;
 
