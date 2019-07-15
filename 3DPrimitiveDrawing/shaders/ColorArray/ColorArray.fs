@@ -1,12 +1,11 @@
 #version 450
 
-//in variables...
-layout (location = 0) in vec3 fragColor;
+uniform float alpha;
 
-//out variables...
+layout (location = 0) in vec3 color_vary;
 layout (location = 0) out vec4 outColor;
 
 void main (void)  
 {     
-   outColor = vec4(fragColor, 1.0);
+   outColor = vec4(color_vary, alpha);
 }
