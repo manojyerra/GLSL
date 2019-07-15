@@ -32,11 +32,15 @@ private:
 public:
 	ObjReader(string folderPath);
 
-	const float* GetVertexArr();
-	const float* GetUVArr();
-	const float* GetNormalArr();
+	const char* GetVertexBuffer();
+	const char* GetUVBuffer();
+	const char* GetNormalBuffer();
 	unsigned int GetVertexCount();
 	ImageBuffer* GetImageBuffer();
+
+	unsigned int GetVertexBufferSize();
+	unsigned int GetUVBufferSize();
+	unsigned int GetNoralBufferSize();
 
 	void WriteBinaryToFile();
 	void WriteBinaryToFile(string folderPath);

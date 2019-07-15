@@ -18,21 +18,21 @@ GLMeshBuilder::GLMeshBuilder()
 	_uvArrLen = 0;
 }
 
-GLMeshBuilder* GLMeshBuilder::SetVertexArray(const GLvoid* arr, GLsizeiptr len)
+GLMeshBuilder* GLMeshBuilder::SetVertexBuffer(const GLvoid* arr, GLsizeiptr len)
 {
 	_vertexArr = arr;
 	_vertexArrLen = len;
 	return this;
 }
 
-GLMeshBuilder* GLMeshBuilder::SetNormalArray(const GLvoid* arr, GLsizeiptr len)
+GLMeshBuilder* GLMeshBuilder::SetNormalBuffer(const GLvoid* arr, GLsizeiptr len)
 {
 	_normalArr = arr;
 	_normalArrLen = len;
 	return this;
 }
 
-GLMeshBuilder* GLMeshBuilder::SetUVArray(const GLvoid* arr, GLsizeiptr len)
+GLMeshBuilder* GLMeshBuilder::SetUVBuffer(const GLvoid* arr, GLsizeiptr len)
 {
 	_uvArr = arr;
 	_uvArrLen = len;

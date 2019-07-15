@@ -209,19 +209,19 @@ void ObjReader::LoadTextures(string folderPath)
 	}
 }
 
-const float* ObjReader::GetVertexArr()
+const char* ObjReader::GetVertexBuffer()
 {
-	return (_vertexFloatArr ? _vertexFloatArr->getArray() : NULL);
+	return (_vertexFloatArr ? (const char*)_vertexFloatArr->getArray() : NULL);
 }
 
-const float* ObjReader::GetUVArr()
+const char* ObjReader::GetUVBuffer()
 {
-	return (_uvFloatArr ? _uvFloatArr->getArray() : NULL);
+	return (_uvFloatArr ? (const char*)_uvFloatArr->getArray() : NULL);
 }
 
-const float* ObjReader::GetNormalArr()
+const char* ObjReader::GetNormalBuffer()
 {
-	return (_normalFloatArr ? _normalFloatArr->getArray() : NULL);
+	return (_normalFloatArr ? (const char*)_normalFloatArr->getArray() : NULL);
 }
 
 unsigned int ObjReader::GetVertexCount()
@@ -232,6 +232,22 @@ unsigned int ObjReader::GetVertexCount()
 ImageBuffer* ObjReader::GetImageBuffer()
 {
 	return _imageBuffer;
+}
+
+//TODO : Think of having sizeInBytes method in FloatArray class instead of multiplying it with sizeof(float)
+unsigned int ObjReader::GetVertexBufferSize()
+{
+	return _vertexFloatArr ? _vertexFloatArr->size() * sizeof(float) : 0;
+}
+
+unsigned int ObjReader::GetUVBufferSize()
+{
+	return _uvFloatArr ? _uvFloatArr->size() * sizeof(float) : 0;
+}
+
+unsigned int ObjReader::GetNoralBufferSize()
+{
+	return _normalFloatArr ? _normalFloatArr->size() * sizeof(float) : 0;
 }
 
 ObjReader::~ObjReader()

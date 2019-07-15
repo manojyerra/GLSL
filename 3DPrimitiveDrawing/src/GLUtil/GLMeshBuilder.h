@@ -25,9 +25,9 @@ public:
 	GLMeshBuilder();
 	~GLMeshBuilder();
 
-	GLMeshBuilder* SetVertexArray(const GLvoid* arr, GLsizeiptr len);
-	GLMeshBuilder* SetNormalArray(const GLvoid* arr, GLsizeiptr len);
-	GLMeshBuilder* SetUVArray(const GLvoid* arr, GLsizeiptr len);
+	GLMeshBuilder* SetVertexBuffer(const GLvoid* arr, GLsizeiptr len);
+	GLMeshBuilder* SetNormalBuffer(const GLvoid* arr, GLsizeiptr len);
+	GLMeshBuilder* SetUVBuffer(const GLvoid* arr, GLsizeiptr len);
 	GLMeshBuilder* SetImageBuffer(ImageBuffer* imgBuf);
 	bool build();
 };
