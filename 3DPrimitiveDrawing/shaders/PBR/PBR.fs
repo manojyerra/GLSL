@@ -5,6 +5,7 @@ const float PI = 3.14159265359;
 layout (location = 0) in vec4 viewPosition;
 layout (location = 1) in vec3 viewNormal;
 
+uniform float alpha;
 uniform vec3 direction;
 uniform vec3 color;
 
@@ -78,6 +79,6 @@ void main()
 	finalColor = finalColor / (finalColor + vec3(1.0));
     finalColor = pow(finalColor, vec3(1.0/2.2));  
 
-	outColor = vec4(finalColor, 1.0);
+	outColor = vec4(finalColor, alpha);
 }
 

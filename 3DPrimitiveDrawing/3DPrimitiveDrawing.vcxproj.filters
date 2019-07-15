@@ -22,12 +22,6 @@
     <Filter Include="src\ShaderProgram">
       <UniqueIdentifier>{53332d39-de2f-44fb-b9c0-b9ee4c2f3607}</UniqueIdentifier>
     </Filter>
-    <Filter Include="shaders">
-      <UniqueIdentifier>{471835b5-7bfc-4b32-a662-2977e193b4e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="shaders\ColorArray">
-      <UniqueIdentifier>{d341525e-1bb2-4b22-a4ea-b41530c2f1fd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Util">
       <UniqueIdentifier>{185a35b1-5272-4410-80dc-70c5b00da491}</UniqueIdentifier>
     </Filter>
@@ -37,21 +31,6 @@
     <Filter Include="src\Shapes2D">
       <UniqueIdentifier>{0db66925-22d3-48d2-9220-f3852ebb094e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="shaders\ColorAndScale">
-      <UniqueIdentifier>{fdf68867-c341-489c-9c31-0d58c85ef5c5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="shaders\PBR">
-      <UniqueIdentifier>{b1f37f91-4dc7-42f6-816c-2a528a993f3c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="shaders\Phong">
-      <UniqueIdentifier>{10c3093c-112d-430b-8aed-23802493ed83}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="shaders\PhongPerVertex">
-      <UniqueIdentifier>{dc7a316e-f79b-4ee1-bf04-3bcd1abe40a3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="shaders\PBR_ML">
-      <UniqueIdentifier>{a97dd78f-fc72-45bb-9da5-c2aa4c7c70d9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\GLUtil\PhongShader">
       <UniqueIdentifier>{37a8ea9e-302d-4837-9ffb-8e22961a6c0b}</UniqueIdentifier>
     </Filter>
@@ -60,9 +39,6 @@
     </Filter>
     <Filter Include="src\IO\Model3D">
       <UniqueIdentifier>{108b285b-5f3d-4f02-821a-8b6009272d8a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="shaders\CubeGeo">
-      <UniqueIdentifier>{221b5d6b-5ec3-4ede-9357-cf29e5efc082}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Common">
       <UniqueIdentifier>{5b111cde-83c1-4438-a9d0-46970f146d4d}</UniqueIdentifier>
@@ -131,9 +107,6 @@
     </ClCompile>
     <ClCompile Include="src\ShaderProgram\ShadersManager.cpp">
       <Filter>src\ShaderProgram</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ImageBuffer.cpp">
-      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\Cam.cpp">
       <Filter>src</Filter>
@@ -318,6 +291,9 @@
     <ClCompile Include="src\IO\Model3D\GLMesh.cpp">
       <Filter>src\IO\Model3D</Filter>
     </ClCompile>
+    <ClCompile Include="src\Common\ImageBuffer.cpp">
+      <Filter>src\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -361,9 +337,6 @@
     </ClInclude>
     <ClInclude Include="src\ShaderProgram\ShadersManager.h">
       <Filter>src\ShaderProgram</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ImageBuffer.h">
-      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\Cam.h">
       <Filter>src</Filter>
@@ -494,52 +467,8 @@
     <ClInclude Include="src\IO\Model3D\GLMesh.h">
       <Filter>src\IO\Model3D</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="shaders\ColorArray\ColorArray.fs">
-      <Filter>shaders\ColorArray</Filter>
-    </None>
-    <None Include="shaders\ColorArray\ColorArray.vs">
-      <Filter>shaders\ColorArray</Filter>
-    </None>
-    <None Include="shaders\ColorAndScale\ColorAndScale.fs">
-      <Filter>shaders\ColorAndScale</Filter>
-    </None>
-    <None Include="shaders\ColorAndScale\ColorAndScale.vs">
-      <Filter>shaders\ColorAndScale</Filter>
-    </None>
-    <None Include="shaders\PBR\PBR.fs">
-      <Filter>shaders\PBR</Filter>
-    </None>
-    <None Include="shaders\PBR\PBR.vs">
-      <Filter>shaders\PBR</Filter>
-    </None>
-    <None Include="shaders\Phong\Phong.vs">
-      <Filter>shaders\Phong</Filter>
-    </None>
-    <None Include="shaders\Phong\Phong.fs">
-      <Filter>shaders\Phong</Filter>
-    </None>
-    <None Include="shaders\PhongPerVertex\PhongPerVertex.fs">
-      <Filter>shaders\PhongPerVertex</Filter>
-    </None>
-    <None Include="shaders\PhongPerVertex\PhongPerVertex.vs">
-      <Filter>shaders\PhongPerVertex</Filter>
-    </None>
-    <None Include="shaders\PBR_ML\PBR_ML.fs">
-      <Filter>shaders\PBR_ML</Filter>
-    </None>
-    <None Include="shaders\PBR_ML\PBR_ML.vs">
-      <Filter>shaders\PBR_ML</Filter>
-    </None>
-    <None Include="shaders\CubeGeo\CubeGeo.fs">
-      <Filter>shaders\CubeGeo</Filter>
-    </None>
-    <None Include="shaders\CubeGeo\CubeGeo.gs">
-      <Filter>shaders\CubeGeo</Filter>
-    </None>
-    <None Include="shaders\CubeGeo\CubeGeo.vs">
-      <Filter>shaders\CubeGeo</Filter>
-    </None>
+    <ClInclude Include="src\Common\ImageBuffer.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -28,6 +28,7 @@
     <ClCompile Include="src\Common\Arrays\VoidPtrArray.cpp" />
     <ClCompile Include="src\Common\Geometry\Line2D.cpp" />
     <ClCompile Include="src\Common\Geometry\Triangle2D.cpp" />
+    <ClCompile Include="src\Common\ImageBuffer.cpp" />
     <ClCompile Include="src\Common\IO\FileIO\FileReader.cpp" />
     <ClCompile Include="src\Common\IO\ImageIO\PNG\libpng\png.c" />
     <ClCompile Include="src\Common\IO\ImageIO\PNG\libpng\pngerror.c" />
@@ -74,7 +75,6 @@
     <ClCompile Include="src\GLUtil\GLTexture.cpp" />
     <ClCompile Include="src\GLUtil\GLUtil.cpp" />
     <ClCompile Include="src\GLUtil\PhongShader\PhongShader.cpp" />
-    <ClCompile Include="src\ImageBuffer.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\IO\Model3D\BinaryObjLoader.cpp" />
     <ClCompile Include="src\IO\Model3D\GLMesh.cpp" />
@@ -107,6 +107,7 @@
     <ClInclude Include="src\Common\Arrays\VoidPtrArray.h" />
     <ClInclude Include="src\Common\Geometry\Line2D.h" />
     <ClInclude Include="src\Common\Geometry\Triangle2D.h" />
+    <ClInclude Include="src\Common\ImageBuffer.h" />
     <ClInclude Include="src\Common\IO\FileIO\FileReader.h" />
     <ClInclude Include="src\Common\IO\ImageIO\PNG\libpng\png.h" />
     <ClInclude Include="src\Common\IO\ImageIO\PNG\libpng\pngconf.h" />
@@ -135,7 +136,6 @@
     <ClInclude Include="src\GLUtil\GLTexture.h" />
     <ClInclude Include="src\GLUtil\GLUtil.h" />
     <ClInclude Include="src\GLUtil\PhongShader\PhongShader.h" />
-    <ClInclude Include="src\ImageBuffer.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\IO\Model3D\BinaryObjLoader.h" />
     <ClInclude Include="src\IO\Model3D\GLMesh.h" />
@@ -154,23 +154,6 @@
     <ClInclude Include="src\Util\RandomColor.h" />
     <ClInclude Include="src\Util\StringUtils.h" />
     <ClInclude Include="src\Util\UtilFuncs.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="shaders\ColorAndScale\ColorAndScale.fs" />
-    <None Include="shaders\ColorAndScale\ColorAndScale.vs" />
-    <None Include="shaders\ColorArray\ColorArray.fs" />
-    <None Include="shaders\ColorArray\ColorArray.vs" />
-    <None Include="shaders\CubeGeo\CubeGeo.fs" />
-    <None Include="shaders\CubeGeo\CubeGeo.gs" />
-    <None Include="shaders\CubeGeo\CubeGeo.vs" />
-    <None Include="shaders\PBR\PBR.fs" />
-    <None Include="shaders\PBR\PBR.vs" />
-    <None Include="shaders\PBR_ML\PBR_ML.fs" />
-    <None Include="shaders\PBR_ML\PBR_ML.vs" />
-    <None Include="shaders\PhongPerVertex\PhongPerVertex.fs" />
-    <None Include="shaders\PhongPerVertex\PhongPerVertex.vs" />
-    <None Include="shaders\Phong\Phong.fs" />
-    <None Include="shaders\Phong\Phong.vs" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
