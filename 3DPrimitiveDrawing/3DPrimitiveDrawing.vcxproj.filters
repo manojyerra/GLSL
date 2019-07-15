@@ -315,6 +315,9 @@
     <ClCompile Include="src\Common\Geometry\Triangle2D.cpp">
       <Filter>src\Common\Geometry</Filter>
     </ClCompile>
+    <ClCompile Include="src\IO\Model3D\GLMesh.cpp">
+      <Filter>src\IO\Model3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -487,6 +490,9 @@
     </ClInclude>
     <ClInclude Include="src\Common\Geometry\Triangle2D.h">
       <Filter>src\Common\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IO\Model3D\GLMesh.h">
+      <Filter>src\IO\Model3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

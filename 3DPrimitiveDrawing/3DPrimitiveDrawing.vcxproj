@@ -77,6 +77,7 @@
     <ClCompile Include="src\ImageBuffer.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\IO\Model3D\BinaryObjLoader.cpp" />
+    <ClCompile Include="src\IO\Model3D\GLMesh.cpp" />
     <ClCompile Include="src\IO\Model3D\ObjLoader.cpp" />
     <ClCompile Include="src\IO\ParticleLoader.cpp" />
     <ClCompile Include="src\Macros.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="src\ImageBuffer.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\IO\Model3D\BinaryObjLoader.h" />
+    <ClInclude Include="src\IO\Model3D\GLMesh.h" />
     <ClInclude Include="src\IO\Model3D\ObjLoader.h" />
     <ClInclude Include="src\IO\ParticleLoader.h" />
     <ClInclude Include="src\Macros.h" />
