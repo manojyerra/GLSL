@@ -238,20 +238,26 @@ void ObjLoader::Draw()
 
 	_shaderProgram->Begin();
 
+
 	glm::mat4 viewMatrix = glm::make_mat4(Cam::GetInstance()->viewMat.m);
-	glm::mat4 modelMatrix = glm::make_mat4(_modelMat.m);
-	glm::mat4 modelViewMatrix = viewMatrix * modelMatrix;
-	glm::mat4 normalMatrix = glm::transpose(glm::inverse(modelViewMatrix));
+	//glm::mat4 modelMatrix = glm::make_mat4(_modelMat.m);
+	//glm::mat4 modelViewMatrix = viewMatrix * modelMatrix;
+	//glm::mat4 normalMatrix = glm::transpose(glm::inverse(modelViewMatrix));
 
-	GLint projMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "projMat");
-	GLint viewMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "viewMat");
-	GLint normalMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "normalMat");
-	GLint modelMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "modelMat");
+	//GLint projMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "projMat");
+	//GLint viewMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "viewMat");
+	//GLint normalMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "normalMat");
+	//GLint modelMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "modelMat");
 
-	glUniformMatrix4fv(projMatLoc, 1, GL_FALSE, Cam::GetInstance()->projMat.m);
-	glUniformMatrix4fv(viewMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
-	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, _modelMat.m);
-	glUniformMatrix3fv(normalMatLoc, 1, GL_FALSE, glm::value_ptr(cam->GetNormalMat(_modelMat.m)));
+	//glUniformMatrix4fv(projMatLoc, 1, GL_FALSE, Cam::GetInstance()->projMat.m);
+	//glUniformMatrix4fv(viewMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
+	//glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, _modelMat.m);
+	//glUniformMatrix3fv(normalMatLoc, 1, GL_FALSE, glm::value_ptr(cam->GetNormalMat(_modelMat.m)));
+
+	float* m = _modelMat.m;
+	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(cam->GetMVP(m)));
+	_shaderProgram->SetUniformMatrix4fv("modelViewMat", glm::value_ptr(cam->GetModelViewMat(m)));
+	_shaderProgram->SetUniformMatrix3fv("normalMat", glm::value_ptr(cam->GetNormalMat(m)));
 
 	//viewMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "camMat");
 	//glUniformMatrix4fv(viewMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
@@ -269,12 +275,13 @@ void ObjLoader::Draw()
 
 	glm::vec4 dir = glm::vec4(0, -1, 0, 0);
 	dir = glm::normalize(viewMatrix * dir);
-	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "direction"), dir.x, dir.y, dir.z);
+	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "direction"), 0, -1, 0);
 	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "color"), 23.47, 21.31, 20.79);
 
 	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "metallic"), 0.9);
 	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "roughness"), 0.3);
 	glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "albedo"), 0.95, 0.93, 0.88);
+	glUniform1f(glGetUniformLocation(_shaderProgram->ProgramID(), "alpha"), 1.0f);
 
 	//glm::vec3 camPos(cam->viewMat.m[12], cam->viewMat.m[13], cam->viewMat.m[14]);
 	//glUniform3f(glGetUniformLocation(_shaderProgram->ProgramID(), "camPos"), camPos.x, camPos.y, camPos.z);

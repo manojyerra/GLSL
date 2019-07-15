@@ -54,7 +54,7 @@ GameLoop::GameLoop(int sw, int sh)
 	_sphere->SetPos(5, 0, 0);
 	_sphere->SetRadius(5);
 
-	_objLoader = new ObjLoader("data/lamp", false);
+	_objLoader = new ObjLoader("data/teapot");
 	_binaryObjLoader = new BinaryObjLoader("data/hipolyTeapot");
 
 	_fbo = new GLFBO(_sw, _sh);
@@ -73,12 +73,17 @@ GameLoop::GameLoop(int sw, int sh)
 
 	_drawAllParticles = true;
 
-	ObjReader objReader("data/teapot");
-	_meshRenderer = new GLMeshRenderer(&objReader);
 	//_meshRenderer->SetShader(GLMeshRenderer::BASIC_SHADER);
 	//_meshRenderer->SetShader(GLMeshRenderer::PHONG_PER_VERTEX_SHADER);
 	//_meshRenderer->SetShader(GLMeshRenderer::PHONG_PER_PIXEL_SHADER);
+
+	ObjReader objReader("data/teapot");
+	_meshRenderer = new GLMeshRenderer(&objReader);
 	_meshRenderer->SetShader(GLMeshRenderer::PBR_SHADER);
+
+	_meshRenderer1 = new GLMeshRenderer(&objReader);
+	_meshRenderer1->SetShader(GLMeshRenderer::PHONG_PER_PIXEL_SHADER);
+	_meshRenderer1->SetPos(5.0,0.0,0.0);
 }
 
 void GameLoop::GLSettings()
@@ -217,6 +222,7 @@ void GameLoop::SetCamAndDrawObjects()
 	//_sphere->Draw();
 	//_cylinder->Draw();
 	_meshRenderer->Draw();
+	_meshRenderer1->Draw();
 }
 
 void GameLoop::SetScreenSize(int sw, int sh)
@@ -299,6 +305,12 @@ GameLoop::~GameLoop()
 	{
 		delete _meshRenderer;
 		_meshRenderer = NULL;
+	}
+
+	if (_meshRenderer1)
+	{
+		delete _meshRenderer1;
+		_meshRenderer1 = NULL;
 	}
 
 	Cam::GetInstance()->DeleteInstance();

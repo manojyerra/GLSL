@@ -39,6 +39,16 @@ void GLMeshRenderer::CommonInit()
 	SetShader(_shaderType);
 }
 
+void GLMeshRenderer::SetModelMatrix(float* mat)
+{
+	_modelMat.Copy(mat);
+}
+
+void GLMeshRenderer::SetPos(float x, float y, float z)
+{
+	_modelMat.SetPos(x, y, z);
+}
+
 void GLMeshRenderer::SetShader(int shaderType)
 {
 	_shaderType = shaderType;
@@ -50,7 +60,7 @@ void GLMeshRenderer::SetShader(int shaderType)
 			_basicShader = new BasicShader();
 			_basicShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
 		}
-	}	
+	}
 	else if (_shaderType == COLOR_SHADER)
 	{
 		if (!_colorShader)
@@ -92,6 +102,7 @@ void GLMeshRenderer::Draw()
 {
 	if (_shaderType == BASIC_SHADER)
 	{
+		_basicShader->SetModelMatrix(_modelMat.m);
 		_basicShader->Begin();
 		_basicShader->SetUniformsAndAttributes();
 		glDrawArrays(GL_TRIANGLES, 0, _meshBuilder->GetVertexBufferSize()/12);
@@ -99,6 +110,7 @@ void GLMeshRenderer::Draw()
 	}
 	else if (_shaderType == PHONG_PER_VERTEX_SHADER)
 	{
+		_phongPerVertexShader->SetModelMatrix(_modelMat.m);
 		_phongPerVertexShader->Begin();
 		_phongPerVertexShader->SetUniformsAndAttributes();
 		glDrawArrays(GL_TRIANGLES, 0, _meshBuilder->GetVertexBufferSize() / 12);
@@ -106,6 +118,7 @@ void GLMeshRenderer::Draw()
 	}
 	else if (_shaderType == PHONG_PER_PIXEL_SHADER)
 	{
+		_phongPerPixelShader->SetModelMatrix(_modelMat.m);
 		_phongPerPixelShader->Begin();
 		_phongPerPixelShader->SetUniformsAndAttributes();
 		glDrawArrays(GL_TRIANGLES, 0, _meshBuilder->GetVertexBufferSize() / 12);
@@ -113,6 +126,7 @@ void GLMeshRenderer::Draw()
 	}
 	else if (_shaderType == PBR_SHADER)
 	{
+		_pbrShader->SetModelMatrix(_modelMat.m);
 		_pbrShader->Begin();
 		_pbrShader->SetUniformsAndAttributes();
 		glDrawArrays(GL_TRIANGLES, 0, _meshBuilder->GetVertexBufferSize() / 12);

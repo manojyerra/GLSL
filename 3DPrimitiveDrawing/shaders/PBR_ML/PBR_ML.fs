@@ -57,61 +57,25 @@ void main()
 
 	for(int i=0; i<4; i++)
 	{
-		if(i == 0)
-		{
+		if(i == 0){
 			dir = vec4(0.0, -1.0, 0.0, 1.0);
-			//rough = 0.1;
-			//metal = 0.5;
 		}
-		else if(i == 1)
-		{
+		else if(i == 1){
 			dir = vec4(0.0, 1.0, 0.0, 1.0);
-			//rough = 0.2;
-			//metal = 0.8;
 		}
-		else if(i == 2)
-		{
+		else if(i == 2){
 			dir = vec4(1.0, 0.0, 0.0, 1.0);
-			//rough = 0.3;
-			//metal = 0.2;
 		}
-		else if(i == 3)
-		{
+		else if(i == 3){
 			dir = vec4(-1.0, 0.0, 0.0, 1.0);
-			//rough = 0.1;
-			//metal = 0.8;
 		}
-		else if(i == 4)
-		{
+		else if(i == 4){
 			dir = vec4(0.0, 0.0, 1.0, 1.0);
-			//rough = 0.5;
-			//metal = 0.5;
 		}
-		else if(i == 5)
-		{
+		else if(i == 5){
 			dir = vec4(0.0, 0.0, -1.0, 1.0);
-			//rough = 0.4;
-			//metal = 0.4;
 		}
 	
-	/*
-		if(i == 0)
-		{
-			dir = vec4(1.0, 1.0, -1.0, 1.0);
-		}
-		else if(i == 1)
-		{
-			dir = vec4(-1.0, 1.0, -1.0, 1.0);	
-		}
-		else if(i == 2)
-		{
-			dir = vec4(-1.0, -1.0, 1.0, 1.0);
-		}
-		else if(i == 3)
-		{
-			dir = vec4(1.0, -1.0, 1.0, 1.0);
-		}
-	*/
 		dir = normalize(dir);
 
 		vec3 normal = normalize(viewNormal);
@@ -150,3 +114,18 @@ void main()
 	outColor = vec4(finalColor, alpha);
 }
 
+
+	/*
+		if(i == 0){
+			dir = vec4(1.0, 1.0, -1.0, 1.0);
+		}
+		else if(i == 1){
+			dir = vec4(-1.0, 1.0, -1.0, 1.0);	
+		}
+		else if(i == 2){
+			dir = vec4(-1.0, -1.0, 1.0, 1.0);
+		}
+		else if(i == 3){
+			dir = vec4(1.0, -1.0, 1.0, 1.0);
+		}
+	*/

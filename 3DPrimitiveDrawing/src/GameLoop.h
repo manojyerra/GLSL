@@ -55,6 +55,7 @@ private:
 	void SetCamAndDrawObjects();
 	
 	GLMeshRenderer* _meshRenderer;
+	GLMeshRenderer* _meshRenderer1;
 
 public:
 	GameLoop(int sw, int sh);

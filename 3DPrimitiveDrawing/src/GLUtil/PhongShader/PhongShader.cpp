@@ -15,15 +15,18 @@ PhongShader::PhongShader(int shaderType)
 	_uvBufferID = 0;
 	_baseTexID = 0;
 
-	Ka[0] = Ka[1] = Ka[2] = 0.05f;
-	Kd[0] = Kd[1] = Kd[2] = 0.20f;
-	Ks[0] = Ks[1] = Ks[2] = 0.32f;
+	GLfloat Ka[] = { 0.05375,	0.05,	0.06625,	0.82 };
+	GLfloat Kd[] = { 0.18275,	0.17,	0.22525,	0.82 };
+	GLfloat Ks[] = { 0.332741,	0.328634,	0.346435,	0.82 };
 
-	Ka[3] = 1.0f;
-	Kd[3] = 1.0f;
-	Ks[3] = 1.0f;
-	
-	Se = 38.4f;
+	for (int i = 0; i < 4; i++)
+	{
+		_Ka[i] = Ka[i];
+		_Kd[i] = Kd[i];
+		_Ks[i] = Ks[i];
+	}
+
+	_Se = 38.4;
 
 	_alpha = 1.0f;
 
@@ -92,31 +95,31 @@ void PhongShader::SetLightPos(float x, float y, float z)
 
 void PhongShader::SetAmbientColor(float r, float g, float b, float a)
 {
-	Ka[0] = r;
-	Ka[1] = g;
-	Ka[2] = b;
-	Ka[3] = a;
+	_Ka[0] = r;
+	_Ka[1] = g;
+	_Ka[2] = b;
+	_Ka[3] = a;
 }
 
 void PhongShader::SetDiffuseColor(float r, float g, float b, float a)
 {
-	Kd[0] = r;
-	Kd[1] = g;
-	Kd[2] = b;
-	Kd[3] = a;
+	_Kd[0] = r;
+	_Kd[1] = g;
+	_Kd[2] = b;
+	_Kd[3] = a;
 }
 
 void PhongShader::SetSpecularColor(float r, float g, float b, float a)
 {
-	Ks[0] = r;
-	Ks[1] = g;
-	Ks[2] = b;
-	Ks[3] = a;
+	_Ks[0] = r;
+	_Ks[1] = g;
+	_Ks[2] = b;
+	_Ks[3] = a;
 }
 
 void PhongShader::SetShininess(float shininess)
 {
-	Se = shininess;
+	_Se = shininess;
 }
 
 void PhongShader::SetAlpha(float alpha)
@@ -148,10 +151,10 @@ void PhongShader::SetUniformsAndAttributes()
 	_shaderProgram->SetUniform1f("alpha", _alpha);
 
 	_shaderProgram->SetUniform3f("lightPos", lightPos.x, lightPos.y, lightPos.z);
-	_shaderProgram->SetUniform4f("ambient", Ka[0], Ka[1], Ka[2], Ka[3]);
-	_shaderProgram->SetUniform4f("diffuse", Kd[0], Kd[1], Kd[2], Kd[3]);
-	_shaderProgram->SetUniform4f("specular", Ks[0], Ks[1], Ks[2], Ks[3]);
-	_shaderProgram->SetUniform1f("shininess", Se);
+	_shaderProgram->SetUniform4f("ambient", _Ka[0], _Ka[1], _Ka[2], _Ka[3]);
+	_shaderProgram->SetUniform4f("diffuse", _Kd[0], _Kd[1], _Kd[2], _Kd[3]);
+	_shaderProgram->SetUniform4f("specular", _Ks[0], _Ks[1], _Ks[2], _Ks[3]);
+	_shaderProgram->SetUniform1f("shininess", _Se);
 
 	if (_uvBufferID && _baseTexID)
 	{

@@ -18,10 +18,10 @@ private:
 	unsigned int _baseTexID;
 
 	glm::vec3 lightPos;
-	float Ka[4];
-	float Kd[4];
-	float Ks[4];
-	float Se;
+	float _Ka[4];
+	float _Kd[4];
+	float _Ks[4];
+	float _Se;
 
 	float _alpha;
 
