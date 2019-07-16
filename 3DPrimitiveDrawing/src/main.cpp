@@ -44,6 +44,12 @@ int main(void)
 	{
 		glfwPollEvents();
 
+		double xpos, ypos;
+		glfwGetCursorPos(window, &xpos, &ypos);
+
+		Input::MX = xpos;
+		Input::MY = ypos;
+
 		Input::Update(1.0f / 30.0f);
 		gameLoop->Update(1.0f / 30.0f);
 		gameLoop->Draw();
@@ -90,7 +96,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
-	if (button == GLFW_MOUSE_BUTTON_RIGHT)
+	if (button == GLFW_MOUSE_BUTTON_LEFT)
 	{
 		if (action == GLFW_PRESS)
 		{

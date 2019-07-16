@@ -34,7 +34,7 @@ private:
 	void Draw();
 
 	void ActiveFrame(int frameIndex);
-	void FireEvent(SUIComponent* com, SUIEvents &eventVec);
+	void FireEvent(SUIComponent* com, SUIEvents eventVec);
 
 public:
 	static SUIManager* GetInstance();

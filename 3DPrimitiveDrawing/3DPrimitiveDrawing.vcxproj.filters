@@ -76,6 +76,9 @@
     <Filter Include="src\GLUtil\Shaders\PhongShader">
       <UniqueIdentifier>{1078f26f-ef66-47ca-a334-f572c6a485ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\SUI">
+      <UniqueIdentifier>{9f1d084e-d39a-4dc0-b8b2-8dcd5cd900c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Macros.cpp">
@@ -315,6 +318,63 @@
     <ClCompile Include="src\Common\IO\ModelIO\ModelCreateInfo.cpp">
       <Filter>src\Common\IO\ModelIO</Filter>
     </ClCompile>
+    <ClCompile Include="src\SUI\SUI.cpp">
+      <Filter>src\SUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SUI\SUIBatch.cpp">
+      <Filter>src\SUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SUI\SUIBox.cpp">
+      <Filter>src\SUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SUI\SUIButton.cpp">
+      <Filter>src\SUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SUI\SUICheckBox.cpp">
+      <Filter>src\SUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SUI\SUIChoice.cpp">
+      <Filter>src\SUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SUI\SUIComponent.cpp">
+      <Filter>src\SUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SUI\SUIFont.cpp">
+      <Filter>src\SUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SUI\SUIFrame.cpp">
+      <Filter>src\SUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SUI\SUIInput.cpp">
+      <Filter>src\SUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SUI\SUIKeyCombi.cpp">
+      <Filter>src\SUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SUI\SUILabel.cpp">
+      <Filter>src\SUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SUI\SUIList.cpp">
+      <Filter>src\SUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SUI\SUIManager.cpp">
+      <Filter>src\SUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SUI\SUIRadioButton.cpp">
+      <Filter>src\SUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SUI\SUIRect.cpp">
+      <Filter>src\SUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SUI\SUIScroller.cpp">
+      <Filter>src\SUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SUI\SUISlider.cpp">
+      <Filter>src\SUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SUI\SUITextField.cpp">
+      <Filter>src\SUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -505,6 +565,81 @@
     </ClInclude>
     <ClInclude Include="src\Common\IO\ModelIO\ModelCreateInfo.h">
       <Filter>src\Common\IO\ModelIO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUI.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUIActionEvent.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUIActionListener.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUIBatch.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUIBox.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUIButton.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUICheckBox.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUIChoice.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUIComponent.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUIEvents.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUIFont.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUIFrame.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUIIncludes.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUIInput.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUIKeyCombi.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUILabel.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUIList.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUIManager.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUIMouseEvent.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUIMouseListener.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUIRadioButton.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUIRect.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUIScroller.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUISlider.h">
+      <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SUI\SUITextField.h">
+      <Filter>src\SUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

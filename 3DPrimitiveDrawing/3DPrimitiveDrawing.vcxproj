@@ -98,6 +98,25 @@
     <ClCompile Include="src\Shapes3D\Cylinder.cpp" />
     <ClCompile Include="src\Shapes3D\Shape.cpp" />
     <ClCompile Include="src\Shapes3D\Sphere.cpp" />
+    <ClCompile Include="src\SUI\SUI.cpp" />
+    <ClCompile Include="src\SUI\SUIBatch.cpp" />
+    <ClCompile Include="src\SUI\SUIBox.cpp" />
+    <ClCompile Include="src\SUI\SUIButton.cpp" />
+    <ClCompile Include="src\SUI\SUICheckBox.cpp" />
+    <ClCompile Include="src\SUI\SUIChoice.cpp" />
+    <ClCompile Include="src\SUI\SUIComponent.cpp" />
+    <ClCompile Include="src\SUI\SUIFont.cpp" />
+    <ClCompile Include="src\SUI\SUIFrame.cpp" />
+    <ClCompile Include="src\SUI\SUIInput.cpp" />
+    <ClCompile Include="src\SUI\SUIKeyCombi.cpp" />
+    <ClCompile Include="src\SUI\SUILabel.cpp" />
+    <ClCompile Include="src\SUI\SUIList.cpp" />
+    <ClCompile Include="src\SUI\SUIManager.cpp" />
+    <ClCompile Include="src\SUI\SUIRadioButton.cpp" />
+    <ClCompile Include="src\SUI\SUIRect.cpp" />
+    <ClCompile Include="src\SUI\SUIScroller.cpp" />
+    <ClCompile Include="src\SUI\SUISlider.cpp" />
+    <ClCompile Include="src\SUI\SUITextField.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glew\include\GL\glew.h" />
@@ -163,6 +182,31 @@
     <ClInclude Include="src\Shapes3D\Cylinder.h" />
     <ClInclude Include="src\Shapes3D\Shape.h" />
     <ClInclude Include="src\Shapes3D\Sphere.h" />
+    <ClInclude Include="src\SUI\SUI.h" />
+    <ClInclude Include="src\SUI\SUIActionEvent.h" />
+    <ClInclude Include="src\SUI\SUIActionListener.h" />
+    <ClInclude Include="src\SUI\SUIBatch.h" />
+    <ClInclude Include="src\SUI\SUIBox.h" />
+    <ClInclude Include="src\SUI\SUIButton.h" />
+    <ClInclude Include="src\SUI\SUICheckBox.h" />
+    <ClInclude Include="src\SUI\SUIChoice.h" />
+    <ClInclude Include="src\SUI\SUIComponent.h" />
+    <ClInclude Include="src\SUI\SUIEvents.h" />
+    <ClInclude Include="src\SUI\SUIFont.h" />
+    <ClInclude Include="src\SUI\SUIFrame.h" />
+    <ClInclude Include="src\SUI\SUIIncludes.h" />
+    <ClInclude Include="src\SUI\SUIInput.h" />
+    <ClInclude Include="src\SUI\SUIKeyCombi.h" />
+    <ClInclude Include="src\SUI\SUILabel.h" />
+    <ClInclude Include="src\SUI\SUIList.h" />
+    <ClInclude Include="src\SUI\SUIManager.h" />
+    <ClInclude Include="src\SUI\SUIMouseEvent.h" />
+    <ClInclude Include="src\SUI\SUIMouseListener.h" />
+    <ClInclude Include="src\SUI\SUIRadioButton.h" />
+    <ClInclude Include="src\SUI\SUIRect.h" />
+    <ClInclude Include="src\SUI\SUIScroller.h" />
+    <ClInclude Include="src\SUI\SUISlider.h" />
+    <ClInclude Include="src\SUI\SUITextField.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -234,7 +278,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/GLUtil/ShaderProgram;src/IO;src/IO/Model3D;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/Arrays;src/Common/IO/ModelIO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PhongShader;src/Common/Utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/GLUtil/ShaderProgram;src/IO;src/IO/Model3D;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/Arrays;src/Common/IO/ModelIO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PhongShader;src/Common/Utils;src/SUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>

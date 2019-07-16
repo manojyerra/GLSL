@@ -233,7 +233,7 @@ void SUIManager::Update()
 	}
 }
 
-void SUIManager::FireEvent(SUIComponent* com, SUIEvents &eventsVec)
+void SUIManager::FireEvent(SUIComponent* com, SUIEvents eventsVec)
 {
 	if(eventsVec.ACTION_PERFORMED == false)
 		return;

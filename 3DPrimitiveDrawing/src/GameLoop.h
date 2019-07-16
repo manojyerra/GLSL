@@ -17,6 +17,7 @@
 #include "Sphere.h"
 #include "ParticleLoader.h"
 #include "GLMeshRenderer.h"
+#include "SUIFrame.h"
 
 class GameLoop 
 {
@@ -51,6 +52,8 @@ private:
 	
 	GLMeshRenderer* _meshRenderer;
 	GLMeshRenderer* _meshRenderer1;
+
+	SUIFrame* _suiFrame;
 
 public:
 	GameLoop(int sw, int sh);

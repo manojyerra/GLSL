@@ -2,6 +2,7 @@
 #include "GLMemory.h"
 #include "ObjReader.h"
 #include "BinaryObjReader.h"
+#include "SUI.h"
 
 GameLoop::GameLoop(int sw, int sh)
 {
@@ -75,6 +76,19 @@ GameLoop::GameLoop(int sw, int sh)
 	_meshRenderer1 = new GLMeshRenderer(&BinaryObjReader("data/alien"));
 	_meshRenderer1->SetShader(GLMeshRenderer::PHONG_PER_VERTEX_SHADER);
 	_meshRenderer1->SetPos(8.0,0.0,0.0);
+
+	SUISetup(_sw, _sh);
+
+	float x = 10;
+	float y = 10;
+	float w = 300;
+	float h = 400;
+
+	_suiFrame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
+	_suiFrame->SetName("Main Frame", SUIFrame::LEFT);
+
+	_suiFrame->Add(new SUIButton("asldkfjas"));
+
 }
 
 void GameLoop::GLSettings()
@@ -96,6 +110,7 @@ void GameLoop::GLSettings()
 
 void GameLoop::Update(float deltaTime)
 {
+	
 }
 
 void GameLoop::ParticleSpecificDraw()
@@ -157,6 +172,13 @@ void GameLoop::ParticleSpecificDraw()
 
 void GameLoop::Draw()
 {
+	bool consumed = SUIInput::Update((float)Input::MX, (float)Input::MY, Input::LEFT_BUTTON_DOWN, 1.0f / 30.0f);
+
+	//if (consumed)
+	//{
+	//	return;
+	//}
+
 	//ParticleSpecificDraw();
 	//return;
 
@@ -197,6 +219,8 @@ void GameLoop::Draw()
 		_texture->Draw();
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
+
+	SUIDraw();
 }
 
 void GameLoop::SetCamAndDrawObjects()
@@ -295,4 +319,6 @@ GameLoop::~GameLoop()
 	ShadersManager::GetInstance()->DeleteInstance();
 
 	GLMemory::printMemoryLeaks();
+
+	SUIQuit();
 }
