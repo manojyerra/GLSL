@@ -6,7 +6,6 @@ ObjReader::ObjReader(string folderPath)
 {
 	_folderPath = folderPath;
 	_imageBuffer = NULL;
-	_vertexCount = 0;
 
 	_vertexFloatArr = NULL;
 	_uvFloatArr = NULL;
@@ -160,8 +159,6 @@ void ObjReader::ReadObjFile(string folderPath)
 			free(line);
 		}
 	}
-
-	_vertexCount = _vertexFloatArr->size() / 3;
 }
 
 void ObjReader::WriteBinaryToFile()
@@ -222,11 +219,6 @@ const char* ObjReader::GetUVBuffer()
 const char* ObjReader::GetNormalBuffer()
 {
 	return (_normalFloatArr ? (const char*)_normalFloatArr->getArray() : NULL);
-}
-
-unsigned int ObjReader::GetVertexCount()
-{
-	return _vertexCount;
 }
 
 ImageBuffer* ObjReader::GetImageBuffer()

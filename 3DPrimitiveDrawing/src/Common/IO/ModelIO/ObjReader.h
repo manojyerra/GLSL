@@ -14,17 +14,12 @@ using namespace std;
 class ObjReader
 {
 private:
+	string _folderPath;
+
 	FloatArray* _vertexFloatArr;
 	FloatArray* _uvFloatArr;
 	FloatArray* _normalFloatArr;
-
-	unsigned int _vertexCount;
-
 	ImageBuffer* _imageBuffer;
-
-	string _folderPath;
-
-	bool _writeBinaryToFile;
 
 	void ReadObjFile(string folderPath);
 	void LoadTextures(string folderPath);
@@ -35,7 +30,6 @@ public:
 	const char* GetVertexBuffer();
 	const char* GetUVBuffer();
 	const char* GetNormalBuffer();
-	unsigned int GetVertexCount();
 	ImageBuffer* GetImageBuffer();
 
 	unsigned int GetVertexBufferSize();

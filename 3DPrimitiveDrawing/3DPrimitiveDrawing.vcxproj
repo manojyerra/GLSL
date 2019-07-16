@@ -69,8 +69,6 @@
     <ClCompile Include="src\GameLoop.cpp" />
     <ClCompile Include="src\GLUtil\BasicShader\BasicShader.cpp" />
     <ClCompile Include="src\GLUtil\ColorShader\ColorShader.cpp" />
-    <ClCompile Include="src\GLUtil\GL2DState.cpp" />
-    <ClCompile Include="src\GLUtil\GLBatch.cpp" />
     <ClCompile Include="src\GLUtil\GLBuffer.cpp" />
     <ClCompile Include="src\GLUtil\GLFBO.cpp" />
     <ClCompile Include="src\GLUtil\GLMat.cpp" />
@@ -83,8 +81,6 @@
     <ClCompile Include="src\GLUtil\PBRShader\PBRShader.cpp" />
     <ClCompile Include="src\GLUtil\PhongShader\PhongShader.cpp" />
     <ClCompile Include="src\Input.cpp" />
-    <ClCompile Include="src\IO\Model3D\BinaryObjLoader.cpp" />
-    <ClCompile Include="src\IO\Model3D\ObjLoader.cpp" />
     <ClCompile Include="src\IO\ParticleLoader.cpp" />
     <ClCompile Include="src\Macros.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -136,8 +132,6 @@
     <ClInclude Include="src\GameLoop.h" />
     <ClInclude Include="src\GLUtil\BasicShader\BasicShader.h" />
     <ClInclude Include="src\GLUtil\ColorShader\ColorShader.h" />
-    <ClInclude Include="src\GLUtil\GL2DState.h" />
-    <ClInclude Include="src\GLUtil\GLBatch.h" />
     <ClInclude Include="src\GLUtil\GLBuffer.h" />
     <ClInclude Include="src\GLUtil\GLFBO.h" />
     <ClInclude Include="src\GLUtil\GLMat.h" />
@@ -150,8 +144,6 @@
     <ClInclude Include="src\GLUtil\PBRShader\PBRShader.h" />
     <ClInclude Include="src\GLUtil\PhongShader\PhongShader.h" />
     <ClInclude Include="src\Input.h" />
-    <ClInclude Include="src\IO\Model3D\BinaryObjLoader.h" />
-    <ClInclude Include="src\IO\Model3D\ObjLoader.h" />
     <ClInclude Include="src\IO\ParticleLoader.h" />
     <ClInclude Include="src\Macros.h" />
     <ClInclude Include="src\Math\TransformVertexBuf.h" />

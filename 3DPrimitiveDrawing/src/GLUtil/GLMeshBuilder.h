@@ -37,7 +37,6 @@ public:
 	GLuint GetBaseTexID();
 
 	GLuint GetVertexBufferSize();
-
 };
 
 #endif

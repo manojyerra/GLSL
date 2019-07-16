@@ -20,8 +20,6 @@ GameLoop::GameLoop(int sw, int sh)
 	_cylinder = NULL;
 	_cone = NULL;
 	_sphere = NULL;
-	_objLoader = NULL;
-	_binaryObjLoader = NULL;
 	_fbo = NULL;
 	_texture = NULL;
 
@@ -54,9 +52,6 @@ GameLoop::GameLoop(int sw, int sh)
 	_sphere->SetPos(5, 0, 0);
 	_sphere->SetRadius(5);
 
-	_objLoader = new ObjLoader("data/teapot");
-	_binaryObjLoader = new BinaryObjLoader("data/hipolyTeapot");
-
 	_fbo = new GLFBO(_sw, _sh);
 	_texture = new GLTexture(_sw, _sh);
 
@@ -77,13 +72,12 @@ GameLoop::GameLoop(int sw, int sh)
 	//_meshRenderer->SetShader(GLMeshRenderer::PHONG_PER_VERTEX_SHADER);
 	//_meshRenderer->SetShader(GLMeshRenderer::PHONG_PER_PIXEL_SHADER);
 
-	ObjReader objReader("data/teapot");
-	_meshRenderer = new GLMeshRenderer(&objReader);
+	_meshRenderer = new GLMeshRenderer(&ObjReader("data/alien"));
 	_meshRenderer->SetShader(GLMeshRenderer::PBR_SHADER);
 
-	_meshRenderer1 = new GLMeshRenderer(&objReader);
+	_meshRenderer1 = new GLMeshRenderer(&BinaryObjReader("data/alien"));
 	_meshRenderer1->SetShader(GLMeshRenderer::PHONG_PER_PIXEL_SHADER);
-	_meshRenderer1->SetPos(5.0,0.0,0.0);
+	_meshRenderer1->SetPos(8.0,0.0,0.0);
 }
 
 void GameLoop::GLSettings()
@@ -251,18 +245,6 @@ GameLoop::~GameLoop()
 	{
 		delete _fbo;
 		_fbo = NULL;
-	}
-
-	if (_binaryObjLoader)
-	{
-		delete _binaryObjLoader;
-		_binaryObjLoader = NULL;
-	}
-
-	if (_objLoader)
-	{
-		delete _objLoader;
-		_objLoader = NULL;
 	}
 	
 	if (_sphere != NULL)

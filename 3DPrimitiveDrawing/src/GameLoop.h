@@ -7,7 +7,6 @@
 #include "Cam.h"
 #include "Input.h"
 #include "ShadersManager.h"
-#include "GLBatch.h"
 #include "GLFBO.h"
 #include "GLTexture.h"
 
@@ -17,7 +16,6 @@
 #include "Cone.h"
 #include "Sphere.h"
 #include "ObjLoader.h"
-#include "BinaryObjLoader.h"
 #include "ParticleLoader.h"
 #include "GLMeshRenderer.h"
 
@@ -37,8 +35,6 @@ private:
 	Cone* _cone;
 	Sphere* _sphere;
 
-	ObjLoader* _objLoader;
-	BinaryObjLoader* _binaryObjLoader;
 	ParticleLoader* _particleLoader;
 	ParticleLoader* _particleLoader2;
 	ParticleLoader* _particleLoader3;

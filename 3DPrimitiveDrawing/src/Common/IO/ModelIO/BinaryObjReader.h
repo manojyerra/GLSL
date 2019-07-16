@@ -11,8 +11,6 @@ private:
 	FileReader* _uvFileReader;
 	FileReader* _normalFileReader;
 
-	unsigned int _vertexCount;
-
 	ImageBuffer* _imageBuffer;
 
 	void ReadObjFile(string folderPath);
@@ -25,7 +23,6 @@ public:
 	const char* GetVertexBuffer();
 	const char* GetUVBuffer();
 	const char* GetNormalBuffer();
-	unsigned int GetVertexCount();
 	ImageBuffer* GetImageBuffer();
 
 	unsigned int GetVertexBufferSize();
