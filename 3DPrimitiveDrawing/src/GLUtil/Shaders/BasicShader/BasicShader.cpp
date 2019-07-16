@@ -23,6 +23,11 @@ void BasicShader::SetModelMatrix(float* mat)
 	_modelMat.Copy(mat);
 }
 
+void BasicShader::SetColor(glm::vec3& color)
+{
+	_color = color;
+}
+
 void BasicShader::SetAlpha(float alpha)
 {
 	_alpha = alpha;

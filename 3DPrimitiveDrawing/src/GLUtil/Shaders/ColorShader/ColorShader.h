@@ -1,27 +1,29 @@
-#ifndef BasicShader_H
-#define BasicShader_H
+#ifndef ColorShader_H
+#define ColorShader_H
 
 #include "ShaderProgram.h"
 #include "GLMat.h"
-#include "glm//glm.hpp"
+#include "Shader.h"
 
-class BasicShader
+class ColorShader : public Shader
 {
 private:
-	unsigned int _vertexBufferID;	
-	glm::vec3 _color;
+	unsigned int _vertexBufferID;
+	unsigned int _colorBufferID;
 	float _alpha;
 
 	ShaderProgram* _shaderProgram;
+
 	GLMat _modelMat;
 
 public:
-	BasicShader();
-	~BasicShader();
+	ColorShader();
+	~ColorShader();
 
 	void SetVertexBufferID(unsigned int bufferID);
+	void SetColorBufferID(unsigned int bufferID);
 	void SetModelMatrix(float* mat);
-	void SetColor(glm::vec3& color);
+
 	void SetAlpha(float alpha);
 
 	void Begin();

@@ -3,13 +3,14 @@
 
 #include "ShaderProgram.h"
 #include "GLMat.h"
+#include "Shader.h"
 
 #include <vector>
 #include <string>
 using namespace std;
 
 
-class PhongShader
+class PhongShader : public Shader
 {
 private:
 	unsigned int _vertexBufferID;

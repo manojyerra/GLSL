@@ -1,38 +1,14 @@
 #include "GLMeshRenderer.h"
 #include "GLMemory.h"
 
-
-GLMeshRenderer::GLMeshRenderer(ObjReader* reader)
-{
-	_meshBuilder = new GLMeshBuilder();
-	_meshBuilder->SetVertexBuffer(reader->GetVertexBuffer(), reader->GetVertexBufferSize());
-	_meshBuilder->SetNormalBuffer(reader->GetNormalBuffer(), reader->GetNoralBufferSize());
-	_meshBuilder->SetUVBuffer(reader->GetUVBuffer(), reader->GetUVBufferSize());
-	_meshBuilder->SetImageBuffer(reader->GetImageBuffer());
-	_meshBuilder->build();
-
-	CommonInit();
-}
-
-GLMeshRenderer::GLMeshRenderer(BinaryObjReader* reader)
-{
-	_meshBuilder = new GLMeshBuilder();
-	_meshBuilder->SetVertexBuffer(reader->GetVertexBuffer(), reader->GetVertexBufferSize());
-	_meshBuilder->SetNormalBuffer(reader->GetNormalBuffer(), reader->GetNoralBufferSize());
-	_meshBuilder->SetUVBuffer(reader->GetUVBuffer(), reader->GetUVBufferSize());
-	_meshBuilder->SetImageBuffer(reader->GetImageBuffer());
-	_meshBuilder->build();
-
-	CommonInit();
-}
-
-GLMeshRenderer::GLMeshRenderer(GLMeshCreateInfo* meshCreateInfo)
+GLMeshRenderer::GLMeshRenderer(ModelCreateInfo* meshCreateInfo)
 {
 	_meshBuilder = new GLMeshBuilder();
 	_meshBuilder->SetVertexBuffer(meshCreateInfo->GetVertexBuffer(), meshCreateInfo->GetVertexBufferSize());
 	_meshBuilder->SetNormalBuffer(meshCreateInfo->GetNormalBuffer(), meshCreateInfo->GetNormalBufferSize());
 	_meshBuilder->SetUVBuffer(meshCreateInfo->GetUVBuffer(), meshCreateInfo->GetUVBufferSize());
 	_meshBuilder->SetColorBuffer(meshCreateInfo->GetColorBuffer(), meshCreateInfo->GetColorBufferSize());
+	_meshBuilder->SetIndicesBuffer(meshCreateInfo->GetIndicesBuffer(), meshCreateInfo->GetIndicesBufferSize());
 	_meshBuilder->SetImageBuffer(meshCreateInfo->GetImageBuffer());
 	_meshBuilder->build();
 
@@ -46,6 +22,7 @@ void GLMeshRenderer::CommonInit()
 	_phongPerVertexShader = NULL;
 	_phongPerPixelShader = NULL;
 	_pbrShader = NULL;
+	_shader = NULL;
 	_primitiveType = triangles;
 
 	_shaderType = BASIC_SHADER;
@@ -73,6 +50,7 @@ void GLMeshRenderer::SetShader(int shaderType)
 		{
 			_basicShader = new BasicShader();
 			_basicShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
+			_shader = _basicShader;
 		}
 	}
 	else if (_shaderType == COLOR_SHADER)
@@ -82,6 +60,7 @@ void GLMeshRenderer::SetShader(int shaderType)
 			_colorShader = new ColorShader();
 			_colorShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
 			_colorShader->SetColorBufferID(_meshBuilder->GetColorBufferID());
+			_shader = _colorShader;
 		}
 	}
 	else if (_shaderType == PHONG_PER_VERTEX_SHADER)
@@ -91,6 +70,7 @@ void GLMeshRenderer::SetShader(int shaderType)
 			_phongPerVertexShader = new PhongShader(PhongShader::PER_VERTEX_SHADER);
 			_phongPerVertexShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
 			_phongPerVertexShader->SetNormalBufferID(_meshBuilder->GetNormalBufferID());
+			_shader = _phongPerVertexShader;
 		}
 	}
 	else if (_shaderType == PHONG_PER_PIXEL_SHADER)
@@ -100,6 +80,7 @@ void GLMeshRenderer::SetShader(int shaderType)
 			_phongPerPixelShader = new PhongShader(PhongShader::PER_PIXEL_SHADER);
 			_phongPerPixelShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
 			_phongPerPixelShader->SetNormalBufferID(_meshBuilder->GetNormalBufferID());
+			_shader = _phongPerPixelShader;
 		}
 	}
 	else if (_shaderType == PBR_SHADER)
@@ -109,6 +90,7 @@ void GLMeshRenderer::SetShader(int shaderType)
 			_pbrShader = new PBRShader();
 			_pbrShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
 			_pbrShader->SetNormalBufferID(_meshBuilder->GetNormalBufferID());
+			_shader = _pbrShader;
 		}
 	}
 }
@@ -120,46 +102,14 @@ void GLMeshRenderer::SetPrimitiveType(int primitiveType)
 
 void GLMeshRenderer::Draw()
 {
-	if (_shaderType == BASIC_SHADER)
+	if (_shader)
 	{
-		_basicShader->SetModelMatrix(_modelMat.m);
-		_basicShader->Begin();
-		_basicShader->SetUniformsAndAttributes();
+		_shader->SetModelMatrix(_modelMat.m);
+		_shader->Begin();
+		_shader->SetUniformsAndAttributes();
 		glDrawArrays(_primitiveType, 0, _meshBuilder->GetVertexBufferSize()/12);
-		_basicShader->End();
-	}
-	if (_shaderType == COLOR_SHADER)
-	{
-		_colorShader->SetModelMatrix(_modelMat.m);
-		_colorShader->Begin();
-		_colorShader->SetUniformsAndAttributes();
-		glDrawArrays(_primitiveType, 0, _meshBuilder->GetVertexBufferSize() / 12);
-		_colorShader->End();
-	}
-	else if (_shaderType == PHONG_PER_VERTEX_SHADER)
-	{
-		_phongPerVertexShader->SetModelMatrix(_modelMat.m);
-		_phongPerVertexShader->Begin();
-		_phongPerVertexShader->SetUniformsAndAttributes();
-		glDrawArrays(_primitiveType, 0, _meshBuilder->GetVertexBufferSize() / 12);
-		_phongPerVertexShader->End();
-	}
-	else if (_shaderType == PHONG_PER_PIXEL_SHADER)
-	{
-		_phongPerPixelShader->SetModelMatrix(_modelMat.m);
-		_phongPerPixelShader->Begin();
-		_phongPerPixelShader->SetUniformsAndAttributes();
-		glDrawArrays(_primitiveType, 0, _meshBuilder->GetVertexBufferSize() / 12);
-		_phongPerPixelShader->End();
-	}
-	else if (_shaderType == PBR_SHADER)
-	{
-		_pbrShader->SetModelMatrix(_modelMat.m);
-		_pbrShader->Begin();
-		_pbrShader->SetUniformsAndAttributes();
-		glDrawArrays(_primitiveType, 0, _meshBuilder->GetVertexBufferSize() / 12);
-		_pbrShader->End();
-	}
+		_shader->End();
+	}	
 }
 
 GLMeshRenderer::~GLMeshRenderer()

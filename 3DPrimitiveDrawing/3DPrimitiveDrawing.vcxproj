@@ -64,6 +64,7 @@
     <ClCompile Include="src\Common\IO\ImageIO\PNG\zlib\uncompr.c" />
     <ClCompile Include="src\Common\IO\ImageIO\PNG\zlib\zutil.c" />
     <ClCompile Include="src\Common\IO\ModelIO\BinaryObjReader.cpp" />
+    <ClCompile Include="src\Common\IO\ModelIO\ModelCreateInfo.cpp" />
     <ClCompile Include="src\Common\IO\ModelIO\ObjReader.cpp" />
     <ClCompile Include="src\Common\Utils\BufferTransformUtils.cpp" />
     <ClCompile Include="src\Common\Utils\RandomColor.cpp" />
@@ -71,8 +72,6 @@
     <ClCompile Include="src\Common\Utils\StringUtils.cpp" />
     <ClCompile Include="src\Floor.cpp" />
     <ClCompile Include="src\GameLoop.cpp" />
-    <ClCompile Include="src\GLUtil\BasicShader\BasicShader.cpp" />
-    <ClCompile Include="src\GLUtil\ColorShader\ColorShader.cpp" />
     <ClCompile Include="src\GLUtil\GLBuffer.cpp" />
     <ClCompile Include="src\GLUtil\GLFBO.cpp" />
     <ClCompile Include="src\GLUtil\GLMat.cpp" />
@@ -83,10 +82,12 @@
     <ClCompile Include="src\GLUtil\GLState.cpp" />
     <ClCompile Include="src\GLUtil\GLTexture.cpp" />
     <ClCompile Include="src\GLUtil\GLUtil.cpp" />
-    <ClCompile Include="src\GLUtil\PBRShader\PBRShader.cpp" />
-    <ClCompile Include="src\GLUtil\PhongShader\PhongShader.cpp" />
     <ClCompile Include="src\GLUtil\ShaderProgram\ShaderProgram.cpp" />
     <ClCompile Include="src\GLUtil\ShaderProgram\ShadersManager.cpp" />
+    <ClCompile Include="src\GLUtil\Shaders\BasicShader\BasicShader.cpp" />
+    <ClCompile Include="src\GLUtil\Shaders\ColorShader\ColorShader.cpp" />
+    <ClCompile Include="src\GLUtil\Shaders\PBRShader\PBRShader.cpp" />
+    <ClCompile Include="src\GLUtil\Shaders\PhongShader\PhongShader.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\IO\ParticleLoader.cpp" />
     <ClCompile Include="src\Macros.cpp" />
@@ -128,6 +129,7 @@
     <ClInclude Include="src\Common\IO\ImageIO\PNG\zlib\zlib.h" />
     <ClInclude Include="src\Common\IO\ImageIO\PNG\zlib\zutil.h" />
     <ClInclude Include="src\Common\IO\ModelIO\BinaryObjReader.h" />
+    <ClInclude Include="src\Common\IO\ModelIO\ModelCreateInfo.h" />
     <ClInclude Include="src\Common\IO\ModelIO\ObjReader.h" />
     <ClInclude Include="src\Common\Utils\BufferTransformUtils.h" />
     <ClInclude Include="src\Common\Utils\RandomColor.h" />
@@ -135,8 +137,6 @@
     <ClInclude Include="src\Common\Utils\StringUtils.h" />
     <ClInclude Include="src\Floor.h" />
     <ClInclude Include="src\GameLoop.h" />
-    <ClInclude Include="src\GLUtil\BasicShader\BasicShader.h" />
-    <ClInclude Include="src\GLUtil\ColorShader\ColorShader.h" />
     <ClInclude Include="src\GLUtil\GLBuffer.h" />
     <ClInclude Include="src\GLUtil\GLFBO.h" />
     <ClInclude Include="src\GLUtil\GLMat.h" />
@@ -147,10 +147,13 @@
     <ClInclude Include="src\GLUtil\GLState.h" />
     <ClInclude Include="src\GLUtil\GLTexture.h" />
     <ClInclude Include="src\GLUtil\GLUtil.h" />
-    <ClInclude Include="src\GLUtil\PBRShader\PBRShader.h" />
-    <ClInclude Include="src\GLUtil\PhongShader\PhongShader.h" />
     <ClInclude Include="src\GLUtil\ShaderProgram\ShaderProgram.h" />
     <ClInclude Include="src\GLUtil\ShaderProgram\ShadersManager.h" />
+    <ClInclude Include="src\GLUtil\Shaders\BasicShader\BasicShader.h" />
+    <ClInclude Include="src\GLUtil\Shaders\ColorShader\ColorShader.h" />
+    <ClInclude Include="src\GLUtil\Shaders\PBRShader\PBRShader.h" />
+    <ClInclude Include="src\GLUtil\Shaders\PhongShader\PhongShader.h" />
+    <ClInclude Include="src\GLUtil\Shaders\Shader.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\IO\ParticleLoader.h" />
     <ClInclude Include="src\Macros.h" />
@@ -231,7 +234,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/GLUtil/ShaderProgram;src/IO;src/IO/Model3D;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/Arrays;src/Common/IO/ModelIO;src/GLUtil/BasicShader;src/GLUtil/ColorShader;src/GLUtil/PBRShader;src/GLUtil/PhongShader;src/Common/Utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/GLUtil/ShaderProgram;src/IO;src/IO/Model3D;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/Arrays;src/Common/IO/ModelIO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PhongShader;src/Common/Utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>

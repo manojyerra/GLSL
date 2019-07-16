@@ -3,13 +3,14 @@
 
 #include "ShaderProgram.h"
 #include "GLMat.h"
+#include "Shader.h"
 
 #include <vector>
 #include <string>
 using namespace std;
 
 
-class PBRShader
+class PBRShader : public Shader
 {
 private:
 	unsigned int _vertexBufferID;
@@ -22,8 +23,6 @@ private:
 	float _metallic;
 	float _roughness;
 
-	ShaderProgram* _perPixelShader;
-	ShaderProgram* _perVertexShader;
 	ShaderProgram* _shaderProgram;
 
 	int _shaderType;

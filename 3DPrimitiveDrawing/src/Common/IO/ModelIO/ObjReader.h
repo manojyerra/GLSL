@@ -1,17 +1,12 @@
 #ifndef ObjReader_H
 #define ObjReader_H
 
-#include "ImageBuffer.h"
 #include "FloatArray.h"
 #include "ULongArray.h"
 #include "VoidPtrArray.h"
+#include "ModelCreateInfo.h"
 
-#include <vector>
-#include <string>
-using namespace std;
-
-
-class ObjReader
+class ObjReader : public ModelCreateInfo
 {
 private:
 	string _folderPath;
