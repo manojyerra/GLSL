@@ -64,7 +64,7 @@ void Input::Init()
 	for(int i=0;i<256;i++) timeCountForKeyPress[i] = 0;
 }
 
-void Input::Update(float deltaTime)
+void Input::Update(int mouseX, int mouseY, float deltaTime)
 {
 	for(int i=0;i<256;i++)	prevKeyStates[i] = currKeyStates[i];
 	for(int i=0;i<256;i++)	currKeyStates[i] =  GetKeyState(i);
@@ -115,16 +115,11 @@ void Input::Update(float deltaTime)
 
 	PREV_MIDDLE_BUTTON_DOWN = MIDDLE_BUTTON_DOWN;
 
-	POINT pos;
-	GetCursorPos(&pos);
-
 	PrevMX = MX;
 	PrevMY = MY;
 
-	MX = pos.x; //- WIN_MOVE_X;
-	MY = pos.y; //- WIN_MOVE_Y;
-
-	//printf("\nmouse x = %d, mouse y = %d", MX, MY);
+	MX = mouseX;
+	MY = mouseY;
 
 	if(IsMouseClicked() || IsRightMouseClicked() || IsMiddleMouseClicked())
 	{

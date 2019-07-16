@@ -172,12 +172,9 @@ void GameLoop::ParticleSpecificDraw()
 
 void GameLoop::Draw()
 {
-	bool consumed = SUIInput::Update((float)Input::MX, (float)Input::MY, Input::LEFT_BUTTON_DOWN, 1.0f / 30.0f);
+	bool consumed = SUIInput::Update((float)Input::MX, (float)Input::MY, Input::LEFT_BUTTON_DOWN, 1.0f / 30.0f);;
 
-	//if (consumed)
-	//{
-	//	return;
-	//}
+	Input::SetEnable(!consumed);
 
 	//ParticleSpecificDraw();
 	//return;

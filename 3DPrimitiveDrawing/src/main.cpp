@@ -47,10 +47,7 @@ int main(void)
 		double xpos, ypos;
 		glfwGetCursorPos(window, &xpos, &ypos);
 
-		Input::MX = xpos;
-		Input::MY = ypos;
-
-		Input::Update(1.0f / 30.0f);
+		Input::Update(xpos, ypos, 1.0f / 30.0f);
 		gameLoop->Update(1.0f / 30.0f);
 		gameLoop->Draw();
 

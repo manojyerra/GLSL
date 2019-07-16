@@ -89,7 +89,7 @@ public:
 
 
 	static void Init();
-	static void Update(float deltaTime);
+	static void Update(int mouseX, int mouseY, float deltaTime);
 	static void SetEnable(bool enableInput);
 
 	static bool IsKeyTyped(int key);
