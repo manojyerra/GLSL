@@ -237,7 +237,7 @@ unsigned int ObjReader::GetUVBufferSize()
 	return _uvFloatArr ? _uvFloatArr->size() * sizeof(float) : 0;
 }
 
-unsigned int ObjReader::GetNoralBufferSize()
+unsigned int ObjReader::GetNormalBufferSize()
 {
 	return _normalFloatArr ? _normalFloatArr->size() * sizeof(float) : 0;
 }

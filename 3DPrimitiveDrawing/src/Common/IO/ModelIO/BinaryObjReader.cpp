@@ -62,7 +62,7 @@ unsigned int BinaryObjReader::GetUVBufferSize()
 	return _uvFileReader ? _uvFileReader->GetLength() : 0;
 }
 
-unsigned int BinaryObjReader::GetNoralBufferSize()
+unsigned int BinaryObjReader::GetNormalBufferSize()
 {
 	return _normalFileReader ? _normalFileReader->GetLength() : 0;
 }

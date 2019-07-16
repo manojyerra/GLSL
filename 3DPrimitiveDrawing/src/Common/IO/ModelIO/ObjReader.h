@@ -22,14 +22,14 @@ private:
 public:
 	ObjReader(string folderPath);
 
-	const char* GetVertexBuffer();
-	const char* GetUVBuffer();
-	const char* GetNormalBuffer();
-	ImageBuffer* GetImageBuffer();
+	const char* GetVertexBuffer() override;
+	const char* GetUVBuffer() override;
+	const char* GetNormalBuffer() override;
+	ImageBuffer* GetImageBuffer() override;
 
-	unsigned int GetVertexBufferSize();
-	unsigned int GetUVBufferSize();
-	unsigned int GetNoralBufferSize();
+	unsigned int GetVertexBufferSize() override;
+	unsigned int GetUVBufferSize() override;
+	unsigned int GetNormalBufferSize() override;
 
 	void WriteBinaryToFile();
 	void WriteBinaryToFile(string folderPath);

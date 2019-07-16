@@ -8,7 +8,7 @@ GLMeshRenderer::GLMeshRenderer(ModelCreateInfo* meshCreateInfo)
 	_meshBuilder->SetNormalBuffer(meshCreateInfo->GetNormalBuffer(), meshCreateInfo->GetNormalBufferSize());
 	_meshBuilder->SetUVBuffer(meshCreateInfo->GetUVBuffer(), meshCreateInfo->GetUVBufferSize());
 	_meshBuilder->SetColorBuffer(meshCreateInfo->GetColorBuffer(), meshCreateInfo->GetColorBufferSize());
-	_meshBuilder->SetIndicesBuffer(meshCreateInfo->GetIndicesBuffer(), meshCreateInfo->GetIndicesBufferSize());
+	//_meshBuilder->SetIndicesBuffer(meshCreateInfo->GetIndicesBuffer(), meshCreateInfo->GetIndicesBufferSize());
 	_meshBuilder->SetImageBuffer(meshCreateInfo->GetImageBuffer());
 	_meshBuilder->build();
 
