@@ -279,4 +279,9 @@ GLBuffer::~GLBuffer()
 		GLDeleteBuffer(_uvBufferID);
 		_uvBufferID = 0;
 	}
+
+	if (_vertexArr) { delete[] _vertexArr;	_vertexArr = NULL; }
+	if (_colorArr) { delete[] _colorArr;	_colorArr = NULL; }
+	if (_uvArr) { delete[] _uvArr;		_uvArr = NULL; }
+	if (_normalArr) { delete[] _normalArr;	_normalArr = NULL; }
 }

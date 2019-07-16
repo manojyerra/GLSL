@@ -11,6 +11,9 @@
 #include "PhongShader.h"
 #include "PBRShader.h"
 
+//TODO : difine in proper class
+#define ccPtr const char*
+
 class GLMeshRenderer
 {
 private:
@@ -37,6 +40,8 @@ public:
 
 	GLMeshRenderer(ObjReader* reader);
 	GLMeshRenderer(BinaryObjReader* reader);
+	//GLMeshRenderer(ccPtr vertexBuf, long verBuflen, ccPtr normalBuf, long norBufLen);
+
 	~GLMeshRenderer();
 
 	void SetModelMatrix(float* mat);

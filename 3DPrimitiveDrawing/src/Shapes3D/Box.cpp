@@ -1,5 +1,5 @@
 #include "Box.h"
-#include "GLUtil.h"
+#include "GLState.h"
 #include "BufferTransformUtils.h"
 #include "ShadersManager.h"
 #include "Cam.h"
@@ -289,8 +289,8 @@ void Box::Draw()
 	_scaleMat.m[5] = _h;
 	_scaleMat.m[10] = _d;
 
-	GLboolean blend = GLUtil::GLEnable(GL_BLEND, true);
-	GLboolean depthTest = GLUtil::GLEnable(GL_DEPTH_TEST, true);
+	GLboolean blend = GLState::GLEnable(GL_BLEND, true);
+	GLboolean depthTest = GLState::GLEnable(GL_DEPTH_TEST, true);
 
 	_shaderProgram->Begin();
 
@@ -324,8 +324,8 @@ void Box::Draw()
 
 	_shaderProgram->End();
 
-	GLUtil::GLEnable(GL_BLEND, blend);
-	GLUtil::GLEnable(GL_DEPTH_TEST, depthTest);
+	GLState::GLEnable(GL_BLEND, blend);
+	GLState::GLEnable(GL_DEPTH_TEST, depthTest);
 }
 
 void Box::GenerateBufferID()

@@ -1,6 +1,6 @@
 #include "Floor.h"
 #include "Macros.h"
-#include "GLUtil.h"
+#include "GLState.h"
 #include "ShadersManager.h"
 #include "Cam.h"
 
@@ -134,8 +134,8 @@ void Floor::Draw()
 	if(_visible == false)
 		return;
 
-	float lineWidth = GLUtil::GLLineWidth(1.0f);
-	GLboolean blend = GLUtil::GLEnable(GL_BLEND, true);
+	float lineWidth = GLState::GLLineWidth(1.0f);
+	GLboolean blend = GLState::GLEnable(GL_BLEND, true);
 
 	_shaderProgram->Begin();
 
@@ -196,8 +196,8 @@ void Floor::Draw()
 
 	_shaderProgram->End();
 
-	GLUtil::GLLineWidth(lineWidth);
-	GLUtil::GLEnable(GL_BLEND, blend);
+	GLState::GLLineWidth(lineWidth);
+	GLState::GLEnable(GL_BLEND, blend);
 }
 
 Floor::~Floor()

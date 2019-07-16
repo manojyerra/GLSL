@@ -76,6 +76,7 @@
     <ClCompile Include="src\GLUtil\GLMeshBuilder.cpp" />
     <ClCompile Include="src\GLUtil\GLMeshRenderer.cpp" />
     <ClCompile Include="src\GLUtil\GLSSAO.cpp" />
+    <ClCompile Include="src\GLUtil\GLState.cpp" />
     <ClCompile Include="src\GLUtil\GLTexture.cpp" />
     <ClCompile Include="src\GLUtil\GLUtil.cpp" />
     <ClCompile Include="src\GLUtil\PBRShader\PBRShader.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="src\GLUtil\GLMeshBuilder.h" />
     <ClInclude Include="src\GLUtil\GLMeshRenderer.h" />
     <ClInclude Include="src\GLUtil\GLSSAO.h" />
+    <ClInclude Include="src\GLUtil\GLState.h" />
     <ClInclude Include="src\GLUtil\GLTexture.h" />
     <ClInclude Include="src\GLUtil\GLUtil.h" />
     <ClInclude Include="src\GLUtil\PBRShader\PBRShader.h" />
