@@ -6,16 +6,19 @@ GLMeshBuilder::GLMeshBuilder()
 	_vertexBufferID = 0;
 	_normalBufferID = 0;
 	_uvBufferID = 0;
+	_colorBufferID = 0;
 	_baseTexID = 0;
 
 	_vertexBuffer = NULL;
 	_normalBufferID = NULL;
 	_uvBufferID = NULL;
+	_colorBufferID = NULL;
 	_imageBuffer = NULL;
 
 	_vertexBufferLen = 0;
 	_normalBufferLen = 0;
 	_uvBufferLen = 0;
+	_colorBufferLen = 0;
 }
 
 GLMeshBuilder* GLMeshBuilder::SetVertexBuffer(const GLvoid* buffer, GLsizeiptr len)
@@ -36,6 +39,13 @@ GLMeshBuilder* GLMeshBuilder::SetUVBuffer(const GLvoid* buffer, GLsizeiptr len)
 {
 	_uvBuffer = buffer;
 	_uvBufferLen = len;
+	return this;
+}
+
+GLMeshBuilder* GLMeshBuilder::SetColorBuffer(const GLvoid* buffer, GLsizeiptr len)
+{
+	_colorBuffer = buffer;
+	_colorBufferLen = len;
 	return this;
 }
 
@@ -62,6 +72,11 @@ void GLMeshBuilder::build()
 		_uvBufferID = GLCreateBuffer(_uvBufferLen, (GLvoid*)_uvBuffer);
 	}
 
+	if (_colorBuffer)
+	{
+		_colorBufferID = GLCreateBuffer(_colorBufferLen, (GLvoid*)_colorBuffer);
+	}
+
 	if (_imageBuffer)
 	{
 		GLsizei width = _imageBuffer->GetWidth();
@@ -83,9 +98,14 @@ GLuint GLMeshBuilder::GetNormalBufferID()
 	return _normalBufferID;
 }
 
-GLuint GLMeshBuilder::GetUvBufferID()
+GLuint GLMeshBuilder::GetUVBufferID()
 {
 	return _uvBufferID;
+}
+
+GLuint GLMeshBuilder::GetColorBufferID()
+{
+	return _colorBufferID;
 }
 
 GLuint GLMeshBuilder::GetBaseTexID()
@@ -116,6 +136,12 @@ GLMeshBuilder::~GLMeshBuilder()
 	{
 		GLDeleteBuffer(_uvBufferID);
 		_uvBufferID = 0;
+	}
+
+	if (_colorBuffer)
+	{
+		GLDeleteBuffer(_colorBufferID);
+		_colorBufferID = 0;
 	}
 
 	if (_imageBuffer)

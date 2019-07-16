@@ -1,9 +1,8 @@
 #ifndef Floor_H
 #define Floor_H
 
-#include "ShaderProgram.h"
-#include "GLBuffer.h"
 #include "GLMat.h"
+#include "GLMeshRenderer.h"
 
 class Floor
 {
@@ -12,14 +11,12 @@ private:
 	bool _axisVisible;
 	bool _gridVisible;
 	bool _gridLinesVisible;
-
-	ShaderProgram* _shaderProgram;
 	
-	GLBuffer* _axisBuffer;
-	GLBuffer* _gridBuffer;
-	GLBuffer* _gridLinesBuffer;
-
 	GLMat _modelMat;
+
+	GLMeshRenderer* _axisRenderer;
+	GLMeshRenderer* _gridRenderer;
+	GLMeshRenderer* _gridLinesRenderer;
 
 public:
 	Floor();

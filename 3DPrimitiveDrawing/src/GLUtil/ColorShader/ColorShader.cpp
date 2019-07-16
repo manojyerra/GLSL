@@ -11,8 +11,8 @@ ColorShader::ColorShader()
 
 	_alpha = 1.0f;
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram( "shaders/Phong/Phong.vs",
-																			"shaders/Phong/Phong.fs");
+	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram( "shaders/ColorArray/ColorArray.vs",
+																			"shaders/ColorArray/ColorArray.fs");
 }
 
 void ColorShader::SetVertexBufferID(unsigned int bufferID)
@@ -56,7 +56,7 @@ void ColorShader::SetUniformsAndAttributes()
 		GLuint loc = glGetAttribLocation(programID, "color");
 		glEnableVertexAttribArray(loc);
 		glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-		glVertexAttribPointer(loc, 3, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
+		glVertexAttribPointer(loc, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	}
 
 	GLuint vertexLoc = glGetAttribLocation(programID, "vertex");

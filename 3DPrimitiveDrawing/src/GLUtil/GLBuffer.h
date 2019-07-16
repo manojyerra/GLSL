@@ -59,10 +59,15 @@ public:
 
 	void glEnd();
 
-	GLfloat* GetVertexArr();
-	GLfloat* GetUVArr();
-	GLfloat* GetColorArr();
-	GLfloat* GetNormalArr();
+	const char* GetVertexBuffer();
+	const char* GetUVBuffer();
+	const char* GetColorBuffer();
+	const char* GetNormalBuffer();
+
+	unsigned int GetVertexBufferSize();
+	unsigned int GetUVBufferSize();
+	unsigned int GetColorBufferSize();
+	unsigned int GetNormalBufferSize();
 
 	GLuint GetVertexBufferID();
 	GLuint GetColorBufferID();

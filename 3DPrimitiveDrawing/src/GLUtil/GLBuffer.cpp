@@ -160,10 +160,15 @@ void GLBuffer::glVertex3f(GLfloat x, GLfloat y, GLfloat z)
 		ReCreateMem();
 }
 
-GLfloat* GLBuffer::GetVertexArr()		{	return _vertexArr;	}
-GLfloat* GLBuffer::GetUVArr()			{	return _uvArr;		}
-GLfloat* GLBuffer::GetColorArr()		{	return _colorArr;	}
-GLfloat* GLBuffer::GetNormalArr()		{	return _normalArr;	}
+const char*  GLBuffer::GetVertexBuffer()	{ return (const char*)_vertexArr;	}
+const char*  GLBuffer::GetUVBuffer()		{ return (const char*)_uvArr;		}
+const char*  GLBuffer::GetColorBuffer()		{ return (const char*)_colorArr;	}
+const char*  GLBuffer::GetNormalBuffer()	{ return (const char*)_normalArr;	}
+
+unsigned int GLBuffer::GetVertexBufferSize()	{ return _count * 3 * sizeof(GLfloat); }
+unsigned int GLBuffer::GetUVBufferSize()		{ return _count * 2 * sizeof(GLfloat); }
+unsigned int GLBuffer::GetColorBufferSize()		{ return _count * 3 * sizeof(GLfloat); }
+unsigned int GLBuffer::GetNormalBufferSize()	{ return _count * 3 * sizeof(GLfloat); }
 
 GLuint GLBuffer::GetVertexBufferID()	{	return _vertexBufferID;		}
 GLuint GLBuffer::GetColorBufferID()		{	return _colorBufferID;		}

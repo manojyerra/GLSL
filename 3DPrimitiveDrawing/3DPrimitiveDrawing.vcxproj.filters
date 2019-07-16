@@ -16,9 +16,6 @@
     <Filter Include="src\glew\source">
       <UniqueIdentifier>{594cab06-661c-4e9d-990e-ced5a33ab06a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Util">
-      <UniqueIdentifier>{185a35b1-5272-4410-80dc-70c5b00da491}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Shapes3D">
       <UniqueIdentifier>{eb378a22-0163-4abf-bb9c-53bfd1f30953}</UniqueIdentifier>
     </Filter>
@@ -128,9 +125,6 @@
     </ClCompile>
     <ClCompile Include="src\Shapes3D\Sphere.cpp">
       <Filter>src\Shapes3D</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Util\RandomColor.cpp">
-      <Filter>src\Util</Filter>
     </ClCompile>
     <ClCompile Include="src\Shapes2D\Triangle.cpp">
       <Filter>src\Shapes2D</Filter>
@@ -312,6 +306,9 @@
     <ClCompile Include="src\Common\Utils\BufferTransformUtils.cpp">
       <Filter>src\Common\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="src\Common\Utils\RandomColor.cpp">
+      <Filter>src\Common\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -367,9 +364,6 @@
     </ClInclude>
     <ClInclude Include="src\Shapes3D\Sphere.h">
       <Filter>src\Shapes3D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Util\RandomColor.h">
-      <Filter>src\Util</Filter>
     </ClInclude>
     <ClInclude Include="src\Shapes2D\Triangle.h">
       <Filter>src\Shapes2D</Filter>
@@ -495,6 +489,9 @@
       <Filter>src\Common\Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\Common\Utils\BufferTransformUtils.h">
+      <Filter>src\Common\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Utils\RandomColor.h">
       <Filter>src\Common\Utils</Filter>
     </ClInclude>
   </ItemGroup>

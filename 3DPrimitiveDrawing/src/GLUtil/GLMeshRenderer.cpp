@@ -6,8 +6,8 @@ GLMeshRenderer::GLMeshRenderer(ObjReader* reader)
 {
 	_meshBuilder = new GLMeshBuilder();
 	_meshBuilder->SetVertexBuffer(reader->GetVertexBuffer(), reader->GetVertexBufferSize());
-	_meshBuilder->SetUVBuffer(reader->GetUVBuffer(), reader->GetUVBufferSize());
 	_meshBuilder->SetNormalBuffer(reader->GetNormalBuffer(), reader->GetNoralBufferSize());
+	_meshBuilder->SetUVBuffer(reader->GetUVBuffer(), reader->GetUVBufferSize());
 	_meshBuilder->SetImageBuffer(reader->GetImageBuffer());
 	_meshBuilder->build();
 
@@ -18,9 +18,22 @@ GLMeshRenderer::GLMeshRenderer(BinaryObjReader* reader)
 {
 	_meshBuilder = new GLMeshBuilder();
 	_meshBuilder->SetVertexBuffer(reader->GetVertexBuffer(), reader->GetVertexBufferSize());
-	_meshBuilder->SetUVBuffer(reader->GetUVBuffer(), reader->GetUVBufferSize());
 	_meshBuilder->SetNormalBuffer(reader->GetNormalBuffer(), reader->GetNoralBufferSize());
+	_meshBuilder->SetUVBuffer(reader->GetUVBuffer(), reader->GetUVBufferSize());
 	_meshBuilder->SetImageBuffer(reader->GetImageBuffer());
+	_meshBuilder->build();
+
+	CommonInit();
+}
+
+GLMeshRenderer::GLMeshRenderer(GLMeshCreateInfo* meshCreateInfo)
+{
+	_meshBuilder = new GLMeshBuilder();
+	_meshBuilder->SetVertexBuffer(meshCreateInfo->GetVertexBuffer(), meshCreateInfo->GetVertexBufferSize());
+	_meshBuilder->SetNormalBuffer(meshCreateInfo->GetNormalBuffer(), meshCreateInfo->GetNormalBufferSize());
+	_meshBuilder->SetUVBuffer(meshCreateInfo->GetUVBuffer(), meshCreateInfo->GetUVBufferSize());
+	_meshBuilder->SetColorBuffer(meshCreateInfo->GetColorBuffer(), meshCreateInfo->GetColorBufferSize());
+	_meshBuilder->SetImageBuffer(meshCreateInfo->GetImageBuffer());
 	_meshBuilder->build();
 
 	CommonInit();
@@ -33,6 +46,7 @@ void GLMeshRenderer::CommonInit()
 	_phongPerVertexShader = NULL;
 	_phongPerPixelShader = NULL;
 	_pbrShader = NULL;
+	_primitiveType = triangles;
 
 	_shaderType = BASIC_SHADER;
 
@@ -67,6 +81,7 @@ void GLMeshRenderer::SetShader(int shaderType)
 		{
 			_colorShader = new ColorShader();
 			_colorShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
+			_colorShader->SetColorBufferID(_meshBuilder->GetColorBufferID());
 		}
 	}
 	else if (_shaderType == PHONG_PER_VERTEX_SHADER)
@@ -98,6 +113,11 @@ void GLMeshRenderer::SetShader(int shaderType)
 	}
 }
 
+void GLMeshRenderer::SetPrimitiveType(int primitiveType)
+{
+	_primitiveType = primitiveType;
+}
+
 void GLMeshRenderer::Draw()
 {
 	if (_shaderType == BASIC_SHADER)
@@ -105,15 +125,23 @@ void GLMeshRenderer::Draw()
 		_basicShader->SetModelMatrix(_modelMat.m);
 		_basicShader->Begin();
 		_basicShader->SetUniformsAndAttributes();
-		glDrawArrays(GL_TRIANGLES, 0, _meshBuilder->GetVertexBufferSize()/12);
+		glDrawArrays(_primitiveType, 0, _meshBuilder->GetVertexBufferSize()/12);
 		_basicShader->End();
+	}
+	if (_shaderType == COLOR_SHADER)
+	{
+		_colorShader->SetModelMatrix(_modelMat.m);
+		_colorShader->Begin();
+		_colorShader->SetUniformsAndAttributes();
+		glDrawArrays(_primitiveType, 0, _meshBuilder->GetVertexBufferSize() / 12);
+		_colorShader->End();
 	}
 	else if (_shaderType == PHONG_PER_VERTEX_SHADER)
 	{
 		_phongPerVertexShader->SetModelMatrix(_modelMat.m);
 		_phongPerVertexShader->Begin();
 		_phongPerVertexShader->SetUniformsAndAttributes();
-		glDrawArrays(GL_TRIANGLES, 0, _meshBuilder->GetVertexBufferSize() / 12);
+		glDrawArrays(_primitiveType, 0, _meshBuilder->GetVertexBufferSize() / 12);
 		_phongPerVertexShader->End();
 	}
 	else if (_shaderType == PHONG_PER_PIXEL_SHADER)
@@ -121,7 +149,7 @@ void GLMeshRenderer::Draw()
 		_phongPerPixelShader->SetModelMatrix(_modelMat.m);
 		_phongPerPixelShader->Begin();
 		_phongPerPixelShader->SetUniformsAndAttributes();
-		glDrawArrays(GL_TRIANGLES, 0, _meshBuilder->GetVertexBufferSize() / 12);
+		glDrawArrays(_primitiveType, 0, _meshBuilder->GetVertexBufferSize() / 12);
 		_phongPerPixelShader->End();
 	}
 	else if (_shaderType == PBR_SHADER)
@@ -129,7 +157,7 @@ void GLMeshRenderer::Draw()
 		_pbrShader->SetModelMatrix(_modelMat.m);
 		_pbrShader->Begin();
 		_pbrShader->SetUniformsAndAttributes();
-		glDrawArrays(GL_TRIANGLES, 0, _meshBuilder->GetVertexBufferSize() / 12);
+		glDrawArrays(_primitiveType, 0, _meshBuilder->GetVertexBufferSize() / 12);
 		_pbrShader->End();
 	}
 }
