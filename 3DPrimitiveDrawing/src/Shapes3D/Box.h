@@ -8,6 +8,7 @@
 #include "GLBuffer.h"
 #include "GLMat.h"
 #include "glm/glm.hpp"
+#include "GLMeshRenderer.h"
 
 class Box : public Shape
 {
@@ -17,18 +18,11 @@ private:
 	float _d;
 
 	GLMat _scaleMat;
-
 	RandomColor _randomColor;
 
-	GLuint _vertexBufferID;
-	GLuint _colorBufferID;
-	GLuint _vertexCount;
-	ShaderProgram* _shaderProgram;
-
-	GLBuffer* _buffer;
+	GLMeshRenderer* _meshRenderer;
 	
-	void GenerateBufferID();
-	void InitCommon();
+	void GenerateGeometry();
 
 public:
 	Box();

@@ -3,6 +3,7 @@
 #include "BufferTransformUtils.h"
 #include "ShadersManager.h"
 #include "Cam.h"
+#include "ModelCreateInfo.h"
 
 Box::Box() : Shape(Shape::BOX)
 {
@@ -21,7 +22,7 @@ Box::Box(float x, float y, float z, float w, float h, float d) : Shape(Shape::BO
 	_h = h;
 	_d = d;
 
-	InitCommon();
+	GenerateGeometry();
 }
 
 Box::Box(float* mat, glm::vec3 size) : Shape(Shape::BOX)
@@ -32,7 +33,7 @@ Box::Box(float* mat, glm::vec3 size) : Shape(Shape::BOX)
 	_h = size.y;
 	_d = size.z;
 
-	InitCommon();
+	GenerateGeometry();
 }
 
 Box::Box(Box* box) : Shape(Shape::BOX)
@@ -45,20 +46,7 @@ Box::Box(Box* box) : Shape(Shape::BOX)
 
 	_id = box->GetID();
 
-	InitCommon();
-}
-
-void Box::InitCommon()
-{
-	_vertexBufferID = 0;
-	_colorBufferID = 0;
-	_vertexCount = 0;
-
-	_buffer = NULL;
-
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/ColorAndScale/ColorAndScale.vs", "shaders/ColorAndScale/ColorAndScale.fs");
-
-	GenerateBufferID();
+	GenerateGeometry();
 }
 
 void Box::Set(Box* box)
@@ -289,50 +277,24 @@ void Box::Draw()
 	_scaleMat.m[5] = _h;
 	_scaleMat.m[10] = _d;
 
+	GLMat modelMat(m);
+	modelMat.glMultMatrixf(_scaleMat.m);
+
 	GLboolean blend = GLState::GLEnable(GL_BLEND, true);
 	GLboolean depthTest = GLState::GLEnable(GL_DEPTH_TEST, true);
 
-	_shaderProgram->Begin();
-
-	GLint projMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "projMat");
-	GLint viewMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "viewMat");
-	GLint modelMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "modelMat");
-	GLint scaleMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "scaleMat");
-
-	glUniformMatrix4fv(projMatLoc, 1, GL_FALSE, Cam::GetInstance()->projMat.m);
-	glUniformMatrix4fv(viewMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
-	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, m);
-	glUniformMatrix4fv(scaleMatLoc, 1, GL_FALSE, _scaleMat.m);
-
-	//TODO : set the _randomColorAlpha value as uniform
-
-	GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
-	glEnableVertexAttribArray(colorID);
-	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-	glVertexAttribPointer( colorID, 3, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
-
-	GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
-	glEnableVertexAttribArray(vertexID);
-	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-	glVertexAttribPointer(vertexID, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-
-	glDrawArrays(GL_TRIANGLES, 0, _vertexCount);
-	
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glDisableVertexAttribArray(vertexID);
-	glDisableVertexAttribArray(colorID);
-
-	_shaderProgram->End();
+	_meshRenderer->SetModelMatrix(modelMat.m);
+	_meshRenderer->Draw();	
 
 	GLState::GLEnable(GL_BLEND, blend);
 	GLState::GLEnable(GL_DEPTH_TEST, depthTest);
 }
 
-void Box::GenerateBufferID()
+void Box::GenerateGeometry()
 {
-	_buffer = new GLBuffer(100, true, false, false);
+	GLBuffer* buffer = new GLBuffer(100, true, false, false);
 
-	_buffer->glBegin(GL_TRIANGLES);
+	buffer->glBegin(GL_TRIANGLES);
 
 	if(_useRandomColors)
 		_randomColor.Reset();
@@ -342,92 +304,86 @@ void Box::GenerateBufferID()
 	float d = 1.0f/2.0f;
 
 	//Front face
-	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
-	_buffer->glVertex3f(+w, -h, +d);
-	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
-	_buffer->glVertex3f(+w, +h, +d);
-	_buffer->glVertex3f(-w, -h, +d);
-	_buffer->glVertex3f(-w, -h, +d);
-	_buffer->glVertex3f(+w, +h, +d);
-	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
-	_buffer->glVertex3f(-w, +h, +d);
+	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
+	buffer->glVertex3f(+w, -h, +d);
+	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
+	buffer->glVertex3f(+w, +h, +d);
+	buffer->glVertex3f(-w, -h, +d);
+	buffer->glVertex3f(-w, -h, +d);
+	buffer->glVertex3f(+w, +h, +d);
+	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
+	buffer->glVertex3f(-w, +h, +d);
 
 	//Back face
-	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
-	_buffer->glVertex3f(+w, -h, -d);
-	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
-	_buffer->glVertex3f(-w, -h, -d);
-	_buffer->glVertex3f(+w, +h, -d);
-	_buffer->glVertex3f(+w, +h, -d);
-	_buffer->glVertex3f(-w, -h, -d);
-	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
-	_buffer->glVertex3f(-w, +h, -d);
+	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
+	buffer->glVertex3f(+w, -h, -d);
+	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
+	buffer->glVertex3f(-w, -h, -d);
+	buffer->glVertex3f(+w, +h, -d);
+	buffer->glVertex3f(+w, +h, -d);
+	buffer->glVertex3f(-w, -h, -d);
+	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
+	buffer->glVertex3f(-w, +h, -d);
 
 	//Top face
-	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
-	_buffer->glVertex3f(+w, +h, -d);
-	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
-	_buffer->glVertex3f(-w, +h, -d);
-	_buffer->glVertex3f(+w, +h, +d);
-	_buffer->glVertex3f(+w, +h, +d);
-	_buffer->glVertex3f(-w, +h, -d);
-	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
-	_buffer->glVertex3f(-w, +h, +d);
+	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
+	buffer->glVertex3f(+w, +h, -d);
+	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
+	buffer->glVertex3f(-w, +h, -d);
+	buffer->glVertex3f(+w, +h, +d);
+	buffer->glVertex3f(+w, +h, +d);
+	buffer->glVertex3f(-w, +h, -d);
+	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
+	buffer->glVertex3f(-w, +h, +d);
 
 	//Bottom face
-	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
-	_buffer->glVertex3f(+w, -h, -d);
-	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
-	_buffer->glVertex3f(+w, -h, +d);
-	_buffer->glVertex3f(-w, -h, -d);
-	_buffer->glVertex3f(-w, -h, -d);
-	_buffer->glVertex3f(+w, -h, +d);
-	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
-	_buffer->glVertex3f(-w, -h, +d);
+	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
+	buffer->glVertex3f(+w, -h, -d);
+	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
+	buffer->glVertex3f(+w, -h, +d);
+	buffer->glVertex3f(-w, -h, -d);
+	buffer->glVertex3f(-w, -h, -d);
+	buffer->glVertex3f(+w, -h, +d);
+	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
+	buffer->glVertex3f(-w, -h, +d);
 
 	//Right face
-	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
-	_buffer->glVertex3f(+w, +h, -d);
-	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
-	_buffer->glVertex3f(+w, +h, +d);
-	_buffer->glVertex3f(+w, -h, -d);
-	_buffer->glVertex3f(+w, -h, -d);
-	_buffer->glVertex3f(+w, +h, +d);
-	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
-	_buffer->glVertex3f(+w, -h, +d);
+	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
+	buffer->glVertex3f(+w, +h, -d);
+	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
+	buffer->glVertex3f(+w, +h, +d);
+	buffer->glVertex3f(+w, -h, -d);
+	buffer->glVertex3f(+w, -h, -d);
+	buffer->glVertex3f(+w, +h, +d);
+	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
+	buffer->glVertex3f(+w, -h, +d);
 
 	//Left face
-	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
-	_buffer->glVertex3f(-w, +h, -d);
-	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
-	_buffer->glVertex3f(-w, -h, -d);
-	_buffer->glVertex3f(-w, +h, +d);
-	_buffer->glVertex3f(-w, +h, +d);
-	_buffer->glVertex3f(-w, -h, -d);
-	if(_useRandomColors) _buffer->glColor(_randomColor.NextColor());
-	_buffer->glVertex3f(-w, -h, +d);
+	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
+	buffer->glVertex3f(-w, +h, -d);
+	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
+	buffer->glVertex3f(-w, -h, -d);
+	buffer->glVertex3f(-w, +h, +d);
+	buffer->glVertex3f(-w, +h, +d);
+	buffer->glVertex3f(-w, -h, -d);
+	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
+	buffer->glVertex3f(-w, -h, +d);
 
-	_buffer->glEnd();
+	ModelCreateInfo createInfo;
+	createInfo.SetVertexBuffer(buffer->GetVertexBuffer(), buffer->GetVertexBufferSize());
+	createInfo.SetColorBuffer(buffer->GetColorBuffer(), buffer->GetColorBufferSize());
 
-	_vertexBufferID = _buffer->GetVertexBufferID();
-	_colorBufferID = _buffer->GetColorBufferID();
+	_meshRenderer = new GLMeshRenderer(&createInfo);
+	_meshRenderer->SetShader(GLMeshRenderer::COLOR_SHADER);
 
-	_vertexCount = _buffer->GetVertexCount();
+	delete buffer;
 }
 
 Box::~Box()
 {
-	if (_shaderProgram != NULL)
+	if (_meshRenderer)
 	{
-		string vertexShaderPath = _shaderProgram->GetVertexShaderFilePath();
-		string fragementShaderPath = _shaderProgram->GetFragmentShaderFilePath();
-
-		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
-	}
-
-	if (_buffer)
-	{
-		delete _buffer;
-		_buffer = NULL;
+		delete _meshRenderer;
+		_meshRenderer = NULL;
 	}
 }

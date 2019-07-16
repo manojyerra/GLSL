@@ -4,13 +4,14 @@
 #include "BufferTransformUtils.h"
 #include "ShadersManager.h"
 #include "Cam.h"
+#include "ModelCreateInfo.h"
 
 Cylinder::Cylinder() : Shape(Shape::CYLINDER)
 {
 	_r = 0;
 	_h = 0;
 
-	InitCommon();
+	GenerateGeometry();
 }
 
 
@@ -21,7 +22,7 @@ Cylinder::Cylinder(float* mat, float r, float h) : Shape(Shape::CYLINDER)
 	_r = r;
 	_h = h;
 
-	InitCommon();
+	GenerateGeometry();
 }
 
 
@@ -33,7 +34,7 @@ Cylinder::Cylinder(Cylinder* cylinder)
 	_h = cylinder->GetHeight();
 	_id = cylinder->GetID();
 
-	InitCommon();
+	GenerateGeometry();
 }
 
 
@@ -46,20 +47,8 @@ Cylinder::Cylinder(float x, float y, float z, float r, float h) : Shape(Shape::C
 	_r = r;
 	_h = h;
 
-	InitCommon();
+	GenerateGeometry();
 }
-
-void Cylinder::InitCommon()
-{
-	_vertexBufferID = 0;
-	_colorBufferID = 0;
-
-	_vertexCount = 0;
-
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/ColorAndScale/ColorAndScale.vs", "shaders/ColorAndScale/ColorAndScale.fs");
-	GenerateBufferID();
-}
-
 
 glm::vec3 Cylinder::GetPos()
 {
@@ -214,46 +203,23 @@ void Cylinder::Draw()
 	_scaleMat.m[5] = _h;
 	_scaleMat.m[10] = _r * 2;
 
-	_shaderProgram->Begin();
+	GLMat modelMat(m);
+	modelMat.glMultMatrixf(_scaleMat.m);
 
-	GLint projMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "projMat");
-	GLint viewMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "viewMat");
-	GLint modelMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "modelMat");
-	GLint scaleMatLoc = glGetUniformLocation(_shaderProgram->ProgramID(), "scaleMat");
+	_meshRenderer->SetModelMatrix(modelMat.m);
+	_meshRenderer->Draw();
 
-	glUniformMatrix4fv(projMatLoc, 1, GL_FALSE, Cam::GetInstance()->projMat.m);
-	glUniformMatrix4fv(viewMatLoc, 1, GL_FALSE, Cam::GetInstance()->viewMat.m);
-	glUniformMatrix4fv(modelMatLoc, 1, GL_FALSE, m);
-	glUniformMatrix4fv(scaleMatLoc, 1, GL_FALSE, _scaleMat.m);
-
-	GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
-	glEnableVertexAttribArray(colorID);
-	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-	glVertexAttribPointer( colorID, 3, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
-
-	GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
-	glEnableVertexAttribArray(vertexID);
-	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-	glVertexAttribPointer(vertexID, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-
-	glDrawArrays(GL_TRIANGLES, 0, _vertexCount);
-	
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glDisableVertexAttribArray(vertexID);
-	glDisableVertexAttribArray(colorID);
-
-	_shaderProgram->End();
 }
 
-void Cylinder::GenerateBufferID()
+void Cylinder::GenerateGeometry()
 {
-	_buffer = new GLBuffer(100, true, false, false);
+	GLBuffer* buffer = new GLBuffer(100, true, false, false);
 
 	float radius = 0.5f;
 	float halfLength = 0.5f;
 	float piVal = 3.14159265f;
 
-	_buffer->glBegin(GL_TRIANGLES);
+	buffer->glBegin(GL_TRIANGLES);
 
 	if(_useRandomColors)
 		_randomColor.Reset();
@@ -264,52 +230,47 @@ void Cylinder::GenerateBufferID()
 		float nextTheta = (i)*piVal/180.0f;
 
 		if(_useRandomColors)
-			_buffer->glColor( _randomColor.NextColor() );
+			buffer->glColor( _randomColor.NextColor() );
 		
-		_buffer->glVertex3f(radius*cos(nextTheta),	halfLength,		radius*sin(nextTheta));
-		_buffer->glVertex3f(radius*cos(theta),	-halfLength,	radius*sin(theta));
-		_buffer->glVertex3f(radius*cos(theta),	halfLength,		radius*sin(theta));
+		buffer->glVertex3f(radius*cos(nextTheta),	halfLength,		radius*sin(nextTheta));
+		buffer->glVertex3f(radius*cos(theta),	-halfLength,	radius*sin(theta));
+		buffer->glVertex3f(radius*cos(theta),	halfLength,		radius*sin(theta));
 
-		_buffer->glVertex3f(radius*cos(theta),	-halfLength,	radius*sin(theta));
-		_buffer->glVertex3f(radius*cos(nextTheta),	halfLength,		radius*sin(nextTheta));
-		_buffer->glVertex3f(radius*cos(nextTheta),	-halfLength,	radius*sin(nextTheta));
+		buffer->glVertex3f(radius*cos(theta),	-halfLength,	radius*sin(theta));
+		buffer->glVertex3f(radius*cos(nextTheta),	halfLength,		radius*sin(nextTheta));
+		buffer->glVertex3f(radius*cos(nextTheta),	-halfLength,	radius*sin(nextTheta));
 
-		_buffer->glColor( _randomColor.NextColor() );
-		_buffer->glVertex3f(radius*cos(nextTheta),	halfLength,		radius*sin(nextTheta));
+		buffer->glColor( _randomColor.NextColor() );
+		buffer->glVertex3f(radius*cos(nextTheta),	halfLength,		radius*sin(nextTheta));
 
-		if(_useRandomColors) _buffer->glColor( _randomColor.NextColor() );
-		_buffer->glVertex3f(radius*cos(theta),	halfLength,		radius*sin(theta));
-		_buffer->glVertex3f(0, halfLength, 0);		
+		if(_useRandomColors) buffer->glColor( _randomColor.NextColor() );
+		buffer->glVertex3f(radius*cos(theta),	halfLength,		radius*sin(theta));
+		buffer->glVertex3f(0, halfLength, 0);		
 
-		if(_useRandomColors) _buffer->glColor( _randomColor.NextColor() );
-		_buffer->glVertex3f(0, -halfLength, 0);
+		if(_useRandomColors) buffer->glColor( _randomColor.NextColor() );
+		buffer->glVertex3f(0, -halfLength, 0);
 		
-		if(_useRandomColors) _buffer->glColor( _randomColor.NextColor() );
-		_buffer->glVertex3f(radius*cos(theta),	-halfLength,		radius*sin(theta));
-		_buffer->glVertex3f(radius*cos(nextTheta),	-halfLength,		radius*sin(nextTheta));
+		if(_useRandomColors) buffer->glColor( _randomColor.NextColor() );
+		buffer->glVertex3f(radius*cos(theta),	-halfLength,		radius*sin(theta));
+		buffer->glVertex3f(radius*cos(nextTheta),	-halfLength,		radius*sin(nextTheta));
 	}
 
-	_buffer->glEnd();
 
-	_vertexBufferID = _buffer->GetVertexBufferID();
-	_colorBufferID = _buffer->GetColorBufferID();
+	ModelCreateInfo createInfo;
+	createInfo.SetVertexBuffer(buffer->GetVertexBuffer(), buffer->GetVertexBufferSize());
+	createInfo.SetColorBuffer(buffer->GetColorBuffer(), buffer->GetColorBufferSize());
 
-	_vertexCount = _buffer->GetVertexCount();
+	_meshRenderer = new GLMeshRenderer(&createInfo);
+	_meshRenderer->SetShader(GLMeshRenderer::COLOR_SHADER);
+
+	delete buffer;
 }
 
 Cylinder::~Cylinder()
 {
-	if (_shaderProgram != NULL)
+	if (_meshRenderer)
 	{
-		string vertexShaderPath = _shaderProgram->GetVertexShaderFilePath();
-		string fragementShaderPath = _shaderProgram->GetFragmentShaderFilePath();
-
-		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
-	}
-
-	if (_buffer)
-	{
-		delete _buffer;
-		_buffer = NULL;
+		delete _meshRenderer;
+		_meshRenderer = NULL;
 	}
 }

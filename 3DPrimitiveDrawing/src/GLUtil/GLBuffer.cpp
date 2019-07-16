@@ -165,10 +165,10 @@ const char*  GLBuffer::GetUVBuffer()		{ return (const char*)_uvArr;		}
 const char*  GLBuffer::GetColorBuffer()		{ return (const char*)_colorArr;	}
 const char*  GLBuffer::GetNormalBuffer()	{ return (const char*)_normalArr;	}
 
-unsigned int GLBuffer::GetVertexBufferSize()	{ return _count * 3 * sizeof(GLfloat); }
-unsigned int GLBuffer::GetUVBufferSize()		{ return _count * 2 * sizeof(GLfloat); }
-unsigned int GLBuffer::GetColorBufferSize()		{ return _count * 3 * sizeof(GLfloat); }
-unsigned int GLBuffer::GetNormalBufferSize()	{ return _count * 3 * sizeof(GLfloat); }
+unsigned int GLBuffer::GetVertexBufferSize()	{ return _count * 3 * sizeof(GLfloat);	}
+unsigned int GLBuffer::GetUVBufferSize()		{ return _count * 2 * sizeof(GLfloat);	}
+unsigned int GLBuffer::GetColorBufferSize()		{ return _count * 3 * sizeof(GLbyte);	}
+unsigned int GLBuffer::GetNormalBufferSize()	{ return _count * 3 * sizeof(GLfloat);	}
 
 GLuint GLBuffer::GetVertexBufferID()	{	return _vertexBufferID;		}
 GLuint GLBuffer::GetColorBufferID()		{	return _colorBufferID;		}

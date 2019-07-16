@@ -10,21 +10,21 @@ Sphere::Sphere(float x, float y, float z, float r) : Shape(Shape::SPHERE)
 	m[13] = y;
 	m[14] = z;
 	_r = r;
-	InitCommon();
+	GenerateGeometry();
 }
 
 Sphere::Sphere(Sphere* sphere) : Shape(Shape::SPHERE)
 {
 	memcpy(m, sphere->m, 16*4);
 	_r = sphere->GetRadius();
-	InitCommon();
+	GenerateGeometry();
 }
 
 Sphere::Sphere(float* mat, float r) : Shape(Shape::SPHERE)
 {
 	memcpy(m, mat, 16*4);
 	_r = r;
-	InitCommon();
+	GenerateGeometry();
 }
 
 Sphere::Sphere(glm::vec3 pos, float r) : Shape(Shape::SPHERE)
@@ -33,31 +33,7 @@ Sphere::Sphere(glm::vec3 pos, float r) : Shape(Shape::SPHERE)
 	m[13] = pos.y;
 	m[14] = pos.z;
 	_r = r;
-	InitCommon();
-}
-
-void Sphere::InitCommon()
-{
-	_vertexBufferID = 0;
-	_normalBufferID = 0;
-	_vertexCount = 0;
-
-	GenerateBufferID();
-
-	GLfloat Ka[] = { 0.1, 0.1, 0.1, 1.0 };
-	GLfloat Kd[] = { 0.64, 0.64, 0.64, 1.0 };
-	GLfloat Ks[] = { 0.5, 0.5, 0.5, 1.0 };
-	GLfloat Se = 5.0;
-
-	_phongShader = new PhongShader(PhongShader::PER_PIXEL_SHADER);
-	_phongShader->SetLightPos(0.0, 0.0, 0.0);
-	_phongShader->SetAmbientColor(Ka[0], Ka[1], Ka[2], Ka[3]);
-	_phongShader->SetDiffuseColor(Kd[0], Kd[1], Kd[2], Kd[3]);
-	_phongShader->SetSpecularColor(Ks[0], Ks[1], Ks[2], Ks[3]);
-	_phongShader->SetShininess(Se);
-
-	_phongShader->SetVertexBufferID(_vertexBufferID);
-	_phongShader->SetNormalBufferID(_normalBufferID);
+	GenerateGeometry();
 }
 
 Sphere Sphere::CalcBoundingSphere(float* vertexBuf, int arrSize)
@@ -108,23 +84,21 @@ void Sphere::Draw()
 	if(!_visible)
 		return;
 
-	_phongShader->Begin();
-	_phongShader->SetModelMatrix(m);
-	_phongShader->SetUniformsAndAttributes();
+	GLMat modelMat(m);
+	modelMat.glMultMatrixf(_scaleMat.m);
 
-	glDrawArrays(GL_TRIANGLES, 0, _vertexCount);
-
-	_phongShader->End();
+	_meshRenderer->SetModelMatrix(modelMat.m);
+	_meshRenderer->Draw();
 }
 
-void Sphere::GenerateBufferID()
+void Sphere::GenerateGeometry()
 {
-	_buffer = new GLBuffer(100, false, false, true);
+	GLBuffer* buffer = new GLBuffer(100, false, false, true);
 
 	float radius = 0.5f;
 	float piVal = 3.14159265f;
 
-	_buffer->glBegin(GL_TRIANGLES);
+	buffer->glBegin(GL_TRIANGLES);
 	
 	float degToRad = 0.017453f;
 
@@ -162,32 +136,34 @@ void Sphere::GenerateBufferID()
 			rot(2, yAngle+delta, Xz1, Yz1, Zz1, &x3, &y3, &z3);
 			rot(2, yAngle+delta, Xz2, Yz2, Zz2, &x4, &y4, &z4);
 
-			_buffer->glNormal3f(x3, y3, z3);
-			_buffer->glVertex3f(x3, y3, z3);
+			buffer->glNormal3f(x3, y3, z3);
+			buffer->glVertex3f(x3, y3, z3);
 
-			_buffer->glNormal3f(x2, y2, z2);
-			_buffer->glVertex3f(x2, y2, z2);
+			buffer->glNormal3f(x2, y2, z2);
+			buffer->glVertex3f(x2, y2, z2);
 
-			_buffer->glNormal3f(x1, y1, z1);
-			_buffer->glVertex3f(x1, y1, z1);
+			buffer->glNormal3f(x1, y1, z1);
+			buffer->glVertex3f(x1, y1, z1);
 
-			_buffer->glNormal3f(x2, y2, z2);
-			_buffer->glVertex3f(x2, y2, z2);
+			buffer->glNormal3f(x2, y2, z2);
+			buffer->glVertex3f(x2, y2, z2);
 
-			_buffer->glNormal3f(x3, y3, z3);
-			_buffer->glVertex3f(x3, y3, z3);
+			buffer->glNormal3f(x3, y3, z3);
+			buffer->glVertex3f(x3, y3, z3);
 
-			_buffer->glNormal3f(x4, y4, z4);
-			_buffer->glVertex3f(x4, y4, z4);
+			buffer->glNormal3f(x4, y4, z4);
+			buffer->glVertex3f(x4, y4, z4);
 		}
 	}
 
-	_buffer->glEnd();
+	ModelCreateInfo createInfo;
+	createInfo.SetVertexBuffer(buffer->GetVertexBuffer(), buffer->GetVertexBufferSize());
+	createInfo.SetNormalBuffer(buffer->GetNormalBuffer(), buffer->GetNormalBufferSize());
 
-	_vertexBufferID = _buffer->GetVertexBufferID();
-	_normalBufferID = _buffer->GetNormalBufferID();
+	_meshRenderer = new GLMeshRenderer(&createInfo);
+	_meshRenderer->SetShader(GLMeshRenderer::PHONG_PER_PIXEL_SHADER);
 
-	_vertexCount = _buffer->GetVertexCount();
+	delete buffer;
 }
 
 void Sphere::rot(int axis, float angleInDegrees, float x, float y, float z, float* newX, float* newY, float* newZ)
@@ -219,16 +195,10 @@ void Sphere::rot(int axis, float angleInDegrees, float x, float y, float z, floa
 
 Sphere::~Sphere()
 {
-	if (_phongShader != NULL)
+	if (_meshRenderer)
 	{
-		delete _phongShader;
-		_phongShader = NULL;
-	}
-
-	if (_buffer)
-	{
-		delete _buffer;
-		_buffer = NULL;
+		delete _meshRenderer;
+		_meshRenderer = NULL;
 	}
 }
 

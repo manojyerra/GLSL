@@ -29,11 +29,11 @@ GameLoop::GameLoop(int sw, int sh)
 
 	_floor = new Floor();
 
-	glm::vec3 v1(0.0f, 0.0f, 0.0f);
-	glm::vec3 v2(0.0f, 5.0f, 0.0f);
-	glm::vec3 v3(5.0f, 0.0f, 0.0f);
+	//glm::vec3 v1(0.0f, 0.0f, 0.0f);
+	//glm::vec3 v2(0.0f, 5.0f, 0.0f);
+	//glm::vec3 v3(5.0f, 0.0f, 0.0f);
 
-	_triangle = new Triangle(v1, v2, v3);
+	//_triangle = new Triangle(v1, v2, v3);
 
 	_box = new Box(0, 0, 0, 2, 3, 4);
 	_box->SetSize(3, 1, 6);
@@ -53,7 +53,7 @@ GameLoop::GameLoop(int sw, int sh)
 	_sphere->SetPos(5, 0, 0);
 	_sphere->SetRadius(5);
 
-	_fbo = new GLFBO(_sw, _sh);
+	//_fbo = new GLFBO(_sw, _sh);
 	//_texture = new GLTexture(_sw, _sh);
 
 	//_particleLoader = new ParticleLoader();

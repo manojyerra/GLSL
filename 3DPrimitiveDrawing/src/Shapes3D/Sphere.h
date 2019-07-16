@@ -7,6 +7,7 @@
 #include "GLMat.h"
 #include "PhongShader/PhongShader.h"
 #include "glm/glm.hpp"
+#include "GLMeshRenderer.h"
 
 class Sphere : public Shape
 {
@@ -18,14 +19,13 @@ private:
 	GLuint _normalBufferID;
 	GLuint _vertexCount;
 
-	GLBuffer* _buffer;
+	GLMeshRenderer* _meshRenderer;
 
-	void GenerateBufferID();
-	void InitCommon();
+	void GenerateGeometry();
+
 	void rot(int axis, float angleInDegrees, float x, float y, float z, float* newX, float* newY, float* newZ);
 
 public:
-	PhongShader* _phongShader;
 
 	Sphere(float x, float y, float z, float r);
 	Sphere(Sphere* sphere);

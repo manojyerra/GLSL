@@ -8,6 +8,7 @@
 #include "GLBuffer.h"
 #include "GLMat.h"
 #include "glm/glm.hpp"
+#include "GLMeshRenderer.h"
 
 class Cylinder : public Shape
 {
@@ -18,16 +19,10 @@ private:
 
 	RandomColor _randomColor;
 
-	GLuint _vertexBufferID;
-	GLuint _colorBufferID;
-	GLuint _vertexCount;
-	ShaderProgram* _shaderProgram;
+	GLMeshRenderer* _meshRenderer;
 
-	GLBuffer* _buffer;
-
-	void GenerateBufferID();
-	void InitCommon();
-
+	void GenerateGeometry();
+	
 public:
 	Cylinder();
 	Cylinder(Cylinder* cylinder);
