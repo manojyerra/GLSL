@@ -229,7 +229,7 @@ void Cylinder::Draw()
 	GLuint colorID = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
 	glEnableVertexAttribArray(colorID);
 	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-	glVertexAttribPointer( colorID, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glVertexAttribPointer( colorID, 3, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
 
 	GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
 	glEnableVertexAttribArray(vertexID);

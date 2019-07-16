@@ -209,14 +209,12 @@ void GameLoop::SetCamAndDrawObjects()
 	Cam::GetInstance()->UpdateCamera();
 
 	_floor->Draw();
-	//_objLoader->Draw();
-	//_binaryObjLoader->Draw();
-	//_box->Draw();
-	//_cone->Draw();
-	//_sphere->Draw();
-	//_cylinder->Draw();
-	_meshRenderer->Draw();
-	_meshRenderer1->Draw();
+	_box->Draw();
+	_cone->Draw();
+	_sphere->Draw();
+	_cylinder->Draw();
+	//_meshRenderer->Draw();
+	//_meshRenderer1->Draw();
 }
 
 void GameLoop::SetScreenSize(int sw, int sh)

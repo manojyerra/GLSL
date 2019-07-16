@@ -12,6 +12,6 @@ layout (location = 0) out vec3 fragColor;
 
 void main(void)
 {
-	fragColor = color;
+	fragColor = vec3(color.r/255.0, color.g/255.0, color.b/255.0);
 	gl_Position = projMat * viewMat * modelMat * scaleMat * vec4(vertex, 1.0);
 }

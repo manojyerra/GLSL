@@ -11,6 +11,6 @@ layout (location = 0) out vec3 color_vary;
 
 void main(void)
 {
-	color_vary = color; //vec3(color.r/255.0, color.g/255.0, color.b/255.0);
+	color_vary = vec3(color.r/255.0, color.g/255.0, color.b/255.0);
 	gl_Position = mvp * vec4(vertex, 1.0);
 }

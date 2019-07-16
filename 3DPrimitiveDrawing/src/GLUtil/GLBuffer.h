@@ -12,15 +12,15 @@ private:
 
 	GLfloat* _vertexArr;
 	GLfloat* _uvArr;
-	GLfloat* _colorArr;
+	GLubyte* _colorArr;
 	GLfloat* _normalArr;
 
 	int _count;
 	GLenum _mode;
 	
-	GLfloat _r;
-	GLfloat _g;
-	GLfloat _b;
+	GLubyte _r;
+	GLubyte _g;
+	GLubyte _b;
 
 	GLfloat _u;
 	GLfloat _v;
@@ -44,7 +44,7 @@ public:
 
 	void glBegin(GLenum mode);
 
-	void glColor3ub(unsigned char r, unsigned char g, unsigned char b);
+	void glColor3ub(GLubyte r, GLubyte g, GLubyte b);
 	void glColor3f(float r, float g, float b);
 	void glColor(unsigned int color);
 

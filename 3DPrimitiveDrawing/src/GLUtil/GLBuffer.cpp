@@ -12,7 +12,7 @@ GLBuffer::GLBuffer(unsigned int capacity, bool colorDataPresent, bool uvDataPres
 	_normalArr = NULL;
 
 	_vertexArr = new GLfloat[_capacity*3];
-	if(colorDataPresent)	_colorArr = new GLfloat[_capacity*3];
+	if(colorDataPresent)	_colorArr = new GLubyte[_capacity*3];
 	if(uvDataPresent)		_uvArr = new GLfloat[_capacity*2];
 	if(normalsDataPresent)	_normalArr = new GLfloat[_capacity*3];
 
@@ -46,17 +46,17 @@ void GLBuffer::ReCreateMem()
 	int newCapacity = _capacity + _incrementInCapacity;
 
 	GLfloat* newVertexArr = NULL;
-	GLfloat* newColorArr = NULL;
+	GLubyte* newColorArr = NULL;
 	GLfloat* newUVArr = NULL;
 	GLfloat* newNormalArr = NULL;
 
 	if(_vertexArr)	newVertexArr = new GLfloat[newCapacity*3];
-	if(_colorArr)	newColorArr = new GLfloat[newCapacity*3];
+	if(_colorArr)	newColorArr = new GLubyte[newCapacity*3];
 	if(_uvArr)		newUVArr = new GLfloat[newCapacity*2];
 	if(_normalArr)	newNormalArr = new GLfloat[newCapacity*3];
 
 	if(_vertexArr)	memcpy(newVertexArr,	_vertexArr,		_capacity*3*4);
-	if(_colorArr)	memcpy(newColorArr,		_colorArr,		_capacity*3*4);
+	if(_colorArr)	memcpy(newColorArr,		_colorArr,		_capacity*3);
 	if(_uvArr)		memcpy(newUVArr,		_uvArr,			_capacity*2*4);
 	if(_normalArr)	memcpy(newNormalArr,	_normalArr,		_capacity*3*4);
 
@@ -81,23 +81,23 @@ void GLBuffer::glBegin(GLenum mode)
 
 void GLBuffer::glColor(unsigned int color)
 {
-	_r = ((color >> 24) & 255) / 255.0f;
-	_g = ((color >> 16) & 255) / 255.0f;
-	_b = ((color >> 8) & 255) / 255.0f;
+	_r = ((color >> 24) & 255);
+	_g = ((color >> 16) & 255);
+	_b = ((color >> 8) & 255);
 }
 
-void GLBuffer::glColor3ub(unsigned char r, unsigned char g, unsigned char b)
-{
-	_r = r * 1.0f / 255.0f;
-	_g = g * 1.0f / 255.0f;
-	_b = b * 1.0f / 255.0f;
-}
-
-void GLBuffer::glColor3f(float r, float g, float b)
+void GLBuffer::glColor3ub(GLubyte r, GLubyte g, GLubyte b)
 {
 	_r = r;
 	_g = g;
 	_b = b;
+}
+
+void GLBuffer::glColor3f(float r, float g, float b)
+{
+	_r = (GLubyte)(r*255.0f);
+	_g = (GLubyte)(g*255.0f);
+	_b = (GLubyte)(b*255.0f);
 }
 
 void GLBuffer::glTexCoord2f(const glm::vec3& vec)
@@ -183,7 +183,7 @@ void GLBuffer::glEnd()
 
 		if(_colorArr)
 		{
-			_colorBufferID = GLCreateBuffer(_count * 3 * 4, _colorArr);
+			_colorBufferID = GLCreateBuffer(_count * 3, _colorArr);
 		}
 
 		if(_uvArr)
@@ -285,8 +285,8 @@ GLBuffer::~GLBuffer()
 		_uvBufferID = 0;
 	}
 
-	if (_vertexArr) { delete[] _vertexArr;	_vertexArr = NULL; }
-	if (_colorArr) { delete[] _colorArr;	_colorArr = NULL; }
-	if (_uvArr) { delete[] _uvArr;		_uvArr = NULL; }
-	if (_normalArr) { delete[] _normalArr;	_normalArr = NULL; }
+	if (_vertexArr) { delete[] _vertexArr;	_vertexArr = NULL;	}
+	if (_colorArr)	{ delete[] _colorArr;	_colorArr = NULL;	}
+	if (_uvArr)		{ delete[] _uvArr;		_uvArr = NULL;		}
+	if (_normalArr) { delete[] _normalArr;	_normalArr = NULL;	}
 }

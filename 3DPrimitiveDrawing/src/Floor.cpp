@@ -81,6 +81,7 @@ Floor::Floor()
 	/////////////////////  Begin : Grid lines creation ////////////////////
 
 
+
 	/////////////////////  Begin : Grid creation ////////////////////
 
 	GLBuffer* _gridBuffer = new GLBuffer(100, true, false, false);
