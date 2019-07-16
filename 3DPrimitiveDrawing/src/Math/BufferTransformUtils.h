@@ -1,12 +1,15 @@
-#ifndef TransformVertexBuf_H
-#define TransformVertexBuf_H
+#ifndef BufferTransformUtils_H
+#define BufferTransformUtils_H
 
 #include "glm/glm.hpp"
+#include <vector>
 
-class TransformVertexBuf
+class BufferTransformUtils
 {
 public:
 	static glm::vec3 CalcCenter(float* vertexBuf, int arrSize);
+	static void GetMinMaxPoints(std::vector<glm::vec3>* point3D, glm::vec3* min, glm::vec3* max);
+
 	static void RotateBufXYZ(float* vertexBuf, int arrSize, float xAng, float yAng, float zAng);
 	static void RotateBufZYX(float* vertexBuf, int arrSize, float zAng, float yAng, float xAng);
 	static void RotateBufX(float* vertexBuf, int arrSize, float xAng);

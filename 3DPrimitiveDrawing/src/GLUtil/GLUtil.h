@@ -39,7 +39,6 @@ public:
 	static void Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelMatrix, float* projMatrix);
 	static vector<glm::vec3> Get2DPosOnScreenFrom3DPos(vector<glm::vec3>* pos3DVec, float* modelMatrix);
 	static vector<float> GetVerticesOnRect(float* verArr, int numVertex, float* objMat, float x, float y, float w, float h);
-	static void GetMinMaxPoints(vector<glm::vec3>* point3D, glm::vec3* min, glm::vec3* max);
 };
 
 #endif

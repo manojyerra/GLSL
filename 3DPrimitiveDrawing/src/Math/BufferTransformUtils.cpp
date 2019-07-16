@@ -1,7 +1,7 @@
-#include "TransformVertexBuf.h"
+#include "BufferTransformUtils.h"
 #include "math.h"
 
-glm::vec3 TransformVertexBuf::CalcCenter(float* vertexBuf, int arrSize)
+glm::vec3 BufferTransformUtils::CalcCenter(float* vertexBuf, int arrSize)
 {
 	float minX = vertexBuf[0];
 	float minY = vertexBuf[1];
@@ -25,7 +25,39 @@ glm::vec3 TransformVertexBuf::CalcCenter(float* vertexBuf, int arrSize)
 	return glm::vec3((minX + maxX)/2.0f, (minY + maxY)/2.0f, (minZ + maxZ)/2.0f);
 }
 
-void TransformVertexBuf::RotateBufXYZ(float* vertexBuf, int arrSize, float xAng, float yAng, float zAng)
+void BufferTransformUtils::GetMinMaxPoints(std::vector<glm::vec3>* points3D, glm::vec3* min, glm::vec3* max)
+{
+	float minX = points3D->at(0).x;
+	float minY = points3D->at(0).y;
+	float minZ = points3D->at(0).z;
+
+	float maxX = points3D->at(0).x;
+	float maxY = points3D->at(0).y;
+	float maxZ = points3D->at(0).z;
+
+	unsigned int size = points3D->size();
+
+	for (int i = 1; i < size; i++)
+	{
+		if (points3D->at(i).x < minX) minX = points3D->at(i).x;
+		if (points3D->at(i).y < minY) minY = points3D->at(i).y;
+		if (points3D->at(i).z < minZ) minZ = points3D->at(i).z;
+
+		if (points3D->at(i).x > maxX) maxX = points3D->at(i).x;
+		if (points3D->at(i).y > maxY) maxY = points3D->at(i).y;
+		if (points3D->at(i).z > maxZ) maxZ = points3D->at(i).z;
+	}
+
+	min->x = minX;
+	min->y = minY;
+	min->z = minZ;
+
+	max->x = maxX;
+	max->y = maxY;
+	max->z = maxZ;
+}
+
+void BufferTransformUtils::RotateBufXYZ(float* vertexBuf, int arrSize, float xAng, float yAng, float zAng)
 {
 	float DEG_RAD = 0.0174532925194f;
 
@@ -57,7 +89,7 @@ void TransformVertexBuf::RotateBufXYZ(float* vertexBuf, int arrSize, float xAng,
 	}
 }
 
-void TransformVertexBuf::RotateBufZYX(float* vertexBuf, int arrSize, float zAng, float yAng, float xAng)
+void BufferTransformUtils::RotateBufZYX(float* vertexBuf, int arrSize, float zAng, float yAng, float xAng)
 {
 	float DEG_RAD = 0.0174532925194f;
 
@@ -89,7 +121,7 @@ void TransformVertexBuf::RotateBufZYX(float* vertexBuf, int arrSize, float zAng,
 	}
 }
 
-void TransformVertexBuf::RotateBufX(float* vertexBuf, int arrSize, float xAng)
+void BufferTransformUtils::RotateBufX(float* vertexBuf, int arrSize, float xAng)
 {
 	float DEG_RAD = 0.0174532925194f;
 
@@ -106,7 +138,7 @@ void TransformVertexBuf::RotateBufX(float* vertexBuf, int arrSize, float xAng)
 	}
 }
 
-void TransformVertexBuf::RotateBufY(float* vertexBuf, int arrSize, float yAng)
+void BufferTransformUtils::RotateBufY(float* vertexBuf, int arrSize, float yAng)
 {
 	float DEG_RAD = 0.0174532925194f;
 
@@ -123,7 +155,7 @@ void TransformVertexBuf::RotateBufY(float* vertexBuf, int arrSize, float yAng)
 	}
 }
 
-void TransformVertexBuf::RotateBufZ(float* vertexBuf, int arrSize, float zAng)
+void BufferTransformUtils::RotateBufZ(float* vertexBuf, int arrSize, float zAng)
 {
 	float DEG_RAD = 0.0174532925194f;
 
@@ -140,7 +172,7 @@ void TransformVertexBuf::RotateBufZ(float* vertexBuf, int arrSize, float zAng)
 	}
 }
 
-void TransformVertexBuf::Add(float* vertexBuf, int arrSize, glm::vec3 move)
+void BufferTransformUtils::Add(float* vertexBuf, int arrSize, glm::vec3 move)
 {
 	for(int i=0; i<arrSize; i+=3)
 	{
@@ -150,12 +182,12 @@ void TransformVertexBuf::Add(float* vertexBuf, int arrSize, glm::vec3 move)
 	}
 }
 
-void TransformVertexBuf::Subtract(float* vertexBuf, int arrSize, glm::vec3 move)
+void BufferTransformUtils::Subtract(float* vertexBuf, int arrSize, glm::vec3 move)
 {
 	Add(vertexBuf, arrSize, -move);
 }
 
-void TransformVertexBuf::MulBufWithMatrix(float* vertexBuf, int bufSize, float* matrix)
+void BufferTransformUtils::MulBufWithMatrix(float* vertexBuf, int bufSize, float* matrix)
 {
 	float* a = matrix;
 
