@@ -1,7 +1,7 @@
 #include "Cone.h"
 #include "math.h"
 #include "GLUtil.h"
-#include "TransformVertexBuf.h"
+#include "BufferTransformUtils.h"
 #include "Cylinder.h"
 #include "ShadersManager.h"
 #include "Cam.h"
@@ -103,7 +103,7 @@ Cone Cone::CalcBoundingCone(float* vertexBuf, int arrSize)
 
 	cylMatInvert[13] += cylinder.GetHeight()/2.0f;
 
-	TransformVertexBuf::MulBufWithMatrix(localVertexBuf, arrSize, cylMatInvert);
+	BufferTransformUtils::MulBufWithMatrix(localVertexBuf, arrSize, cylMatInvert);
 
 	float height = cylinder.GetHeight() * 1.05f;
 	float radius = CalcRadius(localVertexBuf, arrSize, height);

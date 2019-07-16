@@ -80,13 +80,13 @@
     <ClCompile Include="src\GLUtil\GLUtil.cpp" />
     <ClCompile Include="src\GLUtil\PBRShader\PBRShader.cpp" />
     <ClCompile Include="src\GLUtil\PhongShader\PhongShader.cpp" />
+    <ClCompile Include="src\GLUtil\ShaderProgram\ShaderProgram.cpp" />
+    <ClCompile Include="src\GLUtil\ShaderProgram\ShadersManager.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\IO\ParticleLoader.cpp" />
     <ClCompile Include="src\Macros.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Math\TransformVertexBuf.cpp" />
-    <ClCompile Include="src\ShaderProgram\ShaderProgram.cpp" />
-    <ClCompile Include="src\ShaderProgram\ShadersManager.cpp" />
+    <ClCompile Include="src\Math\BufferTransformUtils.cpp" />
     <ClCompile Include="src\Shapes2D\Triangle.cpp" />
     <ClCompile Include="src\Shapes3D\Box.cpp" />
     <ClCompile Include="src\Shapes3D\Cone.cpp" />
@@ -143,12 +143,12 @@
     <ClInclude Include="src\GLUtil\GLUtil.h" />
     <ClInclude Include="src\GLUtil\PBRShader\PBRShader.h" />
     <ClInclude Include="src\GLUtil\PhongShader\PhongShader.h" />
+    <ClInclude Include="src\GLUtil\ShaderProgram\ShaderProgram.h" />
+    <ClInclude Include="src\GLUtil\ShaderProgram\ShadersManager.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\IO\ParticleLoader.h" />
     <ClInclude Include="src\Macros.h" />
-    <ClInclude Include="src\Math\TransformVertexBuf.h" />
-    <ClInclude Include="src\ShaderProgram\ShaderProgram.h" />
-    <ClInclude Include="src\ShaderProgram\ShadersManager.h" />
+    <ClInclude Include="src\Math\BufferTransformUtils.h" />
     <ClInclude Include="src\Shapes2D\Triangle.h" />
     <ClInclude Include="src\Shapes3D\Box.h" />
     <ClInclude Include="src\Shapes3D\Cone.h" />
@@ -229,7 +229,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/ShaderProgram;src/IO;src/IO/Model3D;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/Arrays;src/Common/IO/ModelIO;src/GLUtil/BasicShader;src/GLUtil/ColorShader;src/GLUtil/PBRShader;src/GLUtil/PhongShader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/GLUtil/ShaderProgram;src/IO;src/IO/Model3D;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/Arrays;src/Common/IO/ModelIO;src/GLUtil/BasicShader;src/GLUtil/ColorShader;src/GLUtil/PBRShader;src/GLUtil/PhongShader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>

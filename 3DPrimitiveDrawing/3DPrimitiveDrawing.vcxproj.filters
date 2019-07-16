@@ -19,9 +19,6 @@
     <Filter Include="src\glew\source">
       <UniqueIdentifier>{594cab06-661c-4e9d-990e-ced5a33ab06a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\ShaderProgram">
-      <UniqueIdentifier>{53332d39-de2f-44fb-b9c0-b9ee4c2f3607}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Util">
       <UniqueIdentifier>{185a35b1-5272-4410-80dc-70c5b00da491}</UniqueIdentifier>
     </Filter>
@@ -76,6 +73,9 @@
     <Filter Include="src\Common\IO\ModelIO">
       <UniqueIdentifier>{a9d4f5f1-f3c3-4012-952c-0bff17848587}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GLUtil\ShaderProgram">
+      <UniqueIdentifier>{2c0508c8-68f3-4c20-a019-009e1cce05a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Macros.cpp">
@@ -99,17 +99,8 @@
     <ClCompile Include="src\GLUtil\GLUtil.cpp">
       <Filter>src\GLUtil</Filter>
     </ClCompile>
-    <ClCompile Include="src\Math\TransformVertexBuf.cpp">
-      <Filter>src\Math</Filter>
-    </ClCompile>
     <ClCompile Include="glew\source\glew.c">
       <Filter>src\glew\source</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ShaderProgram\ShaderProgram.cpp">
-      <Filter>src\ShaderProgram</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ShaderProgram\ShadersManager.cpp">
-      <Filter>src\ShaderProgram</Filter>
     </ClCompile>
     <ClCompile Include="src\Cam.cpp">
       <Filter>src</Filter>
@@ -309,6 +300,15 @@
     <ClCompile Include="src\GLUtil\GLMeshRenderer.cpp">
       <Filter>src\GLUtil</Filter>
     </ClCompile>
+    <ClCompile Include="src\Math\BufferTransformUtils.cpp">
+      <Filter>src\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLUtil\ShaderProgram\ShaderProgram.cpp">
+      <Filter>src\GLUtil\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLUtil\ShaderProgram\ShadersManager.cpp">
+      <Filter>src\GLUtil\ShaderProgram</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -329,9 +329,6 @@
     <ClInclude Include="src\GLUtil\GLUtil.h">
       <Filter>src\GLUtil</Filter>
     </ClInclude>
-    <ClInclude Include="src\Math\TransformVertexBuf.h">
-      <Filter>src\Math</Filter>
-    </ClInclude>
     <ClInclude Include="glew\include\GL\glew.h">
       <Filter>src\glew\include</Filter>
     </ClInclude>
@@ -340,12 +337,6 @@
     </ClInclude>
     <ClInclude Include="glew\include\GL\wglew.h">
       <Filter>src\glew\include</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ShaderProgram\ShaderProgram.h">
-      <Filter>src\ShaderProgram</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ShaderProgram\ShadersManager.h">
-      <Filter>src\ShaderProgram</Filter>
     </ClInclude>
     <ClInclude Include="src\Cam.h">
       <Filter>src</Filter>
@@ -490,6 +481,15 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\GLMeshRenderer.h">
       <Filter>src\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\BufferTransformUtils.h">
+      <Filter>src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\ShaderProgram\ShaderProgram.h">
+      <Filter>src\GLUtil\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\ShaderProgram\ShadersManager.h">
+      <Filter>src\GLUtil\ShaderProgram</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

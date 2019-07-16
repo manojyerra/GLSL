@@ -1,6 +1,6 @@
 #include "Sphere.h"
 #include "GLUtil.h"
-#include "TransformVertexBuf.h"
+#include "BufferTransformUtils.h"
 #include "ShadersManager.h"
 #include "Cam.h"
 
@@ -65,8 +65,8 @@ Sphere Sphere::CalcBoundingSphere(float* vertexBuf, int arrSize)
 	float* localVertexBuf = new float[arrSize];
 	memcpy(localVertexBuf, vertexBuf, arrSize*sizeof(float));
 
-	glm::vec3 center = TransformVertexBuf::CalcCenter(localVertexBuf, arrSize);
-	TransformVertexBuf::Subtract(localVertexBuf, arrSize, center);
+	glm::vec3 center = BufferTransformUtils::CalcCenter(localVertexBuf, arrSize);
+	BufferTransformUtils::Subtract(localVertexBuf, arrSize, center);
         
 	float rPow2 = 0;
 

@@ -1,7 +1,7 @@
 #include "Cylinder.h"
 #include "math.h"
 #include "GLUtil.h"
-#include "TransformVertexBuf.h"
+#include "BufferTransformUtils.h"
 #include "ShadersManager.h"
 #include "Cam.h"
 
@@ -93,8 +93,8 @@ Cylinder Cylinder::CalcBoundingCylinder(float* vertexBuf, int arrSize)
 	float* localVertexBuf = new float[arrSize];
 	memcpy(localVertexBuf, vertexBuf, arrSize*sizeof(float));
 
-	glm::vec3 center = TransformVertexBuf::CalcCenter(localVertexBuf, arrSize);
-	TransformVertexBuf::Subtract(localVertexBuf, arrSize, center);
+	glm::vec3 center = BufferTransformUtils::CalcCenter(localVertexBuf, arrSize);
+	BufferTransformUtils::Subtract(localVertexBuf, arrSize, center);
 
 	float delta = 30.0f;
 	glm::vec3 start(0,0,0);

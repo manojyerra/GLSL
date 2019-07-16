@@ -1,6 +1,5 @@
 #include "GLTexture.h"
 #include "GLUtil.h"
-#include "TransformVertexBuf.h"
 #include "ImageBuffer.h"
 #include "Cam2D.h"
 #include "ShadersManager.h"
