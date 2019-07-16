@@ -8,7 +8,7 @@ class BufferTransformUtils
 {
 public:
 	static glm::vec3 CalcCenter(float* vertexBuf, int arrSize);
-	static void GetMinMaxPoints(std::vector<glm::vec3>* point3D, glm::vec3* min, glm::vec3* max);
+	static void CalcMinMaxPoints(std::vector<glm::vec3>* point3D, glm::vec3* min, glm::vec3* max);
 
 	static void RotateBufXYZ(float* vertexBuf, int arrSize, float xAng, float yAng, float zAng);
 	static void RotateBufZYX(float* vertexBuf, int arrSize, float zAng, float yAng, float xAng);

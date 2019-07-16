@@ -25,7 +25,7 @@ glm::vec3 BufferTransformUtils::CalcCenter(float* vertexBuf, int arrSize)
 	return glm::vec3((minX + maxX)/2.0f, (minY + maxY)/2.0f, (minZ + maxZ)/2.0f);
 }
 
-void BufferTransformUtils::GetMinMaxPoints(std::vector<glm::vec3>* points3D, glm::vec3* min, glm::vec3* max)
+void BufferTransformUtils::CalcMinMaxPoints(std::vector<glm::vec3>* points3D, glm::vec3* min, glm::vec3* max)
 {
 	float minX = points3D->at(0).x;
 	float minY = points3D->at(0).y;
