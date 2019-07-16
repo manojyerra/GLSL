@@ -4,9 +4,6 @@
     <Filter Include="src">
       <UniqueIdentifier>{713bfc83-d689-4f50-8d82-cbc4427f1353}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Math">
-      <UniqueIdentifier>{fab59555-e2c2-4387-9d84-59efcee75297}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\GLUtil">
       <UniqueIdentifier>{712e43ab-f0d9-4303-a127-8f6e9a1ee049}</UniqueIdentifier>
     </Filter>
@@ -297,9 +294,6 @@
     <ClCompile Include="src\GLUtil\GLMeshRenderer.cpp">
       <Filter>src\GLUtil</Filter>
     </ClCompile>
-    <ClCompile Include="src\Math\BufferTransformUtils.cpp">
-      <Filter>src\Math</Filter>
-    </ClCompile>
     <ClCompile Include="src\GLUtil\ShaderProgram\ShaderProgram.cpp">
       <Filter>src\GLUtil\ShaderProgram</Filter>
     </ClCompile>
@@ -313,6 +307,9 @@
       <Filter>src\Common\Utils</Filter>
     </ClCompile>
     <ClCompile Include="src\Common\Utils\StringUtils.cpp">
+      <Filter>src\Common\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\Utils\BufferTransformUtils.cpp">
       <Filter>src\Common\Utils</Filter>
     </ClCompile>
   </ItemGroup>
@@ -482,9 +479,6 @@
     <ClInclude Include="src\GLUtil\GLMeshRenderer.h">
       <Filter>src\GLUtil</Filter>
     </ClInclude>
-    <ClInclude Include="src\Math\BufferTransformUtils.h">
-      <Filter>src\Math</Filter>
-    </ClInclude>
     <ClInclude Include="src\GLUtil\ShaderProgram\ShaderProgram.h">
       <Filter>src\GLUtil\ShaderProgram</Filter>
     </ClInclude>
@@ -498,6 +492,9 @@
       <Filter>src\Common\Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\Common\Utils\StringUtils.h">
+      <Filter>src\Common\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Utils\BufferTransformUtils.h">
       <Filter>src\Common\Utils</Filter>
     </ClInclude>
   </ItemGroup>

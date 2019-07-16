@@ -65,6 +65,7 @@
     <ClCompile Include="src\Common\IO\ImageIO\PNG\zlib\zutil.c" />
     <ClCompile Include="src\Common\IO\ModelIO\BinaryObjReader.cpp" />
     <ClCompile Include="src\Common\IO\ModelIO\ObjReader.cpp" />
+    <ClCompile Include="src\Common\Utils\BufferTransformUtils.cpp" />
     <ClCompile Include="src\Common\Utils\ScanLineUtils.cpp" />
     <ClCompile Include="src\Common\Utils\StringUtils.cpp" />
     <ClCompile Include="src\Floor.cpp" />
@@ -89,7 +90,6 @@
     <ClCompile Include="src\IO\ParticleLoader.cpp" />
     <ClCompile Include="src\Macros.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Math\BufferTransformUtils.cpp" />
     <ClCompile Include="src\Shapes2D\Triangle.cpp" />
     <ClCompile Include="src\Shapes3D\Box.cpp" />
     <ClCompile Include="src\Shapes3D\Cone.cpp" />
@@ -129,6 +129,7 @@
     <ClInclude Include="src\Common\IO\ImageIO\PNG\zlib\zutil.h" />
     <ClInclude Include="src\Common\IO\ModelIO\BinaryObjReader.h" />
     <ClInclude Include="src\Common\IO\ModelIO\ObjReader.h" />
+    <ClInclude Include="src\Common\Utils\BufferTransformUtils.h" />
     <ClInclude Include="src\Common\Utils\ScanLineUtils.h" />
     <ClInclude Include="src\Common\Utils\StringUtils.h" />
     <ClInclude Include="src\Floor.h" />
@@ -152,7 +153,6 @@
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\IO\ParticleLoader.h" />
     <ClInclude Include="src\Macros.h" />
-    <ClInclude Include="src\Math\BufferTransformUtils.h" />
     <ClInclude Include="src\Shapes2D\Triangle.h" />
     <ClInclude Include="src\Shapes3D\Box.h" />
     <ClInclude Include="src\Shapes3D\Cone.h" />
