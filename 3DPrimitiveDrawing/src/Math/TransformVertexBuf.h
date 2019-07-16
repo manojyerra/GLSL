@@ -1,7 +1,6 @@
 #ifndef TransformVertexBuf_H
 #define TransformVertexBuf_H
 
-#include "Macros.h"
 #include "glm/glm.hpp"
 
 class TransformVertexBuf

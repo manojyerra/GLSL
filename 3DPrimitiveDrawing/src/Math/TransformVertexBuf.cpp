@@ -25,9 +25,10 @@ glm::vec3 TransformVertexBuf::CalcCenter(float* vertexBuf, int arrSize)
 	return glm::vec3((minX + maxX)/2.0f, (minY + maxY)/2.0f, (minZ + maxZ)/2.0f);
 }
 
-
 void TransformVertexBuf::RotateBufXYZ(float* vertexBuf, int arrSize, float xAng, float yAng, float zAng)
 {
+	float DEG_RAD = 0.0174532925194f;
+
 	float cosOfXAng = cos(xAng * DEG_RAD);
 	float cosOfYAng = cos(yAng * DEG_RAD);
 	float cosOfZAng = cos(zAng * DEG_RAD);
@@ -56,9 +57,10 @@ void TransformVertexBuf::RotateBufXYZ(float* vertexBuf, int arrSize, float xAng,
 	}
 }
 
-
 void TransformVertexBuf::RotateBufZYX(float* vertexBuf, int arrSize, float zAng, float yAng, float xAng)
 {
+	float DEG_RAD = 0.0174532925194f;
+
 	float cosOfXAng = cos(xAng * DEG_RAD);
 	float cosOfYAng = cos(yAng * DEG_RAD);
 	float cosOfZAng = cos(zAng * DEG_RAD);
@@ -87,9 +89,10 @@ void TransformVertexBuf::RotateBufZYX(float* vertexBuf, int arrSize, float zAng,
 	}
 }
 
-
 void TransformVertexBuf::RotateBufX(float* vertexBuf, int arrSize, float xAng)
 {
+	float DEG_RAD = 0.0174532925194f;
+
 	float cosVal = cos(xAng * DEG_RAD);
 	float sinVal = sin(xAng * DEG_RAD);
 
@@ -103,9 +106,10 @@ void TransformVertexBuf::RotateBufX(float* vertexBuf, int arrSize, float xAng)
 	}
 }
 
-
 void TransformVertexBuf::RotateBufY(float* vertexBuf, int arrSize, float yAng)
 {
+	float DEG_RAD = 0.0174532925194f;
+
 	float cosVal = cos(yAng * DEG_RAD);
 	float sinVal = sin(yAng * DEG_RAD);
 
@@ -119,9 +123,10 @@ void TransformVertexBuf::RotateBufY(float* vertexBuf, int arrSize, float yAng)
 	}
 }
 
-
 void TransformVertexBuf::RotateBufZ(float* vertexBuf, int arrSize, float zAng)
 {
+	float DEG_RAD = 0.0174532925194f;
+
 	float cosVal = cos(zAng * DEG_RAD);
 	float sinVal = sin(zAng * DEG_RAD);
 
@@ -135,7 +140,6 @@ void TransformVertexBuf::RotateBufZ(float* vertexBuf, int arrSize, float zAng)
 	}
 }
 
-
 void TransformVertexBuf::Add(float* vertexBuf, int arrSize, glm::vec3 move)
 {
 	for(int i=0; i<arrSize; i+=3)
@@ -146,12 +150,10 @@ void TransformVertexBuf::Add(float* vertexBuf, int arrSize, glm::vec3 move)
 	}
 }
 
-
 void TransformVertexBuf::Subtract(float* vertexBuf, int arrSize, glm::vec3 move)
 {
 	Add(vertexBuf, arrSize, -move);
 }
-
 
 void TransformVertexBuf::MulBufWithMatrix(float* vertexBuf, int bufSize, float* matrix)
 {
