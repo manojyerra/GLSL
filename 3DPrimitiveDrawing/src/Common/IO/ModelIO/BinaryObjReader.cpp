@@ -32,7 +32,6 @@ void BinaryObjReader::ReadObjFile(string folderPath)
 	}
 }
 
-
 const char* BinaryObjReader::GetVertexBuffer()
 {
 	return (const char*)_vertexFileReader->GetData();

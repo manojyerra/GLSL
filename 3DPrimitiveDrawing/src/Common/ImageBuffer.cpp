@@ -12,13 +12,13 @@ ImageBuffer::ImageBuffer(string imagePath)
 		if(_imagePath[i] == '\\')
 			_imagePath[i] = '/';
 	}
+
 	_width = 0;
 	_height = 0;
 	_bytesPerPixel = 0;
 	_numMipMapLevels = 0;
 	_imgType = 0;
 	_compressedFormatBufSize = 0;
-
 
 	if(_imagePath.find(".png") != -1 || _imagePath.find(".PNG") != -1)
 	{
