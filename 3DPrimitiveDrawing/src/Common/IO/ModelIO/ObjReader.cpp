@@ -1,6 +1,6 @@
 #include "ObjReader.h"
 #include "FileReader.h"
-#include "UtilFuncs.h"
+#include "ScanLineUtils.h"
 
 ObjReader::ObjReader(string folderPath)
 {
@@ -45,17 +45,17 @@ void ObjReader::ReadObjFile(string folderPath)
 		{
 			if (line[0] == 'v' && line[1] == ' ')
 			{
-				UtilFuncs::scan_vertex(line, &vx, &vy, &vz);
+				ScanLineUtils::scan_vertex(line, &vx, &vy, &vz);
 				vertexVec.push_back(glm::vec3(vx, vy, vz));
 			}
 			else if (line[0] == 'v' && line[1] == 't')
 			{
-				UtilFuncs::scan_uv(line, &tx, &ty);
+				ScanLineUtils::scan_uv(line, &tx, &ty);
 				uvVec.push_back(glm::vec3(tx, 1 - ty, 0));
 			}
 			else if (line[0] == 'v' && line[1] == 'n')
 			{
-				UtilFuncs::scan_normal(line, &nx, &ny, &nz);
+				ScanLineUtils::scan_normal(line, &nx, &ny, &nz);
 				normalVec.push_back(glm::vec3(nx, ny, nz));
 			}
 			
@@ -93,7 +93,7 @@ void ObjReader::ReadObjFile(string folderPath)
 		{
 			char* line = (char*)facesStrArrPtr[arrIndex];
 
-			UtilFuncs::scanFace_VTN(line, &v[0], &t[0], &n[0], &v[1], &t[1], &n[1], &v[2], &t[2], &n[2]);
+			ScanLineUtils::scanFace_VTN(line, &v[0], &t[0], &n[0], &v[1], &t[1], &n[1], &v[2], &t[2], &n[2]);
 
 			for (int i = 0; i < 3; i++)
 			{
@@ -113,7 +113,7 @@ void ObjReader::ReadObjFile(string folderPath)
 		{
 			char* line = (char*)facesStrArrPtr[arrIndex];
 
-			UtilFuncs::scanFace_VT(line, &v[0], &t[0], &v[1], &t[1], &v[2], &t[2]);
+			ScanLineUtils::scanFace_VT(line, &v[0], &t[0], &v[1], &t[1], &v[2], &t[2]);
 
 			for (int i = 0; i < 3; i++)
 			{
@@ -132,7 +132,7 @@ void ObjReader::ReadObjFile(string folderPath)
 		{
 			char* line = (char*)facesStrArrPtr[arrIndex];
 
-			UtilFuncs::scanFace_VN(line, &v[0], &n[0], &v[1], &n[1], &v[2], &n[2]);
+			ScanLineUtils::scanFace_VN(line, &v[0], &n[0], &v[1], &n[1], &v[2], &n[2]);
 
 			for (int i = 0; i < 3; i++)
 			{
@@ -149,7 +149,7 @@ void ObjReader::ReadObjFile(string folderPath)
 		{
 			char* line = (char*)facesStrArrPtr[arrIndex];
 
-			UtilFuncs::scanFace_V(line, &v[0], &v[1], &v[2]);
+			ScanLineUtils::scanFace_V(line, &v[0], &v[1], &v[2]);
 
 			for (int i = 0; i < 3; i++)
 			{

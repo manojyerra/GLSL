@@ -1,7 +1,7 @@
-#ifndef UtilFuncs_H
-#define UtilFuncs_H
+#ifndef ScanLineUtils_H
+#define ScanLineUtils_H
 
-class UtilFuncs
+class ScanLineUtils
 {
 public:
 	static void scanFace_VTN(char* str,
@@ -31,6 +31,5 @@ public:
 	static double atof_naive(const char *p);
 	static unsigned int atoi_naive(const char *p);
 };
-
 
 #endif

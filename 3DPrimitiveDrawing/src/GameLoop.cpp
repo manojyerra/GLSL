@@ -76,7 +76,7 @@ GameLoop::GameLoop(int sw, int sh)
 	_meshRenderer->SetShader(GLMeshRenderer::PBR_SHADER);
 
 	_meshRenderer1 = new GLMeshRenderer(&BinaryObjReader("data/alien"));
-	_meshRenderer1->SetShader(GLMeshRenderer::PHONG_PER_PIXEL_SHADER);
+	_meshRenderer1->SetShader(GLMeshRenderer::PHONG_PER_VERTEX_SHADER);
 	_meshRenderer1->SetPos(8.0,0.0,0.0);
 }
 

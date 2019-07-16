@@ -65,6 +65,8 @@
     <ClCompile Include="src\Common\IO\ImageIO\PNG\zlib\zutil.c" />
     <ClCompile Include="src\Common\IO\ModelIO\BinaryObjReader.cpp" />
     <ClCompile Include="src\Common\IO\ModelIO\ObjReader.cpp" />
+    <ClCompile Include="src\Common\Utils\ScanLineUtils.cpp" />
+    <ClCompile Include="src\Common\Utils\StringUtils.cpp" />
     <ClCompile Include="src\Floor.cpp" />
     <ClCompile Include="src\GameLoop.cpp" />
     <ClCompile Include="src\GLUtil\BasicShader\BasicShader.cpp" />
@@ -95,8 +97,6 @@
     <ClCompile Include="src\Shapes3D\Shape.cpp" />
     <ClCompile Include="src\Shapes3D\Sphere.cpp" />
     <ClCompile Include="src\Util\RandomColor.cpp" />
-    <ClCompile Include="src\Util\StringUtils.cpp" />
-    <ClCompile Include="src\Util\UtilFuncs.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glew\include\GL\glew.h" />
@@ -129,6 +129,8 @@
     <ClInclude Include="src\Common\IO\ImageIO\PNG\zlib\zutil.h" />
     <ClInclude Include="src\Common\IO\ModelIO\BinaryObjReader.h" />
     <ClInclude Include="src\Common\IO\ModelIO\ObjReader.h" />
+    <ClInclude Include="src\Common\Utils\ScanLineUtils.h" />
+    <ClInclude Include="src\Common\Utils\StringUtils.h" />
     <ClInclude Include="src\Floor.h" />
     <ClInclude Include="src\GameLoop.h" />
     <ClInclude Include="src\GLUtil\BasicShader\BasicShader.h" />
@@ -158,8 +160,6 @@
     <ClInclude Include="src\Shapes3D\Shape.h" />
     <ClInclude Include="src\Shapes3D\Sphere.h" />
     <ClInclude Include="src\Util\RandomColor.h" />
-    <ClInclude Include="src\Util\StringUtils.h" />
-    <ClInclude Include="src\Util\UtilFuncs.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -231,7 +231,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/GLUtil/ShaderProgram;src/IO;src/IO/Model3D;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/Arrays;src/Common/IO/ModelIO;src/GLUtil/BasicShader;src/GLUtil/ColorShader;src/GLUtil/PBRShader;src/GLUtil/PhongShader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/GLUtil/ShaderProgram;src/IO;src/IO/Model3D;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/Arrays;src/Common/IO/ModelIO;src/GLUtil/BasicShader;src/GLUtil/ColorShader;src/GLUtil/PBRShader;src/GLUtil/PhongShader;src/Common/Utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>

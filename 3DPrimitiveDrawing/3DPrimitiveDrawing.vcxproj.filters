@@ -76,6 +76,9 @@
     <Filter Include="src\GLUtil\ShaderProgram">
       <UniqueIdentifier>{2c0508c8-68f3-4c20-a019-009e1cce05a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Common\Utils">
+      <UniqueIdentifier>{209c6c40-802d-428c-818d-7a18b6073dd1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Macros.cpp">
@@ -132,14 +135,8 @@
     <ClCompile Include="src\Util\RandomColor.cpp">
       <Filter>src\Util</Filter>
     </ClCompile>
-    <ClCompile Include="src\Util\StringUtils.cpp">
-      <Filter>src\Util</Filter>
-    </ClCompile>
     <ClCompile Include="src\Shapes2D\Triangle.cpp">
       <Filter>src\Shapes2D</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Util\UtilFuncs.cpp">
-      <Filter>src\Util</Filter>
     </ClCompile>
     <ClCompile Include="src\GLUtil\PhongShader\PhongShader.cpp">
       <Filter>src\GLUtil\PhongShader</Filter>
@@ -312,6 +309,12 @@
     <ClCompile Include="src\GLUtil\GLState.cpp">
       <Filter>src\GLUtil</Filter>
     </ClCompile>
+    <ClCompile Include="src\Common\Utils\ScanLineUtils.cpp">
+      <Filter>src\Common\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\Utils\StringUtils.cpp">
+      <Filter>src\Common\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -371,14 +374,8 @@
     <ClInclude Include="src\Util\RandomColor.h">
       <Filter>src\Util</Filter>
     </ClInclude>
-    <ClInclude Include="src\Util\StringUtils.h">
-      <Filter>src\Util</Filter>
-    </ClInclude>
     <ClInclude Include="src\Shapes2D\Triangle.h">
       <Filter>src\Shapes2D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Util\UtilFuncs.h">
-      <Filter>src\Util</Filter>
     </ClInclude>
     <ClInclude Include="src\GLUtil\PhongShader\PhongShader.h">
       <Filter>src\GLUtil\PhongShader</Filter>
@@ -496,6 +493,12 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\GLState.h">
       <Filter>src\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Utils\ScanLineUtils.h">
+      <Filter>src\Common\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Utils\StringUtils.h">
+      <Filter>src\Common\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

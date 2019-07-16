@@ -15,7 +15,6 @@
 #include "Cylinder.h"
 #include "Cone.h"
 #include "Sphere.h"
-#include "ObjLoader.h"
 #include "ParticleLoader.h"
 #include "GLMeshRenderer.h"
 

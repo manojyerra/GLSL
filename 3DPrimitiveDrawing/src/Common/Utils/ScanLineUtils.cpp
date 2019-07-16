@@ -1,8 +1,7 @@
-#include "UtilFuncs.h"
-//#include "math.h"
+#include "ScanLineUtils.h"
 #include <string>
 
-void UtilFuncs::scanFace_VTN(char* str,
+void ScanLineUtils::scanFace_VTN(char* str,
 	int* v1, int* t1, int* n1,
 	int* v2, int* t2, int* n2,
 	int* v3, int* t3, int* n3)
@@ -62,7 +61,7 @@ void UtilFuncs::scanFace_VTN(char* str,
 	n3[0] = atoi_naive(&str[s]);
 }
 
-void UtilFuncs::scanFace_VN(char* str,
+void ScanLineUtils::scanFace_VN(char* str,
 	int* v1, int* n1,
 	int* v2, int* n2,
 	int* v3, int* n3)
@@ -107,7 +106,7 @@ void UtilFuncs::scanFace_VN(char* str,
 	n3[0] = atoi_naive(&str[s]);
 }
 
-void UtilFuncs::scanFace_VT(char* str,
+void ScanLineUtils::scanFace_VT(char* str,
 	int* v1, int* t1,
 	int* v2, int* t2,
 	int* v3, int* t3)
@@ -152,7 +151,7 @@ void UtilFuncs::scanFace_VT(char* str,
 	t3[0] = atoi_naive(&str[s]);
 }
 
-void UtilFuncs::scanFace_V(char* str, int* x, int* y, int* z)
+void ScanLineUtils::scanFace_V(char* str, int* x, int* y, int* z)
 {
 	//string line = "v -2.227210 3.102950 -6.477872";
 	//str = (char*)line.c_str();
@@ -175,7 +174,7 @@ void UtilFuncs::scanFace_V(char* str, int* x, int* y, int* z)
 	z[0] = atoi_naive(&str[s]);
 }
 
-void UtilFuncs::scan_vertex(char* str, float* x, float* y, float* z)
+void ScanLineUtils::scan_vertex(char* str, float* x, float* y, float* z)
 {
 	//string line = "v -2.227210 3.102950 -6.477872";
 	//str = (char*)line.c_str();
@@ -198,7 +197,7 @@ void UtilFuncs::scan_vertex(char* str, float* x, float* y, float* z)
 	z[0] = atof_naive(&str[s]);
 }
 
-void UtilFuncs::scan_uv(char* str, float* x, float* y)
+void ScanLineUtils::scan_uv(char* str, float* x, float* y)
 {
 	//string line = "vt -2.227210 3.102950";
 	//str = (char*)line.c_str();
@@ -216,7 +215,7 @@ void UtilFuncs::scan_uv(char* str, float* x, float* y)
 	y[0] = atof_naive(&str[s]);
 }
 
-void UtilFuncs::scan_normal(char* str, float* x, float* y, float* z)
+void ScanLineUtils::scan_normal(char* str, float* x, float* y, float* z)
 {
 	//string line = "vn -2.227210 3.102950 -6.477872";
 	//str = (char*)line.c_str();
@@ -239,7 +238,7 @@ void UtilFuncs::scan_normal(char* str, float* x, float* y, float* z)
 	z[0] = atof_naive(&str[s]);
 }
 
-double UtilFuncs::atof_naive(const char *p) {
+double ScanLineUtils::atof_naive(const char *p) {
 	double r = 0.0;
 	bool neg = false;
 	if (*p == '-') {
@@ -270,7 +269,7 @@ double UtilFuncs::atof_naive(const char *p) {
 	return r;
 }
 
-unsigned int UtilFuncs::atoi_naive(const char * p)
+unsigned int ScanLineUtils::atoi_naive(const char * p)
 {
 	unsigned int x = 0;
 	while (*p) {
