@@ -21,14 +21,14 @@ void BinaryObjReader::ReadObjFile(string folderPath)
 		_vertexFileReader = new FileReader(folderPath + "/vertex.buf", "rb");
 	}
 
-	if (FileReader::IsFileExists(folderPath + "/normal.buf"))
-	{
-		_uvFileReader = new FileReader(folderPath + "/normal.buf", "rb");		
-	}
-
 	if (FileReader::IsFileExists(folderPath + "/uv.buf"))
 	{
-		_normalFileReader = new FileReader(folderPath + "/uv.buf", "rb");
+		_uvFileReader = new FileReader(folderPath + "/uv.buf", "rb");		
+	}
+
+	if (FileReader::IsFileExists(folderPath + "/normal.buf"))
+	{
+		_normalFileReader = new FileReader(folderPath + "/normal.buf", "rb");
 	}
 }
 

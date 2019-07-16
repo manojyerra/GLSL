@@ -172,7 +172,7 @@ void ObjReader::WriteBinaryToFile(string folderPath)
 	{
 		string bufFilePath = folderPath + "/vertex.buf";
 		FILE* bufFile = fopen(bufFilePath.c_str(), "wb");
-		fwrite(_vertexFloatArr->getArray(), 4, _vertexFloatArr->size(), bufFile);
+		fwrite(_vertexFloatArr->getArray(), sizeof(float), _vertexFloatArr->size(), bufFile);
 		fflush(bufFile);
 		fclose(bufFile);
 	}
@@ -181,7 +181,7 @@ void ObjReader::WriteBinaryToFile(string folderPath)
 	{
 		string bufFilePath = folderPath + "/uv.buf";
 		FILE* bufFile = fopen(bufFilePath.c_str(), "wb");
-		fwrite(_uvFloatArr->getArray(), 4, _uvFloatArr->size(), bufFile);
+		fwrite(_uvFloatArr->getArray(), sizeof(float), _uvFloatArr->size(), bufFile);
 		fflush(bufFile);
 		fclose(bufFile);
 	}
@@ -190,7 +190,7 @@ void ObjReader::WriteBinaryToFile(string folderPath)
 	{
 		string bufFilePath = folderPath + "/normal.buf";
 		FILE* bufFile = fopen(bufFilePath.c_str(), "wb");
-		fwrite(_normalFloatArr->getArray(), 4, _normalFloatArr->size(), bufFile);
+		fwrite(_normalFloatArr->getArray(), sizeof(float), _normalFloatArr->size(), bufFile);
 		fflush(bufFile);
 		fclose(bufFile);
 	}
