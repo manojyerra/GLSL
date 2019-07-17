@@ -27,8 +27,11 @@ WholeWindowFrame::WholeWindowFrame(int x, int y, int w, int h) {
 	demoSelectionBox->SetBgColor(64, 64, 64, 255);
 
 	_frame->Add(demoSelectionBox);
+}
 
-
+int WholeWindowFrame::GetDemoIndex()
+{
+	return _demoType->GetSelectedIndex();
 }
 
 void WholeWindowFrame::SetPos(int x, int y) {

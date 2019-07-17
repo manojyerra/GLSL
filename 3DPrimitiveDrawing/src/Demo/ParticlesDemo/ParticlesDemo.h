@@ -21,6 +21,7 @@ private:
 	ParticleLoader* _particleLoader4;
 	ParticleLoader* _particleLoader5;
 
+	Floor* _floor;
 	GLFBO* _fbo;
 	GLTexture* _texture;
 	bool _drawAllParticles;
@@ -29,7 +30,7 @@ public:
 	ParticlesDemo(int sw, int sh);
 	~ParticlesDemo();
 
-	void Draw(Floor* floor);
+	void Draw();
 };
 
 #endif

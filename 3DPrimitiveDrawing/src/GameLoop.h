@@ -15,6 +15,7 @@
 #include "ParticleLoader.h"
 #include "GLMeshRenderer.h"
 #include "ParticlesDemo.h"
+#include "RenderDemo.h"
 
 #include "ShaderFrame.h"
 #include "ModelDrawingFrame.h"
@@ -37,13 +38,11 @@ private:
 	Cylinder* _cylinder;
 	Cone* _cone;
 	Sphere* _sphere;
-
-	void GLSettings();
-	void SetCamAndDrawObjects();
 	
 	GLMeshRenderer* _meshRenderer;
 	GLMeshRenderer* _meshRenderer1;
 	ParticlesDemo* _particleDemo;
+	RenderDemo* _rendererDemo;
 
 	//////////
 	
@@ -55,6 +54,8 @@ private:
 	WholeWindowFrame* _windowFrame;
 
 	//////////
+
+	void GLSettings();
 
 public:
 	GameLoop(int sw, int sh);

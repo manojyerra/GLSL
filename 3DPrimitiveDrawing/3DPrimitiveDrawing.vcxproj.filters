@@ -88,6 +88,9 @@
     <Filter Include="src\Demo\ParticlesDemo">
       <UniqueIdentifier>{fc6a3f49-7990-4d4f-aa33-82890c763eb3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Demo\RenderDemo">
+      <UniqueIdentifier>{df81d527-b302-41c0-b7a6-fdc1ae0874ec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Macros.cpp">
@@ -402,6 +405,9 @@
     <ClCompile Include="src\Demo\WholeWindowFrame.cpp">
       <Filter>src\Demo</Filter>
     </ClCompile>
+    <ClCompile Include="src\Demo\RenderDemo\RenderDemo.cpp">
+      <Filter>src\Demo\RenderDemo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -685,6 +691,9 @@
     </ClInclude>
     <ClInclude Include="src\Demo\WholeWindowFrame.h">
       <Filter>src\Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Demo\RenderDemo\RenderDemo.h">
+      <Filter>src\Demo\RenderDemo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

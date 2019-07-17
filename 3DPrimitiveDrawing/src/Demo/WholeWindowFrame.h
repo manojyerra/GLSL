@@ -21,5 +21,7 @@ public:
 
 	void SetPos(int x, int y);
 	void actionPerformed(SUIActionEvent e);
+
+	int GetDemoIndex();
 };
 #endif

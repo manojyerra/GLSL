@@ -28,41 +28,11 @@ GameLoop::GameLoop(int sw, int sh)
 	Cam::GetInstance()->Init(_sw, _sh, _zNear, _zFar, _zNearPlaneW);
 	Cam2D::GetInstance()->Init(_sw, _sh);
 
-	_floor = new Floor();
-
-	//glm::vec3 v1(0.0f, 0.0f, 0.0f);
-	//glm::vec3 v2(0.0f, 5.0f, 0.0f);
-	//glm::vec3 v3(5.0f, 0.0f, 0.0f);
-
-	//_triangle = new Triangle(v1, v2, v3);
-
-	//_box = new Box(0, 0, 0, 2, 3, 4);
-	//_box->SetSize(3, 1, 6);
-	//_box->SetPos(-10, 0, -10);
-
-	//_cylinder = new Cylinder(0, 0, 0, 3, 2);
-	//_cylinder->SetRadius(1.5);
-	//_cylinder->SetHeight(2);
-	//_cylinder->SetPos(0, 0, -10);
-
-	//_cone = new Cone(0, 0, 0, 2, 3);
-	//_cone->SetRadius(1.5);
-	//_cone->SetHeight(2);
-	//_cone->SetPos(-5, 0, -10);
-
-	//_sphere = new Sphere(0, 0, 0, 2);
-	//_sphere->SetPos(5, 0, 0);
-	//_sphere->SetRadius(5);
-
-	//_meshRenderer = new GLMeshRenderer(&ObjReader("data/alien"), GLMeshRenderer::PBR_SHADER);
-	//_meshRenderer1 = new GLMeshRenderer(&BinaryObjReader("data/alien"), GLMeshRenderer::PHONG_PER_VERTEX_SHADER);
-	//_meshRenderer1->SetPos(8.0,0.0,0.0);
-
 	_particleDemo = new ParticlesDemo(_sw, _sh);
+	_rendererDemo = new RenderDemo(_sw, _sh);
 
 
 	_frameWidth = 300.0f;
-
 	_shaderFrame = new ShaderFrame(0.0f, 0.0f, _frameWidth, 700);
 	_modelDrawingFrame = new ModelDrawingFrame(_sw - _frameWidth, 0.0f, _frameWidth, 200.0f);
 	_applyShaderFrame = new ApplyShaderFrame(_sw - _frameWidth, 200.0f, _frameWidth, 180.0f);
@@ -71,16 +41,6 @@ GameLoop::GameLoop(int sw, int sh)
 
 void GameLoop::GLSettings()
 {
-	//glShadeModel(GL_SMOOTH);
-	//glDisable(GL_FOG);
-
-	//glDisable(GL_LINE_SMOOTH);
-	//glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-
-	//glCullFace(GL_BACK);
-	//glFrontFace(GL_CCW);
-	//glDisable(GL_CULL_FACE);
-
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -96,68 +56,16 @@ void GameLoop::Draw()
 	bool consumed = SUIInput::Update((float)Input::MX, (float)Input::MY, Input::LEFT_BUTTON_DOWN, 1.0f / 30.0f);;
 	Input::SetEnable(!consumed);
 
-	if (_particleDemo)
+	if (_windowFrame->GetDemoIndex() == 0)
 	{
-		_particleDemo->Draw(_floor);
-		return;
+		_rendererDemo->Draw();
+	}
+	else if (_windowFrame->GetDemoIndex() == 1)
+	{
+		_particleDemo->Draw();
 	}
 
-
-	glEnable(GL_DEPTH_TEST);
-
-	//if (_useFBO)
-	//{
-	//	_fbo->BindFBO();
-
-	//	glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
-	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//	glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
-
-	//	SetCamAndDrawObjects();
-
-	//	_fbo->UnBindFBO();
-	//}
-	//else
-	//{
-		glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glViewport(0, 0, _sw, _sh);
-
-		SetCamAndDrawObjects();
-	//}
-
-	//if (_useFBO)
-	//{
-	//	glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
-	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//	glViewport(0, 0, _sw, _sh);
-	//	glDisable(GL_DEPTH_TEST);
-	//	glDisable(GL_CULL_FACE);
-
-	//	Cam2D::GetInstance()->SetProjection();
-
-	//	glBindTexture(GL_TEXTURE_2D, _fbo->GetTextureID());
-	//	_texture->Draw();
-	//	glBindTexture(GL_TEXTURE_2D, 0);
-	//}
-
 	SUIDraw();
-}
-
-void GameLoop::SetCamAndDrawObjects()
-{
-	Cam::GetInstance()->SetPerspectiveProjection();
-	Cam::GetInstance()->SetViewMatrix();
-	Cam::GetInstance()->UpdateCamera();
-
-	_floor->Draw();
-	//_triangle->Draw();
-	//_box->Draw();
-	//_cone->Draw();
-	//_sphere->Draw();
-	//_cylinder->Draw();
-	//_meshRenderer->Draw();
-	//_meshRenderer1->Draw();
 }
 
 void GameLoop::SetScreenSize(int sw, int sh)
@@ -258,3 +166,72 @@ GameLoop::~GameLoop()
 
 	SUIQuit();
 }
+
+
+/*
+
+	glEnable(GL_DEPTH_TEST);
+
+	//if (_useFBO)
+	//{
+	//	_fbo->BindFBO();
+
+	//	glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
+	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//	glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
+
+	//	SetCamAndDrawObjects();
+
+	//	_fbo->UnBindFBO();
+	//}
+	//else
+	//{
+		glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glViewport(0, 0, _sw, _sh);
+
+		SetCamAndDrawObjects();
+	//}
+
+	//if (_useFBO)
+	//{
+	//	glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
+	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//	glViewport(0, 0, _sw, _sh);
+	//	glDisable(GL_DEPTH_TEST);
+	//	glDisable(GL_CULL_FACE);
+
+	//	Cam2D::GetInstance()->SetProjection();
+
+	//	glBindTexture(GL_TEXTURE_2D, _fbo->GetTextureID());
+	//	_texture->Draw();
+	//	glBindTexture(GL_TEXTURE_2D, 0);
+	//}
+
+*/
+
+
+//glm::vec3 v1(0.0f, 0.0f, 0.0f);
+//glm::vec3 v2(0.0f, 5.0f, 0.0f);
+//glm::vec3 v3(5.0f, 0.0f, 0.0f);
+
+//_triangle = new Triangle(v1, v2, v3);
+
+//_box = new Box(0, 0, 0, 2, 3, 4);
+//_box->SetSize(3, 1, 6);
+//_box->SetPos(-10, 0, -10);
+
+//_cylinder = new Cylinder(0, 0, 0, 3, 2);
+//_cylinder->SetRadius(1.5);
+//_cylinder->SetHeight(2);
+//_cylinder->SetPos(0, 0, -10);
+
+//_cone = new Cone(0, 0, 0, 2, 3);
+//_cone->SetRadius(1.5);
+//_cone->SetHeight(2);
+//_cone->SetPos(-5, 0, -10);
+
+//_sphere = new Sphere(0, 0, 0, 2);
+//_sphere->SetPos(5, 0, 0);
+//_sphere->SetRadius(5);
+

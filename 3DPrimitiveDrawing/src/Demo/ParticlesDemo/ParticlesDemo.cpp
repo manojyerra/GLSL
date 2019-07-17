@@ -20,6 +20,8 @@ ParticlesDemo::ParticlesDemo(int sw, int sh)
 	_texture = new GLTexture("data/Sample.png", 0,0,_sw,_sh);
 	_texture->GetShader()->Set2DCamera(true);
 
+	_floor = new Floor();
+
 	_particleLoader1 = new ParticleLoader();
 	_particleLoader2 = new ParticleLoader();
 	_particleLoader3 = new ParticleLoader();
@@ -35,7 +37,7 @@ ParticlesDemo::ParticlesDemo(int sw, int sh)
 }
 
 
-void ParticlesDemo::Draw(Floor* floor)
+void ParticlesDemo::Draw()
 {
 	Cam::GetInstance()->SetPerspectiveProjection();
 	Cam::GetInstance()->SetViewMatrix();
@@ -48,7 +50,7 @@ void ParticlesDemo::Draw(Floor* floor)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
 
-		floor->Draw();
+		_floor->Draw();
 
 		_particleLoader1->DrawLowPolyParticles();
 		_particleLoader2->DrawLowPolyParticles();
@@ -68,7 +70,7 @@ void ParticlesDemo::Draw(Floor* floor)
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
 
-			floor->Draw();
+			_floor->Draw();
 
 			_particleLoader1->DrawAllParticles();
 			_particleLoader2->DrawAllParticles();
@@ -137,5 +139,11 @@ ParticlesDemo::~ParticlesDemo()
 	{
 		delete _texture;
 		_texture = NULL;
+	}
+
+	if (_floor)
+	{
+		delete _floor;
+		_floor = NULL;
 	}
 }
