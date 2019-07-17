@@ -58,7 +58,7 @@ GameLoop::GameLoop(int sw, int sh)
 	//_meshRenderer1 = new GLMeshRenderer(&BinaryObjReader("data/alien"), GLMeshRenderer::PHONG_PER_VERTEX_SHADER);
 	//_meshRenderer1->SetPos(8.0,0.0,0.0);
 
-	_particleDemo = NULL; //new ParticlesDemo(_sw, _sh);
+	_particleDemo = new ParticlesDemo(_sw, _sh);
 
 
 	_frameWidth = 300.0f;

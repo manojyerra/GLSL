@@ -26,10 +26,10 @@ ParticlesDemo::ParticlesDemo(int sw, int sh)
 	_particleLoader4 = new ParticleLoader();
 	_particleLoader5 = new ParticleLoader();
 
-	_particleLoader2->SetPosition(0, 2, 0);
-	_particleLoader3->SetPosition(0, 4, 0);
-	_particleLoader4->SetPosition(0, -2, 0);
-	_particleLoader5->SetPosition(0, -4, 0);
+	_particleLoader2->SetPosition(2, 0, 0);
+	_particleLoader3->SetPosition(4, 0, 0);
+	_particleLoader4->SetPosition(-2, 0, 0);
+	_particleLoader5->SetPosition(-4, 0, 0);
 
 	_drawAllParticles = true;
 }
@@ -51,10 +51,10 @@ void ParticlesDemo::Draw(Floor* floor)
 		floor->Draw();
 
 		_particleLoader1->DrawLowPolyParticles();
-		//_particleLoader2->DrawLowPolyParticles();
-		//_particleLoader3->DrawLowPolyParticles();
-		//_particleLoader4->DrawLowPolyParticles();
-		//_particleLoader5->DrawLowPolyParticles();
+		_particleLoader2->DrawLowPolyParticles();
+		_particleLoader3->DrawLowPolyParticles();
+		_particleLoader4->DrawLowPolyParticles();
+		_particleLoader5->DrawLowPolyParticles();
 
 		_drawAllParticles = true;
 	}
@@ -71,10 +71,10 @@ void ParticlesDemo::Draw(Floor* floor)
 			floor->Draw();
 
 			_particleLoader1->DrawAllParticles();
-			//_particleLoader2->DrawAllParticles();
-			//_particleLoader3->DrawAllParticles();
-			//_particleLoader4->DrawAllParticles();
-			//_particleLoader5->DrawAllParticles();
+			_particleLoader2->DrawAllParticles();
+			_particleLoader3->DrawAllParticles();
+			_particleLoader4->DrawAllParticles();
+			_particleLoader5->DrawAllParticles();
 
 			_fbo->UnBindFBO();
 			_drawAllParticles = false;
