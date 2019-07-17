@@ -41,6 +41,7 @@ public:
 	static void DeleteInstance();
 
 	void Setup(int windowWidth, int windowHeight); //int argc, char** argv);
+	void SetWindowSize(int windowWidth, int windowHeight);
 
 	void Run();
 	float GetFPS();

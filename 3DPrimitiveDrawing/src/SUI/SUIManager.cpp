@@ -12,8 +12,8 @@ void SUIManager::Setup(int windowWidth, int windowHeight)
 	_windowWidth = (float)windowWidth;
 	_windowHeight = (float)windowHeight;
 
-	_statusBarRect.SetColor(0,0,255,120);
-	_statusBarRect.SetBounds(0,_windowHeight*0.92f,_windowWidth,_windowHeight*0.08f);
+	_statusBarRect.SetColor(128,128,128,128);
+	_statusBarRect.SetBounds(0,_windowHeight*0.935f,_windowWidth,_windowHeight*0.065f);
 
 	SUIInput::Init();
 }
@@ -33,6 +33,14 @@ SUIManager* SUIManager::GetInstance()
 	if(_ref == 0)
 		_ref = new SUIManager();
 	return _ref;
+}
+
+void SUIManager::SetWindowSize(int windowWidth, int windowHeight)
+{
+	_windowWidth = windowWidth;
+	_windowHeight = windowHeight;
+
+	_statusBarRect.SetBounds(0, _windowHeight*0.935f, _windowWidth, _windowHeight*0.065f);
 }
 
 float SUIManager::GetWindowWidth()						{	return _windowWidth;					}
@@ -370,7 +378,7 @@ void SUIManager::Draw()
 			float w = iConW-2*marginH;
 			float h = iConH-2*marginV;
 
-			SUIRect::Draw(x, y, w, h, 250,100,200,255, false);
+			SUIRect::Draw(x, y, w, h, 160,160,160,255, false);
 			SUIRect::Draw(x, y, w, h, 0,0,0,255, true);
 			SUIRect::Draw(x+2, y+2, w-4, h-4, 0,0,0,255, true);
 			count++;

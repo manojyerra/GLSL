@@ -208,9 +208,9 @@ void SUITextField::Draw()
 {
 	if(_isBgVisible)
 	{
-		//if(SUIInput::IsMousePressed() && Contains((float)SUIInput::MX, (float)SUIInput::MY))
-		//	DrawBackground(true);
-		//else
+		if(Contains((float)SUIInput::MX, (float)SUIInput::MY))
+			DrawBackground(true);
+		else
 			DrawBackground(false);
 	}
 
@@ -241,10 +241,15 @@ SUIEvents SUITextField::UpdateByInput()
 
 	int key = SUIInput::GetReleasedKey();
 
-	if(_actionListener &&  key != 0)
+	if (key != 0)
 	{
-		if(key == VK_RETURN)
-			eventsVec.ACTION_PERFORMED = true;
+		if (key == VK_RETURN)
+		{
+			if (_actionListener)
+			{
+				eventsVec.ACTION_PERFORMED = true;
+			}
+		}
 		else
 			AppendChar(key);
 	}

@@ -214,6 +214,24 @@ int SUIInput::GetReleasedKey()
 		}
 	}
 
+	if (IsKeyReleased(VK_NUMPAD0)) return '0';
+	else if (IsKeyReleased(VK_NUMPAD1)) return '1';
+	else if (IsKeyReleased(VK_NUMPAD2)) return '2';
+	else if (IsKeyReleased(VK_NUMPAD3)) return '3';
+	else if (IsKeyReleased(VK_NUMPAD4)) return '4';
+	else if (IsKeyReleased(VK_NUMPAD5)) return '5';
+	else if (IsKeyReleased(VK_NUMPAD6)) return '6';
+	else if (IsKeyReleased(VK_NUMPAD7)) return '7';
+	else if (IsKeyReleased(VK_NUMPAD8)) return '8';
+	else if (IsKeyReleased(VK_NUMPAD9)) return '9';
+
+	else if (IsKeyReleased(VK_SUBTRACT)) return '-';
+	else if (IsKeyReleased(VK_MULTIPLY)) return '*';
+	else if (IsKeyReleased(VK_ADD)) return '+';
+	else if (IsKeyReleased(VK_DECIMAL)) return '.';
+	else if (IsKeyReleased(VK_DIVIDE)) return '//';
+
+
 	int asciiArr[] = {0xBA, 0xBF, 0xC0,	0xDB, 0xDC, 0xDD, 0xDE, 0xBD, 0xBB, 0xBC, 0xBE};
 	char charArr[] = {';',	'/',  '`',  '[',  '\\', ']',  '\'', '-',  '=',  ',',  '.'};
 	char capsArr[] = {':',	'?',  '~',  '{',  '|',  '}',  '"',  '_',  '+',  '<',  '>'};

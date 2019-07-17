@@ -88,7 +88,7 @@ GameLoop::GameLoop(int sw, int sh)
 	_suiFrame->SetName("Main Frame", SUIFrame::LEFT);
 
 	_suiFrame->Add(new SUIButton("asldkfjas"));
-
+	_suiFrame->Add(new SUITextField("Default Text", SUITextField::INPUT_DOUBLE));
 }
 
 void GameLoop::GLSettings()
@@ -241,6 +241,7 @@ void GameLoop::SetScreenSize(int sw, int sh)
 	_sh = sh;
 
 	Cam::GetInstance()->SetScreenSize(_sw, _sh);
+	SUISetWindowSize(_sw, _sh);
 }
 
 GameLoop::~GameLoop()
