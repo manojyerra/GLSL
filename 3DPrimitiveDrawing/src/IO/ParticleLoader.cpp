@@ -23,6 +23,8 @@ ParticleLoader::ParticleLoader()
 
 	_cubeHalfLen = 1.0f;
 	_methodNum = 2;
+
+	_modelMat.SetRotation(glm::vec3(0,90,90));
 	
 	/*
 	unsigned int vertexBufLen = 36;
@@ -43,7 +45,7 @@ ParticleLoader::ParticleLoader()
 	vertexBuf[7] = y;
 	vertexBuf[8] = 0.0f;
 	
-	_vertexBufferID = GLMemory::CreateBuffer(vertexBufLen, vertexBuf);
+	_vertexBufferID = GLCreateBuffer(vertexBufLen, vertexBuf);
 	
 	unsigned int colorBufLen = 12;
 	unsigned char* colorBuf = (unsigned char*)malloc(colorBufLen);
@@ -60,12 +62,13 @@ ParticleLoader::ParticleLoader()
 	colorBuf[7] = 0;
 	colorBuf[8] = 255;
 
-	_colorBufferID = GLMemory::CreateBuffer(colorBufLen, colorBuf);
+	_colorBufferID = GLCreateBuffer(colorBufLen, colorBuf);
 	
 	_vertexCount = vertexBufLen / 12;
 	free(vertexBuf);
 	*/
 
+	
 	_cubeHalfLen = 0.0015f;
 
 	long startTime = GetTickCount();
@@ -108,7 +111,6 @@ void ParticleLoader::LoadData(const char* fileData, unsigned int length)
 	_colorBufferID = GLCreateBuffer(colorBufLen, (GLvoid*)colorBuf);
 	free(colorBuf);
 }
-
 
 void ParticleLoader::LoadLowPolyData(const char* fileData, unsigned int length)
 {
@@ -155,17 +157,9 @@ void ParticleLoader::DrawAllParticles()
 {
 	_cubeParticleShader->Begin();
 
-	glm::mat4 projMat = glm::make_mat4(Cam::GetInstance()->projMat.m);
-	glm::mat4 viewMat = glm::make_mat4(Cam::GetInstance()->viewMat.m);
-	glm::mat4 modelMat = glm::make_mat4(_modelMat.m);
-
-	glm::mat4 mvp = projMat * viewMat * modelMat;
-	glm::mat4 modelViewMat = viewMat * modelMat;
-	glm::mat3 normalMat = glm::mat3(viewMat);
-
-	_cubeParticleShader->SetUniformMatrix4fv("mvp", glm::value_ptr(mvp));
-	_cubeParticleShader->SetUniformMatrix3fv("normalMat", glm::value_ptr(normalMat));
-	_cubeParticleShader->SetUniformMatrix4fv("modelViewMat", glm::value_ptr(modelViewMat));
+	_cubeParticleShader->SetUniformMatrix4fv("mvp", glm::value_ptr(Cam::GetInstance()->GetMVP(_modelMat.m)));
+	_cubeParticleShader->SetUniformMatrix3fv("normalMat", glm::value_ptr(Cam::GetInstance()->GetNormalMat(_modelMat.m)));
+	_cubeParticleShader->SetUniformMatrix4fv("modelViewMat", glm::value_ptr(Cam::GetInstance()->GetModelViewMat(_modelMat.m)));
 	_cubeParticleShader->SetUniform1f("hLen", _cubeHalfLen);
 	_cubeParticleShader->SetUniform1i("methodNum", _methodNum);
 
@@ -193,17 +187,9 @@ void ParticleLoader::DrawLowPolyParticles()
 {
 	_cubeParticleShader->Begin();
 
-	glm::mat4 projMat = glm::make_mat4(Cam::GetInstance()->projMat.m);
-	glm::mat4 viewMat = glm::make_mat4(Cam::GetInstance()->viewMat.m);
-	glm::mat4 modelMat = glm::make_mat4(_modelMat.m);
-
-	glm::mat4 mvp = projMat * viewMat * modelMat;
-	glm::mat4 modelViewMat = viewMat * modelMat;
-	glm::mat3 normalMat = glm::mat3(viewMat);
-
-	_cubeParticleShader->SetUniformMatrix4fv("mvp", glm::value_ptr(mvp));
-	_cubeParticleShader->SetUniformMatrix3fv("normalMat", glm::value_ptr(normalMat));
-	_cubeParticleShader->SetUniformMatrix4fv("modelViewMat", glm::value_ptr(modelViewMat));
+	_cubeParticleShader->SetUniformMatrix4fv("mvp", glm::value_ptr(Cam::GetInstance()->GetMVP(_modelMat.m)));
+	_cubeParticleShader->SetUniformMatrix3fv("normalMat", glm::value_ptr(Cam::GetInstance()->GetNormalMat(_modelMat.m)));
+	_cubeParticleShader->SetUniformMatrix4fv("modelViewMat", glm::value_ptr(Cam::GetInstance()->GetModelViewMat(_modelMat.m)));
 	_cubeParticleShader->SetUniform1f("hLen", _cubeHalfLen);
 	_cubeParticleShader->SetUniform1i("methodNum", _methodNum);
 

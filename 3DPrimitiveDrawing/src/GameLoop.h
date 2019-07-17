@@ -4,9 +4,6 @@
 #include "Cam.h"
 #include "Cam2D.h"
 #include "Floor.h"
-#include "Cam.h"
-#include "Input.h"
-#include "ShadersManager.h"
 #include "GLFBO.h"
 #include "GLTexture.h"
 
@@ -18,6 +15,8 @@
 #include "ParticleLoader.h"
 #include "GLMeshRenderer.h"
 #include "SUIFrame.h"
+
+#include "ParticlesDemo.h"
 
 class GameLoop 
 {
@@ -35,18 +34,6 @@ private:
 	Cone* _cone;
 	Sphere* _sphere;
 
-	ParticleLoader* _particleLoader;
-	ParticleLoader* _particleLoader2;
-	ParticleLoader* _particleLoader3;
-	ParticleLoader* _particleLoader4;
-	ParticleLoader* _particleLoader5;
-
-	GLFBO* _fbo;
-	GLTexture* _texture;
-
-	bool _useFBO;
-	bool _drawAllParticles;
-
 	void GLSettings();
 	void SetCamAndDrawObjects();
 	
@@ -55,6 +42,8 @@ private:
 
 	SUIFrame* _suiFrame;
 
+	ParticlesDemo* _particleDemo;
+
 public:
 	GameLoop(int sw, int sh);
 	~GameLoop();
@@ -62,11 +51,9 @@ public:
 	void SetScreenSize(int sw, int sh);
 	void Update(float deltaTime);
 	void Draw();
-	void ParticleSpecificDraw();
 };
 
 #endif
-
 
 
 //void GameLoop::DemoLight(void)
@@ -132,5 +119,3 @@ public:
 //	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, material_Ke);
 //	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, material_Se);
 //}
-
-

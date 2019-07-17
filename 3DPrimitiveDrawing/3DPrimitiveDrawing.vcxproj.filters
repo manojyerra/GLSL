@@ -85,6 +85,9 @@
     <Filter Include="src\Demo">
       <UniqueIdentifier>{a93b7a16-50d6-48bb-a72c-422b7dfdee60}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Demo\ParticlesDemo">
+      <UniqueIdentifier>{fc6a3f49-7990-4d4f-aa33-82890c763eb3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Macros.cpp">
@@ -396,6 +399,9 @@
     <ClCompile Include="src\GLUtil\GLBatch.cpp">
       <Filter>src\GLUtil</Filter>
     </ClCompile>
+    <ClCompile Include="src\Demo\ParticlesDemo\ParticlesDemo.cpp">
+      <Filter>src\Demo\ParticlesDemo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -676,6 +682,9 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\GLBatch.h">
       <Filter>src\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Demo\ParticlesDemo\ParticlesDemo.h">
+      <Filter>src\Demo\ParticlesDemo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

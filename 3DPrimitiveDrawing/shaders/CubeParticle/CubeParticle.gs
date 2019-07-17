@@ -19,7 +19,7 @@ vec3 CalcFragColor(vec4 vertex, vec3 normal)
 	vec3 N = normalize( normalMat * normal );
 
 	vec3 L = normalize(-V);
-	return color[0] * max(dot(N,L), 0.0);
+	return color[0] * max(dot(N,L), 0.0) + vec3(0.1,0.1,0.1);
 
 	//return color[0];
 }

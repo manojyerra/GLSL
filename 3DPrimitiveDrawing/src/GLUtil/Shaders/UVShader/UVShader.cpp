@@ -1,6 +1,7 @@
 #include "UVShader.h"
 #include "ShadersManager.h"
 #include "Cam.h"
+#include "Cam2D.h"
 
 UVShader::UVShader()
 {
@@ -11,6 +12,7 @@ UVShader::UVShader()
 	_textureID = 0;
 
 	_alpha = 1.0f;
+	_use2DCam = false;
 
 	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram( "shaders/UVShader/UVShader.vs",
 																			"shaders/UVShader/UVShader.fs");
@@ -41,6 +43,11 @@ void UVShader::SetAlpha(float alpha)
 	_alpha = alpha;
 }
 
+void UVShader::Set2DCamera(bool enable)
+{
+	_use2DCam = enable;
+}
+
 void UVShader::Begin()
 {
 	_shaderProgram->Begin();
@@ -49,13 +56,22 @@ void UVShader::Begin()
 
 void UVShader::SetUniformsAndAttributes()
 {
-	Cam* cam = Cam::GetInstance();
 
 	GLuint programID = _shaderProgram->ProgramID();
 
 	float* m = _modelMat.m;
 
-	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(cam->GetMVP(m)));
+	if (_use2DCam)
+	{
+		Cam2D* cam2D = Cam2D::GetInstance();
+		_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(cam2D->GetMVP(m)));
+	}
+	else
+	{
+		Cam* cam3D = Cam::GetInstance();
+		_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(cam3D->GetMVP(m)));
+	}
+
 	_shaderProgram->SetUniform1f("alpha", _alpha);
 
 	if(_uvBufferID)

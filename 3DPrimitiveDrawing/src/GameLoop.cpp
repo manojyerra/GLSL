@@ -2,6 +2,8 @@
 #include "GLMemory.h"
 #include "ObjReader.h"
 #include "BinaryObjReader.h"
+#include "ShadersManager.h"
+#include "Input.h"
 #include "SUI.h"
 
 GameLoop::GameLoop(int sw, int sh)
@@ -13,8 +15,6 @@ GameLoop::GameLoop(int sw, int sh)
 	_zFar = 1000000.0f;
 	_zNearPlaneW = 0.2f;
 
-	_useFBO = false;
-
 	GLSettings();
 
 	_floor = NULL;
@@ -22,14 +22,12 @@ GameLoop::GameLoop(int sw, int sh)
 	_cylinder = NULL;
 	_cone = NULL;
 	_sphere = NULL;
-	_fbo = NULL;
-	_texture = NULL;
 	_triangle = NULL;
 
 	Cam::GetInstance()->Init(_sw, _sh, _zNear, _zFar, _zNearPlaneW);
 	Cam2D::GetInstance()->Init(_sw, _sh);
 
-	//_floor = new Floor();
+	_floor = new Floor();
 
 	//glm::vec3 v1(0.0f, 0.0f, 0.0f);
 	//glm::vec3 v2(0.0f, 5.0f, 0.0f);
@@ -37,9 +35,9 @@ GameLoop::GameLoop(int sw, int sh)
 
 	//_triangle = new Triangle(v1, v2, v3);
 
-	//_box = new Box(0, 0, 0, 2, 3, 4);
-	//_box->SetSize(3, 1, 6);
-	//_box->SetPos(-10, 0, -10);
+	_box = new Box(0, 0, 0, 2, 3, 4);
+	_box->SetSize(3, 1, 6);
+	_box->SetPos(-10, 0, -10);
 
 	//_cylinder = new Cylinder(0, 0, 0, 3, 2);
 	//_cylinder->SetRadius(1.5);
@@ -55,38 +53,24 @@ GameLoop::GameLoop(int sw, int sh)
 	//_sphere->SetPos(5, 0, 0);
 	//_sphere->SetRadius(5);
 
-	//_fbo = new GLFBO(_sw, _sh);
-	_texture = new GLTexture("data/Sample.png", 1,1, 7.5,4);
-
-	//_particleLoader = new ParticleLoader();
-	//_particleLoader2 = new ParticleLoader();
-	//_particleLoader3 = new ParticleLoader();
-	//_particleLoader4 = new ParticleLoader();
-	//_particleLoader5 = new ParticleLoader();
-
-	//_particleLoader2->SetPosition(0, 2, 0);
-	//_particleLoader3->SetPosition(0, 4, 0);
-	//_particleLoader4->SetPosition(0, -2, 0);
-	//_particleLoader5->SetPosition(0, -4, 0);
-
-	_drawAllParticles = true;
-
 	//_meshRenderer = new GLMeshRenderer(&ObjReader("data/alien"), GLMeshRenderer::PBR_SHADER);
 	//_meshRenderer1 = new GLMeshRenderer(&BinaryObjReader("data/alien"), GLMeshRenderer::PHONG_PER_VERTEX_SHADER);
 	//_meshRenderer1->SetPos(8.0,0.0,0.0);
 
 	SUISetup(_sw, _sh);
 
-	//float x = 10;
-	//float y = 10;
-	//float w = 300;
-	//float h = 400;
+	float x = 10;
+	float y = 10;
+	float w = 300;
+	float h = 400;
 
-	//_suiFrame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
-	//_suiFrame->SetName("Main Frame", SUIFrame::LEFT);
+	_suiFrame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
+	_suiFrame->SetName("Main Frame", SUIFrame::LEFT);
 
-	//_suiFrame->Add(new SUIButton("asldkfjas"));
-	//_suiFrame->Add(new SUITextField("Default Text", SUITextField::INPUT_DOUBLE));
+	_suiFrame->Add(new SUIButton("asldkfjas"));
+	_suiFrame->Add(new SUITextField("Default Text", SUITextField::INPUT_DOUBLE));
+
+	_particleDemo = new ParticlesDemo(_sw, _sh);
 }
 
 void GameLoop::GLSettings()
@@ -97,9 +81,9 @@ void GameLoop::GLSettings()
 	//glDisable(GL_LINE_SMOOTH);
 	//glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 
-	glCullFace(GL_BACK);
-	glFrontFace(GL_CCW);
-	glDisable(GL_CULL_FACE);
+	//glCullFace(GL_BACK);
+	//glFrontFace(GL_CCW);
+	//glDisable(GL_CULL_FACE);
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
@@ -111,109 +95,55 @@ void GameLoop::Update(float deltaTime)
 	
 }
 
-void GameLoop::ParticleSpecificDraw()
-{
-	Cam::GetInstance()->SetPerspectiveProjection();
-	Cam::GetInstance()->SetViewMatrix();
-	Cam::GetInstance()->UpdateCamera();
-
-	if (Cam::GetInstance()->IsCameraUpdated())
-	{
-		glEnable(GL_DEPTH_TEST);
-		glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
-
-		_floor->Draw();
-		_particleLoader->DrawLowPolyParticles();
-		//_particleLoader2->DrawLowPolyParticles();
-		//_particleLoader3->DrawLowPolyParticles();
-		//_particleLoader4->DrawLowPolyParticles();
-		//_particleLoader5->DrawLowPolyParticles();
-
-		_drawAllParticles = true;
-	}
-	else
-	{
-		if (_drawAllParticles)
-		{
-			_fbo->BindFBO();
-
-			glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
-
-			_floor->Draw();
-			_particleLoader->DrawAllParticles();
-			//_particleLoader2->DrawAllParticles();
-			//_particleLoader3->DrawAllParticles();
-			//_particleLoader4->DrawAllParticles();
-			//_particleLoader5->DrawAllParticles();
-
-			_fbo->UnBindFBO();
-			_drawAllParticles = false;
-		}
-
-		glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glViewport(0, 0, _sw, _sh);
-		glDisable(GL_DEPTH_TEST);
-		glDisable(GL_CULL_FACE);
-
-		Cam2D::GetInstance()->SetProjection();
-
-		glBindTexture(GL_TEXTURE_2D, _fbo->GetTextureID());
-		_texture->Draw();
-		glBindTexture(GL_TEXTURE_2D, 0);
-	}
-}
-
 void GameLoop::Draw()
 {
 	bool consumed = SUIInput::Update((float)Input::MX, (float)Input::MY, Input::LEFT_BUTTON_DOWN, 1.0f / 30.0f);;
-
 	Input::SetEnable(!consumed);
 
-	//ParticleSpecificDraw();
-	//return;
+	if (_particleDemo)
+	{
+		_particleDemo->Draw(_floor);
+		return;
+	}
+
 
 	glEnable(GL_DEPTH_TEST);
 
-	if (_useFBO)
-	{
-		_fbo->BindFBO();
+	//if (_useFBO)
+	//{
+	//	_fbo->BindFBO();
 
-		glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
+	//	glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
+	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//	glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
 
-		SetCamAndDrawObjects();
+	//	SetCamAndDrawObjects();
 
-		_fbo->UnBindFBO();
-	}
-	else
-	{
-		glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glViewport(0, 0, _sw, _sh);
-
-		SetCamAndDrawObjects();
-	}
-
-	if (_useFBO)
-	{
+	//	_fbo->UnBindFBO();
+	//}
+	//else
+	//{
 		glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glViewport(0, 0, _sw, _sh);
-		glDisable(GL_DEPTH_TEST);
-		glDisable(GL_CULL_FACE);
 
-		Cam2D::GetInstance()->SetProjection();
+		SetCamAndDrawObjects();
+	//}
 
-		glBindTexture(GL_TEXTURE_2D, _fbo->GetTextureID());
-		_texture->Draw();
-		glBindTexture(GL_TEXTURE_2D, 0);
-	}
+	//if (_useFBO)
+	//{
+	//	glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
+	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//	glViewport(0, 0, _sw, _sh);
+	//	glDisable(GL_DEPTH_TEST);
+	//	glDisable(GL_CULL_FACE);
+
+	//	Cam2D::GetInstance()->SetProjection();
+
+	//	glBindTexture(GL_TEXTURE_2D, _fbo->GetTextureID());
+	//	_texture->Draw();
+	//	glBindTexture(GL_TEXTURE_2D, 0);
+	//}
 
 	SUIDraw();
 }
@@ -224,16 +154,14 @@ void GameLoop::SetCamAndDrawObjects()
 	Cam::GetInstance()->SetViewMatrix();
 	Cam::GetInstance()->UpdateCamera();
 
-	//_floor->Draw();
+	_floor->Draw();
+	//_triangle->Draw();
 	//_box->Draw();
 	//_cone->Draw();
 	//_sphere->Draw();
-	//_cylinder->Draw();
-	//_meshRenderer->Draw();
+	_cylinder->Draw();
+	_meshRenderer->Draw();
 	//_meshRenderer1->Draw();
-
-	//_triangle->Draw();
-	_texture->Draw();
 }
 
 void GameLoop::SetScreenSize(int sw, int sh)
@@ -242,29 +170,13 @@ void GameLoop::SetScreenSize(int sw, int sh)
 	_sh = sh;
 
 	Cam::GetInstance()->SetScreenSize(_sw, _sh);
+	Cam2D::GetInstance()->SetScreenSize(_sw, _sh);
+
 	SUISetWindowSize(_sw, _sh);
 }
 
 GameLoop::~GameLoop()
 {
-	if (_particleLoader)
-	{
-		delete _particleLoader;
-		_particleLoader = NULL;
-	}
-
-	if (_texture)
-	{
-		delete _texture;
-		_texture = NULL;
-	}
-
-	if (_fbo)
-	{
-		delete _fbo;
-		_fbo = NULL;
-	}
-	
 	if (_sphere != NULL)
 	{
 		delete _sphere;
@@ -306,17 +218,28 @@ GameLoop::~GameLoop()
 		delete _meshRenderer;
 		_meshRenderer = NULL;
 	}
-
+	
 	if (_meshRenderer1)
 	{
 		delete _meshRenderer1;
 		_meshRenderer1 = NULL;
 	}
 
+	if (_suiFrame)
+	{
+		delete _suiFrame;
+		_suiFrame = NULL;
+	}
+
+	if (_particleDemo)
+	{
+		delete _particleDemo;
+		_particleDemo = NULL;
+	}
+
 	Cam::GetInstance()->DeleteInstance();
 	Cam2D::GetInstance()->DeleteInstance();
 	ShadersManager::GetInstance()->DeleteInstance();
-
 	GLMemory::printMemoryLeaks();
 
 	SUIQuit();

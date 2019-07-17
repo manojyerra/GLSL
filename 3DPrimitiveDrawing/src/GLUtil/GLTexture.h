@@ -3,9 +3,7 @@
 
 #include "GLMat.h"
 #include "GLMeshRenderer.h"
-
-#include <string>
-using namespace std;
+#include "UVShader.h"
 
 class GLTexture
 {
@@ -19,6 +17,8 @@ private:
 public:
 	GLTexture(const char* texturePath, float x, float y, float w, float h);
 	~GLTexture();
+
+	UVShader* GetShader();
 	void SetBounds(float x, float y, float w, float h);
 	void Draw();
 };

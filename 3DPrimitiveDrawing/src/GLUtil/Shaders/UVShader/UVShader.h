@@ -16,6 +16,7 @@ private:
 	ShaderProgram* _shaderProgram;
 
 	GLMat _modelMat;
+	bool _use2DCam;
 
 public:
 	UVShader();
@@ -25,8 +26,10 @@ public:
 	void SetUVBufferID(unsigned int bufferID);
 	void SetTextureID(unsigned int textureID);
 	void SetModelMatrix(float* mat);
-
 	void SetAlpha(float alpha);
+
+	void Set2DCamera(bool enable);
+
 
 	void Begin();
 	void SetUniformsAndAttributes();

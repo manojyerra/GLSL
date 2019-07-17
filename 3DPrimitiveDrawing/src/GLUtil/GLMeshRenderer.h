@@ -56,6 +56,8 @@ public:
 	void SetModelMatrix(float* mat);
 	void SetPos(float x, float y, float z);
 	void SetShader(int shaderType);
+	Shader* GetShader(int shaderType);
+	Shader* GetCurrentShader();
 	void SetPrimitiveType(int primitiveType);
 	void Draw();
 };

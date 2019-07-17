@@ -39,7 +39,6 @@ public:
 	glm::mat4 GetModelView(float* modelMat);
 	
 	void SetProjection();
-	bool UpdateCamera();
 };
 
 #endif

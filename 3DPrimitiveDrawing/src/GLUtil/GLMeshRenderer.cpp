@@ -102,6 +102,42 @@ void GLMeshRenderer::SetShader(int shaderType)
 	}
 }
 
+Shader* GLMeshRenderer::GetShader(int shaderType)
+{
+	if (_shaderType == BASIC_SHADER)
+	{
+		return _basicShader;
+	}
+	else if (_shaderType == COLOR_SHADER)
+	{
+		return _colorShader;
+	}
+	else if (_shaderType == UV_SHADER)
+	{
+		return _uvShader;
+	}
+	else if (_shaderType == PHONG_PER_VERTEX_SHADER)
+	{
+		return _phongPerVertexShader;
+	}
+	else if (_shaderType == PHONG_PER_PIXEL_SHADER)
+	{
+		return _phongPerPixelShader;
+	}
+	else if (_shaderType == PBR_SHADER)
+	{
+		return _pbrShader;
+	}
+
+	return NULL;
+}
+
+Shader* GLMeshRenderer::GetCurrentShader()
+{
+	return _shader;
+}
+
+
 void GLMeshRenderer::SetPrimitiveType(int primitiveType)
 {
 	_primitiveType = primitiveType;

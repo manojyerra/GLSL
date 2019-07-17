@@ -22,6 +22,11 @@ void GLTexture::SetBounds(float x, float y, float w, float h)
 	_modelMat.m[13] = y;
 }
 
+UVShader* GLTexture::GetShader()
+{
+	return (UVShader*)_meshRenderer->GetCurrentShader();
+}
+
 void GLTexture::Draw()
 {
 	_meshRenderer->SetModelMatrix(_modelMat.m);
