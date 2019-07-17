@@ -23,7 +23,9 @@ private:
 
 	SUIRadioButton* _shaderType;
 	SUIChoice* _materialType;
-	SUITextField* _albedo;
+	SUITextField* _albedoR;
+	SUITextField* _albedoG;
+	SUITextField* _albedoB;
 
 	//////////////
 	SUICheckBox* floorVisible;

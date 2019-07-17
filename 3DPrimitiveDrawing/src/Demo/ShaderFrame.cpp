@@ -97,12 +97,19 @@ SUIBox* ShaderFrame::SetMetalPropertyBox() {
 	metalProperypBox->AddChoice(_materialType);
 	metalProperypBox->SetOnOffEnable(true);
 
-	SUIBox* albedoValuepBox = new SUIBox(SUIBox::V_ALIGNMENT);
-	_albedoR = new SUITextField("Albedo ", SUITextField::INPUT_DOUBLE);
+	SUIBox* albedoValuepBox = new SUIBox(SUIBox::H_ALIGNMENT);
+	_albedoR = new SUITextField("AlbedoR ", SUITextField::INPUT_DOUBLE);
 	_albedoR->AddActionListener(this);
+	_albedoG = new SUITextField("AlbedoG ", SUITextField::INPUT_DOUBLE);
+	_albedoG->AddActionListener(this);
+	_albedoB = new SUITextField("AlbedoB ", SUITextField::INPUT_DOUBLE);
+	_albedoB->AddActionListener(this);
 	
-	metalProperypBox->AddTextField(_albedo);
-	metalProperypBox->SetOnOffEnable(true);
+	albedoValuepBox->AddTextField(_albedoR);
+	albedoValuepBox->AddTextField(_albedoG);
+	albedoValuepBox->AddTextField(_albedoB);
+	metalProperypBox->AddBox(albedoValuepBox);
+
 	
 
 	return metalProperypBox;
