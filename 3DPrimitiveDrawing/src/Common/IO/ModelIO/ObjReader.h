@@ -4,9 +4,9 @@
 #include "FloatArray.h"
 #include "ULongArray.h"
 #include "VoidPtrArray.h"
-#include "ModelCreateInfo.h"
+#include "ModelInfo.h"
 
-class ObjReader : public ModelCreateInfo
+class ObjReader : public ModelInfo
 {
 private:
 	string _folderPath;

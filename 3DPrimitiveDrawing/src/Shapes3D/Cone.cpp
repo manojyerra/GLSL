@@ -236,7 +236,7 @@ void Cone::GenerateGeometry()
 		buffer->glVertex3f(radius*cos(nextTheta),	-halfLength,	radius*sin(nextTheta));
 	}
 
-	ModelCreateInfo createInfo;
+	ModelInfo createInfo;
 	createInfo.SetVertexBuffer(buffer->GetVertexBuffer(), buffer->GetVertexBufferSize());
 	createInfo.SetColorBuffer(buffer->GetColorBuffer(), buffer->GetColorBufferSize());
 

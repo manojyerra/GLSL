@@ -33,7 +33,7 @@ Floor::Floor()
 	_axisBuffer->glVertex3f(0.0f,	0.0f,	(start+end)/2.0f);
 	_axisBuffer->glVertex3f(0.0f,	end,	0);
 
-	ModelCreateInfo axisMeshInfo;
+	ModelInfo axisMeshInfo;
 	axisMeshInfo.SetVertexBuffer(_axisBuffer->GetVertexBuffer(), _axisBuffer->GetVertexBufferSize());
 	axisMeshInfo.SetColorBuffer(_axisBuffer->GetColorBuffer(), _axisBuffer->GetColorBufferSize());
 	_axisRenderer = new GLMeshRenderer(&axisMeshInfo);
@@ -69,7 +69,7 @@ Floor::Floor()
 		_gridLinesBuffer->glVertex3f((float)i,	0.01f,	end);
 	}
 	
-	ModelCreateInfo gridLinesMeshInfo;
+	ModelInfo gridLinesMeshInfo;
 	gridLinesMeshInfo.SetVertexBuffer(_gridLinesBuffer->GetVertexBuffer(), _gridLinesBuffer->GetVertexBufferSize());
 	gridLinesMeshInfo.SetColorBuffer(_gridLinesBuffer->GetColorBuffer(), _gridLinesBuffer->GetColorBufferSize());
 	_gridLinesRenderer = new GLMeshRenderer(&gridLinesMeshInfo);
@@ -111,7 +111,7 @@ Floor::Floor()
 		}
 	}
 
-	ModelCreateInfo gridMeshInfo;
+	ModelInfo gridMeshInfo;
 	gridMeshInfo.SetVertexBuffer(_gridBuffer->GetVertexBuffer(), _gridBuffer->GetVertexBufferSize());
 	gridMeshInfo.SetColorBuffer(_gridBuffer->GetColorBuffer(), _gridBuffer->GetColorBufferSize());
 	_gridRenderer = new GLMeshRenderer(&gridMeshInfo);

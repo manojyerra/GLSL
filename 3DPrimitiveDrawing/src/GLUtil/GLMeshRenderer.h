@@ -3,7 +3,7 @@
 
 #include "GLMat.h"
 #include "ImageBuffer.h"
-#include "ModelCreateInfo.h"
+#include "ModelInfo.h"
 #include "GLMeshBuilder.h"
 #include "BasicShader.h"
 #include "ColorShader.h"
@@ -47,7 +47,7 @@ public:
 	static const int PHONG_PER_PIXEL_SHADER = 4;
 	static const int PBR_SHADER = 5;
 
-	GLMeshRenderer(ModelCreateInfo* meshCreateInfo);
+	GLMeshRenderer(ModelInfo* meshCreateInfo);
 
 	~GLMeshRenderer();
 

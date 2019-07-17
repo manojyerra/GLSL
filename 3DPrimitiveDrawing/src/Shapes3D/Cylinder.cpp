@@ -4,7 +4,7 @@
 #include "BufferTransformUtils.h"
 #include "ShadersManager.h"
 #include "Cam.h"
-#include "ModelCreateInfo.h"
+#include "ModelInfo.h"
 
 Cylinder::Cylinder() : Shape(Shape::CYLINDER)
 {
@@ -256,7 +256,7 @@ void Cylinder::GenerateGeometry()
 	}
 
 
-	ModelCreateInfo createInfo;
+	ModelInfo createInfo;
 	createInfo.SetVertexBuffer(buffer->GetVertexBuffer(), buffer->GetVertexBufferSize());
 	createInfo.SetColorBuffer(buffer->GetColorBuffer(), buffer->GetColorBufferSize());
 

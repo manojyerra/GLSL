@@ -2,9 +2,9 @@
 #define BinaryObjReader_H
 
 #include "FileReader.h"
-#include "ModelCreateInfo.h"
+#include "ModelInfo.h"
 
-class BinaryObjReader : public ModelCreateInfo
+class BinaryObjReader : public ModelInfo
 {
 private:
 	FileReader* _vertexFileReader;

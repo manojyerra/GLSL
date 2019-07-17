@@ -1,9 +1,9 @@
-#ifndef ModelCreateInfo_H
-#define ModelCreateInfo_H
+#ifndef ModelInfo_H
+#define ModelInfo_H
 
 #include "ImageBuffer.h"
 
-class ModelCreateInfo
+class ModelInfo
 {
 private:
 	const char* _vertexBuf;
@@ -20,8 +20,8 @@ private:
 	unsigned int _indicesBufLen;
 
 public:
-	ModelCreateInfo();
-	~ModelCreateInfo();
+	ModelInfo();
+	~ModelInfo();
 	
 	virtual void SetVertexBuffer(const char* buf, unsigned int len);
 	virtual void SetUVBuffer(const char* buf, unsigned int len);

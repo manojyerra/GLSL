@@ -315,9 +315,6 @@
     <ClCompile Include="src\GLUtil\Shaders\PBRShader\PBRShader.cpp">
       <Filter>src\GLUtil\Shaders\PBRShader</Filter>
     </ClCompile>
-    <ClCompile Include="src\Common\IO\ModelIO\ModelCreateInfo.cpp">
-      <Filter>src\Common\IO\ModelIO</Filter>
-    </ClCompile>
     <ClCompile Include="src\SUI\SUI.cpp">
       <Filter>src\SUI</Filter>
     </ClCompile>
@@ -374,6 +371,9 @@
     </ClCompile>
     <ClCompile Include="src\SUI\SUITextField.cpp">
       <Filter>src\SUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\IO\ModelIO\ModelInfo.cpp">
+      <Filter>src\Common\IO\ModelIO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -563,9 +563,6 @@
     <ClInclude Include="src\GLUtil\Shaders\Shader.h">
       <Filter>src\GLUtil\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="src\Common\IO\ModelIO\ModelCreateInfo.h">
-      <Filter>src\Common\IO\ModelIO</Filter>
-    </ClInclude>
     <ClInclude Include="src\SUI\SUI.h">
       <Filter>src\SUI</Filter>
     </ClInclude>
@@ -640,6 +637,9 @@
     </ClInclude>
     <ClInclude Include="src\SUI\SUITextField.h">
       <Filter>src\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO\ModelIO\ModelInfo.h">
+      <Filter>src\Common\IO\ModelIO</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

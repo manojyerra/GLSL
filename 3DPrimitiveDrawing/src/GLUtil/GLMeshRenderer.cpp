@@ -1,7 +1,7 @@
 #include "GLMeshRenderer.h"
 #include "GLMemory.h"
 
-GLMeshRenderer::GLMeshRenderer(ModelCreateInfo* meshCreateInfo)
+GLMeshRenderer::GLMeshRenderer(ModelInfo* meshCreateInfo)
 {
 	_meshBuilder = new GLMeshBuilder();
 	_meshBuilder->SetVertexBuffer(meshCreateInfo->GetVertexBuffer(), meshCreateInfo->GetVertexBufferSize());

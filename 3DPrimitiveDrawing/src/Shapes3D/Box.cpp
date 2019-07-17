@@ -3,7 +3,7 @@
 #include "BufferTransformUtils.h"
 #include "ShadersManager.h"
 #include "Cam.h"
-#include "ModelCreateInfo.h"
+#include "ModelInfo.h"
 
 Box::Box() : Shape(Shape::BOX)
 {
@@ -369,7 +369,7 @@ void Box::GenerateGeometry()
 	if(_useRandomColors) buffer->glColor(_randomColor.NextColor());
 	buffer->glVertex3f(-w, -h, +d);
 
-	ModelCreateInfo createInfo;
+	ModelInfo createInfo;
 	createInfo.SetVertexBuffer(buffer->GetVertexBuffer(), buffer->GetVertexBufferSize());
 	createInfo.SetColorBuffer(buffer->GetColorBuffer(), buffer->GetColorBufferSize());
 
