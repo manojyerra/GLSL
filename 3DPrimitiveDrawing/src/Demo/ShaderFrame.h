@@ -9,6 +9,7 @@
 #include "SUI/SUIChoice.h"
 #include "SUI/SUITextField.h"
 #include "SUI/SUISlider.h"
+#include "GLMeshRenderer.h"
 
 #include <vector>
 using namespace std;
@@ -87,13 +88,15 @@ private:
 	int numLightBoxes;
 	vector<LightBox*> lightboxVec;
 
+	GLMeshRenderer* _mesh;
+
 public:
 	ShaderFrame(int x, int y, int w, int h);
 	~ShaderFrame();
 
 	void SetPos(int x, int y);
+	void SetMeshRenderer(GLMeshRenderer* mesh);
 	void actionPerformed(SUIActionEvent e);
-
 };
 
 #endif

@@ -1,7 +1,7 @@
 #include "ShaderFrame.h"
 
 ShaderFrame::ShaderFrame(int x, int y, int w, int h) {
-	
+
 	_frame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
 	_frame->SetName("Shader Frame", SUIFrame::LEFT);
 
@@ -17,11 +17,17 @@ ShaderFrame::ShaderFrame(int x, int y, int w, int h) {
 	propertyBox->SetBgColor(64, 64, 64, 255);
 
 	_frame->Add(propertyBox);
+	_mesh = NULL;
 }
 
 void ShaderFrame::SetPos(int x, int y) {
 	_frame->SetPos(x, y);
 	_frame->ResetBounds();
+}
+
+void ShaderFrame::SetMeshRenderer(GLMeshRenderer* mesh)
+{
+	_mesh = mesh;
 }
 
 SUIBox* ShaderFrame::SetShaderTypeBox() {
@@ -104,17 +110,22 @@ SUIBox* ShaderFrame::SetMetalPropertyBox() {
 }
 
 void ShaderFrame::actionPerformed(SUIActionEvent e) {
+
+	if (_mesh == NULL)
+		return;
+
 	SUIComponent* com = (SUIComponent*)e.GetComponent();
 	if (com == _shaderType) {
 		if (_shaderType->GetSelectedIndex() == 0) {
+			_mesh->SetShader(GLMeshRenderer::PBR_SHADER);
 			printf("\n PBR shader selected");
 		}
 		else {
+			_mesh->SetShader(GLMeshRenderer::PHONG_PER_VERTEX_SHADER);
 			printf("\n Phong shader selected");
 		}		
 	}
-	else if (com == _materialType) {	
-
+	else if (com == _materialType) {
 		printf("\n Selected Material is %s", _materialType->GetItem(_materialType->GetSelectedIndex()).c_str());
 	}
 	else if (com == _albedoR || com == _albedoG || com == _albedoB) {

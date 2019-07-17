@@ -9,6 +9,9 @@ RenderDemo::RenderDemo(int sw, int sh)
 
 	_floor = new Floor();
 	_model1 = new GLMeshRenderer(&ObjReader("data/alien"), GLMeshRenderer::PBR_SHADER);
+
+	_shaderFrame = new ShaderFrame(0.0f, 0.0f, 300, 700);
+	_shaderFrame->SetMeshRenderer(_model1);
 }
 
 void RenderDemo::Draw()

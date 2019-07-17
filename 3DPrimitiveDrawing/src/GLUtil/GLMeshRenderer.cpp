@@ -46,8 +46,9 @@ void GLMeshRenderer::SetShader(int shaderType)
 		{
 			_basicShader = new BasicShader();
 			_basicShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
-			_shader = _basicShader;
 		}
+
+		_shader = _basicShader;
 	}
 	else if (_shaderType == COLOR_SHADER)
 	{
@@ -56,8 +57,9 @@ void GLMeshRenderer::SetShader(int shaderType)
 			_colorShader = new ColorShader();
 			_colorShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
 			_colorShader->SetColorBufferID(_meshBuilder->GetColorBufferID());
-			_shader = _colorShader;
 		}
+
+		_shader = _colorShader;
 	}
 	else if (_shaderType == UV_SHADER)
 	{
@@ -67,8 +69,9 @@ void GLMeshRenderer::SetShader(int shaderType)
 			_uvShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
 			_uvShader->SetUVBufferID(_meshBuilder->GetUVBufferID());
 			_uvShader->SetTextureID(_meshBuilder->GetBaseTexID());
-			_shader = _uvShader;
 		}
+
+		_shader = _uvShader;
 	}
 	else if (_shaderType == PHONG_PER_VERTEX_SHADER)
 	{
@@ -77,8 +80,9 @@ void GLMeshRenderer::SetShader(int shaderType)
 			_phongPerVertexShader = new PhongShader(PhongShader::PER_VERTEX_SHADER);
 			_phongPerVertexShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
 			_phongPerVertexShader->SetNormalBufferID(_meshBuilder->GetNormalBufferID());
-			_shader = _phongPerVertexShader;
 		}
+
+		_shader = _phongPerVertexShader;
 	}
 	else if (_shaderType == PHONG_PER_PIXEL_SHADER)
 	{
@@ -87,8 +91,9 @@ void GLMeshRenderer::SetShader(int shaderType)
 			_phongPerPixelShader = new PhongShader(PhongShader::PER_PIXEL_SHADER);
 			_phongPerPixelShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
 			_phongPerPixelShader->SetNormalBufferID(_meshBuilder->GetNormalBufferID());
-			_shader = _phongPerPixelShader;
 		}
+
+		_shader = _phongPerPixelShader;
 	}
 	else if (_shaderType == PBR_SHADER)
 	{
@@ -97,8 +102,9 @@ void GLMeshRenderer::SetShader(int shaderType)
 			_pbrShader = new PBRShader();
 			_pbrShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
 			_pbrShader->SetNormalBufferID(_meshBuilder->GetNormalBufferID());
-			_shader = _pbrShader;
 		}
+
+		_shader = _pbrShader;
 	}
 }
 

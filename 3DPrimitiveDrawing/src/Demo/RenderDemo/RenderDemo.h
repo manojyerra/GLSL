@@ -3,14 +3,17 @@
 
 #include "GLMeshRenderer.h"
 #include "Floor.h"
+#include "ShaderFrame.h"
 
 class RenderDemo
 {
 private:
-	GLMeshRenderer* _model1;
-	Floor* _floor;
 	int _sw;
 	int _sh;
+
+	GLMeshRenderer* _model1;
+	Floor* _floor;
+	ShaderFrame* _shaderFrame;
 
 public:
 	RenderDemo(int sw, int sh);

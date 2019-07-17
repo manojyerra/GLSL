@@ -8,6 +8,7 @@
 #include "GLFBO.h"
 #include "GLTexture.h"
 #include "ParticleLoader.h"
+#include <vector>
 
 class ParticlesDemo
 {
@@ -15,11 +16,8 @@ private:
 	int _sw;
 	int _sh;
 
-	ParticleLoader* _particleLoader1;
-	ParticleLoader* _particleLoader2;
-	ParticleLoader* _particleLoader3;
-	ParticleLoader* _particleLoader4;
-	ParticleLoader* _particleLoader5;
+	int _numLoaders;
+	std::vector<ParticleLoader*> _particleLoaderVec;
 
 	Floor* _floor;
 	GLFBO* _fbo;

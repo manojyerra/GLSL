@@ -33,7 +33,6 @@ GameLoop::GameLoop(int sw, int sh)
 
 
 	_frameWidth = 300.0f;
-	_shaderFrame = new ShaderFrame(0.0f, 0.0f, _frameWidth, 700);
 	_modelDrawingFrame = new ModelDrawingFrame(_sw - _frameWidth, 0.0f, _frameWidth, 200.0f);
 	_applyShaderFrame = new ApplyShaderFrame(_sw - _frameWidth, 200.0f, _frameWidth, 180.0f);
 	_windowFrame = new WholeWindowFrame(_sw - _frameWidth, 380.0f, _frameWidth, 130.0f);
@@ -137,11 +136,6 @@ GameLoop::~GameLoop()
 	{
 		delete _particleDemo;
 		_particleDemo = NULL;
-	}
-
-	if (_shaderFrame) {
-		delete _shaderFrame;
-		_shaderFrame = NULL;
 	}
 
 	if (_modelDrawingFrame) {

@@ -8,30 +8,26 @@ ParticlesDemo::ParticlesDemo(int sw, int sh)
 	_fbo = NULL;
 	_texture = NULL;
 
-	_particleLoader1 = NULL;
-	_particleLoader2 = NULL;
-	_particleLoader3 = NULL;
-	_particleLoader4 = NULL;
-	_particleLoader5 = NULL;
+	_numLoaders = 1;
+	_particleLoaderVec.clear();
 
 	////
 
 	_fbo = new GLFBO(sw, sh);
-	_texture = new GLTexture("data/Sample.png", 0,0,_sw,_sh);
+	_texture = new GLTexture("data/Sample.png", 0, 0, _sw, _sh);
 	_texture->GetShader()->Set2DCamera(true);
 
 	_floor = new Floor();
 
-	_particleLoader1 = new ParticleLoader();
-	_particleLoader2 = new ParticleLoader();
-	_particleLoader3 = new ParticleLoader();
-	_particleLoader4 = new ParticleLoader();
-	_particleLoader5 = new ParticleLoader();
+	for (int i = 0; i < _numLoaders; i++)
+	{
+		_particleLoaderVec.push_back(new ParticleLoader());
+	}
 
-	_particleLoader2->SetPosition(2, 0, 0);
-	_particleLoader3->SetPosition(4, 0, 0);
-	_particleLoader4->SetPosition(-2, 0, 0);
-	_particleLoader5->SetPosition(-4, 0, 0);
+	if (_particleLoaderVec.size() >= 2)	_particleLoaderVec[1]->SetPosition(2, 0, 0);
+	if (_particleLoaderVec.size() >= 3)	_particleLoaderVec[2]->SetPosition(4, 0, 0);
+	if (_particleLoaderVec.size() >= 4)	_particleLoaderVec[3]->SetPosition(-2, 0, 0);
+	if (_particleLoaderVec.size() >= 5)	_particleLoaderVec[4]->SetPosition(-4, 0, 0);
 
 	_drawAllParticles = true;
 }
@@ -52,11 +48,10 @@ void ParticlesDemo::Draw()
 
 		_floor->Draw();
 
-		_particleLoader1->DrawLowPolyParticles();
-		_particleLoader2->DrawLowPolyParticles();
-		_particleLoader3->DrawLowPolyParticles();
-		_particleLoader4->DrawLowPolyParticles();
-		_particleLoader5->DrawLowPolyParticles();
+		for (int i = 0; i < _particleLoaderVec.size(); i++)
+		{
+			_particleLoaderVec[i]->DrawLowPolyParticles();
+		}
 
 		_drawAllParticles = true;
 	}
@@ -72,11 +67,10 @@ void ParticlesDemo::Draw()
 
 			_floor->Draw();
 
-			_particleLoader1->DrawAllParticles();
-			_particleLoader2->DrawAllParticles();
-			_particleLoader3->DrawAllParticles();
-			_particleLoader4->DrawAllParticles();
-			_particleLoader5->DrawAllParticles();
+			for (int i = 0; i < _particleLoaderVec.size(); i++)
+			{
+				_particleLoaderVec[i]->DrawAllParticles();
+			}
 
 			_fbo->UnBindFBO();
 			_drawAllParticles = false;
@@ -99,34 +93,13 @@ void ParticlesDemo::Draw()
 
 ParticlesDemo::~ParticlesDemo()
 {
-	if (_particleLoader1)
+	for (int i = 0; i < _particleLoaderVec.size(); i++)
 	{
-		delete _particleLoader1;
-		_particleLoader1 = NULL;
-	}
-
-	if (_particleLoader2)
-	{
-		delete _particleLoader2;
-		_particleLoader2 = NULL;
-	}
-	
-	if (_particleLoader3)
-	{
-		delete _particleLoader3;
-		_particleLoader3 = NULL;
-	}
-	
-	if (_particleLoader4)
-	{
-		delete _particleLoader4;
-		_particleLoader4 = NULL;
-	}
-	
-	if (_particleLoader5)
-	{
-		delete _particleLoader5;
-		_particleLoader5 = NULL;
+		if (_particleLoaderVec[i])
+		{
+			delete _particleLoaderVec[i];
+			_particleLoaderVec[i] = NULL;
+		}
 	}
 
 	if (_fbo)

@@ -47,8 +47,6 @@ private:
 	//////////
 	
 	float _frameWidth;
-
-	ShaderFrame* _shaderFrame;
 	ModelDrawingFrame* _modelDrawingFrame;
 	ApplyShaderFrame* _applyShaderFrame;
 	WholeWindowFrame* _windowFrame;
