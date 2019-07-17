@@ -42,8 +42,8 @@ void PhongShader::SetShaderType(int shaderType)
 		if (_perPixelShader == NULL)
 		{
 			_perPixelShader = ShadersManager::GetInstance()->CreateShaderProgram(
-				"shaders/Phong/Phong.vs", 
-				"shaders/Phong/Phong.fs");
+				"shaders/PhongPerPixelShader/PhongPerPixelShader.vs", 
+				"shaders/PhongPerPixelShader/PhongPerPixelShader.fs");
 		}
 
 		_shaderProgram = _perPixelShader;
@@ -53,8 +53,8 @@ void PhongShader::SetShaderType(int shaderType)
 		if (_perVertexShader == NULL)
 		{
 			_perVertexShader = ShadersManager::GetInstance()->CreateShaderProgram(
-				"shaders/PhongPerVertex/PhongPerVertex.vs", 
-				"shaders/PhongPerVertex/PhongPerVertex.fs");
+				"shaders/PhongPerVertexShader/PhongPerVertexShader.vs", 
+				"shaders/PhongPerVertexShader/PhongPerVertexShader.fs");
 		}
 
 		_shaderProgram = _perVertexShader;

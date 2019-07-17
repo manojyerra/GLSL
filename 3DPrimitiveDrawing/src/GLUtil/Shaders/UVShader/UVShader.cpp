@@ -1,46 +1,52 @@
-#include "ColorShader.h"
+#include "UVShader.h"
 #include "ShadersManager.h"
 #include "Cam.h"
 
-ColorShader::ColorShader()
+UVShader::UVShader()
 {
 	_shaderProgram = NULL;
 
 	_vertexBufferID = 0;
-	_colorBufferID = 0;
+	_uvBufferID = 0;
+	_textureID = 0;
 
 	_alpha = 1.0f;
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram( "shaders/ColorShader/ColorShader.vs",
-																			"shaders/ColorShader/ColorShader.fs");
+	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram( "shaders/UVShader/UVShader.vs",
+																			"shaders/UVShader/UVShader.fs");
 }
 
-void ColorShader::SetVertexBufferID(unsigned int bufferID)
+void UVShader::SetVertexBufferID(unsigned int bufferID)
 {
 	_vertexBufferID = bufferID;
 }
 
-void ColorShader::SetColorBufferID(unsigned int bufferID)
+void UVShader::SetUVBufferID(unsigned int bufferID)
 {
-	_colorBufferID = bufferID;
+	_uvBufferID = bufferID;
 }
 
-void ColorShader::SetModelMatrix(float* mat)
+void UVShader::SetTextureID(unsigned int textureID)
+{
+	_textureID = textureID;
+}
+
+void UVShader::SetModelMatrix(float* mat)
 {
 	_modelMat.Copy(mat);
 }
 
-void ColorShader::SetAlpha(float alpha)
+void UVShader::SetAlpha(float alpha)
 {
 	_alpha = alpha;
 }
 
-void ColorShader::Begin()
+void UVShader::Begin()
 {
 	_shaderProgram->Begin();
 }
 
-void ColorShader::SetUniformsAndAttributes()
+void UVShader::SetUniformsAndAttributes()
 {
 	Cam* cam = Cam::GetInstance();
 
@@ -48,30 +54,34 @@ void ColorShader::SetUniformsAndAttributes()
 
 	float* m = _modelMat.m;
 
+	glBindTexture(GL_TEXTURE_2D, _textureID);
+
 	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(cam->GetMVP(m)));
 	_shaderProgram->SetUniform1f("alpha", _alpha);
 
-	if(_colorBufferID)
+	if(_uvBufferID)
 	{
-		GLuint loc = glGetAttribLocation(programID, "color");
+		GLuint loc = glGetAttribLocation(programID, "uv");
 		glEnableVertexAttribArray(loc);
-		glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-		glVertexAttribPointer(loc, 3, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
+		glBindBuffer(GL_ARRAY_BUFFER, _uvBufferID);
+		glVertexAttribPointer(loc, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	}
 
 	GLuint vertexLoc = glGetAttribLocation(programID, "vertex");
 	glEnableVertexAttribArray(vertexLoc);
 	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
 	glVertexAttribPointer(vertexLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void ColorShader::End()
+void UVShader::End()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	if (_colorBufferID)
+	if (_uvBufferID)
 	{
-		GLuint loc = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
+		GLuint loc = glGetAttribLocation(_shaderProgram->ProgramID(), "uv");
 		glDisableVertexAttribArray(loc);
 	}
 
@@ -81,7 +91,7 @@ void ColorShader::End()
 	_shaderProgram->End();
 }
 
-ColorShader::~ColorShader()
+UVShader::~UVShader()
 {
 	if (_shaderProgram)
 	{
