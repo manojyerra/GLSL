@@ -1,0 +1,45 @@
+#include "ApplyShaderFrame.h"
+
+ApplyShaderFrame::ApplyShaderFrame(int x, int y, int w, int h) {
+	_frame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
+	_frame->SetName("Model Selection Frame", SUIFrame::LEFT);
+
+
+	SUIBox* modelSelectionBox = new SUIBox(SUIBox::V_ALIGNMENT);
+	modelSelectionBox->SetMargin(5, 5, 10, 5);
+	modelSelectionBox->SetName("Model Selection", SUIBox::LEFT);
+	modelSelectionBox->SetOnOffEnable(true);
+	modelSelectionBox->SetOn(true);
+
+	_model = new SUIRadioButton(SUIRadioButton::V_ALIGNMENT);
+	_model->AddCheckBox(new SUICheckBox("Car", SUICheckBox::LEFT));
+	_model->AddCheckBox(new SUICheckBox("Truck", SUICheckBox::LEFT));
+	_model->AddCheckBox(new SUICheckBox("Model1", SUICheckBox::LEFT));
+	_model->AddCheckBox(new SUICheckBox("Model2", SUICheckBox::LEFT));
+	_model->AddCheckBox(new SUICheckBox("Model3", SUICheckBox::LEFT));
+	_model->AddActionListener(this);	
+	_model->SetSelect(0);
+
+	modelSelectionBox->AddRadioButton(_model);
+	modelSelectionBox->SetBgVisible(true);
+	modelSelectionBox->SetBgColor(64, 64, 64, 255);
+
+	_frame->Add(modelSelectionBox);
+}
+
+void ApplyShaderFrame::SetPos(int x, int y) {
+	_frame->SetPos(x, y);
+	_frame->ResetBounds();
+}
+
+void ApplyShaderFrame::actionPerformed(SUIActionEvent e) {
+
+}
+
+ApplyShaderFrame::~ApplyShaderFrame() {
+	if (_frame)
+	{
+		delete _frame;
+		_frame = NULL;
+	}
+}

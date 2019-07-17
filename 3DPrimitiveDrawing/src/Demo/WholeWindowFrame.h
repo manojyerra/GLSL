@@ -1,5 +1,5 @@
-#ifndef ApplyShaderFrame_H
-#define ApplyShaderFrame_H
+#ifndef WholeWindowFrame_H
+#define WholeWindowFrame_H
 
 #include "SUI/SUIFrame.h"
 #include "SUI/SUIActionListener.h"
@@ -8,15 +8,16 @@
 #include "SUI/SUIBox.h"
 #include "SUI/SUICheckBox.h"
 
-class ApplyShaderFrame : public SUIActionListener {
+class WholeWindowFrame : public SUIActionListener {
 
 private:
 	SUIFrame* _frame;
-	SUIRadioButton* _model;
+	SUIRadioButton* _demoType;
+	SUICheckBox* _isSSAO;
 
 public:
-	ApplyShaderFrame(int x, int y, int w, int h);
-	~ApplyShaderFrame();
+	WholeWindowFrame(int x, int y, int w, int h);
+	~WholeWindowFrame();
 
 	void SetPos(int x, int y);
 	void actionPerformed(SUIActionEvent e);
