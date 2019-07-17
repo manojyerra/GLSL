@@ -13,6 +13,8 @@ int main(void)
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+
+	//TODO: How to change number of samples runtime and disable/enable sampling runtime.
 	//glfwWindowHint(GLFW_SAMPLES, 8);
 
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
@@ -131,14 +133,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-	if(yoffset < 0)
-	{
-		Input::SCROLL_STATE_STORE = Input::SCROLL_DOWN;
-	}
-	else
-	{
-		Input::SCROLL_STATE_STORE = Input::SCROLL_UP;
-	}
+	Input::SCROLL_STATE_STORE = (yoffset < 0) ? Input::SCROLL_DOWN : Input::SCROLL_UP;
 }
 
 

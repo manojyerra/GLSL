@@ -30,11 +30,11 @@ GameLoop::GameLoop(int sw, int sh)
 
 	_floor = new Floor();
 
-	//glm::vec3 v1(0.0f, 0.0f, 0.0f);
-	//glm::vec3 v2(0.0f, 5.0f, 0.0f);
-	//glm::vec3 v3(5.0f, 0.0f, 0.0f);
+	glm::vec3 v1(0.0f, 0.0f, 0.0f);
+	glm::vec3 v2(0.0f, 5.0f, 0.0f);
+	glm::vec3 v3(5.0f, 0.0f, 0.0f);
 
-	//_triangle = new Triangle(v1, v2, v3);
+	_triangle = new Triangle(v1, v2, v3);
 
 	_box = new Box(0, 0, 0, 2, 3, 4);
 	_box->SetSize(3, 1, 6);
@@ -55,7 +55,7 @@ GameLoop::GameLoop(int sw, int sh)
 	_sphere->SetRadius(5);
 
 	//_fbo = new GLFBO(_sw, _sh);
-	//_texture = new GLTexture(_sw, _sh);
+	_texture = new GLTexture(1,1, 7.5,4);
 
 	//_particleLoader = new ParticleLoader();
 	//_particleLoader2 = new ParticleLoader();
@@ -227,12 +227,15 @@ void GameLoop::SetCamAndDrawObjects()
 	Cam::GetInstance()->UpdateCamera();
 
 	_floor->Draw();
-	_box->Draw();
-	_cone->Draw();
-	_sphere->Draw();
-	_cylinder->Draw();
-	_meshRenderer->Draw();
-	_meshRenderer1->Draw();
+	//_box->Draw();
+	//_cone->Draw();
+	//_sphere->Draw();
+	//_cylinder->Draw();
+	//_meshRenderer->Draw();
+	//_meshRenderer1->Draw();
+
+	//_triangle->Draw();
+	_texture->Draw();
 }
 
 void GameLoop::SetScreenSize(int sw, int sh)

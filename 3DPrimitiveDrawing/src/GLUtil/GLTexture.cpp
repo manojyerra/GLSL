@@ -1,102 +1,69 @@
 #include "GLTexture.h"
-#include "GLUtil.h"
-#include "ImageBuffer.h"
-#include "Cam2D.h"
-#include "ShadersManager.h"
-#include "GLMemory.h"
+#include "GLBuffer.h"
 
-GLTexture::GLTexture(int drawW, int drawH)
+GLTexture::GLTexture(float x, float y, float w, float h)
 {
-	_vertexBufferID = 0;
-	_colorBufferID = 0;
-	_vertexCount = 0;
-	_textureID = 0;
+	_meshRenderer = NULL;
 
-	_drawW = drawW;
-	_drawH = drawH;
+	_modelMat.m[0] = w;
+	_modelMat.m[5] = h;
+	_modelMat.m[12] = x;
+	_modelMat.m[13] = y;
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/UVArray/UVArray.vs", "shaders/UVArray/UVArray.fs");
-	GenerateBufferID();
+	GenerateGeometry();
 
-	ImageBuffer* imgBuf = new ImageBuffer("data/Sample.png");
-	_textureID = GLCreateTexture(imgBuf->GetWidth(), imgBuf->GetHeight(),
-											imgBuf->GetBytesPerPixel(), imgBuf->GetBuffer());
+	//ImageBuffer* imgBuf = new ImageBuffer("data/Sample.png");
+}
 
-	delete imgBuf;
+void GLTexture::SetBounds(float x, float y, float w, float h)
+{
+	_modelMat.m[0] = w;
+	_modelMat.m[5] = h;
+
+	_modelMat.m[12] = x;
+	_modelMat.m[13] = y;
 }
 
 void GLTexture::Draw()
 {
-	//glBindTexture(GL_TEXTURE_2D, _textureID);
-
-	_shaderProgram->Begin();
-
-	glm::mat4 mvp = Cam2D::GetInstance()->GetMVP(_modelMat.m);
-
-	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(mvp));
-
-	GLuint uvLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "uv");
-	glEnableVertexAttribArray(uvLoc);
-	glBindBuffer(GL_ARRAY_BUFFER, _uvBufferID);
-	glVertexAttribPointer(uvLoc, 2, GL_FLOAT, GL_TRUE, 0, (void*)0);
-
-	GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
-	glEnableVertexAttribArray(vertexID);
-	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-	glVertexAttribPointer(vertexID, 3, GL_FLOAT, GL_TRUE, 0, (void*)0);
-
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, _vertexCount);
-
-	_shaderProgram->End();
-
-	//glBindTexture(GL_TEXTURE_2D, 0);
+	_meshRenderer->SetModelMatrix(_modelMat.m);
+	_meshRenderer->Draw();
 }
 
-void GLTexture::GenerateBufferID()
+void GLTexture::GenerateGeometry()
 {
-	_buffer = new GLBuffer(100, true, true, false);
+	GLBuffer* buffer = new GLBuffer(100, true, true, false);
 
-	_buffer->glBegin(GL_TRIANGLE_STRIP);
+	buffer->glBegin(GL_TRIANGLE_STRIP);
 
-	float w = _drawW;
-	float h = _drawH;
+	buffer->glTexCoord2f(0, 1);
+	buffer->glVertex3f(0, 0, 0);
 
-	_buffer->glTexCoord2f(0, 1);
-	_buffer->glVertex3f(0, 0, 0);
+	buffer->glTexCoord2f(1, 1);
+	buffer->glVertex3f(1, 0, 0);
 
-	_buffer->glTexCoord2f(1, 1);
-	_buffer->glVertex3f(+w, 0, 0);
+	buffer->glTexCoord2f(0, 0);
+	buffer->glVertex3f(0, 1, 0);
 
-	_buffer->glTexCoord2f(0, 0);
-	_buffer->glVertex3f(0, h, 0);
+	buffer->glTexCoord2f(1, 0);
+	buffer->glVertex3f(1, 1, 0);
 
-	_buffer->glTexCoord2f(1, 0);
-	_buffer->glVertex3f(w, h, 0);
+	ModelInfo createInfo;
+	createInfo.SetVertexBuffer(buffer->GetVertexBuffer(), buffer->GetVertexBufferSize());
+	//createInfo.SetColorBuffer(buffer->GetColorBuffer(), buffer->GetColorBufferSize());
 
-	_buffer->glEnd();
+	_meshRenderer = new GLMeshRenderer(&createInfo);
+	_meshRenderer->SetShader(GLMeshRenderer::BASIC_SHADER);
+	_meshRenderer->SetPrimitiveType(GLMeshRenderer::triangleStrip);
 
-	_vertexBufferID = _buffer->GetVertexBufferID();
-	_uvBufferID = _buffer->GetUVBufferID();
-	_vertexCount = _buffer->GetVertexCount();
+	delete buffer;
 }
 
 GLTexture::~GLTexture()
 {
-	if (_shaderProgram)
+	if (_meshRenderer)
 	{
-		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
-		_shaderProgram = NULL;
-	}
-
-	if (_textureID)
-	{
-		GLDeleteTexture(_textureID);
-		_textureID = 0;
-	}
-
-	if (_buffer)
-	{
-		delete _buffer;
-		_buffer = NULL;
+		delete _meshRenderer;
+		_meshRenderer = NULL;
 	}
 }

@@ -1,38 +1,25 @@
 #ifndef GLTexture_H
 #define GLTexture_H
 
-#include "Macros.h"
-#include <string>
-#include "ShaderProgram.h"
-#include "GLBuffer.h"
 #include "GLMat.h"
+#include "GLMeshRenderer.h"
 
+#include <string>
 using namespace std;
-
 
 class GLTexture
 {
 private:
 	unsigned int _textureID;
-	float _drawW;
-	float _drawH;
-
-	GLuint _vertexBufferID;
-	GLuint _colorBufferID;
-	GLuint _uvBufferID;
-	GLuint _vertexCount;
-	ShaderProgram* _shaderProgram;
-
-	GLBuffer* _buffer;
-
 	GLMat _modelMat;
+	GLMeshRenderer* _meshRenderer;
 
-	void GenerateBufferID();
+	void GenerateGeometry();
 
 public:
-	GLTexture(int drawW, int drawH);
+	GLTexture(float x, float y, float w, float h);
 	~GLTexture();
-
+	void SetBounds(float x, float y, float w, float h);
 	void Draw();
 };
 
