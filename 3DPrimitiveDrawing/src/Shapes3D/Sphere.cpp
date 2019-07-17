@@ -93,7 +93,7 @@ void Sphere::Draw()
 
 void Sphere::GenerateGeometry()
 {
-	GLBuffer* buffer = new GLBuffer(100, false, false, true);
+	GLBatch* buffer = new GLBatch(100, false, false, true);
 
 	float radius = 0.5f;
 	float piVal = 3.14159265f;

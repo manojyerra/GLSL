@@ -1,9 +1,9 @@
 #include "Triangle.h"
-#include "GLBuffer.h"
+#include "GLBatch.h"
 
 Triangle::Triangle(glm::vec3& v1, glm::vec3& v2, glm::vec3& v3)
 {
-	GLBuffer* buffer = new GLBuffer(50, true, false, false);
+	GLBatch* buffer = new GLBatch(50, true, false, false);
 
 	buffer->glBegin();
 	buffer->glColor3ub(255,0,0);

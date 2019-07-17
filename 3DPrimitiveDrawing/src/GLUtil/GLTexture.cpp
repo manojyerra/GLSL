@@ -1,5 +1,5 @@
 #include "GLTexture.h"
-#include "GLBuffer.h"
+#include "GLBatch.h"
 
 GLTexture::GLTexture(const char* texturePath, float x, float y, float w, float h)
 {
@@ -30,7 +30,7 @@ void GLTexture::Draw()
 
 void GLTexture::GenerateGeometry(const char* texturePath)
 {
-	GLBuffer* buffer = new GLBuffer(100, false, true, false);
+	GLBatch* buffer = new GLBatch(100, false, true, false);
 
 	buffer->glBegin();
 

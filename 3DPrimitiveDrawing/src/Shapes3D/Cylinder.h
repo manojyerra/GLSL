@@ -5,7 +5,7 @@
 #include "Shape.h"
 #include "RandomColor.h"
 #include "ShaderProgram.h"
-#include "GLBuffer.h"
+#include "GLBatch.h"
 #include "GLMat.h"
 #include "glm/glm.hpp"
 #include "GLMeshRenderer.h"

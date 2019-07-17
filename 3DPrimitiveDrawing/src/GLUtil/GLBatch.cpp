@@ -1,4 +1,4 @@
-#include "GLBuffer.h"
+#include "GLBatch.h"
 #include "GLMemory.h"
 
 GLBatch::GLBatch(unsigned int capacity, bool colorDataPresent, bool uvDataPresent, bool normalsDataPresent)

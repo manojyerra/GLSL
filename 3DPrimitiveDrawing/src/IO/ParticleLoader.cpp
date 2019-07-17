@@ -1,5 +1,5 @@
 #include "ParticleLoader.h"
-#include "GLBuffer.h"
+#include "GLBatch.h"
 #include "ShadersManager.h"
 #include "Cam.h"
 #include "FileReader.h"

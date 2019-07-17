@@ -3,7 +3,7 @@
 #include "GLState.h"
 #include "ShadersManager.h"
 #include "Cam.h"
-#include "GLBuffer.h"
+#include "GLBatch.h"
 
 Floor::Floor()
 {
@@ -18,7 +18,7 @@ Floor::Floor()
 
 	/////////////////////  Begin : Axis creation ////////////////////
 
-	GLBuffer* _axisBuffer = new GLBuffer(100, true, false, false);
+	GLBatch* _axisBuffer = new GLBatch(100, true, false, false);
 	_axisBuffer->glBegin();
 
 	_axisBuffer->glColor3ub(255,0,0);
@@ -46,7 +46,7 @@ Floor::Floor()
 
 	/////////////////////  Begin : Grid lines creation ////////////////////
 
-	GLBuffer* _gridLinesBuffer = new GLBuffer(100, true, false, false);
+	GLBatch* _gridLinesBuffer = new GLBatch(100, true, false, false);
 	_gridLinesBuffer->glBegin();
 	_gridLinesBuffer->glColor3ub(75,75,75);
 
@@ -82,7 +82,7 @@ Floor::Floor()
 
 	/////////////////////  Begin : Grid creation ////////////////////
 
-	GLBuffer* _gridBuffer = new GLBuffer(100, true, false, false);
+	GLBatch* _gridBuffer = new GLBatch(100, true, false, false);
 	_gridBuffer->glBegin();
 
 	int c1 = 255;

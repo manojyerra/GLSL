@@ -76,7 +76,7 @@
     <ClCompile Include="src\Demo\WholeWindow.cpp" />
     <ClCompile Include="src\Floor.cpp" />
     <ClCompile Include="src\GameLoop.cpp" />
-    <ClCompile Include="src\GLUtil\GLBuffer.cpp" />
+    <ClCompile Include="src\GLUtil\GLBatch.cpp" />
     <ClCompile Include="src\GLUtil\GLFBO.cpp" />
     <ClCompile Include="src\GLUtil\GLMat.cpp" />
     <ClCompile Include="src\GLUtil\GLMemory.cpp" />
@@ -165,7 +165,7 @@
     <ClInclude Include="src\Demo\WholeWindow.h" />
     <ClInclude Include="src\Floor.h" />
     <ClInclude Include="src\GameLoop.h" />
-    <ClInclude Include="src\GLUtil\GLBuffer.h" />
+    <ClInclude Include="src\GLUtil\GLBatch.h" />
     <ClInclude Include="src\GLUtil\GLFBO.h" />
     <ClInclude Include="src\GLUtil\GLMat.h" />
     <ClInclude Include="src\GLUtil\GLMemory.h" />

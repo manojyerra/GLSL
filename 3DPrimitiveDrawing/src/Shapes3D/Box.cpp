@@ -292,7 +292,7 @@ void Box::Draw()
 
 void Box::GenerateGeometry()
 {
-	GLBuffer* buffer = new GLBuffer(100, true, false, false);
+	GLBatch* buffer = new GLBatch(100, true, false, false);
 
 	buffer->glBegin();
 

@@ -202,7 +202,7 @@ void Cone::Draw()
 
 void Cone::GenerateGeometry()
 {
-	GLBuffer* buffer = new GLBuffer(100, true, false, false);
+	GLBatch* buffer = new GLBatch(100, true, false, false);
 
 	float radius = 0.5f;
 	float halfLength = 0.5f;

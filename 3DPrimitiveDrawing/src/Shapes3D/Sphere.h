@@ -3,7 +3,7 @@
 
 #include "Shape.h"
 #include "ShaderProgram.h"
-#include "GLBuffer.h"
+#include "GLBatch.h"
 #include "GLMat.h"
 #include "PhongShader/PhongShader.h"
 #include "glm/glm.hpp"

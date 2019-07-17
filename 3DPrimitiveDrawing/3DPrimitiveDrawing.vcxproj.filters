@@ -93,9 +93,6 @@
     <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\GLUtil\GLBuffer.cpp">
-      <Filter>src\GLUtil</Filter>
-    </ClCompile>
     <ClCompile Include="src\GLUtil\GLFBO.cpp">
       <Filter>src\GLUtil</Filter>
     </ClCompile>
@@ -396,13 +393,13 @@
     <ClCompile Include="src\Demo\WholeWindow.cpp">
       <Filter>src\Demo</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\GLBatch.cpp">
+      <Filter>src\GLUtil</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
       <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GLUtil\GLBuffer.h">
-      <Filter>src\GLUtil</Filter>
     </ClInclude>
     <ClInclude Include="src\GLUtil\GLFBO.h">
       <Filter>src\GLUtil</Filter>
@@ -676,6 +673,9 @@
     </ClInclude>
     <ClInclude Include="src\Demo\WholeWindow.h">
       <Filter>src\Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\GLBatch.h">
+      <Filter>src\GLUtil</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
