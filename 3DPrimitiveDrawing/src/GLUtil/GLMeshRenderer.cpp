@@ -8,7 +8,7 @@ GLMeshRenderer::GLMeshRenderer(ModelInfo* meshCreateInfo)
 	_meshBuilder->SetNormalBuffer(meshCreateInfo->GetNormalBuffer(), meshCreateInfo->GetNormalBufferSize());
 	_meshBuilder->SetUVBuffer(meshCreateInfo->GetUVBuffer(), meshCreateInfo->GetUVBufferSize());
 	_meshBuilder->SetColorBuffer(meshCreateInfo->GetColorBuffer(), meshCreateInfo->GetColorBufferSize());
-	//_meshBuilder->SetIndicesBuffer(meshCreateInfo->GetIndicesBuffer(), meshCreateInfo->GetIndicesBufferSize());
+	_meshBuilder->SetIndicesBuffer(meshCreateInfo->GetIndicesBuffer(), meshCreateInfo->GetIndicesBufferSize());
 	_meshBuilder->SetImageBuffer(meshCreateInfo->GetImageBuffer());
 	_meshBuilder->build();
 
@@ -61,6 +61,17 @@ void GLMeshRenderer::SetShader(int shaderType)
 			_colorShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
 			_colorShader->SetColorBufferID(_meshBuilder->GetColorBufferID());
 			_shader = _colorShader;
+		}
+	}
+	else if (_shaderType == UV_SHADER)
+	{
+		if (!_uvShader)
+		{
+			_uvShader = new UVShader();
+			_uvShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
+			_uvShader->SetUVBufferID(_meshBuilder->GetUVBufferID());
+			_uvShader->SetTextureID(_meshBuilder->GetBaseTexID());
+			_shader = _uvShader;
 		}
 	}
 	else if (_shaderType == PHONG_PER_VERTEX_SHADER)

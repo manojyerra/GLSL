@@ -79,16 +79,16 @@ GameLoop::GameLoop(int sw, int sh)
 
 	SUISetup(_sw, _sh);
 
-	float x = 10;
-	float y = 10;
-	float w = 300;
-	float h = 400;
+	//float x = 10;
+	//float y = 10;
+	//float w = 300;
+	//float h = 400;
 
-	_suiFrame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
-	_suiFrame->SetName("Main Frame", SUIFrame::LEFT);
+	//_suiFrame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
+	//_suiFrame->SetName("Main Frame", SUIFrame::LEFT);
 
-	_suiFrame->Add(new SUIButton("asldkfjas"));
-	_suiFrame->Add(new SUITextField("Default Text", SUITextField::INPUT_DOUBLE));
+	//_suiFrame->Add(new SUIButton("asldkfjas"));
+	//_suiFrame->Add(new SUITextField("Default Text", SUITextField::INPUT_DOUBLE));
 }
 
 void GameLoop::GLSettings()
@@ -227,14 +227,14 @@ void GameLoop::SetCamAndDrawObjects()
 	Cam::GetInstance()->UpdateCamera();
 
 	_floor->Draw();
-	//_box->Draw();
-	//_cone->Draw();
-	//_sphere->Draw();
-	//_cylinder->Draw();
-	//_meshRenderer->Draw();
-	//_meshRenderer1->Draw();
+	_box->Draw();
+	_cone->Draw();
+	_sphere->Draw();
+	_cylinder->Draw();
+	_meshRenderer->Draw();
+	_meshRenderer1->Draw();
 
-	//_triangle->Draw();
+	_triangle->Draw();
 	_texture->Draw();
 }
 

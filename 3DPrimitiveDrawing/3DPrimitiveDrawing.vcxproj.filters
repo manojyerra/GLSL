@@ -79,6 +79,9 @@
     <Filter Include="src\SUI">
       <UniqueIdentifier>{9f1d084e-d39a-4dc0-b8b2-8dcd5cd900c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GLUtil\Shaders\UVShader">
+      <UniqueIdentifier>{15e06e6d-a57e-483b-be07-2fd2af590567}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Macros.cpp">
@@ -375,6 +378,9 @@
     <ClCompile Include="src\Common\IO\ModelIO\ModelInfo.cpp">
       <Filter>src\Common\IO\ModelIO</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\Shaders\UVShader\UVShader.cpp">
+      <Filter>src\GLUtil\Shaders\UVShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -640,6 +646,9 @@
     </ClInclude>
     <ClInclude Include="src\Common\IO\ModelIO\ModelInfo.h">
       <Filter>src\Common\IO\ModelIO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\Shaders\UVShader\UVShader.h">
+      <Filter>src\GLUtil\Shaders\UVShader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

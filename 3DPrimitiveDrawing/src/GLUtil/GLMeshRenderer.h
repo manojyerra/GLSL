@@ -7,6 +7,7 @@
 #include "GLMeshBuilder.h"
 #include "BasicShader.h"
 #include "ColorShader.h"
+#include "UVShader.h"
 #include "PhongShader.h"
 #include "PBRShader.h"
 
@@ -18,6 +19,7 @@ private:
 	
 	BasicShader* _basicShader;
 	ColorShader* _colorShader;
+	UVShader* _uvShader;
 	PhongShader* _phongPerVertexShader;
 	PhongShader* _phongPerPixelShader;
 	PBRShader* _pbrShader;
@@ -41,14 +43,16 @@ public:
 		triangleFan = GL_TRIANGLE_FAN
 	};
 
-	static const int BASIC_SHADER = 1;
-	static const int COLOR_SHADER = 2;
-	static const int PHONG_PER_VERTEX_SHADER = 3;
-	static const int PHONG_PER_PIXEL_SHADER = 4;
-	static const int PBR_SHADER = 5;
+	enum {
+		BASIC_SHADER,
+		COLOR_SHADER,
+		UV_SHADER,
+		PHONG_PER_VERTEX_SHADER,
+		PHONG_PER_PIXEL_SHADER,
+		PBR_SHADER
+	};
 
 	GLMeshRenderer(ModelInfo* meshCreateInfo);
-
 	~GLMeshRenderer();
 
 	void SetModelMatrix(float* mat);
