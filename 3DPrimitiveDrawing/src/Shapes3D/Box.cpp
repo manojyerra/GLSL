@@ -294,7 +294,7 @@ void Box::GenerateGeometry()
 {
 	GLBuffer* buffer = new GLBuffer(100, true, false, false);
 
-	buffer->glBegin(GL_TRIANGLES);
+	buffer->glBegin();
 
 	if(_useRandomColors)
 		_randomColor.Reset();

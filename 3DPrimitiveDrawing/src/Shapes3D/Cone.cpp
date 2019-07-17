@@ -208,7 +208,7 @@ void Cone::GenerateGeometry()
 	float halfLength = 0.5f;
 	float piVal = 3.14159265f;
 
-	buffer->glBegin(GL_TRIANGLES);
+	buffer->glBegin();
 
 	if(_useRandomColors)
 		_randomColor.Reset();

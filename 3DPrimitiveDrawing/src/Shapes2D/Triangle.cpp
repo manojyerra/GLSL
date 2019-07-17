@@ -5,7 +5,7 @@ Triangle::Triangle(glm::vec3& v1, glm::vec3& v2, glm::vec3& v3)
 {
 	GLBuffer* buffer = new GLBuffer(50, true, false, false);
 
-	buffer->glBegin(GL_TRIANGLES);
+	buffer->glBegin();
 	buffer->glColor3ub(255,0,0);
 	buffer->glVertex3f(v1.x, v1.y, v1.z);
 	buffer->glVertex3f(v2.x, v2.y, v2.z);

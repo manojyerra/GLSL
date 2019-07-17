@@ -42,7 +42,7 @@ public:
 
 	void SetIncrement(unsigned int increment);
 
-	void glBegin(GLenum mode);
+	void glBegin();
 
 	void glColor3ub(GLubyte r, GLubyte g, GLubyte b);
 	void glColor3f(float r, float g, float b);
@@ -57,8 +57,6 @@ public:
 	void glVertex3f(const glm::vec3& vec);
 	void glVertex3f(GLfloat x, GLfloat y, GLfloat z);
 
-	void glEnd();
-
 	const char* GetVertexBuffer();
 	const char* GetUVBuffer();
 	const char* GetColorBuffer();
@@ -68,16 +66,9 @@ public:
 	unsigned int GetUVBufferSize();
 	unsigned int GetColorBufferSize();
 	unsigned int GetNormalBufferSize();
-
-	GLuint GetVertexBufferID();
-	GLuint GetColorBufferID();
-	GLuint GetUVBufferID();
-	GLuint GetNormalBufferID();
-
-	//void Draw(GLuint programID);
+	unsigned int GetVertexCount();
 
 	void ResetCount();
-	unsigned int GetVertexCount();
 };
 
 #endif

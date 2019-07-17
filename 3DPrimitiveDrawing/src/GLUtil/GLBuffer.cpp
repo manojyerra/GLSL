@@ -73,9 +73,8 @@ void GLBuffer::ReCreateMem()
 	_capacity = newCapacity;
 }
 
-void GLBuffer::glBegin(GLenum mode)
+void GLBuffer::glBegin()
 {
-	_mode = mode;
 	_count = 0;
 }
 
@@ -170,40 +169,55 @@ unsigned int GLBuffer::GetUVBufferSize()		{ return _count * 2 * sizeof(GLfloat);
 unsigned int GLBuffer::GetColorBufferSize()		{ return _count * 3 * sizeof(GLbyte);	}
 unsigned int GLBuffer::GetNormalBufferSize()	{ return _count * 3 * sizeof(GLfloat);	}
 
-GLuint GLBuffer::GetVertexBufferID()	{	return _vertexBufferID;		}
-GLuint GLBuffer::GetColorBufferID()		{	return _colorBufferID;		}
-GLuint GLBuffer::GetUVBufferID()		{	return _uvBufferID;			}
-GLuint GLBuffer::GetNormalBufferID()	{	return _normalBufferID;		}
-
-void GLBuffer::glEnd()
+unsigned int GLBuffer::GetVertexCount()
 {
-	if(_vertexBufferID == 0)
-	{
-		_vertexBufferID = GLCreateBuffer(_count * 3 * 4, _vertexArr);
-
-		if(_colorArr)
-		{
-			_colorBufferID = GLCreateBuffer(_count * 3, _colorArr);
-		}
-
-		if(_uvArr)
-		{
-			_uvBufferID = GLCreateBuffer(_count * 2 * 4, _uvArr);
-		}
-
-		if(_normalArr)
-		{
-			_normalBufferID = GLCreateBuffer(_count * 3 * 4, _normalArr);
-		}
-
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-		if (_vertexArr) { delete[] _vertexArr;	_vertexArr = NULL;	}
-		if(_colorArr)	{ delete[] _colorArr;	_colorArr = NULL;	}
-		if(_uvArr)		{ delete[] _uvArr;		_uvArr = NULL;		}
-		if(_normalArr)	{ delete[] _normalArr;	_normalArr = NULL;	}
-	}
+	return _count;
 }
+
+void GLBuffer::ResetCount()
+{
+	_count = 0;
+}
+
+GLBuffer::~GLBuffer()
+{
+	if (_vertexArr) { delete[] _vertexArr;	_vertexArr = NULL;	}
+	if (_colorArr)	{ delete[] _colorArr;	_colorArr = NULL;	}
+	if (_uvArr)		{ delete[] _uvArr;		_uvArr = NULL;		}
+	if (_normalArr) { delete[] _normalArr;	_normalArr = NULL;	}
+}
+
+
+
+//void GLBuffer::glEnd()
+//{
+//	if(_vertexBufferID == 0)
+//	{
+//		_vertexBufferID = GLCreateBuffer(_count * 3 * 4, _vertexArr);
+//
+//		if(_colorArr)
+//		{
+//			_colorBufferID = GLCreateBuffer(_count * 3, _colorArr);
+//		}
+//
+//		if(_uvArr)
+//		{
+//			_uvBufferID = GLCreateBuffer(_count * 2 * 4, _uvArr);
+//		}
+//
+//		if(_normalArr)
+//		{
+//			_normalBufferID = GLCreateBuffer(_count * 3 * 4, _normalArr);
+//		}
+//
+//		glBindBuffer(GL_ARRAY_BUFFER, 0);
+//
+//		if (_vertexArr) { delete[] _vertexArr;	_vertexArr = NULL;	}
+//		if(_colorArr)	{ delete[] _colorArr;	_colorArr = NULL;	}
+//		if(_uvArr)		{ delete[] _uvArr;		_uvArr = NULL;		}
+//		if(_normalArr)	{ delete[] _normalArr;	_normalArr = NULL;	}
+//	}
+//}
 
 //void GLBuffer::Draw(GLuint programID)
 //{
@@ -248,45 +262,3 @@ void GLBuffer::glEnd()
 //	glBindBuffer( GL_ARRAY_BUFFER, 0);
 //	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0);
 //}
-
-void GLBuffer::ResetCount()
-{
-	_count = 0;
-}
-
-unsigned int GLBuffer::GetVertexCount()
-{
-	return _count;	
-}
-
-GLBuffer::~GLBuffer()
-{
-	if (_vertexBufferID)
-	{
-		GLDeleteBuffer(_vertexBufferID);
-		_vertexBufferID = 0;
-	}
-
-	if (_colorBufferID)
-	{
-		GLDeleteBuffer(_colorBufferID);
-		_colorBufferID = 0;
-	}
-
-	if (_normalBufferID)
-	{
-		GLDeleteBuffer(_normalBufferID);
-		_normalBufferID = 0;
-	}
-
-	if (_uvBufferID)
-	{
-		GLDeleteBuffer(_uvBufferID);
-		_uvBufferID = 0;
-	}
-
-	if (_vertexArr) { delete[] _vertexArr;	_vertexArr = NULL;	}
-	if (_colorArr)	{ delete[] _colorArr;	_colorArr = NULL;	}
-	if (_uvArr)		{ delete[] _uvArr;		_uvArr = NULL;		}
-	if (_normalArr) { delete[] _normalArr;	_normalArr = NULL;	}
-}

@@ -32,7 +32,7 @@ void GLTexture::GenerateGeometry(const char* texturePath)
 {
 	GLBuffer* buffer = new GLBuffer(100, false, true, false);
 
-	buffer->glBegin(GL_TRIANGLE_STRIP);
+	buffer->glBegin();
 
 	buffer->glTexCoord2f(0, 1);
 	buffer->glVertex3f(0, 0, 0);

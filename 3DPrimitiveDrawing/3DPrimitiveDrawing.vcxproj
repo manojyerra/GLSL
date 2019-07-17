@@ -70,6 +70,10 @@
     <ClCompile Include="src\Common\Utils\RandomColor.cpp" />
     <ClCompile Include="src\Common\Utils\ScanLineUtils.cpp" />
     <ClCompile Include="src\Common\Utils\StringUtils.cpp" />
+    <ClCompile Include="src\Demo\ApplyShaderFrame.cpp" />
+    <ClCompile Include="src\Demo\ModelDrawingFrame.cpp" />
+    <ClCompile Include="src\Demo\ShaderFrame.cpp" />
+    <ClCompile Include="src\Demo\WholeWindow.cpp" />
     <ClCompile Include="src\Floor.cpp" />
     <ClCompile Include="src\GameLoop.cpp" />
     <ClCompile Include="src\GLUtil\GLBuffer.cpp" />
@@ -155,6 +159,10 @@
     <ClInclude Include="src\Common\Utils\RandomColor.h" />
     <ClInclude Include="src\Common\Utils\ScanLineUtils.h" />
     <ClInclude Include="src\Common\Utils\StringUtils.h" />
+    <ClInclude Include="src\Demo\ApplyShaderFrame.h" />
+    <ClInclude Include="src\Demo\ModelDrawingFrame.h" />
+    <ClInclude Include="src\Demo\ShaderFrame.h" />
+    <ClInclude Include="src\Demo\WholeWindow.h" />
     <ClInclude Include="src\Floor.h" />
     <ClInclude Include="src\GameLoop.h" />
     <ClInclude Include="src\GLUtil\GLBuffer.h" />

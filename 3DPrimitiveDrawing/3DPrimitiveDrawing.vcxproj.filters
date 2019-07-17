@@ -82,6 +82,9 @@
     <Filter Include="src\GLUtil\Shaders\UVShader">
       <UniqueIdentifier>{15e06e6d-a57e-483b-be07-2fd2af590567}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Demo">
+      <UniqueIdentifier>{a93b7a16-50d6-48bb-a72c-422b7dfdee60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Macros.cpp">
@@ -381,6 +384,18 @@
     <ClCompile Include="src\GLUtil\Shaders\UVShader\UVShader.cpp">
       <Filter>src\GLUtil\Shaders\UVShader</Filter>
     </ClCompile>
+    <ClCompile Include="src\Demo\ApplyShaderFrame.cpp">
+      <Filter>src\Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Demo\ModelDrawingFrame.cpp">
+      <Filter>src\Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Demo\ShaderFrame.cpp">
+      <Filter>src\Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Demo\WholeWindow.cpp">
+      <Filter>src\Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -649,6 +664,18 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\Shaders\UVShader\UVShader.h">
       <Filter>src\GLUtil\Shaders\UVShader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Demo\ApplyShaderFrame.h">
+      <Filter>src\Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Demo\ModelDrawingFrame.h">
+      <Filter>src\Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Demo\ShaderFrame.h">
+      <Filter>src\Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Demo\WholeWindow.h">
+      <Filter>src\Demo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
