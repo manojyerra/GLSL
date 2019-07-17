@@ -67,10 +67,11 @@ void GLMeshRenderer::SetShader(int shaderType)
 	{
 		if (!_uvShader)
 		{
-			_colorShader = new ColorShader();
-			_colorShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
-			_colorShader->SetColorBufferID(_meshBuilder->GetColorBufferID());
-			_shader = _colorShader;
+			_uvShader = new UVShader();
+			_uvShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
+			_uvShader->SetUVBufferID(_meshBuilder->GetUVBufferID());
+			_uvShader->SetTextureID(_meshBuilder->GetBaseTexID());
+			_shader = _uvShader;
 		}
 	}
 	else if (_shaderType == PHONG_PER_VERTEX_SHADER)
