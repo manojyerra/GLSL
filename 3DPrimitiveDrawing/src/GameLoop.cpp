@@ -36,9 +36,9 @@ GameLoop::GameLoop(int sw, int sh)
 
 	//_triangle = new Triangle(v1, v2, v3);
 
-	_box = new Box(0, 0, 0, 2, 3, 4);
-	_box->SetSize(3, 1, 6);
-	_box->SetPos(-10, 0, -10);
+	//_box = new Box(0, 0, 0, 2, 3, 4);
+	//_box->SetSize(3, 1, 6);
+	//_box->SetPos(-10, 0, -10);
 
 	//_cylinder = new Cylinder(0, 0, 0, 3, 2);
 	//_cylinder->SetRadius(1.5);
@@ -58,7 +58,7 @@ GameLoop::GameLoop(int sw, int sh)
 	//_meshRenderer1 = new GLMeshRenderer(&BinaryObjReader("data/alien"), GLMeshRenderer::PHONG_PER_VERTEX_SHADER);
 	//_meshRenderer1->SetPos(8.0,0.0,0.0);
 
-	_particleDemo = new ParticlesDemo(_sw, _sh);
+	_particleDemo = NULL; //new ParticlesDemo(_sw, _sh);
 
 
 	_frameWidth = 300.0f;
@@ -155,8 +155,8 @@ void GameLoop::SetCamAndDrawObjects()
 	//_box->Draw();
 	//_cone->Draw();
 	//_sphere->Draw();
-	_cylinder->Draw();
-	_meshRenderer->Draw();
+	//_cylinder->Draw();
+	//_meshRenderer->Draw();
 	//_meshRenderer1->Draw();
 }
 

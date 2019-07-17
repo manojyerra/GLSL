@@ -39,10 +39,20 @@ void WholeWindowFrame::SetPos(int x, int y) {
 void WholeWindowFrame::actionPerformed(SUIActionEvent e) {
 	SUIComponent* com = (SUIComponent*)e.GetComponent();
 	if (com == _demoType) {
-		printf("Slected Demo %d", _demoType->GetSelectedIndex());
+
+		int index = _demoType->GetSelectedIndex();
+
+		if (index == 0)
+		{
+			printf("Slected renderer demo");
+		}
+		else if(index == 1)
+		{
+			printf("Slected particles demo");
+		}
 	}
 	else if(com == _isSSAO)	{
-		printf("IS SSAO Slected =%d",_isSSAO->IsSelected());
+		printf("IS SSAO Slected = %d",_isSSAO->IsSelected());
 	}
 }
 

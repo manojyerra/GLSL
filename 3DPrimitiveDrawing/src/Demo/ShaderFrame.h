@@ -9,8 +9,9 @@
 #include "SUI/SUIChoice.h"
 #include "SUI/SUITextField.h"
 #include "SUI/SUISlider.h"
-#include "Cam.h"
 
+#include <vector>
+using namespace std;
 
 class LightBox {
 	
@@ -34,6 +35,7 @@ public:
 		lightBox->SetOn(isOn);
 
 		lightSelection = new SUICheckBox("Enable", SUICheckBox::LEFT);
+		lightSelection->AddActionListener(actionListener);
 
 		SUIBox* lightDirectionBox = new SUIBox(SUIBox::H_ALIGNMENT);
 		lightDirectionX = new SUITextField("LightDirectionX ", SUITextField::INPUT_DOUBLE);
@@ -78,19 +80,12 @@ private:
 	SUISlider* _metalic;
 	SUISlider* _roughness;	
 
-	Cam* _cam;
-
 	SUIBox* SetShaderTypeBox();
 	SUIBox* SetPropertyBox();
 	SUIBox* SetMetalPropertyBox();
 
-	LightBox* lightbox1;
-	LightBox* lightbox2;
-	LightBox* lightbox3;
-	LightBox* lightbox4;
-	LightBox* lightbox5;
-	LightBox* lightbox6;
-	LightBox* lightbox7;
+	int numLightBoxes;
+	vector<LightBox*> lightboxVec;
 
 public:
 	ShaderFrame(int x, int y, int w, int h);

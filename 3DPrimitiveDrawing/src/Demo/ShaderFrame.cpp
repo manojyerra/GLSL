@@ -46,22 +46,20 @@ SUIBox* ShaderFrame::SetPropertyBox() {
 	propertyBox->SetMargin(3, 3, 5, 0);
 	propertyBox->SetName("Properties", SUIBox::LEFT);
 	
-	lightbox1 = new LightBox("Light_1", this, true);
-	lightbox2 = new LightBox("Light_2", this, true);
-	lightbox3 = new LightBox("Light_3", this, false);
-	lightbox4 = new LightBox("Light_4", this, false);
-	lightbox5 = new LightBox("Light_5", this, false);
-	lightbox6 = new LightBox("Light_6", this, false);
-	lightbox7 = new LightBox("Light_7", this, false);
+	numLightBoxes = 7;
+
+	for (int i = 0; i < numLightBoxes; i++)
+	{
+		string lightName = "Light ";
+		lightName = lightName.append(std::to_string(i+1));
+		lightboxVec.push_back(new LightBox(lightName, this, (i < 2)));
+	}
 
 	propertyBox->AddBox(SetMetalPropertyBox());
-	propertyBox->AddBox(lightbox1->lightBox);
-	propertyBox->AddBox(lightbox2->lightBox);
-	propertyBox->AddBox(lightbox3->lightBox);
-	propertyBox->AddBox(lightbox4->lightBox);
-	propertyBox->AddBox(lightbox5->lightBox);
-	propertyBox->AddBox(lightbox6->lightBox);
-	propertyBox->AddBox(lightbox7->lightBox);
+
+	for (int i = 0; i < numLightBoxes; i++) {
+		propertyBox->AddBox(lightboxVec[i]->lightBox);
+	}
 
 	return propertyBox;
 }
@@ -123,19 +121,32 @@ void ShaderFrame::actionPerformed(SUIActionEvent e) {
 		printf(" Albedo R value = %s" , _albedoR->GetText().c_str());
 	}
 	else if (com == _metalic) {		
-		printf("Metalic value = %d", _metalic->GetValue());
+		printf("Metalic value = %lf", _metalic->GetValue());
 	}
 	else if (com == _roughness) {
-		printf("Metalic value = %d", _roughness->GetValue());
+		printf("Metalic value = %lf", _roughness->GetValue());
 	}
-	else if (com == lightbox1->lightSelection) {
-		if(lightbox1->lightSelection->IsSelected()){
-			
-		}
-	}
-	else if(com == lightbox1->lightDirectionX || com == lightbox1->lightDirectionY || com == lightbox1->lightDirectionZ)
+	else
 	{
-
+		for(int i=0; i<lightboxVec.size(); i++)
+		{
+			if (com == lightboxVec[i]->lightSelection) 
+			{
+				printf("\nLightBox1 selected = %d", lightboxVec[i]->lightSelection->IsSelected());
+			}
+			else if (com == lightboxVec[i]->lightDirectionX || com == lightboxVec[i]->lightDirectionY || com == lightboxVec[i]->lightDirectionZ)
+			{
+				printf("\n lightboxVec[%d]->lightDirectionX value = %s", i, lightboxVec[i]->lightDirectionX->GetText().c_str());
+				printf("\n lightboxVec[%d]->lightDirectionY value = %s", i, lightboxVec[i]->lightDirectionY->GetText().c_str());
+				printf("\n lightboxVec[%d]->lightDirectionY value = %s", i, lightboxVec[i]->lightDirectionZ->GetText().c_str());
+			}
+			else if (com == lightboxVec[i]->lightColorR || com == lightboxVec[i]->lightColorG || com == lightboxVec[i]->lightColorB)
+			{
+				printf("\n lightboxVec[%d]->lightColorR value = %s", i, lightboxVec[i]->lightColorR->GetText().c_str());
+				printf("\n lightboxVec[%d]->lightColorG value = %s", i, lightboxVec[i]->lightColorG->GetText().c_str());
+				printf("\n lightboxVec[%d]->lightColorB value = %s", i, lightboxVec[i]->lightColorB->GetText().c_str());
+			}
+		}
 	}
 }
 
@@ -146,32 +157,10 @@ ShaderFrame::~ShaderFrame() {
 		_frame = NULL;
 	}
 
-	if (lightbox1) {
-		delete lightbox1;
+	for (int i = 0; i < lightboxVec.size(); i++)
+	{
+		if (lightboxVec[i]) {
+			delete lightboxVec[i];
+		}
 	}
-
-	if (lightbox2) {
-		delete lightbox2;
-	}
-
-	if (lightbox3) {
-		delete lightbox3;
-	}
-
-	if (lightbox4) {
-		delete lightbox4;
-	}
-
-	if (lightbox5) {
-		delete lightbox5;
-	}
-
-	if (lightbox6) {
-		delete lightbox6;
-	}
-
-	if (lightbox7) {
-		delete lightbox7;
-	}
-
 }
