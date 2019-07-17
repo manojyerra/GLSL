@@ -44,7 +44,6 @@ class ModelDrawingFrame : public SUIActionListener {
 
 private:
 	SUIFrame* _frame;
-	SUIRadioButton* _model;
 
 	ModelBox* model1;
 	ModelBox* model2;

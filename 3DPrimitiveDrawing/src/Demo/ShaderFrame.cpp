@@ -119,20 +119,23 @@ void ShaderFrame::actionPerformed(SUIActionEvent e) {
 
 		printf("\n Selected Material is %s", _materialType->GetItem(_materialType->GetSelectedIndex()).c_str());
 	}
-	else if (com == _albedoR) {		
+	else if (com == _albedoR || com == _albedoG || com == _albedoB) {
 		printf(" Albedo R value = %s" , _albedoR->GetText().c_str());
 	}
-	else if (com == _albedoG) {
-		printf("\n PBR shader selected");
-	}
-	else if (com == _albedoB) {
-		printf("\n PBR shader selected");
-	}
-	else if (com == _metalic) {
-		printf("\n PBR shader selected");
+	else if (com == _metalic) {		
+		printf("Metalic value = %d", _metalic->GetValue());
 	}
 	else if (com == _roughness) {
-		printf("\n PBR shader selected");
+		printf("Metalic value = %d", _roughness->GetValue());
+	}
+	else if (com == lightbox1->lightSelection) {
+		if(lightbox1->lightSelection->IsSelected()){
+			
+		}
+	}
+	else if(com == lightbox1->lightDirectionX || com == lightbox1->lightDirectionY || com == lightbox1->lightDirectionZ)
+	{
+
 	}
 }
 

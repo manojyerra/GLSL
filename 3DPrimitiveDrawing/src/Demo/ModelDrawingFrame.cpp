@@ -41,7 +41,25 @@ SUIBox* ModelDrawingFrame::SetModelBox() {
 	return vmodel;
 }
 void ModelDrawingFrame::actionPerformed(SUIActionEvent e) {
+	SUIComponent* com = (SUIComponent*)e.GetComponent();
+	if (com == model1->modelCheckBox) {
+		if (model1->modelCheckBox->IsSelected()) {
 
+		}
+	}
+	else if(com == model1->positionModelX || com == model1->positionModelX || com == model1->positionModelX)
+	{
+
+	}
+	else if (com == model2->modelCheckBox) {
+		if (model1->modelCheckBox->IsSelected()) {
+
+		}
+	}
+	else if (com == model2->positionModelX || com == model2->positionModelX || com == model2->positionModelX)
+	{
+
+	}
 }
 
 ModelDrawingFrame::~ModelDrawingFrame() {
