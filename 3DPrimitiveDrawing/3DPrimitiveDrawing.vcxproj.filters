@@ -393,14 +393,14 @@
     <ClCompile Include="src\Demo\ShaderFrame.cpp">
       <Filter>src\Demo</Filter>
     </ClCompile>
-    <ClCompile Include="src\Demo\WholeWindow.cpp">
-      <Filter>src\Demo</Filter>
-    </ClCompile>
     <ClCompile Include="src\GLUtil\GLBatch.cpp">
       <Filter>src\GLUtil</Filter>
     </ClCompile>
     <ClCompile Include="src\Demo\ParticlesDemo\ParticlesDemo.cpp">
       <Filter>src\Demo\ParticlesDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Demo\WholeWindowFrame.cpp">
+      <Filter>src\Demo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -677,14 +677,14 @@
     <ClInclude Include="src\Demo\ShaderFrame.h">
       <Filter>src\Demo</Filter>
     </ClInclude>
-    <ClInclude Include="src\Demo\WholeWindow.h">
-      <Filter>src\Demo</Filter>
-    </ClInclude>
     <ClInclude Include="src\GLUtil\GLBatch.h">
       <Filter>src\GLUtil</Filter>
     </ClInclude>
     <ClInclude Include="src\Demo\ParticlesDemo\ParticlesDemo.h">
       <Filter>src\Demo\ParticlesDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Demo\WholeWindowFrame.h">
+      <Filter>src\Demo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

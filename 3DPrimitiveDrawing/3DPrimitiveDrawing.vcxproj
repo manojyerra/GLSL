@@ -74,7 +74,7 @@
     <ClCompile Include="src\Demo\ModelDrawingFrame.cpp" />
     <ClCompile Include="src\Demo\ParticlesDemo\ParticlesDemo.cpp" />
     <ClCompile Include="src\Demo\ShaderFrame.cpp" />
-    <ClCompile Include="src\Demo\WholeWindow.cpp" />
+    <ClCompile Include="src\Demo\WholeWindowFrame.cpp" />
     <ClCompile Include="src\Floor.cpp" />
     <ClCompile Include="src\GameLoop.cpp" />
     <ClCompile Include="src\GLUtil\GLBatch.cpp" />
@@ -164,7 +164,7 @@
     <ClInclude Include="src\Demo\ModelDrawingFrame.h" />
     <ClInclude Include="src\Demo\ParticlesDemo\ParticlesDemo.h" />
     <ClInclude Include="src\Demo\ShaderFrame.h" />
-    <ClInclude Include="src\Demo\WholeWindow.h" />
+    <ClInclude Include="src\Demo\WholeWindowFrame.h" />
     <ClInclude Include="src\Floor.h" />
     <ClInclude Include="src\GameLoop.h" />
     <ClInclude Include="src\GLUtil\GLBatch.h" />
@@ -290,7 +290,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/GLUtil/ShaderProgram;src/IO;src/IO/Model3D;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/Arrays;src/Common/IO/ModelIO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PhongShader;src/Common/Utils;src/SUI;src/Demo/ParticlesDemo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/GLUtil/ShaderProgram;src/IO;src/IO/Model3D;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/Arrays;src/Common/IO/ModelIO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PhongShader;src/Common/Utils;src/SUI;src/Demo;src/Demo/ParticlesDemo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>

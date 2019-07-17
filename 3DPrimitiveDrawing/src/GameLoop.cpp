@@ -16,6 +16,7 @@ GameLoop::GameLoop(int sw, int sh)
 	_zNearPlaneW = 0.2f;
 
 	GLSettings();
+	SUISetup(_sw, _sh);
 
 	_floor = NULL;
 	_box = NULL;
@@ -57,20 +58,15 @@ GameLoop::GameLoop(int sw, int sh)
 	//_meshRenderer1 = new GLMeshRenderer(&BinaryObjReader("data/alien"), GLMeshRenderer::PHONG_PER_VERTEX_SHADER);
 	//_meshRenderer1->SetPos(8.0,0.0,0.0);
 
-	SUISetup(_sw, _sh);
-
-	float x = 10;
-	float y = 10;
-	float w = 300;
-	float h = 400;
-
-	_suiFrame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
-	_suiFrame->SetName("Main Frame", SUIFrame::LEFT);
-
-	_suiFrame->Add(new SUIButton("asldkfjas"));
-	_suiFrame->Add(new SUITextField("Default Text", SUITextField::INPUT_DOUBLE));
-
 	_particleDemo = new ParticlesDemo(_sw, _sh);
+
+
+	_frameWidth = 300.0f;
+
+	_shaderFrame = new ShaderFrame(0.0f, 0.0f, _frameWidth, 700);
+	_modelDrawingFrame = new ModelDrawingFrame(_sw - _frameWidth, 0.0f, _frameWidth, 200.0f);
+	_applyShaderFrame = new ApplyShaderFrame(_sw - _frameWidth, 200.0f, _frameWidth, 180.0f);
+	_windowFrame = new WholeWindowFrame(_sw - _frameWidth, 380.0f, _frameWidth, 130.0f);
 }
 
 void GameLoop::GLSettings()
@@ -173,6 +169,10 @@ void GameLoop::SetScreenSize(int sw, int sh)
 	Cam2D::GetInstance()->SetScreenSize(_sw, _sh);
 
 	SUISetWindowSize(_sw, _sh);
+
+	_modelDrawingFrame->SetPos(_sw - _frameWidth, 0);
+	_applyShaderFrame->SetPos(_sw - _frameWidth, 200);
+	_windowFrame->SetPos(_sw - _frameWidth, 380);
 }
 
 GameLoop::~GameLoop()
@@ -225,16 +225,30 @@ GameLoop::~GameLoop()
 		_meshRenderer1 = NULL;
 	}
 
-	if (_suiFrame)
-	{
-		delete _suiFrame;
-		_suiFrame = NULL;
-	}
-
 	if (_particleDemo)
 	{
 		delete _particleDemo;
 		_particleDemo = NULL;
+	}
+
+	if (_shaderFrame) {
+		delete _shaderFrame;
+		_shaderFrame = NULL;
+	}
+
+	if (_modelDrawingFrame) {
+		delete _modelDrawingFrame;
+		_modelDrawingFrame = NULL;
+	}
+
+	if (_applyShaderFrame) {
+		delete _applyShaderFrame;
+		_applyShaderFrame = NULL;
+	}
+
+	if (_windowFrame) {
+		delete _windowFrame;
+		_windowFrame = NULL;
 	}
 
 	Cam::GetInstance()->DeleteInstance();

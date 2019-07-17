@@ -14,9 +14,13 @@
 #include "Sphere.h"
 #include "ParticleLoader.h"
 #include "GLMeshRenderer.h"
-#include "SUIFrame.h"
-
 #include "ParticlesDemo.h"
+
+#include "ShaderFrame.h"
+#include "ModelDrawingFrame.h"
+#include "ApplyShaderFrame.h"
+#include "WholeWindowFrame.h"
+
 
 class GameLoop 
 {
@@ -39,10 +43,18 @@ private:
 	
 	GLMeshRenderer* _meshRenderer;
 	GLMeshRenderer* _meshRenderer1;
-
-	SUIFrame* _suiFrame;
-
 	ParticlesDemo* _particleDemo;
+
+	//////////
+	
+	float _frameWidth;
+
+	ShaderFrame* _shaderFrame;
+	ModelDrawingFrame* _modelDrawingFrame;
+	ApplyShaderFrame* _applyShaderFrame;
+	WholeWindowFrame* _windowFrame;
+
+	//////////
 
 public:
 	GameLoop(int sw, int sh);
