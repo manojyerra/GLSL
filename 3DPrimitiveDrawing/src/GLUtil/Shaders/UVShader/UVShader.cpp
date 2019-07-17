@@ -44,6 +44,7 @@ void UVShader::SetAlpha(float alpha)
 void UVShader::Begin()
 {
 	_shaderProgram->Begin();
+	glBindTexture(GL_TEXTURE_2D, _textureID);
 }
 
 void UVShader::SetUniformsAndAttributes()
@@ -53,8 +54,6 @@ void UVShader::SetUniformsAndAttributes()
 	GLuint programID = _shaderProgram->ProgramID();
 
 	float* m = _modelMat.m;
-
-	glBindTexture(GL_TEXTURE_2D, _textureID);
 
 	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(cam->GetMVP(m)));
 	_shaderProgram->SetUniform1f("alpha", _alpha);
@@ -71,12 +70,11 @@ void UVShader::SetUniformsAndAttributes()
 	glEnableVertexAttribArray(vertexLoc);
 	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
 	glVertexAttribPointer(vertexLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-
-	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void UVShader::End()
 {
+	glBindTexture(GL_TEXTURE_2D, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	if (_uvBufferID)

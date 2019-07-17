@@ -373,8 +373,7 @@ void Box::GenerateGeometry()
 	createInfo.SetVertexBuffer(buffer->GetVertexBuffer(), buffer->GetVertexBufferSize());
 	createInfo.SetColorBuffer(buffer->GetColorBuffer(), buffer->GetColorBufferSize());
 
-	_meshRenderer = new GLMeshRenderer(&createInfo);
-	_meshRenderer->SetShader(GLMeshRenderer::COLOR_SHADER);
+	_meshRenderer = new GLMeshRenderer(&createInfo, GLMeshRenderer::COLOR_SHADER);
 
 	delete buffer;
 }

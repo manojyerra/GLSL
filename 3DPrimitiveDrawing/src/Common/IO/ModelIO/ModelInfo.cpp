@@ -46,7 +46,7 @@ void ModelInfo::SetIndicesBuffer(const char* buf, unsigned int len)
 	_indicesBufLen = len;
 }
 
-void ModelInfo::SetImageBufferInfo(ImageBuffer* imageBuf)
+void ModelInfo::SetImageBuffer(ImageBuffer* imageBuf)
 {
 	_imageBuf = imageBuf;
 }

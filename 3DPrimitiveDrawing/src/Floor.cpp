@@ -36,8 +36,7 @@ Floor::Floor()
 	ModelInfo axisMeshInfo;
 	axisMeshInfo.SetVertexBuffer(_axisBuffer->GetVertexBuffer(), _axisBuffer->GetVertexBufferSize());
 	axisMeshInfo.SetColorBuffer(_axisBuffer->GetColorBuffer(), _axisBuffer->GetColorBufferSize());
-	_axisRenderer = new GLMeshRenderer(&axisMeshInfo);
-	_axisRenderer->SetShader(GLMeshRenderer::COLOR_SHADER);
+	_axisRenderer = new GLMeshRenderer(&axisMeshInfo, GLMeshRenderer::COLOR_SHADER);
 	_axisRenderer->SetPrimitiveType(GLMeshRenderer::lines);
 	delete _axisBuffer;
 
@@ -72,8 +71,7 @@ Floor::Floor()
 	ModelInfo gridLinesMeshInfo;
 	gridLinesMeshInfo.SetVertexBuffer(_gridLinesBuffer->GetVertexBuffer(), _gridLinesBuffer->GetVertexBufferSize());
 	gridLinesMeshInfo.SetColorBuffer(_gridLinesBuffer->GetColorBuffer(), _gridLinesBuffer->GetColorBufferSize());
-	_gridLinesRenderer = new GLMeshRenderer(&gridLinesMeshInfo);
-	_gridLinesRenderer->SetShader(GLMeshRenderer::COLOR_SHADER);
+	_gridLinesRenderer = new GLMeshRenderer(&gridLinesMeshInfo, GLMeshRenderer::COLOR_SHADER);
 	_gridLinesRenderer->SetPrimitiveType(GLMeshRenderer::lines);
 
 	delete _gridLinesBuffer;
@@ -114,8 +112,7 @@ Floor::Floor()
 	ModelInfo gridMeshInfo;
 	gridMeshInfo.SetVertexBuffer(_gridBuffer->GetVertexBuffer(), _gridBuffer->GetVertexBufferSize());
 	gridMeshInfo.SetColorBuffer(_gridBuffer->GetColorBuffer(), _gridBuffer->GetColorBufferSize());
-	_gridRenderer = new GLMeshRenderer(&gridMeshInfo);
-	_gridRenderer->SetShader(GLMeshRenderer::COLOR_SHADER);
+	_gridRenderer = new GLMeshRenderer(&gridMeshInfo, GLMeshRenderer::COLOR_SHADER);
 
 	delete _gridBuffer;
 

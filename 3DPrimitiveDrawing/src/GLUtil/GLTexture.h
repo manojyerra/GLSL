@@ -14,10 +14,10 @@ private:
 	GLMat _modelMat;
 	GLMeshRenderer* _meshRenderer;
 
-	void GenerateGeometry();
+	void GenerateGeometry(const char* texturePath);
 
 public:
-	GLTexture(float x, float y, float w, float h);
+	GLTexture(const char* texturePath, float x, float y, float w, float h);
 	~GLTexture();
 	void SetBounds(float x, float y, float w, float h);
 	void Draw();

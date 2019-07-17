@@ -28,7 +28,7 @@ public:
 	virtual void SetNormalBuffer(const char* buf, unsigned int len);
 	virtual void SetColorBuffer(const char* buf, unsigned int len);
 	virtual void SetIndicesBuffer(const char* buf, unsigned int len);
-	virtual void SetImageBufferInfo(ImageBuffer* imageBuf);
+	virtual void SetImageBuffer(ImageBuffer* imageBuf);
 
 	virtual const char* GetVertexBuffer();
 	virtual const char* GetUVBuffer();

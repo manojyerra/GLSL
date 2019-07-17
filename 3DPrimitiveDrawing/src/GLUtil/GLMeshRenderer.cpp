@@ -1,7 +1,7 @@
 #include "GLMeshRenderer.h"
 #include "GLMemory.h"
 
-GLMeshRenderer::GLMeshRenderer(ModelInfo* meshCreateInfo)
+GLMeshRenderer::GLMeshRenderer(ModelInfo* meshCreateInfo, int shaderType)
 {
 	_meshBuilder = new GLMeshBuilder();
 	_meshBuilder->SetVertexBuffer(meshCreateInfo->GetVertexBuffer(), meshCreateInfo->GetVertexBufferSize());
@@ -12,20 +12,16 @@ GLMeshRenderer::GLMeshRenderer(ModelInfo* meshCreateInfo)
 	_meshBuilder->SetImageBuffer(meshCreateInfo->GetImageBuffer());
 	_meshBuilder->build();
 
-	CommonInit();
-}
+	_primitiveType = triangles;
 
-void GLMeshRenderer::CommonInit()
-{
 	_basicShader = NULL;
 	_colorShader = NULL;
 	_phongPerVertexShader = NULL;
 	_phongPerPixelShader = NULL;
 	_pbrShader = NULL;
 	_shader = NULL;
-	_primitiveType = triangles;
 
-	_shaderType = BASIC_SHADER;
+	_shaderType = shaderType;
 
 	SetShader(_shaderType);
 }
@@ -141,6 +137,12 @@ GLMeshRenderer::~GLMeshRenderer()
 	{
 		delete _colorShader;
 		_colorShader = NULL;
+	}
+
+	if (_uvShader)
+	{
+		delete _uvShader;
+		_uvShader = NULL;
 	}
 
 	if (_phongPerVertexShader)

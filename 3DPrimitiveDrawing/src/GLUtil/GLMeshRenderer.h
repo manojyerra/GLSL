@@ -30,8 +30,6 @@ private:
 
 	GLMat _modelMat;
 
-	void CommonInit();
-
 public:
 	enum {
 		points = GL_POINTS,
@@ -52,7 +50,7 @@ public:
 		PBR_SHADER
 	};
 
-	GLMeshRenderer(ModelInfo* meshCreateInfo);
+	GLMeshRenderer(ModelInfo* meshCreateInfo, int shaderType);
 	~GLMeshRenderer();
 
 	void SetModelMatrix(float* mat);

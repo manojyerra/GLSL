@@ -24,38 +24,39 @@ GameLoop::GameLoop(int sw, int sh)
 	_sphere = NULL;
 	_fbo = NULL;
 	_texture = NULL;
+	_triangle = NULL;
 
 	Cam::GetInstance()->Init(_sw, _sh, _zNear, _zFar, _zNearPlaneW);
 	Cam2D::GetInstance()->Init(_sw, _sh);
 
-	_floor = new Floor();
+	//_floor = new Floor();
 
-	glm::vec3 v1(0.0f, 0.0f, 0.0f);
-	glm::vec3 v2(0.0f, 5.0f, 0.0f);
-	glm::vec3 v3(5.0f, 0.0f, 0.0f);
+	//glm::vec3 v1(0.0f, 0.0f, 0.0f);
+	//glm::vec3 v2(0.0f, 5.0f, 0.0f);
+	//glm::vec3 v3(5.0f, 0.0f, 0.0f);
 
-	_triangle = new Triangle(v1, v2, v3);
+	//_triangle = new Triangle(v1, v2, v3);
 
-	_box = new Box(0, 0, 0, 2, 3, 4);
-	_box->SetSize(3, 1, 6);
-	_box->SetPos(-10, 0, -10);
+	//_box = new Box(0, 0, 0, 2, 3, 4);
+	//_box->SetSize(3, 1, 6);
+	//_box->SetPos(-10, 0, -10);
 
-	_cylinder = new Cylinder(0, 0, 0, 3, 2);
-	_cylinder->SetRadius(1.5);
-	_cylinder->SetHeight(2);
-	_cylinder->SetPos(0, 0, -10);
+	//_cylinder = new Cylinder(0, 0, 0, 3, 2);
+	//_cylinder->SetRadius(1.5);
+	//_cylinder->SetHeight(2);
+	//_cylinder->SetPos(0, 0, -10);
 
-	_cone = new Cone(0, 0, 0, 2, 3);
-	_cone->SetRadius(1.5);
-	_cone->SetHeight(2);
-	_cone->SetPos(-5, 0, -10);
+	//_cone = new Cone(0, 0, 0, 2, 3);
+	//_cone->SetRadius(1.5);
+	//_cone->SetHeight(2);
+	//_cone->SetPos(-5, 0, -10);
 
-	_sphere = new Sphere(0, 0, 0, 2);
-	_sphere->SetPos(5, 0, 0);
-	_sphere->SetRadius(5);
+	//_sphere = new Sphere(0, 0, 0, 2);
+	//_sphere->SetPos(5, 0, 0);
+	//_sphere->SetRadius(5);
 
 	//_fbo = new GLFBO(_sw, _sh);
-	_texture = new GLTexture(1,1, 7.5,4);
+	_texture = new GLTexture("data/Sample.png", 1,1, 7.5,4);
 
 	//_particleLoader = new ParticleLoader();
 	//_particleLoader2 = new ParticleLoader();
@@ -70,12 +71,9 @@ GameLoop::GameLoop(int sw, int sh)
 
 	_drawAllParticles = true;
 
-	_meshRenderer = new GLMeshRenderer(&ObjReader("data/alien"));
-	_meshRenderer->SetShader(GLMeshRenderer::PBR_SHADER);
-
-	_meshRenderer1 = new GLMeshRenderer(&BinaryObjReader("data/alien"));
-	_meshRenderer1->SetShader(GLMeshRenderer::PHONG_PER_VERTEX_SHADER);
-	_meshRenderer1->SetPos(8.0,0.0,0.0);
+	//_meshRenderer = new GLMeshRenderer(&ObjReader("data/alien"), GLMeshRenderer::PBR_SHADER);
+	//_meshRenderer1 = new GLMeshRenderer(&BinaryObjReader("data/alien"), GLMeshRenderer::PHONG_PER_VERTEX_SHADER);
+	//_meshRenderer1->SetPos(8.0,0.0,0.0);
 
 	SUISetup(_sw, _sh);
 
@@ -226,15 +224,15 @@ void GameLoop::SetCamAndDrawObjects()
 	Cam::GetInstance()->SetViewMatrix();
 	Cam::GetInstance()->UpdateCamera();
 
-	_floor->Draw();
-	_box->Draw();
-	_cone->Draw();
-	_sphere->Draw();
-	_cylinder->Draw();
-	_meshRenderer->Draw();
-	_meshRenderer1->Draw();
+	//_floor->Draw();
+	//_box->Draw();
+	//_cone->Draw();
+	//_sphere->Draw();
+	//_cylinder->Draw();
+	//_meshRenderer->Draw();
+	//_meshRenderer1->Draw();
 
-	_triangle->Draw();
+	//_triangle->Draw();
 	_texture->Draw();
 }
 

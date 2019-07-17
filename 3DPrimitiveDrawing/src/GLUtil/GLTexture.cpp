@@ -1,7 +1,7 @@
 #include "GLTexture.h"
 #include "GLBuffer.h"
 
-GLTexture::GLTexture(float x, float y, float w, float h)
+GLTexture::GLTexture(const char* texturePath, float x, float y, float w, float h)
 {
 	_meshRenderer = NULL;
 
@@ -10,9 +10,7 @@ GLTexture::GLTexture(float x, float y, float w, float h)
 	_modelMat.m[12] = x;
 	_modelMat.m[13] = y;
 
-	GenerateGeometry();
-
-	//ImageBuffer* imgBuf = new ImageBuffer("data/Sample.png");
+	GenerateGeometry(texturePath);
 }
 
 void GLTexture::SetBounds(float x, float y, float w, float h)
@@ -30,9 +28,9 @@ void GLTexture::Draw()
 	_meshRenderer->Draw();
 }
 
-void GLTexture::GenerateGeometry()
+void GLTexture::GenerateGeometry(const char* texturePath)
 {
-	GLBuffer* buffer = new GLBuffer(100, true, true, false);
+	GLBuffer* buffer = new GLBuffer(100, false, true, false);
 
 	buffer->glBegin(GL_TRIANGLE_STRIP);
 
@@ -48,15 +46,18 @@ void GLTexture::GenerateGeometry()
 	buffer->glTexCoord2f(1, 0);
 	buffer->glVertex3f(1, 1, 0);
 
+	ImageBuffer* imageBuffer = new ImageBuffer(texturePath);
+
 	ModelInfo createInfo;
 	createInfo.SetVertexBuffer(buffer->GetVertexBuffer(), buffer->GetVertexBufferSize());
-	//createInfo.SetColorBuffer(buffer->GetColorBuffer(), buffer->GetColorBufferSize());
+	createInfo.SetUVBuffer(buffer->GetUVBuffer(), buffer->GetUVBufferSize());
+	createInfo.SetImageBuffer(imageBuffer);
 
-	_meshRenderer = new GLMeshRenderer(&createInfo);
-	_meshRenderer->SetShader(GLMeshRenderer::BASIC_SHADER);
+	_meshRenderer = new GLMeshRenderer(&createInfo, GLMeshRenderer::UV_SHADER);
 	_meshRenderer->SetPrimitiveType(GLMeshRenderer::triangleStrip);
 
 	delete buffer;
+	delete imageBuffer;
 }
 
 GLTexture::~GLTexture()
