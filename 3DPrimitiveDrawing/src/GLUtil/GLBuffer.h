@@ -1,14 +1,13 @@
-#ifndef GLBuffer_H
-#define GLBuffer_H
+#ifndef GLBatch_H
+#define GLBatch_H
 
 #include "Macros.h"
 #include "glm/vec3.hpp"
 
-class GLBuffer
+class GLBatch
 {
 private:
 	unsigned int _capacity;
-	unsigned int _incrementInCapacity;	
 
 	GLfloat* _vertexArr;
 	GLfloat* _uvArr;
@@ -37,10 +36,8 @@ private:
 	void ReCreateMem();
 
 public:
-	GLBuffer(unsigned int capacity, bool colorDataPresent, bool uvDataPresent, bool normalsDataPresent);
-	~GLBuffer();
-
-	void SetIncrement(unsigned int increment);
+	GLBatch(unsigned int capacity, bool colorDataPresent, bool uvDataPresent, bool normalsDataPresent);
+	~GLBatch();
 
 	void glBegin();
 
