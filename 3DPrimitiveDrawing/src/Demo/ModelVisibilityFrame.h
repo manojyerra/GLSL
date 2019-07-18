@@ -1,5 +1,5 @@
-#ifndef ModelDrawingFrame_H
-#define ModelDrawingFrame_H
+#ifndef ModelVisibilityFrame_H
+#define ModelVisibilityFrame_H
 
 #include "SUI/SUIFrame.h"
 #include "SUI/SUIActionListener.h"
@@ -40,7 +40,7 @@ public:
 	}
 
 };
-class ModelDrawingFrame
+class ModelVisibilityFrame
 {
 private:
 	SUIFrame* _frame;
@@ -50,8 +50,8 @@ public:
 
 	vector<ModelBox*> modelBoxVec;
 
-	ModelDrawingFrame(int x, int y, int w, int h, SUIActionListener* actionListener);
-	~ModelDrawingFrame();
+	ModelVisibilityFrame(int x, int y, int w, int h, SUIActionListener* actionListener);
+	~ModelVisibilityFrame();
 
 	void SetPos(int x, int y);
 	int GetWidth();

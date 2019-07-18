@@ -14,7 +14,6 @@
 using namespace std;
 
 class LightBox {
-	
 public:
 	SUICheckBox* lightSelection;
 
@@ -68,7 +67,6 @@ public:
 };
 
 class ShaderFrame : public SUIActionListener {
-
 private:
 	SUIFrame* _frame;
 
@@ -79,7 +77,7 @@ private:
 	SUITextField* _albedoG;
 	SUITextField* _albedoB;
 	SUISlider* _metalic;
-	SUISlider* _roughness;	
+	SUISlider* _roughness;
 
 	SUIBox* SetShaderTypeBox();
 	SUIBox* SetPropertyBox();

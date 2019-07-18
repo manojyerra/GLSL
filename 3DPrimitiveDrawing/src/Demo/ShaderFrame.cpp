@@ -1,7 +1,6 @@
 #include "ShaderFrame.h"
 
 ShaderFrame::ShaderFrame(int x, int y, int w, int h) {
-
 	_shaderType = nullptr;
 	_materialType = nullptr;
 	_albedoR = nullptr;
@@ -51,7 +50,7 @@ void ShaderFrame::SetMeshRenderer(GLMeshRenderer* mesh)
 	_roughness->SetValue(pbrShader->GetRoughness());
 
 	//Resetting lightbox ui values
-	
+
 	for (int i = 0; i < lightboxVec.size(); i++)
 	{
 		LightBox* lightBox = lightboxVec[i];
@@ -98,7 +97,6 @@ void ShaderFrame::SetMeshRenderer(GLMeshRenderer* mesh)
 }
 
 SUIBox* ShaderFrame::SetShaderTypeBox() {
-
 	SUIBox* shaderTypeBox = new SUIBox(SUIBox::V_ALIGNMENT);
 	shaderTypeBox->SetMargin(3, 3, 5, 0);
 	shaderTypeBox->SetName("Shader Type", SUIBox::LEFT);
@@ -122,7 +120,7 @@ SUIBox* ShaderFrame::SetPropertyBox() {
 	for (int i = 0; i < numLightBoxes; i++)
 	{
 		string lightName = "Light ";
-		lightName = lightName.append(std::to_string(i+1));
+		lightName = lightName.append(std::to_string(i + 1));
 		lightboxVec.push_back(new LightBox(lightName, this, (i < 2)));
 	}
 
@@ -152,7 +150,7 @@ SUIBox* ShaderFrame::SetMetalPropertyBox() {
 
 	_materialType->AddActionListener(this);
 	_materialType->SetName("Material", SUIChoice::LEFT);
-	_materialType->SetSelect(0);	
+	_materialType->SetSelect(0);
 
 	SUIBox* albedoValuepBox = new SUIBox(SUIBox::H_ALIGNMENT);
 	_albedoR = new SUITextField("AlbedoR ", SUITextField::INPUT_DOUBLE);
@@ -165,11 +163,11 @@ SUIBox* ShaderFrame::SetMetalPropertyBox() {
 	albedoValuepBox->AddTextField(_albedoR);
 	albedoValuepBox->AddTextField(_albedoG);
 	albedoValuepBox->AddTextField(_albedoB);
-	
+
 	_metalic = new SUISlider("Metalic", 0, 1, false, this);
 	_roughness = new SUISlider("Roughness", 0, 1, false, this);
 
-	metalPropertypBox->AddRadioButton(_materialType);	
+	metalPropertypBox->AddRadioButton(_materialType);
 	metalPropertypBox->AddBox(albedoValuepBox);
 	metalPropertypBox->AddSlider(_metalic);
 	metalPropertypBox->AddSlider(_roughness);
@@ -180,7 +178,6 @@ SUIBox* ShaderFrame::SetMetalPropertyBox() {
 }
 
 void ShaderFrame::actionPerformed(SUIActionEvent e) {
-
 	if (_mesh == NULL)
 		return;
 
@@ -193,21 +190,20 @@ void ShaderFrame::actionPerformed(SUIActionEvent e) {
 		}
 		else {
 			_mesh->SetShader(GLMeshRenderer::PHONG_PER_VERTEX_SHADER);
-		}		
+		}
 	}
 	else if (com == _materialType) {
-
 		auto  materialType = _materialType->GetSelectedItemName();
 
 		glm::vec3 albedo(0.03);
 		float roughness = 0.3;
 		float metallic = 0.3;
 
-		if(materialType == "Plastic / Glass (Low)")
+		if (materialType == "Plastic / Glass (Low)")
 		{
 			pbrShader->SetMeterialProps(albedo = glm::vec3(0.03), metallic = 1.0, roughness = 0.3);
 		}
-		else if(materialType == "Plastic High")
+		else if (materialType == "Plastic High")
 		{
 			pbrShader->SetMeterialProps(albedo = glm::vec3(0.05), metallic = 1.0, roughness = 0.3);
 		}
@@ -247,26 +243,26 @@ void ShaderFrame::actionPerformed(SUIActionEvent e) {
 		_metalic->SetValue(metallic);
 		_roughness->SetValue(roughness);
 	}
-	else if (com == _albedoR || com == _albedoG || com == _albedoB) 
-	{	
+	else if (com == _albedoR || com == _albedoG || com == _albedoB)
+	{
 		glm::vec3 values = glm::vec3(_albedoR->GetDouble(), _albedoG->GetDouble(), _albedoB->GetDouble());
 		pbrShader->SetAlbedo(values);
 	}
-	else if (com == _metalic) {		
-		pbrShader->SetMetallic(_metalic->GetValue());		
+	else if (com == _metalic) {
+		pbrShader->SetMetallic(_metalic->GetValue());
 	}
 	else if (com == _roughness) {
 		pbrShader->SetRoughness(_roughness->GetValue());
 	}
 	else
 	{
-		for(int i=0; i<lightboxVec.size(); i++)
+		for (int i = 0; i < lightboxVec.size(); i++)
 		{
-			if (com == lightboxVec[i]->lightSelection) 
+			if (com == lightboxVec[i]->lightSelection)
 			{
 				//printf("\nLightBox1 selected = %d", lightboxVec[i]->lightSelection->IsSelected());
 
-				if(lightboxVec[i]->lightSelection->IsSelected())
+				if (lightboxVec[i]->lightSelection->IsSelected())
 				{
 					LightBox* lBox = lightboxVec[i];
 
@@ -282,7 +278,6 @@ void ShaderFrame::actionPerformed(SUIActionEvent e) {
 					pbrShader->RemoveLight(std::to_string(i));
 				}
 			}
-
 
 			else if (com == lightboxVec[i]->dirX || com == lightboxVec[i]->dirY || com == lightboxVec[i]->dirZ)
 			{

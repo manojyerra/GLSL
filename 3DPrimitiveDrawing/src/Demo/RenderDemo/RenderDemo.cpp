@@ -12,7 +12,6 @@ RenderDemo::RenderDemo(int sw, int sh)
 	_numModels = 5;
 	_selectedModel = nullptr;
 
-
 	GLMeshRenderer* meshRenderer1 = new GLMeshRenderer(&ObjReader("data/teapot"), GLMeshRenderer::PBR_SHADER);
 	GLMeshRenderer* meshRenderer2 = new GLMeshRenderer(&ObjReader("data/teapot"), GLMeshRenderer::PBR_SHADER);
 	GLMeshRenderer* meshRenderer3 = new GLMeshRenderer(&ObjReader("data/teapot"), GLMeshRenderer::PBR_SHADER);
@@ -25,7 +24,7 @@ RenderDemo::RenderDemo(int sw, int sh)
 	meshRenderer4->SetPos(-6.0f, 0.0f, 0.0f);
 	meshRenderer5->SetPos(6.0f, 0.0f, 0.0f);
 
-	for(int i=0; i<_numModels; i++)
+	for (int i = 0; i < _numModels; i++)
 	{
 		GLMeshRenderer* meshRenderer = NULL;
 
@@ -39,21 +38,20 @@ RenderDemo::RenderDemo(int sw, int sh)
 	}
 
 	_selectedModel = _modelVec[0];
-	
+
 	_shaderFrame = new ShaderFrame(0.0f, 0.0f, 300, 910);
 	_shaderFrame->SetMeshRenderer(_selectedModel);
 
-	_modelDrawingFrame = new ModelDrawingFrame(_sw - 300, 130, 300.0f, 200.0f, this);
-	_applyShaderFrame = new ApplyShaderFrame(_sw - 300, 330, 300.0f, 200.0f, this);
-
+	_ModelVisibilityFrame = new ModelVisibilityFrame(_sw - 300, 130, 300.0f, 200.0f, this);
+	_ModelSelectionFrame = new ModelSelectionFrame(_sw - 300, 330, 300.0f, 200.0f, this);
 
 	for (int i = 0; i < _modelVec.size(); i++)
 	{
 		glm::vec3 pos = _modelVec[i]->GetPos();
 
-		_modelDrawingFrame->modelBoxVec[i]->positionModelX->SetDouble(pos.x, 3);
-		_modelDrawingFrame->modelBoxVec[i]->positionModelY->SetDouble(pos.y, 3);
-		_modelDrawingFrame->modelBoxVec[i]->positionModelZ->SetDouble(pos.z, 3);
+		_ModelVisibilityFrame->modelBoxVec[i]->positionModelX->SetDouble(pos.x, 3);
+		_ModelVisibilityFrame->modelBoxVec[i]->positionModelY->SetDouble(pos.y, 3);
+		_ModelVisibilityFrame->modelBoxVec[i]->positionModelZ->SetDouble(pos.z, 3);
 	}
 }
 
@@ -61,8 +59,8 @@ void RenderDemo::SetScreenSize(int sw, int sh)
 {
 	_sw = sw;
 	_sh = sh;
-	_modelDrawingFrame->SetPos(_sw - _modelDrawingFrame->GetWidth(), 130);
-	_applyShaderFrame->SetPos(_sw - _applyShaderFrame->GetWidth(), 330);
+	_ModelVisibilityFrame->SetPos(_sw - _ModelVisibilityFrame->GetWidth(), 130);
+	_ModelSelectionFrame->SetPos(_sw - _ModelSelectionFrame->GetWidth(), 330);
 }
 
 void RenderDemo::Draw()
@@ -80,7 +78,7 @@ void RenderDemo::Draw()
 
 	for (int i = 0; i < _modelVec.size(); i++)
 	{
-		if (_modelDrawingFrame->modelBoxVec[i]->modelCheckBox->IsSelected())
+		if (_ModelVisibilityFrame->modelBoxVec[i]->modelCheckBox->IsSelected())
 		{
 			_modelVec[i]->Draw();
 		}
@@ -91,17 +89,17 @@ void RenderDemo::actionPerformed(SUIActionEvent e)
 {
 	SUIComponent* com = (SUIComponent*)e.GetComponent();
 
-	if(com == _applyShaderFrame->_model)
+	if (com == _ModelSelectionFrame->_model)
 	{
-		printf("Selected Model is = %s", _applyShaderFrame->_model->GetSelectedItemName().c_str());
+		printf("Selected Model is = %s", _ModelSelectionFrame->_model->GetSelectedItemName().c_str());
 	}
 }
 
 void RenderDemo::SetVisibleFrames(bool visible)
 {
 	_shaderFrame->GetFrame()->SetVisible(visible);
-	_modelDrawingFrame->GetFrame()->SetVisible(visible);
-	_applyShaderFrame->GetFrame()->SetVisible(visible);
+	_ModelVisibilityFrame->GetFrame()->SetVisible(visible);
+	_ModelSelectionFrame->GetFrame()->SetVisible(visible);
 }
 
 RenderDemo::~RenderDemo()

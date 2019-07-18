@@ -32,7 +32,6 @@ ParticlesDemo::ParticlesDemo(int sw, int sh)
 	_drawAllParticles = true;
 }
 
-
 void ParticlesDemo::Draw()
 {
 	Cam::GetInstance()->SetPerspectiveProjection();
@@ -88,7 +87,7 @@ void ParticlesDemo::Draw()
 		_texture->GetShader()->SetTextureID(_fbo->GetTextureID());
 		_texture->GetShader()->Set2DCamera(true);
 
-		_texture->Draw();		
+		_texture->Draw();
 	}
 }
 
@@ -101,13 +100,13 @@ void ParticlesDemo::SetScreenSize(int sw, int sh)
 	_sw = sw;
 	_sh = sh;
 
-	if(_fbo)
+	if (_fbo)
 	{
 		delete _fbo;
 		_fbo = NULL;
 	}
 
-	if(!_fbo)
+	if (!_fbo)
 	{
 		_fbo = new GLFBO(_sw, _sh);
 	}

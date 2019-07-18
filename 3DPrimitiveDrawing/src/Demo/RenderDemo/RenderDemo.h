@@ -5,10 +5,10 @@
 #include "Floor.h"
 #include "ShaderFrame.h"
 #include "SUIActionListener.h"
-#include "ModelDrawingFrame.h"
-#include "ApplyShaderFrame.h"
+#include "ModelVisibilityFrame.h"
+#include "ModelSelectionFrame.h"
 
-class RenderDemo : public SUIActionListener 
+class RenderDemo : public SUIActionListener
 {
 private:
 	int _sw;
@@ -21,8 +21,8 @@ private:
 
 	Floor* _floor;
 	ShaderFrame* _shaderFrame;
-	ModelDrawingFrame* _modelDrawingFrame;
-	ApplyShaderFrame* _applyShaderFrame;
+	ModelVisibilityFrame* _ModelVisibilityFrame;
+	ModelSelectionFrame* _ModelSelectionFrame;
 
 public:
 	RenderDemo(int sw, int sh);

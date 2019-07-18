@@ -1,11 +1,11 @@
-#ifndef ApplyShaderFrame_H
-#define ApplyShaderFrame_H
+#ifndef ModelSelectionFrame_H
+#define ModelSelectionFrame_H
 
 #include "SUI/SUIFrame.h"
 #include "SUI/SUIActionListener.h"
 #include "SUI/SUIRadioButton.h"
 
-class ApplyShaderFrame
+class ModelSelectionFrame
 {
 
 private:
@@ -14,8 +14,8 @@ private:
 public:
 	SUIRadioButton* _model;
 
-	ApplyShaderFrame(int x, int y, int w, int h, SUIActionListener* actionListener);
-	~ApplyShaderFrame();
+	ModelSelectionFrame(int x, int y, int w, int h, SUIActionListener* actionListener);
+	~ModelSelectionFrame();
 
 	void SetPos(int x, int y);
 	int GetWidth();

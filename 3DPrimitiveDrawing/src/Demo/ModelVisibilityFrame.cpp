@@ -1,18 +1,18 @@
-#include "ModelDrawingFrame.h"
+#include "ModelVisibilityFrame.h"
 
-ModelDrawingFrame::ModelDrawingFrame(int x, int y, int w, int h, SUIActionListener* actionListener) {
+ModelVisibilityFrame::ModelVisibilityFrame(int x, int y, int w, int h, SUIActionListener* actionListener) {
 	_frame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
 	_frame->SetName("Model Drawing Frame", SUIFrame::LEFT);
 
 	_frame->Add(SetModelBox(actionListener));
 }
 
-void ModelDrawingFrame::SetPos(int x, int y) {
+void ModelVisibilityFrame::SetPos(int x, int y) {
 	_frame->SetPos(x, y);
 	_frame->ResetBounds();
 }
 
-SUIBox* ModelDrawingFrame::SetModelBox(SUIActionListener* actionListener) {
+SUIBox* ModelVisibilityFrame::SetModelBox(SUIActionListener* actionListener) {
 	SUIBox* vmodel = new SUIBox(SUIBox::V_ALIGNMENT);
 	vmodel->SetMargin(5, 5, 10, 5);
 	vmodel->SetName("Model Drawing Selection", SUIBox::LEFT);
@@ -40,17 +40,17 @@ SUIBox* ModelDrawingFrame::SetModelBox(SUIActionListener* actionListener) {
 	return vmodel;
 }
 
-int ModelDrawingFrame::GetWidth()
+int ModelVisibilityFrame::GetWidth()
 {
 	return _frame->GetW();
 }
 
-SUIFrame* ModelDrawingFrame::GetFrame()
+SUIFrame* ModelVisibilityFrame::GetFrame()
 {
 	return _frame;
 }
 
-ModelDrawingFrame::~ModelDrawingFrame() 
+ModelVisibilityFrame::~ModelVisibilityFrame() 
 {
 	if (_frame)
 	{
