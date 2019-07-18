@@ -2,7 +2,17 @@
 
 ShaderFrame::ShaderFrame(int x, int y, int w, int h) {
 
-	_frame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
+	_shaderType = nullptr;
+	_materialType = nullptr;
+	_albedoR = nullptr;
+	_albedoG = nullptr;
+	_albedoB = nullptr;
+	_metalic = nullptr;
+	_roughness = nullptr;
+
+	numLightBoxes = 7;
+
+	_frame = new SUIFrame(static_cast<float>(x), (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
 	_frame->SetName("Shader Frame", SUIFrame::LEFT);
 
 	SUIBox* propertyBox = new SUIBox(SUIBox::V_ALIGNMENT);
@@ -17,7 +27,7 @@ ShaderFrame::ShaderFrame(int x, int y, int w, int h) {
 	propertyBox->SetBgColor(64, 64, 64, 255);
 
 	_frame->Add(propertyBox);
-	_mesh = NULL;
+	_mesh = nullptr;
 }
 
 void ShaderFrame::SetPos(int x, int y) {
@@ -51,8 +61,6 @@ SUIBox* ShaderFrame::SetPropertyBox() {
 	SUIBox* propertyBox = new SUIBox(SUIBox::V_ALIGNMENT);
 	propertyBox->SetMargin(3, 3, 5, 0);
 	propertyBox->SetName("Properties", SUIBox::LEFT);
-	
-	numLightBoxes = 7;
 
 	for (int i = 0; i < numLightBoxes; i++)
 	{
