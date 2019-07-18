@@ -21,8 +21,8 @@ private:
 
 	Floor* _floor;
 	ShaderFrame* _shaderFrame;
-	ModelVisibilityFrame* _ModelVisibilityFrame;
-	ModelSelectionFrame* _ModelSelectionFrame;
+	ModelVisibilityFrame* _modelVisibilityFrame;
+	ModelSelectionFrame* _modelSelectionFrame;
 
 public:
 	RenderDemo(int sw, int sh);

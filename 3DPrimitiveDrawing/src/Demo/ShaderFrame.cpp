@@ -1,7 +1,10 @@
 #include "ShaderFrame.h"
 
-ShaderFrame::ShaderFrame(int x, int y, int w, int h) {
-	_shaderType = nullptr;
+ShaderFrame::ShaderFrame(int x, int y, int w, int h, SUIActionListener* renderDemoListener) 
+{
+	_renderDemoListener = renderDemoListener;
+
+	shaderType = nullptr;
 	_materialType = nullptr;
 	_albedoR = nullptr;
 	_albedoG = nullptr;
@@ -100,13 +103,13 @@ SUIBox* ShaderFrame::SetShaderTypeBox() {
 	SUIBox* shaderTypeBox = new SUIBox(SUIBox::V_ALIGNMENT);
 	shaderTypeBox->SetMargin(3, 3, 5, 0);
 	shaderTypeBox->SetName("Shader Type", SUIBox::LEFT);
-	_shaderType = new SUIRadioButton(SUIRadioButton::V_ALIGNMENT);
-	_shaderType->AddCheckBox(new SUICheckBox("PBR Shader", SUICheckBox::LEFT));
-	_shaderType->AddCheckBox(new SUICheckBox("Phong Shader", SUICheckBox::LEFT));
-	_shaderType->AddActionListener(this);
-	_shaderType->SetName("Shader", SUIRadioButton::LEFT);
-	_shaderType->SetSelect(0);
-	shaderTypeBox->AddRadioButton(_shaderType);
+	shaderType = new SUIRadioButton(SUIRadioButton::V_ALIGNMENT);
+	shaderType->AddCheckBox(new SUICheckBox("PBR Shader", SUICheckBox::LEFT));
+	shaderType->AddCheckBox(new SUICheckBox("Phong Shader", SUICheckBox::LEFT));
+	shaderType->AddActionListener(this);
+	shaderType->SetName("Shader", SUIRadioButton::LEFT);
+	shaderType->SetSelect(0);
+	shaderTypeBox->AddRadioButton(shaderType);
 	shaderTypeBox->SetOnOffEnable(true);
 
 	return shaderTypeBox;
@@ -184,8 +187,11 @@ void ShaderFrame::actionPerformed(SUIActionEvent e) {
 	PBRShader* pbrShader = (PBRShader*)_mesh->GetShader(GLMeshRenderer::PBR_SHADER);
 	SUIComponent* com = (SUIComponent*)e.GetComponent();
 
-	if (com == _shaderType) {
-		if (_shaderType->GetSelectedIndex() == 0) {
+	if (com == shaderType) {
+
+		_renderDemoListener->actionPerformed(e);
+
+		if (shaderType->GetSelectedIndex() == 0) {
 			_mesh->SetShader(GLMeshRenderer::PBR_SHADER);
 		}
 		else {

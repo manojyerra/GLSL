@@ -25,7 +25,7 @@ void CalcFragColor(vec3 V, vec3 N)
 	vec4 Idiff = diffuse * max(dot(N,L), 0.0);
 	vec4 Ispec = specular * pow(max(dot(R,E),0.0), shininess*0.3);
 
-	fragColor =  Iamb + Idiff + Ispec;
+	fragColor =  Iamb + Idiff; //+ Ispec;
 }
 
 void main(void)

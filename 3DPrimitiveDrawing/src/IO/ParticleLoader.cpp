@@ -115,7 +115,7 @@ void ParticleLoader::LoadData(const char* fileData, unsigned int length)
 void ParticleLoader::LoadLowPolyData(const char* fileData, unsigned int length)
 {
 	int bpv = BYTES_PER_VERTEX;
-	int skipNumVertex = 25;
+	int skipNumVertex = 50;
 	int skipBytes = skipNumVertex * bpv;
 	unsigned int bufLen = length / (skipNumVertex - 1);
 

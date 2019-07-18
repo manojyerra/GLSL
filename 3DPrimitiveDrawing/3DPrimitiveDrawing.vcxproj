@@ -70,8 +70,8 @@
     <ClCompile Include="src\Common\Utils\RandomColor.cpp" />
     <ClCompile Include="src\Common\Utils\ScanLineUtils.cpp" />
     <ClCompile Include="src\Common\Utils\StringUtils.cpp" />
-    <ClCompile Include="src\Demo\ApplyShaderFrame.cpp" />
-    <ClCompile Include="src\Demo\ModelDrawingFrame.cpp" />
+    <ClCompile Include="src\Demo\ModelSelectionFrame.cpp" />
+    <ClCompile Include="src\Demo\ModelVisibilityFrame.cpp" />
     <ClCompile Include="src\Demo\ParticlesDemo\ParticlesDemo.cpp" />
     <ClCompile Include="src\Demo\RenderDemo\RenderDemo.cpp" />
     <ClCompile Include="src\Demo\ShaderFrame.cpp" />
@@ -161,8 +161,8 @@
     <ClInclude Include="src\Common\Utils\RandomColor.h" />
     <ClInclude Include="src\Common\Utils\ScanLineUtils.h" />
     <ClInclude Include="src\Common\Utils\StringUtils.h" />
-    <ClInclude Include="src\Demo\ApplyShaderFrame.h" />
-    <ClInclude Include="src\Demo\ModelDrawingFrame.h" />
+    <ClInclude Include="src\Demo\ModelSelectionFrame.h" />
+    <ClInclude Include="src\Demo\ModelVisibilityFrame.h" />
     <ClInclude Include="src\Demo\ParticlesDemo\ParticlesDemo.h" />
     <ClInclude Include="src\Demo\RenderDemo\RenderDemo.h" />
     <ClInclude Include="src\Demo\ShaderFrame.h" />

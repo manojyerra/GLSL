@@ -70,7 +70,7 @@ class ShaderFrame : public SUIActionListener {
 private:
 	SUIFrame* _frame;
 
-	SUIRadioButton* _shaderType;
+	
 	//SUIChoice* _materialType;
 	SUIRadioButton* _materialType;
 	SUITextField* _albedoR;
@@ -87,9 +87,12 @@ private:
 	vector<LightBox*> lightboxVec;
 
 	GLMeshRenderer* _mesh;
+	SUIActionListener* _renderDemoListener;
 
 public:
-	ShaderFrame(int x, int y, int w, int h);
+	SUIRadioButton* shaderType;
+
+	ShaderFrame(int x, int y, int w, int h, SUIActionListener* renderDemoListener);
 	~ShaderFrame();
 
 	void SetPos(int x, int y);

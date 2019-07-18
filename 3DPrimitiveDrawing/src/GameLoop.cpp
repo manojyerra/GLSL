@@ -68,11 +68,13 @@ void GameLoop::Draw()
 
 	if (_windowFrame->GetDemoIndex() == 0)
 	{
-		_rendererDemo->Draw();
+		if(_rendererDemo)
+			_rendererDemo->Draw();
 	}
 	else if (_windowFrame->GetDemoIndex() == 1)
 	{
-		_particleDemo->Draw();
+		if(_particleDemo)
+			_particleDemo->Draw();
 	}
 
 	SUIDraw();
@@ -88,8 +90,12 @@ void GameLoop::SetScreenSize(int sw, int sh)
 
 	SUISetWindowSize(_sw, _sh);
 
-	_rendererDemo->SetScreenSize(_sw, _sh);
-	_particleDemo->SetScreenSize(_sw, _sh);
+	if(_rendererDemo)
+		_rendererDemo->SetScreenSize(_sw, _sh);
+
+	if(_particleDemo)
+		_particleDemo->SetScreenSize(_sw, _sh);
+
 	_windowFrame->SetPos(_sw - _windowFrame->GetWidth(), 0);
 }
 

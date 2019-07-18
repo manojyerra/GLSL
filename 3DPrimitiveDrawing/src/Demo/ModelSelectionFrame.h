@@ -12,7 +12,8 @@ private:
 	SUIFrame* _frame;
 
 public:
-	SUIRadioButton* _model;
+	SUIRadioButton* model;
+	SUICheckBox* applyShaderToAll;
 
 	ModelSelectionFrame(int x, int y, int w, int h, SUIActionListener* actionListener);
 	~ModelSelectionFrame();

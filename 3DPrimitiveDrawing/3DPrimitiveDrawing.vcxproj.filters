@@ -387,12 +387,6 @@
     <ClCompile Include="src\GLUtil\Shaders\UVShader\UVShader.cpp">
       <Filter>src\GLUtil\Shaders\UVShader</Filter>
     </ClCompile>
-    <ClCompile Include="src\Demo\ApplyShaderFrame.cpp">
-      <Filter>src\Demo</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Demo\ModelDrawingFrame.cpp">
-      <Filter>src\Demo</Filter>
-    </ClCompile>
     <ClCompile Include="src\Demo\ShaderFrame.cpp">
       <Filter>src\Demo</Filter>
     </ClCompile>
@@ -407,6 +401,12 @@
     </ClCompile>
     <ClCompile Include="src\Demo\RenderDemo\RenderDemo.cpp">
       <Filter>src\Demo\RenderDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Demo\ModelSelectionFrame.cpp">
+      <Filter>src\Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Demo\ModelVisibilityFrame.cpp">
+      <Filter>src\Demo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -674,12 +674,6 @@
     <ClInclude Include="src\GLUtil\Shaders\UVShader\UVShader.h">
       <Filter>src\GLUtil\Shaders\UVShader</Filter>
     </ClInclude>
-    <ClInclude Include="src\Demo\ApplyShaderFrame.h">
-      <Filter>src\Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Demo\ModelDrawingFrame.h">
-      <Filter>src\Demo</Filter>
-    </ClInclude>
     <ClInclude Include="src\Demo\ShaderFrame.h">
       <Filter>src\Demo</Filter>
     </ClInclude>
@@ -694,6 +688,12 @@
     </ClInclude>
     <ClInclude Include="src\Demo\RenderDemo\RenderDemo.h">
       <Filter>src\Demo\RenderDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Demo\ModelSelectionFrame.h">
+      <Filter>src\Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Demo\ModelVisibilityFrame.h">
+      <Filter>src\Demo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

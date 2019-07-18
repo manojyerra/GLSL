@@ -34,6 +34,8 @@ ParticlesDemo::ParticlesDemo(int sw, int sh)
 
 void ParticlesDemo::Draw()
 {
+	glDisable(GL_CULL_FACE);
+
 	Cam::GetInstance()->SetPerspectiveProjection();
 	Cam::GetInstance()->SetViewMatrix();
 	Cam::GetInstance()->UpdateCamera();
