@@ -12,7 +12,7 @@ void SUIManager::Setup(int windowWidth, int windowHeight)
 	_windowWidth = (float)windowWidth;
 	_windowHeight = (float)windowHeight;
 
-	_statusBarRect.SetColor(128,128,128,128);
+	_statusBarRect.SetColor(64,64,64,200);
 	_statusBarRect.SetBounds(0,_windowHeight*0.935f,_windowWidth,_windowHeight*0.065f);
 
 	SUIInput::Init();

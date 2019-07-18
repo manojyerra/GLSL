@@ -4,21 +4,21 @@
 #include "SUI/SUIFrame.h"
 #include "SUI/SUIActionListener.h"
 #include "SUI/SUIRadioButton.h"
-#include "SUI/SUIButton.h"
-#include "SUI/SUIBox.h"
-#include "SUI/SUICheckBox.h"
 
-class ApplyShaderFrame : public SUIActionListener {
+class ApplyShaderFrame
+{
 
 private:
 	SUIFrame* _frame;
-	SUIRadioButton* _model;
 
 public:
-	ApplyShaderFrame(int x, int y, int w, int h);
+	SUIRadioButton* _model;
+
+	ApplyShaderFrame(int x, int y, int w, int h, SUIActionListener* actionListener);
 	~ApplyShaderFrame();
 
 	void SetPos(int x, int y);
-	void actionPerformed(SUIActionEvent e);
+	int GetWidth();
+	SUIFrame* GetFrame();
 };
 #endif

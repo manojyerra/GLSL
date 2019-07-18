@@ -4,7 +4,6 @@
 #include "SUI/SUIFrame.h"
 #include "SUI/SUIActionListener.h"
 #include "SUI/SUIRadioButton.h"
-#include "SUI/SUIButton.h"
 #include "SUI/SUIBox.h"
 #include "SUI/SUIChoice.h"
 #include "SUI/SUITextField.h"
@@ -19,52 +18,52 @@ class LightBox {
 public:
 	SUICheckBox* lightSelection;
 
-	SUITextField* lightDirectionX;
-	SUITextField* lightDirectionY;
-	SUITextField* lightDirectionZ;
-	SUITextField* lightColorR;
-	SUITextField* lightColorG;
-	SUITextField* lightColorB;
-	SUIBox* lightBox;
+	SUITextField* dirX;
+	SUITextField* dirY;
+	SUITextField* dirZ;
+	SUITextField* colorR;
+	SUITextField* colorG;
+	SUITextField* colorB;
+	SUIBox* box;
 
 	LightBox(std::string boxName, SUIActionListener* actionListener, bool isOn) {
-		lightBox = new SUIBox(SUIBox::V_ALIGNMENT);
-		lightBox->SetMargin(3, 3, 5, 0);
-		lightBox->SetName(boxName, SUIBox::LEFT);
-		lightBox->SetBgVisible(true);
-		lightBox->SetOnOffEnable(true);
-		lightBox->SetOn(isOn);
+		box = new SUIBox(SUIBox::V_ALIGNMENT);
+		box->SetMargin(3, 3, 5, 0);
+		box->SetName(boxName, SUIBox::LEFT);
+		box->SetBgVisible(true);
+		box->SetOnOffEnable(true);
+		box->SetOn(isOn);
 
 		lightSelection = new SUICheckBox("Enable", SUICheckBox::LEFT);
 		lightSelection->AddActionListener(actionListener);
 
 		SUIBox* lightDirectionBox = new SUIBox(SUIBox::H_ALIGNMENT);
-		lightDirectionX = new SUITextField("LightDirectionX ", SUITextField::INPUT_DOUBLE);
-		lightDirectionX->AddActionListener(actionListener);
-		lightDirectionY = new SUITextField("LightDirectionY ", SUITextField::INPUT_DOUBLE);
-		lightDirectionY->AddActionListener(actionListener);
-		lightDirectionZ = new SUITextField("LightDirectionZ ", SUITextField::INPUT_DOUBLE);
-		lightDirectionZ->AddActionListener(actionListener);
+		dirX = new SUITextField("LightDirectionX ", SUITextField::INPUT_DOUBLE);
+		dirX->AddActionListener(actionListener);
+		dirY = new SUITextField("LightDirectionY ", SUITextField::INPUT_DOUBLE);
+		dirY->AddActionListener(actionListener);
+		dirZ = new SUITextField("LightDirectionZ ", SUITextField::INPUT_DOUBLE);
+		dirZ->AddActionListener(actionListener);
 		lightDirectionBox->AddLabel(new SUILabel("Direction", SUILabel::LEFT));
-		lightDirectionBox->AddTextField(lightDirectionX);
-		lightDirectionBox->AddTextField(lightDirectionY);
-		lightDirectionBox->AddTextField(lightDirectionZ);
+		lightDirectionBox->AddTextField(dirX);
+		lightDirectionBox->AddTextField(dirY);
+		lightDirectionBox->AddTextField(dirZ);
 
 		SUIBox* lightColorBox = new SUIBox(SUIBox::H_ALIGNMENT);
-		lightColorR = new SUITextField("LightColorX ", SUITextField::INPUT_DOUBLE);
-		lightColorR->AddActionListener(actionListener);
-		lightColorG = new SUITextField("LightColorY ", SUITextField::INPUT_DOUBLE);
-		lightColorG->AddActionListener(actionListener);
-		lightColorB = new SUITextField("LightColorZ ", SUITextField::INPUT_DOUBLE);
-		lightColorB->AddActionListener(actionListener);
+		colorR = new SUITextField("LightColorX ", SUITextField::INPUT_DOUBLE);
+		colorR->AddActionListener(actionListener);
+		colorG = new SUITextField("LightColorY ", SUITextField::INPUT_DOUBLE);
+		colorG->AddActionListener(actionListener);
+		colorB = new SUITextField("LightColorZ ", SUITextField::INPUT_DOUBLE);
+		colorB->AddActionListener(actionListener);
 		lightColorBox->AddLabel(new SUILabel("Color", SUILabel::LEFT));
-		lightColorBox->AddTextField(lightColorR);
-		lightColorBox->AddTextField(lightColorG);
-		lightColorBox->AddTextField(lightColorB);
+		lightColorBox->AddTextField(colorR);
+		lightColorBox->AddTextField(colorG);
+		lightColorBox->AddTextField(colorB);
 
-		lightBox->AddCheckBox(lightSelection);
-		lightBox->AddBox(lightDirectionBox);
-		lightBox->AddBox(lightColorBox);
+		box->AddCheckBox(lightSelection);
+		box->AddBox(lightDirectionBox);
+		box->AddBox(lightColorBox);
 	}
 };
 
@@ -74,7 +73,8 @@ private:
 	SUIFrame* _frame;
 
 	SUIRadioButton* _shaderType;
-	SUIChoice* _materialType;
+	//SUIChoice* _materialType;
+	SUIRadioButton* _materialType;
 	SUITextField* _albedoR;
 	SUITextField* _albedoG;
 	SUITextField* _albedoB;
@@ -97,6 +97,7 @@ public:
 	void SetPos(int x, int y);
 	void SetMeshRenderer(GLMeshRenderer* mesh);
 	void actionPerformed(SUIActionEvent e);
+	SUIFrame* GetFrame();
 };
 
 #endif

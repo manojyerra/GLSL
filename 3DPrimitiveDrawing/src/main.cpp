@@ -1,7 +1,7 @@
 #include "Macros.h"
 #include "GameLoop.h"
 #include "Input.h"
-#include "vld.h"
+//#include "vld.h"
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
@@ -15,7 +15,7 @@ int main(void)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
 	//TODO: How to change number of samples runtime and disable/enable sampling runtime ( mainly for while drawing an object ).
-	//glfwWindowHint(GLFW_SAMPLES, 8);
+	glfwWindowHint(GLFW_SAMPLES, 16);
 
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* mode = glfwGetVideoMode(monitor);

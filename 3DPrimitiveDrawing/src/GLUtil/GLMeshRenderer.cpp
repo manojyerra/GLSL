@@ -36,6 +36,11 @@ void GLMeshRenderer::SetPos(float x, float y, float z)
 	_modelMat.SetPos(x, y, z);
 }
 
+glm::vec3 GLMeshRenderer::GetPos()
+{
+	return glm::vec3(_modelMat.m[12], _modelMat.m[13], _modelMat.m[14]);
+}
+
 void GLMeshRenderer::SetShader(int shaderType)
 {
 	_shaderType = shaderType;

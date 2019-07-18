@@ -176,3 +176,8 @@ int SUIRadioButton::GetSelectedIndex()
 {
 	return _selectedIndex;
 }
+
+string SUIRadioButton::GetSelectedItemName()
+{
+	return _elementVec[_selectedIndex]->GetName();
+}

@@ -27,7 +27,7 @@ private:
 public:
 	ParticlesDemo(int sw, int sh);
 	~ParticlesDemo();
-
+	void SetScreenSize(int sw, int sh);
 	void Draw();
 };
 

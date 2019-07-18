@@ -13,7 +13,7 @@ ParticlesDemo::ParticlesDemo(int sw, int sh)
 
 	////
 
-	_fbo = new GLFBO(sw, sh);
+	_fbo = new GLFBO(_sw, _sh);
 	_texture = new GLTexture("data/Sample.png", 0, 0, _sw, _sh);
 	_texture->GetShader()->Set2DCamera(true);
 
@@ -42,9 +42,9 @@ void ParticlesDemo::Draw()
 	if (Cam::GetInstance()->IsCameraUpdated())
 	{
 		glEnable(GL_DEPTH_TEST);
-		glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
+		glClearColor(128.0f / 255.0f, 128.0f / 255.0f, 128.0f / 255.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
+		glViewport(0, 0, _sw, _sh);
 
 		_floor->Draw();
 
@@ -61,7 +61,7 @@ void ParticlesDemo::Draw()
 		{
 			_fbo->BindFBO();
 
-			glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
+			glClearColor(128.0f / 255.0f, 128.0f / 255.0f, 128.0f / 255.0f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
 
@@ -76,7 +76,7 @@ void ParticlesDemo::Draw()
 			_drawAllParticles = false;
 		}
 
-		glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
+		glClearColor(128.0f / 255.0f, 128.0f / 255.0f, 128.0f / 255.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glViewport(0, 0, _sw, _sh);
 		glDisable(GL_DEPTH_TEST);
@@ -84,11 +84,35 @@ void ParticlesDemo::Draw()
 
 		Cam2D::GetInstance()->SetProjection();
 
+		_texture->SetBounds(0, 0, _sw, _sh);
 		_texture->GetShader()->SetTextureID(_fbo->GetTextureID());
 		_texture->GetShader()->Set2DCamera(true);
 
 		_texture->Draw();		
 	}
+}
+
+void ParticlesDemo::SetScreenSize(int sw, int sh)
+{
+	char arr[1024];
+	sprintf(arr, "\nOnSizeChange : sw = %d sh = %d", sw, sh);
+	OutputDebugStringA(arr);
+
+	_sw = sw;
+	_sh = sh;
+
+	if(_fbo)
+	{
+		delete _fbo;
+		_fbo = NULL;
+	}
+
+	if(!_fbo)
+	{
+		_fbo = new GLFBO(_sw, _sh);
+	}
+
+	_drawAllParticles = true;
 }
 
 ParticlesDemo::~ParticlesDemo()

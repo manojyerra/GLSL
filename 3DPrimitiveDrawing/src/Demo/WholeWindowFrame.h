@@ -4,24 +4,24 @@
 #include "SUI/SUIFrame.h"
 #include "SUI/SUIActionListener.h"
 #include "SUI/SUIRadioButton.h"
-#include "SUI/SUIButton.h"
-#include "SUI/SUIBox.h"
 #include "SUI/SUICheckBox.h"
 
-class WholeWindowFrame : public SUIActionListener {
-
+class WholeWindowFrame
+{
 private:
 	SUIFrame* _frame;
-	SUIRadioButton* _demoType;
-	SUICheckBox* _isSSAO;
 
 public:
-	WholeWindowFrame(int x, int y, int w, int h);
+	SUIRadioButton* demoType;
+	SUICheckBox* isSSAO;
+
+	WholeWindowFrame(int x, int y, int w, int h, SUIActionListener* actionListener);
 	~WholeWindowFrame();
 
 	void SetPos(int x, int y);
 	void actionPerformed(SUIActionEvent e);
 
+	int GetWidth();
 	int GetDemoIndex();
 };
 #endif

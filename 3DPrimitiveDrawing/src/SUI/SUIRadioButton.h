@@ -22,6 +22,7 @@ public:
 	void SetShortCut(SUIKeyCombi keyCombi);
 	void SetSelect(int index);
 	int GetSelectedIndex();
+	string GetSelectedItemName();
 	void Move(float dx, float dy);
 	void ResetBounds();
 	void AddCheckBox(SUICheckBox* checkBox);

@@ -31,11 +31,7 @@ GameLoop::GameLoop(int sw, int sh)
 	_particleDemo = new ParticlesDemo(_sw, _sh);
 	_rendererDemo = new RenderDemo(_sw, _sh);
 
-
-	_frameWidth = 300.0f;
-	_modelDrawingFrame = new ModelDrawingFrame(_sw - _frameWidth, 0.0f, _frameWidth, 200.0f);
-	_applyShaderFrame = new ApplyShaderFrame(_sw - _frameWidth, 200.0f, _frameWidth, 180.0f);
-	_windowFrame = new WholeWindowFrame(_sw - _frameWidth, 380.0f, _frameWidth, 130.0f);
+	_windowFrame = new WholeWindowFrame(_sw - 300, 0.0f, 300, 130.0f, this);
 }
 
 void GameLoop::GLSettings()
@@ -48,6 +44,21 @@ void GameLoop::GLSettings()
 void GameLoop::Update(float deltaTime)
 {
 	
+}
+
+void GameLoop::actionPerformed(SUIActionEvent e) 
+{
+	SUIComponent* com = (SUIComponent*)e.GetComponent();
+
+	if (com == _windowFrame->demoType) 
+	{
+		int index = _windowFrame->demoType->GetSelectedIndex();
+		_rendererDemo->SetVisibleFrames(index == 0);
+	}
+	else if (com == _windowFrame->isSSAO) 
+	{
+		printf("SSAO enabled : %d", _windowFrame->isSSAO->IsSelected());
+	}
 }
 
 void GameLoop::Draw()
@@ -77,9 +88,9 @@ void GameLoop::SetScreenSize(int sw, int sh)
 
 	SUISetWindowSize(_sw, _sh);
 
-	_modelDrawingFrame->SetPos(_sw - _frameWidth, 0);
-	_applyShaderFrame->SetPos(_sw - _frameWidth, 200);
-	_windowFrame->SetPos(_sw - _frameWidth, 380);
+	_rendererDemo->SetScreenSize(_sw, _sh);
+	_particleDemo->SetScreenSize(_sw, _sh);
+	_windowFrame->SetPos(_sw - _windowFrame->GetWidth(), 0);
 }
 
 GameLoop::~GameLoop()
@@ -120,32 +131,10 @@ GameLoop::~GameLoop()
 		_floor = NULL;
 	}
 
-	if (_meshRenderer)
-	{
-		delete _meshRenderer;
-		_meshRenderer = NULL;
-	}
-	
-	if (_meshRenderer1)
-	{
-		delete _meshRenderer1;
-		_meshRenderer1 = NULL;
-	}
-
 	if (_particleDemo)
 	{
 		delete _particleDemo;
 		_particleDemo = NULL;
-	}
-
-	if (_modelDrawingFrame) {
-		delete _modelDrawingFrame;
-		_modelDrawingFrame = NULL;
-	}
-
-	if (_applyShaderFrame) {
-		delete _applyShaderFrame;
-		_applyShaderFrame = NULL;
 	}
 
 	if (_windowFrame) {

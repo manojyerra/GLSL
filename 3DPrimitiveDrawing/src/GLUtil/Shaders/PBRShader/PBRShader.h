@@ -7,8 +7,24 @@
 
 #include <vector>
 #include <string>
-using namespace std;
 
+class LightInfo
+{
+public:
+	glm::vec3 dir;
+	glm::vec3 color;
+
+	LightInfo(glm::vec3 dir, glm::vec3 color)
+	{
+		this->dir = dir;
+		this->color = color;
+	}
+
+	bool operator< (const LightInfo& obj) const
+	{
+		return (obj.dir.x < this->dir.x);
+	}
+};
 
 class PBRShader : public Shader
 {
@@ -16,17 +32,15 @@ private:
 	unsigned int _vertexBufferID;
 	unsigned int _normalBufferID;
 
-	float _alpha;
-	glm::vec3 _lightDir;
-	glm::vec3 _lightColor;
+	std::map<string, LightInfo> _lightMap;
+	
 	glm::vec3 _albedo;
 	float _metallic;
 	float _roughness;
+	float _alpha;
 
 	ShaderProgram* _shaderProgram;
-
 	int _shaderType;
-
 	GLMat _modelMat;
 
 public:
@@ -40,11 +54,18 @@ public:
 	void SetNormalBufferID(unsigned int bufferID);
 	void SetModelMatrix(float* mat);
 	void SetAlpha(float alpha);
-	void SetLightDirection(glm::vec3& lightDir);
-	void SetLightColor(glm::vec3& lightColor);
 	void SetAlbedo(glm::vec3& albedo);
 	void SetMetallic(float metallic);
 	void SetRoughness(float roughness);
+	void SetMeterialProps(glm::vec3 albedo, float metallic, float roughtness);
+
+	glm::vec3 GetAlbedo();
+	float GetMetallic();
+	float GetRoughness();
+	std::map<string, LightInfo> GetLightMap();
+
+	void AddLight(string lightName, LightInfo lightInfo);
+	void RemoveLight(string lightName);
 
 	void Begin();
 	void SetUniformsAndAttributes();

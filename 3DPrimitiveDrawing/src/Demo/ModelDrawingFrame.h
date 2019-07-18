@@ -40,23 +40,22 @@ public:
 	}
 
 };
-class ModelDrawingFrame : public SUIActionListener {
-
+class ModelDrawingFrame
+{
 private:
 	SUIFrame* _frame;
 
-	ModelBox* model1;
-	ModelBox* model2;
-	ModelBox* model3;
-	ModelBox* model4;
-	ModelBox* model5;
-
-	SUIBox* SetModelBox();
+	SUIBox* SetModelBox(SUIActionListener* actionListener);
 public:
-	ModelDrawingFrame(int x, int y, int w, int h);
+
+	vector<ModelBox*> modelBoxVec;
+
+	ModelDrawingFrame(int x, int y, int w, int h, SUIActionListener* actionListener);
 	~ModelDrawingFrame();
 
 	void SetPos(int x, int y);
-	void actionPerformed(SUIActionEvent e);
+	int GetWidth();
+	SUIFrame* GetFrame();
+	//void actionPerformed(SUIActionEvent e);
 };
 #endif

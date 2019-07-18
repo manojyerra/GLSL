@@ -1,19 +1,20 @@
 #version 450
 
 const float PI = 3.14159265359;
+const int MAX_LIGHTS = 8;
 
 layout (location = 0) in vec4 viewPosition;
 layout (location = 1) in vec3 viewNormal;
 
-uniform vec3 direction;
-uniform vec3 color;
+uniform vec3 lightDir[MAX_LIGHTS];
+uniform vec3 lightCol[MAX_LIGHTS];
+uniform int numLights;
 
 uniform vec3 albedo;
 uniform float metallic;
 uniform float roughness;
 uniform float alpha;
 
-//uniform mat4 camMat;
 
 layout (location = 0) out vec4 outColor;
 
@@ -50,32 +51,12 @@ vec3 fresnelSchlick(float cosTheta, vec3 f0)
 void main()
 {
 	vec3 lo = vec3(0.0);
-	vec4 dir = vec4(0.0);
-	vec3 col = vec3(23.47, 21.31, 20.79);
-	float rough = roughness;
-	float metal = metallic;
 
-	for(int i=0; i<4; i++)
+	for(int i=0; i<numLights && i<MAX_LIGHTS; i++)
 	{
-		if(i == 0){
-			dir = vec4(0.0, -1.0, 0.0, 1.0);
-		}
-		else if(i == 1){
-			dir = vec4(0.0, 1.0, 0.0, 1.0);
-		}
-		else if(i == 2){
-			dir = vec4(1.0, 0.0, 0.0, 1.0);
-		}
-		else if(i == 3){
-			dir = vec4(-1.0, 0.0, 0.0, 1.0);
-		}
-		else if(i == 4){
-			dir = vec4(0.0, 0.0, 1.0, 1.0);
-		}
-		else if(i == 5){
-			dir = vec4(0.0, 0.0, -1.0, 1.0);
-		}
-	
+		vec4 dir = vec4(lightDir[i], 1.0);
+		vec4 col = vec4(lightCol[i], 1.0);
+		
 		dir = normalize(dir);
 
 		vec3 normal = normalize(viewNormal);
@@ -90,8 +71,8 @@ void main()
 		float ndotv = max(dot(normal, viewDir), 0.0);
 		float ndoth = max(dot(normal, halfDir), 0.0);
 
-		float ndf = distributionGGX(ndoth, rough);
-		float g = geometrySmith(ndotv, ndotl, rough);
+		float ndf = distributionGGX(ndoth, roughness);
+		float g = geometrySmith(ndotv, ndotl, roughness);
 		vec3 f = fresnelSchlick(hdotv, f0);
 
 		vec3 kS = f;
@@ -105,7 +86,7 @@ void main()
 		lo += (kD * albedo / PI + specular) * col.rgb * ndotl;
 	}
 
-	vec3 ambient = vec3(0.03) * albedo;
+	vec3 ambient = vec3(0.03);
 	vec3 finalColor = lo + ambient;
 
 	finalColor = finalColor / (finalColor + vec3(1.0));
@@ -128,4 +109,23 @@ void main()
 		else if(i == 3){
 			dir = vec4(1.0, -1.0, 1.0, 1.0);
 		}
+		
+		if(i == 0){
+			dir = vec4(0.0, -1.0, 0.0, 1.0);
+		}
+		else if(i == 1){
+			dir = vec4(0.0, 1.0, 0.0, 1.0);
+		}
+		else if(i == 2){
+			dir = vec4(1.0, 0.0, 0.0, 1.0);
+		}
+		else if(i == 3){
+			dir = vec4(-1.0, 0.0, 0.0, 1.0);
+		}
+		else if(i == 4){
+			dir = vec4(0.0, 0.0, 1.0, 1.0);
+		}
+		else if(i == 5){
+			dir = vec4(0.0, 0.0, -1.0, 1.0);
+		}	
 	*/

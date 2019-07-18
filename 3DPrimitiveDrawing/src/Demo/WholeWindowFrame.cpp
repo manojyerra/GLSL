@@ -1,9 +1,10 @@
 #include "WholeWindowFrame.h"
+#include "SUI/SUIBox.h"
 
-WholeWindowFrame::WholeWindowFrame(int x, int y, int w, int h) {
+WholeWindowFrame::WholeWindowFrame(int x, int y, int w, int h, SUIActionListener* action_listener)
+{
 	_frame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
 	_frame->SetName("Demo Frame", SUIFrame::LEFT);
-
 
 	SUIBox* demoSelectionBox = new SUIBox(SUIBox::V_ALIGNMENT);
 	demoSelectionBox->SetMargin(5, 5, 10, 5);
@@ -11,18 +12,18 @@ WholeWindowFrame::WholeWindowFrame(int x, int y, int w, int h) {
 	demoSelectionBox->SetOnOffEnable(true);
 	demoSelectionBox->SetOn(true);
 
-	_demoType = new SUIRadioButton(SUIRadioButton::V_ALIGNMENT);
-	_demoType->AddCheckBox(new SUICheckBox("Renderer Demo", SUICheckBox::LEFT));
-	_demoType->AddCheckBox(new SUICheckBox("Particle Demo", SUICheckBox::LEFT));
-	_demoType->AddActionListener(this);
-	_demoType->SetSelect(0);
+	demoType = new SUIRadioButton(SUIRadioButton::V_ALIGNMENT);
+	demoType->AddCheckBox(new SUICheckBox("Renderer Demo", SUICheckBox::LEFT));
+	demoType->AddCheckBox(new SUICheckBox("Particle Demo", SUICheckBox::LEFT));
+	demoType->AddActionListener(action_listener);
+	demoType->SetSelect(0);
 
-	_isSSAO = new SUICheckBox("SSAO", SUICheckBox::LEFT);
-	_isSSAO->SetBgVisible(true);
-	_isSSAO->AddActionListener(this);
+	isSSAO = new SUICheckBox("SSAO", SUICheckBox::LEFT);
+	isSSAO->SetBgVisible(true);
+	isSSAO->AddActionListener(action_listener);
 
-	demoSelectionBox->AddRadioButton(_demoType);
-	demoSelectionBox->AddCheckBox(_isSSAO);
+	demoSelectionBox->AddRadioButton(demoType);
+	demoSelectionBox->AddCheckBox(isSSAO);
 	demoSelectionBox->SetBgVisible(true);
 	demoSelectionBox->SetBgColor(64, 64, 64, 255);
 
@@ -31,7 +32,7 @@ WholeWindowFrame::WholeWindowFrame(int x, int y, int w, int h) {
 
 int WholeWindowFrame::GetDemoIndex()
 {
-	return _demoType->GetSelectedIndex();
+	return demoType->GetSelectedIndex();
 }
 
 void WholeWindowFrame::SetPos(int x, int y) {
@@ -39,26 +40,10 @@ void WholeWindowFrame::SetPos(int x, int y) {
 	_frame->ResetBounds();
 }
 
-void WholeWindowFrame::actionPerformed(SUIActionEvent e) {
-	SUIComponent* com = (SUIComponent*)e.GetComponent();
-	if (com == _demoType) {
-
-		int index = _demoType->GetSelectedIndex();
-
-		if (index == 0)
-		{
-			printf("Slected renderer demo");
-		}
-		else if(index == 1)
-		{
-			printf("Slected particles demo");
-		}
-	}
-	else if(com == _isSSAO)	{
-		printf("IS SSAO Slected = %d",_isSSAO->IsSelected());
-	}
+int WholeWindowFrame::GetWidth()
+{
+	return _frame->GetW();
 }
-
 
 WholeWindowFrame::~WholeWindowFrame() {
 	if (_frame)

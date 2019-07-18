@@ -55,6 +55,8 @@ public:
 
 	void SetModelMatrix(float* mat);
 	void SetPos(float x, float y, float z);
+	glm::vec3 GetPos();
+
 	void SetShader(int shaderType);
 	Shader* GetShader(int shaderType);
 	Shader* GetCurrentShader();

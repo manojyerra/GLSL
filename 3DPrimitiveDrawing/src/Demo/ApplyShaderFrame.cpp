@@ -1,6 +1,7 @@
 #include "ApplyShaderFrame.h"
+#include "SUI/SUIBox.h"
 
-ApplyShaderFrame::ApplyShaderFrame(int x, int y, int w, int h) {
+ApplyShaderFrame::ApplyShaderFrame(int x, int y, int w, int h, SUIActionListener* actionListener) {
 	_frame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
 	_frame->SetName("Model Selection Frame", SUIFrame::LEFT);
 
@@ -17,7 +18,7 @@ ApplyShaderFrame::ApplyShaderFrame(int x, int y, int w, int h) {
 	_model->AddCheckBox(new SUICheckBox("Model1", SUICheckBox::LEFT));
 	_model->AddCheckBox(new SUICheckBox("Model2", SUICheckBox::LEFT));
 	_model->AddCheckBox(new SUICheckBox("Model3", SUICheckBox::LEFT));
-	_model->AddActionListener(this);	
+	_model->AddActionListener(actionListener);
 	_model->SetSelect(0);
 
 	modelSelectionBox->AddRadioButton(_model);
@@ -32,8 +33,14 @@ void ApplyShaderFrame::SetPos(int x, int y) {
 	_frame->ResetBounds();
 }
 
-void ApplyShaderFrame::actionPerformed(SUIActionEvent e) {
+int ApplyShaderFrame::GetWidth()
+{
+	return _frame->GetW();
+}
 
+SUIFrame* ApplyShaderFrame::GetFrame()
+{
+	return _frame;
 }
 
 ApplyShaderFrame::~ApplyShaderFrame() {

@@ -1,10 +1,10 @@
 #include "ModelDrawingFrame.h"
 
-ModelDrawingFrame::ModelDrawingFrame(int x, int y, int w, int h) {
+ModelDrawingFrame::ModelDrawingFrame(int x, int y, int w, int h, SUIActionListener* actionListener) {
 	_frame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
 	_frame->SetName("Model Drawing Frame", SUIFrame::LEFT);
 
-	_frame->Add(SetModelBox());
+	_frame->Add(SetModelBox(actionListener));
 }
 
 void ModelDrawingFrame::SetPos(int x, int y) {
@@ -12,7 +12,7 @@ void ModelDrawingFrame::SetPos(int x, int y) {
 	_frame->ResetBounds();
 }
 
-SUIBox* ModelDrawingFrame::SetModelBox() {
+SUIBox* ModelDrawingFrame::SetModelBox(SUIActionListener* actionListener) {
 	SUIBox* vmodel = new SUIBox(SUIBox::V_ALIGNMENT);
 	vmodel->SetMargin(5, 5, 10, 5);
 	vmodel->SetName("Model Drawing Selection", SUIBox::LEFT);
@@ -24,68 +24,46 @@ SUIBox* ModelDrawingFrame::SetModelBox() {
 	SUIBox* header = new SUIBox(SUIBox::H_ALIGNMENT);
 	header->AddLabel(new SUILabel("Model", SUILabel::CENTER));
 	header->AddLabel(new SUILabel("Position", SUILabel::CENTER));
-	
-	model1 = new ModelBox("Car", this);
-	model2 = new ModelBox("Truck", this);
-	model3 = new ModelBox("Model1", this);
-	model4 = new ModelBox("Model2", this);
-	model5 = new ModelBox("Model3", this);
-
 	vmodel->AddBox(header);
-	vmodel->AddBox(model1->model);
-	vmodel->AddBox(model2->model);
-	vmodel->AddBox(model3->model);
-	vmodel->AddBox(model4->model);
-	vmodel->AddBox(model5->model);
+
+	string names[5] = {"Car", "Truck", "Model1", "Model2", "Model3"};
+
+	for(int i=0; i<5; i++)
+	{
+		ModelBox* modelBox = new ModelBox(names[i], actionListener);
+		modelBoxVec.push_back( modelBox );
+		vmodel->AddBox(modelBox->model);
+
+		modelBox->modelCheckBox->SetSelect(i == 0);
+	}
 
 	return vmodel;
 }
-void ModelDrawingFrame::actionPerformed(SUIActionEvent e) {
-	SUIComponent* com = (SUIComponent*)e.GetComponent();
-	if (com == model1->modelCheckBox) {
-		if (model1->modelCheckBox->IsSelected()) {
 
-		}
-	}
-	else if(com == model1->positionModelX || com == model1->positionModelX || com == model1->positionModelX)
-	{
-
-	}
-	else if (com == model2->modelCheckBox) {
-		if (model1->modelCheckBox->IsSelected()) {
-
-		}
-	}
-	else if (com == model2->positionModelX || com == model2->positionModelX || com == model2->positionModelX)
-	{
-
-	}
+int ModelDrawingFrame::GetWidth()
+{
+	return _frame->GetW();
 }
 
-ModelDrawingFrame::~ModelDrawingFrame() {
+SUIFrame* ModelDrawingFrame::GetFrame()
+{
+	return _frame;
+}
+
+ModelDrawingFrame::~ModelDrawingFrame() 
+{
 	if (_frame)
 	{
 		delete _frame;
 		_frame = NULL;
 	}
 
-	if (model1) {
-		delete model1;
-	}
-
-	if (model2) {
-		delete model2;
-	}
-
-	if (model3) {
-		delete model3;
-	}
-
-	if (model4) {
-		delete model4;
-	}
-
-	if (model5) {
-		delete model5;
+	for(int i=0; i<modelBoxVec.size(); i++)
+	{
+		if(modelBoxVec[i])
+		{
+			delete modelBoxVec[i];
+			modelBoxVec[i] = NULL;
+		}
 	}
 }

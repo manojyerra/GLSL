@@ -1,29 +1,19 @@
 #ifndef GameLoop_H
 #define GameLoop_H
 
-#include "Cam.h"
-#include "Cam2D.h"
 #include "Floor.h"
-#include "GLFBO.h"
-#include "GLTexture.h"
-
 #include "Triangle.h"
 #include "Box.h"
 #include "Cylinder.h"
 #include "Cone.h"
 #include "Sphere.h"
-#include "ParticleLoader.h"
-#include "GLMeshRenderer.h"
 #include "ParticlesDemo.h"
 #include "RenderDemo.h"
-
-#include "ShaderFrame.h"
-#include "ModelDrawingFrame.h"
-#include "ApplyShaderFrame.h"
 #include "WholeWindowFrame.h"
+#include "SUIActionListener.h"
 
 
-class GameLoop 
+class GameLoop : public SUIActionListener
 {
 private:
 	int _sw;
@@ -38,20 +28,11 @@ private:
 	Cylinder* _cylinder;
 	Cone* _cone;
 	Sphere* _sphere;
-	
-	GLMeshRenderer* _meshRenderer;
-	GLMeshRenderer* _meshRenderer1;
+
 	ParticlesDemo* _particleDemo;
 	RenderDemo* _rendererDemo;
 
-	//////////
-	
-	float _frameWidth;
-	ModelDrawingFrame* _modelDrawingFrame;
-	ApplyShaderFrame* _applyShaderFrame;
 	WholeWindowFrame* _windowFrame;
-
-	//////////
 
 	void GLSettings();
 
@@ -62,6 +43,7 @@ public:
 	void SetScreenSize(int sw, int sh);
 	void Update(float deltaTime);
 	void Draw();
+	void actionPerformed(SUIActionEvent ae);
 };
 
 #endif
