@@ -7,5 +7,8 @@ uniform float alpha;
 
 void main (void)
 {
+	//if(alpha < 0.0001)
+    // discard;
+	 
    outColor = vec4(color, alpha);
 }

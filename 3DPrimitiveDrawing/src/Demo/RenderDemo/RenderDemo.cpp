@@ -71,7 +71,8 @@ void RenderDemo::SetScreenSize(int sw, int sh)
 
 void RenderDemo::Draw()
 {
-	glEnable(GL_CULL_FACE);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	float clearValue = 100.0f/255.0f;
 	glClearColor(clearValue, clearValue, clearValue, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
