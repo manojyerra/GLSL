@@ -29,7 +29,7 @@ void SUISlider::Init(string name, float minValue, float maxValue, bool isInteger
 	_sliderBgLineRect.SetColor(100,100,100,255);
 
 	_pointerRect.SetBounds(0,0,12,0);
-	_pointerRect.SetColor(130,130,255,255);
+	_pointerRect.SetColor(125, 125, 125,255);
 
 	_pointerX = 0;
 	_pointerActive = false;

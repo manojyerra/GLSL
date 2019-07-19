@@ -87,9 +87,17 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	// make sure the viewport matches the new window dimensions; note that width and 
 	// height will be significantly larger than specified on retina displays.
 
-	if (gameLoop)
+	char arr[1024];
+	sprintf(arr, "\nOnSizeChange : sw = %d sh = %d", width, height);
+	OutputDebugStringA(arr);
+
+	if (gameLoop && width > 10 && height > 10)
 	{
 		gameLoop->SetScreenSize(width, height);
+	}
+	else
+	{
+		OutputDebugStringA("\n\n ***** Ignoring framebuffer size callback. **** \n\n");
 	}
 }
 

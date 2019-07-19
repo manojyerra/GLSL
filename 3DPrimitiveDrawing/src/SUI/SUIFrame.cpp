@@ -22,9 +22,13 @@ SUIFrame::SUIFrame(float x, float y, float w, float h, int alignment) : SUICompo
 	_isBorderVisible = true;
 	_focusGain = false;
 
-	_closeRect.SetColor(255,0,100,255);
-	_minRect.SetColor(150,150,255,255);
-	_maxRect.SetColor(150,150,255,255);
+	//_closeRect.SetColor(255,0,100,255);
+	//_minRect.SetColor(150,150,255,255);
+	//_maxRect.SetColor(150,150,255,255);
+
+	_closeRect.SetColor(175, 175, 175, 255);
+	_minRect.SetColor(175, 175, 175, 255);
+	_maxRect.SetColor(175, 175, 175, 255);
 
 	_removeCloseOption = false;
 
@@ -564,11 +568,11 @@ void SUIFrame::Draw()
 void SUIFrame::DrawTitleBar()
 {
 	if(_focusGain)
-		_titleBarRect.SetColor(200,200,255,255);
+		_titleBarRect.SetColor(200, 200, 200,255);
 	else
-		_titleBarRect.SetColor(130,130,255,255);
+		_titleBarRect.SetColor(100, 100, 100,255);
 
-	_titleBarRect.DrawWithoutBorder();
+	_titleBarRect.DrawWithBorder();
 
 	float titleH = _titleBarRect.h;
 

@@ -11,7 +11,7 @@ GameLoop::GameLoop(int sw, int sh)
 	_sw = sw;
 	_sh = sh;
 
-	_zNear = 1.0f;
+	_zNear = 0.15f;
 	_zFar = 1000000.0f;
 	_zNearPlaneW = 0.2f;
 
@@ -28,10 +28,10 @@ GameLoop::GameLoop(int sw, int sh)
 	Cam::GetInstance()->Init(_sw, _sh, _zNear, _zFar, _zNearPlaneW);
 	Cam2D::GetInstance()->Init(_sw, _sh);
 
-	_particleDemo = nullptr; //new ParticlesDemo(_sw, _sh);
+	_particleDemo = new ParticlesDemo(_sw, _sh);
 	_rendererDemo = new RenderDemo(_sw, _sh);
 
-	_windowFrame = new WholeWindowFrame(_sw - 300, 0.0f, 300, 130.0f, this);
+	_windowFrame = new WholeWindowFrame(_sw - 300, 0.0f, 300, 150.0f, this);
 }
 
 void GameLoop::GLSettings()
@@ -53,11 +53,31 @@ void GameLoop::actionPerformed(SUIActionEvent e)
 	if (com == _windowFrame->demoType) 
 	{
 		int index = _windowFrame->demoType->GetSelectedIndex();
+		
 		_rendererDemo->SetVisibleFrames(index == 0);
+
+		Cam::GetInstance()->SetTrans(glm::vec3(0, 0, -44.0f));
+		Cam::GetInstance()->SetRot(glm::vec3(35.0f, -20.0f, 0));
+		Cam::GetInstance()->UpdateCamera();
 	}
 	else if (com == _windowFrame->isSSAO) 
 	{
 		printf("SSAO enabled : %d", _windowFrame->isSSAO->IsSelected());
+	}
+	else if (com == _windowFrame->floorSelection)
+	{
+		bool hideFloor = _windowFrame->floorSelection->IsSelected();
+
+		if (_windowFrame->GetDemoIndex() == 0)
+		{
+			if (_rendererDemo)
+				_rendererDemo->SetFloorVisible(!hideFloor);
+		}
+		else if (_windowFrame->GetDemoIndex() == 1)
+		{
+			if (_particleDemo)
+				_particleDemo->SetFloorVisible(!hideFloor);
+		}
 	}
 }
 
@@ -69,7 +89,7 @@ void GameLoop::Draw()
 	if (_windowFrame->GetDemoIndex() == 0)
 	{
 		if(_rendererDemo)
-			_rendererDemo->Draw();
+			_rendererDemo->Draw();		
 	}
 	else if (_windowFrame->GetDemoIndex() == 1)
 	{

@@ -11,6 +11,8 @@ private:
 	bool _axisVisible;
 	bool _gridVisible;
 	bool _gridLinesVisible;
+	bool _smallGridLinesVisible;
+	bool _bigGridLinesVisible;
 	
 	GLMat _modelMat;
 
@@ -28,7 +30,15 @@ private:
 	void GenerateBigGridLines(float start, float end, float gap);
 	void GenerateAxis(float start, float end);
 
+	int _gridType;
+
 public:
+	enum
+	{
+		GRID_SINGLE_RECT,
+		GRID_MULTI_RECT
+	};
+
 	Floor();
 	~Floor();
 
@@ -41,6 +51,7 @@ public:
 	void SetAxisVisible(bool axisVisible);
 	void SetGridVisible(bool floorVisible);
 	void SetGridLinesVisible(bool linesVisible);
+	void SetGridType(int gridType);
 
 	void Draw();
 };

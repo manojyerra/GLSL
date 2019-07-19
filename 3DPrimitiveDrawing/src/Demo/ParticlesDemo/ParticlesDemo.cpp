@@ -97,10 +97,6 @@ void ParticlesDemo::Draw()
 
 void ParticlesDemo::SetScreenSize(int sw, int sh)
 {
-	char arr[1024];
-	sprintf(arr, "\nOnSizeChange : sw = %d sh = %d", sw, sh);
-	OutputDebugStringA(arr);
-
 	_sw = sw;
 	_sh = sh;
 
@@ -116,6 +112,11 @@ void ParticlesDemo::SetScreenSize(int sw, int sh)
 	}
 
 	_drawAllParticles = true;
+}
+
+void ParticlesDemo::SetFloorVisible(bool visible)
+{
+	_floor->SetVisible(visible);
 }
 
 ParticlesDemo::~ParticlesDemo()

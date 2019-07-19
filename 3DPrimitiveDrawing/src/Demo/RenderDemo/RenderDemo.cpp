@@ -9,7 +9,7 @@ RenderDemo::RenderDemo(int sw, int sh)
 
 	_floor = new Floor();
 
-	_numModels = 3;
+	_numModels = 1;
 	_selectedModel = nullptr;
 
 	GLMeshRenderer* meshRenderer1 = nullptr;
@@ -18,7 +18,7 @@ RenderDemo::RenderDemo(int sw, int sh)
 	GLMeshRenderer* meshRenderer4 = nullptr;
 	GLMeshRenderer* meshRenderer5 = nullptr;
 
-	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/demo/CarBIW"), GLMeshRenderer::PBR_SHADER);
+	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/teapot"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 2) meshRenderer2 = new GLMeshRenderer(&ObjReader("data/demo/Trike"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 3) meshRenderer3 = new GLMeshRenderer(&ObjReader("data/demo/Truck"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 4) meshRenderer4 = new GLMeshRenderer(&ObjReader("data/teapot"), GLMeshRenderer::PBR_SHADER);
@@ -48,8 +48,8 @@ RenderDemo::RenderDemo(int sw, int sh)
 	_shaderFrame = new ShaderFrame(0.0f, 0.0f, 300, 910, this);
 	_shaderFrame->SetMeshRenderer(_selectedModel);
 
-	_modelVisibilityFrame = new ModelVisibilityFrame(_sw - 300, 130, 300.0f, 200.0f, this);
-	_modelSelectionFrame = new ModelSelectionFrame(_sw - 300, 330, 300.0f, 200.0f, this);
+	_modelVisibilityFrame = new ModelVisibilityFrame(_sw - 300, 152, 300.0f, 200.0f, this);
+	_modelSelectionFrame = new ModelSelectionFrame(_sw - 300, 353, 300.0f, 200.0f, this);
 
 	for (int i = 0; i < _modelVec.size(); i++)
 	{
@@ -65,14 +65,14 @@ void RenderDemo::SetScreenSize(int sw, int sh)
 {
 	_sw = sw;
 	_sh = sh;
-	_modelVisibilityFrame->SetPos(_sw - _modelVisibilityFrame->GetWidth(), 130);
-	_modelSelectionFrame->SetPos(_sw - _modelSelectionFrame->GetWidth(), 330);
+	_modelVisibilityFrame->SetPos(_sw - _modelVisibilityFrame->GetWidth(), 152);
+	_modelSelectionFrame->SetPos(_sw - _modelSelectionFrame->GetWidth(), 353);
 }
 
 void RenderDemo::Draw()
 {
 	glEnable(GL_CULL_FACE);
-	float clearValue = 110.0f/255.0f;
+	float clearValue = 100.0f/255.0f;
 	glClearColor(clearValue, clearValue, clearValue, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glViewport(0, 0, _sw, _sh);
@@ -143,6 +143,11 @@ void RenderDemo::SetVisibleFrames(bool visible)
 	_shaderFrame->GetFrame()->SetVisible(visible);
 	_modelVisibilityFrame->GetFrame()->SetVisible(visible);
 	_modelSelectionFrame->GetFrame()->SetVisible(visible);
+}
+
+void RenderDemo::SetFloorVisible(bool visible)
+{
+	_floor->SetVisible(visible);
 }
 
 RenderDemo::~RenderDemo()

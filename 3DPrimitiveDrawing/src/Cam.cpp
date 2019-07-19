@@ -1,7 +1,5 @@
 #include "Cam.h"
 #include "Input.h"
-#include <math.h>
-
 
 Cam* Cam::_ref = NULL;
 
@@ -38,8 +36,8 @@ void Cam::Init(int screenW, int screenH, float zNear, float zFar, float zNearPla
 	_zNearPlaneHalfW = zNearPlaneW/2.0f;
 
 	_pivot = glm::vec3(0, 0, 0);
-	_trans = glm::vec3(0, 0, -70.0f);
-	_angle = glm::vec3(30, 0, 0);
+	_trans = glm::vec3(0, 0, -44.0f);
+	_angle = glm::vec3(35, -20, 0);
 
 	_viewType = 5;
 	_isOrtho = false;
@@ -145,8 +143,8 @@ bool Cam::UpdateCamera()
 
 		z /= 3000;
 
-		_trans.x += dx*z;
-		_trans.y += -dy*z;
+		_trans.x += dx*z / (_zNearPlaneHalfW * 4.0f);
+		_trans.y += -dy*z / (_zNearPlaneHalfW * 4.0f);
 
 		_camUpdated = true;
 	}
@@ -176,16 +174,34 @@ bool Cam::UpdateCamera()
 
 		_camUpdated = true;
 	}
-	else if(Input::IsScrollDown())
-	{
-		_trans.z -= 45.0f;
-		_camUpdated = true;
-	}
-	else if(Input::IsScrollUp())
-	{
-		_trans.z += 45.0f;
-		_camUpdated = true;
-	}
+	//else if(Input::IsScrollDown())
+	//{
+	//	float dy = 30.0f;
+
+	//	float z = _trans.z;
+	//	if (z < 0)
+	//		z = -z;
+
+	//	z /= 300;
+
+	//	_trans.z -= dy * z;
+
+	//	_camUpdated = true;
+	//}
+	//else if(Input::IsScrollUp())
+	//{
+	//	float dy = 30.0f;
+
+	//	float z = _trans.z;
+	//	if (z < 0)
+	//		z = -z;
+
+	//	z /= 300;
+
+	//	_trans.z += dy * z;
+
+	//	_camUpdated = true;
+	//}
 
 	return _camUpdated;
 }

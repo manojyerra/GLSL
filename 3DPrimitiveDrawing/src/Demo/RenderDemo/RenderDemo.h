@@ -33,6 +33,7 @@ public:
 	void actionPerformed(SUIActionEvent e) override;
 
 	void SetVisibleFrames(bool visible);
+	void SetFloorVisible(bool visible);
 };
 
 #endif
