@@ -9,20 +9,26 @@ RenderDemo::RenderDemo(int sw, int sh)
 
 	_floor = new Floor();
 
-	_numModels = 3;
+	_numModels = 1;
 	_selectedModel = nullptr;
 
-	GLMeshRenderer* meshRenderer1 = new GLMeshRenderer(&ObjReader("data/demo/CarBIW"), GLMeshRenderer::PBR_SHADER);
-	GLMeshRenderer* meshRenderer2 = new GLMeshRenderer(&ObjReader("data/demo/Trike"), GLMeshRenderer::PBR_SHADER);
-	GLMeshRenderer* meshRenderer3 = new GLMeshRenderer(&ObjReader("data/demo/Truck"), GLMeshRenderer::PBR_SHADER);
-	GLMeshRenderer* meshRenderer4 = new GLMeshRenderer(&ObjReader("data/teapot"), GLMeshRenderer::PBR_SHADER);
-	GLMeshRenderer* meshRenderer5 = new GLMeshRenderer(&ObjReader("data/teapot"), GLMeshRenderer::PBR_SHADER);
+	GLMeshRenderer* meshRenderer1 = nullptr;
+	GLMeshRenderer* meshRenderer2 = nullptr;
+	GLMeshRenderer* meshRenderer3 = nullptr;
+	GLMeshRenderer* meshRenderer4 = nullptr;
+	GLMeshRenderer* meshRenderer5 = nullptr;
 
-	meshRenderer1->SetPos(-4.0f, -3.0f, 1.5f);
-	meshRenderer2->SetPos(-8.0f, 0.0f, 0.0f);
-	meshRenderer3->SetPos(2.0f, -3.0f, 2.0f);
-	meshRenderer4->SetPos(-12.0f, 0.0f, 0.0f);
-	meshRenderer5->SetPos(12.0f, 0.0f, 0.0f);
+	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/teapot"), GLMeshRenderer::PBR_SHADER);
+	if (_numModels >= 2) meshRenderer2 = new GLMeshRenderer(&ObjReader("data/demo/Trike"), GLMeshRenderer::PBR_SHADER);
+	if (_numModels >= 3) meshRenderer3 = new GLMeshRenderer(&ObjReader("data/demo/Truck"), GLMeshRenderer::PBR_SHADER);
+	if (_numModels >= 4) meshRenderer4 = new GLMeshRenderer(&ObjReader("data/teapot"), GLMeshRenderer::PBR_SHADER);
+	if (_numModels >= 5) meshRenderer5 = new GLMeshRenderer(&ObjReader("data/teapot"), GLMeshRenderer::PBR_SHADER);
+
+	//if (meshRenderer1) meshRenderer1->SetPos(-4.0f, -3.0f, 1.5f);
+	if (meshRenderer2) meshRenderer2->SetPos(-8.0f, 0.0f, 0.0f);
+	if (meshRenderer3) meshRenderer3->SetPos(2.0f, -3.0f, 2.0f);
+	if (meshRenderer4) meshRenderer4->SetPos(-12.0f, 0.0f, 0.0f);
+	if (meshRenderer5) meshRenderer5->SetPos(12.0f, 0.0f, 0.0f);
 
 	for (int i = 0; i < _numModels; i++)
 	{
