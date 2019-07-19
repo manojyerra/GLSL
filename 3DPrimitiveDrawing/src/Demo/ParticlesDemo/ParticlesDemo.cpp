@@ -64,9 +64,10 @@ void ParticlesDemo::Draw()
 		{
 			_fbo->BindFBO();
 
+			glEnable(GL_DEPTH_TEST);
 			glClearColor(clearValue, clearValue, clearValue, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
+			glViewport(0, 0, _sw, _sh);
 
 			_floor->Draw();
 

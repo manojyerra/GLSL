@@ -64,6 +64,8 @@ public:
 	void SetTrans(glm::vec3 trans);
 	void SetRot(glm::vec3 rot);
 
+	glm::vec3 GetTrans();
+
 	void SetFrontView();
 	void SetBackView();
 	void SetLeftView();

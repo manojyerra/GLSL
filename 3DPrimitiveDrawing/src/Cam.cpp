@@ -226,6 +226,11 @@ void Cam::SetRot(glm::vec3 rot)
 	_angle = rot;
 }
 
+glm::vec3 Cam::GetTrans()
+{
+	return _trans;
+}
+
 void Cam::SetFrontView()
 {
 	_angle = glm::vec3(0,0,0);
