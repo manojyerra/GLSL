@@ -56,9 +56,18 @@ void GameLoop::actionPerformed(SUIActionEvent e)
 		
 		_rendererDemo->SetVisibleFrames(index == 0);
 
-		Cam::GetInstance()->SetTrans(glm::vec3(0, 0, -44.0f));
-		Cam::GetInstance()->SetRot(glm::vec3(35.0f, -20.0f, 0));
-		Cam::GetInstance()->UpdateCamera();
+		if(index == 0)
+		{
+			Cam::GetInstance()->SetTrans(glm::vec3(0, 0, -44.0f));
+			Cam::GetInstance()->SetRot(glm::vec3(35.0f, -20.0f, 0));
+			Cam::GetInstance()->UpdateCamera();
+		}
+		else
+		{
+			Cam::GetInstance()->SetTrans(glm::vec3(-0.095, -0.78, -4.94f));
+			Cam::GetInstance()->SetRot(glm::vec3(31.0f, -35.0f, 0));
+			Cam::GetInstance()->UpdateCamera();
+		}
 	}
 	else if (com == _windowFrame->isSSAO) 
 	{
