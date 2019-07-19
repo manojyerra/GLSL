@@ -10,83 +10,33 @@ Floor::Floor()
 	_visible = true;
 	_axisVisible = true;
 	_gridLinesVisible = true;
-	_gridVisible = false;
+	_gridVisible = true;
 
-	float start = -16;
-	float end = 16;
-	float gap = 1;
+	_axisRenderer = nullptr;
+	_gridRenderer = nullptr;
+	_gridLinesRenderer = nullptr;
+	_smallGridLinesRenderer = nullptr;
+	_bigGridLinesRenderer = nullptr;
 
-	/////////////////////  Begin : Axis creation ////////////////////
+	float start = -20;
+	float end = 20;
 
-	GLBatch* _axisBuffer = new GLBatch(100, true, false, false);
-	_axisBuffer->glBegin();
+	GenerateGrid(start, end, 1.0f);
+	GenerateGridRect(start, end);
+	GenerateSmallGridLines(start, end, 0.1f);
+	GenerateGridLines(start, end, 1.0f);
+	GenerateBigGridLines(start, end, 5.0f);
+	GenerateAxis(start, end);
+}
 
-	_axisBuffer->glColor3ub(255,0,0);
-	_axisBuffer->glVertex3f(start,	0.0f,	0.0f);
-	_axisBuffer->glVertex3f(end,	0.0f,	0.0f);
+void Floor::GenerateGrid(float start, float end, float gap)
+{
+	GLBatch* glBatch = new GLBatch(100, true, false, false);
+	glBatch->glBegin();
 
-	_axisBuffer->glColor3ub(0,0,255);
-	_axisBuffer->glVertex3f(0.0f,	0.0f,	start);
-	_axisBuffer->glVertex3f(0.0f,	0.0f,	end);
+	int c1 = 120;
+	int c2 = 130;
 
-	_axisBuffer->glColor3ub(0,255,0);
-	_axisBuffer->glVertex3f(0.0f,	0.0f,	(start+end)/2.0f);
-	_axisBuffer->glVertex3f(0.0f,	end,	0);
-
-	ModelInfo axisMeshInfo;
-	axisMeshInfo.SetVertexBuffer(_axisBuffer->GetVertexBuffer(), _axisBuffer->GetVertexBufferSize());
-	axisMeshInfo.SetColorBuffer(_axisBuffer->GetColorBuffer(), _axisBuffer->GetColorBufferSize());
-	_axisRenderer = new GLMeshRenderer(&axisMeshInfo, GLMeshRenderer::COLOR_SHADER);
-	_axisRenderer->SetPrimitiveType(GLMeshRenderer::lines);
-	delete _axisBuffer;
-
-	/////////////////////  End : Axis creation ////////////////////
-
-
-
-	/////////////////////  Begin : Grid lines creation ////////////////////
-
-	GLBatch* _gridLinesBuffer = new GLBatch(100, true, false, false);
-	_gridLinesBuffer->glBegin();
-	_gridLinesBuffer->glColor3ub(75,75,75);
-
-	for(int i=(int)start; i<=end; i+=(int)gap)
-	{
-		if(i == 0)
-			continue;
-
-		_gridLinesBuffer->glVertex3f(start,	0.01f,	(float)i);
-		_gridLinesBuffer->glVertex3f(end,		0.01f,	(float)i);
-	}
-
-	for(int i=(int)start; i<=end; i+=(int)gap)
-	{
-		if(i == 0)
-			continue;
-
-		_gridLinesBuffer->glVertex3f((float)i,	0.01f,	start);
-		_gridLinesBuffer->glVertex3f((float)i,	0.01f,	end);
-	}
-	
-	ModelInfo gridLinesMeshInfo;
-	gridLinesMeshInfo.SetVertexBuffer(_gridLinesBuffer->GetVertexBuffer(), _gridLinesBuffer->GetVertexBufferSize());
-	gridLinesMeshInfo.SetColorBuffer(_gridLinesBuffer->GetColorBuffer(), _gridLinesBuffer->GetColorBufferSize());
-	_gridLinesRenderer = new GLMeshRenderer(&gridLinesMeshInfo, GLMeshRenderer::COLOR_SHADER);
-	_gridLinesRenderer->SetPrimitiveType(GLMeshRenderer::lines);
-
-	delete _gridLinesBuffer;
-
-	/////////////////////  Begin : Grid lines creation ////////////////////
-
-
-
-	/////////////////////  Begin : Grid creation ////////////////////
-
-	GLBatch* _gridBuffer = new GLBatch(100, true, false, false);
-	_gridBuffer->glBegin();
-
-	int c1 = 255;
-	int c2 = 158;
 	for (int outer = (int)start; outer < end; outer++)
 	{
 		int temp = c1;
@@ -95,28 +45,173 @@ Floor::Floor()
 		for (int i = (int)start; i < end; i += (int)gap)
 		{
 			if (i % 2 == 0)
-				_gridBuffer->glColor3ub(c1, c2, 158);
+				glBatch->glColor3ub(c1, c1, c1);
 			else
-				_gridBuffer->glColor3ub(c2, c1, 158);
+				glBatch->glColor3ub(c2, c2, c2);
 
-			_gridBuffer->glVertex3f((float)i,		0, outer*gap);
-			_gridBuffer->glVertex3f((float)i+gap,	0, outer*gap);
-			_gridBuffer->glVertex3f((float)i, 0, (outer + 1)*gap);
+			glBatch->glVertex3f((float)i, 0, outer*gap);
+			glBatch->glVertex3f((float)i + gap, 0, outer*gap);
+			glBatch->glVertex3f((float)i, 0, (outer + 1)*gap);
 
-			_gridBuffer->glVertex3f((float)i + gap, 0, outer*gap);
-			_gridBuffer->glVertex3f((float)i, 0, (outer + 1)*gap);
-			_gridBuffer->glVertex3f((float)i+gap,	0, (outer+1)*gap);
+			glBatch->glVertex3f((float)i + gap, 0, outer*gap);
+			glBatch->glVertex3f((float)i, 0, (outer + 1)*gap);
+			glBatch->glVertex3f((float)i + gap, 0, (outer + 1)*gap);
 		}
 	}
 
-	ModelInfo gridMeshInfo;
-	gridMeshInfo.SetVertexBuffer(_gridBuffer->GetVertexBuffer(), _gridBuffer->GetVertexBufferSize());
-	gridMeshInfo.SetColorBuffer(_gridBuffer->GetColorBuffer(), _gridBuffer->GetColorBufferSize());
-	_gridRenderer = new GLMeshRenderer(&gridMeshInfo, GLMeshRenderer::COLOR_SHADER);
+	ModelInfo modelInfo;
+	modelInfo.SetVertexBuffer(glBatch->GetVertexBuffer(), glBatch->GetVertexBufferSize());
+	modelInfo.SetColorBuffer(glBatch->GetColorBuffer(), glBatch->GetColorBufferSize());
+	_gridRenderer = new GLMeshRenderer(&modelInfo, GLMeshRenderer::COLOR_SHADER);
 
-	delete _gridBuffer;
+	delete glBatch;
+}
 
-	/////////////////////  Begin : Grid creation ////////////////////	
+void Floor::GenerateGridRect(float start, float end)
+{
+	auto glBatch = new GLBatch(100, true, false, false);
+	glBatch->glBegin();
+
+	glBatch->glVertex3f(start, 0, -end);
+	glBatch->glVertex3f(-start, 0, -end);
+	glBatch->glVertex3f(start, 0, end);
+	glBatch->glVertex3f(-start, 0, -end);
+
+	ModelInfo modelInfo;
+	modelInfo.SetVertexBuffer(glBatch->GetVertexBuffer(), glBatch->GetVertexBufferSize());
+
+	_gridRenderer = new GLMeshRenderer(&modelInfo, GLMeshRenderer::BASIC_SHADER);
+	_gridRenderer->SetPrimitiveType(GLMeshRenderer::triangleStrip);
+	BasicShader* shader = (BasicShader*)_gridRenderer->GetCurrentShader();
+	shader->SetColor(glm::vec3(130.0f/255.0f, 130.0f / 255.0f, 130.0f / 255.0f));
+
+	delete glBatch;
+}
+
+void Floor::GenerateSmallGridLines(float start, float end, float gap)
+{
+	auto glBatch = new GLBatch(100, true, false, false);
+	glBatch->glBegin();
+	glBatch->glColor3ub(117, 117, 117);
+
+	for (float i = start; i <= end; i += gap)
+	{
+		if (i == 0)
+			continue;
+
+		glBatch->glVertex3f(start, 0.01f, (float)i);
+		glBatch->glVertex3f(end, 0.01f, (float)i);
+	}
+
+	for (float i = start; i <= end; i += gap)
+	{
+		if (i == 0)
+			continue;
+
+		glBatch->glVertex3f((float)i, 0.01f, start);
+		glBatch->glVertex3f((float)i, 0.01f, end);
+	}
+
+	ModelInfo modelInfo;
+	modelInfo.SetVertexBuffer(glBatch->GetVertexBuffer(), glBatch->GetVertexBufferSize());
+	modelInfo.SetColorBuffer(glBatch->GetColorBuffer(), glBatch->GetColorBufferSize());
+	_smallGridLinesRenderer = new GLMeshRenderer(&modelInfo, GLMeshRenderer::COLOR_SHADER);
+	_smallGridLinesRenderer->SetPrimitiveType(GLMeshRenderer::lines);
+
+	delete glBatch;
+}
+
+void Floor::GenerateGridLines(float start, float end, float gap)
+{
+	auto glBatch = new GLBatch(100, true, false, false);
+	glBatch->glBegin();
+	glBatch->glColor3ub(140, 140, 140);
+
+	for (int i = (int)start; i <= end; i += (int)gap)
+	{
+		if (i == 0)
+			continue;
+
+		glBatch->glVertex3f(start, 0.01f, (float)i);
+		glBatch->glVertex3f(end, 0.01f, (float)i);
+	}
+
+	for (int i = (int)start; i <= end; i += (int)gap)
+	{
+		if (i == 0)
+			continue;
+
+		glBatch->glVertex3f((float)i, 0.01f, start);
+		glBatch->glVertex3f((float)i, 0.01f, end);
+	}
+
+	ModelInfo modelInfo;
+	modelInfo.SetVertexBuffer(glBatch->GetVertexBuffer(), glBatch->GetVertexBufferSize());
+	modelInfo.SetColorBuffer(glBatch->GetColorBuffer(), glBatch->GetColorBufferSize());
+	_gridLinesRenderer = new GLMeshRenderer(&modelInfo, GLMeshRenderer::COLOR_SHADER);
+	_gridLinesRenderer->SetPrimitiveType(GLMeshRenderer::lines);
+
+	delete glBatch;
+}
+
+void Floor::GenerateBigGridLines(float start, float end, float gap)
+{
+	auto glBatch = new GLBatch(100, true, false, false);
+	glBatch->glBegin();
+	glBatch->glColor3ub(181, 181, 181);
+
+	for (int i = (int)start; i <= end; i += (int)gap)
+	{
+		if (i == 0)
+			continue;
+
+		glBatch->glVertex3f(start, 0.01f, (float)i);
+		glBatch->glVertex3f(end, 0.01f, (float)i);
+	}
+
+	for (int i = (int)start; i <= end; i += (int)gap)
+	{
+		if (i == 0)
+			continue;
+
+		glBatch->glVertex3f((float)i, 0.01f, start);
+		glBatch->glVertex3f((float)i, 0.01f, end);
+	}
+
+	ModelInfo modelInfo;
+	modelInfo.SetVertexBuffer(glBatch->GetVertexBuffer(), glBatch->GetVertexBufferSize());
+	modelInfo.SetColorBuffer(glBatch->GetColorBuffer(), glBatch->GetColorBufferSize());
+	_bigGridLinesRenderer = new GLMeshRenderer(&modelInfo, GLMeshRenderer::COLOR_SHADER);
+	_bigGridLinesRenderer->SetPrimitiveType(GLMeshRenderer::lines);
+
+	delete glBatch;
+}
+
+void Floor::GenerateAxis(float start, float end)
+{
+	GLBatch* glBatch = new GLBatch(100, true, false, false);
+	glBatch->glBegin();
+
+	glBatch->glColor3ub(255, 0, 0);
+	glBatch->glVertex3f(start, 0.0f, 0.0f);
+	glBatch->glVertex3f(end, 0.0f, 0.0f);
+
+	glBatch->glColor3ub(0, 0, 255);
+	glBatch->glVertex3f(0.0f, 0.0f, start);
+	glBatch->glVertex3f(0.0f, 0.0f, end);
+
+	//glBatch->glColor3ub(0, 255, 0);
+	//glBatch->glVertex3f(0.0f, 0.0f, (start + end) / 2.0f);
+	//glBatch->glVertex3f(0.0f, end, 0);
+
+	ModelInfo modelInfo;
+	modelInfo.SetVertexBuffer(glBatch->GetVertexBuffer(), glBatch->GetVertexBufferSize());
+	modelInfo.SetColorBuffer(glBatch->GetColorBuffer(), glBatch->GetColorBufferSize());
+	_axisRenderer = new GLMeshRenderer(&modelInfo, GLMeshRenderer::COLOR_SHADER);
+	_axisRenderer->SetPrimitiveType(GLMeshRenderer::lines);
+	_axisRenderer->SetAlpha(0.7);
+
+	delete glBatch;
 }
 
 bool Floor::IsVisible()
@@ -165,24 +260,47 @@ void Floor::Draw()
 	{
 		float lineWidth = GLState::GLLineWidth(1.0f);
 		GLboolean blend = GLState::GLEnable(GL_BLEND, true);
+		GLboolean depth = GLState::GLEnable(GL_DEPTH_TEST, true);
+		GLboolean culling = GLState::GLEnable(GL_CULL_FACE, false);
 
-		if (_axisVisible)
+		GLState::GLEnable(GL_DEPTH_TEST, false);
+
+		//if (_gridVisible && _gridRenderer)
+		//{
+		//	_gridRenderer->Draw();
+		//}
+
+		if (_gridVisible && _gridRectRenderer)
 		{
-			GLState::GLLineWidth(2.0f);
-			_axisRenderer->Draw();
+			_gridRectRenderer->Draw();
 		}
 
-		if (_gridLinesVisible)
+		if (_smallGridLinesRenderer)
+		{
+			GLState::GLLineWidth(1.0f);
+			_smallGridLinesRenderer->Draw();
+		}
+
+		if (_gridLinesVisible && _gridLinesRenderer)
 		{
 			GLState::GLLineWidth(1.0f);
 			_gridLinesRenderer->Draw();
 		}
 
-		if (_gridVisible)
+		if (_bigGridLinesRenderer)
 		{
-			_gridRenderer->Draw();
+			GLState::GLLineWidth(1.0f);
+			_bigGridLinesRenderer->Draw();
 		}
 
+		if (_axisVisible && _axisRenderer)
+		{
+			GLState::GLLineWidth(2.0f);
+			_axisRenderer->Draw();
+		}
+
+		GLState::GLEnable(GL_CULL_FACE, culling);
+		GLState::GLEnable(GL_DEPTH_TEST, depth);
 		GLState::GLLineWidth(lineWidth);
 		GLState::GLEnable(GL_BLEND, blend);
 	}
@@ -193,18 +311,18 @@ Floor::~Floor()
 	if (_axisRenderer)
 	{
 		delete _axisRenderer;
-		_axisRenderer = NULL;
+		_axisRenderer = nullptr;
 	}
 
 	if (_gridRenderer)
 	{
 		delete _gridRenderer;
-		_gridRenderer = NULL;
+		_gridRenderer = nullptr;
 	}
 
 	if (_gridLinesRenderer)
 	{
 		delete _gridLinesRenderer;
-		_gridLinesRenderer = NULL;
+		_gridLinesRenderer = nullptr;
 	}
 }

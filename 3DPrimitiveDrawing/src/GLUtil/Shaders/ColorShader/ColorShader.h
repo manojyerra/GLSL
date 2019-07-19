@@ -22,13 +22,12 @@ public:
 
 	void SetVertexBufferID(unsigned int bufferID);
 	void SetColorBufferID(unsigned int bufferID);
-	void SetModelMatrix(float* mat);
 
-	void SetAlpha(float alpha);
-
-	void Begin();
-	void SetUniformsAndAttributes();
-	void End();
+	void SetAlpha(float alpha) override;
+	void SetModelMatrix(float* mat) override;
+	void Begin() override;
+	void SetUniformsAndAttributes() override;
+	void End() override;
 };
 
 #endif

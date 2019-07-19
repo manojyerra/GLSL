@@ -21,13 +21,13 @@ public:
 	~BasicShader();
 
 	void SetVertexBufferID(unsigned int bufferID);
-	void SetModelMatrix(float* mat);
-	void SetColor(glm::vec3& color);
-	void SetAlpha(float alpha);
+	void SetColor(glm::vec3 color);
 
-	void Begin();
-	void SetUniformsAndAttributes();
-	void End();
+	void SetModelMatrix(float* mat) override;
+	void SetAlpha(float alpha) override;
+	void Begin() override;
+	void SetUniformsAndAttributes() override;
+	void End() override;
 };
 
 #endif

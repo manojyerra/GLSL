@@ -52,8 +52,6 @@ public:
 
 	void SetVertexBufferID(unsigned int bufferID);
 	void SetNormalBufferID(unsigned int bufferID);
-	void SetModelMatrix(float* mat);
-	void SetAlpha(float alpha);
 	void SetAlbedo(glm::vec3& albedo);
 	void SetMetallic(float metallic);
 	void SetRoughness(float roughness);
@@ -67,9 +65,11 @@ public:
 	void AddLight(string lightName, LightInfo lightInfo);
 	void RemoveLight(string lightName);
 
-	void Begin();
-	void SetUniformsAndAttributes();
-	void End();
+	void SetModelMatrix(float* mat) override;
+	void SetAlpha(float alpha) override;
+	void Begin() override;
+	void SetUniformsAndAttributes() override;
+	void End() override;
 };
 
 #endif

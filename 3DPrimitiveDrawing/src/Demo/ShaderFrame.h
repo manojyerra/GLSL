@@ -78,6 +78,8 @@ private:
 	SUITextField* _albedoB;
 	SUISlider* _metalic;
 	SUISlider* _roughness;
+	SUISlider* _albedoSlider;
+	float _albedoSliderPrevValue;
 
 	SUIBox* SetShaderTypeBox();
 	SUIBox* SetPropertyBox();

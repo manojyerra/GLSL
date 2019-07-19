@@ -14,9 +14,19 @@ private:
 	
 	GLMat _modelMat;
 
-	GLMeshRenderer* _axisRenderer;
 	GLMeshRenderer* _gridRenderer;
+	GLMeshRenderer* _gridRectRenderer;
+	GLMeshRenderer* _smallGridLinesRenderer;
 	GLMeshRenderer* _gridLinesRenderer;
+	GLMeshRenderer* _bigGridLinesRenderer;
+	GLMeshRenderer* _axisRenderer;
+
+	void GenerateGrid(float start, float end, float gap);
+	void GenerateGridRect(float start, float end);
+	void GenerateSmallGridLines(float start, float end, float gap);
+	void GenerateGridLines(float start, float end, float gap);
+	void GenerateBigGridLines(float start, float end, float gap);
+	void GenerateAxis(float start, float end);
 
 public:
 	Floor();

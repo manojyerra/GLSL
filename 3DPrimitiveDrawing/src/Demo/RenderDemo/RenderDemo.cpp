@@ -9,7 +9,7 @@ RenderDemo::RenderDemo(int sw, int sh)
 
 	_floor = new Floor();
 
-	_numModels = 1;
+	_numModels = 3;
 	_selectedModel = nullptr;
 
 	GLMeshRenderer* meshRenderer1 = nullptr;
@@ -18,13 +18,13 @@ RenderDemo::RenderDemo(int sw, int sh)
 	GLMeshRenderer* meshRenderer4 = nullptr;
 	GLMeshRenderer* meshRenderer5 = nullptr;
 
-	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/teapot"), GLMeshRenderer::PBR_SHADER);
+	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/demo/CarBIW"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 2) meshRenderer2 = new GLMeshRenderer(&ObjReader("data/demo/Trike"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 3) meshRenderer3 = new GLMeshRenderer(&ObjReader("data/demo/Truck"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 4) meshRenderer4 = new GLMeshRenderer(&ObjReader("data/teapot"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 5) meshRenderer5 = new GLMeshRenderer(&ObjReader("data/teapot"), GLMeshRenderer::PBR_SHADER);
 
-	//if (meshRenderer1) meshRenderer1->SetPos(-4.0f, -3.0f, 1.5f);
+	if (meshRenderer1) meshRenderer1->SetPos(-4.0f, -3.0f, 1.5f);
 	if (meshRenderer2) meshRenderer2->SetPos(-8.0f, 0.0f, 0.0f);
 	if (meshRenderer3) meshRenderer3->SetPos(2.0f, -3.0f, 2.0f);
 	if (meshRenderer4) meshRenderer4->SetPos(-12.0f, 0.0f, 0.0f);
@@ -72,8 +72,8 @@ void RenderDemo::SetScreenSize(int sw, int sh)
 void RenderDemo::Draw()
 {
 	glEnable(GL_CULL_FACE);
-
-	glClearColor(128.0f / 255.0f, 128.0f / 255.0f, 128.0f / 255.0f, 1.0f);
+	float clearValue = 110.0f/255.0f;
+	glClearColor(clearValue, clearValue, clearValue, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glViewport(0, 0, _sw, _sh);
 	glEnable(GL_DEPTH_TEST);

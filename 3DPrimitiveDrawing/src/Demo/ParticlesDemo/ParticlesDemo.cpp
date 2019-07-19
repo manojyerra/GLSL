@@ -36,6 +36,8 @@ void ParticlesDemo::Draw()
 {
 	glDisable(GL_CULL_FACE);
 
+	float clearValue = 110.0f / 255.0f;
+
 	Cam::GetInstance()->SetPerspectiveProjection();
 	Cam::GetInstance()->SetViewMatrix();
 	Cam::GetInstance()->UpdateCamera();
@@ -43,7 +45,7 @@ void ParticlesDemo::Draw()
 	if (Cam::GetInstance()->IsCameraUpdated())
 	{
 		glEnable(GL_DEPTH_TEST);
-		glClearColor(128.0f / 255.0f, 128.0f / 255.0f, 128.0f / 255.0f, 1.0f);
+		glClearColor(clearValue, clearValue, clearValue, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glViewport(0, 0, _sw, _sh);
 
@@ -62,7 +64,7 @@ void ParticlesDemo::Draw()
 		{
 			_fbo->BindFBO();
 
-			glClearColor(128.0f / 255.0f, 128.0f / 255.0f, 128.0f / 255.0f, 1.0f);
+			glClearColor(clearValue, clearValue, clearValue, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
 
@@ -77,7 +79,7 @@ void ParticlesDemo::Draw()
 			_drawAllParticles = false;
 		}
 
-		glClearColor(128.0f / 255.0f, 128.0f / 255.0f, 128.0f / 255.0f, 1.0f);
+		glClearColor(clearValue, clearValue, clearValue, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glViewport(0, 0, _sw, _sh);
 		glDisable(GL_DEPTH_TEST);

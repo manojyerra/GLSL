@@ -28,7 +28,7 @@ GameLoop::GameLoop(int sw, int sh)
 	Cam::GetInstance()->Init(_sw, _sh, _zNear, _zFar, _zNearPlaneW);
 	Cam2D::GetInstance()->Init(_sw, _sh);
 
-	_particleDemo = new ParticlesDemo(_sw, _sh);
+	_particleDemo = nullptr; //new ParticlesDemo(_sw, _sh);
 	_rendererDemo = new RenderDemo(_sw, _sh);
 
 	_windowFrame = new WholeWindowFrame(_sw - 300, 0.0f, 300, 130.0f, this);

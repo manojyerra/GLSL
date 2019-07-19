@@ -60,7 +60,10 @@ public:
 	void SetShader(int shaderType);
 	Shader* GetShader(int shaderType);
 	Shader* GetCurrentShader();
+
 	void SetPrimitiveType(int primitiveType);
+	void SetAlpha(float alpha);
+
 	void Draw();
 };
 

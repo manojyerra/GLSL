@@ -25,15 +25,13 @@ public:
 	void SetVertexBufferID(unsigned int bufferID);
 	void SetUVBufferID(unsigned int bufferID);
 	void SetTextureID(unsigned int textureID);
-	void SetModelMatrix(float* mat);
-	void SetAlpha(float alpha);
-
 	void Set2DCamera(bool enable);
 
-
-	void Begin();
-	void SetUniformsAndAttributes();
-	void End();
+	void SetModelMatrix(float* mat) override;
+	void SetAlpha(float alpha) override;
+	void Begin() override;
+	void SetUniformsAndAttributes() override;
+	void End() override;
 };
 
 #endif

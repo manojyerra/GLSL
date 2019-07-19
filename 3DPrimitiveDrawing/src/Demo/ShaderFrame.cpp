@@ -11,6 +11,8 @@ ShaderFrame::ShaderFrame(int x, int y, int w, int h, SUIActionListener* renderDe
 	_albedoB = nullptr;
 	_metalic = nullptr;
 	_roughness = nullptr;
+	_albedoSlider = nullptr;
+	_albedoSliderPrevValue = 0.5f;
 
 	numLightBoxes = 7;
 
@@ -169,11 +171,14 @@ SUIBox* ShaderFrame::SetMetalPropertyBox() {
 
 	_metalic = new SUISlider("Metalic", 0, 1, false, this);
 	_roughness = new SUISlider("Roughness", 0, 1, false, this);
+	_albedoSlider = new SUISlider("Tweak", 0, 1, false, this);
+	_albedoSlider->SetPointerAt(50);
 
 	metalPropertypBox->AddRadioButton(_materialType);
 	metalPropertypBox->AddBox(albedoValuepBox);
 	metalPropertypBox->AddSlider(_metalic);
 	metalPropertypBox->AddSlider(_roughness);
+	metalPropertypBox->AddSlider(_albedoSlider);
 	metalPropertypBox->SetOnOffEnable(true);
 	metalPropertypBox->SetBgVisible(true);
 
@@ -248,6 +253,8 @@ void ShaderFrame::actionPerformed(SUIActionEvent e) {
 
 		_metalic->SetValue(metallic);
 		_roughness->SetValue(roughness);
+		_albedoSlider->SetPointerAt(50);
+		_albedoSliderPrevValue = 0.5f;
 	}
 	else if (com == _albedoR || com == _albedoG || com == _albedoB)
 	{
@@ -259,6 +266,22 @@ void ShaderFrame::actionPerformed(SUIActionEvent e) {
 	}
 	else if (com == _roughness) {
 		pbrShader->SetRoughness(_roughness->GetValue());
+	}
+	else if (com == _albedoSlider)
+	{
+		if (_albedoSlider->GetValue() > 0.001)
+		{
+			float factor = _albedoSlider->GetValue() / _albedoSliderPrevValue;
+
+			glm::vec3 newAlbedo = glm::vec3(_albedoR->GetDouble()*factor, _albedoG->GetDouble()*factor, _albedoB->GetDouble()*factor);
+
+			pbrShader->SetAlbedo(newAlbedo);
+			_albedoR->SetDouble(newAlbedo.r, 4);
+			_albedoG->SetDouble(newAlbedo.g, 4);
+			_albedoB->SetDouble(newAlbedo.b, 4);
+
+			_albedoSliderPrevValue = _albedoSlider->GetValue();
+		}
 	}
 	else
 	{

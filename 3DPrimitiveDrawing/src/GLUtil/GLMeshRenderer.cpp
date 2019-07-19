@@ -148,10 +148,14 @@ Shader* GLMeshRenderer::GetCurrentShader()
 	return _shader;
 }
 
-
 void GLMeshRenderer::SetPrimitiveType(int primitiveType)
 {
 	_primitiveType = primitiveType;
+}
+
+void GLMeshRenderer::SetAlpha(float alpha)
+{
+	_shader->SetAlpha(alpha);
 }
 
 void GLMeshRenderer::Draw()

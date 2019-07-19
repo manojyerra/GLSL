@@ -54,11 +54,11 @@ public:
 	void SetDiffuseColor(float r, float g, float b, float a);
 	void SetSpecularColor(float r, float g, float b, float a);
 	void SetShininess(float shininess);
-	void SetAlpha(float alpha);
 
-	void Begin();
-	void SetUniformsAndAttributes();
-	void End();
+	void SetAlpha(float alpha) override;
+	void Begin() override;
+	void SetUniformsAndAttributes() override;
+	void End() override;
 };
 
 #endif
