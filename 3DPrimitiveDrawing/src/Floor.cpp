@@ -8,7 +8,7 @@
 Floor::Floor()
 {
 	_visible = true;
-	_gridVisible = false;
+	_gridVisible = true;
 	_axisVisible = true;
 	_gridLinesVisible = true;
 	_smallGridLinesVisible = true;
@@ -297,7 +297,7 @@ void Floor::Draw()
 		GLState::GLEnable(GL_LINE_SMOOTH, true);
 		float lineWidth = GLState::GLLineWidth(1.0f);
 		GLboolean blend = GLState::GLEnable(GL_BLEND, true);
-		GLboolean depth = GLState::GLEnable(GL_DEPTH_TEST, false);
+		GLboolean depth = GLState::GLEnable(GL_DEPTH_TEST, true);
 		GLboolean culling = GLState::GLEnable(GL_CULL_FACE, false);
 
 		if (_gridVisible)
@@ -313,6 +313,8 @@ void Floor::Draw()
 					_gridRenderer->Draw();
 			}
 		}
+
+		GLState::GLEnable(GL_DEPTH_TEST, false);
 
 		if (_smallGridLinesVisible && _smallGridLinesRenderer)
 		{

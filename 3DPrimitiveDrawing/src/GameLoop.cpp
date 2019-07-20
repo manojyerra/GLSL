@@ -67,6 +67,8 @@ void GameLoop::actionPerformed(SUIActionEvent e)
 			Cam::GetInstance()->SetTrans(glm::vec3(-0.095, -0.78, -4.94f));
 			Cam::GetInstance()->SetRot(glm::vec3(31.0f, -35.0f, 0));
 			Cam::GetInstance()->UpdateCamera();
+
+			_particleDemo->Reset();
 		}
 	}
 	else if (com == _windowFrame->isSSAO) 

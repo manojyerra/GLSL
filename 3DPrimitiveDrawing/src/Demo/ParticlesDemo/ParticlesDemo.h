@@ -29,7 +29,7 @@ public:
 	~ParticlesDemo();
 	void SetScreenSize(int sw, int sh);
 	void SetFloorVisible(bool visible);
-
+	void Reset();
 	void Draw();
 };
 

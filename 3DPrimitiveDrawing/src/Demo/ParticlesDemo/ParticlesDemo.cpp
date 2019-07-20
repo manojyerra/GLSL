@@ -118,6 +118,13 @@ void ParticlesDemo::SetScreenSize(int sw, int sh)
 void ParticlesDemo::SetFloorVisible(bool visible)
 {
 	_floor->SetVisible(visible);
+	_drawAllParticles = true;
+}
+
+void ParticlesDemo::Reset()
+{
+	_drawAllParticles = true;
+	_floor->SetVisible(true);
 }
 
 ParticlesDemo::~ParticlesDemo()
