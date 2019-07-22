@@ -63,6 +63,8 @@ int main(void)
 		double currentTime = glfwGetTime();
 		double deltaTime = currentTime - previousTime;
 
+		//Sleep(1);
+
 		if(deltaTime > 0.5)
 		{
 			frameCount = (unsigned int)(frameCount*1.0 / deltaTime);

@@ -1,19 +1,21 @@
 #version 450
 
 const float PI = 3.14159265359;
+const int MAX_LIGHTS = 8;
 
 layout (location = 0) in vec4 viewPosition;
 layout (location = 1) in vec3 viewNormal;
 layout (location = 2) in vec2 uvVary;
 
-uniform sampler2D textureID;
-uniform vec3 direction;
-uniform vec3 color;
+uniform vec3 lightDir[MAX_LIGHTS];
+uniform vec3 lightCol[MAX_LIGHTS];
+uniform int numLights;
 
 uniform vec3 albedo;
 uniform float metallic;
 uniform float roughness;
 uniform float alpha;
+uniform sampler2D textureID;
 
 layout (location = 0) out vec4 outColor;
 
@@ -50,39 +52,52 @@ vec3 fresnelSchlick(float cosTheta, vec3 f0)
 
 void main()
 {
-	vec3 normal = normalize(viewNormal);
-	vec3 viewDir = normalize(-viewPosition.xyz);
-	vec3 f0 = vec3(0.04);
-	f0 = mix(f0, albedo, metallic);
 	vec3 lo = vec3(0.0);
+	vec3 alb = texture2D(textureID, uvVary).rgb;
 
-	vec3 lightDir = normalize(-direction.xyz);
-	vec3 halfDir = normalize(lightDir + viewDir);
-	float hdotv = max(dot(halfDir, viewDir), 0.0);
-	float ndotl = max(dot(normal, lightDir), 0.0);
-	float ndotv = max(dot(normal, viewDir), 0.0);
-	float ndoth = max(dot(normal, halfDir), 0.0);
+	for(int i=0; i<numLights && i<MAX_LIGHTS; i++)
+	{
+		vec4 dir = vec4(lightDir[i], 1.0);
+		vec4 col = vec4(lightCol[i], 1.0);
+		
+		dir = normalize(dir);
 
-	float ndf = distributionGGX(ndoth, roughness);
-	float g = geometrySmith(ndotv, ndotl, roughness);
-	vec3 f = fresnelSchlick(hdotv, f0);
+		vec3 normal = normalize(viewNormal);
+		vec3 viewDir = normalize(-viewPosition.xyz);
+		vec3 f0 = vec3(0.04);
+		f0 = mix(f0, alb, metallic);
 
-	vec3 kS = f;
-	vec3 kD = vec3(1.0) - kS;
-	kD *= 1.0 - metallic;
+		vec3 lightDir = normalize(-dir.xyz);
+		vec3 halfDir = normalize(lightDir + viewDir);
+		float hdotv = max(dot(halfDir, viewDir), 0.0);
+		float ndotl = max(dot(normal, lightDir), 0.0);
+		float ndotv = max(dot(normal, viewDir), 0.0);
+		float ndoth = max(dot(normal, halfDir), 0.0);
 
-	vec3 nominator = ndf * g * f;
-	float denominator = 4 * ndotv * ndotl + 0.00001;
-	vec3 specular = nominator / denominator;
+		float ndf = distributionGGX(ndoth, roughness);
+		float g = geometrySmith(ndotv, ndotl, roughness);
+		vec3 f = fresnelSchlick(hdotv, f0);
 
-	lo += (kD * albedo / PI + specular) * color.rgb * ndotl;
-	vec3 ambient = vec3(0.03) * albedo;
+		vec3 kS = f;
+		vec3 kD = vec3(1.0) - kS;
+		kD *= 1.0 - metallic;
+
+		vec3 nominator = ndf * g * f;
+		float denominator = 4 * ndotv * ndotl + 0.00001;
+		vec3 specular = nominator / denominator;
+
+		lo += (kD * alb / PI + specular) * col.rgb * ndotl;
+	}
+
+	vec3 ambient = vec3(0.03);
 	vec3 finalColor = lo + ambient;
 
 	finalColor = finalColor / (finalColor + vec3(1.0));
-    finalColor = pow(finalColor, vec3(1.0/2.2)); 
+    finalColor = pow(finalColor, vec3(1.0/2.2));  
+
+	outColor = vec4(finalColor, alpha);
 	
-	vec3 colorWithTex = finalColor.rgb + texture2D(textureID, uvVary).rgb;
-	outColor = vec4(colorWithTex, alpha);
+	//vec3 colorWithTex = finalColor.rgb + texture2D(textureID, uvVary).rgb;
+	//outColor = vec4(colorWithTex, alpha);
 }
 
