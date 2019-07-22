@@ -1,20 +1,17 @@
-#ifndef PhongShader_H
-#define PhongShader_H
+#ifndef PhongWithTextureShader_H
+#define PhongWithTextureShader_H
 
 #include "ShaderProgram.h"
 #include "GLMat.h"
 #include "Shader.h"
 
-#include <vector>
-#include <string>
-using namespace std;
-
-
-class PhongShader : public Shader
+class PhongWithTextureShader : public Shader
 {
 private:
 	unsigned int _vertexBufferID;
 	unsigned int _normalBufferID;
+	unsigned int _uvBufferID;
+	unsigned int _baseTexID;
 
 	glm::vec3 lightPos;
 	float _Ka[4];
@@ -36,13 +33,15 @@ public:
 	static const int PER_PIXEL_SHADER = 1;
 	static const int PER_VERTEX_SHADER = 2;
 
-	PhongShader(int shaderType);
-	~PhongShader();
+	PhongWithTextureShader(int shaderType);
+	~PhongWithTextureShader();
 
 	void SetShaderType(int shaderType);
 
 	void SetVertexBufferID(unsigned int bufferID);
 	void SetNormalBufferID(unsigned int bufferID);
+	void SetUVBufferID(unsigned int bufferID);
+	void SetBaseTexID(unsigned int texID);
 	void SetModelMatrix(float* mat);
 
 	void SetLightPos(float x, float y, float z);

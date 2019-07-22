@@ -70,6 +70,7 @@
     <ClCompile Include="src\Common\Utils\RandomColor.cpp" />
     <ClCompile Include="src\Common\Utils\ScanLineUtils.cpp" />
     <ClCompile Include="src\Common\Utils\StringUtils.cpp" />
+    <ClCompile Include="src\Demo\FloorVisibilityFrame.cpp" />
     <ClCompile Include="src\Demo\ModelSelectionFrame.cpp" />
     <ClCompile Include="src\Demo\ModelVisibilityFrame.cpp" />
     <ClCompile Include="src\Demo\ParticlesDemo\ParticlesDemo.cpp" />
@@ -93,7 +94,9 @@
     <ClCompile Include="src\GLUtil\Shaders\BasicShader\BasicShader.cpp" />
     <ClCompile Include="src\GLUtil\Shaders\ColorShader\ColorShader.cpp" />
     <ClCompile Include="src\GLUtil\Shaders\PBRShader\PBRShader.cpp" />
+    <ClCompile Include="src\GLUtil\Shaders\PBRWithTextureShader\PBRWithTextureShader.cpp" />
     <ClCompile Include="src\GLUtil\Shaders\PhongShader\PhongShader.cpp" />
+    <ClCompile Include="src\GLUtil\Shaders\PhongWithTextureShader\PhongWithTextureShader.cpp" />
     <ClCompile Include="src\GLUtil\Shaders\UVShader\UVShader.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\IO\ParticleLoader.cpp" />
@@ -161,6 +164,7 @@
     <ClInclude Include="src\Common\Utils\RandomColor.h" />
     <ClInclude Include="src\Common\Utils\ScanLineUtils.h" />
     <ClInclude Include="src\Common\Utils\StringUtils.h" />
+    <ClInclude Include="src\Demo\FloorVisibilityFrame.h" />
     <ClInclude Include="src\Demo\ModelSelectionFrame.h" />
     <ClInclude Include="src\Demo\ModelVisibilityFrame.h" />
     <ClInclude Include="src\Demo\ParticlesDemo\ParticlesDemo.h" />
@@ -184,7 +188,9 @@
     <ClInclude Include="src\GLUtil\Shaders\BasicShader\BasicShader.h" />
     <ClInclude Include="src\GLUtil\Shaders\ColorShader\ColorShader.h" />
     <ClInclude Include="src\GLUtil\Shaders\PBRShader\PBRShader.h" />
+    <ClInclude Include="src\GLUtil\Shaders\PBRWithTextureShader\PBRWithTextureShader.h" />
     <ClInclude Include="src\GLUtil\Shaders\PhongShader\PhongShader.h" />
+    <ClInclude Include="src\GLUtil\Shaders\PhongWithTextureShader\PhongWithTextureShader.h" />
     <ClInclude Include="src\GLUtil\Shaders\Shader.h" />
     <ClInclude Include="src\GLUtil\Shaders\UVShader\UVShader.h" />
     <ClInclude Include="src\Input.h" />
@@ -292,7 +298,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/GLUtil/ShaderProgram;src/IO;src/IO/Model3D;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/Arrays;src/Common/IO/ModelIO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PhongShader;src/Common/Utils;src/SUI;src/Demo;src/Demo/ParticlesDemo;src/Demo/RenderDemo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/GLUtil/ShaderProgram;src/IO;src/IO/Model3D;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/Arrays;src/Common/IO/ModelIO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PBRWithTextureShader;src/GLUtil/Shaders/PhongShader;src/GLUtil/Shaders/PhongWithTextureShader;src/Common/Utils;src/SUI;src/Demo;src/Demo/ParticlesDemo;src/Demo/RenderDemo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>

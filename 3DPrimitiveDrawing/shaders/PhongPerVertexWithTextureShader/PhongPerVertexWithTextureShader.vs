@@ -12,8 +12,11 @@ uniform float shininess;
 
 layout (location = 0) in vec4 vertex;
 layout (location = 1) in vec3 normal;
+layout (location = 2) in vec2 uv;
 
 layout (location = 0) out vec4 fragColor;
+layout (location = 1) out vec2 uv_vary;
+
 
 void CalcFragColor(vec3 V, vec3 N)
 {
@@ -25,7 +28,7 @@ void CalcFragColor(vec3 V, vec3 N)
 	vec4 Idiff = diffuse * max(dot(N,L), 0.0);
 	vec4 Ispec = specular * pow(max(dot(R,E),0.0), shininess*0.3);
 
-	fragColor =  Iamb + Idiff; //+ Ispec;
+	fragColor =  Iamb + Idiff; //+ Ispec;	
 }
 
 void main(void)
@@ -34,6 +37,7 @@ void main(void)
 	vec3 N1 = normalize( normalMat * normal );
 	
 	CalcFragColor(V1, N1);
+	uv_vary = uv;
 
 	gl_Position = mvp * vertex;
 }

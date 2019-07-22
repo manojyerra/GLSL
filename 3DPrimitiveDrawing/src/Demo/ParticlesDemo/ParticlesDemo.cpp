@@ -8,13 +8,13 @@ ParticlesDemo::ParticlesDemo(int sw, int sh)
 	_fbo = NULL;
 	_texture = NULL;
 
-	_numLoaders = 1;
+	_numLoaders = 3;
 	_particleLoaderVec.clear();
 
 	////
 
 	_fbo = new GLFBO(_sw, _sh);
-	_texture = new GLTexture("data/Sample.png", 0, 0, _sw, _sh);
+	_texture = new GLTexture("data/demo/Sample.png", 0, 0, _sw, _sh);
 	_texture->GetShader()->Set2DCamera(true);
 
 	_floor = new Floor();
@@ -25,8 +25,8 @@ ParticlesDemo::ParticlesDemo(int sw, int sh)
 	}
 
 	if (_particleLoaderVec.size() >= 2)	_particleLoaderVec[1]->SetPosition(2, 0, 0);
-	if (_particleLoaderVec.size() >= 3)	_particleLoaderVec[2]->SetPosition(4, 0, 0);
-	if (_particleLoaderVec.size() >= 4)	_particleLoaderVec[3]->SetPosition(-2, 0, 0);
+	if (_particleLoaderVec.size() >= 3)	_particleLoaderVec[2]->SetPosition(-2, 0, 0);
+	if (_particleLoaderVec.size() >= 4)	_particleLoaderVec[3]->SetPosition(4, 0, 0);
 	if (_particleLoaderVec.size() >= 5)	_particleLoaderVec[4]->SetPosition(-4, 0, 0);
 
 	_drawAllParticles = true;
@@ -119,6 +119,11 @@ void ParticlesDemo::SetFloorVisible(bool visible)
 {
 	_floor->SetVisible(visible);
 	_drawAllParticles = true;
+}
+
+Floor* ParticlesDemo::GetFloor()
+{
+	return _floor;
 }
 
 void ParticlesDemo::Reset()

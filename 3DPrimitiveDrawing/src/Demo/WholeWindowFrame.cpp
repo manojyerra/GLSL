@@ -22,13 +22,8 @@ WholeWindowFrame::WholeWindowFrame(int x, int y, int w, int h, SUIActionListener
 	isSSAO->SetBgVisible(true);
 	isSSAO->AddActionListener(action_listener);
 
-	floorSelection = new SUICheckBox("Hide Floor", SUICheckBox::LEFT);
-	floorSelection->SetBgVisible(true);
-	floorSelection->AddActionListener(action_listener);
-
 	demoSelectionBox->AddRadioButton(demoType);
 	demoSelectionBox->AddCheckBox(isSSAO);
-	demoSelectionBox->AddCheckBox(floorSelection);
 	demoSelectionBox->SetBgVisible(true);
 	demoSelectionBox->SetBgColor(64, 64, 64, 255);
 

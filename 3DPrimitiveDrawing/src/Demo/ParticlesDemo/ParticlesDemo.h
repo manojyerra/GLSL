@@ -29,6 +29,7 @@ public:
 	~ParticlesDemo();
 	void SetScreenSize(int sw, int sh);
 	void SetFloorVisible(bool visible);
+	Floor* GetFloor();
 	void Reset();
 	void Draw();
 };

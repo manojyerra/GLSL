@@ -11,7 +11,7 @@
 #include "RenderDemo.h"
 #include "WholeWindowFrame.h"
 #include "SUIActionListener.h"
-
+#include "FloorVisibilityFrame.h"
 
 class GameLoop : public SUIActionListener
 {
@@ -33,6 +33,7 @@ private:
 	RenderDemo* _rendererDemo;
 
 	WholeWindowFrame* _windowFrame;
+	FloorVisibilityFrame*_floorFrame;
 
 	void GLSettings();
 

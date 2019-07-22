@@ -4,6 +4,17 @@
 
 PBRShader::PBRShader()
 {
+	CommonInit("shaders/PBR_ML/PBR_ML.vs",
+		"shaders/PBR_ML/PBR_ML.fs");
+}
+
+PBRShader::PBRShader(string vertexShaderPath, string fragmentShaderPath)
+{
+	CommonInit(vertexShaderPath, fragmentShaderPath);
+}
+
+void PBRShader::CommonInit(string vertexShaderPath, string fragmentShaderPath)
+{
 	_shaderProgram = nullptr;
 
 	_vertexBufferID = 0;
@@ -21,13 +32,12 @@ PBRShader::PBRShader()
 	_lightMap.insert({ "3", lightInfo4 });
 	_lightMap.insert({ "4", lightInfo5 });
 
-	_albedo = glm::vec3(0.95, 0.93, 0.88);
-	_metallic = 0.9f;
+	_albedo = glm::vec3(0.08, 0.08, 0.08);
+	_metallic = 1.0f;
 	_roughness = 0.3f;
 	_alpha = 1.0f;
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/PBR_ML/PBR_ML.vs",
-																		"shaders/PBR_ML/PBR_ML.fs");
+	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram(vertexShaderPath, fragmentShaderPath);
 }
 
 void PBRShader::SetVertexBufferID(unsigned int bufferID)

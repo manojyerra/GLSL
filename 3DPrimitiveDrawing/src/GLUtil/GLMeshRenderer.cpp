@@ -18,7 +18,9 @@ GLMeshRenderer::GLMeshRenderer(ModelInfo* meshCreateInfo, int shaderType)
 	_colorShader = NULL;
 	_phongPerVertexShader = NULL;
 	_phongPerPixelShader = NULL;
+	_phongWithTexPerVertexShader = NULL;
 	_pbrShader = NULL;
+	_pbrWithTextureShader = NULL;
 	_shader = NULL;
 
 	_shaderType = shaderType;
@@ -100,6 +102,32 @@ void GLMeshRenderer::SetShader(int shaderType)
 
 		_shader = _phongPerPixelShader;
 	}
+	else if (_shaderType == PHONG_WITH_TEXTURE_PER_VERTEX_SHADER)
+	{
+		if (!_phongWithTexPerVertexShader)
+		{
+			_phongWithTexPerVertexShader = new PhongWithTextureShader(PhongWithTextureShader::PER_VERTEX_SHADER);
+			_phongWithTexPerVertexShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
+			_phongWithTexPerVertexShader->SetNormalBufferID(_meshBuilder->GetNormalBufferID());
+			_phongWithTexPerVertexShader->SetUVBufferID(_meshBuilder->GetUVBufferID());
+			_phongWithTexPerVertexShader->SetBaseTexID(_meshBuilder->GetBaseTexID());
+		}
+
+		_shader = _phongWithTexPerVertexShader;
+	}
+	else if (_shaderType == PHONG_WITH_TEXTURE_PER_PIXEL_SHADER)
+	{
+		if (!_phongWithTexPerPixelShader)
+		{
+			_phongWithTexPerPixelShader = new PhongWithTextureShader(PhongWithTextureShader::PER_PIXEL_SHADER);
+			_phongWithTexPerPixelShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
+			_phongWithTexPerPixelShader->SetNormalBufferID(_meshBuilder->GetNormalBufferID());
+			_phongWithTexPerPixelShader->SetUVBufferID(_meshBuilder->GetUVBufferID());
+			_phongWithTexPerPixelShader->SetBaseTexID(_meshBuilder->GetBaseTexID());
+		}
+
+		_shader = _phongWithTexPerPixelShader;
+	}
 	else if (_shaderType == PBR_SHADER)
 	{
 		if (!_pbrShader)
@@ -111,6 +139,21 @@ void GLMeshRenderer::SetShader(int shaderType)
 
 		_shader = _pbrShader;
 	}
+	else if (_shaderType == PBR_WITH_TEXTURE_SHADER)
+	{
+		if (!_pbrWithTextureShader)
+		{
+			_pbrWithTextureShader = new PBRWithTextureShader();
+			_pbrWithTextureShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
+			_pbrWithTextureShader->SetNormalBufferID(_meshBuilder->GetNormalBufferID());
+			_pbrWithTextureShader->SetUVBufferID(_meshBuilder->GetUVBufferID());
+			_pbrWithTextureShader->SetBaseTexID(_meshBuilder->GetBaseTexID());
+		}
+
+		_shader = _pbrWithTextureShader;
+	}
+
+	
 }
 
 Shader* GLMeshRenderer::GetShader(int shaderType)
@@ -138,6 +181,10 @@ Shader* GLMeshRenderer::GetShader(int shaderType)
 	else if (_shaderType == PBR_SHADER)
 	{
 		return _pbrShader;
+	}
+	else if (_shaderType == PBR_WITH_TEXTURE_SHADER)
+	{
+		return _pbrWithTextureShader;
 	}
 
 	return NULL;
@@ -208,9 +255,27 @@ GLMeshRenderer::~GLMeshRenderer()
 		_phongPerPixelShader = NULL;
 	}
 
+	if (_phongWithTexPerVertexShader)
+	{
+		delete _phongWithTexPerVertexShader;
+		_phongWithTexPerVertexShader = NULL;
+	}
+
+	if (_phongWithTexPerPixelShader)
+	{
+		delete _phongWithTexPerPixelShader;
+		_phongWithTexPerPixelShader = NULL;
+	}
+
 	if (_pbrShader)
 	{
 		delete _pbrShader;
 		_pbrShader = NULL;
+	}
+
+	if (_pbrWithTextureShader)
+	{
+		delete _pbrWithTextureShader;
+		_pbrWithTextureShader = NULL;
 	}
 }

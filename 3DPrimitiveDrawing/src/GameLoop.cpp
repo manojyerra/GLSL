@@ -32,6 +32,7 @@ GameLoop::GameLoop(int sw, int sh)
 	_rendererDemo = new RenderDemo(_sw, _sh);
 
 	_windowFrame = new WholeWindowFrame(_sw - 300, 0.0f, 300, 150.0f, this);
+	_floorFrame = new FloorVisibilityFrame(_sw - 300, 555, 300, 100, this);
 }
 
 void GameLoop::GLSettings()
@@ -55,6 +56,7 @@ void GameLoop::actionPerformed(SUIActionEvent e)
 		int index = _windowFrame->demoType->GetSelectedIndex();
 		
 		_rendererDemo->SetVisibleFrames(index == 0);
+		_floorFrame->SetVisible(index == 0);
 
 		if(index == 0)
 		{
@@ -69,15 +71,16 @@ void GameLoop::actionPerformed(SUIActionEvent e)
 			Cam::GetInstance()->UpdateCamera();
 
 			_particleDemo->Reset();
+			
 		}
 	}
 	else if (com == _windowFrame->isSSAO) 
 	{
 		printf("SSAO enabled : %d", _windowFrame->isSSAO->IsSelected());
 	}
-	else if (com == _windowFrame->floorSelection)
+	else if (com == _floorFrame->hideFloor)
 	{
-		bool hideFloor = _windowFrame->floorSelection->IsSelected();
+		bool hideFloor = _floorFrame->hideFloor->IsSelected();
 
 		if (_windowFrame->GetDemoIndex() == 0)
 		{
@@ -88,6 +91,21 @@ void GameLoop::actionPerformed(SUIActionEvent e)
 		{
 			if (_particleDemo)
 				_particleDemo->SetFloorVisible(!hideFloor);
+		}
+	}
+	else if(com == _floorFrame->showOnlyGridLines)
+	{
+		bool showOnlyGridLines = _floorFrame->showOnlyGridLines->IsSelected();
+
+		if (_windowFrame->GetDemoIndex() == 0)
+		{
+			if (_rendererDemo)
+				_rendererDemo->GetFloor()->ShowOnlyGridLines(showOnlyGridLines);
+		}
+		else if (_windowFrame->GetDemoIndex() == 1)
+		{
+			if (_particleDemo)
+				_particleDemo->GetFloor()->ShowOnlyGridLines(showOnlyGridLines);
 		}
 	}
 }
@@ -128,6 +146,8 @@ void GameLoop::SetScreenSize(int sw, int sh)
 		_particleDemo->SetScreenSize(_sw, _sh);
 
 	_windowFrame->SetPos(_sw - _windowFrame->GetWidth(), 0);
+
+	_floorFrame->SetPos(_sw - _floorFrame->GetWidth(), 555);
 }
 
 GameLoop::~GameLoop()

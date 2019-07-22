@@ -28,7 +28,7 @@ public:
 
 class PBRShader : public Shader
 {
-private:
+protected:
 	unsigned int _vertexBufferID;
 	unsigned int _normalBufferID;
 
@@ -44,12 +44,11 @@ private:
 	GLMat _modelMat;
 
 public:
-	static const int PER_PIXEL_SHADER = 1;
-	static const int PER_VERTEX_SHADER = 2;
-
 	PBRShader();
-	~PBRShader();
+	PBRShader(string vertexShaderPath, string fragmentShaderPath);
+	virtual ~PBRShader();
 
+	void CommonInit(string vertexShaderPath, string fragmentShaderPath);
 	void SetVertexBufferID(unsigned int bufferID);
 	void SetNormalBufferID(unsigned int bufferID);
 	void SetAlbedo(glm::vec3& albedo);

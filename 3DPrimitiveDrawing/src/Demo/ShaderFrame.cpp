@@ -42,7 +42,7 @@ void ShaderFrame::SetPos(int x, int y) {
 void ShaderFrame::SetMeshRenderer(GLMeshRenderer* mesh)
 {
 	_mesh = mesh;
-
+	/*
 	PBRShader* pbrShader = (PBRShader*)_mesh->GetShader(GLMeshRenderer::PBR_SHADER);
 
 	glm::vec3 albedo = pbrShader->GetAlbedo();
@@ -99,6 +99,7 @@ void ShaderFrame::SetMeshRenderer(GLMeshRenderer* mesh)
 
 		count++;
 	}
+	*/
 }
 
 SUIBox* ShaderFrame::SetShaderTypeBox() {
@@ -143,15 +144,27 @@ SUIBox* ShaderFrame::SetMetalPropertyBox() {
 	metalPropertypBox->SetMargin(3, 3, 5, 0);
 	metalPropertypBox->SetName("Metal property", SUIBox::LEFT);
 	_materialType = new SUIRadioButton(SUIRadioButton::LEFT);
-	_materialType->AddCheckBox(new SUICheckBox("Plastic / Glass (Low)", SUICheckBox::LEFT));
-	_materialType->AddCheckBox(new SUICheckBox("Plastic High", SUICheckBox::LEFT));
-	_materialType->AddCheckBox(new SUICheckBox("Glass (high) / Ruby", SUICheckBox::LEFT));
-	_materialType->AddCheckBox(new SUICheckBox("Diamond", SUICheckBox::LEFT));
-	_materialType->AddCheckBox(new SUICheckBox("Iron", SUICheckBox::LEFT));
 	_materialType->AddCheckBox(new SUICheckBox("Copper", SUICheckBox::LEFT));
 	_materialType->AddCheckBox(new SUICheckBox("Gold", SUICheckBox::LEFT));
 	_materialType->AddCheckBox(new SUICheckBox("Aluminium", SUICheckBox::LEFT));
 	_materialType->AddCheckBox(new SUICheckBox("Silver", SUICheckBox::LEFT));
+	_materialType->AddCheckBox(new SUICheckBox("Glass (high) / Ruby", SUICheckBox::LEFT));
+	//_materialType->AddCheckBox(new SUICheckBox("Plastic / Glass (Low)", SUICheckBox::LEFT));
+	_materialType->AddCheckBox(new SUICheckBox("Plastic High", SUICheckBox::LEFT));
+	_materialType->AddCheckBox(new SUICheckBox("Diamond", SUICheckBox::LEFT));
+	_materialType->AddCheckBox(new SUICheckBox("Iron", SUICheckBox::LEFT));
+
+	_materialType->AddCheckBox(new SUICheckBox("Meterial1", SUICheckBox::LEFT));  
+	_materialType->AddCheckBox(new SUICheckBox("Meterial2", SUICheckBox::LEFT)); 
+	_materialType->AddCheckBox(new SUICheckBox("Meterial3", SUICheckBox::LEFT));
+	//_materialType->AddCheckBox(new SUICheckBox("Meterial4", SUICheckBox::LEFT));
+	_materialType->AddCheckBox(new SUICheckBox("Meterial5", SUICheckBox::LEFT));
+	_materialType->AddCheckBox(new SUICheckBox("Meterial6", SUICheckBox::LEFT));
+	_materialType->AddCheckBox(new SUICheckBox("Meterial7", SUICheckBox::LEFT));
+	_materialType->AddCheckBox(new SUICheckBox("Meterial8", SUICheckBox::LEFT));
+	_materialType->AddCheckBox(new SUICheckBox("Meterial9", SUICheckBox::LEFT));
+	_materialType->AddCheckBox(new SUICheckBox("Meterial10", SUICheckBox::LEFT));
+
 
 	_materialType->AddActionListener(this);
 	_materialType->SetName("Material", SUIChoice::LEFT);
@@ -232,11 +245,12 @@ void ShaderFrame::actionPerformed(SUIActionEvent e) {
 		}
 		else if (materialType == "Copper")
 		{
-			pbrShader->SetMeterialProps(albedo = glm::vec3(0.95, 0.64, 0.54), metallic = 1.0, roughness = 0.3);
+			//old 0.95, 0.637, 0.538
+			pbrShader->SetMeterialProps(albedo = glm::vec3(1, 0.41, 0.31), metallic = 1.0, roughness = 0.20);
 		}
 		else if (materialType == "Gold")
 		{
-			pbrShader->SetMeterialProps(albedo = glm::vec3(1.00, 0.71, 0.29), metallic = 1.0, roughness = 0.3);
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.8, 0.28, 0.05), metallic = 1.0, roughness = 0.25);
 		}
 		else if (materialType == "Aluminium")
 		{
@@ -244,8 +258,53 @@ void ShaderFrame::actionPerformed(SUIActionEvent e) {
 		}
 		else if (materialType == "Silver")
 		{
-			pbrShader->SetMeterialProps(albedo = glm::vec3(0.95, 0.93, 0.88), metallic = 1.0, roughness = 0.3);
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.95, 0.93, 0.88), metallic = 1.0, roughness = 0.24);
 		}
+
+		else if (materialType == "Meterial1")
+		{
+			pbrShader->SetMeterialProps(albedo = glm::vec3(1, 0.31, 0.41), metallic = 1.0, roughness = 0.20);
+		}
+		else if (materialType == "Meterial2")
+		{
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.41, 1, 0.31), metallic = 1.0, roughness = 0.20);
+		}
+		else if (materialType == "Meterial3")
+		{
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.41, 0.31, 1), metallic = 1.0, roughness = 0.20);
+		}
+		//else if (materialType == "Meterial4") //similar to Meterial2
+		//{
+		//	pbrShader->SetMeterialProps(albedo = glm::vec3(0.31, 1, 0.41), metallic = 1.0, roughness = 0.20);
+		//}
+		else if (materialType == "Meterial5")
+		{
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.31, 0.41, 1), metallic = 1.0, roughness = 0.20);
+		}
+
+
+		else if (materialType == "Meterial6")
+		{
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.8, 0.05, 0.28), metallic = 1.0, roughness = 0.25);
+		}
+		else if (materialType == "Meterial7")
+		{
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.28, 0.8, 0.05), metallic = 1.0, roughness = 0.25);
+		}
+		else if (materialType == "Meterial8")
+		{
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.28, 0.05, 0.8), metallic = 1.0, roughness = 0.25);
+		}
+		else if (materialType == "Meterial9")
+		{
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.05, 0.8, 0.28), metallic = 1.0, roughness = 0.25);
+		}
+		else if (materialType == "Meterial10")
+		{
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.05, 0.28, 0.8), metallic = 1.0, roughness = 0.25);
+		}
+
+
 
 		_albedoR->SetDouble(albedo.r, 4);
 		_albedoG->SetDouble(albedo.g, 4);

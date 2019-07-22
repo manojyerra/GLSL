@@ -9,7 +9,9 @@
 #include "ColorShader.h"
 #include "UVShader.h"
 #include "PhongShader.h"
+#include "PhongWithTextureShader.h"
 #include "PBRShader.h"
+#include "PBRWithTextureShader.h"
 
 
 class GLMeshRenderer
@@ -22,7 +24,11 @@ private:
 	UVShader* _uvShader;
 	PhongShader* _phongPerVertexShader;
 	PhongShader* _phongPerPixelShader;
+	PhongWithTextureShader* _phongWithTexPerVertexShader;
+	PhongWithTextureShader* _phongWithTexPerPixelShader;
 	PBRShader* _pbrShader;
+	PBRWithTextureShader* _pbrWithTextureShader;
+
 	Shader* _shader;
 
 	int _shaderType;
@@ -47,7 +53,10 @@ public:
 		UV_SHADER,
 		PHONG_PER_VERTEX_SHADER,
 		PHONG_PER_PIXEL_SHADER,
-		PBR_SHADER
+		PHONG_WITH_TEXTURE_PER_VERTEX_SHADER,
+		PHONG_WITH_TEXTURE_PER_PIXEL_SHADER,
+		PBR_SHADER,
+		PBR_WITH_TEXTURE_SHADER
 	};
 
 	GLMeshRenderer(ModelInfo* meshCreateInfo, int shaderType);

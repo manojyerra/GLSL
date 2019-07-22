@@ -91,6 +91,12 @@
     <Filter Include="src\Demo\RenderDemo">
       <UniqueIdentifier>{df81d527-b302-41c0-b7a6-fdc1ae0874ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GLUtil\Shaders\PhongWithTextureShader">
+      <UniqueIdentifier>{b7a07d71-67fa-4eb3-850c-64b92577d6ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GLUtil\Shaders\PBRWithTextureShader">
+      <UniqueIdentifier>{8a99a816-b5a5-4f14-8c57-82cec3c00443}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Macros.cpp">
@@ -408,6 +414,15 @@
     <ClCompile Include="src\Demo\ModelVisibilityFrame.cpp">
       <Filter>src\Demo</Filter>
     </ClCompile>
+    <ClCompile Include="src\Demo\FloorVisibilityFrame.cpp">
+      <Filter>src\Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLUtil\Shaders\PhongWithTextureShader\PhongWithTextureShader.cpp">
+      <Filter>src\GLUtil\Shaders\PhongWithTextureShader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLUtil\Shaders\PBRWithTextureShader\PBRWithTextureShader.cpp">
+      <Filter>src\GLUtil\Shaders\PBRWithTextureShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -694,6 +709,15 @@
     </ClInclude>
     <ClInclude Include="src\Demo\ModelVisibilityFrame.h">
       <Filter>src\Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Demo\FloorVisibilityFrame.h">
+      <Filter>src\Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\Shaders\PhongWithTextureShader\PhongWithTextureShader.h">
+      <Filter>src\GLUtil\Shaders\PhongWithTextureShader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\Shaders\PBRWithTextureShader\PBRWithTextureShader.h">
+      <Filter>src\GLUtil\Shaders\PBRWithTextureShader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

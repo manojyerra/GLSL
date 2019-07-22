@@ -1,8 +1,8 @@
-#include "PhongShader.h"
+#include "PhongWithTextureShader.h"
 #include "ShadersManager.h"
 #include "Cam.h"
 
-PhongShader::PhongShader(int shaderType)
+PhongWithTextureShader::PhongWithTextureShader(int shaderType)
 {
 	_shaderType = shaderType;
 
@@ -12,6 +12,8 @@ PhongShader::PhongShader(int shaderType)
 
 	_vertexBufferID = 0;
 	_normalBufferID = 0;
+	_uvBufferID = 0;
+	_baseTexID = 0;
 
 	GLfloat Ka[] = { 0.05375,	0.05,	0.06625,	0.82 };
 	GLfloat Kd[] = { 0.18275,	0.17,	0.22525,	0.82 };
@@ -31,7 +33,7 @@ PhongShader::PhongShader(int shaderType)
 	SetShaderType(_shaderType);
 }
 
-void PhongShader::SetShaderType(int shaderType)
+void PhongWithTextureShader::SetShaderType(int shaderType)
 {
 	_shaderType = shaderType;
 
@@ -40,8 +42,8 @@ void PhongShader::SetShaderType(int shaderType)
 		if (_perPixelShader == NULL)
 		{
 			_perPixelShader = ShadersManager::GetInstance()->CreateShaderProgram(
-				"shaders/PhongPerPixelShader/PhongPerPixelShader.vs", 
-				"shaders/PhongPerPixelShader/PhongPerPixelShader.fs");
+				"shaders/PhongPerPixelWithTextureShader/PhongPerPixelWithTextureShader.vs", 
+				"shaders/PhongPerPixelWithTextureShader/PhongPerPixelWithTextureShader.fs");
 		}
 
 		_shaderProgram = _perPixelShader;
@@ -51,37 +53,47 @@ void PhongShader::SetShaderType(int shaderType)
 		if (_perVertexShader == NULL)
 		{
 			_perVertexShader = ShadersManager::GetInstance()->CreateShaderProgram(
-				"shaders/PhongPerVertexShader/PhongPerVertexShader.vs", 
-				"shaders/PhongPerVertexShader/PhongPerVertexShader.fs");
+				"shaders/PhongPerVertexWithTextureShader/PhongPerVertexWithTextureShader.vs", 
+				"shaders/PhongPerVertexWithTextureShader/PhongPerVertexWithTextureShader.fs");
 		}
 
 		_shaderProgram = _perVertexShader;
 	}
 }
 
-void PhongShader::SetVertexBufferID(unsigned int bufferID)
+void PhongWithTextureShader::SetVertexBufferID(unsigned int bufferID)
 {
 	_vertexBufferID = bufferID;
 }
 
-void PhongShader::SetNormalBufferID(unsigned int bufferID)
+void PhongWithTextureShader::SetNormalBufferID(unsigned int bufferID)
 {
 	_normalBufferID = bufferID;
 }
 
-void PhongShader::SetModelMatrix(float* mat)
+void PhongWithTextureShader::SetUVBufferID(unsigned int bufferID)
+{
+	_uvBufferID = bufferID;
+}
+
+void PhongWithTextureShader::SetBaseTexID(unsigned int texID)
+{
+	_baseTexID = texID;
+}
+
+void PhongWithTextureShader::SetModelMatrix(float* mat)
 {
 	_modelMat.Copy(mat);
 }
 
-void PhongShader::SetLightPos(float x, float y, float z)
+void PhongWithTextureShader::SetLightPos(float x, float y, float z)
 {
 	lightPos.x = x;
 	lightPos.y = y;
 	lightPos.z = z;
 }
 
-void PhongShader::SetAmbientColor(float r, float g, float b, float a)
+void PhongWithTextureShader::SetAmbientColor(float r, float g, float b, float a)
 {
 	_Ka[0] = r;
 	_Ka[1] = g;
@@ -89,7 +101,7 @@ void PhongShader::SetAmbientColor(float r, float g, float b, float a)
 	_Ka[3] = a;
 }
 
-void PhongShader::SetDiffuseColor(float r, float g, float b, float a)
+void PhongWithTextureShader::SetDiffuseColor(float r, float g, float b, float a)
 {
 	_Kd[0] = r;
 	_Kd[1] = g;
@@ -97,7 +109,7 @@ void PhongShader::SetDiffuseColor(float r, float g, float b, float a)
 	_Kd[3] = a;
 }
 
-void PhongShader::SetSpecularColor(float r, float g, float b, float a)
+void PhongWithTextureShader::SetSpecularColor(float r, float g, float b, float a)
 {
 	_Ks[0] = r;
 	_Ks[1] = g;
@@ -105,23 +117,28 @@ void PhongShader::SetSpecularColor(float r, float g, float b, float a)
 	_Ks[3] = a;
 }
 
-void PhongShader::SetShininess(float shininess)
+void PhongWithTextureShader::SetShininess(float shininess)
 {
 	_Se = shininess;
 }
 
-void PhongShader::SetAlpha(float alpha)
+void PhongWithTextureShader::SetAlpha(float alpha)
 {
 	_alpha = alpha;
 }
 
-void PhongShader::Begin()
+void PhongWithTextureShader::Begin()
 {
 	_shaderProgram->Begin();
 }
 
-void PhongShader::SetUniformsAndAttributes()
+void PhongWithTextureShader::SetUniformsAndAttributes()
 {
+	if (_uvBufferID && _baseTexID)
+	{
+		glBindTexture(GL_TEXTURE_2D, _baseTexID);
+	}
+
 	Cam* cam = Cam::GetInstance();
 
 	GLuint programID = _shaderProgram->ProgramID();
@@ -139,6 +156,14 @@ void PhongShader::SetUniformsAndAttributes()
 	_shaderProgram->SetUniform4f("specular", _Ks[0], _Ks[1], _Ks[2], _Ks[3]);
 	_shaderProgram->SetUniform1f("shininess", _Se);
 
+	if (_uvBufferID && _baseTexID)
+	{
+		GLuint uvLoc = glGetAttribLocation(programID, "uv");
+		glEnableVertexAttribArray(uvLoc);
+		glBindBuffer(GL_ARRAY_BUFFER, _uvBufferID);
+		glVertexAttribPointer(uvLoc, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	}
+
 	if(_normalBufferID)
 	{
 		GLuint normalLoc = glGetAttribLocation(programID, "normal");
@@ -153,9 +178,16 @@ void PhongShader::SetUniformsAndAttributes()
 	glVertexAttribPointer(vertexLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 }
 
-void PhongShader::End()
+void PhongWithTextureShader::End()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	if (_uvBufferID && _baseTexID)
+	{
+		glBindTexture(GL_TEXTURE_2D, 0);
+		GLuint uvLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "uv");
+		glDisableVertexAttribArray(uvLoc);
+	}
 
 	if (_normalBufferID)
 	{
@@ -169,7 +201,7 @@ void PhongShader::End()
 	_shaderProgram->End();
 }
 
-PhongShader::~PhongShader()
+PhongWithTextureShader::~PhongWithTextureShader()
 {
 	if (_perPixelShader)
 	{

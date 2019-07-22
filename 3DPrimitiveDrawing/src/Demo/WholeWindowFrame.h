@@ -14,7 +14,6 @@ private:
 public:
 	SUIRadioButton* demoType;
 	SUICheckBox* isSSAO;
-	SUICheckBox* floorSelection;
 
 	WholeWindowFrame(int x, int y, int w, int h, SUIActionListener* actionListener);
 	~WholeWindowFrame();

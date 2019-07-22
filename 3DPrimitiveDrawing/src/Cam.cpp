@@ -36,8 +36,8 @@ void Cam::Init(int screenW, int screenH, float zNear, float zFar, float zNearPla
 	_zNearPlaneHalfW = zNearPlaneW/2.0f;
 
 	_pivot = glm::vec3(0, 0, 0);
-	_trans = glm::vec3(0, 0, -44.0f);
-	_angle = glm::vec3(35, -20, 0);
+	_trans = glm::vec3(2.025f, -2.046f, -22.0f);
+	_angle = glm::vec3(37.49f, -32.56f, 0);
 
 	_viewType = 5;
 	_isOrtho = false;

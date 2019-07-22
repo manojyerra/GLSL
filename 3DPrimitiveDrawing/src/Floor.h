@@ -13,7 +13,7 @@ private:
 	bool _gridLinesVisible;
 	bool _smallGridLinesVisible;
 	bool _bigGridLinesVisible;
-	
+
 	GLMat _modelMat;
 
 	GLMeshRenderer* _gridRenderer;
@@ -52,6 +52,7 @@ public:
 	void SetGridVisible(bool floorVisible);
 	void SetGridLinesVisible(bool linesVisible);
 	void SetGridType(int gridType);
+	void ShowOnlyGridLines(bool onlyGridLines);
 
 	void Draw();
 };

@@ -9,7 +9,7 @@ RenderDemo::RenderDemo(int sw, int sh)
 
 	_floor = new Floor();
 
-	_numModels = 1;
+	_numModels = 5;
 	_selectedModel = nullptr;
 
 	GLMeshRenderer* meshRenderer1 = nullptr;
@@ -18,16 +18,16 @@ RenderDemo::RenderDemo(int sw, int sh)
 	GLMeshRenderer* meshRenderer4 = nullptr;
 	GLMeshRenderer* meshRenderer5 = nullptr;
 
-	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/teapot"), GLMeshRenderer::PBR_SHADER);
+	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/demo/CarBIW"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 2) meshRenderer2 = new GLMeshRenderer(&ObjReader("data/demo/Trike"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 3) meshRenderer3 = new GLMeshRenderer(&ObjReader("data/demo/Truck"), GLMeshRenderer::PBR_SHADER);
-	if (_numModels >= 4) meshRenderer4 = new GLMeshRenderer(&ObjReader("data/teapot"), GLMeshRenderer::PBR_SHADER);
-	if (_numModels >= 5) meshRenderer5 = new GLMeshRenderer(&ObjReader("data/teapot"), GLMeshRenderer::PBR_SHADER);
+	if (_numModels >= 4) meshRenderer4 = new GLMeshRenderer(&ObjReader("data/demo/Plane"), GLMeshRenderer::PBR_WITH_TEXTURE_SHADER);
+	if (_numModels >= 5) meshRenderer5 = new GLMeshRenderer(&ObjReader("data/demo/Teapot"), GLMeshRenderer::PBR_SHADER);
 
 	if (meshRenderer1) meshRenderer1->SetPos(-4.0f, -3.0f, 1.5f);
 	if (meshRenderer2) meshRenderer2->SetPos(-8.0f, 0.0f, 0.0f);
 	if (meshRenderer3) meshRenderer3->SetPos(2.0f, -3.0f, 2.0f);
-	if (meshRenderer4) meshRenderer4->SetPos(-12.0f, 0.0f, 0.0f);
+	if (meshRenderer4) meshRenderer4->SetPos(0.0f, 0.0f, -12.0f);
 	if (meshRenderer5) meshRenderer5->SetPos(12.0f, 0.0f, 0.0f);
 
 	for (int i = 0; i < _numModels; i++)
@@ -149,6 +149,11 @@ void RenderDemo::SetVisibleFrames(bool visible)
 void RenderDemo::SetFloorVisible(bool visible)
 {
 	_floor->SetVisible(visible);
+}
+
+Floor* RenderDemo::GetFloor()
+{
+	return _floor;
 }
 
 RenderDemo::~RenderDemo()

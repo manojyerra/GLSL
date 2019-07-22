@@ -26,7 +26,7 @@ SUIBox* ModelVisibilityFrame::SetModelBox(SUIActionListener* actionListener) {
 	header->AddLabel(new SUILabel("Position", SUILabel::CENTER));
 	vmodel->AddBox(header);
 
-	string names[5] = {"Car", "Truck", "Model1", "Model2", "Model3"};
+	string names[5] = {"Car", "Trike", "Truck", "Plane", "Teapot"};
 
 	for(int i=0; i<5; i++)
 	{
@@ -34,7 +34,7 @@ SUIBox* ModelVisibilityFrame::SetModelBox(SUIActionListener* actionListener) {
 		modelBoxVec.push_back( modelBox );
 		vmodel->AddBox(modelBox->model);
 
-		modelBox->modelCheckBox->SetSelect(i == 0);
+		modelBox->modelCheckBox->SetSelect(true);
 	}
 
 	return vmodel;

@@ -34,6 +34,7 @@ public:
 
 	void SetVisibleFrames(bool visible);
 	void SetFloorVisible(bool visible);
+	Floor* GetFloor();
 };
 
 #endif

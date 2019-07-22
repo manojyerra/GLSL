@@ -73,11 +73,11 @@ ParticleLoader::ParticleLoader()
 
 	long startTime = GetTickCount();
 
-	FILE* fp = fopen("data/xData.bin", "rb");
+	FILE* fp = fopen("data/demo/xData.bin", "rb");
 
 	if (fp)
 	{
-		unsigned int fileLen = FileReader::GetLength("data/xData.bin");
+		unsigned int fileLen = FileReader::GetLength("data/demo/xData.bin");
 		char* fileData = (char*)malloc(fileLen);
 		fread(fileData, 1, fileLen, fp);
 		fclose(fp);

@@ -13,10 +13,10 @@ ModelSelectionFrame::ModelSelectionFrame(int x, int y, int w, int h, SUIActionLi
 
 	model = new SUIRadioButton(SUIRadioButton::V_ALIGNMENT);
 	model->AddCheckBox(new SUICheckBox("Car", SUICheckBox::LEFT));
+	model->AddCheckBox(new SUICheckBox("Trike", SUICheckBox::LEFT));
 	model->AddCheckBox(new SUICheckBox("Truck", SUICheckBox::LEFT));
-	model->AddCheckBox(new SUICheckBox("Model1", SUICheckBox::LEFT));
-	model->AddCheckBox(new SUICheckBox("Model2", SUICheckBox::LEFT));
-	model->AddCheckBox(new SUICheckBox("Model3", SUICheckBox::LEFT));
+	model->AddCheckBox(new SUICheckBox("Plane", SUICheckBox::LEFT));
+	model->AddCheckBox(new SUICheckBox("Teapot", SUICheckBox::LEFT));
 	model->AddActionListener(actionListener);
 	model->SetSelect(0);
 

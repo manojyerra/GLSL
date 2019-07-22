@@ -8,10 +8,10 @@
 Floor::Floor()
 {
 	_visible = true;
-	_gridVisible = true;
+	_gridVisible = false;
 	_axisVisible = true;
 	_gridLinesVisible = true;
-	_smallGridLinesVisible = true;
+	_smallGridLinesVisible = false;
 	_bigGridLinesVisible = true;
 
 	_axisRenderer = nullptr;
@@ -290,6 +290,12 @@ void Floor::SetGridType(int gridType)
 	_gridType = gridType;
 }
 
+void Floor::ShowOnlyGridLines(bool onlyGridLines)
+{
+	_gridVisible = !onlyGridLines;
+	_smallGridLinesVisible = !onlyGridLines;
+}
+
 void Floor::Draw()
 {
 	if (_visible)
@@ -314,7 +320,10 @@ void Floor::Draw()
 			}
 		}
 
-		GLState::GLEnable(GL_DEPTH_TEST, false);
+		if(_gridVisible)
+		{
+			GLState::GLEnable(GL_DEPTH_TEST, false);
+		}
 
 		if (_smallGridLinesVisible && _smallGridLinesRenderer)
 		{
