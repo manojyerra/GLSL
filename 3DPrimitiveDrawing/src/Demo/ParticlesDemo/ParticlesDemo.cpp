@@ -8,7 +8,7 @@ ParticlesDemo::ParticlesDemo(int sw, int sh)
 	_fbo = NULL;
 	_texture = NULL;
 
-	_numLoaders = 3;
+	_numLoaders = 1;
 	_particleLoaderVec.clear();
 
 	////
