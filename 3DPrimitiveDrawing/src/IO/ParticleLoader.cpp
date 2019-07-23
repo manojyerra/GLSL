@@ -67,11 +67,8 @@ ParticleLoader::ParticleLoader()
 	_vertexCount = vertexBufLen / 12;
 	free(vertexBuf);
 	*/
-
 	
 	_cubeHalfLen = 0.0015f;
-
-	long startTime = GetTickCount();
 
 	FILE* fp = fopen("data/demo/xData.bin", "rb");
 
@@ -87,8 +84,6 @@ ParticleLoader::ParticleLoader()
 
 		free(fileData);
 	}
-
-	long timeTaken = GetTickCount() - startTime;
 }
 
 void ParticleLoader::LoadData(const char* fileData, unsigned int length)
