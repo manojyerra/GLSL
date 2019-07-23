@@ -1,6 +1,7 @@
 #include "Macros.h"
 #include "GameLoop.h"
 #include "Input.h"
+#include "Platform.h"
 //#include "vld.h"
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
@@ -90,18 +91,16 @@ int main(void)
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-	//char arr[1024];
-	//sprintf(arr, "\nOnSizeChange : sw = %d sh = %d", width, height);
-	//OutputDebugStringA(arr);
+	Platform::debugPrint("\nOnSizeChange : sw = %d sh = %d", width, height);
 
 	if (gameLoop && width > 10 && height > 10)
 	{
 		gameLoop->SetScreenSize(width, height);
 	}
-	//else
-	//{
-	//	OutputDebugStringA("\n\n ***** Ignoring framebuffer size callback. **** \n\n");
-	//}
+	else
+	{
+		Platform::debugPrint("\n\n ***** Ignoring framebuffer size callback. **** \n\n");
+	}
 }
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)

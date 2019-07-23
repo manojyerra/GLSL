@@ -2,11 +2,6 @@
 #include "Windows.h"
 #include <stdio.h>
 
-void Platform::debugPrint(const char* str)
-{
-	OutputDebugStringA(str);
-}
-
 void Platform::debugPrint(const char * pszFormat, ...)
 {
 	const int MAX_LEN = 10000;

@@ -1,7 +1,7 @@
 #ifndef Input_H
 #define Input_H
 
-#include "Macros.h"
+#include "Platform.h"
 
 class Input
 {
