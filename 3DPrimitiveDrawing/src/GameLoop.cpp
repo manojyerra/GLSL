@@ -1,7 +1,5 @@
 #include "GameLoop.h"
 #include "GLMemory.h"
-#include "ObjReader.h"
-#include "BinaryObjReader.h"
 #include "ShadersManager.h"
 #include "Input.h"
 #include "SUI.h"
