@@ -4,6 +4,7 @@
 #include "ShaderProgram.h"
 #include "GLMat.h"
 #include "Shader.h"
+#include <map>
 
 #include <vector>
 #include <string>
