@@ -121,8 +121,8 @@ void Sphere::GenerateGeometry()
 		float Yz2 = 0;
 		float Zz2 = 0;
 
-		rot(3, zAngle, x, y, z, &Xz1, &Yz1, &Zz1);
-		rot(3, zAngle + 2 * delta, x, y, z, &Xz2, &Yz2, &Zz2);
+		rot(3, (float)zAngle, x, y, z, &Xz1, &Yz1, &Zz1);
+		rot(3, (float)zAngle + 2.0f * delta, x, y, z, &Xz2, &Yz2, &Zz2);
 
 		for (int yAngle = 0; yAngle <= 360; yAngle += delta)
 		{
@@ -131,11 +131,11 @@ void Sphere::GenerateGeometry()
 			float x3, y3, z3;
 			float x4, y4, z4;
 
-			rot(2, yAngle, Xz1, Yz1, Zz1, &x1, &y1, &z1);
-			rot(2, yAngle, Xz2, Yz2, Zz2, &x2, &y2, &z2);
+			rot(2, (float)yAngle, Xz1, Yz1, Zz1, &x1, &y1, &z1);
+			rot(2, (float)yAngle, Xz2, Yz2, Zz2, &x2, &y2, &z2);
 
-			rot(2, yAngle + delta, Xz1, Yz1, Zz1, &x3, &y3, &z3);
-			rot(2, yAngle + delta, Xz2, Yz2, Zz2, &x4, &y4, &z4);
+			rot(2, (float)(yAngle + delta), Xz1, Yz1, Zz1, &x3, &y3, &z3);
+			rot(2, (float)(yAngle + delta), Xz2, Yz2, Zz2, &x4, &y4, &z4);
 
 			buffer->glNormal3f(x3, y3, z3);
 			buffer->glVertex3f(x3, y3, z3);
@@ -168,7 +168,7 @@ void Sphere::GenerateGeometry()
 
 void Sphere::rot(int axis, float angleInDegrees, float x, float y, float z, float* newX, float* newY, float* newZ)
 {
-	float angleInRadians = angleInDegrees * (3.14159f) / 180.0f;		//converting to radiuns
+	float angleInRadians = angleInDegrees * DEG_RAD;
 
 	float cosVal = cosf(angleInRadians);
 	float sinVal = sinf(angleInRadians);
