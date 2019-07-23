@@ -429,8 +429,8 @@
     <ClCompile Include="src\Common\Utils\MathUtils.cpp">
       <Filter>src\Common\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="src\GLInclude.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\GLUtil\GLInclude.cpp">
+      <Filter>src\GLUtil</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -731,8 +731,8 @@
     <ClInclude Include="src\Common\Utils\MathUtils.h">
       <Filter>src\Common\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="src\GLInclude.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\GLUtil\GLInclude.h">
+      <Filter>src\GLUtil</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
