@@ -9,7 +9,7 @@
 class BasicShader : public Shader
 {
 private:
-	unsigned int _vertexBufferID;	
+	unsigned int _vertexBufferID;
 	glm::vec3 _color;
 	float _alpha;
 

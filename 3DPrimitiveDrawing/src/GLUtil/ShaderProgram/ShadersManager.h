@@ -9,11 +9,11 @@ using namespace std;
 
 class ShaderInfo
 {
-private: 
+private:
 	ShaderProgram* _shaderProgram;
 	int _refCount;
 
-public: 
+public:
 	ShaderInfo(ShaderProgram* shaderProgram)
 	{
 		_shaderProgram = shaderProgram;
@@ -50,7 +50,6 @@ public:
 	}
 };
 
-
 class ShadersManager
 {
 private:
@@ -70,6 +69,5 @@ public:
 
 	static void DeleteInstance();
 };
-
 
 #endif

@@ -11,8 +11,8 @@ ColorShader::ColorShader()
 
 	_alpha = 1.0f;
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram( "shaders/ColorShader/ColorShader.vs",
-																			"shaders/ColorShader/ColorShader.fs");
+	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/ColorShader/ColorShader.vs",
+		"shaders/ColorShader/ColorShader.fs");
 }
 
 void ColorShader::SetVertexBufferID(unsigned int bufferID)
@@ -51,7 +51,7 @@ void ColorShader::SetUniformsAndAttributes()
 	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(cam->GetMVP(m)));
 	_shaderProgram->SetUniform1f("alpha", _alpha);
 
-	if(_colorBufferID)
+	if (_colorBufferID)
 	{
 		GLuint loc = glGetAttribLocation(programID, "color");
 		glEnableVertexAttribArray(loc);

@@ -4,12 +4,10 @@ ShadersManager* ShadersManager::_ref = NULL;
 
 ShadersManager::ShadersManager()
 {
-
 }
 
 ShadersManager::~ShadersManager()
 {
-
 }
 
 ShadersManager* ShadersManager::GetInstance()
@@ -73,8 +71,8 @@ void ShadersManager::DeleteShaderProgram(ShaderProgram* shaderProgram)
 	string fragmentShader = shaderProgram->GetFragmentShaderFilePath();
 
 	string key = "";
-	
-	if(shaderProgram->HasGeometryShader())
+
+	if (shaderProgram->HasGeometryShader())
 	{
 		key.append(vertexShader).append(":").append(geometryShader).append(":").append(fragmentShader);
 	}
@@ -105,4 +103,3 @@ void ShadersManager::DeleteInstance()
 		_ref = NULL;
 	}
 }
-

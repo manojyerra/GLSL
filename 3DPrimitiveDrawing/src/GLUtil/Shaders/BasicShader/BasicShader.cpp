@@ -10,7 +10,7 @@ BasicShader::BasicShader()
 	_color = glm::vec3(0.5f, 0.5f, 0.5f);
 
 	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/BasicShader/BasicShader.vs",
-																		"shaders/BasicShader/BasicShader.fs");
+		"shaders/BasicShader/BasicShader.fs");
 }
 
 void BasicShader::SetVertexBufferID(unsigned int bufferID)

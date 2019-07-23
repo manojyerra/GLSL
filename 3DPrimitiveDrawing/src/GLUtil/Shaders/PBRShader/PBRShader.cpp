@@ -129,12 +129,12 @@ void PBRShader::SetUniformsAndAttributes()
 	std::map<string, LightInfo>::iterator iter;
 	int count = 0;
 
-	for(iter = _lightMap.begin(); iter != _lightMap.end(); ++iter)
+	for (iter = _lightMap.begin(); iter != _lightMap.end(); ++iter)
 	{
 		string countStr = std::to_string(count);
 
-		string dirUniName = "lightDir["+ countStr +"]";
-		string colUniName = "lightCol["+ countStr +"]";
+		string dirUniName = "lightDir[" + countStr + "]";
+		string colUniName = "lightCol[" + countStr + "]";
 
 		glm::vec3 dir(iter->second.dir);
 		glm::vec3 col(iter->second.color);
@@ -152,7 +152,7 @@ void PBRShader::SetUniformsAndAttributes()
 	_shaderProgram->SetUniform1f("roughness", _roughness);
 	_shaderProgram->SetUniform1f("alpha", _alpha);
 
-	if(_normalBufferID)
+	if (_normalBufferID)
 	{
 		GLuint normalLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "normal");
 		glEnableVertexAttribArray(normalLoc);

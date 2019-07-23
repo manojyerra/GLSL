@@ -10,7 +10,7 @@ GLboolean GLState::GLEnable(unsigned int state, GLboolean enable)
 {
 	GLboolean isEnabled = glIsEnabled(state);
 
-	if(enable)
+	if (enable)
 		glEnable(state);
 	else
 		glDisable(state);
@@ -20,14 +20,14 @@ GLboolean GLState::GLEnable(unsigned int state, GLboolean enable)
 
 void GLState::GLEnable(unsigned int* statesAarr, int size, bool enable)
 {
-	if(enable)
+	if (enable)
 	{
-		for(int i=0; i<size; i++)
+		for (int i = 0; i < size; i++)
 			glEnable(statesAarr[i]);
 	}
 	else
 	{
-		for(int i=0; i<size; i++)
+		for (int i = 0; i < size; i++)
 			glDisable(statesAarr[i]);
 	}
 }
@@ -49,7 +49,7 @@ GLfloat GLState::GLPointSize(GLfloat val)
 }
 
 GLenum GLState::GLDepthFunc(GLenum val)
-{	
+{
 	int returnVal = 0;
 	glGetIntegerv(GL_DEPTH_FUNC, &returnVal);
 	glDepthFunc(val);

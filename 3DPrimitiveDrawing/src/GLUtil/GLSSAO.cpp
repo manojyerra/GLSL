@@ -19,10 +19,10 @@ GLSSAO::GLSSAO(int w, int h)
 	_ssaoFBO = 0;
 	_ssaoBlurFBO = 0;
 
-	 CreateGBufferFBO(_w, _h);
-	 CreateSSAOFBO(_w, _h);
-	 CreateSSAOBlurFBO(_w, _h);
-	 GenerateSampleKernelAndNoiseTexture();
+	CreateGBufferFBO(_w, _h);
+	CreateSSAOFBO(_w, _h);
+	CreateSSAOBlurFBO(_w, _h);
+	GenerateSampleKernelAndNoiseTexture();
 }
 
 void GLSSAO::CreateGBufferFBO(unsigned int w, unsigned int h)
@@ -58,7 +58,7 @@ void GLSSAO::CreateGBufferFBO(unsigned int w, unsigned int h)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT2_EXT, GL_TEXTURE_2D, gAlbedo, 0);
 
-	// tell OpenGL which color attachments we'll use (of this framebuffer) for rendering 
+	// tell OpenGL which color attachments we'll use (of this framebuffer) for rendering
 	unsigned int attachments[3] = { GL_COLOR_ATTACHMENT0_EXT, GL_COLOR_ATTACHMENT1_EXT, GL_COLOR_ATTACHMENT2_EXT };
 	glDrawBuffers(3, attachments);
 
@@ -154,7 +154,6 @@ void GLSSAO::GenerateSampleKernelAndNoiseTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 }
-
 
 float GLSSAO::lerp(float a, float b, float f)
 {

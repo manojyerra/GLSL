@@ -2,7 +2,7 @@
 #include "ShadersManager.h"
 #include "Cam.h"
 
-PBRWithTextureShader::PBRWithTextureShader() : PBRShader("shaders/PBRWithTextgureShader/PBRWithTextgureShader.vs", 
+PBRWithTextureShader::PBRWithTextureShader() : PBRShader("shaders/PBRWithTextgureShader/PBRWithTextgureShader.vs",
 	"shaders/PBRWithTextgureShader/PBRWithTextgureShader.fs")
 {
 	_uvBufferID = 0;
@@ -45,12 +45,12 @@ void PBRWithTextureShader::SetUniformsAndAttributes()
 	std::map<string, LightInfo>::iterator iter;
 	int count = 0;
 
-	for(iter = _lightMap.begin(); iter != _lightMap.end(); ++iter)
+	for (iter = _lightMap.begin(); iter != _lightMap.end(); ++iter)
 	{
 		string countStr = std::to_string(count);
 
-		string dirUniName = "lightDir["+ countStr +"]";
-		string colUniName = "lightCol["+ countStr +"]";
+		string dirUniName = "lightDir[" + countStr + "]";
+		string colUniName = "lightCol[" + countStr + "]";
 
 		glm::vec3 dir(iter->second.dir);
 		glm::vec3 col(iter->second.color);
@@ -76,7 +76,7 @@ void PBRWithTextureShader::SetUniformsAndAttributes()
 		glVertexAttribPointer(uvLoc, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	}
 
-	if(_normalBufferID)
+	if (_normalBufferID)
 	{
 		GLuint normalLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "normal");
 		glEnableVertexAttribArray(normalLoc);

@@ -42,7 +42,7 @@ void PhongWithTextureShader::SetShaderType(int shaderType)
 		if (_perPixelShader == NULL)
 		{
 			_perPixelShader = ShadersManager::GetInstance()->CreateShaderProgram(
-				"shaders/PhongPerPixelWithTextureShader/PhongPerPixelWithTextureShader.vs", 
+				"shaders/PhongPerPixelWithTextureShader/PhongPerPixelWithTextureShader.vs",
 				"shaders/PhongPerPixelWithTextureShader/PhongPerPixelWithTextureShader.fs");
 		}
 
@@ -53,7 +53,7 @@ void PhongWithTextureShader::SetShaderType(int shaderType)
 		if (_perVertexShader == NULL)
 		{
 			_perVertexShader = ShadersManager::GetInstance()->CreateShaderProgram(
-				"shaders/PhongPerVertexWithTextureShader/PhongPerVertexWithTextureShader.vs", 
+				"shaders/PhongPerVertexWithTextureShader/PhongPerVertexWithTextureShader.vs",
 				"shaders/PhongPerVertexWithTextureShader/PhongPerVertexWithTextureShader.fs");
 		}
 
@@ -164,7 +164,7 @@ void PhongWithTextureShader::SetUniformsAndAttributes()
 		glVertexAttribPointer(uvLoc, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	}
 
-	if(_normalBufferID)
+	if (_normalBufferID)
 	{
 		GLuint normalLoc = glGetAttribLocation(programID, "normal");
 		glEnableVertexAttribArray(normalLoc);

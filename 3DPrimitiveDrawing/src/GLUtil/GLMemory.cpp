@@ -57,7 +57,7 @@ GLuint GLMemory::CreateRenderBuffer(GLsizei width, GLsizei height, GLenum intern
 	glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, internalformat, width, height);
 	glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, 0);
 
-	GLMemoryInfo memInfo(filePath, lineNum, width*height*3);
+	GLMemoryInfo memInfo(filePath, lineNum, width*height * 3);
 	std::string str = "RenderBuffer_" + std::to_string(rbo);
 	_memInfoMap.insert(std::make_pair(str, memInfo));
 
@@ -66,8 +66,8 @@ GLuint GLMemory::CreateRenderBuffer(GLsizei width, GLsizei height, GLenum intern
 
 void GLMemory::DeleteBuffer(GLuint id)
 {
-	std::string key = "Buffer_"+ std::to_string(id);
-	
+	std::string key = "Buffer_" + std::to_string(id);
+
 	if (_memInfoMap.count(key) <= 0)
 		throw std::exception("Error : BufferID not found.");
 
@@ -103,7 +103,6 @@ void GLMemory::DeleteRenderBuffer(GLuint id)
 	glFinish();
 }
 
-
 void GLMemory::printMemoryLeaks()
 {
 #if (defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(WIN32) || defined(__MINGW32__))
@@ -119,7 +118,7 @@ void GLMemory::printMemoryLeaks()
 
 	std::map<std::string, GLMemoryInfo>::iterator itr;
 
-	for (itr = _memInfoMap.begin(); itr != _memInfoMap.end(); ++itr) 
+	for (itr = _memInfoMap.begin(); itr != _memInfoMap.end(); ++itr)
 	{
 		sprintf(arr, "\n FileName: %s, LineNumber: %ld", itr->second.fileName.c_str(), itr->second.lineNum);
 		OutputDebugString(arr);
@@ -129,7 +128,7 @@ void GLMemory::printMemoryLeaks()
 
 #else
 
-	for (itr = _memInfoMap.begin(); itr != _memInfoMap.end(); ++itr) 
+	for (itr = _memInfoMap.begin(); itr != _memInfoMap.end(); ++itr)
 	{
 		printf("\n FileName: %s, LineNumber: %ld", itr->second.fileName.c_str(), itr->second.lineNum);
 	}

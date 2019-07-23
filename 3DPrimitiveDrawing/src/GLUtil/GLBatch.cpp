@@ -10,10 +10,10 @@ GLBatch::GLBatch(unsigned int capacity, bool colorDataPresent, bool uvDataPresen
 	_colorArr = NULL;
 	_normalArr = NULL;
 
-	_vertexArr = new GLfloat[_capacity*3];
-	if(colorDataPresent)	_colorArr = new GLubyte[_capacity*3];
-	if(uvDataPresent)		_uvArr = new GLfloat[_capacity*2];
-	if(normalsDataPresent)	_normalArr = new GLfloat[_capacity*3];
+	_vertexArr = new GLfloat[_capacity * 3];
+	if (colorDataPresent)	_colorArr = new GLubyte[_capacity * 3];
+	if (uvDataPresent)		_uvArr = new GLfloat[_capacity * 2];
+	if (normalsDataPresent)	_normalArr = new GLfloat[_capacity * 3];
 
 	_r = 1.0f;
 	_g = 1.0f;
@@ -37,27 +37,27 @@ GLBatch::GLBatch(unsigned int capacity, bool colorDataPresent, bool uvDataPresen
 
 void GLBatch::ReCreateMem()
 {
-	int newCapacity = 2*_capacity;
+	int newCapacity = 2 * _capacity;
 
 	GLfloat* newVertexArr = NULL;
 	GLubyte* newColorArr = NULL;
 	GLfloat* newUVArr = NULL;
 	GLfloat* newNormalArr = NULL;
 
-	if(_vertexArr)	newVertexArr = new GLfloat[newCapacity*3];
-	if(_colorArr)	newColorArr = new GLubyte[newCapacity*3];
-	if(_uvArr)		newUVArr = new GLfloat[newCapacity*2];
-	if(_normalArr)	newNormalArr = new GLfloat[newCapacity*3];
+	if (_vertexArr)	newVertexArr = new GLfloat[newCapacity * 3];
+	if (_colorArr)	newColorArr = new GLubyte[newCapacity * 3];
+	if (_uvArr)		newUVArr = new GLfloat[newCapacity * 2];
+	if (_normalArr)	newNormalArr = new GLfloat[newCapacity * 3];
 
-	if(_vertexArr)	memcpy(newVertexArr,	_vertexArr,		_capacity*3*4);
-	if(_colorArr)	memcpy(newColorArr,		_colorArr,		_capacity*3);
-	if(_uvArr)		memcpy(newUVArr,		_uvArr,			_capacity*2*4);
-	if(_normalArr)	memcpy(newNormalArr,	_normalArr,		_capacity*3*4);
+	if (_vertexArr)	memcpy(newVertexArr, _vertexArr, _capacity * 3 * 4);
+	if (_colorArr)	memcpy(newColorArr, _colorArr, _capacity * 3);
+	if (_uvArr)		memcpy(newUVArr, _uvArr, _capacity * 2 * 4);
+	if (_normalArr)	memcpy(newNormalArr, _normalArr, _capacity * 3 * 4);
 
-	if(_vertexArr)	delete[] _vertexArr;
-	if(_colorArr)	delete[] _colorArr;
-	if(_uvArr)		delete[] _uvArr;
-	if(_normalArr)	delete[] _normalArr;
+	if (_vertexArr)	delete[] _vertexArr;
+	if (_colorArr)	delete[] _colorArr;
+	if (_uvArr)		delete[] _uvArr;
+	if (_normalArr)	delete[] _normalArr;
 
 	_vertexArr = newVertexArr;
 	_colorArr = newColorArr;
@@ -123,45 +123,45 @@ void GLBatch::glVertex3f(const glm::vec3& vec)
 
 void GLBatch::glVertex3f(GLfloat x, GLfloat y, GLfloat z)
 {
-	if(_colorArr)
+	if (_colorArr)
 	{
-		_colorArr[_count*3 + 0] = _r;
-		_colorArr[_count*3 + 1] = _g;
-		_colorArr[_count*3 + 2] = _b;
+		_colorArr[_count * 3 + 0] = _r;
+		_colorArr[_count * 3 + 1] = _g;
+		_colorArr[_count * 3 + 2] = _b;
 	}
 
-	if(_uvArr)
+	if (_uvArr)
 	{
-		_uvArr[_count*2 + 0] = _u;
-		_uvArr[_count*2 + 1] = _v;
+		_uvArr[_count * 2 + 0] = _u;
+		_uvArr[_count * 2 + 1] = _v;
 	}
 
-	if(_normalArr)
+	if (_normalArr)
 	{
-		_normalArr[_count*3 + 0] = _nx;
-		_normalArr[_count*3 + 1] = _ny;
-		_normalArr[_count*3 + 2] = _nz;
+		_normalArr[_count * 3 + 0] = _nx;
+		_normalArr[_count * 3 + 1] = _ny;
+		_normalArr[_count * 3 + 2] = _nz;
 	}
 
-	_vertexArr[_count*3 + 0] = x;
-	_vertexArr[_count*3 + 1] = y;
-	_vertexArr[_count*3 + 2] = z;
+	_vertexArr[_count * 3 + 0] = x;
+	_vertexArr[_count * 3 + 1] = y;
+	_vertexArr[_count * 3 + 2] = z;
 
 	_count++;
 
-	if(_count >= _capacity)
+	if (_count >= _capacity)
 		ReCreateMem();
 }
 
-const char*  GLBatch::GetVertexBuffer()	{ return (const char*)_vertexArr;	}
-const char*  GLBatch::GetUVBuffer()		{ return (const char*)_uvArr;		}
-const char*  GLBatch::GetColorBuffer()		{ return (const char*)_colorArr;	}
-const char*  GLBatch::GetNormalBuffer()	{ return (const char*)_normalArr;	}
+const char*  GLBatch::GetVertexBuffer() { return (const char*)_vertexArr; }
+const char*  GLBatch::GetUVBuffer() { return (const char*)_uvArr; }
+const char*  GLBatch::GetColorBuffer() { return (const char*)_colorArr; }
+const char*  GLBatch::GetNormalBuffer() { return (const char*)_normalArr; }
 
-unsigned int GLBatch::GetVertexBufferSize()	{ return _count * 3 * sizeof(GLfloat);	}
-unsigned int GLBatch::GetUVBufferSize()		{ return _count * 2 * sizeof(GLfloat);	}
-unsigned int GLBatch::GetColorBufferSize()		{ return _count * 3 * sizeof(GLbyte);	}
-unsigned int GLBatch::GetNormalBufferSize()	{ return _count * 3 * sizeof(GLfloat);	}
+unsigned int GLBatch::GetVertexBufferSize() { return _count * 3 * sizeof(GLfloat); }
+unsigned int GLBatch::GetUVBufferSize() { return _count * 2 * sizeof(GLfloat); }
+unsigned int GLBatch::GetColorBufferSize() { return _count * 3 * sizeof(GLbyte); }
+unsigned int GLBatch::GetNormalBufferSize() { return _count * 3 * sizeof(GLfloat); }
 
 unsigned int GLBatch::GetVertexCount()
 {
@@ -175,13 +175,11 @@ void GLBatch::ResetCount()
 
 GLBatch::~GLBatch()
 {
-	if (_vertexArr) { delete[] _vertexArr;	_vertexArr = NULL;	}
-	if (_colorArr)	{ delete[] _colorArr;	_colorArr = NULL;	}
-	if (_uvArr)		{ delete[] _uvArr;		_uvArr = NULL;		}
-	if (_normalArr) { delete[] _normalArr;	_normalArr = NULL;	}
+	if (_vertexArr) { delete[] _vertexArr;	_vertexArr = NULL; }
+	if (_colorArr) { delete[] _colorArr;	_colorArr = NULL; }
+	if (_uvArr) { delete[] _uvArr;		_uvArr = NULL; }
+	if (_normalArr) { delete[] _normalArr;	_normalArr = NULL; }
 }
-
-
 
 //void GLBatch::glEnd()
 //{

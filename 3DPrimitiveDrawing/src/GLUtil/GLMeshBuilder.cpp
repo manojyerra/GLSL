@@ -67,7 +67,7 @@ GLMeshBuilder* GLMeshBuilder::SetImageBuffer(ImageBuffer* imgBuf)
 
 void GLMeshBuilder::build()
 {
-	if(_vertexBuffer)
+	if (_vertexBuffer)
 	{
 		_vertexBufferID = GLCreateBuffer(_vertexBufferLen, (GLvoid*)_vertexBuffer);
 	}
@@ -103,7 +103,7 @@ void GLMeshBuilder::build()
 	}
 }
 
-GLuint GLMeshBuilder::GetVertexBufferID() 
+GLuint GLMeshBuilder::GetVertexBufferID()
 {
 	return _vertexBufferID;
 }

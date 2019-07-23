@@ -14,8 +14,8 @@ UVShader::UVShader()
 	_alpha = 1.0f;
 	_use2DCam = false;
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram( "shaders/UVShader/UVShader.vs",
-																			"shaders/UVShader/UVShader.fs");
+	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/UVShader/UVShader.vs",
+		"shaders/UVShader/UVShader.fs");
 }
 
 void UVShader::SetVertexBufferID(unsigned int bufferID)
@@ -56,7 +56,6 @@ void UVShader::Begin()
 
 void UVShader::SetUniformsAndAttributes()
 {
-
 	GLuint programID = _shaderProgram->ProgramID();
 
 	float* m = _modelMat.m;
@@ -74,7 +73,7 @@ void UVShader::SetUniformsAndAttributes()
 
 	_shaderProgram->SetUniform1f("alpha", _alpha);
 
-	if(_uvBufferID)
+	if (_uvBufferID)
 	{
 		GLuint loc = glGetAttribLocation(programID, "uv");
 		glEnableVertexAttribArray(loc);

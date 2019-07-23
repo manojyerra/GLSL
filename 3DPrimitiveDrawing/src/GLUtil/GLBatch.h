@@ -16,7 +16,7 @@ private:
 
 	int _count;
 	GLenum _mode;
-	
+
 	GLubyte _r;
 	GLubyte _g;
 	GLubyte _b;

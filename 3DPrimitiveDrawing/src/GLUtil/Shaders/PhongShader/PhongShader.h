@@ -9,7 +9,6 @@
 #include <string>
 using namespace std;
 
-
 class PhongShader : public Shader
 {
 private:

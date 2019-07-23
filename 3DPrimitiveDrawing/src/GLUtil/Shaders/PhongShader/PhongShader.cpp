@@ -40,7 +40,7 @@ void PhongShader::SetShaderType(int shaderType)
 		if (_perPixelShader == NULL)
 		{
 			_perPixelShader = ShadersManager::GetInstance()->CreateShaderProgram(
-				"shaders/PhongPerPixelShader/PhongPerPixelShader.vs", 
+				"shaders/PhongPerPixelShader/PhongPerPixelShader.vs",
 				"shaders/PhongPerPixelShader/PhongPerPixelShader.fs");
 		}
 
@@ -51,7 +51,7 @@ void PhongShader::SetShaderType(int shaderType)
 		if (_perVertexShader == NULL)
 		{
 			_perVertexShader = ShadersManager::GetInstance()->CreateShaderProgram(
-				"shaders/PhongPerVertexShader/PhongPerVertexShader.vs", 
+				"shaders/PhongPerVertexShader/PhongPerVertexShader.vs",
 				"shaders/PhongPerVertexShader/PhongPerVertexShader.fs");
 		}
 
@@ -139,7 +139,7 @@ void PhongShader::SetUniformsAndAttributes()
 	_shaderProgram->SetUniform4f("specular", _Ks[0], _Ks[1], _Ks[2], _Ks[3]);
 	_shaderProgram->SetUniform1f("shininess", _Se);
 
-	if(_normalBufferID)
+	if (_normalBufferID)
 	{
 		GLuint normalLoc = glGetAttribLocation(programID, "normal");
 		glEnableVertexAttribArray(normalLoc);

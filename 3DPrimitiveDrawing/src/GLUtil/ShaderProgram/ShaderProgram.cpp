@@ -1,7 +1,6 @@
 #include "ShaderProgram.h"
 #include "FileReader.h"
 
-
 ShaderProgram::ShaderProgram(string vertexShaderFilePath, string fragmentShaderFilePath)
 {
 	_programID = 0;
@@ -27,10 +26,10 @@ ShaderProgram::ShaderProgram(string vertexShaderFilePath, string fragmentShaderF
 
 	glGetProgramiv(_programID, GL_LINK_STATUS, &linkStatus);
 	glGetProgramiv(_programID, GL_INFO_LOG_LENGTH, &infoLogLength);
-	
+
 	glDetachShader(_programID, vertexShaderObj);
 	glDetachShader(_programID, fragmentShaderObj);
-	
+
 	glDeleteShader(vertexShaderObj);
 	glDeleteShader(fragmentShaderObj);
 
@@ -41,7 +40,7 @@ ShaderProgram::ShaderProgram(string vertexShaderFilePath, string fragmentShaderF
 		printf("%s\n", &programInfoLog[0]);
 	}
 
-	if(!linkStatus)
+	if (!linkStatus)
 	{
 		throw std::exception("Linking failed...");
 		exit(0);
@@ -126,11 +125,11 @@ GLint ShaderProgram::CompileShader(const char* shaderFilePath, GLenum shaderType
 	char* shaderFileData = NULL;
 	FILE* fp = fopen(shaderFilePath, "rb");
 
-    if(fp)
-    {
+	if (fp)
+	{
 		unsigned int shaderFileLen = FileReader::GetLength(shaderFilePath);
-		shaderFileData = (char*)malloc(shaderFileLen+1);
-		memset(shaderFileData, (int)'\0', shaderFileLen+1);
+		shaderFileData = (char*)malloc(shaderFileLen + 1);
+		memset(shaderFileData, (int)'\0', shaderFileLen + 1);
 		fread(shaderFileData, 1, shaderFileLen, fp);
 		fclose(fp);
 	}
@@ -140,7 +139,7 @@ GLint ShaderProgram::CompileShader(const char* shaderFilePath, GLenum shaderType
 		exit(0);
 	}
 
-	GLuint shaderObject =  glCreateShader(shaderType);
+	GLuint shaderObject = glCreateShader(shaderType);
 	glShaderSource(shaderObject, 1, (const char**)(&(shaderFileData)), NULL);
 	glCompileShader(shaderObject);
 
@@ -152,13 +151,13 @@ GLint ShaderProgram::CompileShader(const char* shaderFilePath, GLenum shaderType
 	glGetShaderiv(shaderObject, GL_COMPILE_STATUS, &shaderCompileStatus);
 	glGetShaderiv(shaderObject, GL_INFO_LOG_LENGTH, &compilationLogLength);
 
-	std::vector<char> shaderCompileLog(compilationLogLength+1);
+	std::vector<char> shaderCompileLog(compilationLogLength + 1);
 	glGetShaderInfoLog(shaderObject, compilationLogLength, NULL, &shaderCompileLog[0]);
 
 	if (compilationLogLength > 0)
 		printf("\n%s\n", &shaderCompileLog[0]);
 
-	if(!shaderCompileStatus)
+	if (!shaderCompileStatus)
 	{
 		throw std::exception("\nError: Failed to compile shader.");
 		exit(0);
@@ -221,6 +220,6 @@ void ShaderProgram::End()
 
 ShaderProgram::~ShaderProgram()
 {
-	if(_programID)
+	if (_programID)
 		glDeleteProgram(_programID);
 }

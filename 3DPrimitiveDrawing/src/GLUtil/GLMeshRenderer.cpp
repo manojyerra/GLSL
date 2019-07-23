@@ -152,8 +152,6 @@ void GLMeshRenderer::SetShader(int shaderType)
 
 		_shader = _pbrWithTextureShader;
 	}
-
-	
 }
 
 Shader* GLMeshRenderer::GetShader(int shaderType)
@@ -212,9 +210,9 @@ void GLMeshRenderer::Draw()
 		_shader->SetModelMatrix(_modelMat.m);
 		_shader->Begin();
 		_shader->SetUniformsAndAttributes();
-		glDrawArrays(_primitiveType, 0, _meshBuilder->GetVertexBufferSize()/12);
+		glDrawArrays(_primitiveType, 0, _meshBuilder->GetVertexBufferSize() / 12);
 		_shader->End();
-	}	
+	}
 }
 
 GLMeshRenderer::~GLMeshRenderer()

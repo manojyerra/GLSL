@@ -26,7 +26,6 @@ public:
 	void glRotatef(float angleInDegrees, int isX, int isY, int isZ, bool reverseOrder = false);
 	void glScalef(float x, float y, float z, bool reverseOrder = false);
 	void glMultMatrixf(float* mat);
-	
 
 	float* Get();
 	void Copy(float* mat);
@@ -48,7 +47,7 @@ public:
 	void AddTransInLocal(char axis, float move);
 	void AddRotateInWorld(char axis, float angle);
 	void AddRotateInLocal(char axis, float angle);
-	
+
 	static glm::vec3 MultVector(float* a, glm::vec3 vec);
 	static void MultMat(float* a, float* b, float* result);
 	static int InvertMatrix(const float src[16], float inverse[16]);

@@ -13,12 +13,11 @@
 #include "PBRShader.h"
 #include "PBRWithTextureShader.h"
 
-
 class GLMeshRenderer
 {
 private:
 	GLMeshBuilder* _meshBuilder;
-	
+
 	BasicShader* _basicShader;
 	ColorShader* _colorShader;
 	UVShader* _uvShader;

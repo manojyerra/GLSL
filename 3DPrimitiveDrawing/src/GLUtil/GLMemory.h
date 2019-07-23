@@ -13,7 +13,6 @@
 #define GLDeleteTexture(a)			GLMemory::DeleteTexture(a)
 #define GLDeleteRenderBuffer(a)		GLMemory::DeleteRenderBuffer(a)
 
-
 class GLMemoryInfo
 {
 public:
@@ -33,7 +32,6 @@ public:
 		return (obj.size < this->size);
 	}
 };
-
 
 class GLMemory
 {
