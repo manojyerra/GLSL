@@ -74,3 +74,44 @@ bool StringUtils::endsWith(string str, string checkStr)
 
 	return true;
 }
+
+
+double StringUtils::atof_naive(const char *p) {
+	double r = 0.0;
+	bool neg = false;
+	if (*p == '-') {
+		neg = true;
+		++p;
+	}
+	while (*p >= '0' && *p <= '9') {
+		r = (r*10.0) + (*p - '0');
+		++p;
+	}
+	if (*p == '.') {
+		double f = 0.0;
+		int n = 0;
+		++p;
+		while (*p >= '0' && *p <= '9') {
+			f = (f*10.0) + (*p - '0');
+			++p;
+			++n;
+		}
+
+		//TODO : check the performance difference between math funtion pow and std function pow
+		r += f / std::pow(10.0, n);
+	}
+	if (neg) {
+		r = -r;
+	}
+
+	return r;
+}
+
+unsigned int StringUtils::atoi_naive(const char * p)
+{
+	unsigned int x = 0;
+	while (*p) {
+		x = x * 10 + (*p++ - '0');
+	}
+	return x;
+}

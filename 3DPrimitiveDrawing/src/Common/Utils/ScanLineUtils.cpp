@@ -1,5 +1,5 @@
 #include "ScanLineUtils.h"
-#include <string>
+#include "StringUtils.h"
 
 void ScanLineUtils::scanFace_VTN(char* str,
 	int* v1, int* t1, int* n1,
@@ -14,51 +14,51 @@ void ScanLineUtils::scanFace_VTN(char* str,
 
 	while (str[++i] != '/');
 	str[i] = '\0';
-	v1[0] = atoi_naive(&str[s]);
+	v1[0] = StringUtils::atoi_naive(&str[s]);
 
 	s = i + 1;
 	while (str[++i] != '/');
 	str[i] = '\0';
-	t1[0] = atoi_naive(&str[s]);
+	t1[0] = StringUtils::atoi_naive(&str[s]);
 
 	s = i + 1;
 	while (str[++i] != ' ');
 	str[i] = '\0';
-	n1[0] = atoi_naive(&str[s]);
+	n1[0] = StringUtils::atoi_naive(&str[s]);
 
 	//////////////////
 
 	s = i + 1;
 	while (str[++i] != '/');
 	str[i] = '\0';
-	v2[0] = atoi_naive(&str[s]);
+	v2[0] = StringUtils::atoi_naive(&str[s]);
 
 	s = i + 1;
 	while (str[++i] != '/');
 	str[i] = '\0';
-	t2[0] = atoi_naive(&str[s]);
+	t2[0] = StringUtils::atoi_naive(&str[s]);
 
 	s = i + 1;
 	while (str[++i] != ' ');
 	str[i] = '\0';
-	n2[0] = atoi_naive(&str[s]);
+	n2[0] = StringUtils::atoi_naive(&str[s]);
 
 	//////////////////
 
 	s = i + 1;
 	while (str[++i] != '/');
 	str[i] = '\0';
-	v3[0] = atoi_naive(&str[s]);
+	v3[0] = StringUtils::atoi_naive(&str[s]);
 
 	s = i + 1;
 	while (str[++i] != '/');
 	str[i] = '\0';
-	t3[0] = atoi_naive(&str[s]);
+	t3[0] = StringUtils::atoi_naive(&str[s]);
 
 	s = i + 1;
 	do { i++; } while (str[i] != '\0' && str[i] != '\r');
 	str[i] = '\0';
-	n3[0] = atoi_naive(&str[s]);
+	n3[0] = StringUtils::atoi_naive(&str[s]);
 }
 
 void ScanLineUtils::scanFace_VN(char* str,
@@ -74,36 +74,36 @@ void ScanLineUtils::scanFace_VN(char* str,
 
 	while (str[++i] != '/');
 	str[i] = '\0';
-	v1[0] = atoi_naive(&str[s]);
+	v1[0] = StringUtils::atoi_naive(&str[s]);
 
 	s = i + 2;
 	while (str[++i] != ' ');
 	str[i] = '\0';
-	n1[0] = atoi_naive(&str[s]);
+	n1[0] = StringUtils::atoi_naive(&str[s]);
 
 	//////////////////
 
 	s = i + 1;
 	while (str[++i] != '/');
 	str[i] = '\0';
-	v2[0] = atoi_naive(&str[s]);
+	v2[0] = StringUtils::atoi_naive(&str[s]);
 
 	s = i + 2;
 	while (str[++i] != ' ');
 	str[i] = '\0';
-	n2[0] = atoi_naive(&str[s]);
+	n2[0] = StringUtils::atoi_naive(&str[s]);
 
 	//////////////////
 
 	s = i + 1;
 	while (str[++i] != '/');
 	str[i] = '\0';
-	v3[0] = atoi_naive(&str[s]);
+	v3[0] = StringUtils::atoi_naive(&str[s]);
 
 	s = i + 2;
 	do { i++; } while (str[i] != '\0' && str[i] != '\r');
 	str[i] = '\0';
-	n3[0] = atoi_naive(&str[s]);
+	n3[0] = StringUtils::atoi_naive(&str[s]);
 }
 
 void ScanLineUtils::scanFace_VT(char* str,
@@ -119,36 +119,36 @@ void ScanLineUtils::scanFace_VT(char* str,
 
 	while (str[++i] != '/');
 	str[i] = '\0';
-	v1[0] = atoi_naive(&str[s]);
+	v1[0] = StringUtils::atoi_naive(&str[s]);
 
 	s = i + 1;
 	while (str[++i] != ' ');
 	str[i] = '\0';
-	t1[0] = atoi_naive(&str[s]);
+	t1[0] = StringUtils::atoi_naive(&str[s]);
 
 	//////////////////
 
 	s = i + 1;
 	while (str[++i] != '/');
 	str[i] = '\0';
-	v2[0] = atoi_naive(&str[s]);
+	v2[0] = StringUtils::atoi_naive(&str[s]);
 
 	s = i + 1;
 	while (str[++i] != ' ');
 	str[i] = '\0';
-	t2[0] = atoi_naive(&str[s]);
+	t2[0] = StringUtils::atoi_naive(&str[s]);
 
 	//////////////////
 
 	s = i + 1;
 	while (str[++i] != '/');
 	str[i] = '\0';
-	v3[0] = atoi_naive(&str[s]);
+	v3[0] = StringUtils::atoi_naive(&str[s]);
 
 	s = i + 1;
 	do { i++; } while (str[i] != '\0' && str[i] != '\r');
 	str[i] = '\0';
-	t3[0] = atoi_naive(&str[s]);
+	t3[0] = StringUtils::atoi_naive(&str[s]);
 }
 
 void ScanLineUtils::scanFace_V(char* str, int* x, int* y, int* z)
@@ -161,17 +161,17 @@ void ScanLineUtils::scanFace_V(char* str, int* x, int* y, int* z)
 
 	while (str[++i] != ' ');
 	str[i] = '\0';
-	x[0] = atoi_naive(&str[s]);
+	x[0] = StringUtils::atoi_naive(&str[s]);
 
 	s = i + 1;
 	while (str[++i] != ' ');
 	str[i] = '\0';
-	y[0] = atoi_naive(&str[s]);
+	y[0] = StringUtils::atoi_naive(&str[s]);
 
 	s = i + 1;
 	do { i++; } while (str[i] != '\0' && str[i] != '\r');
 	str[i] = '\0';
-	z[0] = atoi_naive(&str[s]);
+	z[0] = StringUtils::atoi_naive(&str[s]);
 }
 
 void ScanLineUtils::scan_vertex(char* str, float* x, float* y, float* z)
@@ -184,17 +184,17 @@ void ScanLineUtils::scan_vertex(char* str, float* x, float* y, float* z)
 
 	while (str[++i] != ' ');
 	str[i] = '\0';
-	x[0] = atof_naive(&str[s]);
+	x[0] = StringUtils::atof_naive(&str[s]);
 
 	s = i + 1;
 	while (str[++i] != ' ');
 	str[i] = '\0';
-	y[0] = atof_naive(&str[s]);
+	y[0] = StringUtils::atof_naive(&str[s]);
 
 	s = i + 1;
 	do { i++; } while (str[i] != '\0' && str[i] != '\r');
 	str[i] = '\0';
-	z[0] = atof_naive(&str[s]);
+	z[0] = StringUtils::atof_naive(&str[s]);
 }
 
 void ScanLineUtils::scan_uv(char* str, float* x, float* y)
@@ -207,12 +207,12 @@ void ScanLineUtils::scan_uv(char* str, float* x, float* y)
 
 	while (str[++i] != ' ');
 	str[i] = '\0';
-	x[0] = atof_naive(&str[s]);
+	x[0] = StringUtils::atof_naive(&str[s]);
 
 	s = i + 1;
 	do { i++; } while (str[i] != '\0' && str[i] != '\r');
 	str[i] = '\0';
-	y[0] = atof_naive(&str[s]);
+	y[0] = StringUtils::atof_naive(&str[s]);
 }
 
 void ScanLineUtils::scan_normal(char* str, float* x, float* y, float* z)
@@ -225,55 +225,15 @@ void ScanLineUtils::scan_normal(char* str, float* x, float* y, float* z)
 
 	while (str[++i] != ' ');
 	str[i] = '\0';
-	x[0] = atof_naive(&str[s]);
+	x[0] = StringUtils::atof_naive(&str[s]);
 
 	s = i + 1;
 	while (str[++i] != ' ');
 	str[i] = '\0';
-	y[0] = atof_naive(&str[s]);
+	y[0] = StringUtils::atof_naive(&str[s]);
 
 	s = i + 1;
 	do { i++; } while (str[i] != '\0' && str[i] != '\r');
 	str[i] = '\0';
-	z[0] = atof_naive(&str[s]);
-}
-
-double ScanLineUtils::atof_naive(const char *p) {
-	double r = 0.0;
-	bool neg = false;
-	if (*p == '-') {
-		neg = true;
-		++p;
-	}
-	while (*p >= '0' && *p <= '9') {
-		r = (r*10.0) + (*p - '0');
-		++p;
-	}
-	if (*p == '.') {
-		double f = 0.0;
-		int n = 0;
-		++p;
-		while (*p >= '0' && *p <= '9') {
-			f = (f*10.0) + (*p - '0');
-			++p;
-			++n;
-		}
-		
-		//TODO : check the performance difference between math funtion pow and std function pow
-		r += f / std::pow(10.0, n);
-	}
-	if (neg) {
-		r = -r;
-	}
-
-	return r;
-}
-
-unsigned int ScanLineUtils::atoi_naive(const char * p)
-{
-	unsigned int x = 0;
-	while (*p) {
-		x = x * 10 + (*p++ - '0');
-	}
-	return x;
+	z[0] = StringUtils::atof_naive(&str[s]);
 }

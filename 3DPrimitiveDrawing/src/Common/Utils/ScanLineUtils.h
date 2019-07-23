@@ -27,9 +27,6 @@ public:
 	static void scan_vertex(char* str, float* x, float* y, float* z);
 	static void scan_uv(char* str, float* x, float* y);
 	static void scan_normal(char* str, float* x, float* y, float* z);
-
-	static double atof_naive(const char *p);
-	static unsigned int atoi_naive(const char *p);
 };
 
 #endif
