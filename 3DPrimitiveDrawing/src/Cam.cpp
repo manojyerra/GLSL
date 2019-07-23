@@ -1,6 +1,5 @@
 #include "Cam.h"
 #include "Input.h"
-#include "Macros.h"
 
 Cam* Cam::_ref = NULL;
 

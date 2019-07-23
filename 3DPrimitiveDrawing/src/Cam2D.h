@@ -1,12 +1,8 @@
 #ifndef Cam2D_H
 #define Cam2D_H
 
-#include "Macros.h"
 #include "GLMat.h"
 #include "glm/ext.hpp"
-
-#include <vector>
-using namespace std;
 
 class Cam2D
 {

@@ -1,7 +1,6 @@
 #ifndef Box_H
 #define Box_H
 
-#include "Macros.h"
 #include "Shape.h"
 #include "RandomColor.h"
 #include "ShaderProgram.h"

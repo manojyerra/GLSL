@@ -1,7 +1,6 @@
 #ifndef Shape_H
 #define Shape_H
 
-#include "Macros.h"
 #include "glm/glm.hpp"
 
 class Shape

@@ -1,10 +1,8 @@
 #ifndef Cylinder_H
 #define Cylinder_H
 
-#include "Macros.h"
 #include "Shape.h"
 #include "RandomColor.h"
-#include "ShaderProgram.h"
 #include "GLBatch.h"
 #include "GLMat.h"
 #include "glm/glm.hpp"

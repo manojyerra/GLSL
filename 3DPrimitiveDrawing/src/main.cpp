@@ -26,7 +26,7 @@ int main(void)
 	int sh = mode->height*0.75;
 
 	GLFWwindow* window = glfwCreateWindow(sw, sh, "GLFW Window", NULL, NULL);
-	glfwSetWindowPos(window, 0, 0);
+	glfwSetWindowPos(window, 100, 100);
 	glfwMakeContextCurrent(window);
 	glfwSetMouseButtonCallback(window, mouse_button_callback);
 	glfwSetScrollCallback(window, scroll_callback);
