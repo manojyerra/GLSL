@@ -37,8 +37,8 @@ SUIManager* SUIManager::GetInstance()
 
 void SUIManager::SetWindowSize(int windowWidth, int windowHeight)
 {
-	_windowWidth = windowWidth;
-	_windowHeight = windowHeight;
+	_windowWidth = (float)windowWidth;
+	_windowHeight = (float)windowHeight;
 
 	_statusBarRect.SetBounds(0, _windowHeight*0.935f, _windowWidth, _windowHeight*0.065f);
 }
@@ -127,7 +127,7 @@ void SUIManager::CheckForResetBounds()
 
 bool SUIManager::Contains(float mx, float my)
 {
-	for(int i=_framesVec.size()-1; i>=0; i--)
+	for(int i=(int)_framesVec.size()-1; i>=0; i--)
 	{
 		if(_framesVec[i]->IsVisible() && (_framesVec[i]->IsMinimized()==false) && _framesVec[i]->Contains(mx, my))
 		{
@@ -186,7 +186,7 @@ void SUIManager::Update()
 
 	if(SUIInput::IsMouseClicked() || SUIInput::IsScrolled())
 	{
-		for(int i=_framesVec.size()-1; i>=0; i--)
+		for(int i=(int)_framesVec.size()-1; i>=0; i--)
 		{
 			if(_framesVec[i]->IsVisible() && (_framesVec[i]->IsMinimized()==false) && _framesVec[i]->Contains(mx, my))
 			{

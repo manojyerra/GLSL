@@ -186,9 +186,9 @@ SUIComponent* SUIFrame::getComponentByKeyEvent()
 	return NULL;
 }
 
-int SUIFrame::GetNumComponents()
+unsigned int SUIFrame::GetNumComponents()
 {
-	return _elementVec.size();
+	return (unsigned int)_elementVec.size();
 }
 
 void SUIFrame::SetBounds(float x, float y, float w, float h)

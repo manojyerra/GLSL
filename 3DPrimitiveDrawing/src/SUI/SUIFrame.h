@@ -84,7 +84,7 @@ public:
 	SUIComponent* getComponentAt(float x, float y);
 	SUIComponent* getComponent(unsigned int index);
 	SUIComponent* getComponentByKeyEvent();
-	int GetNumComponents();
+	unsigned int GetNumComponents();
 
 	void Add(SUIComponent* com);
 	void Delete(SUIComponent* com);

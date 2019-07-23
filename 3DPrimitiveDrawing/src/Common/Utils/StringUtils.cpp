@@ -7,11 +7,11 @@ std::vector<std::string> StringUtils::split(std::string str, char splitBy)
 	if(str.find(splitBy) == -1)
 		return splitVec;
 
-	int startIndex = 0;
-	int len = str.length();
+	unsigned int startIndex = 0;
+	unsigned int len = str.length();
 	bool justNowOneStrSplitted = false;
 
-	for(int i=0;i<len;i++)
+	for(unsigned int i=0;i<len;i++)
 	{
 		if(justNowOneStrSplitted)
 		{
@@ -40,13 +40,13 @@ std::vector<std::string> StringUtils::split(std::string str, char splitBy)
 
 bool StringUtils::startsWith(std::string str, std::string checkStr)
 {
-	int strLen = str.length();
-	int checkStrLen = checkStr.length();
+	unsigned int strLen = str.length();
+	unsigned int checkStrLen = checkStr.length();
 
 	if(strLen < checkStrLen)
 		return false;
 
-	for(int i=0;i<checkStrLen;i++)
+	for(unsigned int i=0;i<checkStrLen;i++)
 	{
 		if(str[i] != checkStr[i])
 			return false;
@@ -57,16 +57,16 @@ bool StringUtils::startsWith(std::string str, std::string checkStr)
 
 bool StringUtils::endsWith(std::string str, std::string checkStr)
 {
-	int strLen = str.length();
-	int checkStrLen = checkStr.length();
+	unsigned int strLen = str.length();
+	unsigned int checkStrLen = checkStr.length();
 
 	if(strLen < checkStrLen)
 		return false;
 
-	int strLastIndex = str.length()-1;
-	int checkStrLastIndex = checkStr.length()-1;
+	unsigned int strLastIndex = str.length()-1;
+	unsigned int checkStrLastIndex = checkStr.length()-1;
 
-	for(int i=0;i<checkStrLen;i++)
+	for(unsigned int i=0;i<checkStrLen;i++)
 	{
 		if(str[strLastIndex-i] != checkStr[checkStrLastIndex-i])
 			return false;

@@ -109,7 +109,7 @@ SUIFont::SUIFont()
 		}
 	}
 
-	int size = _normalFontVec.size();
+	unsigned int size = (unsigned int)_normalFontVec.size();
 
 	_unitWidth = _normalFontVec[(int)'A']->w;
 

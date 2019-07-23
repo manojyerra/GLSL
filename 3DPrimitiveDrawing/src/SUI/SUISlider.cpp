@@ -95,13 +95,13 @@ void SUISlider::ResetBounds()
 	float fontSize = SUIFont::GetInstance()->GetFontSize();
 	float nameLen = SUIFont::GetInstance()->GetLength(_name, fontSize);
 
-	int strLen = 0;
-	if(_isIntegerValue)
-	{
-		char arr[512];
-		sprintf(arr, " %d", (int)_maxValue);
-		strLen = strlen(arr);
-	}
+	//int strLen = 0;
+	//if(_isIntegerValue)
+	//{
+	//	char arr[512];
+	//	sprintf(arr, " %d", (int)_maxValue);
+	//	strLen = strlen(arr);
+	//}
 
 	float valueBoxLen = 0;//strLen * fontSize;
 	float sliderLen = _w - (nameLen + valueBoxLen);

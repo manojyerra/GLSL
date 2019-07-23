@@ -15,6 +15,7 @@ SUIChoice::SUIChoice(int elementsToShow) : SUIComponent(SUI_CHOICE)
 	_SUIList->SetBorderVisible(true);
 	_SUIList->SetBorderColor(10,10,155,255);
 	_SUIList->DisableScissor();
+	//TODO: Check what is the purpose of setting SUIActionListener as 0xccffccff ???
 	_SUIList->AddActionListener((SUIActionListener*)(void*)0xccffccff);
 
 	_isBgVisible = true;
@@ -127,7 +128,7 @@ SUIEvents SUIChoice::UpdateByInput()
 
 void SUIChoice::SetSelect(string itemName)
 {
-	for(int i=0; i<_SUIList->Size(); i++)
+	for(int i=0; i<(int)_SUIList->Size(); i++)
 	{
 		string str = _SUIList->GetItem(i);
 

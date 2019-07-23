@@ -117,91 +117,67 @@ string SUITextField::GetText()
 
 void SUITextField::SetInt(int val)
 {
-	if(_inputType == INPUT_INT)
-	{
-		char arr[64];
-		sprintf(arr, "%d",val);
-		_name = string(arr);
-	}
-	else
-	{
-		Exception("Input type mismatch");
-	}
+	if (_inputType != INPUT_INT)
+		throw new exception("Input type mismatch");
+	
+	char arr[64];
+	sprintf(arr, "%d",val);
+	_name = string(arr);
 }
 
 int SUITextField::GetInt()
 {
-	if(_inputType == INPUT_INT)
-	{
-		return atoi(_name.c_str());
-	}
-	else
-	{
-		Exception("Input type mismatch");
-	}
+	if (_inputType != INPUT_INT)
+		throw new exception("Input type mismatch");
+
+	return atoi(_name.c_str());
 }
 
 void SUITextField::SetUInt(unsigned int val)
 {
-	if(_inputType == INPUT_UNSIGNED_INT)
-	{
-		char arr[64];
-		sprintf(arr, "%u",val);
-		_name = string(arr);
-	}
-	else
-	{
-		Exception("Input type mismatch");
-	}
+	if(_inputType != INPUT_UNSIGNED_INT)
+		throw new exception("Input type mismatch");
+
+	char arr[64];
+	sprintf(arr, "%u",val);
+	_name = string(arr);
 }
 
 unsigned int SUITextField::GetUInt()
 {
-	if(_inputType == INPUT_UNSIGNED_INT)
-	{
-		return (unsigned int)atol(_name.c_str());
-	}
-	else
-	{
-		Exception("Input type mismatch");
-	}
+	if(_inputType != INPUT_UNSIGNED_INT)
+		throw new exception("Input type mismatch");
+
+	return (unsigned int)atol(_name.c_str());
 }
 
 void SUITextField::SetDouble(double val, int numDecimalsToShow)
 {
+	if (_inputType != INPUT_DOUBLE)
+		throw new exception("Input type mismatch");
+
 	if(numDecimalsToShow < 0)		numDecimalsToShow = 0;
 	else if(numDecimalsToShow > 6)	numDecimalsToShow = 6;
+	
+	char arr[64];
 
-	if(_inputType == INPUT_DOUBLE)
-	{
-		char arr[64];
+	if(numDecimalsToShow == 0)			sprintf(arr, "%lf",val);
+	else if(numDecimalsToShow == 1)		sprintf(arr, "%.1lf",val);
+	else if(numDecimalsToShow == 2)		sprintf(arr, "%.2lf",val);
+	else if(numDecimalsToShow == 3)		sprintf(arr, "%.3lf",val);
+	else if(numDecimalsToShow == 4)		sprintf(arr, "%.4lf",val);
+	else if(numDecimalsToShow == 5)		sprintf(arr, "%.5lf",val);
+	else if(numDecimalsToShow == 6)		sprintf(arr, "%.6lf",val);
 
-		if(numDecimalsToShow == 0)			sprintf(arr, "%lf",val);
-		else if(numDecimalsToShow == 1)		sprintf(arr, "%.1lf",val);
-		else if(numDecimalsToShow == 2)		sprintf(arr, "%.2lf",val);
-		else if(numDecimalsToShow == 3)		sprintf(arr, "%.3lf",val);
-		else if(numDecimalsToShow == 4)		sprintf(arr, "%.4lf",val);
-		else if(numDecimalsToShow == 5)		sprintf(arr, "%.5lf",val);
-		else if(numDecimalsToShow == 6)		sprintf(arr, "%.6lf",val);
-
-		_name = string(arr);
-	}
-	else
-	{
-		Exception("Input type mismatch");
-	}
+	_name = string(arr);
 }
 
 double SUITextField::GetDouble()
 {
-	if(_inputType == INPUT_DOUBLE)
-	{
-		return atof(_name.c_str());
-	}
-	else
-	{
-		Exception("Input type mismatch");
-	}
+	if(_inputType != INPUT_DOUBLE)
+		throw new exception("Input type mismatch");
+
+	return atof(_name.c_str());
 }
 
 void SUITextField::Draw()

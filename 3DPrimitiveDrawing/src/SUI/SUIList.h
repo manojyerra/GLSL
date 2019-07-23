@@ -50,7 +50,7 @@ public:
 	void Draw();
 
 	string GetItem(int index);
-	int Size();
+	unsigned int Size();
 	bool Contains(float x, float y);
 
 	void DisableScissor();

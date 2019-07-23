@@ -97,9 +97,9 @@ void SUIList::Add(string name)
 		_elementsVec[_selectedIndex]->SetBgColor(_selectedColor);
 }
 
-int SUIList::Size()
+unsigned int SUIList::Size()
 {
-	return _elementsVec.size();
+	return (unsigned int)_elementsVec.size();
 }
 
 void SUIList::Move(float dx, float dy)
