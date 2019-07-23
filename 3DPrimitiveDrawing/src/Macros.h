@@ -5,8 +5,6 @@
 #include <GLFW/glfw3.h>
 #include <Windows.h>
 #include <iostream>
-#include <map>
-using namespace std;
 
 #define glColorui(c) glColor4ub((c >> 24) & 255, (c >> 16) & 255, (c >> 8) & 255, (c) & 255)
 #define glColorA(c,a) glColor4ub((c >> 24) & 255, (c >> 16) & 255, (c >> 8) & 255, a)
