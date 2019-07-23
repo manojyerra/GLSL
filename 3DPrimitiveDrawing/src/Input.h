@@ -1,14 +1,17 @@
 #ifndef Input_H
 #define Input_H
 
-#include <vector>
-using namespace std;
+#include "Macros.h"
 
 class Input
 {
+public:
+	static const int NUM_KEYS = 512;
+
 private:
-	static int currKeyStates[256];
-	static int prevKeyStates[256];
+	static int currKeyStates[NUM_KEYS];
+	static int prevKeyStates[NUM_KEYS];
+	static float timeCountForKeyPress[NUM_KEYS];
 
 	static bool isMouseClicked;
 	static bool isMousePressed;
@@ -25,8 +28,6 @@ private:
 	static bool isMiddleMouseReleased;
 	static bool isMiddleMouseDoubleClicked;
 
-	static float timeCountForKeyPress[256];
-
 	static bool PREV_LEFT_BUTTON_DOWN;
 	static bool PREV_RIGHT_BUTTON_DOWN;
 	static bool PREV_MIDDLE_BUTTON_DOWN;
@@ -39,12 +40,25 @@ private:
 	static bool enable;
 
 public:
+	enum
+	{
+		KEY_LEFT_CONTROL = GLFW_KEY_LEFT_CONTROL,
+		KEY_RIGHT_CONTROL = GLFW_KEY_RIGHT_CONTROL,
+		KEY_LEFT_SHIFT = GLFW_KEY_LEFT_SHIFT,
+		KEY_RIGHT_SHIFT = GLFW_KEY_RIGHT_SHIFT,
+		KEY_LEFT_ALT = GLFW_KEY_LEFT_ALT,
+		KEY_RIGHT_ALT = GLFW_KEY_RIGHT_ALT,
+		KEY_ENTER = GLFW_KEY_ENTER,
+		KEY_SPACE = GLFW_KEY_SPACE,
+		KEY_BACKSPACE = GLFW_KEY_BACKSPACE,
+		KEY_ESCAPE = GLFW_KEY_ESCAPE,
+		KEY_DELETE = GLFW_KEY_DELETE,
+		KEY_END = GLFW_KEY_END,
+		KEY_HOME = GLFW_KEY_HOME
+	};
 
-	//Events...
-	static const int EVENT_NONE = 0;
-	static const int KEY_TYPE = 1;
-	static const int KEY_PRESS = 2;
-	static const int KEY_RELEASE = 3;
+	static int storeKeyStates[NUM_KEYS];
+
 	static const int MOUSE_CLICK = 4;
 	static const int MOUSE_PRESS = 5;
 	static const int MOUSE_RELEASE = 6;
@@ -63,9 +77,6 @@ public:
 	static bool LEFT_BUTTON_DOWN;
 	static bool RIGHT_BUTTON_DOWN;
 	static bool MIDDLE_BUTTON_DOWN;
-
-	static int WIN_MOVE_X;
-	static int WIN_MOVE_Y;
 
 	static int SCROLL_STATE; 
 	static int SCROLL_STATE_STORE;

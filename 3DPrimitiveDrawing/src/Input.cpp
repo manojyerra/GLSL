@@ -1,6 +1,5 @@
 #include "Input.h"
-#include "math.h"
-#include "Macros.h"
+#include <cmath>
 
 int Input::MX = 0;
 int Input::MY = 0;
@@ -15,8 +14,6 @@ int Input::MouseReleaseX = 0;
 int Input::MouseReleaseY = 0;
 
 bool Input::MOUSE_MOVE = false;
-int Input::WIN_MOVE_X = 0;
-int Input::WIN_MOVE_Y = 0;
 
 bool Input::PREV_LEFT_BUTTON_DOWN = false;
 bool Input::LEFT_BUTTON_DOWN = false;
@@ -50,31 +47,32 @@ float Input::rightClickTimeCount = 0;
 float Input::middleClickTimeCount = 0;
 float Input::DCTime = 0.2f;
 
-int Input::currKeyStates[] = {0};
-int Input::prevKeyStates[] = {0};
-
+int Input::currKeyStates[] = { 0 };
+int Input::prevKeyStates[] = { 0 };
+int Input::storeKeyStates[] = {0};
 float Input::timeCountForKeyPress[] = {0};
 
 bool Input::enable = true;
 
 void Input::Init()
 {
-	for(int i=0;i<256;i++) currKeyStates[i] = 0;
-	for(int i=0;i<256;i++) prevKeyStates[i] = 0;
-	for(int i=0;i<256;i++) timeCountForKeyPress[i] = 0;
+	for (int i = 0; i < NUM_KEYS; i++)
+	{
+		currKeyStates[i] = 0;
+		prevKeyStates[i] = 0;
+		storeKeyStates[i] = 0;
+		timeCountForKeyPress[i] = 0.0f;
+	}
 }
 
 void Input::Update(int mouseX, int mouseY, float deltaTime)
 {
-	for(int i=0;i<256;i++)	prevKeyStates[i] = currKeyStates[i];
-	for(int i=0;i<256;i++)	currKeyStates[i] =  GetKeyState(i);
-
-	for(int i=0;i<256;i++)
+	for (int i = 0; i < NUM_KEYS; i++)
 	{
-		if(!(currKeyStates[i]&0x80))
-			timeCountForKeyPress[i] = 0.0f;
-		else
-			timeCountForKeyPress[i] += deltaTime;
+		prevKeyStates[i] = currKeyStates[i];
+		currKeyStates[i] = storeKeyStates[i];
+
+		timeCountForKeyPress[i] = currKeyStates[i] ? (timeCountForKeyPress[i] + deltaTime) : 0.0f;
 	}
 
 	isMouseClicked = false;
@@ -156,9 +154,9 @@ void Input::SetEnable(bool enableInput)
 	enable = enableInput;
 }
 
-bool Input::IsKeyTyped(int key)		{ return enable && (bool)(!(prevKeyStates[key]&0x80)  && (currKeyStates[key]&0x80) );		}
-bool Input::IsKeyReleased(int key)	{ return enable && (bool)((prevKeyStates[key]&0x80)  && !(currKeyStates[key]&0x80) );		}
-bool Input::IsKeyPressed(int key)	{ return enable && (bool)( (currKeyStates[key]&0x80) && true );								}
+bool Input::IsKeyTyped(int key)		{ return enable && (bool)(!(prevKeyStates[key])  && (currKeyStates[key]) );		}
+bool Input::IsKeyReleased(int key)	{ return enable && (bool)((prevKeyStates[key])  && !(currKeyStates[key]) );		}
+bool Input::IsKeyPressed(int key)	{ return enable && currKeyStates[key]; }
 bool Input::IsKeyPressedStill(int key, float time) { return enable && (IsKeyPressed(key) && timeCountForKeyPress[key] > time);	}
 
 bool Input::IsAnyKeyReleased(int* keys, int size)
