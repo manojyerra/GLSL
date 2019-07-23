@@ -89,7 +89,7 @@ CubeParticleShader::~CubeParticleShader()
 {
 	if(_shaderProgram)
 	{
-		delete _shaderProgram;
+		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
 		_shaderProgram = NULL;
 	}
 }
