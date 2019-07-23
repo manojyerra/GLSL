@@ -10,12 +10,12 @@ GLMeshBuilder::GLMeshBuilder()
 	_indicesBufferID = 0;
 	_baseTexID = 0;
 
-	_vertexBuffer = NULL;
-	_normalBufferID = NULL;
-	_uvBufferID = NULL;
-	_colorBufferID = NULL;
-	_indicesBuffer = NULL;
-	_imageBuffer = NULL;
+	_vertexBuffer = nullptr;
+	_normalBuffer = nullptr;
+	_uvBuffer = nullptr;
+	_colorBuffer = nullptr;
+	_indicesBuffer = nullptr;
+	_imageBuffer = nullptr;
 
 	_vertexBufferLen = 0;
 	_normalBufferLen = 0;

@@ -1,7 +1,7 @@
 #ifndef GLBatch_H
 #define GLBatch_H
 
-#include "Macros.h"
+#include "GLInclude.h"
 #include "glm/vec3.hpp"
 
 class GLBatch

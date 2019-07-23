@@ -144,7 +144,6 @@ void GameLoop::SetScreenSize(int sw, int sh)
 		_particleDemo->SetScreenSize(_sw, _sh);
 
 	_windowFrame->SetPos(_sw - _windowFrame->GetWidth(), 0);
-
 	_floorFrame->SetPos(_sw - _floorFrame->GetWidth(), 555);
 }
 
@@ -186,6 +185,12 @@ GameLoop::~GameLoop()
 		_floor = NULL;
 	}
 
+	if (_rendererDemo)
+	{
+		delete _rendererDemo;
+		_rendererDemo = NULL;
+	}
+
 	if (_particleDemo)
 	{
 		delete _particleDemo;
@@ -195,6 +200,12 @@ GameLoop::~GameLoop()
 	if (_windowFrame) {
 		delete _windowFrame;
 		_windowFrame = NULL;
+	}
+
+	if(_floorFrame)
+	{
+		delete _floorFrame;
+		_floorFrame = NULL;
 	}
 
 	Cam::GetInstance()->DeleteInstance();

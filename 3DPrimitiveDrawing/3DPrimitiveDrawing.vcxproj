@@ -80,6 +80,7 @@
     <ClCompile Include="src\Demo\WholeWindowFrame.cpp" />
     <ClCompile Include="src\Floor.cpp" />
     <ClCompile Include="src\GameLoop.cpp" />
+    <ClCompile Include="src\GLInclude.cpp" />
     <ClCompile Include="src\GLUtil\GLBatch.cpp" />
     <ClCompile Include="src\GLUtil\GLFBO.cpp" />
     <ClCompile Include="src\GLUtil\GLMat.cpp" />
@@ -101,7 +102,6 @@
     <ClCompile Include="src\GLUtil\Shaders\UVShader\UVShader.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\IO\ParticleLoader.cpp" />
-    <ClCompile Include="src\Macros.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Platform\Platform.cpp" />
     <ClCompile Include="src\Shapes2D\Triangle.cpp" />
@@ -176,6 +176,7 @@
     <ClInclude Include="src\Demo\WholeWindowFrame.h" />
     <ClInclude Include="src\Floor.h" />
     <ClInclude Include="src\GameLoop.h" />
+    <ClInclude Include="src\GLInclude.h" />
     <ClInclude Include="src\GLUtil\GLBatch.h" />
     <ClInclude Include="src\GLUtil\GLFBO.h" />
     <ClInclude Include="src\GLUtil\GLMat.h" />
@@ -198,7 +199,6 @@
     <ClInclude Include="src\GLUtil\Shaders\UVShader\UVShader.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\IO\ParticleLoader.h" />
-    <ClInclude Include="src\Macros.h" />
     <ClInclude Include="src\Platform\Platform.h" />
     <ClInclude Include="src\Shapes2D\Triangle.h" />
     <ClInclude Include="src\Shapes3D\Box.h" />

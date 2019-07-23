@@ -1,8 +1,6 @@
 #ifndef GLSSAO_H
 #define GLSSAO_H
 
-#include "Macros.h"
-
 class GLSSAO
 {
 private:

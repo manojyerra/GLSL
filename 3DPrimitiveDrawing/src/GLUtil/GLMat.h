@@ -1,7 +1,6 @@
 #ifndef GLMat_H
 #define GLMat_H
 
-#include "Macros.h"
 #include "glm/vec3.hpp"
 
 class GLMat

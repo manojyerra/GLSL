@@ -1,8 +1,7 @@
 #ifndef GLState_H
 #define GLState_H
 
-//TODO : Remove GLMat.h include and implemement GLInclude.h and include here
-#include "GLMat.h"
+#include "GLInclude.h"
 
 class GLState
 {

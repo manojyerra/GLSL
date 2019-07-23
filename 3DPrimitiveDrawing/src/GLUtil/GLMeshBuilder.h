@@ -1,7 +1,7 @@
 #ifndef GLMeshBuilder_H
 #define GLMeshBuilder_H
 
-#include "GLMat.h"
+#include "GLInclude.h"
 #include "ImageBuffer.h"
 
 class GLMeshBuilder

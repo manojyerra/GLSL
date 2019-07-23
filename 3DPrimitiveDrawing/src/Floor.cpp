@@ -374,4 +374,22 @@ Floor::~Floor()
 		delete _gridLinesRenderer;
 		_gridLinesRenderer = nullptr;
 	}
+
+	if(_gridRectRenderer)
+	{
+		delete _gridRectRenderer;
+		_gridRectRenderer = NULL;
+	}
+
+	if(_smallGridLinesRenderer)
+	{
+		delete _smallGridLinesRenderer;
+		_smallGridLinesRenderer = NULL;
+	}
+
+	if(_bigGridLinesRenderer)
+	{
+		delete _bigGridLinesRenderer;
+		_bigGridLinesRenderer = NULL;
+	}
 }

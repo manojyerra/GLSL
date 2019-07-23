@@ -1,8 +1,8 @@
 #ifndef GLUtil_H
 #define GLUtil_H
 
-#include "Macros.h"
 #include "GLMat.h"
+#include "GLInclude.h"
 #include "glm/vec3.hpp"
 
 #include <vector>

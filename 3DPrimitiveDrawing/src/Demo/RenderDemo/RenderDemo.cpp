@@ -164,6 +164,24 @@ RenderDemo::~RenderDemo()
 		_floor = NULL;
 	}
 
+	if(_shaderFrame)
+	{
+		delete _shaderFrame;
+		_shaderFrame = NULL;
+	}
+
+	if(_modelVisibilityFrame)
+	{
+		delete _modelVisibilityFrame;
+		_modelVisibilityFrame = NULL;
+	}
+
+	if(_modelSelectionFrame)
+	{
+		delete _modelSelectionFrame;
+		_modelSelectionFrame = NULL;
+	}
+
 	for (int i = 0; i < _modelVec.size(); i++)
 	{
 		GLMeshRenderer* model = _modelVec[i];

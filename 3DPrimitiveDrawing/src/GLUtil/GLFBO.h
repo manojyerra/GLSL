@@ -1,8 +1,6 @@
 #ifndef GLFBO_H
 #define GLFBO_H
 
-#include "Macros.h"
-
 class GLFBO
 {
 private:

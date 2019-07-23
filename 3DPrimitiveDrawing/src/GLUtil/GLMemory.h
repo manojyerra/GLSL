@@ -1,7 +1,7 @@
 #ifndef GLMemory_H
 #define GLMemory_H
 
-#include <GL/glew.h>
+#include "GLInclude.h"
 #include <string>
 #include <map>
 

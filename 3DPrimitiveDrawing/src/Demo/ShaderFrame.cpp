@@ -42,7 +42,7 @@ void ShaderFrame::SetPos(int x, int y) {
 void ShaderFrame::SetMeshRenderer(GLMeshRenderer* mesh)
 {
 	_mesh = mesh;
-	/*
+	
 	PBRShader* pbrShader = (PBRShader*)_mesh->GetShader(GLMeshRenderer::PBR_SHADER);
 
 	glm::vec3 albedo = pbrShader->GetAlbedo();
@@ -99,7 +99,6 @@ void ShaderFrame::SetMeshRenderer(GLMeshRenderer* mesh)
 
 		count++;
 	}
-	*/
 }
 
 SUIBox* ShaderFrame::SetShaderTypeBox() {
@@ -388,7 +387,8 @@ SUIFrame* ShaderFrame::GetFrame()
 	return _frame;
 }
 
-ShaderFrame::~ShaderFrame() {
+ShaderFrame::~ShaderFrame() 
+{
 	if (_frame)
 	{
 		delete _frame;
