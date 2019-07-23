@@ -1,0 +1,47 @@
+How to scale down the model ( This feature can have in 
+How to avarage normals of obj.
+How to load obj with meterial properties.
+How to load obj other than triangulate faces.
+Check tiny obj code.
+Load stl file.
+Load nastran file.
+Check framebuffer issue with multisampling in desktop system which is working properly in my laptop.
+Compare the particle demo output for the above.
+Fix camera issues.
+Add camera options in UI for tweaking like ZNear, ZNearWidth and Camera paning and zoom.
+Catche memory for geometry shader to improve performance.
+Make release build.
+
+Think about zfighting properly with below questions.
+Precision depends on which things ?
+which things are constants for one vertex ?
+
+Implement SUITextField erase functionality with left mouse.
+SUITextField should work normally as other textfields.
+Send all other inputs like scroll, left mouse, middle mouse to SUI.
+
+
+
+Code refactoring.
+
+*)Install Resharper
+*)Remove all unneccessary include headers.
+*)Place ParticleLoader class in proper place. Seperate particle class opengl code and place it in Common/IO folder.
+*)Have GeometryCubeShader class and have loading through GLMeshRenderer
+*)Rename GLMeshBuilder to GLBufferBuilder
+*)Fix warnings
+
+
+
+gungilu
+
+Light red color
+
+albedo : 1, 0, 0
+metalic : 0.57
+roughness : 0.57
+
+Whitish red color
+albedo : 1, 0, 0
+metalic : 0.0
+roughness : 0.5
