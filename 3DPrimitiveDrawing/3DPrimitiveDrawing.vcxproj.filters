@@ -288,9 +288,6 @@
     <ClCompile Include="src\Common\ImageBuffer.cpp">
       <Filter>src\Common</Filter>
     </ClCompile>
-    <ClCompile Include="src\GLUtil\GLMeshBuilder.cpp">
-      <Filter>src\GLUtil</Filter>
-    </ClCompile>
     <ClCompile Include="src\Common\IO\ModelIO\BinaryObjReader.cpp">
       <Filter>src\Common\IO\ModelIO</Filter>
     </ClCompile>
@@ -435,6 +432,9 @@
     <ClCompile Include="src\GLUtil\Shaders\CubeParticleShader\CubeParticleShader.cpp">
       <Filter>src\GLUtil\Shaders\CubeParticleShader</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\GLBufferBuilder.cpp">
+      <Filter>src\GLUtil</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -568,9 +568,6 @@
     </ClInclude>
     <ClInclude Include="src\Common\ImageBuffer.h">
       <Filter>src\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GLUtil\GLMeshBuilder.h">
-      <Filter>src\GLUtil</Filter>
     </ClInclude>
     <ClInclude Include="src\Common\IO\ModelIO\BinaryObjReader.h">
       <Filter>src\Common\IO\ModelIO</Filter>
@@ -739,6 +736,9 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\Shaders\CubeParticleShader\CubeParticleShader.h">
       <Filter>src\GLUtil\Shaders\CubeParticleShader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\GLBufferBuilder.h">
+      <Filter>src\GLUtil</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

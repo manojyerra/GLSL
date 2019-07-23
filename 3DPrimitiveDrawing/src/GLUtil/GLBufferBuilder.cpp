@@ -1,7 +1,7 @@
-#include "GLMeshBuilder.h"
+#include "GLBufferBuilder.h"
 #include "GLMemory.h"
 
-GLMeshBuilder::GLMeshBuilder()
+GLBufferBuilder::GLBufferBuilder()
 {
 	_vertexBufferID = 0;
 	_normalBufferID = 0;
@@ -24,48 +24,48 @@ GLMeshBuilder::GLMeshBuilder()
 	_indicesBufferLen = 0;
 }
 
-GLMeshBuilder* GLMeshBuilder::SetVertexBuffer(const GLvoid* buffer, GLsizeiptr len)
+GLBufferBuilder* GLBufferBuilder::SetVertexBuffer(const GLvoid* buffer, GLsizeiptr len)
 {
 	_vertexBuffer = buffer;
 	_vertexBufferLen = len;
 	return this;
 }
 
-GLMeshBuilder* GLMeshBuilder::SetNormalBuffer(const GLvoid* buffer, GLsizeiptr len)
+GLBufferBuilder* GLBufferBuilder::SetNormalBuffer(const GLvoid* buffer, GLsizeiptr len)
 {
 	_normalBuffer = buffer;
 	_normalBufferLen = len;
 	return this;
 }
 
-GLMeshBuilder* GLMeshBuilder::SetUVBuffer(const GLvoid* buffer, GLsizeiptr len)
+GLBufferBuilder* GLBufferBuilder::SetUVBuffer(const GLvoid* buffer, GLsizeiptr len)
 {
 	_uvBuffer = buffer;
 	_uvBufferLen = len;
 	return this;
 }
 
-GLMeshBuilder* GLMeshBuilder::SetColorBuffer(const GLvoid* buffer, GLsizeiptr len)
+GLBufferBuilder* GLBufferBuilder::SetColorBuffer(const GLvoid* buffer, GLsizeiptr len)
 {
 	_colorBuffer = buffer;
 	_colorBufferLen = len;
 	return this;
 }
 
-GLMeshBuilder* GLMeshBuilder::SetIndicesBuffer(const GLvoid* buffer, GLsizeiptr len)
+GLBufferBuilder* GLBufferBuilder::SetIndicesBuffer(const GLvoid* buffer, GLsizeiptr len)
 {
 	_indicesBuffer = buffer;
 	_indicesBufferLen = len;
 	return this;
 }
 
-GLMeshBuilder* GLMeshBuilder::SetImageBuffer(ImageBuffer* imgBuf)
+GLBufferBuilder* GLBufferBuilder::SetImageBuffer(ImageBuffer* imgBuf)
 {
 	_imageBuffer = imgBuf;
 	return this;
 }
 
-void GLMeshBuilder::build()
+void GLBufferBuilder::build()
 {
 	if (_vertexBuffer)
 	{
@@ -103,47 +103,47 @@ void GLMeshBuilder::build()
 	}
 }
 
-GLuint GLMeshBuilder::GetVertexBufferID()
+GLuint GLBufferBuilder::GetVertexBufferID()
 {
 	return _vertexBufferID;
 }
 
-GLuint GLMeshBuilder::GetNormalBufferID()
+GLuint GLBufferBuilder::GetNormalBufferID()
 {
 	return _normalBufferID;
 }
 
-GLuint GLMeshBuilder::GetUVBufferID()
+GLuint GLBufferBuilder::GetUVBufferID()
 {
 	return _uvBufferID;
 }
 
-GLuint GLMeshBuilder::GetColorBufferID()
+GLuint GLBufferBuilder::GetColorBufferID()
 {
 	return _colorBufferID;
 }
 
-GLuint GLMeshBuilder::GetIndicesBufferID()
+GLuint GLBufferBuilder::GetIndicesBufferID()
 {
 	return _indicesBufferID;
 }
 
-GLuint GLMeshBuilder::GetBaseTexID()
+GLuint GLBufferBuilder::GetBaseTexID()
 {
 	return _baseTexID;
 }
 
-GLuint GLMeshBuilder::GetVertexBufferSize()
+GLuint GLBufferBuilder::GetVertexBufferSize()
 {
 	return _vertexBufferLen;
 }
 
-GLuint GLMeshBuilder::GetIndicesBufferSize()
+GLuint GLBufferBuilder::GetIndicesBufferSize()
 {
 	return _indicesBufferLen;
 }
 
-GLMeshBuilder::~GLMeshBuilder()
+GLBufferBuilder::~GLBufferBuilder()
 {
 	if (_vertexBuffer)
 	{

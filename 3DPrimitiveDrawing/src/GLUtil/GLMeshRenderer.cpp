@@ -3,7 +3,7 @@
 
 GLMeshRenderer::GLMeshRenderer(ModelInfo* meshCreateInfo, int shaderType)
 {
-	_meshBuilder = new GLMeshBuilder();
+	_meshBuilder = new GLBufferBuilder();
 	_meshBuilder->SetVertexBuffer(meshCreateInfo->GetVertexBuffer(), meshCreateInfo->GetVertexBufferSize());
 	_meshBuilder->SetNormalBuffer(meshCreateInfo->GetNormalBuffer(), meshCreateInfo->GetNormalBufferSize());
 	_meshBuilder->SetUVBuffer(meshCreateInfo->GetUVBuffer(), meshCreateInfo->GetUVBufferSize());

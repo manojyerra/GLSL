@@ -2,9 +2,8 @@
 #define GLMeshRenderer_H
 
 #include "GLMat.h"
-#include "ImageBuffer.h"
 #include "ModelInfo.h"
-#include "GLMeshBuilder.h"
+#include "GLBufferBuilder.h"
 #include "BasicShader.h"
 #include "ColorShader.h"
 #include "UVShader.h"
@@ -16,7 +15,7 @@
 class GLMeshRenderer
 {
 private:
-	GLMeshBuilder* _meshBuilder;
+	GLBufferBuilder* _meshBuilder;
 
 	BasicShader* _basicShader;
 	ColorShader* _colorShader;

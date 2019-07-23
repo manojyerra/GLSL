@@ -14,7 +14,7 @@ private:
 	ImageBuffer* _imageBuf;
 
 	unsigned int _vertexBufLen;
-	unsigned int  _uvBufLen;
+	unsigned int _uvBufLen;
 	unsigned int _normalBufLen;
 	unsigned int _colorBufLen;
 	unsigned int _indicesBufLen;

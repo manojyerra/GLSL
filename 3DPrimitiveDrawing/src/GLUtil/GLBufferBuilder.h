@@ -1,10 +1,10 @@
-#ifndef GLMeshBuilder_H
-#define GLMeshBuilder_H
+#ifndef GLBufferBuilder_H
+#define GLBufferBuilder_H
 
 #include "GLInclude.h"
 #include "ImageBuffer.h"
 
-class GLMeshBuilder
+class GLBufferBuilder
 {
 private:
 	GLuint _vertexBufferID;
@@ -28,15 +28,15 @@ private:
 	GLsizeiptr _indicesBufferLen;
 
 public:
-	GLMeshBuilder();
-	~GLMeshBuilder();
+	GLBufferBuilder();
+	~GLBufferBuilder();
 
-	GLMeshBuilder* SetVertexBuffer(const GLvoid* buffer, GLsizeiptr len);
-	GLMeshBuilder* SetNormalBuffer(const GLvoid* buffer, GLsizeiptr len);
-	GLMeshBuilder* SetUVBuffer(const GLvoid* buffer, GLsizeiptr len);
-	GLMeshBuilder* SetColorBuffer(const GLvoid* buffer, GLsizeiptr len);
-	GLMeshBuilder* SetIndicesBuffer(const GLvoid* buffer, GLsizeiptr len);
-	GLMeshBuilder* SetImageBuffer(ImageBuffer* imgBuf);
+	GLBufferBuilder* SetVertexBuffer(const GLvoid* buffer, GLsizeiptr len);
+	GLBufferBuilder* SetNormalBuffer(const GLvoid* buffer, GLsizeiptr len);
+	GLBufferBuilder* SetUVBuffer(const GLvoid* buffer, GLsizeiptr len);
+	GLBufferBuilder* SetColorBuffer(const GLvoid* buffer, GLsizeiptr len);
+	GLBufferBuilder* SetIndicesBuffer(const GLvoid* buffer, GLsizeiptr len);
+	GLBufferBuilder* SetImageBuffer(ImageBuffer* imgBuf);
 	void build();
 
 	GLuint GetVertexBufferID();
