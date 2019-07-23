@@ -1,8 +1,6 @@
 #ifndef UIntArray_H
 #define UIntArray_H
 
-#include "Macros.h"
-
 class UIntArray
 {
 private:

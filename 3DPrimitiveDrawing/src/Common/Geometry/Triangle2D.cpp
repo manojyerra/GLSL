@@ -1,7 +1,6 @@
 #include "Triangle2D.h"
 #include "Line2D.h"
 
-
 Triangle2D::Triangle2D()
 {
 }

@@ -1,11 +1,8 @@
 #include "Line2D.h"
-#include <math.h>
-
 
 Line2D::Line2D()
 {
 }
-
 
 Line2D::Line2D(glm::vec3 p1, glm::vec3 p2 )
 {

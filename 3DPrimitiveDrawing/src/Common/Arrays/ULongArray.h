@@ -1,8 +1,6 @@
 #ifndef ULongArray_H
 #define ULongArray_H
 
-#include "Macros.h"
-
 class ULongArray
 {
 private:

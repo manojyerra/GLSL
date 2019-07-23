@@ -1,7 +1,6 @@
 #ifndef FloatArray_H
 #define FloatArray_H
 
-#include "Macros.h"
 #include "glm/glm.hpp"
 
 class FloatArray

@@ -1,8 +1,6 @@
 #ifndef VoidPtrArray_H
 #define VoidPtrArray_H
 
-#include "Macros.h"
-
 class VoidPtrArray
 {
 private:
