@@ -34,7 +34,7 @@ int main(void)
 
 	if (glewInit() != GLEW_OK)
 	{
-		std::cout << "Error" << std::endl;
+		throw new exception("\nError: Failed to initialize glew.\n");
 	}
 
 	glfwSwapInterval(1);
