@@ -5,9 +5,6 @@
 #include "GLMat.h"
 #include "glm/ext.hpp"
 
-#include <vector>
-using namespace std;
-
 class Cam
 {
 private:
