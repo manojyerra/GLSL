@@ -2,8 +2,6 @@
 #define ObjReader_H
 
 #include "FloatArray.h"
-#include "ULongArray.h"
-#include "VoidPtrArray.h"
 #include "ModelInfo.h"
 
 class ObjReader : public ModelInfo

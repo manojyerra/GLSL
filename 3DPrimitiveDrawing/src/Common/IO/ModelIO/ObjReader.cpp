@@ -17,8 +17,6 @@ ObjReader::ObjReader(string folderPath)
 
 void ObjReader::ReadObjFile(string folderPath)
 {
-	unsigned int startTime = GetTickCount();
-
 	string filePath = folderPath + "/objFile.obj";
 
 	FileReader fileReader(filePath, "rb");
