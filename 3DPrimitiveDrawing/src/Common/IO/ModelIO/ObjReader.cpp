@@ -3,7 +3,7 @@
 #include "ScanLineUtils.h"
 #include "VoidPtrArray.h"
 
-ObjReader::ObjReader(string folderPath)
+ObjReader::ObjReader(std::string folderPath)
 {
 	_folderPath = folderPath;
 	_imageBuffer = NULL;
@@ -16,9 +16,9 @@ ObjReader::ObjReader(string folderPath)
 	LoadTextures(_folderPath);
 }
 
-void ObjReader::ReadObjFile(string folderPath)
+void ObjReader::ReadObjFile(std::string folderPath)
 {
-	string filePath = folderPath + "/objFile.obj";
+	std::string filePath = folderPath + "/objFile.obj";
 
 	FileReader fileReader(filePath, "rb");
 
@@ -26,9 +26,9 @@ void ObjReader::ReadObjFile(string folderPath)
 	float tx, ty;
 	float nx, ny, nz;
 
-	vector<glm::vec3> vertexVec;
-	vector<glm::vec3> uvVec;
-	vector<glm::vec3> normalVec;
+	std::vector<glm::vec3> vertexVec;
+	std::vector<glm::vec3> uvVec;
+	std::vector<glm::vec3> normalVec;
 
 	VoidPtrArray facesArr(1024 * 1024);
 
@@ -165,11 +165,11 @@ void ObjReader::WriteBinaryToFile()
 	WriteBinaryToFile(_folderPath);
 }
 
-void ObjReader::WriteBinaryToFile(string folderPath)
+void ObjReader::WriteBinaryToFile(std::string folderPath)
 {
 	if (_vertexFloatArr)
 	{
-		string bufFilePath = folderPath + "/vertex.buf";
+		std::string bufFilePath = folderPath + "/vertex.buf";
 		FILE* bufFile = fopen(bufFilePath.c_str(), "wb");
 		fwrite(_vertexFloatArr->getArray(), sizeof(float), _vertexFloatArr->size(), bufFile);
 		fflush(bufFile);
@@ -178,7 +178,7 @@ void ObjReader::WriteBinaryToFile(string folderPath)
 
 	if (_uvFloatArr)
 	{
-		string bufFilePath = folderPath + "/uv.buf";
+		std::string bufFilePath = folderPath + "/uv.buf";
 		FILE* bufFile = fopen(bufFilePath.c_str(), "wb");
 		fwrite(_uvFloatArr->getArray(), sizeof(float), _uvFloatArr->size(), bufFile);
 		fflush(bufFile);
@@ -187,7 +187,7 @@ void ObjReader::WriteBinaryToFile(string folderPath)
 
 	if (_normalFloatArr)
 	{
-		string bufFilePath = folderPath + "/normal.buf";
+		std::string bufFilePath = folderPath + "/normal.buf";
 		FILE* bufFile = fopen(bufFilePath.c_str(), "wb");
 		fwrite(_normalFloatArr->getArray(), sizeof(float), _normalFloatArr->size(), bufFile);
 		fflush(bufFile);
@@ -195,9 +195,9 @@ void ObjReader::WriteBinaryToFile(string folderPath)
 	}
 }
 
-void ObjReader::LoadTextures(string folderPath)
+void ObjReader::LoadTextures(std::string folderPath)
 {
-	string filePath = folderPath + "/texture.png";
+	std::string filePath = folderPath + "/texture.png";
 
 	if (FileReader::IsFileExists(filePath))
 	{

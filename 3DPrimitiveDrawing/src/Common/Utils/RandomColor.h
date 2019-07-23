@@ -2,13 +2,12 @@
 #define RandomColor_H
 
 #include <vector>
-using namespace std;
 
 class RandomColor
 {
 private:
 	static bool init;
-	static vector<unsigned int> colorVec;
+	static std::vector<unsigned int> colorVec;
 	int index;
 
 public:

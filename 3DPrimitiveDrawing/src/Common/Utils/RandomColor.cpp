@@ -1,7 +1,7 @@
 #include "RandomColor.h"
 
 bool RandomColor::init = false;
-vector<unsigned int> RandomColor::colorVec;
+std::vector<unsigned int> RandomColor::colorVec;
 
 RandomColor::RandomColor()
 {

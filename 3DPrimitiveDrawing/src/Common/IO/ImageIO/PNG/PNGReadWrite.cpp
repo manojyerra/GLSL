@@ -16,7 +16,7 @@ float prevPercent = 0;
 float currPercent = 0;
 int _height = 0;
 
-unsigned char* PNGReadWrite::Read(string path, int* imgWidth, int* imgHeight, int* bytesPerPixel)
+unsigned char* PNGReadWrite::Read(std::string path, int* imgWidth, int* imgHeight, int* bytesPerPixel)
 {
     png_byte header[8]; //8 is the maximum header size that can be checked
 

@@ -13,11 +13,11 @@ private:
 
 	ImageBuffer* _imageBuffer;
 
-	void ReadObjFile(string folderPath);
-	void LoadTextures(string folderPath);
+	void ReadObjFile(std::string folderPath);
+	void LoadTextures(std::string folderPath);
 	   
 public:
-	BinaryObjReader(string folderPath);
+	BinaryObjReader(std::string folderPath);
 	~BinaryObjReader();
 
 	const char* GetVertexBuffer() override;

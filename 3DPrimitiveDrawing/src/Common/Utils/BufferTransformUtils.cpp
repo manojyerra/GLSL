@@ -1,5 +1,4 @@
 #include "BufferTransformUtils.h"
-#include "math.h"
 
 glm::vec3 BufferTransformUtils::CalcCenter(float* vertexBuf, int arrSize)
 {

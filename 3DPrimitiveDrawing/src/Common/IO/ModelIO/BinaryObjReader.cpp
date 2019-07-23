@@ -2,7 +2,7 @@
 #include "FileReader.h"
 #include "ImageBuffer.h"
 
-BinaryObjReader::BinaryObjReader(string folderPath)
+BinaryObjReader::BinaryObjReader(std::string folderPath)
 {
 	_vertexFileReader = NULL;
 	_uvFileReader = NULL;
@@ -14,7 +14,7 @@ BinaryObjReader::BinaryObjReader(string folderPath)
 	LoadTextures(folderPath);
 }
 
-void BinaryObjReader::ReadObjFile(string folderPath)
+void BinaryObjReader::ReadObjFile(std::string folderPath)
 {
 	if (FileReader::IsFileExists(folderPath + "/vertex.buf"))
 	{
@@ -67,9 +67,9 @@ unsigned int BinaryObjReader::GetNormalBufferSize()
 	return _normalFileReader ? _normalFileReader->GetLength() : 0;
 }
 
-void BinaryObjReader::LoadTextures(string folderPath)
+void BinaryObjReader::LoadTextures(std::string folderPath)
 {
-	string filePath = folderPath + "/texture.png";
+	std::string filePath = folderPath + "/texture.png";
 
 	if (FileReader::IsFileExists(filePath))
 	{

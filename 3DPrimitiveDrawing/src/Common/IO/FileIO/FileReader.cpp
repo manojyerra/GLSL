@@ -1,6 +1,6 @@
 #include "FileReader.h"
 
-FileReader::FileReader(string filePath, string readMode)
+FileReader::FileReader(std::string filePath, std::string readMode)
 {
 	fp = fopen(filePath.c_str(), readMode.c_str());
 	pos = 0;
@@ -21,7 +21,7 @@ FileReader::FileReader(string filePath, string readMode)
 	}
 }
 
-unsigned int FileReader::GetLength(string filePath)
+unsigned int FileReader::GetLength(std::string filePath)
 {
 	FILE  *fp = fopen(filePath.c_str(), "rb");
     
@@ -37,7 +37,7 @@ unsigned int FileReader::GetLength(string filePath)
     return 0;
 }
 
-bool FileReader::IsFileExists(string filePath)
+bool FileReader::IsFileExists(std::string filePath)
 {
 	FILE  *fp = fopen(filePath.c_str(), "r");
     

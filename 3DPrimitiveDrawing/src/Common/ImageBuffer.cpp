@@ -1,9 +1,8 @@
 #include "ImageBuffer.h"
 #include "PNG/PNGReadWrite.h"
-#include <windows.h>
-#include <gl/gl.h>
+#include "MathUtils.h"
 
-ImageBuffer::ImageBuffer(string imagePath)
+ImageBuffer::ImageBuffer(std::string imagePath)
 {
 	_imagePath = imagePath;
 
@@ -52,7 +51,7 @@ ImageBuffer* ImageBuffer::Clone()
 	return new ImageBuffer(_width, _height, _bytesPerPixel, newBuf);
 }
 
-bool ImageBuffer::Write(string savePath)
+bool ImageBuffer::Write(std::string savePath)
 {
 	return PNGReadWrite::Write(_buf, _width, _height, _bytesPerPixel*8, savePath.c_str());
 }
@@ -892,9 +891,9 @@ void ImageBuffer::Sharpen(int sharpLevel)
 
 		unsigned int pos = (_width*y + x) * _bytesPerPixel;
 
-		newBuf[ pos+0 ] = min(max(int(sumR), 0), 255); 
-		newBuf[ pos+1 ] = min(max(int(sumG), 0), 255); 
-		newBuf[ pos+2 ] = min(max(int(sumB), 0), 255);
+		newBuf[ pos+0 ] = minVal(maxVal(int(sumR), 0), 255);
+		newBuf[ pos+1 ] = minVal(maxVal(int(sumG), 0), 255);
+		newBuf[ pos+2 ] = minVal(maxVal(int(sumB), 0), 255);
 	}
 
 	free(_buf);
@@ -1002,9 +1001,9 @@ void ImageBuffer::EdgeDetection(int effectLevel)
 
 		unsigned int pos = (_width*y + x) * _bytesPerPixel;
 
-		newBuf[ pos+0 ] = min(max(int(sumR), 0), 255); 
-		newBuf[ pos+1 ] = min(max(int(sumG), 0), 255); 
-		newBuf[ pos+2 ] = min(max(int(sumB), 0), 255);
+		newBuf[ pos+0 ] = minVal(maxVal(int(sumR), 0), 255);
+		newBuf[ pos+1 ] = minVal(maxVal(int(sumG), 0), 255);
+		newBuf[ pos+2 ] = minVal(maxVal(int(sumB), 0), 255);
 	}
 
 	free(_buf);
@@ -1733,9 +1732,9 @@ void ImageBuffer::Emboss(int embossLevel)
 
 		unsigned int pos = (_width*y + x) * _bytesPerPixel;
 
-		newBuf[ pos+0 ] = min(max(int(sumR + 128), 0), 255); 
-		newBuf[ pos+1 ] = min(max(int(sumG + 128), 0), 255); 
-		newBuf[ pos+2 ] = min(max(int(sumB + 128), 0), 255);
+		newBuf[ pos+0 ] = minVal(maxVal(int(sumR + 128), 0), 255);
+		newBuf[ pos+1 ] = minVal(maxVal(int(sumG + 128), 0), 255);
+		newBuf[ pos+2 ] = minVal(maxVal(int(sumB + 128), 0), 255);
 	}
 
 	//int filterWidth = 3;
@@ -1838,9 +1837,9 @@ void ImageBuffer::MotionBlur()
 
 		unsigned int pos = (_width*y + x) * _bytesPerPixel;
 
-		newBuf[ pos+0 ] = min(max(int(factor * sumR + bias), 0), 255); 
-		newBuf[ pos+1 ] = min(max(int(factor * sumG + bias), 0), 255); 
-		newBuf[ pos+2 ] = min(max(int(factor * sumB + bias), 0), 255);
+		newBuf[ pos+0 ] = minVal(maxVal(int(factor * sumR + bias), 0), 255);
+		newBuf[ pos+1 ] = minVal(maxVal(int(factor * sumG + bias), 0), 255);
+		newBuf[ pos+2 ] = minVal(maxVal(int(factor * sumB + bias), 0), 255);
 	}
 
 	free(_buf);
@@ -1887,7 +1886,7 @@ void ImageBuffer::PencilSketch()
 				val = (int)(255.0f * ((float)L/((float)255-(float)U)));
 			}
 
-			uBuf[i+j] = min(255, val);
+			uBuf[i+j] = minVal(255, val);
 		}
 	}
 	

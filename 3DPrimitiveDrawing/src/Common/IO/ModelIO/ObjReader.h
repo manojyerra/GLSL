@@ -7,18 +7,18 @@
 class ObjReader : public ModelInfo
 {
 private:
-	string _folderPath;
+	std::string _folderPath;
 
 	FloatArray* _vertexFloatArr;
 	FloatArray* _uvFloatArr;
 	FloatArray* _normalFloatArr;
 	ImageBuffer* _imageBuffer;
 
-	void ReadObjFile(string folderPath);
-	void LoadTextures(string folderPath);
+	void ReadObjFile(std::string folderPath);
+	void LoadTextures(std::string folderPath);
 
 public:
-	ObjReader(string folderPath);
+	ObjReader(std::string folderPath);
 
 	const char* GetVertexBuffer() override;
 	const char* GetUVBuffer() override;
@@ -30,7 +30,7 @@ public:
 	unsigned int GetNormalBufferSize() override;
 
 	void WriteBinaryToFile();
-	void WriteBinaryToFile(string folderPath);
+	void WriteBinaryToFile(std::string folderPath);
 	~ObjReader();
 };
 

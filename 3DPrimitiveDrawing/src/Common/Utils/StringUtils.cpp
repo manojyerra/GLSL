@@ -1,8 +1,8 @@
 #include "StringUtils.h"
 
-vector<string> StringUtils::split(string str, char splitBy)
+std::vector<std::string> StringUtils::split(std::string str, char splitBy)
 {
-	vector<string> splitVec;
+	std::vector<std::string> splitVec;
 
 	if(str.find(splitBy) == -1)
 		return splitVec;
@@ -38,7 +38,7 @@ vector<string> StringUtils::split(string str, char splitBy)
 	return splitVec;
 }
 
-bool StringUtils::startsWith(string str, string checkStr)
+bool StringUtils::startsWith(std::string str, std::string checkStr)
 {
 	int strLen = str.length();
 	int checkStrLen = checkStr.length();
@@ -55,7 +55,7 @@ bool StringUtils::startsWith(string str, string checkStr)
 	return true;
 }
 
-bool StringUtils::endsWith(string str, string checkStr)
+bool StringUtils::endsWith(std::string str, std::string checkStr)
 {
 	int strLen = str.length();
 	int checkStrLen = checkStr.length();

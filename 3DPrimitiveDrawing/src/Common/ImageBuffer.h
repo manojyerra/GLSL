@@ -4,8 +4,6 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 class ImageBuffer
 {
 private:
@@ -17,7 +15,7 @@ private:
 	int _compressedFormatBufSize;
 
 	int _imgType;
-	string _imagePath;
+	std::string _imagePath;
 
 public:
 	static const int LINEAR = 1;
@@ -29,7 +27,7 @@ public:
 	static const int DDS_DXT3 = 4;
 	static const int DDS_DXT5 = 5;
 
-	ImageBuffer(string imagePath);
+	ImageBuffer(std::string imagePath);
 	ImageBuffer(int width, int height, int bytesPerPixel);
 	ImageBuffer(int width, int height, int bytesPerPixel, unsigned char* buffer);
 	~ImageBuffer();
@@ -63,7 +61,7 @@ public:
 	//******************************************************************************************************/	
 
 	//********************************* Writing with intervals *********************************************/
-	bool Write(string savePath);
+	bool Write(std::string savePath);
 	//bool BeginWrite(string savePath);
 	//int WritePercent(float percent);
 	//void EndWrite();

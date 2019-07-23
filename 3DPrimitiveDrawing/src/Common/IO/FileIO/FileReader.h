@@ -1,9 +1,7 @@
 #ifndef FileReader_H
 #define FileReader_H
 
-#include <stdio.h>
 #include <string>
-using namespace std;
 
 class FileReader
 {
@@ -15,11 +13,11 @@ private:
 	char* buf;
 
 public:
-	FileReader(string filePath, string readMode);
+	FileReader(std::string filePath, std::string readMode);
 	~FileReader();
 
-	static unsigned int GetLength(string filePath);
-	static bool IsFileExists(string filePath);
+	static unsigned int GetLength(std::string filePath);
+	static bool IsFileExists(std::string filePath);
 
 	int GetLength();
 	char* GetData();

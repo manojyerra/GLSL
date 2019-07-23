@@ -429,6 +429,9 @@
     <ClCompile Include="src\Platform\Platform.cpp">
       <Filter>src\Platform</Filter>
     </ClCompile>
+    <ClCompile Include="src\Common\Utils\MathUtils.cpp">
+      <Filter>src\Common\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -727,6 +730,9 @@
     </ClInclude>
     <ClInclude Include="src\Platform\Platform.h">
       <Filter>src\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Utils\MathUtils.h">
+      <Filter>src\Common\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
