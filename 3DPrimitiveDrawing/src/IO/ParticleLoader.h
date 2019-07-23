@@ -3,6 +3,7 @@
 
 #include "ShaderProgram.h"
 #include "GLMat.h"
+#include "CubeParticleShader.h"
 
 class Tuple
 {
@@ -30,8 +31,8 @@ class ParticleLoader
 {
 	static const int BYTES_PER_VERTEX = 12;
 
-	ShaderProgram* _cubeParticleShader;
-
+	CubeParticleShader* _shader;
+	
 	GLuint _vertexBufferID;
 	GLuint _colorBufferID;
 	GLuint _vertexCount;
@@ -41,8 +42,6 @@ class ParticleLoader
 	GLuint _lowPolyVertexCount;
 
 	GLMat _modelMat;
-	float _cubeHalfLen;
-	int _methodNum;
 
 	void LoadData(const char* fileData, unsigned int length);
 	void LoadLowPolyData(const char* fileData, unsigned int length);

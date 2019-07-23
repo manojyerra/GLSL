@@ -3,15 +3,11 @@
 #include "ShadersManager.h"
 #include "Cam.h"
 #include "FileReader.h"
-#include "Input.h"
 #include "GLMemory.h"
 
 ParticleLoader::ParticleLoader()
 {
-	_cubeParticleShader = ShadersManager::GetInstance()->CreateShaderProgram(
-		"shaders/CubeParticle/CubeParticle.vs",
-		"shaders/CubeParticle/CubeParticle.gs",
-		"shaders/CubeParticle/CubeParticle.fs");
+	_shader = new CubeParticleShader();
 
 	_vertexBufferID = 0;
 	_colorBufferID = 0;
@@ -20,9 +16,6 @@ ParticleLoader::ParticleLoader()
 	_lowPolyVertexBufferID = 0;
 	_lowPolyColorBufferID = 0;
 	_lowPolyVertexCount = 0;
-
-	_cubeHalfLen = 1.0f;
-	_methodNum = 2;
 
 	_modelMat.SetRotation(glm::vec3(0,90,90));
 	
@@ -68,8 +61,6 @@ ParticleLoader::ParticleLoader()
 	free(vertexBuf);
 	*/
 	
-	_cubeHalfLen = 0.0015f;
-
 	FILE* fp = fopen("data/demo/xData.bin", "rb");
 
 	if (fp)
@@ -150,70 +141,34 @@ void ParticleLoader::SetPosition(float x, float y, float z)
 
 void ParticleLoader::DrawAllParticles()
 {
-	_cubeParticleShader->Begin();
+	_shader->SetModelMatrix(_modelMat.m);
+	_shader->SetVertexBufferID(_vertexBufferID);
+	_shader->SetColorBufferID(_colorBufferID);
 
-	_cubeParticleShader->SetUniformMatrix4fv("mvp", glm::value_ptr(Cam::GetInstance()->GetMVP(_modelMat.m)));
-	_cubeParticleShader->SetUniformMatrix3fv("normalMat", glm::value_ptr(Cam::GetInstance()->GetNormalMat(_modelMat.m)));
-	_cubeParticleShader->SetUniformMatrix4fv("modelViewMat", glm::value_ptr(Cam::GetInstance()->GetModelViewMat(_modelMat.m)));
-	_cubeParticleShader->SetUniform1f("hLen", _cubeHalfLen);
-	_cubeParticleShader->SetUniform1i("methodNum", _methodNum);
-
-	GLuint vertexLoc = glGetAttribLocation(_cubeParticleShader->ProgramID(), "vertex");
-	glEnableVertexAttribArray(vertexLoc);
-	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-	glVertexAttribPointer(vertexLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	GLuint colorLoc = glGetAttribLocation(_cubeParticleShader->ProgramID(), "color");
-	glEnableVertexAttribArray(colorLoc);
-	glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
-	glVertexAttribPointer(colorLoc, 3, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
+	_shader->Begin();
+	_shader->SetUniformsAndAttributes();
 	glDrawArrays(GL_POINTS, 0, _vertexCount);
-
-	glDisableVertexAttribArray(vertexLoc);
-	glDisableVertexAttribArray(colorLoc);
-
-	_cubeParticleShader->End();
+	_shader->End();
 }
 
 void ParticleLoader::DrawLowPolyParticles()
 {
-	_cubeParticleShader->Begin();
+	_shader->SetModelMatrix(_modelMat.m);
+	_shader->SetVertexBufferID(_lowPolyVertexBufferID);
+	_shader->SetColorBufferID(_lowPolyColorBufferID);
 
-	_cubeParticleShader->SetUniformMatrix4fv("mvp", glm::value_ptr(Cam::GetInstance()->GetMVP(_modelMat.m)));
-	_cubeParticleShader->SetUniformMatrix3fv("normalMat", glm::value_ptr(Cam::GetInstance()->GetNormalMat(_modelMat.m)));
-	_cubeParticleShader->SetUniformMatrix4fv("modelViewMat", glm::value_ptr(Cam::GetInstance()->GetModelViewMat(_modelMat.m)));
-	_cubeParticleShader->SetUniform1f("hLen", _cubeHalfLen);
-	_cubeParticleShader->SetUniform1i("methodNum", _methodNum);
-
-	GLuint vertexLoc = glGetAttribLocation(_cubeParticleShader->ProgramID(), "vertex");
-	glEnableVertexAttribArray(vertexLoc);
-	glBindBuffer(GL_ARRAY_BUFFER, _lowPolyVertexBufferID);
-	glVertexAttribPointer(vertexLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	GLuint colorLoc = glGetAttribLocation(_cubeParticleShader->ProgramID(), "color");
-	glEnableVertexAttribArray(colorLoc);
-	glBindBuffer(GL_ARRAY_BUFFER, _lowPolyColorBufferID);
-	glVertexAttribPointer(colorLoc, 3, GL_UNSIGNED_BYTE, GL_FALSE, 0, (void*)0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
+	_shader->Begin();
+	_shader->SetUniformsAndAttributes();
 	glDrawArrays(GL_POINTS, 0, _lowPolyVertexCount);
-
-	glDisableVertexAttribArray(vertexLoc);
-	glDisableVertexAttribArray(colorLoc);
-
-	_cubeParticleShader->End();
+	_shader->End();
 }
 
 ParticleLoader::~ParticleLoader()
 {
-	if(_cubeParticleShader)
+	if(_shader)
 	{
-		ShadersManager::GetInstance()->DeleteShaderProgram(_cubeParticleShader);
-		_cubeParticleShader = NULL;
+		delete _shader;
+		_shader = NULL;
 	}
 
 	if (_vertexBufferID)
