@@ -1,5 +1,5 @@
 #include "Cylinder.h"
-#include "math.h"
+#include "MathUtils.h"
 #include "GLUtil.h"
 #include "BufferTransformUtils.h"
 #include "ShadersManager.h"

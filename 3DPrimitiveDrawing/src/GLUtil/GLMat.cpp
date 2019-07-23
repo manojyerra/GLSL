@@ -1,6 +1,5 @@
 #include "GLMat.h"
-#include "math.h"
-#include "string.h"
+#include "MathUtils.h"
 #include "glm/geometric.hpp"
 
 GLMat::GLMat()

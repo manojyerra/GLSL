@@ -1,5 +1,5 @@
 #include "Cone.h"
-#include "math.h"
+#include "MathUtils.h"
 #include "GLUtil.h"
 #include "BufferTransformUtils.h"
 #include "Cylinder.h"

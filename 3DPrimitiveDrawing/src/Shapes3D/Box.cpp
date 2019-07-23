@@ -4,6 +4,7 @@
 #include "ShadersManager.h"
 #include "Cam.h"
 #include "ModelInfo.h"
+#include "MathUtils.h"
 
 Box::Box() : Shape(Shape::BOX)
 {

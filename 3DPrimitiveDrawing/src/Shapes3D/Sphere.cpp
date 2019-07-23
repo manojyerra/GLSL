@@ -3,6 +3,7 @@
 #include "BufferTransformUtils.h"
 #include "ShadersManager.h"
 #include "Cam.h"
+#include "MathUtils.h"
 
 Sphere::Sphere(float x, float y, float z, float r) : Shape(Shape::SPHERE)
 {
