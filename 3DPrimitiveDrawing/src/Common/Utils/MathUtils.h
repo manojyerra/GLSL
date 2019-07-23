@@ -1,16 +1,12 @@
-#ifndef StringUtils_H
-#define StringUtils_H
+#ifndef MathUtils_H
+#define MathUtils_H
 
-#include <vector>
-#include <string>
-using namespace std;
+#define DEG_RAD 0.0174532925194f
+#define RAD_DEG 57.295780490443f
+#define PI_VAL 3.1415926f
 
-class StringUtils
+class MathUtils
 {
-public:
-	static vector<string> split(string str, char splitBy);
-	static bool startsWith(string str, string checkStr);
-	static bool endsWith(string str, string checkStr);	
 };
 
 #endif
