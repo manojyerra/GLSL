@@ -21,7 +21,7 @@ private:
 	RandomColor _randomColor;
 
 	GLMeshRenderer* _meshRenderer;
-	
+
 	void GenerateGeometry();
 
 public:
@@ -36,7 +36,7 @@ public:
 	static Box CalcAABB(float* vertexBuf, int arrSize);
 	static Box CalcBoundingBox(float* vertexBuf, int arrSize);
 	static Box GetBoundingBoxAfterRotXYZ(float* vertexBuf, int arrSize, float xAng, float yAng, float zAng);
-	
+
 	void SetPos(float x, float y, float z);
 	void SetSize(float w, float h, float d);
 	glm::vec3 GetPos();

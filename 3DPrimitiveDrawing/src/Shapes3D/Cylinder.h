@@ -22,7 +22,7 @@ private:
 	GLMeshRenderer* _meshRenderer;
 
 	void GenerateGeometry();
-	
+
 public:
 	Cylinder();
 	Cylinder(Cylinder* cylinder);
