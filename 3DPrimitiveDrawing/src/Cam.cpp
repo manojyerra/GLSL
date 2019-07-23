@@ -1,5 +1,6 @@
 #include "Cam.h"
 #include "Input.h"
+#include "Macros.h"
 
 Cam* Cam::_ref = NULL;
 
@@ -132,7 +133,7 @@ bool Cam::UpdateCamera()
 {
 	_camUpdated = false;
 
-	if( Input::IsKeyPressed(VK_SHIFT) && Input::IsMiddleMousePressed())
+	if( (Input::IsKeyPressed(Input::KEY_LEFT_SHIFT) || Input::IsKeyPressed(Input::KEY_RIGHT_SHIFT)) && Input::IsMiddleMousePressed())
 	{
 		float dx = (float)(Input::MX - Input::PrevMX);
 		float dy = (float)(Input::MY - Input::PrevMY);
@@ -148,7 +149,7 @@ bool Cam::UpdateCamera()
 
 		_camUpdated = true;
 	}
-	else if(Input::IsKeyPressed(VK_CONTROL) && Input::IsMiddleMousePressed())
+	else if((Input::IsKeyPressed(Input::KEY_LEFT_CONTROL) || Input::IsKeyPressed(Input::KEY_RIGHT_CONTROL)) && Input::IsMiddleMousePressed())
 	{
 		//_trans.z += (float)(Input::PrevMY - Input::MY) * 2.0f;
 

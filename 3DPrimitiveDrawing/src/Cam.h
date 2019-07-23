@@ -1,7 +1,6 @@
 #ifndef Cam_H
 #define Cam_H
 
-#include "Macros.h"
 #include "GLMat.h"
 #include "glm/ext.hpp"
 
