@@ -28,10 +28,16 @@ Code refactoring.
 *)Remove all unneccessary include headers.
 *)Place ParticleLoader class in proper place. Seperate particle class opengl code and place it in Common/IO folder.
 *)Have GeometryCubeShader class and have loading through GLMeshRenderer
-*)Rename GLMeshBuilder to GLBufferBuilder
 *)Fix warnings
 *)Add phong per pixel shader with texture
 *)Remove windows specific code.
+
+
+Done:
+*)Rename GLMeshBuilder to GLBufferBuilder
+
+
+
 
 
 gungilu
