@@ -120,14 +120,15 @@ void ParticleLoader::LoadLowPolyData(const char* fileData, unsigned int length)
 
 	unsigned int colorBufLen = _lowPolyVertexCount * 3;
 	char* colorBuf = (char*)malloc(colorBufLen);
+	memset(colorBuf, 0, colorBufLen);
 
 	for (unsigned int i = 0; i < _lowPolyVertexCount; i++)
 	{
 		int ii = i * 3;
 
 		colorBuf[ii + 0] = 200;
-		colorBuf[ii + 1] = 0;
-		colorBuf[ii + 2] = 0;
+		//colorBuf[ii + 1] = 0;
+		//colorBuf[ii + 2] = 0;
 	}
 
 	_lowPolyColorBufferID = GLCreateBuffer(colorBufLen, (GLvoid*)colorBuf);
