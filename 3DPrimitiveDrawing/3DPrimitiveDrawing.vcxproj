@@ -102,6 +102,7 @@
     <ClCompile Include="src\IO\ParticleLoader.cpp" />
     <ClCompile Include="src\Macros.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Platform\Platform.cpp" />
     <ClCompile Include="src\Shapes2D\Triangle.cpp" />
     <ClCompile Include="src\Shapes3D\Box.cpp" />
     <ClCompile Include="src\Shapes3D\Cone.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\IO\ParticleLoader.h" />
     <ClInclude Include="src\Macros.h" />
+    <ClInclude Include="src\Platform\Platform.h" />
     <ClInclude Include="src\Shapes2D\Triangle.h" />
     <ClInclude Include="src\Shapes3D\Box.h" />
     <ClInclude Include="src\Shapes3D\Cone.h" />

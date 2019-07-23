@@ -97,6 +97,9 @@
     <Filter Include="src\GLUtil\Shaders\PBRWithTextureShader">
       <UniqueIdentifier>{8a99a816-b5a5-4f14-8c57-82cec3c00443}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Platform">
+      <UniqueIdentifier>{a4585626-6016-4078-9bbe-46672fbdff00}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Macros.cpp">
@@ -423,6 +426,9 @@
     <ClCompile Include="src\GLUtil\Shaders\PBRWithTextureShader\PBRWithTextureShader.cpp">
       <Filter>src\GLUtil\Shaders\PBRWithTextureShader</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Platform.cpp">
+      <Filter>src\Platform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macros.h">
@@ -718,6 +724,9 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\Shaders\PBRWithTextureShader\PBRWithTextureShader.h">
       <Filter>src\GLUtil\Shaders\PBRWithTextureShader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Platform.h">
+      <Filter>src\Platform</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

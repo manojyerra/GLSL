@@ -30,7 +30,8 @@ Code refactoring.
 *)Have GeometryCubeShader class and have loading through GLMeshRenderer
 *)Rename GLMeshBuilder to GLBufferBuilder
 *)Fix warnings
-
+*)Add phong per pixel shader with texture
+*)Remove windows specific code.
 
 
 gungilu
