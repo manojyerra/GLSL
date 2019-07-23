@@ -1,4 +1,5 @@
 #include "UIntArray.h"
+#include <string>
 
 UIntArray::UIntArray(unsigned int capacity)
 {

@@ -1,4 +1,5 @@
 #include "VoidPtrArray.h"
+#include <string>
 
 VoidPtrArray::VoidPtrArray(unsigned int capacity)
 {

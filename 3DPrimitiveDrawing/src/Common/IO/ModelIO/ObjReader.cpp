@@ -1,6 +1,7 @@
 #include "ObjReader.h"
 #include "FileReader.h"
 #include "ScanLineUtils.h"
+#include "VoidPtrArray.h"
 
 ObjReader::ObjReader(string folderPath)
 {

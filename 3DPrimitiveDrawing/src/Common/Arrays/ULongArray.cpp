@@ -1,4 +1,5 @@
 #include "ULongArray.h"
+#include <string>
 
 ULongArray::ULongArray(unsigned int capacity)
 {
