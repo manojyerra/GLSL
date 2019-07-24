@@ -7,7 +7,7 @@
 
 ParticleLoader::ParticleLoader()
 {
-	_shader = new CubeParticleShader();
+	_shader = new CubeGeometryShader();
 
 	_vertexBufferID = 0;
 	_colorBufferID = 0;

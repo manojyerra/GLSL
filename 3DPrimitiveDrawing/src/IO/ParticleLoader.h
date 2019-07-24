@@ -3,7 +3,7 @@
 
 #include "ShaderProgram.h"
 #include "GLMat.h"
-#include "CubeParticleShader.h"
+#include "CubeGeometryShader.h"
 
 class Tuple
 {
@@ -31,7 +31,7 @@ class ParticleLoader
 {
 	static const int BYTES_PER_VERTEX = 12;
 
-	CubeParticleShader* _shader;
+	CubeGeometryShader* _shader;
 	
 	GLuint _vertexBufferID;
 	GLuint _colorBufferID;

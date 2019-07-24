@@ -1,11 +1,11 @@
-#ifndef CubeParticleShader_H
-#define CubeParticleShader_H
+#ifndef CubeGeometryShader_H
+#define CubeGeometryShader_H
 
 #include "Shader.h"
 #include "ShaderProgram.h"
 #include "GLMat.h"
 
-class CubeParticleShader : Shader
+class CubeGeometryShader : Shader
 {
 private:
 	ShaderProgram* _shaderProgram;
@@ -18,8 +18,8 @@ private:
 	GLMat _modelMat;
 
 public:
-	CubeParticleShader();
-	~CubeParticleShader();
+	CubeGeometryShader();
+	~CubeGeometryShader();
 
 	void SetCubeHalfLen(float cubeHalfLen);
 	void SetVertexBufferID(unsigned int bufferID);

@@ -100,7 +100,7 @@
     <Filter Include="src\Platform">
       <UniqueIdentifier>{a4585626-6016-4078-9bbe-46672fbdff00}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\GLUtil\Shaders\CubeParticleShader">
+    <Filter Include="src\GLUtil\Shaders\CubeGeometryShader">
       <UniqueIdentifier>{ce12944b-6a96-48fc-885d-df6c3d6ef28f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -429,11 +429,11 @@
     <ClCompile Include="src\Common\Utils\MathUtils.cpp">
       <Filter>src\Common\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="src\GLUtil\Shaders\CubeParticleShader\CubeParticleShader.cpp">
-      <Filter>src\GLUtil\Shaders\CubeParticleShader</Filter>
-    </ClCompile>
     <ClCompile Include="src\GLUtil\GLBufferBuilder.cpp">
       <Filter>src\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLUtil\Shaders\CubeGeometryShader\CubeGeometryShader.cpp">
+      <Filter>src\GLUtil\Shaders\CubeGeometryShader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -734,11 +734,11 @@
     <ClInclude Include="src\GLUtil\GLInclude.h">
       <Filter>src\GLUtil</Filter>
     </ClInclude>
-    <ClInclude Include="src\GLUtil\Shaders\CubeParticleShader\CubeParticleShader.h">
-      <Filter>src\GLUtil\Shaders\CubeParticleShader</Filter>
-    </ClInclude>
     <ClInclude Include="src\GLUtil\GLBufferBuilder.h">
       <Filter>src\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\Shaders\CubeGeometryShader\CubeGeometryShader.h">
+      <Filter>src\GLUtil\Shaders\CubeGeometryShader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

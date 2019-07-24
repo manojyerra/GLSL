@@ -1,13 +1,13 @@
-#include "CubeParticleShader.h"
+#include "CubeGeometryShader.h"
 #include "ShadersManager.h"
 #include "Cam.h"
 
-CubeParticleShader::CubeParticleShader()
+CubeGeometryShader::CubeGeometryShader()
 {
 	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram(
-		"shaders/CubeParticle/CubeParticle.vs",
-		"shaders/CubeParticle/CubeParticle.gs",
-		"shaders/CubeParticle/CubeParticle.fs");
+		"shaders/CubeGeometryShader/CubeGeometryShader.vs",
+		"shaders/CubeGeometryShader/CubeGeometryShader.gs",
+		"shaders/CubeGeometryShader/CubeGeometryShader.fs");
 
 	_methodNum = 2;
 	_cubeHalfLen = 0.0015f;
@@ -16,37 +16,37 @@ CubeParticleShader::CubeParticleShader()
 	_alpha = 1.0f;
 }
 
-void CubeParticleShader::SetCubeHalfLen(float cubeHalfLen)
+void CubeGeometryShader::SetCubeHalfLen(float cubeHalfLen)
 {
 	_cubeHalfLen = cubeHalfLen;
 }
 
-void CubeParticleShader::SetAlpha(float alpha)
+void CubeGeometryShader::SetAlpha(float alpha)
 {
 	_alpha = alpha;
 }
 
-void CubeParticleShader::SetModelMatrix(float* mat)
+void CubeGeometryShader::SetModelMatrix(float* mat)
 {
 	_modelMat.Copy(mat);
 }
 
-void CubeParticleShader::SetVertexBufferID(unsigned int bufferID)
+void CubeGeometryShader::SetVertexBufferID(unsigned int bufferID)
 {
 	_vertexBufferID = bufferID;
 }
 
-void CubeParticleShader::SetColorBufferID(unsigned int bufferID)
+void CubeGeometryShader::SetColorBufferID(unsigned int bufferID)
 {
 	_colorBufferID = bufferID;
 }
 
-void CubeParticleShader::Begin()
+void CubeGeometryShader::Begin()
 {
 	_shaderProgram->Begin();
 }
 
-void CubeParticleShader::SetUniformsAndAttributes()
+void CubeGeometryShader::SetUniformsAndAttributes()
 {
 	Cam* cam = Cam::GetInstance();
 
@@ -69,7 +69,7 @@ void CubeParticleShader::SetUniformsAndAttributes()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void CubeParticleShader::End()
+void CubeGeometryShader::End()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -85,7 +85,7 @@ void CubeParticleShader::End()
 	_shaderProgram->End();
 }
 
-CubeParticleShader::~CubeParticleShader()
+CubeGeometryShader::~CubeGeometryShader()
 {
 	if(_shaderProgram)
 	{
