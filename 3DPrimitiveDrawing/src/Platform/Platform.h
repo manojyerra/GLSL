@@ -2,13 +2,13 @@
 #define Platform_H
 
 #define NOMINMAX
+#include "Windows.h"
 #include <GLFW/glfw3.h>
 
 class Platform
 {
 public:
 	static void debugPrint(const char * pszFormat, ...);
-
 };
 
 #endif

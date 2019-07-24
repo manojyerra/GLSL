@@ -1,5 +1,4 @@
 #include "Platform.h"
-#include "Windows.h"
 #include <stdio.h>
 
 void Platform::debugPrint(const char * pszFormat, ...)
