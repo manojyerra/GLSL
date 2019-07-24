@@ -239,7 +239,7 @@ void Floor::GenerateAxis(float start, float end)
 	modelInfo.SetColorBuffer(glBatch->GetColorBuffer(), glBatch->GetColorBufferSize());
 	_axisRenderer = new GLMeshRenderer(&modelInfo, GLMeshRenderer::COLOR_SHADER);
 	_axisRenderer->SetPrimitiveType(GLMeshRenderer::lines);
-	_axisRenderer->SetAlpha(0.7);
+	_axisRenderer->SetAlpha(0.7f);
 
 	delete glBatch;
 }

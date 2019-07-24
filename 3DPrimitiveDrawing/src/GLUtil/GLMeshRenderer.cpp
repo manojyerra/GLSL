@@ -226,7 +226,7 @@ void GLMeshRenderer::Draw()
 		_shader->SetModelMatrix(_modelMat.m);
 		_shader->Begin();
 		_shader->SetUniformsAndAttributes();
-		glDrawArrays(_primitiveType, 0, _bufferBuilder->GetVertexBufferSize() / 12);
+		glDrawArrays(_primitiveType, 0, (GLsizei)(_bufferBuilder->GetVertexBufferSize() / 12));
 		_shader->End();
 	}
 }

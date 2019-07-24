@@ -15,11 +15,11 @@ public:
 	SUIRadioButton* model;
 	SUICheckBox* applyShaderToAll;
 
-	ModelSelectionFrame(int x, int y, int w, int h, SUIActionListener* actionListener);
+	ModelSelectionFrame(float x, float y, float w, float h, SUIActionListener* actionListener);
 	~ModelSelectionFrame();
 
-	void SetPos(int x, int y);
-	int GetWidth();
+	void SetPos(float x, float y);
+	float GetWidth();
 	SUIFrame* GetFrame();
 };
 #endif

@@ -1,8 +1,8 @@
 #include "ModelSelectionFrame.h"
 #include "SUI/SUIBox.h"
 
-ModelSelectionFrame::ModelSelectionFrame(int x, int y, int w, int h, SUIActionListener* actionListener) {
-	_frame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
+ModelSelectionFrame::ModelSelectionFrame(float x, float y, float w, float h, SUIActionListener* actionListener) {
+	_frame = new SUIFrame(x, y, w, h, SUIFrame::V_ALIGNMENT);
 	_frame->SetName("Model Selection Frame", SUIFrame::LEFT);
 
 	SUIBox* modelSelectionBox = new SUIBox(SUIBox::V_ALIGNMENT);
@@ -30,12 +30,12 @@ ModelSelectionFrame::ModelSelectionFrame(int x, int y, int w, int h, SUIActionLi
 	_frame->Add(applyShaderToAll);
 }
 
-void ModelSelectionFrame::SetPos(int x, int y) {
+void ModelSelectionFrame::SetPos(float x, float y) {
 	_frame->SetPos(x, y);
 	_frame->ResetBounds();
 }
 
-int ModelSelectionFrame::GetWidth()
+float ModelSelectionFrame::GetWidth()
 {
 	return _frame->GetW();
 }

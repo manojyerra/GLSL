@@ -50,11 +50,11 @@ public:
 
 	vector<ModelBox*> modelBoxVec;
 
-	ModelVisibilityFrame(int x, int y, int w, int h, SUIActionListener* actionListener);
+	ModelVisibilityFrame(float x, float y, float w, float h, SUIActionListener* actionListener);
 	~ModelVisibilityFrame();
 
-	void SetPos(int x, int y);
-	int GetWidth();
+	void SetPos(float x, float y);
+	float GetWidth();
 	SUIFrame* GetFrame();
 	//void actionPerformed(SUIActionEvent e);
 };

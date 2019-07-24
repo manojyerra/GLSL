@@ -7,10 +7,10 @@
 
 SUIManager* SUIManager::_ref = 0;
 
-void SUIManager::Setup(int windowWidth, int windowHeight)
+void SUIManager::Setup(float windowWidth, float windowHeight)
 {
-	_windowWidth = (float)windowWidth;
-	_windowHeight = (float)windowHeight;
+	_windowWidth = windowWidth;
+	_windowHeight = windowHeight;
 
 	_statusBarRect.SetColor(64,64,64,200);
 	_statusBarRect.SetBounds(0,_windowHeight*0.935f,_windowWidth,_windowHeight*0.065f);
@@ -35,10 +35,10 @@ SUIManager* SUIManager::GetInstance()
 	return _ref;
 }
 
-void SUIManager::SetWindowSize(int windowWidth, int windowHeight)
+void SUIManager::SetWindowSize(float windowWidth, float windowHeight)
 {
-	_windowWidth = (float)windowWidth;
-	_windowHeight = (float)windowHeight;
+	_windowWidth = windowWidth;
+	_windowHeight = windowHeight;
 
 	_statusBarRect.SetBounds(0, _windowHeight*0.935f, _windowWidth, _windowHeight*0.065f);
 }

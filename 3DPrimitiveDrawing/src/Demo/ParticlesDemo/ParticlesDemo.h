@@ -10,8 +10,8 @@
 class ParticlesDemo
 {
 private:
-	int _sw;
-	int _sh;
+	float _sw;
+	float _sh;
 
 	int _numLoaders;
 	std::vector<ParticleRenderer*> _particleRendererVec;
@@ -22,9 +22,9 @@ private:
 	bool _drawAllParticles;
 
 public:
-	ParticlesDemo(int sw, int sh);
+	ParticlesDemo(float sw, float sh);
 	~ParticlesDemo();
-	void SetScreenSize(int sw, int sh);
+	void SetScreenSize(float sw, float sh);
 	void SetFloorVisible(bool visible);
 	Floor* GetFloor();
 	void Reset();

@@ -420,9 +420,6 @@
     <ClCompile Include="src\GLUtil\Shaders\PBRWithTextureShader\PBRWithTextureShader.cpp">
       <Filter>src\GLUtil\Shaders\PBRWithTextureShader</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\Platform.cpp">
-      <Filter>src\Platform</Filter>
-    </ClCompile>
     <ClCompile Include="src\Common\Utils\MathUtils.cpp">
       <Filter>src\Common\Utils</Filter>
     </ClCompile>
@@ -437,6 +434,9 @@
     </ClCompile>
     <ClCompile Include="src\ParticleRenderer\ParticleRenderer.cpp">
       <Filter>src\ParticleRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Platform.cpp">
+      <Filter>src\Platform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -725,9 +725,6 @@
     <ClInclude Include="src\GLUtil\Shaders\PBRWithTextureShader\PBRWithTextureShader.h">
       <Filter>src\GLUtil\Shaders\PBRWithTextureShader</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\Platform.h">
-      <Filter>src\Platform</Filter>
-    </ClInclude>
     <ClInclude Include="src\Common\Utils\MathUtils.h">
       <Filter>src\Common\Utils</Filter>
     </ClInclude>
@@ -745,6 +742,9 @@
     </ClInclude>
     <ClInclude Include="src\ParticleRenderer\ParticleRenderer.h">
       <Filter>src\ParticleRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Platform.h">
+      <Filter>src\Platform</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -26,7 +26,7 @@ ParticleReader::ParticleReader(std::string folderPath)
 	unsigned int vertexCount = fileLen / 12;
 
 	_colorBufLen = vertexCount * 3;
-	_colorBuf = (char*)malloc(_colorBufLen);
+	_colorBuf = (unsigned char*)malloc(_colorBufLen);
 	memset(_colorBuf, 0, _colorBufLen);
 
 	for (unsigned int i = 0; i < vertexCount; i++)
@@ -91,19 +91,19 @@ ParticleReader::ParticleReader(std::string folderPath)
 
 void ParticleReader::GenerateLowPolyData(const char* fileData, unsigned int length)
 {
-	const int BYTES_PER_VERTEX = 12;
-	const int skipNumVertex = 50;
+	const unsigned int BYTES_PER_VERTEX = 12;
+	const unsigned int skipNumVertex = 50;
 
 	//Generating low poly vertex data
-	int bpv = BYTES_PER_VERTEX;
-	int skipBytes = skipNumVertex * bpv;
+	unsigned int bpv = BYTES_PER_VERTEX;
+	unsigned int skipBytes = skipNumVertex * bpv;
 	unsigned int bufLen = length / (skipNumVertex - 1);
 
-	_lowPolyVertexBuf = (char*)malloc(bufLen);
+	_lowPolyVertexBuf = (unsigned char*)malloc(bufLen);
 
 	unsigned int lowPolyVertexCount = 0;
 
-	for (int i = 0, j = 0; i < length - skipBytes; i += skipBytes, j += bpv)
+	for (unsigned int i = 0, j = 0; i < length - skipBytes; i += skipBytes, j += bpv)
 	{
 		memcpy(&_lowPolyVertexBuf[j], &fileData[i], bpv);
 		lowPolyVertexCount++;
@@ -114,7 +114,7 @@ void ParticleReader::GenerateLowPolyData(const char* fileData, unsigned int leng
 
 	//Generating low poly color data
 	_lowPolyColorBufLen = lowPolyVertexCount * 3;
-	_lowPolyColorBuf = (char*)malloc(_lowPolyColorBufLen);
+	_lowPolyColorBuf = (unsigned char*)malloc(_lowPolyColorBufLen);
 	memset(_lowPolyColorBuf, 0, _lowPolyColorBufLen);
 
 	for (unsigned int i = 0; i < lowPolyVertexCount; i++)

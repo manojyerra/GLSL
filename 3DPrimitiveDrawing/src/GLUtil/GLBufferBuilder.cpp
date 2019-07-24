@@ -133,12 +133,12 @@ GLuint GLBufferBuilder::GetBaseTexID()
 	return _baseTexID;
 }
 
-GLuint GLBufferBuilder::GetVertexBufferSize()
+GLsizeiptr GLBufferBuilder::GetVertexBufferSize()
 {
 	return _vertexBufferLen;
 }
 
-GLuint GLBufferBuilder::GetIndicesBufferSize()
+GLsizeiptr GLBufferBuilder::GetIndicesBufferSize()
 {
 	return _indicesBufferLen;
 }

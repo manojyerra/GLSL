@@ -11,8 +11,8 @@
 class RenderDemo : public SUIActionListener
 {
 private:
-	int _sw;
-	int _sh;
+	float _sw;
+	float _sh;
 
 	int _numModels;
 
@@ -25,10 +25,10 @@ private:
 	ModelSelectionFrame* _modelSelectionFrame;
 
 public:
-	RenderDemo(int sw, int sh);
+	RenderDemo(float sw, float sh);
 	~RenderDemo();
 
-	void SetScreenSize(int sw, int sh);
+	void SetScreenSize(float sw, float sh);
 	void Draw();
 	void actionPerformed(SUIActionEvent e) override;
 

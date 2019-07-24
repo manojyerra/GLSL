@@ -15,9 +15,9 @@ PhongWithTextureShader::PhongWithTextureShader(int shaderType)
 	_uvBufferID = 0;
 	_baseTexID = 0;
 
-	GLfloat Ka[] = { 0.05375,	0.05,	0.06625,	0.82 };
-	GLfloat Kd[] = { 0.18275,	0.17,	0.22525,	0.82 };
-	GLfloat Ks[] = { 0.332741,	0.328634,	0.346435,	0.82 };
+	GLfloat Ka[] = { 0.05375f,	0.05f,	0.06625f,	1.0f };
+	GLfloat Kd[] = { 0.18275f,	0.17f,	0.22525f,	1.0f };
+	GLfloat Ks[] = { 0.33274f,	0.32f,	0.34643f,	1.0f };
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -26,7 +26,7 @@ PhongWithTextureShader::PhongWithTextureShader(int shaderType)
 		_Ks[i] = Ks[i];
 	}
 
-	_Se = 38.4;
+	_Se = 38.4f;
 
 	_alpha = 1.0f;
 

@@ -15,14 +15,14 @@ public:
 	SUICheckBox* hideFloor;
 	SUICheckBox* showOnlyGridLines;
 
-	FloorVisibilityFrame(int x, int y, int w, int h, SUIActionListener* actionListener);
+	FloorVisibilityFrame(float x, float y, float w, float h, SUIActionListener* actionListener);
 	~FloorVisibilityFrame();
 
-	void SetPos(int x, int y);
+	void SetPos(float x, float y);
 	void SetVisible(bool visible);
 	void actionPerformed(SUIActionEvent e);
 
-	int GetWidth();
+	float GetWidth();
 	int GetDemoIndex();
 };
 #endif

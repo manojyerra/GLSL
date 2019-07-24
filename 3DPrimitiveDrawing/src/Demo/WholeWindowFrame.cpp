@@ -1,9 +1,9 @@
 #include "WholeWindowFrame.h"
 #include "SUI/SUIBox.h"
 
-WholeWindowFrame::WholeWindowFrame(int x, int y, int w, int h, SUIActionListener* action_listener)
+WholeWindowFrame::WholeWindowFrame(float x, float y, float w, float h, SUIActionListener* action_listener)
 {
-	_frame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
+	_frame = new SUIFrame(x, y, w, h, SUIFrame::V_ALIGNMENT);
 	_frame->SetName("Demo Frame", SUIFrame::LEFT);
 
 	SUIBox* demoSelectionBox = new SUIBox(SUIBox::V_ALIGNMENT);
@@ -35,12 +35,13 @@ int WholeWindowFrame::GetDemoIndex()
 	return demoType->GetSelectedIndex();
 }
 
-void WholeWindowFrame::SetPos(int x, int y) {
+void WholeWindowFrame::SetPos(float x, float y) 
+{
 	_frame->SetPos(x, y);
 	_frame->ResetBounds();
 }
 
-int WholeWindowFrame::GetWidth()
+float WholeWindowFrame::GetWidth()
 {
 	return _frame->GetW();
 }

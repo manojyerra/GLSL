@@ -1,6 +1,6 @@
 #include "ShaderFrame.h"
 
-ShaderFrame::ShaderFrame(int x, int y, int w, int h, SUIActionListener* renderDemoListener) 
+ShaderFrame::ShaderFrame(float x, float y, float w, float h, SUIActionListener* renderDemoListener)
 {
 	_renderDemoListener = renderDemoListener;
 
@@ -16,7 +16,7 @@ ShaderFrame::ShaderFrame(int x, int y, int w, int h, SUIActionListener* renderDe
 
 	numLightBoxes = 7;
 
-	_frame = new SUIFrame(static_cast<float>(x), (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
+	_frame = new SUIFrame(x, y, w, h, SUIFrame::V_ALIGNMENT);
 	_frame->SetName("Shader Frame", SUIFrame::LEFT);
 
 	SUIBox* propertyBox = new SUIBox(SUIBox::V_ALIGNMENT);
@@ -34,7 +34,7 @@ ShaderFrame::ShaderFrame(int x, int y, int w, int h, SUIActionListener* renderDe
 	_mesh = nullptr;
 }
 
-void ShaderFrame::SetPos(int x, int y) {
+void ShaderFrame::SetPos(float x, float y) {
 	_frame->SetPos(x, y);
 	_frame->ResetBounds();
 }
@@ -218,89 +218,89 @@ void ShaderFrame::actionPerformed(SUIActionEvent e) {
 	else if (com == _materialType) {
 		auto  materialType = _materialType->GetSelectedItemName();
 
-		glm::vec3 albedo(0.03);
-		float roughness = 0.3;
-		float metallic = 0.3;
+		glm::vec3 albedo(0.03f);
+		float roughness = 0.3f;
+		float metallic = 0.3f;
 
 		if (materialType == "Plastic / Glass (Low)")
 		{
-			pbrShader->SetMeterialProps(albedo = glm::vec3(0.03), metallic = 1.0, roughness = 0.3);
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.03f), metallic = 1.0f, roughness = 0.3f);
 		}
 		else if (materialType == "Plastic High")
 		{
-			pbrShader->SetMeterialProps(albedo = glm::vec3(0.05), metallic = 1.0, roughness = 0.3);
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.05f), metallic = 1.0f, roughness = 0.3f);
 		}
 		else if (materialType == "Glass (high) / Ruby")
 		{
-			pbrShader->SetMeterialProps(albedo = glm::vec3(0.08), metallic = 1.0, roughness = 0.3);
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.08f), metallic = 1.0f, roughness = 0.3f);
 		}
 		else if (materialType == "Diamond")
 		{
-			pbrShader->SetMeterialProps(albedo = glm::vec3(0.17), metallic = 1.0, roughness = 0.3);
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.17f), metallic = 1.0, roughness = 0.3f);
 		}
 		else if (materialType == "Iron")
 		{
-			pbrShader->SetMeterialProps(albedo = glm::vec3(0.56, 0.57, 0.58), metallic = 1.0, roughness = 0.3);
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.56f, 0.57f, 0.58f), metallic = 1.0f, roughness = 0.3f);
 		}
 		else if (materialType == "Copper")
 		{
 			//old 0.95, 0.637, 0.538
-			pbrShader->SetMeterialProps(albedo = glm::vec3(1, 0.41, 0.31), metallic = 1.0, roughness = 0.20);
+			pbrShader->SetMeterialProps(albedo = glm::vec3(1.0f, 0.41f, 0.31f), metallic = 1.0f, roughness = 0.2f);
 		}
 		else if (materialType == "Gold")
 		{
-			pbrShader->SetMeterialProps(albedo = glm::vec3(0.8, 0.28, 0.05), metallic = 1.0, roughness = 0.25);
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.8f, 0.28f, 0.05f), metallic = 1.0f, roughness = 0.25f);
 		}
 		else if (materialType == "Aluminium")
 		{
-			pbrShader->SetMeterialProps(albedo = glm::vec3(0.91, 0.92, 0.92), metallic = 1.0, roughness = 0.3);
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.91f, 0.92f, 0.92f), metallic = 1.0f, roughness = 0.3f);
 		}
 		else if (materialType == "Silver")
 		{
-			pbrShader->SetMeterialProps(albedo = glm::vec3(0.95, 0.93, 0.88), metallic = 1.0, roughness = 0.24);
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.95f, 0.93f, 0.88f), metallic = 1.0f, roughness = 0.24f);
 		}
 
 		else if (materialType == "Meterial1")
 		{
-			pbrShader->SetMeterialProps(albedo = glm::vec3(1, 0.31, 0.41), metallic = 1.0, roughness = 0.20);
+			pbrShader->SetMeterialProps(albedo = glm::vec3(1.0f, 0.31f, 0.41f), metallic = 1.0f, roughness = 0.20f);
 		}
 		else if (materialType == "Meterial2")
 		{
-			pbrShader->SetMeterialProps(albedo = glm::vec3(0.41, 1, 0.31), metallic = 1.0, roughness = 0.20);
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.41f, 1.0f, 0.31f), metallic = 1.0f, roughness = 0.20f);
 		}
 		else if (materialType == "Meterial3")
 		{
-			pbrShader->SetMeterialProps(albedo = glm::vec3(0.41, 0.31, 1), metallic = 1.0, roughness = 0.20);
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.41f, 0.31f, 1.0f), metallic = 1.0f, roughness = 0.20f);
 		}
 		//else if (materialType == "Meterial4") //similar to Meterial2
 		//{
-		//	pbrShader->SetMeterialProps(albedo = glm::vec3(0.31, 1, 0.41), metallic = 1.0, roughness = 0.20);
+		//	pbrShader->SetMeterialProps(albedo = glm::vec3(0.31f, 1.0f, 0.41f), metallic = 1.0f, roughness = 0.20f);
 		//}
 		else if (materialType == "Meterial5")
 		{
-			pbrShader->SetMeterialProps(albedo = glm::vec3(0.31, 0.41, 1), metallic = 1.0, roughness = 0.20);
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.31f, 0.41f, 1.0f), metallic = 1.0f, roughness = 0.20f);
 		}
 
 
 		else if (materialType == "Meterial6")
 		{
-			pbrShader->SetMeterialProps(albedo = glm::vec3(0.8, 0.05, 0.28), metallic = 1.0, roughness = 0.25);
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.8f, 0.05f, 0.28f), metallic = 1.0f, roughness = 0.25f);
 		}
 		else if (materialType == "Meterial7")
 		{
-			pbrShader->SetMeterialProps(albedo = glm::vec3(0.28, 0.8, 0.05), metallic = 1.0, roughness = 0.25);
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.28f, 0.8f, 0.05f), metallic = 1.0f, roughness = 0.25f);
 		}
 		else if (materialType == "Meterial8")
 		{
-			pbrShader->SetMeterialProps(albedo = glm::vec3(0.28, 0.05, 0.8), metallic = 1.0, roughness = 0.25);
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.28f, 0.05f, 0.8f), metallic = 1.0f, roughness = 0.25f);
 		}
 		else if (materialType == "Meterial9")
 		{
-			pbrShader->SetMeterialProps(albedo = glm::vec3(0.05, 0.8, 0.28), metallic = 1.0, roughness = 0.25);
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.05f, 0.8f, 0.28f), metallic = 1.0f, roughness = 0.25f);
 		}
 		else if (materialType == "Meterial10")
 		{
-			pbrShader->SetMeterialProps(albedo = glm::vec3(0.05, 0.28, 0.8), metallic = 1.0, roughness = 0.25);
+			pbrShader->SetMeterialProps(albedo = glm::vec3(0.05f, 0.28f, 0.8f), metallic = 1.0f, roughness = 0.25f);
 		}
 
 
@@ -319,17 +319,18 @@ void ShaderFrame::actionPerformed(SUIActionEvent e) {
 		glm::vec3 values = glm::vec3(_albedoR->GetDouble(), _albedoG->GetDouble(), _albedoB->GetDouble());
 		pbrShader->SetAlbedo(values);
 	}
-	else if (com == _metalic) {
-		pbrShader->SetMetallic(_metalic->GetValue());
+	else if (com == _metalic) 
+	{
+		pbrShader->SetMetallic((float)_metalic->GetValue());
 	}
 	else if (com == _roughness) {
-		pbrShader->SetRoughness(_roughness->GetValue());
+		pbrShader->SetRoughness((float)_roughness->GetValue());
 	}
 	else if (com == _albedoSlider)
 	{
 		if (_albedoSlider->GetValue() > 0.001)
 		{
-			float factor = _albedoSlider->GetValue() / _albedoSliderPrevValue;
+			float factor = (float)_albedoSlider->GetValue() / _albedoSliderPrevValue;
 
 			glm::vec3 newAlbedo = glm::vec3(_albedoR->GetDouble()*factor, _albedoG->GetDouble()*factor, _albedoB->GetDouble()*factor);
 
@@ -338,7 +339,7 @@ void ShaderFrame::actionPerformed(SUIActionEvent e) {
 			_albedoG->SetDouble(newAlbedo.g, 4);
 			_albedoB->SetDouble(newAlbedo.b, 4);
 
-			_albedoSliderPrevValue = _albedoSlider->GetValue();
+			_albedoSliderPrevValue = (float)_albedoSlider->GetValue();
 		}
 	}
 	else

@@ -188,7 +188,7 @@ vector<glm::vec3> GLUtil::Get2DPosOnScreenFrom3DPos(vector<glm::vec3>* pos3DVec,
 	return vec2d;
 }
 
-vector<float> GLUtil::GetVerticesOnRect(float* verArr, int numVertex, float* objMat, float x, float y, float w, float h)
+vector<float> GLUtil::GetVerticesOnRect(float* verArr, unsigned int numVertex, float* objMat, float x, float y, float w, float h)
 {
 	float xy[2];
 

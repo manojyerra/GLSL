@@ -94,10 +94,10 @@ private:
 public:
 	SUIRadioButton* shaderType;
 
-	ShaderFrame(int x, int y, int w, int h, SUIActionListener* renderDemoListener);
+	ShaderFrame(float x, float y, float w, float h, SUIActionListener* renderDemoListener);
 	~ShaderFrame();
 
-	void SetPos(int x, int y);
+	void SetPos(float x, float y);
 	void SetMeshRenderer(GLMeshRenderer* mesh);
 	void actionPerformed(SUIActionEvent e);
 	SUIFrame* GetFrame();

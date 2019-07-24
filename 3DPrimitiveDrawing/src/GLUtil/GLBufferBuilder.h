@@ -46,8 +46,8 @@ public:
 	GLuint GetIndicesBufferID();
 	GLuint GetBaseTexID();
 
-	GLuint GetVertexBufferSize();
-	GLuint GetIndicesBufferSize();
+	GLsizeiptr GetVertexBufferSize();
+	GLsizeiptr GetIndicesBufferSize();
 };
 
 #endif

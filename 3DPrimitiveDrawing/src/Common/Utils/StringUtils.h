@@ -11,7 +11,7 @@ public:
 	static bool startsWith(std::string str, std::string checkStr);
 	static bool endsWith(std::string str, std::string checkStr);
 
-	static double atof_naive(const char *p);
+	static float atof_naive(const char *p);
 	static unsigned int atoi_naive(const char * p);
 };
 

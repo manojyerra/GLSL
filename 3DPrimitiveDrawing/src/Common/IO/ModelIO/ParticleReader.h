@@ -8,11 +8,11 @@ class ParticleReader : public ModelInfo
 {
 private:
 	FileReader* _vertexFileReader;
-	char* _colorBuf;
+	unsigned char* _colorBuf;
 	unsigned int _colorBufLen;
 
-	char* _lowPolyVertexBuf;
-	char* _lowPolyColorBuf;
+	unsigned char* _lowPolyVertexBuf;
+	unsigned char* _lowPolyColorBuf;
 	unsigned int _lowPolyVertexBufLen;
 	unsigned int _lowPolyColorBufLen;
 

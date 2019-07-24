@@ -1,11 +1,11 @@
 #include "SUI.h"
 
-void SUISetup(int windowWidth, int windowHeight)
+void SUISetup(float windowWidth, float windowHeight)
 {
 	SUIManager::GetInstance()->Setup(windowWidth, windowHeight);
 }
 
-void SUISetWindowSize(int windowWidth, int windowHeight)
+void SUISetWindowSize(float windowWidth, float windowHeight)
 {
 	SUIManager::GetInstance()->SetWindowSize(windowWidth, windowHeight);
 }

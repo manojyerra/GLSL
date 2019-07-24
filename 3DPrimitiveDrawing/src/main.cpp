@@ -41,7 +41,7 @@ int main(void)
 
 	glfwSwapInterval(1);
 
-	gameLoop = new GameLoop(sw, sh);
+	gameLoop = new GameLoop((float)sw, (float)sh);
 	Input::Init();
 
 	double previousTime = glfwGetTime();
@@ -96,7 +96,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 	if (gameLoop && width > 10 && height > 10)
 	{
-		gameLoop->SetScreenSize(width, height);
+		gameLoop->SetScreenSize((float)width, (float)height);
 	}
 	else
 	{

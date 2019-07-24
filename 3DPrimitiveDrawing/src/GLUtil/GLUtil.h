@@ -31,7 +31,7 @@ public:
 	static void Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelMatrix);
 	static void Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelMatrix, float* projMatrix);
 	static vector<glm::vec3> Get2DPosOnScreenFrom3DPos(vector<glm::vec3>* pos3DVec, float* modelMatrix);
-	static vector<float> GetVerticesOnRect(float* verArr, int numVertex, float* objMat, float x, float y, float w, float h);
+	static vector<float> GetVerticesOnRect(float* verArr, unsigned int numVertex, float* objMat, float x, float y, float w, float h);
 };
 
 #endif

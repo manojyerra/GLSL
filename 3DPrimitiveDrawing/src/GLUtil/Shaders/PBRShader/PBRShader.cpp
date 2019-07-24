@@ -145,7 +145,7 @@ void PBRShader::SetUniformsAndAttributes()
 		count++;
 	}
 
-	_shaderProgram->SetUniform1i("numLights", _lightMap.size());
+	_shaderProgram->SetUniform1i("numLights", (int)_lightMap.size());
 
 	_shaderProgram->SetUniform3f("albedo", _albedo.r, _albedo.g, _albedo.b);
 	_shaderProgram->SetUniform1f("metallic", _metallic);

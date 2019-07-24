@@ -15,13 +15,13 @@ public:
 	SUIRadioButton* demoType;
 	SUICheckBox* isSSAO;
 
-	WholeWindowFrame(int x, int y, int w, int h, SUIActionListener* actionListener);
+	WholeWindowFrame(float x, float y, float w, float h, SUIActionListener* actionListener);
 	~WholeWindowFrame();
 
-	void SetPos(int x, int y);
+	void SetPos(float x, float y);
 	void actionPerformed(SUIActionEvent e);
 
-	int GetWidth();
+	float GetWidth();
 	int GetDemoIndex();
 };
 #endif

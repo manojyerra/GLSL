@@ -16,8 +16,8 @@
 class GameLoop : public SUIActionListener
 {
 private:
-	int _sw;
-	int _sh;
+	float _sw;
+	float _sh;
 	float _zNear;
 	float _zFar;
 	float _zNearPlaneW;

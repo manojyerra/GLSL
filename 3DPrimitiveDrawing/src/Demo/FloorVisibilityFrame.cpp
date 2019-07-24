@@ -1,9 +1,9 @@
 #include "FloorVisibilityFrame.h"
 #include "SUI/SUIBox.h"
 
-FloorVisibilityFrame::FloorVisibilityFrame(int x, int y, int w, int h, SUIActionListener* action_listener)
+FloorVisibilityFrame::FloorVisibilityFrame(float x, float y, float w, float h, SUIActionListener* action_listener)
 {
-	_frame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
+	_frame = new SUIFrame(x, y, w, h, SUIFrame::V_ALIGNMENT);
 	_frame->SetName("Floor Visibility Frame", SUIFrame::LEFT);
 
 	SUIBox* floorBox = new SUIBox(SUIBox::V_ALIGNMENT);
@@ -29,7 +29,7 @@ FloorVisibilityFrame::FloorVisibilityFrame(int x, int y, int w, int h, SUIAction
 }
 
 
-void FloorVisibilityFrame::SetPos(int x, int y) {
+void FloorVisibilityFrame::SetPos(float x, float y) {
 	_frame->SetPos(x, y);
 	_frame->ResetBounds();
 }
@@ -39,7 +39,7 @@ void FloorVisibilityFrame::SetVisible(bool visible)
 	_frame->SetVisible(visible);
 }
 
-int FloorVisibilityFrame::GetWidth()
+float FloorVisibilityFrame::GetWidth()
 {
 	return _frame->GetW();
 }

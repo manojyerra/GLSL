@@ -88,7 +88,7 @@ void ObjReader::ReadObjFile(std::string folderPath)
 		_uvFloatArr = new FloatArray(initSize * 3);
 		_normalFloatArr = new FloatArray(initSize * 4);
 
-		for (int arrIndex = 0; arrIndex < facesStrArrSize; arrIndex++)
+		for (unsigned int arrIndex = 0; arrIndex < facesStrArrSize; arrIndex++)
 		{
 			char* line = (char*)facesStrArrPtr[arrIndex];
 
@@ -108,7 +108,7 @@ void ObjReader::ReadObjFile(std::string folderPath)
 	{
 		_uvFloatArr = new FloatArray(initSize * 3);
 
-		for (int arrIndex = 0; arrIndex < facesStrArrSize; arrIndex++)
+		for (unsigned int arrIndex = 0; arrIndex < facesStrArrSize; arrIndex++)
 		{
 			char* line = (char*)facesStrArrPtr[arrIndex];
 
@@ -127,7 +127,7 @@ void ObjReader::ReadObjFile(std::string folderPath)
 	{
 		_normalFloatArr = new FloatArray(initSize * 4);
 
-		for (int arrIndex = 0; arrIndex < facesStrArrSize; arrIndex++)
+		for (unsigned int arrIndex = 0; arrIndex < facesStrArrSize; arrIndex++)
 		{
 			char* line = (char*)facesStrArrPtr[arrIndex];
 
@@ -144,7 +144,7 @@ void ObjReader::ReadObjFile(std::string folderPath)
 	}
 	else if (!uvsExist && !normalsExist)
 	{
-		for (int arrIndex = 0; arrIndex < facesStrArrSize; arrIndex++)
+		for (unsigned int arrIndex = 0; arrIndex < facesStrArrSize; arrIndex++)
 		{
 			char* line = (char*)facesStrArrPtr[arrIndex];
 

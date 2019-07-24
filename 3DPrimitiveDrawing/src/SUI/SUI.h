@@ -3,8 +3,8 @@
 
 #include "SUIManager.h"
 
-void SUISetup(int windowWidth, int windowHeight);
-void SUISetWindowSize(int windowWidth, int windowHeight);
+void SUISetup(float windowWidth, float windowHeight);
+void SUISetWindowSize(float windowWidth, float windowHeight);
 void SUIDraw();
 void SUIQuit();
 

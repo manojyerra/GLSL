@@ -1,18 +1,20 @@
 #include "ModelVisibilityFrame.h"
 
-ModelVisibilityFrame::ModelVisibilityFrame(int x, int y, int w, int h, SUIActionListener* actionListener) {
-	_frame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
+ModelVisibilityFrame::ModelVisibilityFrame(float x, float y, float w, float h, SUIActionListener* actionListener) 
+{
+	_frame = new SUIFrame(x, y, w, h, SUIFrame::V_ALIGNMENT);
 	_frame->SetName("Model Drawing Frame", SUIFrame::LEFT);
-
 	_frame->Add(SetModelBox(actionListener));
 }
 
-void ModelVisibilityFrame::SetPos(int x, int y) {
+void ModelVisibilityFrame::SetPos(float x, float y) 
+{
 	_frame->SetPos(x, y);
 	_frame->ResetBounds();
 }
 
-SUIBox* ModelVisibilityFrame::SetModelBox(SUIActionListener* actionListener) {
+SUIBox* ModelVisibilityFrame::SetModelBox(SUIActionListener* actionListener) 
+{
 	SUIBox* vmodel = new SUIBox(SUIBox::V_ALIGNMENT);
 	vmodel->SetMargin(5, 5, 10, 5);
 	vmodel->SetName("Model Drawing Selection", SUIBox::LEFT);
@@ -40,7 +42,7 @@ SUIBox* ModelVisibilityFrame::SetModelBox(SUIActionListener* actionListener) {
 	return vmodel;
 }
 
-int ModelVisibilityFrame::GetWidth()
+float ModelVisibilityFrame::GetWidth()
 {
 	return _frame->GetW();
 }

@@ -34,9 +34,9 @@ void BufferTransformUtils::CalcMinMaxPoints(std::vector<glm::vec3>* points3D, gl
 	float maxY = points3D->at(0).y;
 	float maxZ = points3D->at(0).z;
 
-	unsigned int size = points3D->size();
+	size_t size = points3D->size();
 
-	for (int i = 1; i < size; i++)
+	for (size_t i = 1; i < size; i++)
 	{
 		if (points3D->at(i).x < minX) minX = points3D->at(i).x;
 		if (points3D->at(i).y < minY) minY = points3D->at(i).y;

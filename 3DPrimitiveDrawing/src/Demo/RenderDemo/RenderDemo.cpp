@@ -2,7 +2,7 @@
 #include "Cam.h"
 #include "ObjReader.h"
 
-RenderDemo::RenderDemo(int sw, int sh)
+RenderDemo::RenderDemo(float sw, float sh)
 {
 	_sw = sw;
 	_sh = sh;
@@ -48,8 +48,8 @@ RenderDemo::RenderDemo(int sw, int sh)
 	_shaderFrame = new ShaderFrame(0.0f, 0.0f, 300, 910, this);
 	_shaderFrame->SetMeshRenderer(_selectedModel);
 
-	_modelVisibilityFrame = new ModelVisibilityFrame(_sw - 300, 152, 300.0f, 200.0f, this);
-	_modelSelectionFrame = new ModelSelectionFrame(_sw - 300, 353, 300.0f, 200.0f, this);
+	_modelVisibilityFrame = new ModelVisibilityFrame(_sw - 300.0f, 152.0f, 300.0f, 200.0f, this);
+	_modelSelectionFrame = new ModelSelectionFrame(_sw - 300.0f, 353.0f, 300.0f, 200.0f, this);
 
 	for (int i = 0; i < _modelVec.size(); i++)
 	{
@@ -61,7 +61,7 @@ RenderDemo::RenderDemo(int sw, int sh)
 	}
 }
 
-void RenderDemo::SetScreenSize(int sw, int sh)
+void RenderDemo::SetScreenSize(float sw, float sh)
 {
 	_sw = sw;
 	_sh = sh;
@@ -76,7 +76,7 @@ void RenderDemo::Draw()
 	float clearValue = 100.0f/255.0f;
 	glClearColor(clearValue, clearValue, clearValue, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glViewport(0, 0, _sw, _sh);
+	glViewport(0, 0, (GLuint)_sw, (GLuint)_sh);
 	glEnable(GL_DEPTH_TEST);
 
 	Cam::GetInstance()->SetPerspectiveProjection();
@@ -128,9 +128,9 @@ void RenderDemo::actionPerformed(SUIActionEvent e)
 
 			if(com == box->positionModelX || com == box->positionModelY || com == box->positionModelZ)
 			{
-				float x = box->positionModelX->GetDouble();
-				float y = box->positionModelY->GetDouble();
-				float z = box->positionModelZ->GetDouble();
+				float x = (float)box->positionModelX->GetDouble();
+				float y = (float)box->positionModelY->GetDouble();
+				float z = (float)box->positionModelZ->GetDouble();
 
 				_modelVec[i]->SetPos(x, y, z);
 				break;

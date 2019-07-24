@@ -1,5 +1,4 @@
 #include "GLFBO.h"
-#include <assert.h>
 #include "GLMemory.h"
 
 GLFBO::GLFBO(int w, int h)
@@ -14,7 +13,8 @@ GLFBO::GLFBO(int w, int h)
 	_depthBufID = CreateDepthBuffer(_w, _h);
 	AttachDepthBufferToFBO(_depthBufID);
 
-	assert(isFBOCreated());
+	if (!isFBOCreated())
+		throw new std::exception("Error: Failed to created FBO.");
 }
 
 void GLFBO::BindFBO()
