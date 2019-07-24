@@ -11,11 +11,12 @@
 #include "PhongWithTextureShader.h"
 #include "PBRShader.h"
 #include "PBRWithTextureShader.h"
+#include "CubeGeometryShader.h"
 
 class GLMeshRenderer
 {
 private:
-	GLBufferBuilder* _meshBuilder;
+	GLBufferBuilder* _bufferBuilder;
 
 	BasicShader* _basicShader;
 	ColorShader* _colorShader;
@@ -26,6 +27,7 @@ private:
 	PhongWithTextureShader* _phongWithTexPerPixelShader;
 	PBRShader* _pbrShader;
 	PBRWithTextureShader* _pbrWithTextureShader;
+	CubeGeometryShader* _cubeGeometryShader;
 
 	Shader* _shader;
 
@@ -54,7 +56,8 @@ public:
 		PHONG_WITH_TEXTURE_PER_VERTEX_SHADER,
 		PHONG_WITH_TEXTURE_PER_PIXEL_SHADER,
 		PBR_SHADER,
-		PBR_WITH_TEXTURE_SHADER
+		PBR_WITH_TEXTURE_SHADER,
+		CUBE_GEOMETRY_SHADER
 	};
 
 	GLMeshRenderer(ModelInfo* meshCreateInfo, int shaderType);

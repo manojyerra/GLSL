@@ -435,6 +435,9 @@
     <ClCompile Include="src\GLUtil\Shaders\CubeGeometryShader\CubeGeometryShader.cpp">
       <Filter>src\GLUtil\Shaders\CubeGeometryShader</Filter>
     </ClCompile>
+    <ClCompile Include="src\Common\IO\ModelIO\ParticleReader.cpp">
+      <Filter>src\Common\IO\ModelIO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -739,6 +742,9 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\Shaders\CubeGeometryShader\CubeGeometryShader.h">
       <Filter>src\GLUtil\Shaders\CubeGeometryShader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO\ModelIO\ParticleReader.h">
+      <Filter>src\Common\IO\ModelIO</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

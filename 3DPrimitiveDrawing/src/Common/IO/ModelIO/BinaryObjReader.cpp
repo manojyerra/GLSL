@@ -10,11 +10,11 @@ BinaryObjReader::BinaryObjReader(std::string folderPath)
 
 	_imageBuffer = NULL;
 
-	ReadObjFile(folderPath);
+	ReadBinaryObjFile(folderPath);
 	LoadTextures(folderPath);
 }
 
-void BinaryObjReader::ReadObjFile(std::string folderPath)
+void BinaryObjReader::ReadBinaryObjFile(std::string folderPath)
 {
 	if (FileReader::IsFileExists(folderPath + "/vertex.buf"))
 	{

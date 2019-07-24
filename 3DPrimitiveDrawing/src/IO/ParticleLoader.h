@@ -1,50 +1,13 @@
 #ifndef ParticleLoader_H
 #define ParticleLoader_H
 
-#include "ShaderProgram.h"
-#include "GLMat.h"
-#include "CubeGeometryShader.h"
-
-class Tuple
-{
-public:
-	float x;
-	float y;
-	float z;
-
-	Tuple(float x, float y, float z)
-	{
-		this->x = x;
-		this->y = y;
-		this->z = z;
-	}
-
-	bool operator ==(const Tuple& obj) const
-	{
-		return ((int)(x * 1000) == (int)(obj.x * 1000) &&
-			(int)(y * 1000) == (int)(obj.y * 1000) &&
-			(int)(z * 1000) == (int)(obj.z * 1000));
-	}
-};
+#include "GLMeshRenderer.h"
 
 class ParticleLoader
 {
-	static const int BYTES_PER_VERTEX = 12;
-
-	CubeGeometryShader* _shader;
-	
-	GLuint _vertexBufferID;
-	GLuint _colorBufferID;
-	GLuint _vertexCount;
-
-	GLuint _lowPolyVertexBufferID;
-	GLuint _lowPolyColorBufferID;
-	GLuint _lowPolyVertexCount;
-
 	GLMat _modelMat;
-
-	void LoadData(const char* fileData, unsigned int length);
-	void LoadLowPolyData(const char* fileData, unsigned int length);
+	GLMeshRenderer* _normalPolyRenderer;
+	GLMeshRenderer* _lowPolyRenderer;
 
 public:
 	ParticleLoader();
@@ -57,3 +20,26 @@ public:
 };
 
 #endif
+
+
+//class Tuple
+//{
+//public:
+//	float x;
+//	float y;
+//	float z;
+//
+//	Tuple(float x, float y, float z)
+//	{
+//		this->x = x;
+//		this->y = y;
+//		this->z = z;
+//	}
+//
+//	bool operator ==(const Tuple& obj) const
+//	{
+//		return ((int)(x * 1000) == (int)(obj.x * 1000) &&
+//			(int)(y * 1000) == (int)(obj.y * 1000) &&
+//			(int)(z * 1000) == (int)(obj.z * 1000));
+//	}
+//};

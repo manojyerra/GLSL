@@ -13,7 +13,7 @@ private:
 
 	ImageBuffer* _imageBuffer;
 
-	void ReadObjFile(std::string folderPath);
+	void ReadBinaryObjFile(std::string folderPath);
 	void LoadTextures(std::string folderPath);
 	   
 public:

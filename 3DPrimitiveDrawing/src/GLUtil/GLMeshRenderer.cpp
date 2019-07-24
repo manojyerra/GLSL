@@ -3,14 +3,14 @@
 
 GLMeshRenderer::GLMeshRenderer(ModelInfo* meshCreateInfo, int shaderType)
 {
-	_meshBuilder = new GLBufferBuilder();
-	_meshBuilder->SetVertexBuffer(meshCreateInfo->GetVertexBuffer(), meshCreateInfo->GetVertexBufferSize());
-	_meshBuilder->SetNormalBuffer(meshCreateInfo->GetNormalBuffer(), meshCreateInfo->GetNormalBufferSize());
-	_meshBuilder->SetUVBuffer(meshCreateInfo->GetUVBuffer(), meshCreateInfo->GetUVBufferSize());
-	_meshBuilder->SetColorBuffer(meshCreateInfo->GetColorBuffer(), meshCreateInfo->GetColorBufferSize());
-	_meshBuilder->SetIndicesBuffer(meshCreateInfo->GetIndicesBuffer(), meshCreateInfo->GetIndicesBufferSize());
-	_meshBuilder->SetImageBuffer(meshCreateInfo->GetImageBuffer());
-	_meshBuilder->build();
+	_bufferBuilder = new GLBufferBuilder();
+	_bufferBuilder->SetVertexBuffer(meshCreateInfo->GetVertexBuffer(), meshCreateInfo->GetVertexBufferSize());
+	_bufferBuilder->SetNormalBuffer(meshCreateInfo->GetNormalBuffer(), meshCreateInfo->GetNormalBufferSize());
+	_bufferBuilder->SetUVBuffer(meshCreateInfo->GetUVBuffer(), meshCreateInfo->GetUVBufferSize());
+	_bufferBuilder->SetColorBuffer(meshCreateInfo->GetColorBuffer(), meshCreateInfo->GetColorBufferSize());
+	_bufferBuilder->SetIndicesBuffer(meshCreateInfo->GetIndicesBuffer(), meshCreateInfo->GetIndicesBufferSize());
+	_bufferBuilder->SetImageBuffer(meshCreateInfo->GetImageBuffer());
+	_bufferBuilder->build();
 
 	_primitiveType = triangles;
 
@@ -21,6 +21,7 @@ GLMeshRenderer::GLMeshRenderer(ModelInfo* meshCreateInfo, int shaderType)
 	_phongWithTexPerVertexShader = NULL;
 	_pbrShader = NULL;
 	_pbrWithTextureShader = NULL;
+	_cubeGeometryShader = NULL;
 	_shader = NULL;
 
 	_shaderType = shaderType;
@@ -52,7 +53,7 @@ void GLMeshRenderer::SetShader(int shaderType)
 		if (!_basicShader)
 		{
 			_basicShader = new BasicShader();
-			_basicShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
+			_basicShader->SetVertexBufferID(_bufferBuilder->GetVertexBufferID());
 		}
 
 		_shader = _basicShader;
@@ -62,8 +63,8 @@ void GLMeshRenderer::SetShader(int shaderType)
 		if (!_colorShader)
 		{
 			_colorShader = new ColorShader();
-			_colorShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
-			_colorShader->SetColorBufferID(_meshBuilder->GetColorBufferID());
+			_colorShader->SetVertexBufferID(_bufferBuilder->GetVertexBufferID());
+			_colorShader->SetColorBufferID(_bufferBuilder->GetColorBufferID());
 		}
 
 		_shader = _colorShader;
@@ -73,9 +74,9 @@ void GLMeshRenderer::SetShader(int shaderType)
 		if (!_uvShader)
 		{
 			_uvShader = new UVShader();
-			_uvShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
-			_uvShader->SetUVBufferID(_meshBuilder->GetUVBufferID());
-			_uvShader->SetTextureID(_meshBuilder->GetBaseTexID());
+			_uvShader->SetVertexBufferID(_bufferBuilder->GetVertexBufferID());
+			_uvShader->SetUVBufferID(_bufferBuilder->GetUVBufferID());
+			_uvShader->SetTextureID(_bufferBuilder->GetBaseTexID());
 		}
 
 		_shader = _uvShader;
@@ -85,8 +86,8 @@ void GLMeshRenderer::SetShader(int shaderType)
 		if (!_phongPerVertexShader)
 		{
 			_phongPerVertexShader = new PhongShader(PhongShader::PER_VERTEX_SHADER);
-			_phongPerVertexShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
-			_phongPerVertexShader->SetNormalBufferID(_meshBuilder->GetNormalBufferID());
+			_phongPerVertexShader->SetVertexBufferID(_bufferBuilder->GetVertexBufferID());
+			_phongPerVertexShader->SetNormalBufferID(_bufferBuilder->GetNormalBufferID());
 		}
 
 		_shader = _phongPerVertexShader;
@@ -96,8 +97,8 @@ void GLMeshRenderer::SetShader(int shaderType)
 		if (!_phongPerPixelShader)
 		{
 			_phongPerPixelShader = new PhongShader(PhongShader::PER_PIXEL_SHADER);
-			_phongPerPixelShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
-			_phongPerPixelShader->SetNormalBufferID(_meshBuilder->GetNormalBufferID());
+			_phongPerPixelShader->SetVertexBufferID(_bufferBuilder->GetVertexBufferID());
+			_phongPerPixelShader->SetNormalBufferID(_bufferBuilder->GetNormalBufferID());
 		}
 
 		_shader = _phongPerPixelShader;
@@ -107,10 +108,10 @@ void GLMeshRenderer::SetShader(int shaderType)
 		if (!_phongWithTexPerVertexShader)
 		{
 			_phongWithTexPerVertexShader = new PhongWithTextureShader(PhongWithTextureShader::PER_VERTEX_SHADER);
-			_phongWithTexPerVertexShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
-			_phongWithTexPerVertexShader->SetNormalBufferID(_meshBuilder->GetNormalBufferID());
-			_phongWithTexPerVertexShader->SetUVBufferID(_meshBuilder->GetUVBufferID());
-			_phongWithTexPerVertexShader->SetBaseTexID(_meshBuilder->GetBaseTexID());
+			_phongWithTexPerVertexShader->SetVertexBufferID(_bufferBuilder->GetVertexBufferID());
+			_phongWithTexPerVertexShader->SetNormalBufferID(_bufferBuilder->GetNormalBufferID());
+			_phongWithTexPerVertexShader->SetUVBufferID(_bufferBuilder->GetUVBufferID());
+			_phongWithTexPerVertexShader->SetBaseTexID(_bufferBuilder->GetBaseTexID());
 		}
 
 		_shader = _phongWithTexPerVertexShader;
@@ -120,10 +121,10 @@ void GLMeshRenderer::SetShader(int shaderType)
 		if (!_phongWithTexPerPixelShader)
 		{
 			_phongWithTexPerPixelShader = new PhongWithTextureShader(PhongWithTextureShader::PER_PIXEL_SHADER);
-			_phongWithTexPerPixelShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
-			_phongWithTexPerPixelShader->SetNormalBufferID(_meshBuilder->GetNormalBufferID());
-			_phongWithTexPerPixelShader->SetUVBufferID(_meshBuilder->GetUVBufferID());
-			_phongWithTexPerPixelShader->SetBaseTexID(_meshBuilder->GetBaseTexID());
+			_phongWithTexPerPixelShader->SetVertexBufferID(_bufferBuilder->GetVertexBufferID());
+			_phongWithTexPerPixelShader->SetNormalBufferID(_bufferBuilder->GetNormalBufferID());
+			_phongWithTexPerPixelShader->SetUVBufferID(_bufferBuilder->GetUVBufferID());
+			_phongWithTexPerPixelShader->SetBaseTexID(_bufferBuilder->GetBaseTexID());
 		}
 
 		_shader = _phongWithTexPerPixelShader;
@@ -133,8 +134,8 @@ void GLMeshRenderer::SetShader(int shaderType)
 		if (!_pbrShader)
 		{
 			_pbrShader = new PBRShader();
-			_pbrShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
-			_pbrShader->SetNormalBufferID(_meshBuilder->GetNormalBufferID());
+			_pbrShader->SetVertexBufferID(_bufferBuilder->GetVertexBufferID());
+			_pbrShader->SetNormalBufferID(_bufferBuilder->GetNormalBufferID());
 		}
 
 		_shader = _pbrShader;
@@ -144,13 +145,24 @@ void GLMeshRenderer::SetShader(int shaderType)
 		if (!_pbrWithTextureShader)
 		{
 			_pbrWithTextureShader = new PBRWithTextureShader();
-			_pbrWithTextureShader->SetVertexBufferID(_meshBuilder->GetVertexBufferID());
-			_pbrWithTextureShader->SetNormalBufferID(_meshBuilder->GetNormalBufferID());
-			_pbrWithTextureShader->SetUVBufferID(_meshBuilder->GetUVBufferID());
-			_pbrWithTextureShader->SetBaseTexID(_meshBuilder->GetBaseTexID());
+			_pbrWithTextureShader->SetVertexBufferID(_bufferBuilder->GetVertexBufferID());
+			_pbrWithTextureShader->SetNormalBufferID(_bufferBuilder->GetNormalBufferID());
+			_pbrWithTextureShader->SetUVBufferID(_bufferBuilder->GetUVBufferID());
+			_pbrWithTextureShader->SetBaseTexID(_bufferBuilder->GetBaseTexID());
 		}
 
 		_shader = _pbrWithTextureShader;
+	}
+	else if(_shaderType == CUBE_GEOMETRY_SHADER)
+	{
+		if(!_cubeGeometryShader)
+		{
+			_cubeGeometryShader = new CubeGeometryShader();
+			_cubeGeometryShader->SetVertexBufferID(_bufferBuilder->GetVertexBufferID());
+			_cubeGeometryShader->SetColorBufferID(_bufferBuilder->GetColorBufferID());
+		}
+
+		_shader = _cubeGeometryShader;
 	}
 }
 
@@ -184,6 +196,10 @@ Shader* GLMeshRenderer::GetShader(int shaderType)
 	{
 		return _pbrWithTextureShader;
 	}
+	else if (_shaderType == CUBE_GEOMETRY_SHADER)
+	{
+		return _cubeGeometryShader;
+	}
 
 	return NULL;
 }
@@ -210,17 +226,17 @@ void GLMeshRenderer::Draw()
 		_shader->SetModelMatrix(_modelMat.m);
 		_shader->Begin();
 		_shader->SetUniformsAndAttributes();
-		glDrawArrays(_primitiveType, 0, _meshBuilder->GetVertexBufferSize() / 12);
+		glDrawArrays(_primitiveType, 0, _bufferBuilder->GetVertexBufferSize() / 12);
 		_shader->End();
 	}
 }
 
 GLMeshRenderer::~GLMeshRenderer()
 {
-	if (_meshBuilder)
+	if (_bufferBuilder)
 	{
-		delete _meshBuilder;
-		_meshBuilder = NULL;
+		delete _bufferBuilder;
+		_bufferBuilder = NULL;
 	}
 
 	if (_basicShader)
@@ -275,5 +291,11 @@ GLMeshRenderer::~GLMeshRenderer()
 	{
 		delete _pbrWithTextureShader;
 		_pbrWithTextureShader = NULL;
+	}
+
+	if(_cubeGeometryShader)
+	{
+		delete _cubeGeometryShader;
+		_cubeGeometryShader = NULL;
 	}
 }

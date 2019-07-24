@@ -5,7 +5,7 @@
 #include "ShaderProgram.h"
 #include "GLMat.h"
 
-class CubeGeometryShader : Shader
+class CubeGeometryShader : public Shader
 {
 private:
 	ShaderProgram* _shaderProgram;

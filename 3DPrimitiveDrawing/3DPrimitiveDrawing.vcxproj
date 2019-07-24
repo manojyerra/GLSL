@@ -66,6 +66,7 @@
     <ClCompile Include="src\Common\IO\ModelIO\BinaryObjReader.cpp" />
     <ClCompile Include="src\Common\IO\ModelIO\ModelInfo.cpp" />
     <ClCompile Include="src\Common\IO\ModelIO\ObjReader.cpp" />
+    <ClCompile Include="src\Common\IO\ModelIO\ParticleReader.cpp" />
     <ClCompile Include="src\Common\Utils\BufferTransformUtils.cpp" />
     <ClCompile Include="src\Common\Utils\MathUtils.cpp" />
     <ClCompile Include="src\Common\Utils\RandomColor.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="src\Common\IO\ModelIO\BinaryObjReader.h" />
     <ClInclude Include="src\Common\IO\ModelIO\ModelInfo.h" />
     <ClInclude Include="src\Common\IO\ModelIO\ObjReader.h" />
+    <ClInclude Include="src\Common\IO\ModelIO\ParticleReader.h" />
     <ClInclude Include="src\Common\Utils\BufferTransformUtils.h" />
     <ClInclude Include="src\Common\Utils\MathUtils.h" />
     <ClInclude Include="src\Common\Utils\RandomColor.h" />
