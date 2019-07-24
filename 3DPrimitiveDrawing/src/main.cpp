@@ -16,17 +16,19 @@ int main(void)
 	glfwWindowHint(GLFW_DEPTH_BITS, 32);
 	glfwWindowHint(GLFW_ALPHA_BITS, 8);
 	glfwWindowHint(GLFW_SRGB_CAPABLE, GLFW_TRUE);
-
 	//TODO: How to change number of samples runtime and disable/enable sampling runtime ( mainly for while drawing an object ).
 	glfwWindowHint(GLFW_SAMPLES, 16);
 
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-	int sw = mode->width*0.75;
-	int sh = mode->height*0.75;
+
+	int sw = (int)(mode->width*0.85f);
+	int sh = (int)(mode->height*0.85f);
+	int sx = (int)(mode->width - sw) / 2.0f;
+	int sy = (int)(mode->height - sh) / 2.0f;
 
 	GLFWwindow* window = glfwCreateWindow(sw, sh, "GLFW Window", NULL, NULL);
-	glfwSetWindowPos(window, 100, 100);
+	glfwSetWindowPos(window, sx, sy);
 	glfwMakeContextCurrent(window);
 	glfwSetMouseButtonCallback(window, mouse_button_callback);
 	glfwSetScrollCallback(window, scroll_callback);

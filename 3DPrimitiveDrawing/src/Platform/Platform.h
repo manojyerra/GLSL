@@ -8,6 +8,7 @@ class Platform
 {
 public:
 	static void debugPrint(const char * pszFormat, ...);
+
 };
 
 #endif
