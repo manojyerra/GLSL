@@ -1,13 +1,10 @@
 #ifndef ParticlesDemo_H
 #define ParticlesDemo_H
 
-#include "Cam.h"
-#include "Cam2D.h"
 #include "Floor.h"
-#include "Input.h"
 #include "GLFBO.h"
 #include "GLTexture.h"
-#include "ParticleLoader.h"
+#include "ParticleRenderer.h"
 #include <vector>
 
 class ParticlesDemo
@@ -17,7 +14,7 @@ private:
 	int _sh;
 
 	int _numLoaders;
-	std::vector<ParticleLoader*> _particleLoaderVec;
+	std::vector<ParticleRenderer*> _particleRendererVec;
 
 	Floor* _floor;
 	GLFBO* _fbo;

@@ -1,4 +1,6 @@
 #include "ParticlesDemo.h"
+#include "Cam.h"
+#include "Cam2D.h"
 
 ParticlesDemo::ParticlesDemo(int sw, int sh)
 {
@@ -9,7 +11,7 @@ ParticlesDemo::ParticlesDemo(int sw, int sh)
 	_texture = NULL;
 
 	_numLoaders = 1;
-	_particleLoaderVec.clear();
+	_particleRendererVec.clear();
 
 	////
 
@@ -21,13 +23,13 @@ ParticlesDemo::ParticlesDemo(int sw, int sh)
 
 	for (int i = 0; i < _numLoaders; i++)
 	{
-		_particleLoaderVec.push_back(new ParticleLoader());
+		_particleRendererVec.push_back(new ParticleRenderer());
 	}
 
-	if (_particleLoaderVec.size() >= 2)	_particleLoaderVec[1]->SetPosition(2, 0, 0);
-	if (_particleLoaderVec.size() >= 3)	_particleLoaderVec[2]->SetPosition(-2, 0, 0);
-	if (_particleLoaderVec.size() >= 4)	_particleLoaderVec[3]->SetPosition(4, 0, 0);
-	if (_particleLoaderVec.size() >= 5)	_particleLoaderVec[4]->SetPosition(-4, 0, 0);
+	if (_particleRendererVec.size() >= 2)	_particleRendererVec[1]->SetPosition(2, 0, 0);
+	if (_particleRendererVec.size() >= 3)	_particleRendererVec[2]->SetPosition(-2, 0, 0);
+	if (_particleRendererVec.size() >= 4)	_particleRendererVec[3]->SetPosition(4, 0, 0);
+	if (_particleRendererVec.size() >= 5)	_particleRendererVec[4]->SetPosition(-4, 0, 0);
 
 	_drawAllParticles = true;
 }
@@ -51,9 +53,9 @@ void ParticlesDemo::Draw()
 
 		_floor->Draw();
 
-		for (int i = 0; i < _particleLoaderVec.size(); i++)
+		for (int i = 0; i < _particleRendererVec.size(); i++)
 		{
-			_particleLoaderVec[i]->DrawLowPolyParticles();
+			_particleRendererVec[i]->DrawLowPolyParticles();
 		}
 
 		_drawAllParticles = true;
@@ -71,9 +73,9 @@ void ParticlesDemo::Draw()
 
 			_floor->Draw();
 
-			for (int i = 0; i < _particleLoaderVec.size(); i++)
+			for (int i = 0; i < _particleRendererVec.size(); i++)
 			{
-				_particleLoaderVec[i]->DrawAllParticles();
+				_particleRendererVec[i]->DrawAllParticles();
 			}
 
 			_fbo->UnBindFBO();
@@ -134,12 +136,12 @@ void ParticlesDemo::Reset()
 
 ParticlesDemo::~ParticlesDemo()
 {
-	for (int i = 0; i < _particleLoaderVec.size(); i++)
+	for (int i = 0; i < _particleRendererVec.size(); i++)
 	{
-		if (_particleLoaderVec[i])
+		if (_particleRendererVec[i])
 		{
-			delete _particleLoaderVec[i];
-			_particleLoaderVec[i] = NULL;
+			delete _particleRendererVec[i];
+			_particleRendererVec[i] = NULL;
 		}
 	}
 
