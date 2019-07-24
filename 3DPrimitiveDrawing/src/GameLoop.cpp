@@ -13,9 +13,6 @@ GameLoop::GameLoop(int sw, int sh)
 	_zFar = 1000000.0f;
 	_zNearPlaneW = 0.2f;
 
-	GLSettings();
-	SUISetup(_sw, _sh);
-
 	_floor = NULL;
 	_box = NULL;
 	_cylinder = NULL;
@@ -23,11 +20,17 @@ GameLoop::GameLoop(int sw, int sh)
 	_sphere = NULL;
 	_triangle = NULL;
 
+	_particleDemo = nullptr;
+	_rendererDemo = nullptr;
+
+	GLSettings();
+	SUISetup(_sw, _sh);
+
 	Cam::GetInstance()->Init(_sw, _sh, _zNear, _zFar, _zNearPlaneW);
 	Cam2D::GetInstance()->Init(_sw, _sh);
 
-	_particleDemo = new ParticlesDemo(_sw, _sh);
 	_rendererDemo = new RenderDemo(_sw, _sh);
+	_particleDemo = new ParticlesDemo(_sw, _sh);
 
 	_windowFrame = new WholeWindowFrame(_sw - 300, 0.0f, 300, 150.0f, this);
 	_floorFrame = new FloorVisibilityFrame(_sw - 300, 555, 300, 100, this);

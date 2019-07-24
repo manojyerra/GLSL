@@ -17,6 +17,7 @@ layout (location = 0) out vec4 outColor;
 
 void main(void)
 {
+	/*
 	vec3 L = normalize( lightPos - V );
 	vec3 E = normalize(-V); // we are in Eye Coordinates, so EyePos is (0,0,0)  
 	vec3 R = normalize(-reflect(L,N)); 
@@ -27,4 +28,17 @@ void main(void)
 
 	vec3 colorWitTex = vec3(Iamb + Idiff + Ispec) + texture2D(textureID, uv_vary).rgb;
 	outColor = vec4( colorWitTex, alpha );
+	*/
+	
+	vec4 diff = texture2D(textureID, uv_vary);
+	
+	vec3 L = normalize( lightPos - V );
+	vec3 E = normalize(-V); // we are in Eye Coordinates, so EyePos is (0,0,0)  
+	vec3 R = normalize(-reflect(L,N)); 
+		
+	vec4 Iamb = ambient;
+	vec4 Idiff = diff * max(dot(N,L), 0.0);
+	vec4 Ispec = specular * pow(max(dot(R,E),0.0), shininess*0.3);
+	
+	outColor = vec4( vec3(Iamb + Idiff + Ispec), alpha);
 }

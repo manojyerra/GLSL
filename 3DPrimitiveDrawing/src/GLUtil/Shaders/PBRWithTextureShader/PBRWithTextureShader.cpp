@@ -10,7 +10,7 @@ PBRWithTextureShader::PBRWithTextureShader() : PBRShader("shaders/PBRWithTextgur
 
 	_albedo = glm::vec3(0.5893, 0.2075, 0.0415);
 	_metallic = 1.0f;
-	_roughness = 0.17f;
+	_roughness = 0.23f;
 }
 
 void PBRWithTextureShader::SetUVBufferID(unsigned int bufferID)
