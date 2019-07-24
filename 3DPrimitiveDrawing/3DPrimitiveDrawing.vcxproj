@@ -102,8 +102,8 @@
     <ClCompile Include="src\GLUtil\Shaders\PhongWithTextureShader\PhongWithTextureShader.cpp" />
     <ClCompile Include="src\GLUtil\Shaders\UVShader\UVShader.cpp" />
     <ClCompile Include="src\Input.cpp" />
-    <ClCompile Include="src\IO\ParticleLoader.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\ParticleRenderer\ParticleRenderer.cpp" />
     <ClCompile Include="src\Platform\Platform.cpp" />
     <ClCompile Include="src\Shapes2D\Triangle.cpp" />
     <ClCompile Include="src\Shapes3D\Box.cpp" />
@@ -201,7 +201,7 @@
     <ClInclude Include="src\GLUtil\Shaders\Shader.h" />
     <ClInclude Include="src\GLUtil\Shaders\UVShader\UVShader.h" />
     <ClInclude Include="src\Input.h" />
-    <ClInclude Include="src\IO\ParticleLoader.h" />
+    <ClInclude Include="src\ParticleRenderer\ParticleRenderer.h" />
     <ClInclude Include="src\Platform\Platform.h" />
     <ClInclude Include="src\Shapes2D\Triangle.h" />
     <ClInclude Include="src\Shapes3D\Box.h" />
@@ -305,7 +305,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;glew/include;src;src/Math;src/GLUtil;src/GLUtil/ShaderProgram;src/IO;src/IO/Model3D;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/Arrays;src/Common/IO/ModelIO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PBRWithTextureShader;src/GLUtil/Shaders/PhongShader;src/GLUtil/Shaders/PhongWithTextureShader;src/GLUtil/Shaders/CubeGeometryShader;src/Common/Utils;src/SUI;src/Demo;src/Demo/ParticlesDemo;src/Demo/RenderDemo;src/Platform;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;glew/include;src;src/Platform;src/Math;src/ParticleRenderer;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/Arrays;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/IO/ModelIO;src/Common/Utils;src/GLUtil;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PBRWithTextureShader;src/GLUtil/Shaders/PhongShader;src/GLUtil/Shaders/PhongWithTextureShader;src/GLUtil/Shaders/CubeGeometryShader;src/GLUtil/ShaderProgram;src/SUI;src/Demo;src/Demo/ParticlesDemo;src/Demo/RenderDemo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>

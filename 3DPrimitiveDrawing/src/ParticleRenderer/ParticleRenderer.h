@@ -1,17 +1,17 @@
-#ifndef ParticleLoader_H
-#define ParticleLoader_H
+#ifndef ParticleRenderer_H
+#define ParticleRenderer_H
 
 #include "GLMeshRenderer.h"
 
-class ParticleLoader
+class ParticleRenderer
 {
 	GLMat _modelMat;
 	GLMeshRenderer* _normalPolyRenderer;
 	GLMeshRenderer* _lowPolyRenderer;
 
 public:
-	ParticleLoader();
-	~ParticleLoader();
+	ParticleRenderer();
+	~ParticleRenderer();
 
 	void SetPosition(float x, float y, float z);
 

@@ -3,6 +3,8 @@
 #include "ShadersManager.h"
 #include "Input.h"
 #include "SUI.h"
+#include "Cam.h"
+#include "Cam2D.h"
 
 GameLoop::GameLoop(int sw, int sh)
 {

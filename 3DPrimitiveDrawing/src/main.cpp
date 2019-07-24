@@ -1,7 +1,6 @@
 #include "GLInclude.h"
 #include "GameLoop.h"
 #include "Input.h"
-#include "Platform.h"
 #include "vld.h"
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);

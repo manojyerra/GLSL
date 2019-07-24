@@ -1,8 +1,7 @@
-#include "ParticleLoader.h"
-#include "Cam.h"
+#include "ParticleRenderer.h"
 #include "ParticleReader.h"
 
-ParticleLoader::ParticleLoader()
+ParticleRenderer::ParticleRenderer()
 {
 	_modelMat.SetRotation(glm::vec3(0,90,90));
 
@@ -17,24 +16,24 @@ ParticleLoader::ParticleLoader()
 	_lowPolyRenderer->SetPrimitiveType(GLMeshRenderer::points);
 }
 
-void ParticleLoader::SetPosition(float x, float y, float z)
+void ParticleRenderer::SetPosition(float x, float y, float z)
 {
 	_modelMat.SetPos(x, y, z);
 }
 
-void ParticleLoader::DrawAllParticles()
+void ParticleRenderer::DrawAllParticles()
 {
 	_normalPolyRenderer->SetModelMatrix(_modelMat.m);
 	_normalPolyRenderer->Draw();
 }
 
-void ParticleLoader::DrawLowPolyParticles()
+void ParticleRenderer::DrawLowPolyParticles()
 {
 	_lowPolyRenderer->SetModelMatrix(_modelMat.m);
 	_lowPolyRenderer->Draw();
 }
 
-ParticleLoader::~ParticleLoader()
+ParticleRenderer::~ParticleRenderer()
 {
 	if(_normalPolyRenderer)
 	{
