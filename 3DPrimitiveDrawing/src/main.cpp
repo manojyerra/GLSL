@@ -24,8 +24,8 @@ int main(void)
 
 	int sw = (int)(mode->width*0.85f);
 	int sh = (int)(mode->height*0.85f);
-	int sx = (int)(mode->width - sw) / 2.0f;
-	int sy = (int)(mode->height - sh) / 2.0f;
+	int sx = (int)((mode->width - sw) / 2.0f);
+	int sy = (int)((mode->height - sh) / 2.0f);
 
 	GLFWwindow* window = glfwCreateWindow(sw, sh, "GLFW Window", NULL, NULL);
 	glfwSetWindowPos(window, sx, sy);
@@ -57,7 +57,7 @@ int main(void)
 		double xpos, ypos;
 		glfwGetCursorPos(window, &xpos, &ypos);
 
-		Input::Update(xpos, ypos, 1.0f / 30.0f);
+		Input::Update((int)xpos, (int)ypos, 1.0f / 30.0f);
 		gameLoop->Update(1.0f / 30.0f);
 		gameLoop->Draw();
 
