@@ -41,8 +41,8 @@ public:
 	static Cam* GetInstance();
 	static void DeleteInstance();
 
-	void Init(int screenW, int screenH, float zNear, float zFar, float zNearPlaneW);
-	void SetScreenSize(int sw, int sh);
+	void Init(float screenW, float screenH, float zNear, float zFar, float zNearPlaneW);
+	void SetScreenSize(float sw, float sh);
 
 	void SetPerspectiveProjection();
 	void SetOrthoProjection();

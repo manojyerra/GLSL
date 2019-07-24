@@ -28,8 +28,8 @@ public:
 	static Cam2D* GetInstance();
 	static void DeleteInstance();
 
-	void Init(int screenW, int screenH);
-	void SetScreenSize(int sw, int sh);
+	void Init(float screenW, float screenH);
+	void SetScreenSize(float sw, float sh);
 	
 	glm::mat4 GetMVP(float* modelMat);
 	glm::mat4 GetModelView(float* modelMat);

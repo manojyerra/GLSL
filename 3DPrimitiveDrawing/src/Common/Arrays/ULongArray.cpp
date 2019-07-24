@@ -40,7 +40,6 @@ unsigned int ULongArray::capacity()
 
 const unsigned long* ULongArray::getArray()
 {
-	unsigned long first = _arr[0];
 	return (unsigned long*)_arr;
 }
 

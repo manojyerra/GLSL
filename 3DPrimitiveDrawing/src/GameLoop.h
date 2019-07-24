@@ -38,10 +38,10 @@ private:
 	void GLSettings();
 
 public:
-	GameLoop(int sw, int sh);
+	GameLoop(float sw, float sh);
 	~GameLoop();
 
-	void SetScreenSize(int sw, int sh);
+	void SetScreenSize(float sw, float sh);
 	void Update(float deltaTime);
 	void Draw();
 	void actionPerformed(SUIActionEvent ae);

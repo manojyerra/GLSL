@@ -235,7 +235,7 @@ bool ImageBuffer::ScaleInPixels(int newWidth, int newHeight, int scaleType)
 		{
 			float jj = oldH * (float)j / newH;
 
-			float y1 = (int)jj;
+			float y1 = (float)((int)jj);
 			float y2 = y1-1;	if(y2<0) y2=0;
 			float y3 = y1;
 			float y4 = y1-1;	if(y4<0) y4=0;
@@ -249,7 +249,7 @@ bool ImageBuffer::ScaleInPixels(int newWidth, int newHeight, int scaleType)
 			{
 				float ii = oldW * (float)i / newW;
 
-				float x1 = (int)ii;
+				float x1 = (float)((int)ii);
 				float x2 = x1;
 				float x3 = x1-1;	if(x3<0) x3=0;
 				float x4 = x1-1;	if(x4<0) x4=0;
@@ -271,12 +271,12 @@ bool ImageBuffer::ScaleInPixels(int newWidth, int newHeight, int scaleType)
 					
 				unsigned int destinPos = (unsigned int)((newW*j + i) * _bytesPerPixel);
 
-				destinBuf[ destinPos + 0] = srcBuf[p1+0]*fP1 + srcBuf[p2+0]*fP2 + srcBuf[p3+0]*fP3 + srcBuf[p4+0]*fP4;
-				destinBuf[ destinPos + 1] = srcBuf[p1+1]*fP1 + srcBuf[p2+1]*fP2 + srcBuf[p3+1]*fP3 + srcBuf[p4+1]*fP4;
-				destinBuf[ destinPos + 2] = srcBuf[p1+2]*fP1 + srcBuf[p2+2]*fP2 + srcBuf[p3+2]*fP3 + srcBuf[p4+2]*fP4;
+				destinBuf[ destinPos + 0] = (unsigned char)(srcBuf[p1+0]*fP1 + srcBuf[p2+0]*fP2 + srcBuf[p3+0]*fP3 + srcBuf[p4+0]*fP4);
+				destinBuf[ destinPos + 1] = (unsigned char)(srcBuf[p1+1]*fP1 + srcBuf[p2+1]*fP2 + srcBuf[p3+1]*fP3 + srcBuf[p4+1]*fP4);
+				destinBuf[ destinPos + 2] = (unsigned char)(srcBuf[p1+2]*fP1 + srcBuf[p2+2]*fP2 + srcBuf[p3+2]*fP3 + srcBuf[p4+2]*fP4);
 		
 				if(_bytesPerPixel == 4)
-					destinBuf[ destinPos + 3] = srcBuf[p1+3]*fP1 + srcBuf[p2+3]*fP2 + srcBuf[p3+3]*fP3 + srcBuf[p4+3]*fP4;
+					destinBuf[ destinPos + 3] = (unsigned char)(srcBuf[p1+3]*fP1 + srcBuf[p2+3]*fP2 + srcBuf[p3+3]*fP3 + srcBuf[p4+3]*fP4);
 			}
 		}
 	}
@@ -1085,9 +1085,9 @@ void ImageBuffer::ColorOverlay(unsigned char r, unsigned char g, unsigned char b
 
 	for(int pos=0; pos<buffSize; )
 	{
-		_buf [pos + 0] = r*alpha + _buf [pos + 0] * (1.0f-alpha);
-		_buf [pos + 1] = g*alpha + _buf [pos + 1] * (1.0f-alpha);
-		_buf [pos + 2] = b*alpha + _buf [pos + 2] * (1.0f-alpha);
+		_buf [pos + 0] = (unsigned char)(r*alpha + _buf [pos + 0] * (1.0f-alpha));
+		_buf [pos + 1] = (unsigned char)(g*alpha + _buf [pos + 1] * (1.0f-alpha));
+		_buf [pos + 2] = (unsigned char)(b*alpha + _buf [pos + 2] * (1.0f-alpha));
 
 		if(_bytesPerPixel == 4)
 		{
@@ -1124,63 +1124,63 @@ void ImageBuffer::Hue(int hueLevel)
 
 			if(hueLevel >= 0 && hueLevel < 20)
 			{
-				float dr = _buf[pos+0] - _buf[pos+0];
-				float dg = _buf[pos+2] - _buf[pos+1];
-				float db = _buf[pos+1] - _buf[pos+2];
+				float dr = (float)(_buf[pos+0] - _buf[pos+0]);
+				float dg = (float)(_buf[pos+2] - _buf[pos+1]);
+				float db = (float)(_buf[pos+1] - _buf[pos+2]);
 
-				float val = hueLevel - 0;
+				float val = (float)(hueLevel - 0);
 
-				newBuf[pos+0] = _buf[pos+0] + val * dr / 20;
-				newBuf[pos+1] = _buf[pos+1] + val * dg / 20;
-				newBuf[pos+2] = _buf[pos+2] + val * db / 20;
+				newBuf[pos+0] = (unsigned char)(_buf[pos+0] + val * dr / 20.0f);
+				newBuf[pos+1] = (unsigned char)(_buf[pos+1] + val * dg / 20.0f);
+				newBuf[pos+2] = (unsigned char)(_buf[pos+2] + val * db / 20.0f);
 			}
 			else if(hueLevel >= 20 && hueLevel < 40)
 			{
-				float dr = _buf[pos+1] - _buf[pos+0];
-				float dg = _buf[pos+2] - _buf[pos+2];
-				float db = _buf[pos+0] - _buf[pos+1];
+				float dr = (float)(_buf[pos+1] - _buf[pos+0]);
+				float dg = (float)(_buf[pos+2] - _buf[pos+2]);
+				float db = (float)(_buf[pos+0] - _buf[pos+1]);
 
-				float val = hueLevel - 20;
+				float val = (float)(hueLevel - 20);
 
-				newBuf[pos+0] = _buf[pos+0] + val * dr / 20;
-				newBuf[pos+1] = _buf[pos+2] + val * dg / 20;
-				newBuf[pos+2] = _buf[pos+1] + val * db / 20;
+				newBuf[pos+0] = (unsigned char)(_buf[pos+0] + val * dr / 20.0f);
+				newBuf[pos+1] = (unsigned char)(_buf[pos+2] + val * dg / 20.0f);
+				newBuf[pos+2] = (unsigned char)(_buf[pos+1] + val * db / 20.0f);
 			}
 			else if(hueLevel >= 40 && hueLevel < 60)
 			{
-				float dr = _buf[pos+1] - _buf[pos+1];
-				float dg = _buf[pos+0] - _buf[pos+2];
-				float db = _buf[pos+2] - _buf[pos+0];
+				float dr = (float)(_buf[pos+1] - _buf[pos+1]);
+				float dg = (float)(_buf[pos+0] - _buf[pos+2]);
+				float db = (float)(_buf[pos+2] - _buf[pos+0]);
 
-				float val = hueLevel - 40;
+				float val = (float)(hueLevel - 40);
 
-				newBuf[pos+0] = _buf[pos+1] + val * dr / 20;
-				newBuf[pos+1] = _buf[pos+2] + val * dg / 20;
-				newBuf[pos+2] = _buf[pos+0] + val * db / 20;
+				newBuf[pos+0] = (unsigned char)(_buf[pos+1] + val * dr / 20.0f);
+				newBuf[pos+1] = (unsigned char)(_buf[pos+2] + val * dg / 20.0f);
+				newBuf[pos+2] = (unsigned char)(_buf[pos+0] + val * db / 20.0f);
 			}
 			else if(hueLevel >= 60 && hueLevel < 80)
 			{
-				float dr = _buf[pos+2] - _buf[pos+1];
-				float dg = _buf[pos+0] - _buf[pos+0];
-				float db = _buf[pos+1] - _buf[pos+2];
+				float dr = (float)(_buf[pos+2] - _buf[pos+1]);
+				float dg = (float)(_buf[pos+0] - _buf[pos+0]);
+				float db = (float)(_buf[pos+1] - _buf[pos+2]);
 
-				float val = hueLevel - 60;
+				float val = (float)(hueLevel - 60);
 
-				newBuf[pos+0] = _buf[pos+1] + val * dr / 20;
-				newBuf[pos+1] = _buf[pos+0] + val * dg / 20;
-				newBuf[pos+2] = _buf[pos+2] + val * db / 20;
+				newBuf[pos+0] = (unsigned char)(_buf[pos+1] + val * dr / 20.0f);
+				newBuf[pos+1] = (unsigned char)(_buf[pos+0] + val * dg / 20.0f);
+				newBuf[pos+2] = (unsigned char)(_buf[pos+2] + val * db / 20.0f);
 			}
 			else if(hueLevel >= 80 && hueLevel <= 100)
 			{
-				float dr = _buf[pos+2] - _buf[pos+2];
-				float dg = _buf[pos+1] - _buf[pos+0];
-				float db = _buf[pos+0] - _buf[pos+1];
+				float dr = (float)(_buf[pos+2] - _buf[pos+2]);
+				float dg = (float)(_buf[pos+1] - _buf[pos+0]);
+				float db = (float)(_buf[pos+0] - _buf[pos+1]);
 
-				float val = hueLevel - 80;
+				float val = (float)(hueLevel - 80);
 
-				newBuf[pos+0] = _buf[pos+2] + val * dr / 20;
-				newBuf[pos+1] = _buf[pos+0] + val * dg / 20;
-				newBuf[pos+2] = _buf[pos+1] + val * db / 20;
+				newBuf[pos+0] = (unsigned char)(_buf[pos+2] + val * dr / 20.0f);
+				newBuf[pos+1] = (unsigned char)(_buf[pos+0] + val * dg / 20.0f);
+				newBuf[pos+2] = (unsigned char)(_buf[pos+1] + val * db / 20.0f);
 			}
 		}
 	}
@@ -1236,7 +1236,7 @@ void ImageBuffer::MakeFeasibleToCompress(int compressionLevel)
 	int bufSize = _width * _height * _bytesPerPixel;
 	int pos = 0;
 
-	float comLevel = 1;
+	int comLevel = 1;
 
 	if(compressionLevel == 1)
 		comLevel = 2;
@@ -1251,9 +1251,8 @@ void ImageBuffer::MakeFeasibleToCompress(int compressionLevel)
 
 	for(int pos=0; pos<bufSize; pos += _bytesPerPixel)
 	{
-		
-		float rByComLevel = (float)(_buf [pos + 0]) / comLevel;
-		int valR = (rByComLevel - (int)rByComLevel > 0.5) ? ((int)rByComLevel+1)*comLevel : (int)rByComLevel*comLevel;
+		float rByComLevel = (float)(_buf [pos + 0]) / (float)comLevel;
+		int valR = (rByComLevel - (int)rByComLevel > 0.5f) ? ((int)rByComLevel+1)*comLevel : (int)rByComLevel*comLevel;
 		
 		if(valR < 0)
 			_buf[pos+0] = 0;
@@ -1261,7 +1260,7 @@ void ImageBuffer::MakeFeasibleToCompress(int compressionLevel)
 			_buf[pos+0] = (valR > 255) ? 255 : valR;
 
 
-		float gByComLevel = (float)(_buf [pos + 1]) / comLevel;
+		float gByComLevel = (float)(_buf [pos + 1]) / (float)comLevel;
 		int valG = (gByComLevel - (int)gByComLevel > 0.5) ? ((int)gByComLevel+1)*comLevel : (int)gByComLevel*comLevel;
 		
 		if(valG < 0)
@@ -1269,7 +1268,7 @@ void ImageBuffer::MakeFeasibleToCompress(int compressionLevel)
 		else		
 			_buf[pos+1] = (valG > 255) ? 255 : valG;
 
-		float bByComLevel = (float)(_buf [pos + 2]) / comLevel;
+		float bByComLevel = (float)(_buf [pos + 2]) / (float)comLevel;
 		int valB = (bByComLevel - (int)bByComLevel > 0.5) ? ((int)bByComLevel+1)*comLevel : (int)bByComLevel*comLevel;
 
 		if(valB < 0)
@@ -1388,9 +1387,9 @@ void ImageBuffer::InvertValue()
 			}
 		}
 
-		_buf [pos + 0] = r*(1.0f-0.1f);
-		_buf [pos + 1] = g*(1.0f-0.1f);
-		_buf [pos + 2] = b*(1.0f-0.1f);
+		_buf [pos + 0] = (unsigned char)(r*(1.0f-0.1f));
+		_buf [pos + 1] = (unsigned char)(g*(1.0f-0.1f));
+		_buf [pos + 2] = (unsigned char)(b*(1.0f-0.1f));
 	}
 }
 
@@ -1513,8 +1512,8 @@ void ImageBuffer::Rotate90Degrees()
 	{
 		for(int j=oldH-1;j>=0;j--)
 		{
-			unsigned int sourcePos = (oldW*j + i) * (float)_bytesPerPixel;
-			unsigned int destinPos = (newW*i + oldH-1-j) * (float)_bytesPerPixel;
+			unsigned int sourcePos = (unsigned int)((oldW*j + i) * (float)_bytesPerPixel);
+			unsigned int destinPos = (unsigned int)((newW*i + oldH-1-j) * (float)_bytesPerPixel);
 
 			newBuf[ destinPos + 0] = _buf[ sourcePos + 0];
 			newBuf[ destinPos + 1] = _buf[ sourcePos + 1];
@@ -1551,8 +1550,8 @@ void ImageBuffer::Rotate270Degrees()
 	{
 		for(int j=0;j<oldH;j++)
 		{
-			unsigned int sourcePos = (oldW*j + i) * (float)_bytesPerPixel;
-			unsigned int destinPos = (newW*(oldW-1-i) + j) * (float)_bytesPerPixel;
+			unsigned int sourcePos = (unsigned char)((oldW*j + i) * (float)_bytesPerPixel);
+			unsigned int destinPos = (unsigned char)((newW*(oldW-1-i) + j) * (float)_bytesPerPixel);
 
 			newBuf[ destinPos + 0] = _buf[ sourcePos + 0];
 			newBuf[ destinPos + 1] = _buf[ sourcePos + 1];
@@ -1578,7 +1577,7 @@ void ImageBuffer::PixelateNearest(int level)
 	int actualW = _width;
 	int actualH = _height;
 
-	ScaleInPixels( _width/effectLevel, _height/effectLevel, NEAREST);
+	ScaleInPixels((int)(_width/effectLevel), (int)(_height/effectLevel), NEAREST);
 	ScaleInPixels( actualW, actualH, NEAREST);
 }
 
@@ -1610,9 +1609,9 @@ void ImageBuffer::Contrast(int level)
 					color[channelIndex] *= 1 - effectLevel;
 			}
 
-			_buf[ pos + 0] = color[0];
-			_buf[ pos + 1] = color[1];
-			_buf[ pos + 2] = color[2];
+			_buf[ pos + 0] = (unsigned char)color[0];
+			_buf[ pos + 1] = (unsigned char)color[1];
+			_buf[ pos + 2] = (unsigned char)color[2];
 		}
 	}
 }

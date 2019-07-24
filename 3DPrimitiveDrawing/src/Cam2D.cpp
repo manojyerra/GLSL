@@ -28,17 +28,17 @@ void Cam2D::DeleteInstance()
 	}
 }
 
-void Cam2D::Init(int screenW, int screenH)
+void Cam2D::Init(float screenW, float screenH)
 {
-	_sw = (float)screenW;
-	_sh = (float)screenH;
+	_sw = screenW;
+	_sh = screenH;
 
 	SetScreenSize(_sw, _sh);
 
 	SetProjection();
 }
 
-void Cam2D::SetScreenSize(int sw, int sh)
+void Cam2D::SetScreenSize(float sw, float sh)
 {
 	_sw = sw;
 	_sh = sh;

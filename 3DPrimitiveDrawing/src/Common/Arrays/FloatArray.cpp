@@ -78,7 +78,7 @@ unsigned int FloatArray::capacity()
 	return _capacity;
 }
 
-void FloatArray::addCapacity(int addCapacity)
+void FloatArray::addCapacity(unsigned int addCapacity)
 {
 	ReCreateMem(_capacity + addCapacity);
 }

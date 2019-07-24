@@ -26,10 +26,10 @@ void Cam::DeleteInstance()
 	}
 }
 
-void Cam::Init(int screenW, int screenH, float zNear, float zFar, float zNearPlaneW)
+void Cam::Init(float screenW, float screenH, float zNear, float zFar, float zNearPlaneW)
 {
-	_sw = (float)screenW;
-	_sh = (float)screenH;
+	_sw = screenW;
+	_sh = screenH;
 
 	_zNear  = zNear;
 	_zFar = zFar;
@@ -47,7 +47,7 @@ void Cam::Init(int screenW, int screenH, float zNear, float zFar, float zNearPla
 	SetViewMatrix();
 }
 
-void Cam::SetScreenSize(int sw, int sh)
+void Cam::SetScreenSize(float sw, float sh)
 {
 	_sw = sw;
 	_sh = sh;

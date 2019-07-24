@@ -18,9 +18,9 @@ class GLMemoryInfo
 public:
 	std::string fileName;
 	long lineNum;
-	unsigned int size;
+	GLsizeiptr size;
 
-	GLMemoryInfo(std::string fileName, long lineNum, unsigned int size)
+	GLMemoryInfo(std::string fileName, long lineNum, GLsizeiptr size)
 	{
 		this->fileName = fileName;
 		this->lineNum = lineNum;

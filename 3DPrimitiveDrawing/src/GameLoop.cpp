@@ -6,7 +6,7 @@
 #include "Cam.h"
 #include "Cam2D.h"
 
-GameLoop::GameLoop(int sw, int sh)
+GameLoop::GameLoop(float sw, float sh)
 {
 	_sw = sw;
 	_sh = sh;
@@ -132,7 +132,7 @@ void GameLoop::Draw()
 	SUIDraw();
 }
 
-void GameLoop::SetScreenSize(int sw, int sh)
+void GameLoop::SetScreenSize(float sw, float sh)
 {
 	_sw = sw;
 	_sh = sh;

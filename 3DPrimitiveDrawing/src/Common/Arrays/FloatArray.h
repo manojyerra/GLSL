@@ -7,7 +7,7 @@ class FloatArray
 {
 private:
 	unsigned int _capacity;
-	int _size;
+	unsigned int _size;
 	float* _arr;
 
 	void ReCreateMem();
@@ -25,7 +25,7 @@ public:
 	unsigned int size();
 	unsigned int capacity();
 
-	void addCapacity(int addCapacity);
+	void addCapacity(unsigned int addCapacity);
 
 	const float* getArray();
 };

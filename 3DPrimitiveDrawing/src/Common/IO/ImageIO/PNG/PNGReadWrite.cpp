@@ -80,7 +80,7 @@ unsigned char* PNGReadWrite::Read(std::string path, int* imgWidth, int* imgHeigh
 	png_get_IHDR(png_ptr, info_ptr, (png_uint_32*)&twidth, (png_uint_32*)&theight, &bit_depth, &color_type, NULL, NULL, NULL);
 	png_read_update_info(png_ptr, info_ptr);				// Update the png info struct.
 	pixle_depth = info_ptr->pixel_depth;
-	int rowbytes = png_get_rowbytes(png_ptr, info_ptr);		// Row size in bytes.
+	int rowbytes = (int)png_get_rowbytes(png_ptr, info_ptr);		// Row size in bytes.
 
 	// Allocate the image_data as a big block, to be given to opengl
 	

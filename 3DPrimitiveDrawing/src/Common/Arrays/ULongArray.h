@@ -5,7 +5,7 @@ class ULongArray
 {
 private:
 	unsigned int _capacity;
-	int _size;
+	unsigned int _size;
 	unsigned long* _arr;
 	
 	void ReCreateMem();

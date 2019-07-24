@@ -5,7 +5,7 @@ class UIntArray
 {
 private:
 	unsigned int _capacity;
-	int _size;
+	unsigned int _size;
 	unsigned int* _arr;
 	
 	void ReCreateMem();

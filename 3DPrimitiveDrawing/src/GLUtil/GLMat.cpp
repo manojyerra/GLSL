@@ -86,11 +86,11 @@ void GLMat::glFrustum(float left, float right, float bottom, float top, float zN
 	float a = (right + left) / (right - left);
 	float b = (top + bottom) / (top - bottom);
 	float c = -(zFar + zNear) / (zFar - zNear);
-	float d = -(2.0*zFar*zNear) / (zFar - zNear);
+	float d = -(2.0f*zFar*zNear) / (zFar - zNear);
 
-	float x = 2.0 * zNear / (right - left);
-	float y = 2.0 * zNear / (top - bottom);
-	float e = -1.0;
+	float x = 2.0f * zNear / (right - left);
+	float y = 2.0f * zNear / (top - bottom);
+	float e = -1.0f;
 
 	float arr[16] = {
 			x, 0, 0, 0,
@@ -105,24 +105,24 @@ void GLMat::glFrustum(float left, float right, float bottom, float top, float zN
 void GLMat::glOrtho(float l, float r, float b, float t, float n, float f)
 {
 	m[0] = 2 / (r - l);
-	m[1] = 0;
-	m[2] = 0;
-	m[3] = 0;
+	m[1] = 0.0f;
+	m[2] = 0.0f;
+	m[3] = 0.0f;
 
-	m[4] = 0;
-	m[5] = 2 / (t - b);
-	m[6] = 0;
-	m[7] = 0;
+	m[4] = 0.0f;
+	m[5] = 2.0f / (t - b);
+	m[6] = 0.0f;
+	m[7] = 0.0f;
 
-	m[8] = 0;
-	m[9] = 0;
-	m[10] = -2 / (f - n);
-	m[11] = 0;
+	m[8] = 0.0f;
+	m[9] = 0.0f;
+	m[10] = -2.0f / (f - n);
+	m[11] = 0.0f;
 
 	m[12] = -(r + l) / (r - l);
 	m[13] = -(t + b) / (t - b);
 	m[14] = -(f + n) / (f - n);
-	m[15] = 1;
+	m[15] = 1.0f;
 }
 
 void GLMat::glMultMatrixf(float* mat)
@@ -208,7 +208,7 @@ void GLMat::MultMat(float* a, float* b, float* result)
 glm::vec3 GLMat::MultVector(float* a, glm::vec3 vec)
 {
 	glm::vec3 retVec;
-	int b[4] = { vec.x, vec.y, vec.z, 0 };
+	float b[4] = { vec.x, vec.y, vec.z, 0.0f };
 
 	retVec.x = a[0] * b[0] + a[4] * b[1] + a[8] * b[2] + a[12] * b[3];
 	retVec.y = a[1] * b[0] + a[5] * b[1] + a[9] * b[2] + a[13] * b[3];

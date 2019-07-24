@@ -15,9 +15,9 @@ GLBatch::GLBatch(unsigned int capacity, bool colorDataPresent, bool uvDataPresen
 	if (uvDataPresent)		_uvArr = new GLfloat[_capacity * 2];
 	if (normalsDataPresent)	_normalArr = new GLfloat[_capacity * 3];
 
-	_r = 1.0f;
-	_g = 1.0f;
-	_b = 1.0f;
+	_r = 255;
+	_g = 255;
+	_b = 255;
 
 	_u = 0.0f;
 	_v = 0.0f;
