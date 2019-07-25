@@ -57,7 +57,7 @@ void SSAOGeometryPassShader::SetUniformsAndAttributes()
 	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(cam->GetMVP(m)));
 	_shaderProgram->SetUniformMatrix4fv("modelView", glm::value_ptr(cam->GetModelViewMat(m)));
 	_shaderProgram->SetUniformMatrix3fv("normalMat", glm::value_ptr(cam->GetNormalMat(m)));
-	_shaderProgram->SetUniform1f("alpha", _alpha);
+	//_shaderProgram->SetUniform1f("alpha", _alpha);
 
 	if (_uvBufferID)
 	{

@@ -159,6 +159,16 @@ float GLSSAO::lerp(float a, float b, float f)
 	return a + f * (b - a);
 }
 
+void GLSSAO::BindGBuffer()
+{
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _gBufferFBO);
+}
+
+void GLSSAO::UnBindGBuffer()
+{
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+}
+
 unsigned int GLSSAO::GetW()
 {
 	return _w;

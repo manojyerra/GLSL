@@ -8,9 +8,7 @@ private:
 	unsigned int _h;
 
 	unsigned int _gBufferFBO;
-	unsigned int _gPosition;
-	unsigned int _gNormal;
-	unsigned int _gAlbedo;
+	
 
 	unsigned int _ssaoFBO;
 	unsigned int _ssaoBlurFBO;
@@ -23,8 +21,15 @@ private:
 	float lerp(float a, float b, float f);
 
 public:
+	unsigned int _gAlbedo;
+	unsigned int _gPosition;
+	unsigned int _gNormal;
+
 	GLSSAO(int w, int h);
 	~GLSSAO();
+
+	void BindGBuffer();
+	void UnBindGBuffer();
 
 	unsigned int GetW();
 	unsigned int GetH();
