@@ -10,12 +10,16 @@ GLSSAO::GLSSAO(int w, int h)
 	_h = h;
 
 	_gBufferFBO = 0;
+
 	_gPosition = 0;
 	_gNormal = 0;
 	_gAlbedo = 0;
 
 	_ssaoFBO = 0;
+	_ssaoColorAttachmentID = 0;
+	
 	_ssaoBlurFBO = 0;
+	_noiseTexID = 0;
 
 	CreateGBufferFBO(_w, _h);
 	CreateSSAOFBO(_w, _h);
@@ -92,11 +96,13 @@ void GLSSAO::CreateSSAOFBO(unsigned int w, unsigned int h)
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, _w, _h, 0, GL_RGB, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
 	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, ssaoColorBuffer, 0);
 	if (glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) != GL_FRAMEBUFFER_COMPLETE_EXT)
 		throw new std::exception("SSAO Framebuffer not complete!");
 
 	_ssaoFBO = ssaoFBO;
+	_ssaoColorAttachmentID = ssaoColorBuffer;
 }
 
 void GLSSAO::CreateSSAOBlurFBO(unsigned int w, unsigned int h)
@@ -111,6 +117,7 @@ void GLSSAO::CreateSSAOBlurFBO(unsigned int w, unsigned int h)
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, _w, _h, 0, GL_RGB, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
 	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, ssaoColorBufferBlur, 0);
 	if (glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) != GL_FRAMEBUFFER_COMPLETE_EXT)
 		throw new std::exception("SSAO Blur Framebuffer not complete!");
@@ -123,7 +130,6 @@ void GLSSAO::GenerateSampleKernelAndNoiseTexture()
 {
 	std::uniform_real_distribution<GLfloat> randomFloats(0.0, 1.0); // generates random floats between 0.0 and 1.0
 	std::default_random_engine generator;
-	std::vector<glm::vec3> ssaoKernel;
 
 	for (unsigned int i = 0; i < 64; ++i)
 	{
@@ -135,7 +141,7 @@ void GLSSAO::GenerateSampleKernelAndNoiseTexture()
 		// scale samples s.t. they're more aligned to center of kernel
 		scale = lerp(0.1f, 1.0f, scale * scale);
 		sample *= scale;
-		ssaoKernel.push_back(sample);
+		_ssaoSamples.push_back(sample);
 	}
 
 	std::vector<glm::vec3> ssaoNoise;
@@ -144,8 +150,9 @@ void GLSSAO::GenerateSampleKernelAndNoiseTexture()
 		glm::vec3 noise(randomFloats(generator) * 2.0 - 1.0, randomFloats(generator) * 2.0 - 1.0, 0.0f); // rotate around z-axis (in tangent space)
 		ssaoNoise.push_back(noise);
 	}
-	unsigned int noiseTexture; glGenTextures(1, &noiseTexture);
-	glBindTexture(GL_TEXTURE_2D, noiseTexture);
+
+	glGenTextures(1, &_noiseTexID);
+	glBindTexture(GL_TEXTURE_2D, _noiseTexID);
 	//TODO : replaced GL_RGB32F with GL_RGB32F_ARB. Confirm that it is correct replacement.
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F_ARB, 4, 4, 0, GL_RGB, GL_FLOAT, &ssaoNoise[0]);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -167,6 +174,46 @@ void GLSSAO::BindGBuffer()
 void GLSSAO::UnBindGBuffer()
 {
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+}
+
+void GLSSAO::BindSSAOBuffer()
+{
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _ssaoFBO);
+}
+
+void GLSSAO::UnBindSSAOBuffer()
+{
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+}
+
+unsigned int GLSSAO::GetSSAOColorAttachmentID()
+{
+	return _ssaoColorAttachmentID;
+}
+
+unsigned int GLSSAO::GetGPositionTexID()
+{
+	return _gPosition;
+}
+
+unsigned int GLSSAO::GetGNormalTexID()
+{
+	return _gNormal;
+}
+
+unsigned int GLSSAO::GetGAlbedoTexID()
+{
+	return _gAlbedo;
+}
+
+unsigned int GLSSAO::GetNoiseTexID()
+{
+	return _noiseTexID;
+}
+
+std::vector<glm::vec3> GLSSAO::GetSamples()
+{
+	return _ssaoSamples;
 }
 
 unsigned int GLSSAO::GetW()

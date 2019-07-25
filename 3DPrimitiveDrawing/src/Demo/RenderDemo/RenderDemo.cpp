@@ -12,13 +12,23 @@ RenderDemo::RenderDemo(float sw, float sh)
 	_numModels = 1;
 	_selectedModel = nullptr;
 
+	_texture = new GLTexture("data/demo/Sample.png", 0, 0, 10, 10);
+
+	_ssao = new GLSSAO((int)_sw, (int)_sh);
+
+	_ssaoTexture = new GLSSAOTexture();
+	_ssaoTexture->SetGPositionTexID(_ssao->GetGPositionTexID());
+	_ssaoTexture->SetGNormalTexID(_ssao->GetGNormalTexID());
+	_ssaoTexture->SetNoiseTexID(_ssao->GetNoiseTexID());
+	_ssaoTexture->SetSamples(_ssao->GetSamples());
+
 	GLMeshRenderer* meshRenderer1 = nullptr;
 	GLMeshRenderer* meshRenderer2 = nullptr;
 	GLMeshRenderer* meshRenderer3 = nullptr;
 	GLMeshRenderer* meshRenderer4 = nullptr;
 	GLMeshRenderer* meshRenderer5 = nullptr;
 
-	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/demo/Teapot"), GLMeshRenderer::PBR_SHADER);
+	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/demo/Trike"), GLMeshRenderer::SSAO_GEOMETRY_PASS_SHADER);
 	if (_numModels >= 2) meshRenderer2 = new GLMeshRenderer(&ObjReader("data/demo/Trike"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 3) meshRenderer3 = new GLMeshRenderer(&ObjReader("data/demo/Truck"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 4) meshRenderer4 = new GLMeshRenderer(&ObjReader("data/demo/Plane"), GLMeshRenderer::PBR_WITH_TEXTURE_SHADER);
@@ -45,7 +55,7 @@ RenderDemo::RenderDemo(float sw, float sh)
 
 	_selectedModel = _modelVec[0];
 
-	_shaderFrame = new ShaderFrame(0.0f, 0.0f, 300, 910, this);
+	_shaderFrame = new ShaderFrame(0.0f, 0.0f, 300.0f, 910.0f, this);
 	_shaderFrame->SetMeshRenderer(_selectedModel);
 
 	_modelVisibilityFrame = new ModelVisibilityFrame(_sw - 300.0f, 152.0f, 300.0f, 200.0f, this);
@@ -72,19 +82,27 @@ void RenderDemo::SetScreenSize(float sw, float sh)
 void RenderDemo::Draw()
 {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	float clearValue = 100.0f/255.0f;
-	glClearColor(clearValue, clearValue, clearValue, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glViewport(0, 0, (GLuint)_sw, (GLuint)_sh);
 	glEnable(GL_DEPTH_TEST);
+
+	float clearValue = 100.0f / 255.0f;
+	glClearColor(clearValue, clearValue, clearValue, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //for clearing the default framebuffer.
 
 	Cam::GetInstance()->SetPerspectiveProjection();
 	Cam::GetInstance()->SetViewMatrix();
 	Cam::GetInstance()->UpdateCamera();
 
-	_floor->Draw();
+	_modelVec[0]->Draw();
 
+	_ssao->BindGBuffer();
+
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //for clearing G-Buffer framebuffer
+	glViewport(0, 0, (GLuint)_sw, (GLuint)_sh);	
+
+	
+
+	/*
 	for (int i = 0; i < _modelVec.size(); i++)
 	{
 		if (_modelVisibilityFrame->modelBoxVec[i]->modelCheckBox->IsSelected())
@@ -92,6 +110,23 @@ void RenderDemo::Draw()
 			_modelVec[i]->Draw();
 		}
 	}
+	*/
+
+	_ssao->UnBindGBuffer();
+
+	_ssao->BindSSAOBuffer();
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+	_ssaoTexture->Draw();
+	_ssao->UnBindSSAOBuffer();
+
+	_texture->GetShader()->SetTextureID(_ssao->GetSSAOColorAttachmentID());
+	_texture->Draw();
+
+	_floor->Draw();
+
+	//_glTexture->GetShader()->SetTextureID(_glSSAO->GetGAlbedoTexID());
+	//_glTexture->Draw();
 }
 
 void RenderDemo::actionPerformed(SUIActionEvent e)

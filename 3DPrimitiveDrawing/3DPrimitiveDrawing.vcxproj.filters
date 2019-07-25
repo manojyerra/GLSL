@@ -106,6 +106,9 @@
     <Filter Include="src\GLUtil\Shaders\SSAOGeometryPassShader">
       <UniqueIdentifier>{5e300681-4bc7-4301-9e6a-c7c384b832c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GLUtil\Shaders\SSAOShader">
+      <UniqueIdentifier>{ff0b8c0c-3410-4f55-b054-1829b934f99b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -444,6 +447,12 @@
     <ClCompile Include="src\GLUtil\Shaders\SSAOGeometryPassShader\SSAOGeometryPassShader.cpp">
       <Filter>src\GLUtil\Shaders\SSAOGeometryPassShader</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\Shaders\SSAOShader\SSAOShader.cpp">
+      <Filter>src\GLUtil\Shaders\SSAOShader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLUtil\GLSSAOTexture.cpp">
+      <Filter>src\GLUtil</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -754,6 +763,12 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\Shaders\SSAOGeometryPassShader\SSAOGeometryPassShader.h">
       <Filter>src\GLUtil\Shaders\SSAOGeometryPassShader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\Shaders\SSAOShader\SSAOShader.h">
+      <Filter>src\GLUtil\Shaders\SSAOShader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\GLSSAOTexture.h">
+      <Filter>src\GLUtil</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

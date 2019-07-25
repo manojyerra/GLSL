@@ -129,7 +129,7 @@ void GameLoop::Draw()
 			_particleDemo->Draw();
 	}
 
-	SUIDraw();
+	//SUIDraw();
 }
 
 void GameLoop::SetScreenSize(float sw, float sh)

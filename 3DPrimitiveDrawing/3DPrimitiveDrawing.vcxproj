@@ -88,6 +88,7 @@
     <ClCompile Include="src\GLUtil\GLMemory.cpp" />
     <ClCompile Include="src\GLUtil\GLMeshRenderer.cpp" />
     <ClCompile Include="src\GLUtil\GLSSAO.cpp" />
+    <ClCompile Include="src\GLUtil\GLSSAOTexture.cpp" />
     <ClCompile Include="src\GLUtil\GLState.cpp" />
     <ClCompile Include="src\GLUtil\GLTexture.cpp" />
     <ClCompile Include="src\GLUtil\GLUtil.cpp" />
@@ -101,6 +102,7 @@
     <ClCompile Include="src\GLUtil\Shaders\PhongShader\PhongShader.cpp" />
     <ClCompile Include="src\GLUtil\Shaders\PhongWithTextureShader\PhongWithTextureShader.cpp" />
     <ClCompile Include="src\GLUtil\Shaders\SSAOGeometryPassShader\SSAOGeometryPassShader.cpp" />
+    <ClCompile Include="src\GLUtil\Shaders\SSAOShader\SSAOShader.cpp" />
     <ClCompile Include="src\GLUtil\Shaders\UVShader\UVShader.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -187,6 +189,7 @@
     <ClInclude Include="src\GLUtil\GLMemory.h" />
     <ClInclude Include="src\GLUtil\GLMeshRenderer.h" />
     <ClInclude Include="src\GLUtil\GLSSAO.h" />
+    <ClInclude Include="src\GLUtil\GLSSAOTexture.h" />
     <ClInclude Include="src\GLUtil\GLState.h" />
     <ClInclude Include="src\GLUtil\GLTexture.h" />
     <ClInclude Include="src\GLUtil\GLUtil.h" />
@@ -201,6 +204,7 @@
     <ClInclude Include="src\GLUtil\Shaders\PhongWithTextureShader\PhongWithTextureShader.h" />
     <ClInclude Include="src\GLUtil\Shaders\Shader.h" />
     <ClInclude Include="src\GLUtil\Shaders\SSAOGeometryPassShader\SSAOGeometryPassShader.h" />
+    <ClInclude Include="src\GLUtil\Shaders\SSAOShader\SSAOShader.h" />
     <ClInclude Include="src\GLUtil\Shaders\UVShader\UVShader.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\ParticleRenderer\ParticleRenderer.h" />
@@ -307,7 +311,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;glew/include;src;src/Platform;src/Math;src/ParticleRenderer;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/Arrays;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/IO/ModelIO;src/Common/Utils;src/GLUtil;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PBRWithTextureShader;src/GLUtil/Shaders/PhongShader;src/GLUtil/Shaders/PhongWithTextureShader;src/GLUtil/Shaders/CubeGeometryShader;src/GLUtil/Shaders/SSAOGeometryPassShader;src/GLUtil/ShaderProgram;src/SUI;src/Demo;src/Demo/ParticlesDemo;src/Demo/RenderDemo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;glew/include;src;src/Platform;src/Math;src/ParticleRenderer;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/Arrays;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/IO/ModelIO;src/Common/Utils;src/GLUtil;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PBRWithTextureShader;src/GLUtil/Shaders/PhongShader;src/GLUtil/Shaders/PhongWithTextureShader;src/GLUtil/Shaders/CubeGeometryShader;src/GLUtil/Shaders/SSAOGeometryPassShader;src/GLUtil/Shaders/SSAOShader;src/GLUtil/ShaderProgram;src/SUI;src/Demo;src/Demo/ParticlesDemo;src/Demo/RenderDemo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>

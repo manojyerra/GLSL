@@ -23,6 +23,7 @@ GLMeshRenderer::GLMeshRenderer(ModelInfo* meshCreateInfo, int shaderType)
 	_pbrWithTextureShader = NULL;
 	_cubeGeometryShader = NULL;
 	_ssaoGeometryPassShader = NULL;
+	_ssaoShader = NULL;
 	_shader = NULL;
 
 	_shaderType = shaderType;
@@ -173,6 +174,19 @@ void GLMeshRenderer::SetShader(int shaderType)
 			_ssaoGeometryPassShader->SetVertexBufferID(_bufferBuilder->GetVertexBufferID());
 			_ssaoGeometryPassShader->SetNormalBufferID(_bufferBuilder->GetNormalBufferID());
 		}
+
+		_shader = _ssaoGeometryPassShader;
+	}
+	else if (_shaderType == SSAO_SHADER)
+	{
+		if (!_ssaoShader)
+		{
+			_ssaoShader = new SSAOShader();
+			_ssaoShader->SetVertexBufferID(_bufferBuilder->GetVertexBufferID());
+			_ssaoShader->SetUVBufferID(_bufferBuilder->GetUVBufferID());
+		}
+
+		_shader = _ssaoShader;
 	}
 }
 
@@ -213,6 +227,10 @@ Shader* GLMeshRenderer::GetShader(int shaderType)
 	else if (_shaderType == SSAO_GEOMETRY_PASS_SHADER)
 	{
 		return _ssaoGeometryPassShader;
+	}
+	else if (_shaderType == SSAO_SHADER)
+	{
+		return _ssaoShader;
 	}
 
 	return NULL;
@@ -317,5 +335,11 @@ GLMeshRenderer::~GLMeshRenderer()
 	{
 		delete _ssaoGeometryPassShader;
 		_ssaoGeometryPassShader = NULL;
+	}
+
+	if (_ssaoShader)
+	{
+		delete _ssaoShader;
+		_ssaoShader = NULL;
 	}
 }
