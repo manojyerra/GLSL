@@ -1,12 +1,14 @@
 #version 450
 
-layout (location = 0) in vec3 vertex;
+layout (location = 0) in vec4 vertex;
 layout (location = 1) in vec2 uv;
 
-out vec2 uvVary;
+uniform mat4 mvp;
+
+out vec2 TexCoords;
 
 void main()
 {
-    uvVary = uv;
-    gl_Position = vec4(vertex, 1.0);
+    TexCoords = uv;
+    gl_Position = mvp*vertex;
 }
