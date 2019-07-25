@@ -78,19 +78,19 @@ void SSAOShader::SetUniformsAndAttributes()
 		_shaderProgram->SetUniform3f(uniName.c_str(), sample.x, sample.y, sample.z);
 	}
 
-	glActiveTexture(GL_TEXTURE0);
+	_shaderProgram->SetUniform1i("gPosition", 0);
+	_shaderProgram->SetUniform1i("gNormal", 1);
+	_shaderProgram->SetUniform1i("texNoise", 2);
+
+	glActiveTexture(0);
 	glBindTexture(GL_TEXTURE_2D, _gPositionTexID);
-	glActiveTexture(GL_TEXTURE1);
+	glActiveTexture(1);
 	glBindTexture(GL_TEXTURE_2D, _gNormalTexID);
-	glActiveTexture(GL_TEXTURE2);
+	glActiveTexture(2);
 	glBindTexture(GL_TEXTURE_2D, _noiseTexID);
 
-	_shaderProgram->SetUniformMatrix4fv("proj", glm::value_ptr(cam->GetProjectionMat()));
-
-	//_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(cam->GetMVP(m)));
-	//_shaderProgram->SetUniformMatrix4fv("modelView", glm::value_ptr(cam->GetModelViewMat(m)));
-	//_shaderProgram->SetUniformMatrix3fv("normalMat", glm::value_ptr(cam->GetNormalMat(m)));
-	//_shaderProgram->SetUniform1f("alpha", _alpha);
+	_shaderProgram->SetUniformMatrix4fv("projection", glm::value_ptr(cam->GetProjectionMat()));
+	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(cam->GetMVP(m)));
 
 	if (_uvBufferID)
 	{

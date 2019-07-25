@@ -108,19 +108,16 @@ void RenderDemo::Draw()
 	_modelVec[0]->Draw();
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 
-	_texture->GetShader()->SetTextureID(_ssaoBufferBuilder->GetGAlbedoTexID());
+
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _ssaoBufferBuilder->GetSSAOFBO());
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+	_ssaoTexture->Draw();
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+
+
+	_texture->GetShader()->SetTextureID(_ssaoBufferBuilder->GetSSAOColorAttachmentID());
 	_texture->Draw();
-
-
-	//glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _ssaoBufferBuilder->GetSSAOFBO());
-	//glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	//glClear(GL_COLOR_BUFFER_BIT);
-	//_ssaoTexture->Draw();
-	//glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-
-
-	//_texture->GetShader()->SetTextureID(_ssaoBufferBuilder->GetSSAOColorAttachmentID());
-	//_texture->Draw();
 }
 
 void RenderDemo::actionPerformed(SUIActionEvent e)

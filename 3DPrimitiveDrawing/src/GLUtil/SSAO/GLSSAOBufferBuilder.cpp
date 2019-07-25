@@ -95,12 +95,15 @@ void GLSSAOBufferBuilder::CreateSSAOFBO(unsigned int w, unsigned int h)
 	glGenTextures(1, &ssaoColorBuffer);
 	glBindTexture(GL_TEXTURE_2D, ssaoColorBuffer);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, _w, _h, 0, GL_RGB, GL_FLOAT, NULL);
+
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, ssaoColorBuffer, 0);
 	if (glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) != GL_FRAMEBUFFER_COMPLETE_EXT)
 		throw new std::exception("SSAO Framebuffer not complete!");
+
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 
 	_ssaoFBO = ssaoFBO;
 	_ssaoColorAttachmentID = ssaoColorBuffer;

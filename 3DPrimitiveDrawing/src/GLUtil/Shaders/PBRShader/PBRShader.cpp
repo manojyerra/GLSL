@@ -26,6 +26,7 @@ void PBRShader::CommonInit(string vertexShaderPath, string fragmentShaderPath)
 	LightInfo lightInfo4(glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(23.47, 21.31, 20.79));
 	LightInfo lightInfo5(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(23.47, 21.31, 20.79));
 
+	_lightMap.clear();
 	_lightMap.insert({ "0", lightInfo1 });
 	_lightMap.insert({ "1", lightInfo2 });
 	_lightMap.insert({ "2", lightInfo3 });
