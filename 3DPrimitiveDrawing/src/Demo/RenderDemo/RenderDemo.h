@@ -1,7 +1,7 @@
 #ifndef RenderDemo_H
 #define RenderDemo_H
 
-#include "GLSSAO.h"
+#include "GLSSAOBufferBuilder.h"
 #include "GLMeshRenderer.h"
 #include "Floor.h"
 
@@ -11,6 +11,7 @@
 #include "ModelSelectionFrame.h"
 #include "GLTexture.h"
 #include "GLSSAOTexture.h"
+#include "GLFBO.h"
 
 class RenderDemo : public SUIActionListener
 {
@@ -19,7 +20,7 @@ private:
 	float _sh;
 	int _numModels;
 
-	GLSSAO * _ssao;
+	GLSSAOBufferBuilder* _ssaoBufferBuilder;
 	GLTexture* _texture;
 	GLSSAOTexture* _ssaoTexture;
 

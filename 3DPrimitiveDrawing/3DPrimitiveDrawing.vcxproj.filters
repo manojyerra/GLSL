@@ -109,6 +109,9 @@
     <Filter Include="src\GLUtil\Shaders\SSAOShader">
       <UniqueIdentifier>{ff0b8c0c-3410-4f55-b054-1829b934f99b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GLUtil\SSAO">
+      <UniqueIdentifier>{29dfbb4e-b5fd-4dc4-933d-a068c66c901f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -163,9 +166,6 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\GLUtil\GLMemory.cpp">
-      <Filter>src\GLUtil</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GLUtil\GLSSAO.cpp">
       <Filter>src\GLUtil</Filter>
     </ClCompile>
     <ClCompile Include="src\Common\IO\ImageIO\PNG\PNGReadWrite.cpp">
@@ -450,8 +450,11 @@
     <ClCompile Include="src\GLUtil\Shaders\SSAOShader\SSAOShader.cpp">
       <Filter>src\GLUtil\Shaders\SSAOShader</Filter>
     </ClCompile>
-    <ClCompile Include="src\GLUtil\GLSSAOTexture.cpp">
-      <Filter>src\GLUtil</Filter>
+    <ClCompile Include="src\GLUtil\SSAO\GLSSAOBufferBuilder.cpp">
+      <Filter>src\GLUtil\SSAO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLUtil\SSAO\GLSSAOTexture.cpp">
+      <Filter>src\GLUtil\SSAO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -510,9 +513,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\GLUtil\GLMemory.h">
-      <Filter>src\GLUtil</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GLUtil\GLSSAO.h">
       <Filter>src\GLUtil</Filter>
     </ClInclude>
     <ClInclude Include="src\Common\IO\ImageIO\PNG\PNGReadWrite.h">
@@ -767,8 +767,11 @@
     <ClInclude Include="src\GLUtil\Shaders\SSAOShader\SSAOShader.h">
       <Filter>src\GLUtil\Shaders\SSAOShader</Filter>
     </ClInclude>
-    <ClInclude Include="src\GLUtil\GLSSAOTexture.h">
-      <Filter>src\GLUtil</Filter>
+    <ClInclude Include="src\GLUtil\SSAO\GLSSAOBufferBuilder.h">
+      <Filter>src\GLUtil\SSAO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\SSAO\GLSSAOTexture.h">
+      <Filter>src\GLUtil\SSAO</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

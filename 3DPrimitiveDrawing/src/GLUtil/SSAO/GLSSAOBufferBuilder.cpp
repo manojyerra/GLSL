@@ -1,10 +1,10 @@
-#include "GLSSAO.h"
+#include "GLSSAOBufferBuilder.h"
 #include "GLInclude.h"
 #include <glm/glm.hpp>
 #include <iostream>
 #include <random>
 
-GLSSAO::GLSSAO(int w, int h)
+GLSSAOBufferBuilder::GLSSAOBufferBuilder(int w, int h)
 {
 	_w = w;
 	_h = h;
@@ -14,12 +14,13 @@ GLSSAO::GLSSAO(int w, int h)
 	_gPosition = 0;
 	_gNormal = 0;
 	_gAlbedo = 0;
+	_noiseTexID = 0;
 
 	_ssaoFBO = 0;
 	_ssaoColorAttachmentID = 0;
 	
 	_ssaoBlurFBO = 0;
-	_noiseTexID = 0;
+	_ssaoBlurColorAttachmentID = 0;
 
 	CreateGBufferFBO(_w, _h);
 	CreateSSAOFBO(_w, _h);
@@ -27,7 +28,7 @@ GLSSAO::GLSSAO(int w, int h)
 	GenerateSampleKernelAndNoiseTexture();
 }
 
-void GLSSAO::CreateGBufferFBO(unsigned int w, unsigned int h)
+void GLSSAOBufferBuilder::CreateGBufferFBO(unsigned int w, unsigned int h)
 {
 	unsigned int gBufferFBO;
 	glGenFramebuffersEXT(1, &gBufferFBO);
@@ -83,7 +84,7 @@ void GLSSAO::CreateGBufferFBO(unsigned int w, unsigned int h)
 	_gAlbedo = gAlbedo;
 }
 
-void GLSSAO::CreateSSAOFBO(unsigned int w, unsigned int h)
+void GLSSAOBufferBuilder::CreateSSAOFBO(unsigned int w, unsigned int h)
 {
 	// SSAO color buffer
 	unsigned int ssaoFBO;
@@ -105,7 +106,7 @@ void GLSSAO::CreateSSAOFBO(unsigned int w, unsigned int h)
 	_ssaoColorAttachmentID = ssaoColorBuffer;
 }
 
-void GLSSAO::CreateSSAOBlurFBO(unsigned int w, unsigned int h)
+void GLSSAOBufferBuilder::CreateSSAOBlurFBO(unsigned int w, unsigned int h)
 {
 	unsigned int ssaoBlurFBO;
 	glGenFramebuffersEXT(1, &ssaoBlurFBO);
@@ -124,9 +125,10 @@ void GLSSAO::CreateSSAOBlurFBO(unsigned int w, unsigned int h)
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 
 	_ssaoBlurFBO = ssaoBlurFBO;
+	_ssaoBlurColorAttachmentID = ssaoColorBufferBlur;
 }
 
-void GLSSAO::GenerateSampleKernelAndNoiseTexture()
+void GLSSAOBufferBuilder::GenerateSampleKernelAndNoiseTexture()
 {
 	std::uniform_real_distribution<GLfloat> randomFloats(0.0, 1.0); // generates random floats between 0.0 and 1.0
 	std::default_random_engine generator;
@@ -161,72 +163,72 @@ void GLSSAO::GenerateSampleKernelAndNoiseTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 }
 
-float GLSSAO::lerp(float a, float b, float f)
+float GLSSAOBufferBuilder::lerp(float a, float b, float f)
 {
 	return a + f * (b - a);
 }
 
-void GLSSAO::BindGBuffer()
+unsigned int GLSSAOBufferBuilder::GetGBufferFBO()
 {
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _gBufferFBO);
+	return _gBufferFBO;
 }
 
-void GLSSAO::UnBindGBuffer()
+unsigned int GLSSAOBufferBuilder::GetSSAOFBO()
 {
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+	return _ssaoFBO;
 }
 
-void GLSSAO::BindSSAOBuffer()
-{
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _ssaoFBO);
-}
-
-void GLSSAO::UnBindSSAOBuffer()
-{
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-}
-
-unsigned int GLSSAO::GetSSAOColorAttachmentID()
+unsigned int GLSSAOBufferBuilder::GetSSAOColorAttachmentID()
 {
 	return _ssaoColorAttachmentID;
 }
 
-unsigned int GLSSAO::GetGPositionTexID()
+unsigned int GLSSAOBufferBuilder::GetSSAOBlurFBO()
+{
+	return _ssaoBlurFBO;
+}
+
+unsigned int GLSSAOBufferBuilder::GetSSAOBlurColorAttachmentID()
+{
+	return _ssaoBlurColorAttachmentID;
+}
+
+unsigned int GLSSAOBufferBuilder::GetGPositionTexID()
 {
 	return _gPosition;
 }
 
-unsigned int GLSSAO::GetGNormalTexID()
+unsigned int GLSSAOBufferBuilder::GetGNormalTexID()
 {
 	return _gNormal;
 }
 
-unsigned int GLSSAO::GetGAlbedoTexID()
+unsigned int GLSSAOBufferBuilder::GetGAlbedoTexID()
 {
 	return _gAlbedo;
 }
 
-unsigned int GLSSAO::GetNoiseTexID()
+unsigned int GLSSAOBufferBuilder::GetNoiseTexID()
 {
 	return _noiseTexID;
 }
 
-std::vector<glm::vec3> GLSSAO::GetSamples()
+std::vector<glm::vec3> GLSSAOBufferBuilder::GetSamples()
 {
 	return _ssaoSamples;
 }
 
-unsigned int GLSSAO::GetW()
+unsigned int GLSSAOBufferBuilder::GetW()
 {
 	return _w;
 }
 
-unsigned int GLSSAO::GetH()
+unsigned int GLSSAOBufferBuilder::GetH()
 {
 	return _h;
 }
 
-GLSSAO::~GLSSAO()
+GLSSAOBufferBuilder::~GLSSAOBufferBuilder()
 {
 	////Delete resources
 	//glDeleteTextures(1, &_texID);

@@ -14,13 +14,13 @@ RenderDemo::RenderDemo(float sw, float sh)
 
 	_texture = new GLTexture("data/demo/Sample.png", 0, 0, 10, 10);
 
-	_ssao = new GLSSAO((int)_sw, (int)_sh);
+	_ssaoBufferBuilder = new GLSSAOBufferBuilder((int)_sw, (int)_sh);
 
 	_ssaoTexture = new GLSSAOTexture();
-	_ssaoTexture->SetGPositionTexID(_ssao->GetGPositionTexID());
-	_ssaoTexture->SetGNormalTexID(_ssao->GetGNormalTexID());
-	_ssaoTexture->SetNoiseTexID(_ssao->GetNoiseTexID());
-	_ssaoTexture->SetSamples(_ssao->GetSamples());
+	_ssaoTexture->SetGPositionTexID(_ssaoBufferBuilder->GetGPositionTexID());
+	_ssaoTexture->SetGNormalTexID(_ssaoBufferBuilder->GetGNormalTexID());
+	_ssaoTexture->SetNoiseTexID(_ssaoBufferBuilder->GetNoiseTexID());
+	_ssaoTexture->SetSamples(_ssaoBufferBuilder->GetSamples());
 
 	GLMeshRenderer* meshRenderer1 = nullptr;
 	GLMeshRenderer* meshRenderer2 = nullptr;
@@ -92,41 +92,35 @@ void RenderDemo::Draw()
 	Cam::GetInstance()->SetViewMatrix();
 	Cam::GetInstance()->UpdateCamera();
 
-	_modelVec[0]->Draw();
-
-	_ssao->BindGBuffer();
-
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //for clearing G-Buffer framebuffer
-	glViewport(0, 0, (GLuint)_sw, (GLuint)_sh);	
-
-	
-
-	/*
-	for (int i = 0; i < _modelVec.size(); i++)
-	{
-		if (_modelVisibilityFrame->modelBoxVec[i]->modelCheckBox->IsSelected())
-		{
-			_modelVec[i]->Draw();
-		}
-	}
-	*/
-
-	_ssao->UnBindGBuffer();
-
-	_ssao->BindSSAOBuffer();
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-	_ssaoTexture->Draw();
-	_ssao->UnBindSSAOBuffer();
-
-	_texture->GetShader()->SetTextureID(_ssao->GetSSAOColorAttachmentID());
-	_texture->Draw();
-
 	_floor->Draw();
 
-	//_glTexture->GetShader()->SetTextureID(_glSSAO->GetGAlbedoTexID());
-	//_glTexture->Draw();
+	//for (int i = 0; i < _modelVec.size(); i++)
+	//{
+	//	if (_modelVisibilityFrame->modelBoxVec[i]->modelCheckBox->IsSelected())
+	//	{
+	//		_modelVec[i]->Draw();
+	//	}
+	//}
+
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _ssaoBufferBuilder->GetGBufferFBO());
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	_modelVec[0]->Draw();
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+
+	_texture->GetShader()->SetTextureID(_ssaoBufferBuilder->GetGAlbedoTexID());
+	_texture->Draw();
+
+
+	//glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _ssaoBufferBuilder->GetSSAOFBO());
+	//glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	//glClear(GL_COLOR_BUFFER_BIT);
+	//_ssaoTexture->Draw();
+	//glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+
+
+	//_texture->GetShader()->SetTextureID(_ssaoBufferBuilder->GetSSAOColorAttachmentID());
+	//_texture->Draw();
 }
 
 void RenderDemo::actionPerformed(SUIActionEvent e)
