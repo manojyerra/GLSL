@@ -68,7 +68,8 @@ void GLSSAO::CreateGBufferFBO(unsigned int w, unsigned int h)
 	glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, rboDepth);
 	// finally check if framebuffer is complete
 	if (glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) != GL_FRAMEBUFFER_COMPLETE_EXT)
-		std::cout << "Framebuffer not complete!" << std::endl;
+		throw new std::exception("Framebuffer not complete!");
+
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 
 	_gBufferFBO = gBufferFBO;
@@ -93,7 +94,7 @@ void GLSSAO::CreateSSAOFBO(unsigned int w, unsigned int h)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, ssaoColorBuffer, 0);
 	if (glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) != GL_FRAMEBUFFER_COMPLETE_EXT)
-		std::cout << "SSAO Framebuffer not complete!" << std::endl;
+		throw new std::exception("SSAO Framebuffer not complete!");
 
 	_ssaoFBO = ssaoFBO;
 }
@@ -112,7 +113,7 @@ void GLSSAO::CreateSSAOBlurFBO(unsigned int w, unsigned int h)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, ssaoColorBufferBlur, 0);
 	if (glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) != GL_FRAMEBUFFER_COMPLETE_EXT)
-		std::cout << "SSAO Blur Framebuffer not complete!" << std::endl;
+		throw new std::exception("SSAO Blur Framebuffer not complete!");
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 
 	_ssaoBlurFBO = ssaoBlurFBO;

@@ -103,6 +103,9 @@
     <Filter Include="src\ParticleRenderer">
       <UniqueIdentifier>{832474e1-0c93-42e4-bd17-3c2eb6b033d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GLUtil\Shaders\SSAOGeometryPassShader">
+      <UniqueIdentifier>{5e300681-4bc7-4301-9e6a-c7c384b832c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -438,6 +441,9 @@
     <ClCompile Include="src\Platform\Platform.cpp">
       <Filter>src\Platform</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\Shaders\SSAOGeometryPassShader\SSAOGeometryPassShader.cpp">
+      <Filter>src\GLUtil\Shaders\SSAOGeometryPassShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -745,6 +751,9 @@
     </ClInclude>
     <ClInclude Include="src\Platform\Platform.h">
       <Filter>src\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\Shaders\SSAOGeometryPassShader\SSAOGeometryPassShader.h">
+      <Filter>src\GLUtil\Shaders\SSAOGeometryPassShader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
