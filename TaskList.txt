@@ -24,8 +24,6 @@ Need long as data type wherever allocating memory. Like GLBatch, GLMemory, GLBuf
 While reading obj model data with scan line, we are reading it as float while scaning line, but if the precision is more do we need to use double and in the opengl also do we need to use double ?
 Create release library for PNG
 
-*)Install Resharper
-*)Fix warnings
 
 Done:
 *)Remove all unneccessary include headers.
@@ -34,7 +32,7 @@ Done:
 *)Add phong per pixel shader with texture
 *)Place ParticleLoader class in proper place. Seperate particle class opengl code and place it in Common/IO folder.
 *)Have GeometryCubeShader class and have loading through GLMeshRenderer
-*)fix this waring "warning C4005: 'APIENTRY': macro redefinition"
+*)Fix this waring "warning C4005: 'APIENTRY': macro redefinition"
 
 
 
