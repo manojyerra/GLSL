@@ -11,6 +11,8 @@
  * and license in png.h
  */
 
+#pragma warning( disable : 4267)
+
 #define PNG_NO_PEDANTIC_WARNINGS
 #include "png.h"
 #ifdef PNG_PROGRESSIVE_READ_SUPPORTED

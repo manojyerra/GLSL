@@ -14,6 +14,8 @@
  * libpng itself during the course of reading an image.
  */
 
+#pragma warning( disable : 4267)
+
 #define PNG_NO_PEDANTIC_WARNINGS
 #include "png.h"
 #ifdef PNG_READ_SUPPORTED

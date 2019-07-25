@@ -15,8 +15,9 @@ SUIChoice::SUIChoice(int elementsToShow) : SUIComponent(SUI_CHOICE)
 	_SUIList->SetBorderVisible(true);
 	_SUIList->SetBorderColor(10,10,155,255);
 	_SUIList->DisableScissor();
-	//TODO: Check what is the purpose of setting SUIActionListener as 0xccffccff ???
-	_SUIList->AddActionListener((SUIActionListener*)(void*)0xccffccff);
+	//TODO: Check what is the purpose of setting SUIActionListener as 1 ???
+	//TODO: Check what is the impact by commenting by below line. Mostly it would be related to events.
+	_SUIList->AddActionListener((SUIActionListener*)1);
 
 	_isBgVisible = true;
 	_isBorderVisible = true;
