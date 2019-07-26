@@ -71,3 +71,9 @@ glm::mat4 Cam2D::GetModelView(float* modelMat)
 	glm::mat4 modelMatrix = glm::make_mat4(modelMat);
 	return glm::mat4(viewMatrix * modelMatrix);
 }
+
+glm::mat4 Cam2D::GetProjMat()
+{
+	glm::mat4 projMatrix = glm::make_mat4(projMat.m);
+	return glm::mat4(projMatrix);
+}

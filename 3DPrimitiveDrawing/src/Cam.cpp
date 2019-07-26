@@ -128,9 +128,10 @@ glm::mat3 Cam::GetNormalMat(float* modelMat)
 	return glm::mat3(glm::transpose(glm::inverse(viewMatrix * modelMatrix)));
 }
 
-glm::mat4 Cam::GetProjectionMat()
+glm::mat4 Cam::GetProjMat()
 {
-	return glm::make_mat4(projMat.m);
+	glm::mat4 projMatrix = glm::make_mat4(projMat.m);
+	return glm::mat4(projMatrix);
 }
 
 bool Cam::UpdateCamera()

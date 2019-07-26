@@ -32,7 +32,7 @@ GameLoop::GameLoop(float sw, float sh)
 	Cam2D::GetInstance()->Init(_sw, _sh);
 
 	_rendererDemo = new RenderDemo(_sw, _sh);
-	_particleDemo = new ParticlesDemo(_sw, _sh);
+	//_particleDemo = new ParticlesDemo(_sw, _sh);
 
 	_windowFrame = new WholeWindowFrame(_sw - 300.0f, 0.0f, 300.0f, 150.0f, this);
 	_floorFrame = new FloorVisibilityFrame(_sw - 300.0f, 555.0f, 300.0f, 100.0f, this);

@@ -1,6 +1,7 @@
 #include "SSAOShader.h"
 #include "ShadersManager.h"
 #include "Cam.h"
+#include "Cam2D.h"
 
 SSAOShader::SSAOShader()
 {
@@ -66,7 +67,9 @@ void SSAOShader::Begin()
 
 void SSAOShader::SetUniformsAndAttributes()
 {
-	Cam* cam = Cam::GetInstance();
+	Cam2D* cam = Cam2D::GetInstance();
+	//Cam* cam = Cam::GetInstance();
+
 	float* m = _modelMat.m;
 
 	GLuint programID = _shaderProgram->ProgramID();
@@ -89,7 +92,7 @@ void SSAOShader::SetUniformsAndAttributes()
 	glActiveTexture(2);
 	glBindTexture(GL_TEXTURE_2D, _noiseTexID);
 
-	_shaderProgram->SetUniformMatrix4fv("projection", glm::value_ptr(cam->GetProjectionMat()));
+	_shaderProgram->SetUniformMatrix4fv("projection", glm::value_ptr(cam->GetProjMat()));
 	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(cam->GetMVP(m)));
 
 	if (_uvBufferID)

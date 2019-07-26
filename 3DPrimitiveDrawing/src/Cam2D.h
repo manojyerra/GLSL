@@ -33,6 +33,7 @@ public:
 	
 	glm::mat4 GetMVP(float* modelMat);
 	glm::mat4 GetModelView(float* modelMat);
+	glm::mat4 GetProjMat();
 	
 	void SetProjection();
 };
