@@ -83,16 +83,16 @@ void SSAOShader::SetUniformsAndAttributes()
 
 	_shaderProgram->SetUniform1i("gPosition", 0);
 	_shaderProgram->SetUniform1i("gNormal", 1);
-	_shaderProgram->SetUniform1i("texNoise", 2);
+	//_shaderProgram->SetUniform1i("texNoise", 2);
 
 	glActiveTexture(0);
 	glBindTexture(GL_TEXTURE_2D, _gPositionTexID);
 	glActiveTexture(1);
 	glBindTexture(GL_TEXTURE_2D, _gNormalTexID);
-	glActiveTexture(2);
-	glBindTexture(GL_TEXTURE_2D, _noiseTexID);
+	//glActiveTexture(2);
+	//glBindTexture(GL_TEXTURE_2D, _noiseTexID);
 
-	_shaderProgram->SetUniformMatrix4fv("projection", glm::value_ptr(cam->GetProjMat()));
+	//_shaderProgram->SetUniformMatrix4fv("projection", glm::value_ptr(Cam::GetInstance()->GetProjMat()));
 	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(cam->GetMVP(m)));
 
 	if (_uvBufferID)

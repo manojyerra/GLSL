@@ -7,12 +7,15 @@ class GLSSAOTexture
 {
 private:
 	GLMeshRenderer* _meshRenderer;
+	GLMat _modelMat;
+
 	void GenerateGeometry();
 
 public:
-	GLSSAOTexture();
+	GLSSAOTexture(float x, float y, float w, float h);
 	~GLSSAOTexture();
 
+	void SetBounds(float x, float y, float w, float h);
 	void SetGPositionTexID(unsigned int texID);
 	void SetGNormalTexID(unsigned int texID);
 	void SetNoiseTexID(unsigned int texID);
