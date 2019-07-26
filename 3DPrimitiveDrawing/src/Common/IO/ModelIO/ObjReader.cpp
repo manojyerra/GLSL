@@ -2,6 +2,7 @@
 #include "FileReader.h"
 #include "ScanLineUtils.h"
 #include "VoidPtrArray.h"
+#include "Platform.h"
 
 ObjReader::ObjReader(std::string folderPath)
 {
@@ -12,7 +13,10 @@ ObjReader::ObjReader(std::string folderPath)
 	_uvFloatArr = NULL;
 	_normalFloatArr = NULL;
 
+	long startTime = GetTickCount();
 	ReadObjFile(_folderPath);
+	printf("\nLoad Time : %ld", GetTickCount()-startTime);
+
 	LoadTextures(_folderPath);
 }
 
@@ -58,7 +62,7 @@ void ObjReader::ReadObjFile(std::string folderPath)
 				normalVec.push_back(glm::vec3(nx, ny, nz));
 			}
 			
-			free(line);
+			//free(line);
 		}
 	}
 
@@ -101,7 +105,7 @@ void ObjReader::ReadObjFile(std::string folderPath)
 				_normalFloatArr->push_back_3(normalVec[n[i] - 1]);
 			}
 
-			free(line);
+			//free(line);
 		}
 	}
 	else if (uvsExist && !normalsExist)
@@ -120,7 +124,7 @@ void ObjReader::ReadObjFile(std::string folderPath)
 				_uvFloatArr->push_back_2(uvVec[t[i] - 1]);
 			}
 
-			free(line);
+			//free(line);
 		}
 	}
 	else if (!uvsExist && normalsExist)
@@ -139,7 +143,7 @@ void ObjReader::ReadObjFile(std::string folderPath)
 				_normalFloatArr->push_back_3(normalVec[n[i] - 1]);
 			}
 
-			free(line);
+			//free(line);
 		}
 	}
 	else if (!uvsExist && !normalsExist)
@@ -155,7 +159,7 @@ void ObjReader::ReadObjFile(std::string folderPath)
 				_vertexFloatArr->push_back_3(vertexVec[v[i] - 1]);
 			}
 
-			free(line);
+			//free(line);
 		}
 	}
 }

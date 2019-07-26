@@ -81,11 +81,16 @@ char* FileReader::ReadLine()
 
 	if(buf[i] == '\n' || i == length)
 	{
-		char* lineBuf = (char*)malloc(lineLen+1);
-		memset(lineBuf, (int)'\0', lineLen+1);
-		memcpy(lineBuf, &buf[pos], lineLen);
-		pos = i+1;
-		return lineBuf;
+		//char* lineBuf = (char*)malloc(lineLen+1);
+		//memset(lineBuf, (int)'\0', lineLen+1);
+		//memcpy(lineBuf, &buf[pos], lineLen);
+		//pos = i+1;
+		//return lineBuf;
+
+		buf[i] = '\0';
+		char* retVal = &buf[pos];
+		pos = i + 1;
+		return retVal;
 	}
 
 	return NULL;
