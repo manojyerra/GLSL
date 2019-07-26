@@ -73,7 +73,8 @@ void GameLoop::actionPerformed(SUIActionEvent e)
 			Cam::GetInstance()->SetRot(glm::vec3(31.0f, -35.0f, 0));
 			Cam::GetInstance()->UpdateCamera();
 
-			_particleDemo->Reset();
+			if(_particleDemo)
+				_particleDemo->Reset();
 			
 		}
 	}
@@ -129,7 +130,7 @@ void GameLoop::Draw()
 			_particleDemo->Draw();
 	}
 
-	//SUIDraw();
+	SUIDraw();
 }
 
 void GameLoop::SetScreenSize(float sw, float sh)
