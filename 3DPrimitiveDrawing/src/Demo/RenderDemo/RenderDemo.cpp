@@ -9,18 +9,18 @@ RenderDemo::RenderDemo(float sw, float sh)
 
 	_floor = new Floor();
 
-	_numModels = 1;
+	_numModels = 5;
 	_selectedModel = nullptr;
 
-	_texture = new GLTexture("data/demo/Sample.png", 0, 0, 10, 10);
+	//_texture = new GLTexture("data/demo/Sample.png", 0, 0, 10, 10);
 
-	_ssaoBufferBuilder = new GLSSAOBufferBuilder((int)_sw, (int)_sh);
+	//_ssaoBufferBuilder = new GLSSAOBufferBuilder((int)_sw, (int)_sh);
 
-	_ssaoTexture = new GLSSAOTexture();
-	_ssaoTexture->SetGPositionTexID(_ssaoBufferBuilder->GetGPositionTexID());
-	_ssaoTexture->SetGNormalTexID(_ssaoBufferBuilder->GetGNormalTexID());
-	_ssaoTexture->SetNoiseTexID(_ssaoBufferBuilder->GetNoiseTexID());
-	_ssaoTexture->SetSamples(_ssaoBufferBuilder->GetSamples());
+	//_ssaoTexture = new GLSSAOTexture(0, 0, _sw, _sh);
+	//_ssaoTexture->SetGPositionTexID(_ssaoBufferBuilder->GetGPositionTexID());
+	//_ssaoTexture->SetGNormalTexID(_ssaoBufferBuilder->GetGNormalTexID());
+	//_ssaoTexture->SetNoiseTexID(_ssaoBufferBuilder->GetNoiseTexID());
+	//_ssaoTexture->SetSamples(_ssaoBufferBuilder->GetSamples());
 
 	GLMeshRenderer* meshRenderer1 = nullptr;
 	GLMeshRenderer* meshRenderer2 = nullptr;
@@ -28,7 +28,7 @@ RenderDemo::RenderDemo(float sw, float sh)
 	GLMeshRenderer* meshRenderer4 = nullptr;
 	GLMeshRenderer* meshRenderer5 = nullptr;
 
-	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/demo/Trike"), GLMeshRenderer::SSAO_GEOMETRY_PASS_SHADER);
+	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/demo/CarBIW"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 2) meshRenderer2 = new GLMeshRenderer(&ObjReader("data/demo/Trike"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 3) meshRenderer3 = new GLMeshRenderer(&ObjReader("data/demo/Truck"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 4) meshRenderer4 = new GLMeshRenderer(&ObjReader("data/demo/Plane"), GLMeshRenderer::PBR_WITH_TEXTURE_SHADER);
@@ -86,7 +86,8 @@ void RenderDemo::Draw()
 
 	float clearValue = 100.0f / 255.0f;
 	glClearColor(clearValue, clearValue, clearValue, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //for clearing the default framebuffer.
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glViewport(0, 0, _sw, _sh);
 
 	Cam::GetInstance()->SetPerspectiveProjection();
 	Cam::GetInstance()->SetViewMatrix();
@@ -94,20 +95,20 @@ void RenderDemo::Draw()
 
 	_floor->Draw();
 
-	//for (int i = 0; i < _modelVec.size(); i++)
-	//{
-	//	if (_modelVisibilityFrame->modelBoxVec[i]->modelCheckBox->IsSelected())
-	//	{
-	//		_modelVec[i]->Draw();
-	//	}
-	//}
+	for (int i = 0; i < _modelVec.size(); i++)
+	{
+		if (_modelVisibilityFrame->modelBoxVec[i]->modelCheckBox->IsSelected())
+		{
+			_modelVec[i]->Draw();
+		}
+	}
 
+	/*
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _ssaoBufferBuilder->GetGBufferFBO());
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	_modelVec[0]->Draw();
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-
 
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _ssaoBufferBuilder->GetSSAOFBO());
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -115,9 +116,10 @@ void RenderDemo::Draw()
 	_ssaoTexture->Draw();
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 
-
+	glEnable(GL_DEPTH_TEST);
 	_texture->GetShader()->SetTextureID(_ssaoBufferBuilder->GetSSAOColorAttachmentID());
 	_texture->Draw();
+	*/
 }
 
 void RenderDemo::actionPerformed(SUIActionEvent e)
