@@ -83,6 +83,7 @@ void RenderDemo::Draw()
 {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
 
 	float clearValue = 100.0f / 255.0f;
 	glClearColor(clearValue, clearValue, clearValue, 1.0f);

@@ -14,8 +14,9 @@ ObjReader::ObjReader(std::string folderPath)
 	_normalFloatArr = NULL;
 
 	long startTime = GetTickCount();
+	Platform::debugPrint("\nBegin: Loading %s, ", folderPath.c_str());
 	ReadObjFile(_folderPath);
-	printf("\nLoad Time : %ld", GetTickCount()-startTime);
+	Platform::debugPrint("\nEnd: Loading %s, Load Time : %ld milliseconds\n", folderPath.c_str(), GetTickCount()-startTime);
 
 	LoadTextures(_folderPath);
 }

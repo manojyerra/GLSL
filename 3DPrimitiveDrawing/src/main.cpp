@@ -10,6 +10,9 @@ GameLoop* gameLoop = NULL;
 
 int main(void)
 {
+	long startTime = GetTickCount();
+	Platform::debugPrint("\n\nBegin: Loading resources\n\n");
+
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
@@ -17,7 +20,7 @@ int main(void)
 	glfwWindowHint(GLFW_ALPHA_BITS, 8);
 	glfwWindowHint(GLFW_SRGB_CAPABLE, GLFW_TRUE);
 	//TODO: How to change number of samples runtime and disable/enable sampling runtime ( mainly for while drawing an object ).
-	glfwWindowHint(GLFW_SAMPLES, 16);
+	glfwWindowHint(GLFW_SAMPLES, 8);
 
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
@@ -46,6 +49,8 @@ int main(void)
 
 	double previousTime = glfwGetTime();
 	unsigned int frameCount = 0;
+
+	Platform::debugPrint("\nEnd: Loading resources, Load Time : %ld milliseconds\n\n", GetTickCount() - startTime);
 
 	while (!glfwWindowShouldClose(window))
 	{
