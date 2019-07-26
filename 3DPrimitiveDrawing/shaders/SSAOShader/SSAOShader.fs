@@ -1,6 +1,83 @@
 #version 450
 
-out float FragColor;
+out vec4 FragColor;
+
+uniform sampler2D gPosition;
+uniform sampler2D gNormal;
+
+in vec2 TexCoords;
+
+float rand(vec2 co)
+{
+    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
+
+float doAmbientOcclusion(vec2 tcoord, vec2 uv, vec3 p, vec3 cnorm)
+{
+    float scale = 0.5;
+	float bias = 0.1;
+	float intensity = 3;
+	
+    vec3 diff = vec3(texture(gPosition, tcoord + uv).xyz - p);
+	
+    vec3 v = normalize(diff);
+    float d = length(diff) * scale;
+    return max(0.0,dot(cnorm,v)-bias)*(1.0/(1.0+d))* intensity;
+}
+
+float ambientOcclusion()
+{
+    vec2 texCoord = TexCoords; 
+    vec3 p = texture(gPosition, texCoord.xy).xyz;	//vec3(10,10,-50); //
+    vec3 n = texture(gNormal, texCoord.xy).xyz;		//vec3(0,-1,0);//
+    vec2 rnd = normalize(vec2(rand(p.xy), rand(n.xy)));
+
+    float ao = 0.0f;
+    float rad = 1.0/p.z;
+    vec2 vec[4]; 
+    vec[0] = vec2(1.0,0.0); 
+    vec[1] = vec2(-1.0,0.0); 
+    vec[2] = vec2(0.0,1.0); 
+    vec[3] = vec2(0.0,-1.0);
+
+    int iterations = 4;
+    for (int j = 0; j < iterations; ++j)
+    {
+      vec2 coord1 = reflect(vec[j],rnd)*rad;
+	  
+	  float xx = coord1.x*0.707;
+	  float yy = coord1.y*0.707;
+	  
+      vec2 coord2 = vec2(xx-yy, xx+yy);
+      
+      ao += doAmbientOcclusion(texCoord.xy,coord1*0.25, p, n);
+      ao += doAmbientOcclusion(texCoord.xy,coord2*0.5, p, n);
+      ao += doAmbientOcclusion(texCoord.xy,coord1*0.75, p, n);
+      ao += doAmbientOcclusion(texCoord.xy,coord2, p, n);
+    }
+    ao/= float(iterations)*4.0;
+	float finalAO = 1.0 - ao;
+	
+    return finalAO; 
+	
+	//return 0.5;
+}
+
+void main()
+{
+    //FragColor = vec4(0, 0, 0, 1);
+    //FragColor *= vec4(ambientOcclusion());
+	//FragColor = vec4(FragColor.xyz, 1.0);
+	
+	FragColor = vec4(texture(gPosition, TexCoords.xy).xyz, 1.0);
+}          
+
+
+
+/*
+
+//out float FragColor;
+out vec4 FragColor;
 
 in vec2 TexCoords;
 
@@ -55,5 +132,8 @@ void main()
     }
     occlusion = 1.0 - (occlusion / kernelSize);
     
-    FragColor = occlusion;
+    //FragColor = 0.0;
+	FragColor = vec4(0.0, 0.0, 0.0, 1.0);
 }
+
+*/

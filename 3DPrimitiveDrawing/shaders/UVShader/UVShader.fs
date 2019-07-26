@@ -9,5 +9,5 @@ layout(location = 0) out vec4 outColor;
 
 void main (void)  
 {
-	outColor = vec4( texture2D(textureID, uv_vary).rgb, alpha );
+	outColor = vec4( vec3(texture2D(textureID, uv_vary).rgb), alpha );
 }
