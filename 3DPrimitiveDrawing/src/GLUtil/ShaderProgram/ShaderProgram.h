@@ -1,27 +1,26 @@
 #ifndef ShaderProgram_H
 #define ShaderProgram_H
 
-#include <GL/glew.h>
 
+#include "GLInclude.h"
 #include <string>
 #include <vector>
-using namespace std;
 
 class ShaderProgram
 {
 private:
 	GLuint _programID;
-	string _vertexShaderPath;
-	string _geometryShaderPath;
-	string _fragmentShaderPath;
+	std::string _vertexShaderPath;
+	std::string _geometryShaderPath;
+	std::string _fragmentShaderPath;
 
 	bool _hasGeometryShader;
 
 	GLint CompileShader(const char* shaderFilePath, GLenum shaderType);
 
 public:
-	ShaderProgram(string vertexShaderFilePath, string fragmentShaderFilePath);
-	ShaderProgram(string vertexShaderFilePath, string geometryShaderFilePath, string fragmentShaderFilePath);
+	ShaderProgram(std::string vertexShaderFilePath, std::string fragmentShaderFilePath);
+	ShaderProgram(std::string vertexShaderFilePath, std::string geometryShaderFilePath, std::string fragmentShaderFilePath);
 
 	~ShaderProgram();
 
@@ -39,9 +38,9 @@ public:
 	void SetUniform1f(const char* str, float val);
 	void SetUniform1i(const char* str, int val);
 
-	string GetVertexShaderFilePath();
-	string GetGeometryShaderFilePath();
-	string GetFragmentShaderFilePath();
+	std::string GetVertexShaderFilePath();
+	std::string GetGeometryShaderFilePath();
+	std::string GetFragmentShaderFilePath();
 
 	bool HasGeometryShader();
 };

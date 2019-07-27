@@ -1,7 +1,7 @@
 #include "ShaderProgram.h"
 #include "FileReader.h"
 
-ShaderProgram::ShaderProgram(string vertexShaderFilePath, string fragmentShaderFilePath)
+ShaderProgram::ShaderProgram(std::string vertexShaderFilePath, std::string fragmentShaderFilePath)
 {
 	_programID = 0;
 	_vertexShaderPath = vertexShaderFilePath;
@@ -48,7 +48,7 @@ ShaderProgram::ShaderProgram(string vertexShaderFilePath, string fragmentShaderF
 	printf("\n");
 }
 
-ShaderProgram::ShaderProgram(string vertexShaderFilePath, string geometryShaderFilePath, string fragmentShaderFilePath)
+ShaderProgram::ShaderProgram(std::string vertexShaderFilePath, std::string geometryShaderFilePath, std::string fragmentShaderFilePath)
 {
 	_programID = 0;
 	_vertexShaderPath = vertexShaderFilePath;
@@ -105,17 +105,17 @@ bool ShaderProgram::HasGeometryShader()
 	return _hasGeometryShader;
 }
 
-string ShaderProgram::GetVertexShaderFilePath()
+std::string ShaderProgram::GetVertexShaderFilePath()
 {
 	return _vertexShaderPath;
 }
 
-string ShaderProgram::GetGeometryShaderFilePath()
+std::string ShaderProgram::GetGeometryShaderFilePath()
 {
 	return _geometryShaderPath;
 }
 
-string ShaderProgram::GetFragmentShaderFilePath()
+std::string ShaderProgram::GetFragmentShaderFilePath()
 {
 	return _fragmentShaderPath;
 }
