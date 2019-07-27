@@ -12,8 +12,6 @@
 #include "ModelVisibilityFrame.h"
 #include "ModelSelectionFrame.h"
 #include "GLTexture.h"
-#include "GLSSAOTexture.h"
-#include "GLFBO.h"
 
 class RenderDemo : public SUIActionListener
 {
@@ -21,10 +19,6 @@ private:
 	float _sw;
 	float _sh;
 	int _numModels;
-
-	GLSSAOBufferBuilder* _ssaoBufferBuilder;
-	GLTexture* _texture;
-	GLSSAOTexture* _ssaoTexture;
 
 	GLMeshRenderer* _selectedModel;
 	vector<GLMeshRenderer*> _modelVec;

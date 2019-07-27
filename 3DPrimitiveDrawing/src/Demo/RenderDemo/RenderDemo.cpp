@@ -14,25 +14,15 @@ RenderDemo::RenderDemo(float sw, float sh)
 	_numModels = 5;
 	_selectedModel = nullptr;
 
-	//_texture = new GLTexture("data/demo/Sample.png", 0, 0, 10, 10);
-
-	//_ssaoBufferBuilder = new GLSSAOBufferBuilder((int)_sw, (int)_sh);
-
-	//_ssaoTexture = new GLSSAOTexture(0, 0, _sw, _sh);
-	//_ssaoTexture->SetGPositionTexID(_ssaoBufferBuilder->GetGPositionTexID());
-	//_ssaoTexture->SetGNormalTexID(_ssaoBufferBuilder->GetGNormalTexID());
-	//_ssaoTexture->SetNoiseTexID(_ssaoBufferBuilder->GetNoiseTexID());
-	//_ssaoTexture->SetSamples(_ssaoBufferBuilder->GetSamples());
-
 	GLMeshRenderer* meshRenderer1 = nullptr;
 	GLMeshRenderer* meshRenderer2 = nullptr;
 	GLMeshRenderer* meshRenderer3 = nullptr;
 	GLMeshRenderer* meshRenderer4 = nullptr;
 	GLMeshRenderer* meshRenderer5 = nullptr;
 
-	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/demo/CarBIW"), GLMeshRenderer::PBR_SHADER);
+	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/demo/Teapot"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 2) meshRenderer2 = new GLMeshRenderer(&ObjReader("data/demo/Trike"), GLMeshRenderer::PBR_SHADER);
-	if (_numModels >= 3) meshRenderer3 = new GLMeshRenderer(&ObjReader("data/demo/Truck"), GLMeshRenderer::PBR_SHADER);
+	if (_numModels >= 3) meshRenderer3 = new GLMeshRenderer(&ObjReader("data/demo/Teapot"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 4) meshRenderer4 = new GLMeshRenderer(&ObjReader("data/demo/Plane"), GLMeshRenderer::PBR_WITH_TEXTURE_SHADER);
 	if (_numModels >= 5) meshRenderer5 = new GLMeshRenderer(&ObjReader("data/demo/Teapot"), GLMeshRenderer::PBR_SHADER);
 
@@ -105,24 +95,6 @@ void RenderDemo::Draw()
 			_modelVec[i]->Draw();
 		}
 	}
-
-	/*
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _ssaoBufferBuilder->GetGBufferFBO());
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	_modelVec[0]->Draw();
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _ssaoBufferBuilder->GetSSAOFBO());
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-	_ssaoTexture->Draw();
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-
-	glEnable(GL_DEPTH_TEST);
-	_texture->GetShader()->SetTextureID(_ssaoBufferBuilder->GetSSAOColorAttachmentID());
-	_texture->Draw();
-	*/
 }
 
 void RenderDemo::actionPerformed(SUIActionEvent e)
