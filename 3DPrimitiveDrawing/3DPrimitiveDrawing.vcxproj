@@ -72,13 +72,13 @@
     <ClCompile Include="src\Common\Utils\RandomColor.cpp" />
     <ClCompile Include="src\Common\Utils\ScanLineUtils.cpp" />
     <ClCompile Include="src\Common\Utils\StringUtils.cpp" />
-    <ClCompile Include="src\Demo\FloorVisibilityFrame.cpp" />
-    <ClCompile Include="src\Demo\ModelSelectionFrame.cpp" />
-    <ClCompile Include="src\Demo\ModelVisibilityFrame.cpp" />
+    <ClCompile Include="src\Demo\DemoUI\FloorVisibilityFrame.cpp" />
+    <ClCompile Include="src\Demo\DemoUI\ModelSelectionFrame.cpp" />
+    <ClCompile Include="src\Demo\DemoUI\ModelVisibilityFrame.cpp" />
+    <ClCompile Include="src\Demo\DemoUI\ShaderFrame.cpp" />
+    <ClCompile Include="src\Demo\DemoUI\WholeWindowFrame.cpp" />
     <ClCompile Include="src\Demo\ParticlesDemo\ParticlesDemo.cpp" />
     <ClCompile Include="src\Demo\RenderDemo\RenderDemo.cpp" />
-    <ClCompile Include="src\Demo\ShaderFrame.cpp" />
-    <ClCompile Include="src\Demo\WholeWindowFrame.cpp" />
     <ClCompile Include="src\Floor.cpp" />
     <ClCompile Include="src\GameLoop.cpp" />
     <ClCompile Include="src\GLUtil\GLBatch.cpp" />
@@ -172,13 +172,13 @@
     <ClInclude Include="src\Common\Utils\RandomColor.h" />
     <ClInclude Include="src\Common\Utils\ScanLineUtils.h" />
     <ClInclude Include="src\Common\Utils\StringUtils.h" />
-    <ClInclude Include="src\Demo\FloorVisibilityFrame.h" />
-    <ClInclude Include="src\Demo\ModelSelectionFrame.h" />
-    <ClInclude Include="src\Demo\ModelVisibilityFrame.h" />
+    <ClInclude Include="src\Demo\DemoUI\FloorVisibilityFrame.h" />
+    <ClInclude Include="src\Demo\DemoUI\ModelSelectionFrame.h" />
+    <ClInclude Include="src\Demo\DemoUI\ModelVisibilityFrame.h" />
+    <ClInclude Include="src\Demo\DemoUI\ShaderFrame.h" />
+    <ClInclude Include="src\Demo\DemoUI\WholeWindowFrame.h" />
     <ClInclude Include="src\Demo\ParticlesDemo\ParticlesDemo.h" />
     <ClInclude Include="src\Demo\RenderDemo\RenderDemo.h" />
-    <ClInclude Include="src\Demo\ShaderFrame.h" />
-    <ClInclude Include="src\Demo\WholeWindowFrame.h" />
     <ClInclude Include="src\Floor.h" />
     <ClInclude Include="src\GameLoop.h" />
     <ClInclude Include="src\GLUtil\GLBatch.h" />
@@ -311,7 +311,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;glew/include;src;src/Platform;src/Math;src/ParticleRenderer;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/Arrays;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/IO/ModelIO;src/Common/Utils;src/GLUtil;src/GLUtil/SSAO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PBRWithTextureShader;src/GLUtil/Shaders/PhongShader;src/GLUtil/Shaders/PhongWithTextureShader;src/GLUtil/Shaders/CubeGeometryShader;src/GLUtil/Shaders/SSAOGeometryPassShader;src/GLUtil/Shaders/SSAOShader;src/GLUtil/ShaderProgram;src/SUI;src/Demo;src/Demo/ParticlesDemo;src/Demo/RenderDemo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;glew/include;src;src/Platform;src/Math;src/ParticleRenderer;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/Arrays;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/IO/ModelIO;src/Common/Utils;src/GLUtil;src/GLUtil/SSAO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PBRWithTextureShader;src/GLUtil/Shaders/PhongShader;src/GLUtil/Shaders/PhongWithTextureShader;src/GLUtil/Shaders/CubeGeometryShader;src/GLUtil/Shaders/SSAOGeometryPassShader;src/GLUtil/Shaders/SSAOShader;src/GLUtil/ShaderProgram;src/SUI;src/Demo;src/Demo/ParticlesDemo;src/Demo/RenderDemo;src/Demo/DemoUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>

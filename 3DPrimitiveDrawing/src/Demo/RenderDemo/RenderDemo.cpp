@@ -88,7 +88,7 @@ void RenderDemo::Draw()
 	float clearValue = 100.0f / 255.0f;
 	glClearColor(clearValue, clearValue, clearValue, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glViewport(0, 0, _sw, _sh);
+	glViewport(0, 0, (GLsizei)_sw, (GLsizei)_sh);
 
 	Cam::GetInstance()->SetPerspectiveProjection();
 	Cam::GetInstance()->SetViewMatrix();

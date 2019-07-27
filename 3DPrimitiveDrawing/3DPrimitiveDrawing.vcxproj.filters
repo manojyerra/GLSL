@@ -112,6 +112,9 @@
     <Filter Include="src\GLUtil\SSAO">
       <UniqueIdentifier>{29dfbb4e-b5fd-4dc4-933d-a068c66c901f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Demo\DemoUI">
+      <UniqueIdentifier>{20fcf8eb-d80b-4c6f-9604-0d15d466be44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -396,29 +399,14 @@
     <ClCompile Include="src\GLUtil\Shaders\UVShader\UVShader.cpp">
       <Filter>src\GLUtil\Shaders\UVShader</Filter>
     </ClCompile>
-    <ClCompile Include="src\Demo\ShaderFrame.cpp">
-      <Filter>src\Demo</Filter>
-    </ClCompile>
     <ClCompile Include="src\GLUtil\GLBatch.cpp">
       <Filter>src\GLUtil</Filter>
     </ClCompile>
     <ClCompile Include="src\Demo\ParticlesDemo\ParticlesDemo.cpp">
       <Filter>src\Demo\ParticlesDemo</Filter>
     </ClCompile>
-    <ClCompile Include="src\Demo\WholeWindowFrame.cpp">
-      <Filter>src\Demo</Filter>
-    </ClCompile>
     <ClCompile Include="src\Demo\RenderDemo\RenderDemo.cpp">
       <Filter>src\Demo\RenderDemo</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Demo\ModelSelectionFrame.cpp">
-      <Filter>src\Demo</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Demo\ModelVisibilityFrame.cpp">
-      <Filter>src\Demo</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Demo\FloorVisibilityFrame.cpp">
-      <Filter>src\Demo</Filter>
     </ClCompile>
     <ClCompile Include="src\GLUtil\Shaders\PhongWithTextureShader\PhongWithTextureShader.cpp">
       <Filter>src\GLUtil\Shaders\PhongWithTextureShader</Filter>
@@ -455,6 +443,21 @@
     </ClCompile>
     <ClCompile Include="src\GLUtil\SSAO\GLSSAOTexture.cpp">
       <Filter>src\GLUtil\SSAO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Demo\DemoUI\FloorVisibilityFrame.cpp">
+      <Filter>src\Demo\DemoUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Demo\DemoUI\ModelSelectionFrame.cpp">
+      <Filter>src\Demo\DemoUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Demo\DemoUI\ModelVisibilityFrame.cpp">
+      <Filter>src\Demo\DemoUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Demo\DemoUI\ShaderFrame.cpp">
+      <Filter>src\Demo\DemoUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Demo\DemoUI\WholeWindowFrame.cpp">
+      <Filter>src\Demo\DemoUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -710,29 +713,14 @@
     <ClInclude Include="src\GLUtil\Shaders\UVShader\UVShader.h">
       <Filter>src\GLUtil\Shaders\UVShader</Filter>
     </ClInclude>
-    <ClInclude Include="src\Demo\ShaderFrame.h">
-      <Filter>src\Demo</Filter>
-    </ClInclude>
     <ClInclude Include="src\GLUtil\GLBatch.h">
       <Filter>src\GLUtil</Filter>
     </ClInclude>
     <ClInclude Include="src\Demo\ParticlesDemo\ParticlesDemo.h">
       <Filter>src\Demo\ParticlesDemo</Filter>
     </ClInclude>
-    <ClInclude Include="src\Demo\WholeWindowFrame.h">
-      <Filter>src\Demo</Filter>
-    </ClInclude>
     <ClInclude Include="src\Demo\RenderDemo\RenderDemo.h">
       <Filter>src\Demo\RenderDemo</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Demo\ModelSelectionFrame.h">
-      <Filter>src\Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Demo\ModelVisibilityFrame.h">
-      <Filter>src\Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Demo\FloorVisibilityFrame.h">
-      <Filter>src\Demo</Filter>
     </ClInclude>
     <ClInclude Include="src\GLUtil\Shaders\PhongWithTextureShader\PhongWithTextureShader.h">
       <Filter>src\GLUtil\Shaders\PhongWithTextureShader</Filter>
@@ -772,6 +760,21 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\SSAO\GLSSAOTexture.h">
       <Filter>src\GLUtil\SSAO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Demo\DemoUI\FloorVisibilityFrame.h">
+      <Filter>src\Demo\DemoUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Demo\DemoUI\ModelSelectionFrame.h">
+      <Filter>src\Demo\DemoUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Demo\DemoUI\ModelVisibilityFrame.h">
+      <Filter>src\Demo\DemoUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Demo\DemoUI\ShaderFrame.h">
+      <Filter>src\Demo\DemoUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Demo\DemoUI\WholeWindowFrame.h">
+      <Filter>src\Demo\DemoUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
