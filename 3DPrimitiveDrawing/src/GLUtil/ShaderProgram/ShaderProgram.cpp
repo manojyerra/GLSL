@@ -178,6 +178,16 @@ void ShaderProgram::SetUniformMatrix3fv(const char* str, const float* mat)
 	glUniformMatrix3fv(location, 1, GL_FALSE, mat);
 }
 
+void ShaderProgram::SetUniformMatrix4fv(const char* str, glm::mat4 mat)
+{
+	SetUniformMatrix4fv(str, glm::value_ptr(mat));
+}
+
+void ShaderProgram::SetUniformMatrix3fv(const char* str, glm::mat3 mat)
+{
+	SetUniformMatrix3fv(str, glm::value_ptr(mat));
+}
+
 void ShaderProgram::SetUniform4f(const char* str, float v1, float v2, float v3, float v4)
 {
 	glUniform4f(glGetUniformLocation(_programID, str), v1, v2, v3, v4);
@@ -201,6 +211,21 @@ void ShaderProgram::SetUniform1f(const char* str, const float val)
 void ShaderProgram::SetUniform1i(const char* str, int val)
 {
 	glUniform1i(glGetUniformLocation(_programID, str), val);
+}
+
+void ShaderProgram::SetUniform4f(const char* str, glm::vec4 vec)
+{
+	SetUniform4f(str, vec.x, vec.y, vec.z, vec.w);
+}
+
+void ShaderProgram::SetUniform3f(const char* str, glm::vec3 vec)
+{
+	SetUniform3f(str, vec.x, vec.y, vec.z);
+}
+
+void ShaderProgram::SetUniform2f(const char* str, glm::vec2 vec)
+{
+	SetUniform2f(str, vec.x, vec.y);
 }
 
 GLuint ShaderProgram::ProgramID()

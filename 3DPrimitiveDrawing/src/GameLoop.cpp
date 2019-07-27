@@ -4,6 +4,7 @@
 #include "Input.h"
 #include "Cam.h"
 #include "Cam2D.h"
+#include "ObjReader.h"
 
 GameLoop::GameLoop(float sw, float sh)
 {
@@ -29,6 +30,12 @@ GameLoop::GameLoop(float sw, float sh)
 	Cam2D::GetInstance()->Init(_sw, _sh);
 
 	_demo = new Demo(_sw, _sh);
+
+	//_floor = new Floor();
+	//_meshRenderer1 = new GLMeshRenderer(&ObjReader("data/demo/Trike"), GLMeshRenderer::SSAO_GEOMETRY_PASS_SHADER);
+
+	//_texture = new GLTexture("data/demo/Sample.png", 0, 0, 10, 10);
+	//_ssao = new GLSSAO((int)_sw, (int)_sh);
 }
 
 void GameLoop::GLSettings()
@@ -46,6 +53,37 @@ void GameLoop::Update(float deltaTime)
 void GameLoop::Draw()
 {
 	_demo->Draw();
+
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glEnable(GL_DEPTH_TEST);
+	////glEnable(GL_CULL_FACE);
+
+	//float clearValue = 100.0f / 255.0f;
+	//glClearColor(clearValue, clearValue, clearValue, 1.0f);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//glViewport(0, 0, (GLsizei)_sw, (GLsizei)_sh);
+
+	//Cam::GetInstance()->SetPerspectiveProjection();
+	//Cam::GetInstance()->SetViewMatrix();
+	//Cam::GetInstance()->UpdateCamera();
+
+	//_floor->Draw();
+
+	//glBindFramebuffer(GL_FRAMEBUFFER, _ssao->GetGBufferFBO());
+	//glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//_meshRenderer1->Draw();
+	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	//glBindFramebuffer(GL_FRAMEBUFFER, _ssao->GetSSAOFBO());
+	//glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	//glClear(GL_COLOR_BUFFER_BIT);
+	//_ssao->Draw();
+	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	//glEnable(GL_DEPTH_TEST);
+	//_texture->GetShader()->SetTextureID(_ssao->GetGAlbedoTexID());
+	//_texture->Draw();
 }
 
 void GameLoop::SetScreenSize(float sw, float sh)

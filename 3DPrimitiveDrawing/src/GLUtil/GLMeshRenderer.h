@@ -18,7 +18,7 @@
 class GLMeshRenderer
 {
 private:
-	GLBufferBuilder* _bufferBuilder;
+	
 
 	BasicShader* _basicShader;
 	ColorShader* _colorShader;
@@ -41,6 +41,8 @@ private:
 	GLMat _modelMat;
 
 public:
+	GLBufferBuilder* _bufferBuilder;
+
 	enum {
 		points = GL_POINTS,
 		lines = GL_LINES,

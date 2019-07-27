@@ -67,9 +67,9 @@ GLBufferBuilder* GLBufferBuilder::SetImageBuffer(ImageBuffer* imgBuf)
 
 void GLBufferBuilder::build()
 {
-	//unsigned int vao;
-	//glGenVertexArrays(1, &vao);
-	//glBindVertexArray(vao);
+	unsigned int vao;
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
 
 	if (_vertexBuffer)
 	{

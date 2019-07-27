@@ -8,6 +8,8 @@
 #include "Cone.h"
 #include "Sphere.h"
 #include "Demo.h"
+#include "GLTexture.h"
+#include "GLSSAO.h"
 
 class GameLoop
 {
@@ -25,6 +27,10 @@ private:
 	Cone* _cone;
 	Sphere* _sphere;
 	Demo* _demo;
+
+	GLMeshRenderer* _meshRenderer1;
+	GLTexture* _texture;
+	GLSSAO* _ssao;
 
 	void GLSettings();
 
