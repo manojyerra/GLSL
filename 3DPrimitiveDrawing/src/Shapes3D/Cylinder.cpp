@@ -123,13 +123,13 @@ Cylinder Cylinder::CalcBoundingCylinder(float* vertexBuf, int arrSize)
 	delete[] localVertexBuf;
 
 	GLMat mat;
-	mat.glTranslatef(center.x, center.y, center.z);
-	mat.glRotatef(-rot.x, 1, 0, 0);
-	mat.glRotatef(-rot.y, 0, 1, 0);
-	mat.glRotatef(-rot.z, 0, 0, 1);
+	mat.translatef(center.x, center.y, center.z);
+	mat.rotatef(-rot.x, 1, 0, 0);
+	mat.rotatef(-rot.y, 0, 1, 0);
+	mat.rotatef(-rot.z, 0, 0, 1);
 
 	glm::vec3 trans = prevCylinder.GetPos();
-	mat.glTranslatef(trans.x, trans.y, trans.z);
+	mat.translatef(trans.x, trans.y, trans.z);
 
 	return Cylinder(mat.m, prevCylinder.GetRadius(), prevCylinder.GetHeight());
 }
@@ -197,7 +197,7 @@ void Cylinder::Draw()
 	_scaleMat.m[10] = _r * 2;
 
 	GLMat modelMat(m);
-	modelMat.glMultMatrixf(_scaleMat.m);
+	modelMat.multMatrixf(_scaleMat.m);
 
 	_meshRenderer->SetModelMatrix(modelMat.m);
 	_meshRenderer->Draw();

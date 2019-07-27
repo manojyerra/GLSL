@@ -16,13 +16,13 @@ GLMat::~GLMat()
 {
 }
 
-void GLMat::glLoadIdentity()
+void GLMat::loadIdentity()
 {
 	memset(m, 0, 16 * sizeof(float));
 	m[0] = m[5] = m[10] = m[15] = 1.0f;
 }
 
-void GLMat::glTranslatef(float x, float y, float z, bool reverseOrder)
+void GLMat::translatef(float x, float y, float z, bool reverseOrder)
 {
 	float trans[16];
 	SetIdentityMatrix(trans);
@@ -40,7 +40,7 @@ void GLMat::glTranslatef(float x, float y, float z, bool reverseOrder)
 	memcpy(m, result, 16 * sizeof(float));
 }
 
-void GLMat::glRotatef(float angleInDegrees, int isX, int isY, int isZ, bool reverseOrder)
+void GLMat::rotatef(float angleInDegrees, int isX, int isY, int isZ, bool reverseOrder)
 {
 	float rot[16];
 
@@ -61,7 +61,7 @@ void GLMat::glRotatef(float angleInDegrees, int isX, int isY, int isZ, bool reve
 	memcpy(m, result, 16 * sizeof(float));
 }
 
-void GLMat::glScalef(float x, float y, float z, bool reverseOrder)
+void GLMat::scalef(float x, float y, float z, bool reverseOrder)
 {
 	float scaleMat[16];
 	memset(scaleMat, 0, 16 * sizeof(float));
@@ -81,7 +81,7 @@ void GLMat::glScalef(float x, float y, float z, bool reverseOrder)
 	memcpy(m, result, 16 * sizeof(float));
 }
 
-void GLMat::glFrustum(float left, float right, float bottom, float top, float zNear, float zFar)
+void GLMat::frustum(float left, float right, float bottom, float top, float zNear, float zFar)
 {
 	float a = (right + left) / (right - left);
 	float b = (top + bottom) / (top - bottom);
@@ -102,7 +102,7 @@ void GLMat::glFrustum(float left, float right, float bottom, float top, float zN
 	memcpy(m, arr, 16 * sizeof(float));
 }
 
-void GLMat::glOrtho(float l, float r, float b, float t, float n, float f)
+void GLMat::ortho(float l, float r, float b, float t, float n, float f)
 {
 	m[0] = 2 / (r - l);
 	m[1] = 0.0f;
@@ -125,7 +125,7 @@ void GLMat::glOrtho(float l, float r, float b, float t, float n, float f)
 	m[15] = 1.0f;
 }
 
-void GLMat::glMultMatrixf(float* mat)
+void GLMat::multMatrixf(float* mat)
 {
 	float result[16];
 	MultMat(m, mat, result);
@@ -399,11 +399,11 @@ void GLMat::SetRotation(glm::vec3 rot)
 
 	GLMat newMat;
 
-	newMat.glTranslatef(m[12], m[13], m[14]);
-	newMat.glRotatef(rot.z, 0, 0, 1);
-	newMat.glRotatef(rot.y, 0, 1, 0);
-	newMat.glRotatef(rot.x, 1, 0, 0);
-	newMat.glScalef(scale.x, scale.y, scale.z);
+	newMat.translatef(m[12], m[13], m[14]);
+	newMat.rotatef(rot.z, 0, 0, 1);
+	newMat.rotatef(rot.y, 0, 1, 0);
+	newMat.rotatef(rot.x, 1, 0, 0);
+	newMat.scalef(scale.x, scale.y, scale.z);
 
 	Copy(newMat.m);
 }
@@ -419,11 +419,11 @@ void GLMat::AddRotateInWorld(char axis, float angle)
 {
 	GLMat newRot;
 
-	if (axis == 'x' || axis == 'X')	newRot.glRotatef(angle, 1, 0, 0);
-	if (axis == 'y' || axis == 'Y')	newRot.glRotatef(angle, 0, 1, 0);
-	if (axis == 'z' || axis == 'Z')	newRot.glRotatef(angle, 0, 0, 1);
+	if (axis == 'x' || axis == 'X')	newRot.rotatef(angle, 1, 0, 0);
+	if (axis == 'y' || axis == 'Y')	newRot.rotatef(angle, 0, 1, 0);
+	if (axis == 'z' || axis == 'Z')	newRot.rotatef(angle, 0, 0, 1);
 
-	newRot.glMultMatrixf(m);
+	newRot.multMatrixf(m);
 
 	Copy(newRot.m);
 }
@@ -455,11 +455,11 @@ void GLMat::AddRotateInLocal(char axis, float angle)
 
 	GLMat rotMat;
 
-	if (axis == 'x' || axis == 'X')	rotMat.glRotatef(angle, 1, 0, 0);
-	if (axis == 'y' || axis == 'Y')	rotMat.glRotatef(angle, 0, 1, 0);
-	if (axis == 'z' || axis == 'Z')	rotMat.glRotatef(angle, 0, 0, 1);
+	if (axis == 'x' || axis == 'X')	rotMat.rotatef(angle, 1, 0, 0);
+	if (axis == 'y' || axis == 'Y')	rotMat.rotatef(angle, 0, 1, 0);
+	if (axis == 'z' || axis == 'Z')	rotMat.rotatef(angle, 0, 0, 1);
 
-	glMultMatrixf(rotMat.Get());
+	multMatrixf(rotMat.Get());
 
 	SetScale(scale);
 }

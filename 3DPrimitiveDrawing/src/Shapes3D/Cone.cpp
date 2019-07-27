@@ -128,15 +128,15 @@ Cone Cone::CalcBoundingCone(float* vertexBuf, int arrSize)
 	GLMat::InvertMatrix(cylMatInvert, matInvert);
 
 	GLMat mat;
-	mat.glMultMatrixf(matInvert);
+	mat.multMatrixf(matInvert);
 
 	if (addX180Rot)
 	{
-		mat.glTranslatef(0, cylinder.GetHeight(), 0);
-		mat.glRotatef(180, 1, 0, 0);
+		mat.translatef(0, cylinder.GetHeight(), 0);
+		mat.rotatef(180, 1, 0, 0);
 	}
 
-	mat.glTranslatef(0, finalH / 2, 0);
+	mat.translatef(0, finalH / 2, 0);
 
 	Cone cone(mat.m, radius, finalH);
 
@@ -184,7 +184,7 @@ void Cone::Draw()
 	_scaleMat.m[10] = _r * 2;
 
 	GLMat modelMat(m);
-	modelMat.glMultMatrixf(_scaleMat.m);
+	modelMat.multMatrixf(_scaleMat.m);
 
 	_meshRenderer->SetModelMatrix(modelMat.m);
 	_meshRenderer->Draw();

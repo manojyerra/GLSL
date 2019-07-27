@@ -53,8 +53,8 @@ void Cam2D::SetScreenSize(float sw, float sh)
 
 void Cam2D::SetProjection()
 {
-	projMat.glLoadIdentity();
-	projMat.glOrtho(_left, _right, _bottom, _top, _zNear, _zFar);
+	projMat.loadIdentity();
+	projMat.ortho(_left, _right, _bottom, _top, _zNear, _zFar);
 }
 
 glm::mat4 Cam2D::GetMVP(float* modelMat)

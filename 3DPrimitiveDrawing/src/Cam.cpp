@@ -74,8 +74,8 @@ void Cam::SetPerspectiveProjection()
 	_bottom = -_zNearPlaneHalfW * _sh / _sw;
 	_top = _zNearPlaneHalfW * _sh / _sw;
 
-	projMat.glLoadIdentity();
-	projMat.glFrustum(_left, _right, _bottom, _top, _zNear, _zFar);
+	projMat.loadIdentity();
+	projMat.frustum(_left, _right, _bottom, _top, _zNear, _zFar);
 }
 
 void Cam::SetOrthoProjection()
@@ -87,8 +87,8 @@ void Cam::SetOrthoProjection()
 	_bottom = -((-_trans.z *_zNearPlaneHalfW) / _zNear) * (_sh / _sw);
 	_top = ((-_trans.z *_zNearPlaneHalfW) / _zNear) * (_sh / _sw);
 
-	projMat.glLoadIdentity();
-	projMat.glOrtho(_left, _right, _bottom, _top, _zNear, _zFar);
+	projMat.loadIdentity();
+	projMat.ortho(_left, _right, _bottom, _top, _zNear, _zFar);
 }
 
 bool Cam::IsOrthoProjection()
@@ -98,12 +98,12 @@ bool Cam::IsOrthoProjection()
 
 void Cam::SetViewMatrix()
 {
-	viewMat.glLoadIdentity();
-	viewMat.glTranslatef(_trans.x, _trans.y, _trans.z);
-	viewMat.glRotatef(_angle.x, 1, 0, 0);
-	viewMat.glRotatef(_angle.y, 0, 1, 0);
-	//viewMat.glRotatef(-90, 1, 0, 0);
-	viewMat.glTranslatef(-_pivot.x, -_pivot.y, -_pivot.z);
+	viewMat.loadIdentity();
+	viewMat.translatef(_trans.x, _trans.y, _trans.z);
+	viewMat.rotatef(_angle.x, 1, 0, 0);
+	viewMat.rotatef(_angle.y, 0, 1, 0);
+	//viewMat.rotatef(-90, 1, 0, 0);
+	viewMat.translatef(-_pivot.x, -_pivot.y, -_pivot.z);
 }
 
 glm::mat4 Cam::GetMVP(float* modelMat)

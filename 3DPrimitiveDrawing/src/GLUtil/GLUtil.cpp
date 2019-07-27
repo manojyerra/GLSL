@@ -197,7 +197,7 @@ vector<float> GLUtil::GetVerticesOnRect(float* verArr, unsigned int numVertex, f
 	GLMat modelViewMatrix = GLUtil::GetModelViewMatrix();
 
 	if (objMat)
-		modelViewMatrix.glMultMatrixf(objMat);
+		modelViewMatrix.multMatrixf(objMat);
 
 	GLMat projMatrix = GLUtil::GetProjectionMatrix();
 

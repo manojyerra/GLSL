@@ -86,7 +86,7 @@ void Sphere::Draw()
 		return;
 
 	GLMat modelMat(m);
-	modelMat.glMultMatrixf(_scaleMat.m);
+	modelMat.multMatrixf(_scaleMat.m);
 
 	_meshRenderer->SetModelMatrix(modelMat.m);
 	_meshRenderer->Draw();

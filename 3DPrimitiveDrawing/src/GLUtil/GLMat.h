@@ -18,13 +18,13 @@ public:
 	GLMat(float* arr);
 	~GLMat();
 
-	void glFrustum(float left, float right, float bottom, float top, float zNear, float zFar);
-	void glOrtho(float l, float r, float b, float t, float n, float f);
-	void glLoadIdentity();
-	void glTranslatef(float x, float y, float z, bool reverseOrder = false);
-	void glRotatef(float angleInDegrees, int isX, int isY, int isZ, bool reverseOrder = false);
-	void glScalef(float x, float y, float z, bool reverseOrder = false);
-	void glMultMatrixf(float* mat);
+	void frustum(float left, float right, float bottom, float top, float zNear, float zFar);
+	void ortho(float l, float r, float b, float t, float n, float f);
+	void loadIdentity();
+	void translatef(float x, float y, float z, bool reverseOrder = false);
+	void rotatef(float angleInDegrees, int isX, int isY, int isZ, bool reverseOrder = false);
+	void scalef(float x, float y, float z, bool reverseOrder = false);
+	void multMatrixf(float* mat);
 
 	float* Get();
 	void Copy(float* mat);

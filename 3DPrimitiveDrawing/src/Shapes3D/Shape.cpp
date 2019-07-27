@@ -87,11 +87,11 @@ void Shape::AddRotateInWorld(char axis, float angle)
 {
 	GLMat newRot;
 
-	if (axis == 'x' || axis == 'X')	newRot.glRotatef(angle, 1, 0, 0);
-	if (axis == 'y' || axis == 'Y')	newRot.glRotatef(angle, 0, 1, 0);
-	if (axis == 'z' || axis == 'Z')	newRot.glRotatef(angle, 0, 0, 1);
+	if (axis == 'x' || axis == 'X')	newRot.rotatef(angle, 1, 0, 0);
+	if (axis == 'y' || axis == 'Y')	newRot.rotatef(angle, 0, 1, 0);
+	if (axis == 'z' || axis == 'Z')	newRot.rotatef(angle, 0, 0, 1);
 
-	newRot.glMultMatrixf(m);
+	newRot.multMatrixf(m);
 
 	memcpy(m, newRot.m, 16 * sizeof(float));
 }
@@ -115,14 +115,14 @@ void Shape::AddRotateInLocal(char axis, float angle)
 {
 	GLMat rotMat;
 
-	if (axis == 'x' || axis == 'X')	rotMat.glRotatef(angle, 1, 0, 0);
-	if (axis == 'y' || axis == 'Y')	rotMat.glRotatef(angle, 0, 1, 0);
-	if (axis == 'z' || axis == 'Z')	rotMat.glRotatef(angle, 0, 0, 1);
+	if (axis == 'x' || axis == 'X')	rotMat.rotatef(angle, 1, 0, 0);
+	if (axis == 'y' || axis == 'Y')	rotMat.rotatef(angle, 0, 1, 0);
+	if (axis == 'z' || axis == 'Z')	rotMat.rotatef(angle, 0, 0, 1);
 
 	GLMat mat;
 	mat.Copy(m);
 
-	mat.glMultMatrixf(rotMat.Get());
+	mat.multMatrixf(rotMat.Get());
 
 	memcpy(m, mat.m, 16 * sizeof(float));
 }
