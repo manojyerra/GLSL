@@ -33,7 +33,7 @@ protected:
 	unsigned int _vertexBufferID;
 	unsigned int _normalBufferID;
 
-	std::map<string, LightInfo> _lightMap;
+	std::map<std::string, LightInfo> _lightMap;
 	
 	glm::vec3 _albedo;
 	float _metallic;
@@ -46,10 +46,10 @@ protected:
 
 public:
 	PBRShader();
-	PBRShader(string vertexShaderPath, string fragmentShaderPath);
+	PBRShader(std::string vertexShaderPath, std::string fragmentShaderPath);
 	virtual ~PBRShader();
 
-	void CommonInit(string vertexShaderPath, string fragmentShaderPath);
+	void CommonInit(std::string vertexShaderPath, std::string fragmentShaderPath);
 	void SetVertexBufferID(unsigned int bufferID);
 	void SetNormalBufferID(unsigned int bufferID);
 	void SetAlbedo(glm::vec3& albedo);
@@ -60,10 +60,10 @@ public:
 	glm::vec3 GetAlbedo();
 	float GetMetallic();
 	float GetRoughness();
-	std::map<string, LightInfo> GetLightMap();
+	std::map<std::string, LightInfo> GetLightMap();
 
-	void AddLight(string lightName, LightInfo lightInfo);
-	void RemoveLight(string lightName);
+	void AddLight(std::string lightName, LightInfo lightInfo);
+	void RemoveLight(std::string lightName);
 
 	void SetModelMatrix(float* mat) override;
 	void SetAlpha(float alpha) override;
