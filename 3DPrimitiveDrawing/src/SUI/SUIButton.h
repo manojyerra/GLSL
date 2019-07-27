@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUIButton_H
 #define SUIButton_H
 
@@ -36,4 +38,5 @@ public:
 	SUIActionListener* GetActionListener()						{ return _actionListener;			}
 };
 
+#endif
 #endif

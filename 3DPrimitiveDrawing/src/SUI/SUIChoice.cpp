@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #include "SUIChoice.h"
 #include "SUIIncludes.h"
 #include "SUIInput.h"
@@ -195,3 +197,5 @@ void SUIChoice::Draw()
 	if(_isBorderVisible)
 		DrawBorder();
 }
+
+#endif

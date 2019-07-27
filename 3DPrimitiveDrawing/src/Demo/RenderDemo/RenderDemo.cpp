@@ -1,3 +1,5 @@
+#ifdef ENABLE_DEMO
+
 #include "RenderDemo.h"
 #include "Cam.h"
 #include "ObjReader.h"
@@ -221,3 +223,5 @@ RenderDemo::~RenderDemo()
 		}
 	}
 }
+
+#endif

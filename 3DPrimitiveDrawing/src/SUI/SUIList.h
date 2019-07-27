@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUIList_H
 #define SUIList_H
 
@@ -62,4 +64,5 @@ public:
 	SUIActionListener* GetActionListener()							{ return _actionListener;			}
 };
 
+#endif
 #endif

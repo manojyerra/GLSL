@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #include "SUIRect.h"
 #include "SUIIncludes.h"
 
@@ -150,3 +152,5 @@ void SUIRect::Draw(float x, float y, float w, float h, int red, int green, int b
 		glEnd();
 	}
 }
+
+#endif

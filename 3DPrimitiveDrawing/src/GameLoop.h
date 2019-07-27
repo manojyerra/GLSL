@@ -7,13 +7,9 @@
 #include "Cylinder.h"
 #include "Cone.h"
 #include "Sphere.h"
-#include "ParticlesDemo.h"
-#include "RenderDemo.h"
-#include "WholeWindowFrame.h"
-#include "SUIActionListener.h"
-#include "FloorVisibilityFrame.h"
+#include "Demo.h"
 
-class GameLoop : public SUIActionListener
+class GameLoop
 {
 private:
 	float _sw;
@@ -28,12 +24,7 @@ private:
 	Cylinder* _cylinder;
 	Cone* _cone;
 	Sphere* _sphere;
-
-	ParticlesDemo* _particleDemo;
-	RenderDemo* _rendererDemo;
-
-	WholeWindowFrame* _windowFrame;
-	FloorVisibilityFrame*_floorFrame;
+	Demo* _demo;
 
 	void GLSettings();
 
@@ -44,7 +35,6 @@ public:
 	void SetScreenSize(float sw, float sh);
 	void Update(float deltaTime);
 	void Draw();
-	void actionPerformed(SUIActionEvent ae);
 };
 
 #endif

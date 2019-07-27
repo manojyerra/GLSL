@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUIComponent_H
 #define SUIComponent_H
 
@@ -127,4 +129,5 @@ public:
 	virtual void Move(float dx, float dy) = 0;
 };
 
+#endif
 #endif

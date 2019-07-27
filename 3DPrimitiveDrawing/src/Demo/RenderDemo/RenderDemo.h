@@ -1,3 +1,5 @@
+#ifdef ENABLE_DEMO
+
 #ifndef RenderDemo_H
 #define RenderDemo_H
 
@@ -44,5 +46,7 @@ public:
 	void SetFloorVisible(bool visible);
 	Floor* GetFloor();
 };
+
+#endif
 
 #endif

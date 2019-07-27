@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUIEvents_H
 #define SUIEvents_H
 
@@ -28,4 +30,5 @@ public:
 	}
 };
 
+#endif
 #endif

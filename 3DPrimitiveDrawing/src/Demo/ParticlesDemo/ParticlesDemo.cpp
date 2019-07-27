@@ -1,3 +1,5 @@
+#ifdef ENABLE_DEMO
+
 #include "ParticlesDemo.h"
 #include "Cam.h"
 #include "Cam2D.h"
@@ -163,3 +165,5 @@ ParticlesDemo::~ParticlesDemo()
 		_floor = NULL;
 	}
 }
+
+#endif

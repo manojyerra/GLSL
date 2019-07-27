@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUISlider_H
 #define SUISlider_H
 
@@ -57,4 +59,5 @@ public:
 	SUIActionListener* GetActionListener()						{ return _actionListener;			}
 };
 
+#endif
 #endif

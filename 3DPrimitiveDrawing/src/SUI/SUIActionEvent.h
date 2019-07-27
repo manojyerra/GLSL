@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUIActionEvent_H
 #define SUIActionEvent_H
 
@@ -14,4 +16,5 @@ public:
 	void* GetComponent()		{	return _com;		}
 };
 
+#endif
 #endif

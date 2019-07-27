@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #include "SUIRadioButton.h"
 #include "SUIIncludes.h"
 #include "SUIInput.h"
@@ -181,3 +183,5 @@ string SUIRadioButton::GetSelectedItemName()
 {
 	return _elementVec[_selectedIndex]->GetName();
 }
+
+#endif

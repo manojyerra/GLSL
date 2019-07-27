@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUIActionListener_H
 #define SUIActionListener_H
 
@@ -9,4 +11,5 @@ public:
 	virtual void actionPerformed(SUIActionEvent SUIActionEvent) = 0;
 };
 
+#endif
 #endif

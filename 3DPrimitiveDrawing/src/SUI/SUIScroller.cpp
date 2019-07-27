@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #include "SUIScroller.h"
 #include "SUIIncludes.h"
 #include "SUIInput.h"
@@ -138,3 +140,5 @@ void SUIScroller::Draw()
 		_bg.DrawBorder();
 	}
 }
+
+#endif

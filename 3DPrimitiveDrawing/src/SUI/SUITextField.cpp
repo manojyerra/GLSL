@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #include "SUITextField.h"
 #include "SUIFont.h"
 #include "SUIInput.h"
@@ -323,3 +325,5 @@ bool SUITextField::IsValidDouble(string str)
 
 	return true;
 }
+
+#endif

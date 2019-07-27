@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUILabel_H
 #define SUILabel_H
 
@@ -28,4 +30,5 @@ public:
 
 };
 
+#endif
 #endif

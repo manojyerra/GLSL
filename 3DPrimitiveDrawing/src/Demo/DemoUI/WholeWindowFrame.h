@@ -1,3 +1,5 @@
+#ifdef ENABLE_DEMO
+
 #ifndef WholeWindowFrame_H
 #define WholeWindowFrame_H
 
@@ -24,4 +26,6 @@ public:
 	float GetWidth();
 	int GetDemoIndex();
 };
+#endif
+
 #endif

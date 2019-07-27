@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #include "SUIBox.h"
 #include "SUIIncludes.h"
 
@@ -324,3 +326,5 @@ void SUIBox::Draw()
 	if(_isBorderVisible)
 		DrawBorder();
 }
+
+#endif

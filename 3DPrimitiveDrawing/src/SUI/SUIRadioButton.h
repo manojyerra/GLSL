@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUIRadioButton_H
 #define SUIRadioButton_H
 
@@ -40,4 +42,5 @@ public:
 	SUIActionListener* GetActionListener()							{ return _actionListener;			}
 };
 
+#endif
 #endif

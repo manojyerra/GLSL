@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #include "SUICheckBox.h"
 #include "SUIIncludes.h"
 #include "SUIFont.h"
@@ -222,3 +224,5 @@ SUIEvents SUICheckBox::UpdateByInput()
 
 	return eventsVec;
 }
+
+#endif

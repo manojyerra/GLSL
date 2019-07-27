@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #include "SUIFrame.h"
 #include "SUIIncludes.h"
 
@@ -653,3 +655,5 @@ void SUIFrame::DrawDragger()
 	}
 	glEnd();
 }
+
+#endif

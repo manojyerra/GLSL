@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #include "SUIKeyCombi.h"
 
 SUIKeyCombi::SUIKeyCombi()
@@ -56,3 +58,5 @@ bool SUIKeyCombi::IsEventFired()
 
 	return true;
 }
+
+#endif

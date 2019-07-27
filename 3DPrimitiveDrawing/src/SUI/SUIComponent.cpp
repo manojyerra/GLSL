@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #include "SUIComponent.h"
 #include "SUIIncludes.h"
 #include "SUIInput.h"
@@ -296,3 +298,5 @@ unsigned int SUIComponent::MixColor(unsigned int baseColor, unsigned int mixColo
 
 	return (unsigned int)((newR<<24) + (newG<<16) + (newB<<8) + newA);
 }
+
+#endif

@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUIKeyCombi_H
 #define SUIKeyCombi_H
 
@@ -20,4 +22,5 @@ public:
 	bool IsEventFired();
 };
 
+#endif
 #endif

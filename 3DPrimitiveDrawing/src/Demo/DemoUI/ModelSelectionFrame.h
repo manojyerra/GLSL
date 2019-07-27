@@ -1,3 +1,5 @@
+#ifdef ENABLE_DEMO
+
 #ifndef ModelSelectionFrame_H
 #define ModelSelectionFrame_H
 
@@ -22,4 +24,5 @@ public:
 	float GetWidth();
 	SUIFrame* GetFrame();
 };
+#endif
 #endif

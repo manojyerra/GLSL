@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUIRect_H
 #define SUIRect_H
 
@@ -34,4 +36,5 @@ public:
 	static void Draw(float x, float y, float w, float h, int red, int green, int blue, int alpha, bool wireFrame);
 };
 
+#endif
 #endif

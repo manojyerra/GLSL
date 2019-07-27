@@ -1,7 +1,6 @@
 #ifndef Platform_H
 #define Platform_H
 
-#define NOMINMAX
 #include "Windows.h"
 #include <GLFW/glfw3.h>
 

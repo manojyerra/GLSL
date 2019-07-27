@@ -1,3 +1,5 @@
+#ifdef ENABLE_DEMO
+
 #include "ModelVisibilityFrame.h"
 
 ModelVisibilityFrame::ModelVisibilityFrame(float x, float y, float w, float h, SUIActionListener* actionListener) 
@@ -69,3 +71,5 @@ ModelVisibilityFrame::~ModelVisibilityFrame()
 		}
 	}
 }
+
+#endif

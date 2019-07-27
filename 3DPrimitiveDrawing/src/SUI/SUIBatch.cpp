@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #include "SUIBatch.h"
 #include "stdio.h"
 #include "string.h"
@@ -186,3 +188,5 @@ SUIBatch::~SUIBatch()
 	if(_uvArr)		free(_uvArr	);
 	if(_normalArr)	free(_normalArr);
 }
+
+#endif

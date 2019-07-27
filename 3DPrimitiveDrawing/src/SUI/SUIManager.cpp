@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #include "SUIManager.h"
 #include "SUIInput.h"
 #include "SUIFont.h"
@@ -466,3 +468,5 @@ SUIManager::~SUIManager()
 {
 	SUIFont::DeleteInstance();
 }
+
+#endif

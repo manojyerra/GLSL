@@ -1,3 +1,5 @@
+#ifdef ENABLE_DEMO
+
 #ifndef ShaderFrame_H
 #define ShaderFrame_H
 
@@ -102,5 +104,7 @@ public:
 	void actionPerformed(SUIActionEvent e);
 	SUIFrame* GetFrame();
 };
+
+#endif
 
 #endif

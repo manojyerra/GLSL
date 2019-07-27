@@ -1,3 +1,5 @@
+#ifdef ENABLE_DEMO
+
 #ifndef ModelVisibilityFrame_H
 #define ModelVisibilityFrame_H
 
@@ -58,4 +60,6 @@ public:
 	SUIFrame* GetFrame();
 	//void actionPerformed(SUIActionEvent e);
 };
+#endif
+
 #endif

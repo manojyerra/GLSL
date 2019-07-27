@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUIManager_H
 #define SUIManager_H
 
@@ -57,4 +59,5 @@ public:
 	void SetDialogCom(SUIComponent* dialogCom);
 };
 
+#endif
 #endif

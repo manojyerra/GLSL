@@ -1,3 +1,5 @@
+#ifdef ENABLE_DEMO
+
 #include "ShaderFrame.h"
 
 ShaderFrame::ShaderFrame(float x, float y, float w, float h, SUIActionListener* renderDemoListener)
@@ -403,3 +405,5 @@ ShaderFrame::~ShaderFrame()
 		}
 	}
 }
+
+#endif

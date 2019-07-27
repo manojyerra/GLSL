@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUIFrame_H
 #define SUIFrame_H
 
@@ -91,4 +93,5 @@ public:
 	void Draw();
 };
 
+#endif
 #endif

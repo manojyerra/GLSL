@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #include "SUIList.h"
 #include "SUIIncludes.h"
 #include "SUIInput.h"
@@ -369,3 +371,5 @@ void SUIList::Draw()
 
 	glScissor(scissorBox[0], scissorBox[1], scissorBox[2], scissorBox[3]);
 }
+
+#endif

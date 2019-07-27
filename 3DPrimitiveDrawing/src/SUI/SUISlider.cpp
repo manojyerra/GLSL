@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #include "SUISlider.h"
 #include "SUIIncludes.h"
 #include "SUIFont.h"
@@ -230,3 +232,5 @@ SUIEvents SUISlider::UpdateByInput()
 
 	return eventsVec;
 }
+
+#endif

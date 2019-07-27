@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUIBox_H
 #define SUIBox_H
 
@@ -60,4 +62,5 @@ public:
 	void Draw();
 };
 
+#endif
 #endif

@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #include "SUILabel.h"
 #include "SUIIncludes.h"
 #include "SUIFont.h"
@@ -64,3 +66,5 @@ SUIEvents SUILabel::UpdateByInput()
 	SUIEvents eventsVec;
 	return eventsVec;
 }
+
+#endif

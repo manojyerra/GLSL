@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #include "SUIFont.h"
 #include "SUIIncludes.h"
 
@@ -464,3 +466,5 @@ SUIFont::~SUIFont()
 		_data = NULL;
 	}
 }
+
+#endif

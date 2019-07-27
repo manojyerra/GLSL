@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUICheckBox_H
 #define SUICheckBox_H
 
@@ -44,4 +46,5 @@ public:
 	SUIActionListener* GetActionListener()						{ return _actionListener;			}
 };
 
+#endif
 #endif

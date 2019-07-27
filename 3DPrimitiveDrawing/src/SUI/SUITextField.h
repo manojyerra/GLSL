@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUITextField_H
 #define SUITextField_H
 
@@ -60,4 +62,5 @@ public:
 	SUIActionListener* GetActionListener()						{ return _actionListener;			}
 };
 
+#endif
 #endif

@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUIChoice_H
 #define SUIChoice_H
 
@@ -53,4 +55,5 @@ public:
 	SUIActionListener* GetActionListener()							{ return _actionListener;			}
 };
 
+#endif
 #endif

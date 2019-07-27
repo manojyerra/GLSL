@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUIScroller_H
 #define SUIScroller_H
 
@@ -38,4 +40,5 @@ public:
 	void Draw();
 };
 
+#endif
 #endif

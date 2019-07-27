@@ -1,3 +1,5 @@
+#ifdef ENABLE_DEMO
+
 #include "ModelSelectionFrame.h"
 #include "SUI/SUIBox.h"
 
@@ -52,3 +54,5 @@ ModelSelectionFrame::~ModelSelectionFrame() {
 		_frame = NULL;
 	}
 }
+
+#endif

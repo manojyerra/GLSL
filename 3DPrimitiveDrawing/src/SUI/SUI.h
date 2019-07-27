@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUI_H
 #define SUI_H
 
@@ -8,4 +10,5 @@ void SUISetWindowSize(float windowWidth, float windowHeight);
 void SUIDraw();
 void SUIQuit();
 
+#endif
 #endif

@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUIInput_H
 #define SUIInput_H
 
@@ -94,4 +96,5 @@ public:
 	//End : Scroll related code
 };
 
+#endif
 #endif

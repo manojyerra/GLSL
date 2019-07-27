@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUIMouseEvent_H
 #define SUIMouseEvent_H
 
@@ -27,4 +29,5 @@ public:
 	int GetButtonID()			{	return _buttonID;	}
 };
 
+#endif
 #endif

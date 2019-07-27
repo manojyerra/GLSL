@@ -1,3 +1,4 @@
+#ifdef ENABLE_SUI
 #include "SUI.h"
 
 void SUISetup(float windowWidth, float windowHeight)
@@ -19,3 +20,5 @@ void SUIQuit()
 {
 	SUIManager::GetInstance()->DeleteInstance();
 }
+
+#endif

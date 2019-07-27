@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #include "SUIButton.h"
 #include "SUIFont.h"
 #include "SUIInput.h"
@@ -108,3 +110,5 @@ SUIEvents SUIButton::UpdateByInput()
 
 	return eventsVec;
 }
+
+#endif

@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #include "SUIInput.h"
 #include "SUIIncludes.h"
 #include "math.h"
@@ -275,3 +277,5 @@ void SUIInput::SetScrollState(int scrollState)
 	SCROLL_STATE_STORE = scrollState;
 }
 //End : Scroll related code.
+
+#endif

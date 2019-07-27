@@ -1,3 +1,5 @@
+#ifdef ENABLE_DEMO
+
 #ifndef FloorVisibilityFrame_H
 #define FloorVisibilityFrame_H
 
@@ -25,4 +27,6 @@ public:
 	float GetWidth();
 	int GetDemoIndex();
 };
+#endif
+
 #endif

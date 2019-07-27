@@ -1,3 +1,5 @@
+#ifdef ENABLE_DEMO
+
 #ifndef ParticlesDemo_H
 #define ParticlesDemo_H
 
@@ -30,5 +32,7 @@ public:
 	void Reset();
 	void Draw();
 };
+
+#endif
 
 #endif

@@ -15,15 +15,14 @@ GameLoop::GameLoop(float sw, float sh)
 	_zFar = 1000000.0f;
 	_zNearPlaneW = 0.2f;
 
-	_floor = NULL;
-	_box = NULL;
-	_cylinder = NULL;
-	_cone = NULL;
-	_sphere = NULL;
-	_triangle = NULL;
+	_floor = nullptr;
+	_box = nullptr;
+	_cylinder = nullptr;
+	_cone = nullptr;
+	_sphere = nullptr;
+	_triangle = nullptr;
 
-	_particleDemo = nullptr;
-	_rendererDemo = nullptr;
+	_demo = nullptr;
 
 	GLSettings();
 	SUISetup(_sw, _sh);
@@ -31,11 +30,7 @@ GameLoop::GameLoop(float sw, float sh)
 	Cam::GetInstance()->Init(_sw, _sh, _zNear, _zFar, _zNearPlaneW);
 	Cam2D::GetInstance()->Init(_sw, _sh);
 
-	_rendererDemo = new RenderDemo(_sw, _sh);
-	//_particleDemo = new ParticlesDemo(_sw, _sh);
-
-	_windowFrame = new WholeWindowFrame(_sw - 300.0f, 0.0f, 300.0f, 150.0f, this);
-	_floorFrame = new FloorVisibilityFrame(_sw - 300.0f, 555.0f, 300.0f, 100.0f, this);
+	_demo = new Demo(_sw, _sh);
 }
 
 void GameLoop::GLSettings()
@@ -50,85 +45,12 @@ void GameLoop::Update(float deltaTime)
 	
 }
 
-void GameLoop::actionPerformed(SUIActionEvent e) 
-{
-	SUIComponent* com = (SUIComponent*)e.GetComponent();
-
-	if (com == _windowFrame->demoType) 
-	{
-		int index = _windowFrame->demoType->GetSelectedIndex();
-		
-		_rendererDemo->SetVisibleFrames(index == 0);
-		_floorFrame->SetVisible(index == 0);
-
-		if(index == 0)
-		{
-			Cam::GetInstance()->SetTrans(glm::vec3(0, 0, -44.0f));
-			Cam::GetInstance()->SetRot(glm::vec3(35.0f, -20.0f, 0));
-			Cam::GetInstance()->UpdateCamera();
-		}
-		else
-		{
-			Cam::GetInstance()->SetTrans(glm::vec3(-0.095, -0.78, -4.94f));
-			Cam::GetInstance()->SetRot(glm::vec3(31.0f, -35.0f, 0));
-			Cam::GetInstance()->UpdateCamera();
-
-			if(_particleDemo)
-				_particleDemo->Reset();
-			
-		}
-	}
-	else if (com == _windowFrame->isSSAO) 
-	{
-		printf("SSAO enabled : %d", _windowFrame->isSSAO->IsSelected());
-	}
-	else if (com == _floorFrame->hideFloor)
-	{
-		bool hideFloor = _floorFrame->hideFloor->IsSelected();
-
-		if (_windowFrame->GetDemoIndex() == 0)
-		{
-			if (_rendererDemo)
-				_rendererDemo->SetFloorVisible(!hideFloor);
-		}
-		else if (_windowFrame->GetDemoIndex() == 1)
-		{
-			if (_particleDemo)
-				_particleDemo->SetFloorVisible(!hideFloor);
-		}
-	}
-	else if(com == _floorFrame->showOnlyGridLines)
-	{
-		bool showOnlyGridLines = _floorFrame->showOnlyGridLines->IsSelected();
-
-		if (_windowFrame->GetDemoIndex() == 0)
-		{
-			if (_rendererDemo)
-				_rendererDemo->GetFloor()->ShowOnlyGridLines(showOnlyGridLines);
-		}
-		else if (_windowFrame->GetDemoIndex() == 1)
-		{
-			if (_particleDemo)
-				_particleDemo->GetFloor()->ShowOnlyGridLines(showOnlyGridLines);
-		}
-	}
-}
-
 void GameLoop::Draw()
 {
 	bool consumed = SUIInput::Update((float)Input::MX, (float)Input::MY, Input::LEFT_BUTTON_DOWN, 1.0f / 30.0f);
 	Input::SetEnable(!consumed);
 
-	if (_windowFrame->GetDemoIndex() == 0)
-	{
-		if(_rendererDemo)
-			_rendererDemo->Draw();		
-	}
-	else if (_windowFrame->GetDemoIndex() == 1)
-	{
-		if(_particleDemo)
-			_particleDemo->Draw();
-	}
+	_demo->Draw();
 
 	SUIDraw();
 }
@@ -143,14 +65,8 @@ void GameLoop::SetScreenSize(float sw, float sh)
 
 	SUISetWindowSize(_sw, _sh);
 
-	if(_rendererDemo)
-		_rendererDemo->SetScreenSize(_sw, _sh);
-
-	if(_particleDemo)
-		_particleDemo->SetScreenSize(_sw, _sh);
-
-	_windowFrame->SetPos(_sw - _windowFrame->GetWidth(), 0);
-	_floorFrame->SetPos(_sw - _floorFrame->GetWidth(), 555);
+	if(_demo)
+		_demo->SetScreenSize(_sw, _sh);
 }
 
 GameLoop::~GameLoop()
@@ -191,27 +107,10 @@ GameLoop::~GameLoop()
 		_floor = NULL;
 	}
 
-	if (_rendererDemo)
+	if (_demo)
 	{
-		delete _rendererDemo;
-		_rendererDemo = NULL;
-	}
-
-	if (_particleDemo)
-	{
-		delete _particleDemo;
-		_particleDemo = NULL;
-	}
-
-	if (_windowFrame) {
-		delete _windowFrame;
-		_windowFrame = NULL;
-	}
-
-	if(_floorFrame)
-	{
-		delete _floorFrame;
-		_floorFrame = NULL;
+		delete _demo;
+		_demo = NULL;
 	}
 
 	Cam::GetInstance()->DeleteInstance();

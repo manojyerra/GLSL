@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUIMouseListener_H
 #define SUIMouseListener_H
 
@@ -13,4 +15,5 @@ public:
 	//virtual void mouseExited(UIEvent event) = 0;
 };
 
+#endif
 #endif

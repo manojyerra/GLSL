@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUIFont_H
 #define SUIFont_H
 #pragma once
@@ -114,4 +116,5 @@ public:
 	void FillUVInfo_Verdana_plain_12();
 };
 
+#endif
 #endif

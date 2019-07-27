@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUIBatch_H
 #define SUIBatch_H
 #pragma once
@@ -48,4 +50,5 @@ public:
 	unsigned int GetCount();
 };
 
+#endif
 #endif

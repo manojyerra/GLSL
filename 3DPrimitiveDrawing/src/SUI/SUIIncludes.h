@@ -1,3 +1,5 @@
+#ifdef ENABLE_SUI
+
 #ifndef SUIIncludes_H
 #define SUIIncludes_H
 
@@ -10,4 +12,5 @@
 
 //#include "DefinesAndIncludes.h"
 
+#endif
 #endif

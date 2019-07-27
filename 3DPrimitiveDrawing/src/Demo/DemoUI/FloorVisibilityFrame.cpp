@@ -1,3 +1,5 @@
+#ifdef ENABLE_DEMO
+
 #include "FloorVisibilityFrame.h"
 #include "SUI/SUIBox.h"
 
@@ -51,3 +53,5 @@ FloorVisibilityFrame::~FloorVisibilityFrame() {
 		_frame = NULL;
 	}
 }
+
+#endif

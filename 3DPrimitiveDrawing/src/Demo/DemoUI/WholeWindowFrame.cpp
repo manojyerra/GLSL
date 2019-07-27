@@ -1,3 +1,5 @@
+#ifdef ENABLE_DEMO
+
 #include "WholeWindowFrame.h"
 #include "SUI/SUIBox.h"
 
@@ -53,3 +55,5 @@ WholeWindowFrame::~WholeWindowFrame() {
 		_frame = NULL;
 	}
 }
+
+#endif
