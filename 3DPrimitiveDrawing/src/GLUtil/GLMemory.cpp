@@ -52,10 +52,10 @@ GLuint GLMemory::CreateTexture(GLsizei width, GLsizei height, unsigned int bytes
 GLuint GLMemory::CreateRenderBuffer(GLsizei width, GLsizei height, GLenum internalformat, const char* filePath, long lineNum)
 {
 	unsigned int rbo;
-	glGenRenderbuffersEXT(1, &rbo);
-	glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, rbo);
-	glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, internalformat, width, height);
-	glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, 0);
+	glGenRenderbuffers(1, &rbo);
+	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+	glRenderbufferStorage(GL_RENDERBUFFER, internalformat, width, height);
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 	GLMemoryInfo memInfo(filePath, lineNum, width*height * 3);
 	std::string str = "RenderBuffer_" + std::to_string(rbo);
@@ -99,7 +99,7 @@ void GLMemory::DeleteRenderBuffer(GLuint id)
 
 	_memInfoMap.erase(key);
 
-	glDeleteRenderbuffersEXT(1, &id);
+	glDeleteRenderbuffers(1, &id);
 	glFinish();
 }
 

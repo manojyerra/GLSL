@@ -1,7 +1,6 @@
 #include "GLSSAOBufferBuilder.h"
 #include "GLInclude.h"
 #include <glm/glm.hpp>
-#include <iostream>
 #include <random>
 
 GLSSAOBufferBuilder::GLSSAOBufferBuilder(int w, int h)
@@ -31,27 +30,27 @@ GLSSAOBufferBuilder::GLSSAOBufferBuilder(int w, int h)
 void GLSSAOBufferBuilder::CreateGBufferFBO(unsigned int w, unsigned int h)
 {
 	unsigned int gBufferFBO;
-	glGenFramebuffersEXT(1, &gBufferFBO);
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, gBufferFBO);
+	glGenFramebuffers(1, &gBufferFBO);
+	glBindFramebuffer(GL_FRAMEBUFFER, gBufferFBO);
 	unsigned int gPosition, gNormal, gAlbedo;
 
 	// position color buffer
 	glGenTextures(1, &gPosition);
 	glBindTexture(GL_TEXTURE_2D, gPosition);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16, w, h, 0, GL_RGB, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, w, h, 0, GL_RGB, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, gPosition, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, gPosition, 0);
 
 	// normal color buffer
 	glGenTextures(1, &gNormal);
 	glBindTexture(GL_TEXTURE_2D, gNormal);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16, w, h, 0, GL_RGB, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, w, h, 0, GL_RGB, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT1_EXT, GL_TEXTURE_2D, gNormal, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, gNormal, 0);
 
 	// color + specular color buffer
 	glGenTextures(1, &gAlbedo);
@@ -59,23 +58,23 @@ void GLSSAOBufferBuilder::CreateGBufferFBO(unsigned int w, unsigned int h)
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT2_EXT, GL_TEXTURE_2D, gAlbedo, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, gAlbedo, 0);
 
 	// tell OpenGL which color attachments we'll use (of this framebuffer) for rendering
-	unsigned int attachments[3] = { GL_COLOR_ATTACHMENT0_EXT, GL_COLOR_ATTACHMENT1_EXT, GL_COLOR_ATTACHMENT2_EXT };
+	unsigned int attachments[3] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2 };
 	glDrawBuffers(3, attachments);
 
 	// create and attach depth buffer (renderbuffer)
 	unsigned int rboDepth;
-	glGenRenderbuffersEXT(1, &rboDepth);
-	glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, rboDepth);
-	glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT24, _w, _h);
-	glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, rboDepth);
+	glGenRenderbuffers(1, &rboDepth);
+	glBindRenderbuffer(GL_RENDERBUFFER, rboDepth);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, _w, _h);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rboDepth);
 	// finally check if framebuffer is complete
-	if (glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) != GL_FRAMEBUFFER_COMPLETE_EXT)
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		throw new std::exception("Framebuffer not complete!");
 
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	_gBufferFBO = gBufferFBO;
 
@@ -88,8 +87,8 @@ void GLSSAOBufferBuilder::CreateSSAOFBO(unsigned int w, unsigned int h)
 {
 	// SSAO color buffer
 	unsigned int ssaoFBO;
-	glGenFramebuffersEXT(1, &ssaoFBO);
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, ssaoFBO);
+	glGenFramebuffers(1, &ssaoFBO);
+	glBindFramebuffer(GL_FRAMEBUFFER, ssaoFBO);
 
 	unsigned int ssaoColorBuffer;
 	glGenTextures(1, &ssaoColorBuffer);
@@ -98,11 +97,11 @@ void GLSSAOBufferBuilder::CreateSSAOFBO(unsigned int w, unsigned int h)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, ssaoColorBuffer, 0);
-	if (glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) != GL_FRAMEBUFFER_COMPLETE_EXT)
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ssaoColorBuffer, 0);
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		throw new std::exception("SSAO Framebuffer not complete!");
 
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	_ssaoFBO = ssaoFBO;
 	_ssaoColorAttachmentID = ssaoColorBuffer;
@@ -111,8 +110,8 @@ void GLSSAOBufferBuilder::CreateSSAOFBO(unsigned int w, unsigned int h)
 void GLSSAOBufferBuilder::CreateSSAOBlurFBO(unsigned int w, unsigned int h)
 {
 	unsigned int ssaoBlurFBO;
-	glGenFramebuffersEXT(1, &ssaoBlurFBO);
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, ssaoBlurFBO);
+	glGenFramebuffers(1, &ssaoBlurFBO);
+	glBindFramebuffer(GL_FRAMEBUFFER, ssaoBlurFBO);
 
 	unsigned int ssaoColorBufferBlur;
 	glGenTextures(1, &ssaoColorBufferBlur);
@@ -121,10 +120,10 @@ void GLSSAOBufferBuilder::CreateSSAOBlurFBO(unsigned int w, unsigned int h)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, ssaoColorBufferBlur, 0);
-	if (glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) != GL_FRAMEBUFFER_COMPLETE_EXT)
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ssaoColorBufferBlur, 0);
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		throw new std::exception("SSAO Blur Framebuffer not complete!");
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	_ssaoBlurFBO = ssaoBlurFBO;
 	_ssaoBlurColorAttachmentID = ssaoColorBufferBlur;
@@ -158,7 +157,7 @@ void GLSSAOBufferBuilder::GenerateSampleKernelAndNoiseTexture()
 	glGenTextures(1, &_noiseTexID);
 	glBindTexture(GL_TEXTURE_2D, _noiseTexID);
 	//TODO : replaced GL_RGB32F with GL_RGB32F_ARB. Confirm that it is correct replacement.
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F_ARB, 4, 4, 0, GL_RGB, GL_FLOAT, &ssaoNoise[0]);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, 4, 4, 0, GL_RGB, GL_FLOAT, &ssaoNoise[0]);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);

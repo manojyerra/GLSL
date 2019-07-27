@@ -7,15 +7,6 @@
     <Filter Include="src\GLUtil">
       <UniqueIdentifier>{712e43ab-f0d9-4303-a127-8f6e9a1ee049}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\glew">
-      <UniqueIdentifier>{db46c4aa-3a21-4613-b08c-482f97d5b395}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\glew\include">
-      <UniqueIdentifier>{1e52c67f-cdaf-42ec-80d7-077994aa8d5f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\glew\source">
-      <UniqueIdentifier>{594cab06-661c-4e9d-990e-ced5a33ab06a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Shapes3D">
       <UniqueIdentifier>{eb378a22-0163-4abf-bb9c-53bfd1f30953}</UniqueIdentifier>
     </Filter>
@@ -115,6 +106,21 @@
     <Filter Include="src\Demo\DemoUI">
       <UniqueIdentifier>{20fcf8eb-d80b-4c6f-9604-0d15d466be44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\glad">
+      <UniqueIdentifier>{dda37be1-32a6-4217-825c-1cf0230b5160}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\glad\include">
+      <UniqueIdentifier>{eb47f2cf-4d0c-4457-89e8-66241098895b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\glad\src">
+      <UniqueIdentifier>{2df38beb-982a-488c-8fcc-5c9cf744602b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\glad\include\glad">
+      <UniqueIdentifier>{46a99242-9439-49bc-b8a1-49d87292625d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\glad\include\KHR">
+      <UniqueIdentifier>{c29621c2-c46f-47ac-8abd-7714e20713a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -131,9 +137,6 @@
     </ClCompile>
     <ClCompile Include="src\GLUtil\GLUtil.cpp">
       <Filter>src\GLUtil</Filter>
-    </ClCompile>
-    <ClCompile Include="glew\source\glew.c">
-      <Filter>src\glew\source</Filter>
     </ClCompile>
     <ClCompile Include="src\Cam.cpp">
       <Filter>src</Filter>
@@ -462,6 +465,9 @@
     <ClCompile Include="src\Demo\Demo.cpp">
       <Filter>src\Demo</Filter>
     </ClCompile>
+    <ClCompile Include="glad\src\glad.c">
+      <Filter>src\glad\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -475,15 +481,6 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\GLUtil.h">
       <Filter>src\GLUtil</Filter>
-    </ClInclude>
-    <ClInclude Include="glew\include\GL\glew.h">
-      <Filter>src\glew\include</Filter>
-    </ClInclude>
-    <ClInclude Include="glew\include\GL\glxew.h">
-      <Filter>src\glew\include</Filter>
-    </ClInclude>
-    <ClInclude Include="glew\include\GL\wglew.h">
-      <Filter>src\glew\include</Filter>
     </ClInclude>
     <ClInclude Include="src\Cam.h">
       <Filter>src</Filter>
@@ -781,6 +778,12 @@
     </ClInclude>
     <ClInclude Include="src\Demo\Demo.h">
       <Filter>src\Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="glad\include\glad\glad.h">
+      <Filter>src\glad\include\glad</Filter>
+    </ClInclude>
+    <ClInclude Include="glad\include\KHR\khrplatform.h">
+      <Filter>src\glad\include\KHR</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

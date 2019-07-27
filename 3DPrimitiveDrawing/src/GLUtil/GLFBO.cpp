@@ -6,7 +6,7 @@ GLFBO::GLFBO(int w, int h)
 	_w = w;
 	_h = h;
 
-	glGenFramebuffersEXT(1, &_fboID);
+	glGenFramebuffers(1, &_fboID);
 	BindFBO();
 	_texID = GLCreateTexture(w, h, 3, NULL); //Creating empty texture
 	AttachTexToFBO(_texID);
@@ -19,12 +19,12 @@ GLFBO::GLFBO(int w, int h)
 
 void GLFBO::BindFBO()
 {
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _fboID);
+	glBindFramebuffer(GL_FRAMEBUFFER, _fboID);
 }
 
 void GLFBO::UnBindFBO()
 {
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 unsigned int GLFBO::GetTextureID()
@@ -34,7 +34,7 @@ unsigned int GLFBO::GetTextureID()
 
 void GLFBO::AttachTexToFBO(unsigned int texID)
 {
-	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, texID, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texID, 0);
 }
 
 unsigned int GLFBO::CreateDepthBuffer(int w, int h)
@@ -44,13 +44,13 @@ unsigned int GLFBO::CreateDepthBuffer(int w, int h)
 
 void GLFBO::AttachDepthBufferToFBO(unsigned int depthBufferID)
 {
-	glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, depthBufferID);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBufferID);
 }
 
 bool GLFBO::isFBOCreated()
 {
 	BindFBO();
-	bool created = (glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) == GL_FRAMEBUFFER_COMPLETE_EXT);
+	bool created = (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
 	UnBindFBO();
 	return created;
 }
@@ -72,6 +72,6 @@ GLFBO::~GLFBO()
 	GLDeleteRenderBuffer(_depthBufID);
 
 	//Bind 0, which means render to back buffer, as a result, fb is unbound
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-	glDeleteFramebuffersEXT(1, &_fboID);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glDeleteFramebuffers(1, &_fboID);
 }

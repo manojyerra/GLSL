@@ -20,7 +20,7 @@ int main(void)
 	glfwWindowHint(GLFW_ALPHA_BITS, 8);
 	glfwWindowHint(GLFW_SRGB_CAPABLE, GLFW_TRUE);
 	//TODO: How to change number of samples runtime and disable/enable sampling runtime ( mainly for while drawing an object ).
-	glfwWindowHint(GLFW_SAMPLES, 8);
+	glfwWindowHint(GLFW_SAMPLES, 16);
 
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
@@ -37,9 +37,14 @@ int main(void)
 	glfwSetScrollCallback(window, scroll_callback);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-	if (glewInit() != GLEW_OK)
+	//if (glewInit() != GLEW_OK)
+	//{
+	//	throw new exception("\nError: Failed to initialize glew.\n");
+	//}
+
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		throw new exception("\nError: Failed to initialize glew.\n");
+		throw new exception("\nError: Failed to initialize OpenGL context.\n");
 	}
 
 	glfwSwapInterval(1);
