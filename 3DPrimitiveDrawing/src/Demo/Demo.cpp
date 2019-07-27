@@ -1,8 +1,8 @@
-#ifdef ENABLE_DEMO
+#include "Input.h"
+#ifdef _ENABLE_DEMO
 
 #include "Demo.h"
 #include "GLMemory.h"
-#include "SUI.h"
 #include "Cam.h"
 #include "Cam2D.h"
 
@@ -12,6 +12,8 @@ Demo::Demo(float sw, float sh)
 
 	_particleDemo = nullptr;
 	_rendererDemo = nullptr;
+
+	SUISetup(sw, sh);
 
 	_rendererDemo = new RenderDemo(sw, sh);
 	_particleDemo = new ParticlesDemo(sw, sh);
@@ -90,6 +92,9 @@ void Demo::actionPerformed(SUIActionEvent e)
 
 void Demo::Draw()
 {
+	bool consumed = SUIInput::Update((float)Input::MX, (float)Input::MY, Input::LEFT_BUTTON_DOWN, 1.0f / 30.0f);
+	Input::SetEnable(!consumed);
+
 	if (_windowFrame->GetDemoIndex() == 0)
 	{
 		if(_rendererDemo)
@@ -106,6 +111,8 @@ void Demo::Draw()
 
 void Demo::SetScreenSize(float sw, float sh)
 {
+	SUISetWindowSize(sw, sh);
+
 	if(_rendererDemo)
 		_rendererDemo->SetScreenSize(sw, sh);
 
@@ -146,6 +153,8 @@ Demo::~Demo()
 		delete _floorFrame;
 		_floorFrame = NULL;
 	}
+
+	SUIQuit();
 }
 
 #endif

@@ -1,4 +1,4 @@
-#ifdef ENABLE_SUI
+#ifdef _ENABLE_SUI
 
 #ifndef SUIKeyCombi_H
 #define SUIKeyCombi_H

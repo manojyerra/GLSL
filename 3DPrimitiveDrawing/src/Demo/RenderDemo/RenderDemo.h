@@ -1,4 +1,4 @@
-#ifdef ENABLE_DEMO
+#ifdef _ENABLE_DEMO
 
 #ifndef RenderDemo_H
 #define RenderDemo_H

@@ -1,4 +1,4 @@
-#ifdef ENABLE_SUI
+#ifdef _ENABLE_SUI
 
 #ifndef SUIManager_H
 #define SUIManager_H

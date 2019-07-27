@@ -1,4 +1,4 @@
-#ifdef ENABLE_SUI
+#ifdef _ENABLE_SUI
 
 #ifndef SUIActionEvent_H
 #define SUIActionEvent_H

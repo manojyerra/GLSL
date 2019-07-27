@@ -1,4 +1,4 @@
-#ifdef ENABLE_SUI
+#ifdef _ENABLE_SUI
 
 #ifndef SUIButton_H
 #define SUIButton_H

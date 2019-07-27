@@ -1,4 +1,4 @@
-#ifdef ENABLE_SUI
+#ifdef _ENABLE_SUI
 
 #include "SUILabel.h"
 #include "SUIIncludes.h"

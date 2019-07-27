@@ -1,4 +1,4 @@
-#ifdef ENABLE_DEMO
+#ifdef _ENABLE_DEMO
 
 #include "FloorVisibilityFrame.h"
 #include "SUI/SUIBox.h"

@@ -1,4 +1,4 @@
-#ifdef ENABLE_DEMO
+#ifdef _ENABLE_DEMO
 
 #ifndef ShaderFrame_H
 #define ShaderFrame_H

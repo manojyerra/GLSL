@@ -1,4 +1,4 @@
-#ifdef ENABLE_DEMO
+#ifdef _ENABLE_DEMO
 
 #ifndef ModelSelectionFrame_H
 #define ModelSelectionFrame_H

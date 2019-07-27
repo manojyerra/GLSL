@@ -1,4 +1,4 @@
-#ifdef ENABLE_DEMO
+#ifdef _ENABLE_DEMO
 
 #ifndef ModelVisibilityFrame_H
 #define ModelVisibilityFrame_H

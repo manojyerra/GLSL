@@ -1,4 +1,4 @@
-#ifdef ENABLE_DEMO
+#ifdef _ENABLE_DEMO
 
 #ifndef ParticlesDemo_H
 #define ParticlesDemo_H

@@ -1,4 +1,4 @@
-#ifdef ENABLE_DEMO
+#ifdef _ENABLE_DEMO
 
 #ifndef FloorVisibilityFrame_H
 #define FloorVisibilityFrame_H

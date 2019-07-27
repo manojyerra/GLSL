@@ -1,4 +1,4 @@
-#ifdef ENABLE_DEMO
+#ifdef _ENABLE_DEMO
 
 #ifndef Demo_H
 #define Demo_H
@@ -9,6 +9,7 @@
 #include "WholeWindowFrame.h"
 #include "SUIActionListener.h"
 #include "FloorVisibilityFrame.h"
+#include "SUI.h"
 
 class Demo : public SUIActionListener
 {

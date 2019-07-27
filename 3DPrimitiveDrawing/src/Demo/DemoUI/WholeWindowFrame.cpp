@@ -1,4 +1,4 @@
-#ifdef ENABLE_DEMO
+#ifdef _ENABLE_DEMO
 
 #include "WholeWindowFrame.h"
 #include "SUI/SUIBox.h"

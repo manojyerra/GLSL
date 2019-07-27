@@ -1,4 +1,4 @@
-#ifdef ENABLE_DEMO
+#ifdef _ENABLE_DEMO
 
 #ifndef WholeWindowFrame_H
 #define WholeWindowFrame_H

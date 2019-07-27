@@ -1,4 +1,4 @@
-#ifdef ENABLE_DEMO
+#ifdef _ENABLE_DEMO
 
 #include "ParticlesDemo.h"
 #include "Cam.h"

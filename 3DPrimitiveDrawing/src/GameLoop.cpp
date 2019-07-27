@@ -2,7 +2,6 @@
 #include "GLMemory.h"
 #include "ShadersManager.h"
 #include "Input.h"
-#include "SUI.h"
 #include "Cam.h"
 #include "Cam2D.h"
 
@@ -25,7 +24,6 @@ GameLoop::GameLoop(float sw, float sh)
 	_demo = nullptr;
 
 	GLSettings();
-	SUISetup(_sw, _sh);
 
 	Cam::GetInstance()->Init(_sw, _sh, _zNear, _zFar, _zNearPlaneW);
 	Cam2D::GetInstance()->Init(_sw, _sh);
@@ -47,12 +45,7 @@ void GameLoop::Update(float deltaTime)
 
 void GameLoop::Draw()
 {
-	bool consumed = SUIInput::Update((float)Input::MX, (float)Input::MY, Input::LEFT_BUTTON_DOWN, 1.0f / 30.0f);
-	Input::SetEnable(!consumed);
-
 	_demo->Draw();
-
-	SUIDraw();
 }
 
 void GameLoop::SetScreenSize(float sw, float sh)
@@ -62,8 +55,6 @@ void GameLoop::SetScreenSize(float sw, float sh)
 
 	Cam::GetInstance()->SetScreenSize(_sw, _sh);
 	Cam2D::GetInstance()->SetScreenSize(_sw, _sh);
-
-	SUISetWindowSize(_sw, _sh);
 
 	if(_demo)
 		_demo->SetScreenSize(_sw, _sh);
@@ -117,8 +108,6 @@ GameLoop::~GameLoop()
 	Cam2D::GetInstance()->DeleteInstance();
 	ShadersManager::GetInstance()->DeleteInstance();
 	GLMemory::printMemoryLeaks();
-
-	SUIQuit();
 }
 
 
