@@ -121,6 +121,9 @@
     <Filter Include="src\glad\include\KHR">
       <UniqueIdentifier>{c29621c2-c46f-47ac-8abd-7714e20713a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\learnopengl">
+      <UniqueIdentifier>{d74d8e81-6fd8-466c-b5c9-59523f6dd588}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -444,9 +447,6 @@
     <ClCompile Include="src\GLUtil\SSAO\GLSSAOBufferBuilder.cpp">
       <Filter>src\GLUtil\SSAO</Filter>
     </ClCompile>
-    <ClCompile Include="src\GLUtil\SSAO\GLSSAOTexture.cpp">
-      <Filter>src\GLUtil\SSAO</Filter>
-    </ClCompile>
     <ClCompile Include="src\Demo\DemoUI\FloorVisibilityFrame.cpp">
       <Filter>src\Demo\DemoUI</Filter>
     </ClCompile>
@@ -467,6 +467,9 @@
     </ClCompile>
     <ClCompile Include="glad\src\glad.c">
       <Filter>src\glad\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLUtil\SSAO\GLSSAO.cpp">
+      <Filter>src\GLUtil\SSAO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -758,9 +761,6 @@
     <ClInclude Include="src\GLUtil\SSAO\GLSSAOBufferBuilder.h">
       <Filter>src\GLUtil\SSAO</Filter>
     </ClInclude>
-    <ClInclude Include="src\GLUtil\SSAO\GLSSAOTexture.h">
-      <Filter>src\GLUtil\SSAO</Filter>
-    </ClInclude>
     <ClInclude Include="src\Demo\DemoUI\FloorVisibilityFrame.h">
       <Filter>src\Demo\DemoUI</Filter>
     </ClInclude>
@@ -784,6 +784,12 @@
     </ClInclude>
     <ClInclude Include="glad\include\KHR\khrplatform.h">
       <Filter>src\glad\include\KHR</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\SSAO\GLSSAO.h">
+      <Filter>src\GLUtil\SSAO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\learnopengl\Camera.h">
+      <Filter>src\learnopengl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

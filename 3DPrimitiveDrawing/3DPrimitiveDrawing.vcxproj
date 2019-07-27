@@ -103,8 +103,8 @@
     <ClCompile Include="src\GLUtil\Shaders\SSAOGeometryPassShader\SSAOGeometryPassShader.cpp" />
     <ClCompile Include="src\GLUtil\Shaders\SSAOShader\SSAOShader.cpp" />
     <ClCompile Include="src\GLUtil\Shaders\UVShader\UVShader.cpp" />
+    <ClCompile Include="src\GLUtil\SSAO\GLSSAO.cpp" />
     <ClCompile Include="src\GLUtil\SSAO\GLSSAOBufferBuilder.cpp" />
-    <ClCompile Include="src\GLUtil\SSAO\GLSSAOTexture.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ParticleRenderer\ParticleRenderer.cpp" />
@@ -205,9 +205,10 @@
     <ClInclude Include="src\GLUtil\Shaders\SSAOGeometryPassShader\SSAOGeometryPassShader.h" />
     <ClInclude Include="src\GLUtil\Shaders\SSAOShader\SSAOShader.h" />
     <ClInclude Include="src\GLUtil\Shaders\UVShader\UVShader.h" />
+    <ClInclude Include="src\GLUtil\SSAO\GLSSAO.h" />
     <ClInclude Include="src\GLUtil\SSAO\GLSSAOBufferBuilder.h" />
-    <ClInclude Include="src\GLUtil\SSAO\GLSSAOTexture.h" />
     <ClInclude Include="src\Input.h" />
+    <ClInclude Include="src\learnopengl\Camera.h" />
     <ClInclude Include="src\ParticleRenderer\ParticleRenderer.h" />
     <ClInclude Include="src\Platform\Platform.h" />
     <ClInclude Include="src\Shapes2D\Triangle.h" />
