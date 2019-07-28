@@ -1,11 +1,11 @@
-#version 450
+#version 330 core
 
 out vec4 FragColor;
 
+in vec2 TexCoords;
+
 uniform sampler2D gPosition;
 uniform sampler2D gNormal;
-
-in vec2 TexCoords;
 
 float rand(vec2 co)
 {
@@ -25,7 +25,7 @@ float doAmbientOcclusion(vec2 tcoord, vec2 uv, vec3 p, vec3 cnorm)
     return max(0.0,dot(cnorm,v)-bias)*(1.0/(1.0+d))* intensity;
 }
 
-float ambientOcclusion()
+void main()
 {
     vec2 texCoord = TexCoords; 
     vec3 p = texture(gPosition, texCoord.xy).xyz;	//vec3(10,10,-50); //
@@ -58,19 +58,8 @@ float ambientOcclusion()
     ao/= float(iterations)*4.0;
 	float finalAO = 1.0 - ao;
 	
-    return finalAO; 
-	
-	//return 0.5;
+    FragColor = vec4(finalAO, finalAO, finalAO, 1.0);
 }
-
-void main()
-{
-    //FragColor = vec4(0, 0, 0, 1);
-    //FragColor *= vec4(ambientOcclusion());
-	//FragColor = vec4(FragColor.xyz, 1.0);
-	
-	FragColor = vec4(texture(gPosition, TexCoords.xy).xyz, 1.0);
-}          
 
 
 
