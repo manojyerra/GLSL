@@ -134,6 +134,12 @@ glm::mat4 Cam::GetProjMat()
 	return glm::mat4(projMatrix);
 }
 
+glm::mat4 Cam::GetViewMat()
+{
+	glm::mat4 viewMatrix = glm::make_mat4(viewMat.m);
+	return glm::mat4(viewMatrix);
+}
+
 bool Cam::UpdateCamera()
 {
 	_camUpdated = false;

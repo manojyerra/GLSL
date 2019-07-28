@@ -53,7 +53,8 @@ public:
 	glm::mat4 GetModelViewMat(float* modelMat);
 	glm::mat3 GetNormalMat(float* modelMat);
 	glm::mat4 GetProjMat();
-	
+	glm::mat4 GetViewMat();
+
 	bool UpdateCamera();
 	bool IsCameraUpdated();
 
