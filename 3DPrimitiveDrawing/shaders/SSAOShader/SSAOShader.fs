@@ -1,5 +1,4 @@
-#version 330 core
-
+#version 450
 out vec4 FragColor;
 
 in vec2 TexCoords;
@@ -60,7 +59,6 @@ void main()
 	
     FragColor = vec4(finalAO, finalAO, finalAO, 1.0);
 }
-
 
 
 /*
