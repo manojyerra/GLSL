@@ -1,0 +1,92 @@
+#include "SSAOBlurShader.h"
+#include "ShadersManager.h"
+#include "Cam.h"
+#include "Cam2D.h"
+
+SSAOBlurShader::SSAOBlurShader()
+{
+	_vertexBufferID = 0;
+	_uvBufferID = 0;
+	_alpha = 1.0f;
+	_ssaoInputTexID = 0;
+
+	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram(
+		"shaders/SSAO/SSAOBlurShader/SSAOBlurShader.vs",
+		"shaders/SSAO/SSAOBlurShader/SSAOBlurShader.fs");
+}
+
+void SSAOBlurShader::SetVertexBufferID(unsigned int bufferID)
+{
+	_vertexBufferID = bufferID;
+}
+
+void SSAOBlurShader::SetUVBufferID(unsigned int bufferID)
+{
+	_uvBufferID = bufferID;
+}
+
+void SSAOBlurShader::SetSSAOInputTexID(unsigned int texID)
+{
+	_ssaoInputTexID = texID;
+}
+
+void SSAOBlurShader::SetModelMatrix(float* mat)
+{
+	_modelMat.Copy(mat);
+}
+
+void SSAOBlurShader::SetAlpha(float alpha)
+{
+	_alpha = alpha;
+}
+
+void SSAOBlurShader::Begin()
+{
+	_shaderProgram->Begin();
+}
+
+void SSAOBlurShader::SetUniformsAndAttributes()
+{
+	GLuint programID = _shaderProgram->ProgramID();
+
+	glBindTexture(GL_TEXTURE_2D, _ssaoInputTexID);
+
+	if (_uvBufferID)
+	{
+		GLuint uvLoc = glGetAttribLocation(programID, "uv");
+		glEnableVertexAttribArray(uvLoc);
+		glBindBuffer(GL_ARRAY_BUFFER, _uvBufferID);
+		glVertexAttribPointer(uvLoc, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	}
+
+	GLuint vertexLoc = glGetAttribLocation(programID, "vertex");
+	glEnableVertexAttribArray(vertexLoc);
+	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
+	glVertexAttribPointer(vertexLoc, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+}
+
+void SSAOBlurShader::End()
+{
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	if (_uvBufferID)
+	{
+		GLuint uvLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "uv");
+		glDisableVertexAttribArray(uvLoc);
+	}
+
+	GLuint vertexLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
+	glDisableVertexAttribArray(vertexLoc);
+
+	_shaderProgram->End();
+}
+
+SSAOBlurShader::~SSAOBlurShader()
+{
+	if (_shaderProgram)
+	{
+		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
+		_shaderProgram = NULL;
+	}
+}

@@ -22,6 +22,7 @@ GLSSAO::GLSSAO(float w, float h) : GLSSAOBufferBuilder(w, h)
 	ssaoShader->SetGNormalTexID(GetGNormalTexID());
 	ssaoShader->SetNoiseTexID(_noiseTexID);
 	ssaoShader->SetSamples(_ssaoSamples);
+	ssaoShader->SetScreenSize(w, h);
 }
 
 void GLSSAO::GenerateSampleKernelAndNoiseTexture()

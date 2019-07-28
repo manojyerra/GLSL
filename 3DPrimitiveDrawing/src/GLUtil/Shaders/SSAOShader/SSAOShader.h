@@ -19,6 +19,9 @@ private:
 
 	ShaderProgram* _shaderProgram;
 
+	float _sw;
+	float _sh;
+
 	float _alpha;
 	GLMat _modelMat;
 
@@ -33,6 +36,8 @@ public:
 	void SetGPositionTexID(unsigned int texID);
 	void SetGNormalTexID(unsigned int texID);
 	void SetNoiseTexID(unsigned int texID);
+
+	void SetScreenSize(float sw, float sh);
 
 	void SetSamples(std::vector<glm::vec3> samples);
 

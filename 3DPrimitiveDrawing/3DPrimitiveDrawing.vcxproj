@@ -100,6 +100,7 @@
     <ClCompile Include="src\GLUtil\Shaders\PBRWithTextureShader\PBRWithTextureShader.cpp" />
     <ClCompile Include="src\GLUtil\Shaders\PhongShader\PhongShader.cpp" />
     <ClCompile Include="src\GLUtil\Shaders\PhongWithTextureShader\PhongWithTextureShader.cpp" />
+    <ClCompile Include="src\GLUtil\Shaders\SSAOBlurShader\SSAOBlurShader.cpp" />
     <ClCompile Include="src\GLUtil\Shaders\SSAOGeometryPassShader\SSAOGeometryPassShader.cpp" />
     <ClCompile Include="src\GLUtil\Shaders\SSAOShader\SSAOShader.cpp" />
     <ClCompile Include="src\GLUtil\Shaders\UVShader\UVShader.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="src\GLUtil\Shaders\PhongShader\PhongShader.h" />
     <ClInclude Include="src\GLUtil\Shaders\PhongWithTextureShader\PhongWithTextureShader.h" />
     <ClInclude Include="src\GLUtil\Shaders\Shader.h" />
+    <ClInclude Include="src\GLUtil\Shaders\SSAOBlurShader\SSAOBlurShader.h" />
     <ClInclude Include="src\GLUtil\Shaders\SSAOGeometryPassShader\SSAOGeometryPassShader.h" />
     <ClInclude Include="src\GLUtil\Shaders\SSAOShader\SSAOShader.h" />
     <ClInclude Include="src\GLUtil\Shaders\UVShader\UVShader.h" />

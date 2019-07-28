@@ -12,8 +12,8 @@ SSAOGeometryPassShader::SSAOGeometryPassShader()
 	_alpha = 1.0f;
 
 	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram(
-		"shaders/SSAOGeometryPassShader/SSAOGeometryPassShader.vs",
-		"shaders/SSAOGeometryPassShader/SSAOGeometryPassShader.fs");
+		"shaders/SSAO/GeometryPassShader/GeometryPassShader.vs",
+		"shaders/SSAO/GeometryPassShader/GeometryPassShader.fs");
 }
 
 void SSAOGeometryPassShader::SetVertexBufferID(unsigned int bufferID)

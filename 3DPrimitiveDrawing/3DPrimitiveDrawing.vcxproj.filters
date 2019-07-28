@@ -124,6 +124,9 @@
     <Filter Include="src\learnopengl">
       <UniqueIdentifier>{d74d8e81-6fd8-466c-b5c9-59523f6dd588}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GLUtil\Shaders\SSAOBlurShader">
+      <UniqueIdentifier>{08162043-8b3d-4f8e-928b-824909766721}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -471,6 +474,9 @@
     <ClCompile Include="src\GLUtil\SSAO\GLSSAO.cpp">
       <Filter>src\GLUtil\SSAO</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\Shaders\SSAOBlurShader\SSAOBlurShader.cpp">
+      <Filter>src\GLUtil\Shaders\SSAOBlurShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -790,6 +796,9 @@
     </ClInclude>
     <ClInclude Include="src\learnopengl\Camera.h">
       <Filter>src\learnopengl</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\Shaders\SSAOBlurShader\SSAOBlurShader.h">
+      <Filter>src\GLUtil\Shaders\SSAOBlurShader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

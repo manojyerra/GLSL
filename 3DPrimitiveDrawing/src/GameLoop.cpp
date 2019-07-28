@@ -32,23 +32,25 @@ void GameLoop::Draw()
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	// 1. geometry pass: render scene's geometry/color data into gbuffer
-	// -----------------------------------------------------------------
-	glBindFramebuffer(GL_FRAMEBUFFER, ssao->GetGBufferFBO());
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	Cam* cam = Cam::GetInstance();
-	GLMat modelMat;
-
 	cam->SetPerspectiveProjection();
 	cam->SetViewMatrix();
 	cam->UpdateCamera();
 
+	//Geometry pass
+	glBindFramebuffer(GL_FRAMEBUFFER, ssao->GetGBufferFBO());
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	nanosuit->Draw();
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
+	//Calculating SSAO
+	//glBindFramebuffer(GL_FRAMEBUFFER, ssao->GetSSAOBlurFBO());
 	glClear(GL_COLOR_BUFFER_BIT);
 	ssao->DrawQuad();
+	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+
+
 }
 
 void GameLoop::SetScreenSize(float sw, float sh)

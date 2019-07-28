@@ -15,9 +15,12 @@ SSAOShader::SSAOShader()
 	_shaderProgram = nullptr;
 	_alpha = 1.0f;
 
+	_sw = 1280.0f;
+	_sh = 720.0f;
+
 	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram(
-		"shaders/SSAOShader/SSAOShader.vs",
-		"shaders/SSAOShader/SSAOShader.fs");
+		"shaders/SSAO/SSAOCalcShader/SSAOCalcShader.vs",
+		"shaders/SSAO/SSAOCalcShader/SSAOCalcShader.fs");
 }
 
 void SSAOShader::SetVertexBufferID(unsigned int bufferID)
@@ -55,6 +58,12 @@ void SSAOShader::SetNoiseTexID(unsigned int texID)
 	_noiseTexID = texID;
 }
 
+void SSAOShader::SetScreenSize(float sw, float sh)
+{
+	_sw = sw;
+	_sh = sh;
+}
+
 void SSAOShader::SetSamples(std::vector<glm::vec3> samples)
 {
 	_samples = samples;
@@ -80,6 +89,9 @@ void SSAOShader::SetUniformsAndAttributes()
 	_shaderProgram->SetUniform1i("gPosition", 0);
 	_shaderProgram->SetUniform1i("gNormal", 1);
 	_shaderProgram->SetUniform1i("texNoise", 2);
+
+	_shaderProgram->SetUniform1f("screenW", _sw);
+	_shaderProgram->SetUniform1f("screenH", _sh);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, _gPositionTexID);
