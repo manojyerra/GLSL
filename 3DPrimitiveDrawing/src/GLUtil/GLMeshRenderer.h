@@ -14,6 +14,7 @@
 #include "CubeGeometryShader.h"
 #include "SSAOGeometryPassShader.h"
 #include "SSAOShader.h"
+#include "SSAOBlurShader.h"
 
 class GLMeshRenderer
 {
@@ -32,6 +33,7 @@ private:
 	CubeGeometryShader* _cubeGeometryShader;
 	SSAOGeometryPassShader* _ssaoGeometryPassShader;
 	SSAOShader* _ssaoShader;
+	SSAOBlurShader* _ssaoBlurShader;
 
 	Shader* _shader;
 
@@ -65,7 +67,8 @@ public:
 		PBR_WITH_TEXTURE_SHADER,
 		CUBE_GEOMETRY_SHADER,
 		SSAO_GEOMETRY_PASS_SHADER,
-		SSAO_SHADER
+		SSAO_SHADER,
+		SSAO_BLUR_SHADER
 	};
 
 	GLMeshRenderer(ModelInfo* meshCreateInfo, int shaderType);

@@ -49,6 +49,8 @@ void SSAOBlurShader::SetUniformsAndAttributes()
 {
 	GLuint programID = _shaderProgram->ProgramID();
 
+	_shaderProgram->SetUniform1i("ssaoInput", 0);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, _ssaoInputTexID);
 
 	if (_uvBufferID)

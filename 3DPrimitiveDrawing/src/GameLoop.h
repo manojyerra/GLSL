@@ -22,6 +22,7 @@ private:
 
 	GLSSAO* ssao;
 	GLMeshRenderer* nanosuit;
+	GLTexture* _texture;
 
 public:
 	GameLoop(float sw, float sh);

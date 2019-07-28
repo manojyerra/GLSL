@@ -4,17 +4,23 @@
 #include "GLSSAOBufferBuilder.h"
 #include "GLMeshRenderer.h"
 #include "ModelInfo.h"
+#include "GLTexture.h"
+#include "GLFBO.h"
 
 class GLSSAO : public GLSSAOBufferBuilder
 {
 private:
+	static const int NUM_SAMPLES = 128;
+
 	unsigned int _noiseTexID;
 	std::vector<glm::vec3> _ssaoSamples;
 
 	GLMeshRenderer* _quadRenderer;
+	GLMeshRenderer* _blurQuadRenderer;
+
 	GLMat _modelMat;
 
-	GLMeshRenderer* CreateQuadRenderer();
+	GLMeshRenderer* CreateQuadRenderer(unsigned int shaderType);
 	void GenerateSampleKernelAndNoiseTexture();
 	float lerp(float a, float b, float f);
 
@@ -23,6 +29,7 @@ public:
 	~GLSSAO();
 
 	void DrawQuad();
+	void DrawBlurQuad();
 };
 
 #endif

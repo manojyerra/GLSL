@@ -16,11 +16,13 @@ GameLoop::GameLoop(float sw, float sh)
 	_zNearPlaneW = 0.2f;
 
 	Cam::GetInstance()->Init(sw, sh, _zNear, _zFar, _zNearPlaneW);
-
-	glEnable(GL_DEPTH_TEST);
+	Cam2D::GetInstance()->Init(sw, sh);
 
 	nanosuit = new GLMeshRenderer(&ObjReader("data/demo/Trike"), GLMeshRenderer::SSAO_GEOMETRY_PASS_SHADER);
 	ssao = new GLSSAO(sw, sh);
+
+	_texture = new GLTexture("data/demo/Sample.png", 0, 0, sw, sh);
+	_texture->GetShader()->Set2DCamera(true);
 }
 
 void GameLoop::Update(float deltaTime)
@@ -29,6 +31,12 @@ void GameLoop::Update(float deltaTime)
 
 void GameLoop::Draw()
 {
+	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glViewport(0, 0, _sw, _sh);
+
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -40,17 +48,46 @@ void GameLoop::Draw()
 	//Geometry pass
 	glBindFramebuffer(GL_FRAMEBUFFER, ssao->GetGBufferFBO());
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	nanosuit->SetShader(GLMeshRenderer::SSAO_GEOMETRY_PASS_SHADER);
 	nanosuit->Draw();
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	//Calculating SSAO
-	//glBindFramebuffer(GL_FRAMEBUFFER, ssao->GetSSAOBlurFBO());
+	glBindFramebuffer(GL_FRAMEBUFFER, ssao->GetSSAOFBO());
 	glClear(GL_COLOR_BUFFER_BIT);
 	ssao->DrawQuad();
-	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
+	//Blur SSAO
+	glBindFramebuffer(GL_FRAMEBUFFER, ssao->GetSSAOBlurFBO());
+	glClear(GL_COLOR_BUFFER_BIT);
+	ssao->DrawBlurQuad();
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
+	nanosuit->SetShader(GLMeshRenderer::PBR_SHADER);
+	nanosuit->Draw();
 
+	glEnable(GL_BLEND);
+
+	static bool on = false;
+	
+	if (on)
+	{
+		glDisable(GL_DEPTH_TEST);
+		Cam2D::GetInstance()->SetProjection();
+		_texture->GetShader()->SetTextureID(ssao->GetSSAOBlurColorAttachmentID());
+		_texture->Draw();
+	}
+
+	if (Input::IsMouseClicked())
+	{
+		on = !on;
+
+		if(on)
+			printf("\nocclustion is on");
+		else
+			printf("\nocclustion is off");
+	}
 }
 
 void GameLoop::SetScreenSize(float sw, float sh)

@@ -51,6 +51,9 @@ void UVShader::Set2DCamera(bool enable)
 void UVShader::Begin()
 {
 	_shaderProgram->Begin();
+
+	_shaderProgram->SetUniform1i("textureID", 0);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, _textureID);
 }
 

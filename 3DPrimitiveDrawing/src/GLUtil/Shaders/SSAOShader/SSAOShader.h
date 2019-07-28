@@ -19,13 +19,13 @@ private:
 
 	ShaderProgram* _shaderProgram;
 
-	float _sw;
-	float _sh;
+	glm::vec2 _screenSize;
 
 	float _alpha;
 	GLMat _modelMat;
 
 public:
+	static const int NUM_SAMPLES = 128;
 
 	SSAOShader();
 	~SSAOShader();

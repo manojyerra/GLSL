@@ -15,8 +15,7 @@ SSAOShader::SSAOShader()
 	_shaderProgram = nullptr;
 	_alpha = 1.0f;
 
-	_sw = 1280.0f;
-	_sh = 720.0f;
+	_screenSize = glm::vec2(1280.0f, 720.0f);
 
 	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram(
 		"shaders/SSAO/SSAOCalcShader/SSAOCalcShader.vs",
@@ -60,8 +59,7 @@ void SSAOShader::SetNoiseTexID(unsigned int texID)
 
 void SSAOShader::SetScreenSize(float sw, float sh)
 {
-	_sw = sw;
-	_sh = sh;
+	_screenSize = glm::vec2(sw, sh);
 }
 
 void SSAOShader::SetSamples(std::vector<glm::vec3> samples)
@@ -78,7 +76,7 @@ void SSAOShader::SetUniformsAndAttributes()
 {
 	GLuint programID = _shaderProgram->ProgramID();
 
-	for (unsigned int i = 0; i < 64; ++i)
+	for (unsigned int i = 0; i < _samples.size(); ++i)
 	{
 		string uniName = "samples[" + std::to_string(i) + "]";
 		glm::vec3 sample = _samples[i];
@@ -89,9 +87,7 @@ void SSAOShader::SetUniformsAndAttributes()
 	_shaderProgram->SetUniform1i("gPosition", 0);
 	_shaderProgram->SetUniform1i("gNormal", 1);
 	_shaderProgram->SetUniform1i("texNoise", 2);
-
-	_shaderProgram->SetUniform1f("screenW", _sw);
-	_shaderProgram->SetUniform1f("screenH", _sh);
+	_shaderProgram->SetUniform2f("screenSize", _screenSize);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, _gPositionTexID);

@@ -1,6 +1,7 @@
 #include "GLSSAO.h"
 #include "GLBatch.h"
 #include <random>
+#include "Cam2D.h"
 
 GLSSAO::GLSSAO(float w, float h) : GLSSAOBufferBuilder(w, h)
 {
@@ -15,7 +16,7 @@ GLSSAO::GLSSAO(float w, float h) : GLSSAOBufferBuilder(w, h)
 	_ssaoSamples.clear();
 	GenerateSampleKernelAndNoiseTexture();
 
-	_quadRenderer = CreateQuadRenderer();
+	_quadRenderer = CreateQuadRenderer(GLMeshRenderer::SSAO_SHADER);
 
 	SSAOShader* ssaoShader = (SSAOShader*)_quadRenderer->GetCurrentShader();
 	ssaoShader->SetGPositionTexID(GetGPositionTexID());
@@ -23,6 +24,10 @@ GLSSAO::GLSSAO(float w, float h) : GLSSAOBufferBuilder(w, h)
 	ssaoShader->SetNoiseTexID(_noiseTexID);
 	ssaoShader->SetSamples(_ssaoSamples);
 	ssaoShader->SetScreenSize(w, h);
+
+	_blurQuadRenderer = CreateQuadRenderer(GLMeshRenderer::SSAO_BLUR_SHADER);
+	SSAOBlurShader* ssaoBlurShader = (SSAOBlurShader*)_blurQuadRenderer->GetCurrentShader();
+	ssaoBlurShader->SetSSAOInputTexID(GetSSAOColorAttachmentID());
 }
 
 void GLSSAO::GenerateSampleKernelAndNoiseTexture()
@@ -30,12 +35,12 @@ void GLSSAO::GenerateSampleKernelAndNoiseTexture()
 	std::uniform_real_distribution<GLfloat> randomFloats(0.0, 1.0); // generates random floats between 0.0 and 1.0
 	std::default_random_engine generator;
 
-	for (unsigned int i = 0; i < 64; ++i)
+	for (unsigned int i = 0; i < NUM_SAMPLES; ++i)
 	{
 		glm::vec3 sample(randomFloats(generator) * 2.0 - 1.0, randomFloats(generator) * 2.0 - 1.0, randomFloats(generator));
 		sample = glm::normalize(sample);
 		sample *= randomFloats(generator);
-		float scale = float(i) / 64.0f;
+		float scale = float(i) / (NUM_SAMPLES*1.0f);
 
 		// scale samples s.t. they're more aligned to center of kernel
 		scale = lerp(0.1f, 1.0f, scale * scale);
@@ -64,7 +69,7 @@ float GLSSAO::lerp(float a, float b, float f)
 	return a + f * (b - a);
 }
 
-GLMeshRenderer* GLSSAO::CreateQuadRenderer()
+GLMeshRenderer* GLSSAO::CreateQuadRenderer(unsigned int shaderType)
 {
 	GLBatch buffer(100, false, true, false);
 
@@ -86,7 +91,7 @@ GLMeshRenderer* GLSSAO::CreateQuadRenderer()
 	modelInfo.SetVertexBuffer(buffer.GetVertexBuffer(), buffer.GetVertexBufferSize());
 	modelInfo.SetUVBuffer(buffer.GetUVBuffer(), buffer.GetUVBufferSize());
 
-	GLMeshRenderer* renderer = new GLMeshRenderer(&modelInfo, GLMeshRenderer::SSAO_SHADER);
+	GLMeshRenderer* renderer = new GLMeshRenderer(&modelInfo, shaderType);
 	renderer->SetPrimitiveType(GLMeshRenderer::triangleStrip);
 
 	return renderer;
@@ -96,6 +101,12 @@ void GLSSAO::DrawQuad()
 {
 	_quadRenderer->SetModelMatrix(_modelMat.m);
 	_quadRenderer->Draw();
+}
+
+void GLSSAO::DrawBlurQuad()
+{
+	_blurQuadRenderer->SetModelMatrix(_modelMat.m);
+	_blurQuadRenderer->Draw();
 }
 
 GLSSAO::~GLSSAO()
