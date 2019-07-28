@@ -1,5 +1,6 @@
 #include "GLSSAO.h"
 #include "GLBatch.h"
+#include <random>
 
 GLSSAO::GLSSAO(float w, float h) : GLSSAOBufferBuilder(w, h)
 {
@@ -10,6 +11,10 @@ GLSSAO::GLSSAO(float w, float h) : GLSSAOBufferBuilder(w, h)
 	_modelMat.m[12] = 0;
 	_modelMat.m[13] = 0;
 
+	_noiseTexID = 0;
+	_ssaoSamples.clear();
+	GenerateSampleKernelAndNoiseTexture();
+
 	ModelInfo modelInfo = CreateModeInfo();
 
 	_quadRenderer = new GLMeshRenderer(&modelInfo, GLMeshRenderer::SSAO_SHADER);
@@ -18,8 +23,47 @@ GLSSAO::GLSSAO(float w, float h) : GLSSAOBufferBuilder(w, h)
 	SSAOShader* ssaoShader = (SSAOShader*)_quadRenderer->GetCurrentShader();
 	ssaoShader->SetGPositionTexID(GetGPositionTexID());
 	ssaoShader->SetGNormalTexID(GetGNormalTexID());
-	ssaoShader->SetNoiseTexID(GetNoiseTexID());
-	ssaoShader->SetSamples(GetSamples());
+	ssaoShader->SetNoiseTexID(_noiseTexID);
+	ssaoShader->SetSamples(_ssaoSamples);
+}
+
+void GLSSAO::GenerateSampleKernelAndNoiseTexture()
+{
+	std::uniform_real_distribution<GLfloat> randomFloats(0.0, 1.0); // generates random floats between 0.0 and 1.0
+	std::default_random_engine generator;
+
+	for (unsigned int i = 0; i < 64; ++i)
+	{
+		glm::vec3 sample(randomFloats(generator) * 2.0 - 1.0, randomFloats(generator) * 2.0 - 1.0, randomFloats(generator));
+		sample = glm::normalize(sample);
+		sample *= randomFloats(generator);
+		float scale = float(i) / 64.0f;
+
+		// scale samples s.t. they're more aligned to center of kernel
+		scale = lerp(0.1f, 1.0f, scale * scale);
+		sample *= scale;
+		_ssaoSamples.push_back(sample);
+	}
+
+	std::vector<glm::vec3> ssaoNoise;
+	for (unsigned int i = 0; i < 16; i++)
+	{
+		glm::vec3 noise(randomFloats(generator) * 2.0 - 1.0, randomFloats(generator) * 2.0 - 1.0, 0.0f); // rotate around z-axis (in tangent space)
+		ssaoNoise.push_back(noise);
+	}
+
+	glGenTextures(1, &_noiseTexID);
+	glBindTexture(GL_TEXTURE_2D, _noiseTexID);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, 4, 4, 0, GL_RGB, GL_FLOAT, &ssaoNoise[0]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+}
+
+float GLSSAO::lerp(float a, float b, float f)
+{
+	return a + f * (b - a);
 }
 
 ModelInfo GLSSAO::CreateModeInfo()
@@ -28,17 +72,17 @@ ModelInfo GLSSAO::CreateModeInfo()
 
 	buffer.glBegin();
 
-	buffer.glTexCoord2f(0, 1);
-	buffer.glVertex3f(0, 0, 0);
+	buffer.glTexCoord2f(0.0f, 1.0f);
+	buffer.glVertex3f(-1.0f, 1.0f, 0.0f);
 
-	buffer.glTexCoord2f(1, 1);
-	buffer.glVertex3f(1, 0, 0);
+	buffer.glTexCoord2f(0.0f, 0.0f);
+	buffer.glVertex3f(-1.0f, -1.0f, 0.0f);
 
-	buffer.glTexCoord2f(0, 0);
-	buffer.glVertex3f(0, 1, 0);
+	buffer.glTexCoord2f(1.0f, 1.0f);
+	buffer.glVertex3f(1.0f, 1.0f, 0.0f);
 
-	buffer.glTexCoord2f(1, 0);
-	buffer.glVertex3f(1, 1, 0);
+	buffer.glTexCoord2f(1.0f, 0.0f);
+	buffer.glVertex3f(1.0f, -1.0f, 0.0f);
 
 	ModelInfo modelInfo;
 	modelInfo.SetVertexBuffer(buffer.GetVertexBuffer(), buffer.GetVertexBufferSize());

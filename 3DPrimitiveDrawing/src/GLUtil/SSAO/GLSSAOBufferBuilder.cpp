@@ -1,7 +1,6 @@
 #include "GLSSAOBufferBuilder.h"
 #include "GLInclude.h"
 #include <glm/glm.hpp>
-#include <random>
 
 GLSSAOBufferBuilder::GLSSAOBufferBuilder(int w, int h)
 {
@@ -13,7 +12,6 @@ GLSSAOBufferBuilder::GLSSAOBufferBuilder(int w, int h)
 	_gPosition = 0;
 	_gNormal = 0;
 	_gAlbedo = 0;
-	_noiseTexID = 0;
 
 	_ssaoFBO = 0;
 	_ssaoColorAttachmentID = 0;
@@ -24,7 +22,6 @@ GLSSAOBufferBuilder::GLSSAOBufferBuilder(int w, int h)
 	CreateGBufferFBO(_w, _h);
 	CreateSSAOFBO(_w, _h);
 	CreateSSAOBlurFBO(_w, _h);
-	GenerateSampleKernelAndNoiseTexture();
 }
 
 void GLSSAOBufferBuilder::CreateGBufferFBO(unsigned int w, unsigned int h)
@@ -131,46 +128,6 @@ void GLSSAOBufferBuilder::CreateSSAOBlurFBO(unsigned int w, unsigned int h)
 	_ssaoBlurColorAttachmentID = ssaoColorBufferBlur;
 }
 
-void GLSSAOBufferBuilder::GenerateSampleKernelAndNoiseTexture()
-{
-	std::uniform_real_distribution<GLfloat> randomFloats(0.0, 1.0); // generates random floats between 0.0 and 1.0
-	std::default_random_engine generator;
-
-	for (unsigned int i = 0; i < 64; ++i)
-	{
-		glm::vec3 sample(randomFloats(generator) * 2.0 - 1.0, randomFloats(generator) * 2.0 - 1.0, randomFloats(generator));
-		sample = glm::normalize(sample);
-		sample *= randomFloats(generator);
-		float scale = float(i) / 64.0f;
-
-		// scale samples s.t. they're more aligned to center of kernel
-		scale = lerp(0.1f, 1.0f, scale * scale);
-		sample *= scale;
-		_ssaoSamples.push_back(sample);
-	}
-
-	std::vector<glm::vec3> ssaoNoise;
-	for (unsigned int i = 0; i < 16; i++)
-	{
-		glm::vec3 noise(randomFloats(generator) * 2.0 - 1.0, randomFloats(generator) * 2.0 - 1.0, 0.0f); // rotate around z-axis (in tangent space)
-		ssaoNoise.push_back(noise);
-	}
-
-	glGenTextures(1, &_noiseTexID);
-	glBindTexture(GL_TEXTURE_2D, _noiseTexID);
-	//TODO : replaced GL_RGB32F with GL_RGB32F_ARB. Confirm that it is correct replacement.
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, 4, 4, 0, GL_RGB, GL_FLOAT, &ssaoNoise[0]);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-}
-
-float GLSSAOBufferBuilder::lerp(float a, float b, float f)
-{
-	return a + f * (b - a);
-}
-
 unsigned int GLSSAOBufferBuilder::GetGBufferFBO()
 {
 	return _gBufferFBO;
@@ -209,16 +166,6 @@ unsigned int GLSSAOBufferBuilder::GetGNormalTexID()
 unsigned int GLSSAOBufferBuilder::GetGAlbedoTexID()
 {
 	return _gAlbedo;
-}
-
-unsigned int GLSSAOBufferBuilder::GetNoiseTexID()
-{
-	return _noiseTexID;
-}
-
-std::vector<glm::vec3> GLSSAOBufferBuilder::GetSamples()
-{
-	return _ssaoSamples;
 }
 
 unsigned int GLSSAOBufferBuilder::GetW()

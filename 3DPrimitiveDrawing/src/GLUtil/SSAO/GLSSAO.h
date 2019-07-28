@@ -8,10 +8,15 @@
 class GLSSAO : public GLSSAOBufferBuilder
 {
 private:
+	unsigned int _noiseTexID;
+	std::vector<glm::vec3> _ssaoSamples;
+
 	GLMeshRenderer* _quadRenderer;
 	GLMat _modelMat;
 
 	ModelInfo CreateModeInfo();
+	void GenerateSampleKernelAndNoiseTexture();
+	float lerp(float a, float b, float f);
 
 public:
 	GLSSAO(float w, float h);
