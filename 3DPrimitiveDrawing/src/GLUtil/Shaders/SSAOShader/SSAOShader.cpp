@@ -69,24 +69,24 @@ void SSAOShader::SetUniformsAndAttributes()
 {
 	GLuint programID = _shaderProgram->ProgramID();
 
-	//for (unsigned int i = 0; i < 64; ++i)
-	//{
-	//	string uniName = "samples[" + std::to_string(i) + "]";
-	//	glm::vec3 sample = _samples[i];
-	//	_shaderProgram->SetUniform3f(uniName.c_str(), sample.x, sample.y, sample.z);
-	//}
-	//_shaderProgram->SetUniformMatrix4fv("projection", glm::value_ptr(Cam::GetInstance()->GetProjMat()));
+	for (unsigned int i = 0; i < 64; ++i)
+	{
+		string uniName = "samples[" + std::to_string(i) + "]";
+		glm::vec3 sample = _samples[i];
+		_shaderProgram->SetUniform3f(uniName.c_str(), sample.x, sample.y, sample.z);
+	}
+	_shaderProgram->SetUniformMatrix4fv("projection", glm::value_ptr(Cam::GetInstance()->GetProjMat()));
 
 	_shaderProgram->SetUniform1i("gPosition", 0);
 	_shaderProgram->SetUniform1i("gNormal", 1);
-	//_shaderProgram->SetUniform1i("texNoise", 2);
+	_shaderProgram->SetUniform1i("texNoise", 2);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, _gPositionTexID);
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, _gNormalTexID);
-	//glActiveTexture(GL_TEXTURE2);
-	//glBindTexture(GL_TEXTURE_2D, _noiseTexID);
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, _noiseTexID);
 
 	if (_uvBufferID)
 	{
