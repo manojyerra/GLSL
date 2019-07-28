@@ -15,75 +15,40 @@ GameLoop::GameLoop(float sw, float sh)
 	_zFar = 1000000.0f;
 	_zNearPlaneW = 0.2f;
 
-	_floor = nullptr;
-	_box = nullptr;
-	_cylinder = nullptr;
-	_cone = nullptr;
-	_sphere = nullptr;
-	_triangle = nullptr;
+	Cam::GetInstance()->Init(sw, sh, _zNear, _zFar, _zNearPlaneW);
 
-	_demo = nullptr;
-
-	GLSettings();
-
-	Cam::GetInstance()->Init(_sw, _sh, _zNear, _zFar, _zNearPlaneW);
-	Cam2D::GetInstance()->Init(_sw, _sh);
-
-	_demo = new Demo(_sw, _sh);
-
-	//_floor = new Floor();
-	//_meshRenderer1 = new GLMeshRenderer(&ObjReader("data/demo/Trike"), GLMeshRenderer::SSAO_GEOMETRY_PASS_SHADER);
-
-	//_texture = new GLTexture("data/demo/Sample.png", 0, 0, 10, 10);
-	//_ssao = new GLSSAO((int)_sw, (int)_sh);
-}
-
-void GameLoop::GLSettings()
-{
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	nanosuit = new GLMeshRenderer(&ObjReader("data/demo/Trike"), GLMeshRenderer::SSAO_GEOMETRY_PASS_SHADER);
+	ssao = new GLSSAO(sw, sh);
 }
 
 void GameLoop::Update(float deltaTime)
 {
-	
 }
 
 void GameLoop::Draw()
 {
-	_demo->Draw();
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//glEnable(GL_DEPTH_TEST);
-	////glEnable(GL_CULL_FACE);
+	// 1. geometry pass: render scene's geometry/color data into gbuffer
+	// -----------------------------------------------------------------
+	glBindFramebuffer(GL_FRAMEBUFFER, ssao->GetGBufferFBO());
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//float clearValue = 100.0f / 255.0f;
-	//glClearColor(clearValue, clearValue, clearValue, 1.0f);
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//glViewport(0, 0, (GLsizei)_sw, (GLsizei)_sh);
+	Cam* cam = Cam::GetInstance();
+	GLMat modelMat;
 
-	//Cam::GetInstance()->SetPerspectiveProjection();
-	//Cam::GetInstance()->SetViewMatrix();
-	//Cam::GetInstance()->UpdateCamera();
+	cam->SetPerspectiveProjection();
+	cam->SetViewMatrix();
+	cam->UpdateCamera();
 
-	//_floor->Draw();
+	nanosuit->Draw();
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	//glBindFramebuffer(GL_FRAMEBUFFER, _ssao->GetGBufferFBO());
-	//glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//_meshRenderer1->Draw();
-	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-	//glBindFramebuffer(GL_FRAMEBUFFER, _ssao->GetSSAOFBO());
-	//glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	//glClear(GL_COLOR_BUFFER_BIT);
-	//_ssao->Draw();
-	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-	//glEnable(GL_DEPTH_TEST);
-	//_texture->GetShader()->SetTextureID(_ssao->GetGAlbedoTexID());
-	//_texture->Draw();
+	glClear(GL_COLOR_BUFFER_BIT);
+	ssao->DrawQuad();
 }
 
 void GameLoop::SetScreenSize(float sw, float sh)
@@ -93,103 +58,16 @@ void GameLoop::SetScreenSize(float sw, float sh)
 
 	Cam::GetInstance()->SetScreenSize(_sw, _sh);
 	Cam2D::GetInstance()->SetScreenSize(_sw, _sh);
-
-	if(_demo)
-		_demo->SetScreenSize(_sw, _sh);
 }
 
 GameLoop::~GameLoop()
 {
-	if (_sphere != NULL)
-	{
-		delete _sphere;
-		_sphere = NULL;
-	}
-
-	if (_cone != NULL)
-	{
-		delete _cone;
-		_cone = NULL;
-	}
-
-	if (_cylinder != NULL)
-	{
-		delete _cylinder;
-		_cylinder = NULL;
-	}
-
-	if (_box != NULL)
-	{
-		delete _box;
-		_box = NULL;
-	}
-
-	if (_triangle != NULL)
-	{
-		delete _triangle;
-		_triangle = NULL;
-	}
-
-	if (_floor != NULL)
-	{
-		delete _floor;
-		_floor = NULL;
-	}
-
-	if (_demo)
-	{
-		delete _demo;
-		_demo = NULL;
-	}
-
 	Cam::GetInstance()->DeleteInstance();
 	Cam2D::GetInstance()->DeleteInstance();
 	ShadersManager::GetInstance()->DeleteInstance();
 	GLMemory::printMemoryLeaks();
 }
 
-
-/*
-
-	glEnable(GL_DEPTH_TEST);
-
-	//if (_useFBO)
-	//{
-	//	_fbo->BindFBO();
-
-	//	glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
-	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//	glViewport(0, 0, _fbo->GetW(), _fbo->GetH());
-
-	//	SetCamAndDrawObjects();
-
-	//	_fbo->UnBindFBO();
-	//}
-	//else
-	//{
-		glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glViewport(0, 0, _sw, _sh);
-
-		SetCamAndDrawObjects();
-	//}
-
-	//if (_useFBO)
-	//{
-	//	glClearColor(57.0f / 255.0f, 57.0f / 255.0f, 57.0f / 255.0f, 1.0f);
-	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//	glViewport(0, 0, _sw, _sh);
-	//	glDisable(GL_DEPTH_TEST);
-	//	glDisable(GL_CULL_FACE);
-
-	//	Cam2D::GetInstance()->SetProjection();
-
-	//	glBindTexture(GL_TEXTURE_2D, _fbo->GetTextureID());
-	//	_texture->Draw();
-	//	glBindTexture(GL_TEXTURE_2D, 0);
-	//}
-
-*/
 
 
 //glm::vec3 v1(0.0f, 0.0f, 0.0f);
@@ -215,4 +93,3 @@ GameLoop::~GameLoop()
 //_sphere = new Sphere(0, 0, 0, 2);
 //_sphere->SetPos(5, 0, 0);
 //_sphere->SetRadius(5);
-

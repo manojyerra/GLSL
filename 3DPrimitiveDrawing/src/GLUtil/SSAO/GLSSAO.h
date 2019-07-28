@@ -14,7 +14,7 @@ private:
 	GLMeshRenderer* _quadRenderer;
 	GLMat _modelMat;
 
-	ModelInfo CreateModeInfo();
+	GLMeshRenderer* CreateQuadRenderer();
 	void GenerateSampleKernelAndNoiseTexture();
 	float lerp(float a, float b, float f);
 
@@ -22,10 +22,7 @@ public:
 	GLSSAO(float w, float h);
 	~GLSSAO();
 
-	void Draw();
+	void DrawQuad();
 };
 
 #endif
-
-
-//void SetBounds(float x, float y, float w, float h);

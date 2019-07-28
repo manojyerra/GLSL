@@ -20,19 +20,8 @@ private:
 	float _zFar;
 	float _zNearPlaneW;
 
-	Floor* _floor;
-	Triangle* _triangle;
-	Box* _box;
-	Cylinder* _cylinder;
-	Cone* _cone;
-	Sphere* _sphere;
-	Demo* _demo;
-
-	GLMeshRenderer* _meshRenderer1;
-	GLTexture* _texture;
-	GLSSAO* _ssao;
-
-	void GLSettings();
+	GLSSAO* ssao;
+	GLMeshRenderer* nanosuit;
 
 public:
 	GameLoop(float sw, float sh);
