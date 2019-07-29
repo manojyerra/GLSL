@@ -56,7 +56,8 @@ void Demo::actionPerformed(SUIActionEvent e)
 	}
 	else if (com == _windowFrame->isSSAO) 
 	{
-		printf("SSAO enabled : %d", _windowFrame->isSSAO->IsSelected());
+		//printf("SSAO enabled : %d", _windowFrame->isSSAO->IsSelected());
+		_rendererDemo->SetEnableSSAO(_windowFrame->isSSAO->IsSelected());
 	}
 	else if (com == _floorFrame->hideFloor)
 	{

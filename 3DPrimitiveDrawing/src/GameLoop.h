@@ -20,9 +20,11 @@ private:
 	float _zFar;
 	float _zNearPlaneW;
 
-	GLSSAO* ssao;
-	GLMeshRenderer* nanosuit;
+	GLSSAO* _ssao;
+	GLMeshRenderer* _meshRenderer;
 	GLTexture* _texture;
+
+	Demo* _demo;
 
 public:
 	GameLoop(float sw, float sh);

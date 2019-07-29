@@ -21,6 +21,7 @@ WholeWindowFrame::WholeWindowFrame(float x, float y, float w, float h, SUIAction
 	demoType->SetSelect(0);
 
 	isSSAO = new SUICheckBox("SSAO", SUICheckBox::LEFT);
+	isSSAO->SetSelect(true);
 	isSSAO->SetBgVisible(true);
 	isSSAO->AddActionListener(action_listener);
 

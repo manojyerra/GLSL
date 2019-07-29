@@ -23,13 +23,17 @@ private:
 	GLMeshRenderer* CreateQuadRenderer(unsigned int shaderType);
 	void GenerateSampleKernelAndNoiseTexture();
 	float lerp(float a, float b, float f);
+	void DrawQuad();
+	void DrawBlurQuad();
 
 public:
 	GLSSAO(float w, float h);
 	~GLSSAO();
 
-	void DrawQuad();
-	void DrawBlurQuad();
+	void Begin();
+	void End();
+
+	unsigned int GetOcclusionMap();
 };
 
 #endif

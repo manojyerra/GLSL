@@ -258,6 +258,11 @@ Shader* GLMeshRenderer::GetCurrentShader()
 	return _shader;
 }
 
+unsigned int GLMeshRenderer::GetCurrentShaderType()
+{
+	return _shaderType;
+}
+
 void GLMeshRenderer::SetPrimitiveType(int primitiveType)
 {
 	_primitiveType = primitiveType;

@@ -5,6 +5,7 @@
 #include "Cam.h"
 #include "Cam2D.h"
 #include "ObjReader.h"
+#include "GLState.h"
 
 GameLoop::GameLoop(float sw, float sh)
 {
@@ -18,11 +19,13 @@ GameLoop::GameLoop(float sw, float sh)
 	Cam::GetInstance()->Init(sw, sh, _zNear, _zFar, _zNearPlaneW);
 	Cam2D::GetInstance()->Init(sw, sh);
 
-	nanosuit = new GLMeshRenderer(&ObjReader("data/demo/Trike"), GLMeshRenderer::SSAO_GEOMETRY_PASS_SHADER);
-	ssao = new GLSSAO(sw, sh);
+	_meshRenderer = new GLMeshRenderer(&ObjReader("data/demo/Trike"), GLMeshRenderer::SSAO_GEOMETRY_PASS_SHADER);
+	_ssao = new GLSSAO(sw, sh);
 
 	_texture = new GLTexture("data/demo/Sample.png", 0, 0, sw, sh);
 	_texture->GetShader()->Set2DCamera(true);
+
+	_demo = new Demo(sw, sh);
 }
 
 void GameLoop::Update(float deltaTime)
@@ -31,8 +34,11 @@ void GameLoop::Update(float deltaTime)
 
 void GameLoop::Draw()
 {
+	_demo->Draw();
+	return;
+
 	glEnable(GL_DEPTH_TEST);
-	glDisable(GL_BLEND);
+	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glViewport(0, 0, _sw, _sh);
@@ -45,49 +51,21 @@ void GameLoop::Draw()
 	cam->SetViewMatrix();
 	cam->UpdateCamera();
 
-	//Geometry pass
-	glBindFramebuffer(GL_FRAMEBUFFER, ssao->GetGBufferFBO());
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	nanosuit->SetShader(GLMeshRenderer::SSAO_GEOMETRY_PASS_SHADER);
-	nanosuit->Draw();
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	bool blend = GLState::GLEnable(GL_BLEND, false);
+	_ssao->Begin();
+	_meshRenderer->SetShader(GLMeshRenderer::SSAO_GEOMETRY_PASS_SHADER);
+	_meshRenderer->Draw();
+	_ssao->End();
+	GLState::GLEnable(GL_BLEND, blend);
 
-	//Calculating SSAO
-	glBindFramebuffer(GL_FRAMEBUFFER, ssao->GetSSAOFBO());
-	glClear(GL_COLOR_BUFFER_BIT);
-	ssao->DrawQuad();
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	_meshRenderer->SetShader(GLMeshRenderer::PBR_SHADER);
+	_meshRenderer->Draw();
 
-	//Blur SSAO
-	glBindFramebuffer(GL_FRAMEBUFFER, ssao->GetSSAOBlurFBO());
-	glClear(GL_COLOR_BUFFER_BIT);
-	ssao->DrawBlurQuad();
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-	nanosuit->SetShader(GLMeshRenderer::PBR_SHADER);
-	nanosuit->Draw();
-
-	glEnable(GL_BLEND);
-
-	static bool on = false;
-	
-	if (on)
-	{
-		glDisable(GL_DEPTH_TEST);
-		Cam2D::GetInstance()->SetProjection();
-		_texture->GetShader()->SetTextureID(ssao->GetSSAOBlurColorAttachmentID());
-		_texture->Draw();
-	}
-
-	if (Input::IsMouseClicked())
-	{
-		on = !on;
-
-		if(on)
-			printf("\nocclustion is on");
-		else
-			printf("\nocclustion is off");
-	}
+	bool depth = GLState::GLEnable(GL_DEPTH_TEST, false);
+	Cam2D::GetInstance()->SetProjection();
+	_texture->GetShader()->SetTextureID(_ssao->GetOcclusionMap());
+	_texture->Draw();
+	GLState::GLEnable(GL_DEPTH_TEST, depth);
 }
 
 void GameLoop::SetScreenSize(float sw, float sh)
@@ -107,6 +85,26 @@ GameLoop::~GameLoop()
 	GLMemory::printMemoryLeaks();
 }
 
+
+//static bool on = false;
+//
+//if (on)
+//{
+//	glDisable(GL_DEPTH_TEST);
+//	Cam2D::GetInstance()->SetProjection();
+//	_texture->GetShader()->SetTextureID(_ssao->GetOcclusionMap());
+//	_texture->Draw();
+//}
+
+//if (Input::IsMouseClicked())
+//{
+//	on = !on;
+
+//	if(on)
+//		printf("\nocclustion is on");
+//	else
+//		printf("\nocclustion is off");
+//}
 
 
 //glm::vec3 v1(0.0f, 0.0f, 0.0f);

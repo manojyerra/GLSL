@@ -19,8 +19,6 @@
 class GLMeshRenderer
 {
 private:
-	
-
 	BasicShader* _basicShader;
 	ColorShader* _colorShader;
 	UVShader* _uvShader;
@@ -81,6 +79,7 @@ public:
 	void SetShader(int shaderType);
 	Shader* GetShader(int shaderType);
 	Shader* GetCurrentShader();
+	unsigned int GetCurrentShaderType();
 
 	void SetPrimitiveType(int primitiveType);
 	void SetAlpha(float alpha);

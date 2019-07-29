@@ -1,3 +1,5 @@
+#include "GLState.h"
+#include "Cam2D.h"
 #ifdef _ENABLE_DEMO
 
 #include "RenderDemo.h"
@@ -20,7 +22,7 @@ RenderDemo::RenderDemo(float sw, float sh)
 	GLMeshRenderer* meshRenderer4 = nullptr;
 	GLMeshRenderer* meshRenderer5 = nullptr;
 
-	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/demo/Teapot"), GLMeshRenderer::PBR_SHADER);
+	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/demo/CarBIW"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 2) meshRenderer2 = new GLMeshRenderer(&ObjReader("data/demo/Trike"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 3) meshRenderer3 = new GLMeshRenderer(&ObjReader("data/demo/Teapot"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 4) meshRenderer4 = new GLMeshRenderer(&ObjReader("data/demo/Plane"), GLMeshRenderer::PBR_WITH_TEXTURE_SHADER);
@@ -61,6 +63,16 @@ RenderDemo::RenderDemo(float sw, float sh)
 		_modelVisibilityFrame->modelBoxVec[i]->positionModelY->SetDouble(pos.y, 3);
 		_modelVisibilityFrame->modelBoxVec[i]->positionModelZ->SetDouble(pos.z, 3);
 	}
+
+	//Begin : SSAO related code...
+
+	_texture = new GLTexture("data/demo/Sample.png", 0, 0, sw, sh);
+	_texture->GetShader()->Set2DCamera(true);
+
+	_enableSSAO = true;
+	_ssao = new GLSSAO(sw, sh);
+	
+	//End : SSAO related code...
 }
 
 void RenderDemo::SetScreenSize(float sw, float sh)
@@ -73,18 +85,27 @@ void RenderDemo::SetScreenSize(float sw, float sh)
 
 void RenderDemo::Draw()
 {
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	float clearValue = 100.0f / 255.0f;
-	glClearColor(clearValue, clearValue, clearValue, 1.0f);
+	glViewport(0, 0, _sw, _sh);
+	glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glViewport(0, 0, (GLsizei)_sw, (GLsizei)_sh);
 
-	Cam::GetInstance()->SetPerspectiveProjection();
-	Cam::GetInstance()->SetViewMatrix();
-	Cam::GetInstance()->UpdateCamera();
+	Cam* cam = Cam::GetInstance();
+	cam->SetPerspectiveProjection();
+	cam->SetViewMatrix();
+	cam->UpdateCamera();
+
+	if (_enableSSAO)
+	{
+		bool blend = GLState::GLEnable(GL_BLEND, false);
+		_ssao->Begin();
+		DrawObjectsForSSAO();
+		_ssao->End();
+		GLState::GLEnable(GL_BLEND, blend);
+	}
 
 	_floor->Draw();
 
@@ -93,6 +114,29 @@ void RenderDemo::Draw()
 		if (_modelVisibilityFrame->modelBoxVec[i]->modelCheckBox->IsSelected())
 		{
 			_modelVec[i]->Draw();
+		}
+	}
+
+	if (_enableSSAO)
+	{
+		bool depth = GLState::GLEnable(GL_DEPTH_TEST, false);
+		Cam2D::GetInstance()->SetProjection();
+		_texture->GetShader()->SetTextureID(_ssao->GetOcclusionMap());
+		_texture->Draw();
+		GLState::GLEnable(GL_DEPTH_TEST, depth);
+	}
+}
+
+void RenderDemo::DrawObjectsForSSAO()
+{
+	for (int i = 0; i < _modelVec.size(); i++)
+	{
+		if (_modelVisibilityFrame->modelBoxVec[i]->modelCheckBox->IsSelected())
+		{
+			unsigned int shaderType = _modelVec[i]->GetCurrentShaderType();
+			_modelVec[i]->SetShader(GLMeshRenderer::SSAO_GEOMETRY_PASS_SHADER);
+			_modelVec[i]->Draw();
+			_modelVec[i]->SetShader(shaderType);
 		}
 	}
 }
@@ -157,6 +201,11 @@ void RenderDemo::SetFloorVisible(bool visible)
 Floor* RenderDemo::GetFloor()
 {
 	return _floor;
+}
+
+void RenderDemo::SetEnableSSAO(bool enable)
+{
+	_enableSSAO = enable;
 }
 
 RenderDemo::~RenderDemo()

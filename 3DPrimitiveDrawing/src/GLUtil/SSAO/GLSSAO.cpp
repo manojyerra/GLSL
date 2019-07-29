@@ -97,6 +97,35 @@ GLMeshRenderer* GLSSAO::CreateQuadRenderer(unsigned int shaderType)
 	return renderer;
 }
 
+void GLSSAO::Begin()
+{
+	//Geometry pass
+	glBindFramebuffer(GL_FRAMEBUFFER, GetGBufferFBO());
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void GLSSAO::End()
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	//Calculating SSAO
+	glBindFramebuffer(GL_FRAMEBUFFER, GetSSAOFBO());
+	glClear(GL_COLOR_BUFFER_BIT);
+	DrawQuad();
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	//Blur SSAO
+	glBindFramebuffer(GL_FRAMEBUFFER, GetSSAOBlurFBO());
+	glClear(GL_COLOR_BUFFER_BIT);
+	DrawBlurQuad();
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+unsigned int GLSSAO::GetOcclusionMap()
+{
+	return GetSSAOBlurColorAttachmentID();
+}
+
 void GLSSAO::DrawQuad()
 {
 	_quadRenderer->SetModelMatrix(_modelMat.m);
