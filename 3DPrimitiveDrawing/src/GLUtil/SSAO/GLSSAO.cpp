@@ -143,6 +143,12 @@ GLSSAO::~GLSSAO()
 	if (_quadRenderer)
 	{
 		delete _quadRenderer;
-		_quadRenderer = NULL;
+		_quadRenderer = nullptr;
+	}
+
+	if(_blurQuadRenderer)
+	{
+		delete _blurQuadRenderer;
+		_blurQuadRenderer = nullptr;
 	}
 }

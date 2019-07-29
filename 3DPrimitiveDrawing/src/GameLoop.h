@@ -20,10 +20,6 @@ private:
 	float _zFar;
 	float _zNearPlaneW;
 
-	GLSSAO* _ssao;
-	GLMeshRenderer* _meshRenderer;
-	GLTexture* _texture;
-
 	Demo* _demo;
 
 public:
