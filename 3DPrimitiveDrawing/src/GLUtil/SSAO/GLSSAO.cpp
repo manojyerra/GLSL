@@ -55,6 +55,7 @@ void GLSSAO::GenerateSampleKernelAndNoiseTexture()
 		ssaoNoise.push_back(noise);
 	}
 
+	//TODO: GPU Memory allocation should happen only from GLMemory class. BTW delete the texture in the destructor.
 	glGenTextures(1, &_noiseTexID);
 	glBindTexture(GL_TEXTURE_2D, _noiseTexID);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, 4, 4, 0, GL_RGB, GL_FLOAT, &ssaoNoise[0]);
