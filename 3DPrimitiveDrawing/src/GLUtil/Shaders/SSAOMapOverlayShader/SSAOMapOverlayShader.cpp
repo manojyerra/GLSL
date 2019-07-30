@@ -1,6 +1,7 @@
 #include "SSAOMapOverlayShader.h"
 #include "ShadersManager.h"
 #include "Cam2D.h"
+#include "MathUtils.h"
 
 SSAOMapOverlayShader::SSAOMapOverlayShader()
 {
@@ -19,13 +20,7 @@ SSAOMapOverlayShader::SSAOMapOverlayShader()
 
 void SSAOMapOverlayShader::SetOcclusionLevel(float level)
 {
-	if (level < 0.0)
-		level = 0.0f;
-
-	if (level > 1.0)
-		level = 1.0f;
-
-	_occlusionLevel = level;
+	_occlusionLevel = MathUtils::MinMax(level, 0.0f, 1.0f);
 }
 
 void SSAOMapOverlayShader::SetVertexBufferID(unsigned int bufferID)

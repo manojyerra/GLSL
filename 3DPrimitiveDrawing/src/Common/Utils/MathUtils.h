@@ -10,6 +10,17 @@
 
 class MathUtils
 {
+public:
+	static float MinMax(float val, float minLimit, float maxLimit)
+	{
+		if (val < minLimit)
+			val = minLimit;
+
+		if (val > maxLimit)
+			val = maxLimit;
+
+		return val;
+	}
 };
 
 #endif
