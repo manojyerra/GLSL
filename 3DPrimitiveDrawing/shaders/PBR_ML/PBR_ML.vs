@@ -10,9 +10,13 @@ uniform mat3 normalMat;
 layout (location = 0) out vec4 viewPosition;
 layout (location = 1) out vec3 viewNormal;
 
+out vec4 vertexVary;
+
 void main()
 {
 	gl_Position = mvp * vertex;
 	viewNormal = normalMat * normal;
 	viewPosition = modelViewMat * vertex;
+	
+	vertexVary = vertex;
 }

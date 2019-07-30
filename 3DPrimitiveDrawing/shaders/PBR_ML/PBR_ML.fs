@@ -15,6 +15,7 @@ uniform float metallic;
 uniform float roughness;
 uniform float alpha;
 
+in vec4 vertexVary;
 
 layout (location = 0) out vec4 outColor;
 
@@ -50,6 +51,11 @@ vec3 fresnelSchlick(float cosTheta, vec3 f0)
 
 void main()
 {
+	if(vertexVary.x > 0)
+	{
+		discard;
+	}
+	
 	vec3 lo = vec3(0.0);
 
 	for(int i=0; i<numLights && i<MAX_LIGHTS; i++)
