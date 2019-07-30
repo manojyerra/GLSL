@@ -1,26 +1,16 @@
-Load stl file.
-Load HDF5 for loading contour and particle data.
+Tasks for Integration
+---------------------
+*)Setup postprocessing project
+*)Project should run in linux
+*)Load HDF5 for loading contour and particle data.
+*)Why one light is not working for PBR Shader ?
+*)Check framebuffer issue with multisampling in desktop system which is working properly in my laptop.
+*)Taking screenshots and making video.
 
-
-
-How to scale down the model ( This feature can have in 
-How to avarage normals of obj.
-How to load obj with meterial properties.
-How to load obj other than triangulate faces.
-Check tiny obj code.
-Load nastran file.
-
-Check framebuffer issue with multisampling in desktop system which is working properly in my laptop.
-Compare the particle demo output for the above in laptop and desktop. 
-
-Catche memory for geometry shader to improve performance.
-Loggers implementation 
-Project should run in linux
 
 OpenGL related tasks
 --------------------
 *) Work on wireframe.
-*) Why one light is not working for PBR Shader ?
 *) Add tranformation features in GLMeshRenderer class. Add initially uniform scaling, later check non-uniform scaling and how normals getting effected.
 *) Blend issue
 *) Need long as data type wherever allocating memory. Like GLBatch, GLMemory, GLBufferBuilder, Arrays 
@@ -31,6 +21,16 @@ OpenGL related tasks
 *) Add camera options in UI for tweaking like ZNear, ZNearWidth and Camera paning and zoom.
 *) Fix current camera issues zoom and pan issues.
 *) Implement camera like First person shooter games.
+
+
+How to scale down the model.
+How to avarage normals of obj.
+How to load obj with meterial properties.
+How to load obj other than triangulate faces.
+Check tiny obj code.
+Load nastran file.
+Catche memory for geometry shader to improve performance.
+Loggers implementation 
 
 
 SUI Related tasks
@@ -56,3 +56,4 @@ Done:
 *)Have GeometryCubeShader class and have loading through GLMeshRenderer
 *)Fix this waring "warning C4005: 'APIENTRY': macro redefinition"
 *)Allocate gpu memory only from GLMemory.
+*)Load stl file.
