@@ -12,6 +12,7 @@ private:
 	unsigned int _uvBufferID;
 	unsigned int _textureID;
 	float _alpha;
+	float _occlusionLevel; // 0 to 1
 
 	ShaderProgram* _shaderProgram;
 
@@ -27,6 +28,7 @@ public:
 	void SetTextureID(unsigned int textureID);
 	void Set2DCamera(bool enable);
 
+	void SetOcclusionLevel(float level);
 	void SetModelMatrix(float* mat) override;
 	void SetAlpha(float alpha) override;
 	void Begin() override;

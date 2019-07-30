@@ -102,6 +102,7 @@ void RenderDemo::Draw()
 
 	if (_enableSSAO)
 	{
+		bool depth = GLState::GLEnable(GL_DEPTH_TEST, true);
 		bool blend = GLState::GLEnable(GL_BLEND, false);
 		bool cullFace = GLState::GLEnable(GL_CULL_FACE, false);
 
@@ -109,6 +110,7 @@ void RenderDemo::Draw()
 		DrawObjectsForSSAO();
 		_ssao->End();
 
+		GLState::GLEnable(GL_DEPTH_TEST, depth);
 		GLState::GLEnable(GL_BLEND, blend);
 		GLState::GLEnable(GL_CULL_FACE, cullFace);
 	}
@@ -125,9 +127,15 @@ void RenderDemo::Draw()
 
 	if (_enableSSAO)
 	{
+		bool blend = GLState::GLEnable(GL_BLEND, true);
+		bool cullFace = GLState::GLEnable(GL_CULL_FACE, false);
 		bool depth = GLState::GLEnable(GL_DEPTH_TEST, false);
+		
 		_ssao->DrawOcclusionMap();
+
 		GLState::GLEnable(GL_DEPTH_TEST, depth);
+		GLState::GLEnable(GL_CULL_FACE, cullFace);
+		GLState::GLEnable(GL_BLEND, blend);
 	}
 }
 

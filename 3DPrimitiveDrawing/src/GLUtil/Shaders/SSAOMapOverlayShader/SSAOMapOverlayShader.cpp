@@ -11,9 +11,21 @@ SSAOMapOverlayShader::SSAOMapOverlayShader()
 	_textureID = 0;
 
 	_alpha = 1.0f;
+	_occlusionLevel = 0.5f;
 
 	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/SSAO/SSAOMapOverlayShader/SSAOMapOverlayShader.vs",
 		"shaders/SSAO/SSAOMapOverlayShader/SSAOMapOverlayShader.fs");
+}
+
+void SSAOMapOverlayShader::SetOcclusionLevel(float level)
+{
+	if (level < 0.0)
+		level = 0.0f;
+
+	if (level > 1.0)
+		level = 1.0f;
+
+	_occlusionLevel = level;
 }
 
 void SSAOMapOverlayShader::SetVertexBufferID(unsigned int bufferID)
@@ -64,6 +76,7 @@ void SSAOMapOverlayShader::SetUniformsAndAttributes()
 	Cam2D* cam2D = Cam2D::GetInstance();
 	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(cam2D->GetMVP(m)));
 	_shaderProgram->SetUniform1f("alpha", _alpha);
+	_shaderProgram->SetUniform1f("occlusionLevel", _occlusionLevel);
 
 	if (_uvBufferID)
 	{
