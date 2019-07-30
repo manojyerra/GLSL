@@ -41,6 +41,33 @@ void FloatArray::push_back(float val)
 	_size++;
 }
 
+void FloatArray::push_back_2(float v1, float v2)
+{
+	if (_size + 2 >= _capacity)
+	{
+		ReCreateMem();
+	}
+
+	_arr[_size + 0] = v1;
+	_arr[_size + 1] = v2;
+
+	_size += 2;
+}
+
+void FloatArray::push_back_3(float v1, float v2, float v3)
+{
+	if (_size + 3 >= _capacity)
+	{
+		ReCreateMem();
+	}
+
+	_arr[_size + 0] = v1;
+	_arr[_size + 1] = v2;
+	_arr[_size + 2] = v3;
+
+	_size += 3;
+}
+
 void FloatArray::push_back_2(const glm::vec3& vec)
 {
 	if (_size + 2 >= _capacity)

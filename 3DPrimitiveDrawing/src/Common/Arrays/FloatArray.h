@@ -19,6 +19,9 @@ public:
 	~FloatArray();
 
 	void push_back(float val);
+	void push_back_2(float v1, float v2);
+	void push_back_3(float v1, float v2, float v3);
+
 	void push_back_2(const glm::vec3& vec);
 	void push_back_3(const glm::vec3& vec);
 	

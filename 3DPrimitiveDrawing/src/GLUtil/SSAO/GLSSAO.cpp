@@ -134,11 +134,9 @@ unsigned int GLSSAO::GetOcclusionMap()
 
 void GLSSAO::DrawOcclusionMap()
 {
-	bool depth = GLState::GLEnable(GL_DEPTH_TEST, false);
 	Cam2D::GetInstance()->SetProjection();
 	_texture->GetShader()->SetTextureID(GetOcclusionMap());
 	_texture->Draw();
-	GLState::GLEnable(GL_DEPTH_TEST, depth);
 }
 
 void GLSSAO::DrawQuad()

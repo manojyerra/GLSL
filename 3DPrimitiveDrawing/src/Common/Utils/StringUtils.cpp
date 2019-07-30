@@ -75,6 +75,64 @@ bool StringUtils::endsWith(std::string str, std::string checkStr)
 	return true;
 }
 
+double StringUtils::atof_exp(const char *p)
+{
+	double r = 0.0;
+	bool neg = false;
+	if (*p == '-') {
+		neg = true;
+		++p;
+	}
+	while (*p >= '0' && *p <= '9') {
+		r = (r*10.0) + (*p - '0');
+		++p;
+	}
+	if (*p == '.') {
+		double f = 0.0;
+		int n = 0;
+		++p;
+		while (*p >= '0' && *p <= '9') {
+			f = (f*10.0) + (*p - '0');
+			++p;
+			++n;
+		}
+
+		//TODO : check the performance difference between math pow function and std pow function
+		r += f / std::pow(10.0, n);
+	}
+
+	//for exponential support
+	//char s1[] = "87.549e2", s2[] = "-982.47e-3", s3[] = "-54e", s4[] = "-.64e4",  //supported
+	//char s5[] = "+.87e+ 6";  //not supported
+
+	if (*p == 'e' || *p == 'E') {
+		++p;
+
+		if(*p >= '0' && *p <= '9')
+		{
+			unsigned int expNum = atoi(p);
+			r *= pow(10, expNum);
+		}
+		else if (*p == '+')
+		{
+			++p;
+			unsigned int expNum = atoi(p);
+			r *= pow(10, expNum);
+		}
+		else if (*p == '-')
+		{
+			++p;
+			unsigned int expNum = atoi(p);
+			r /= pow(10, expNum);
+		}
+	}
+
+	if (neg) {
+		r = -r;
+	}
+
+	return r;
+}
 
 float StringUtils::atof_naive(const char *p) {
 	double r = 0.0;
@@ -97,7 +155,7 @@ float StringUtils::atof_naive(const char *p) {
 			++n;
 		}
 
-		//TODO : check the performance difference between math funtion pow and std function pow
+		//TODO : check the performance difference between math function pow and std function pow
 		r += f / std::pow(10.0, n);
 	}
 	if (neg) {

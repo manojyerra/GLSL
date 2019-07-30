@@ -474,6 +474,9 @@
     <ClCompile Include="src\GLUtil\Shaders\SSAOBlurShader\SSAOBlurShader.cpp">
       <Filter>src\GLUtil\Shaders\SSAOBlurShader</Filter>
     </ClCompile>
+    <ClCompile Include="src\Common\IO\ModelIO\STLReader.cpp">
+      <Filter>src\Common\IO\ModelIO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -793,6 +796,9 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\Shaders\SSAOBlurShader\SSAOBlurShader.h">
       <Filter>src\GLUtil\Shaders\SSAOBlurShader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO\ModelIO\STLReader.h">
+      <Filter>src\Common\IO\ModelIO</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

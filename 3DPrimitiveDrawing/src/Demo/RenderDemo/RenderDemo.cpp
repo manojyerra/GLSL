@@ -4,7 +4,7 @@
 #include "Cam.h"
 #include "ObjReader.h"
 #include "GLState.h"
-#include "Cam2D.h"
+#include "STLReader.h"
 
 RenderDemo::RenderDemo(float sw, float sh)
 {
@@ -22,7 +22,7 @@ RenderDemo::RenderDemo(float sw, float sh)
 	GLMeshRenderer* meshRenderer4 = nullptr;
 	GLMeshRenderer* meshRenderer5 = nullptr;
 
-	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/demo/Teapot"), GLMeshRenderer::PBR_SHADER);
+	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&STLReader("data/demo/CarSTL"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 2) meshRenderer2 = new GLMeshRenderer(&ObjReader("data/demo/Trike"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 3) meshRenderer3 = new GLMeshRenderer(&ObjReader("data/demo/Truck"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 4) meshRenderer4 = new GLMeshRenderer(&ObjReader("data/demo/Plane"), GLMeshRenderer::PBR_WITH_TEXTURE_SHADER);
@@ -64,13 +64,8 @@ RenderDemo::RenderDemo(float sw, float sh)
 		_modelVisibilityFrame->modelBoxVec[i]->positionModelZ->SetDouble(pos.z, 3);
 	}
 
-	//Begin : SSAO related code...
-
-
 	_enableSSAO = false;
 	_ssao = new GLSSAO(sw, sh);
-	
-	//End : SSAO related code...
 }
 
 void RenderDemo::SetScreenSize(float sw, float sh)
@@ -107,10 +102,14 @@ void RenderDemo::Draw()
 	if (_enableSSAO)
 	{
 		bool blend = GLState::GLEnable(GL_BLEND, false);
+		bool cullFace = GLState::GLEnable(GL_CULL_FACE, false);
+
 		_ssao->Begin();
 		DrawObjectsForSSAO();
 		_ssao->End();
+
 		GLState::GLEnable(GL_BLEND, blend);
+		GLState::GLEnable(GL_CULL_FACE, cullFace);
 	}
 
 	_floor->Draw();
@@ -125,7 +124,9 @@ void RenderDemo::Draw()
 
 	if (_enableSSAO)
 	{
+		bool depth = GLState::GLEnable(GL_DEPTH_TEST, false);
 		_ssao->DrawOcclusionMap();
+		GLState::GLEnable(GL_DEPTH_TEST, depth);
 	}
 }
 

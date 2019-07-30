@@ -25,6 +25,8 @@ public:
 	static void scanFace_V(char* str, int* x, int* y, int* z);
 
 	static void scan_vertex(char* str, float* x, float* y, float* z);
+	static void scan_vertex(char* str, int startPos, float* x, float* y, float* z);
+
 	static void scan_uv(char* str, float* x, float* y);
 	static void scan_normal(char* str, float* x, float* y, float* z);
 };

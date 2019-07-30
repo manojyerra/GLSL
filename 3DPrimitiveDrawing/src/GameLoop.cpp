@@ -4,11 +4,27 @@
 #include "Input.h"
 #include "Cam.h"
 #include "Cam2D.h"
+#include "StringUtils.h"
 //#include "ObjReader.h"
 //#include "GLState.h"
 
 GameLoop::GameLoop(float sw, float sh)
 {
+	//char s1[] = "87.549e2", s2[] = "-982.47e-3", s3[] = "-54e", s4[] = "-.64e4", s5[] = "+.87e+ 6";
+
+	//float f1 = atof(s1);
+	//float f2 = atof(s2);
+	//float f3 = atof(s3);
+	//float f4 = atof(s4);
+	//float f5 = atof(s5);
+
+	//float _f1 = StringUtils::atof_test(s1);
+	//float _f2 = StringUtils::atof_test(s2);
+	//float _f3 = StringUtils::atof_test(s3);
+	//float _f4 = StringUtils::atof_test(s4);
+	//float _f5 = StringUtils::atof_test(s5);
+
+
 	_sw = sw;
 	_sh = sh;
 
