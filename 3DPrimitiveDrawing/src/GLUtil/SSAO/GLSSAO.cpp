@@ -31,8 +31,7 @@ GLSSAO::GLSSAO(float w, float h) : GLSSAOBufferBuilder(w, h)
 	SSAOBlurShader* ssaoBlurShader = (SSAOBlurShader*)_blurQuadRenderer->GetCurrentShader();
 	ssaoBlurShader->SetSSAOInputTexID(GetSSAOColorAttachmentID());
 
-	_texture = new GLTexture(0, 0, w, h);
-	_texture->GetShader()->Set2DCamera(true);
+	_overLayRenderer = CreateOverlayRenderer(w, h);
 }
 
 void GLSSAO::GenerateSampleKernelAndNoiseTexture()
@@ -103,6 +102,44 @@ GLMeshRenderer* GLSSAO::CreateQuadRenderer(unsigned int shaderType)
 	return renderer;
 }
 
+GLMeshRenderer* GLSSAO::CreateOverlayRenderer(float w, float h)
+{
+	GLBatch* buffer = new GLBatch(100, false, true, false);
+
+	buffer->glBegin();
+
+	buffer->glTexCoord2f(0, 1);
+	buffer->glVertex3f(0, 0, 0);
+
+	buffer->glTexCoord2f(1, 1);
+	buffer->glVertex3f(1, 0, 0);
+
+	buffer->glTexCoord2f(0, 0);
+	buffer->glVertex3f(0, 1, 0);
+
+	buffer->glTexCoord2f(1, 0);
+	buffer->glVertex3f(1, 1, 0);
+
+	ModelInfo createInfo;
+	createInfo.SetVertexBuffer(buffer->GetVertexBuffer(), buffer->GetVertexBufferSize());
+	createInfo.SetUVBuffer(buffer->GetUVBuffer(), buffer->GetUVBufferSize());
+
+	GLMat mat;
+	mat.m[0] = w;
+	mat.m[5] = h;
+
+	GLMeshRenderer* overLayRenderer = new GLMeshRenderer(&createInfo, GLMeshRenderer::SSAO_MAP_OVERLAY_SHADER);
+	overLayRenderer->SetPrimitiveType(GLMeshRenderer::triangleStrip);
+	overLayRenderer->SetModelMatrix(mat.m);
+
+	SSAOMapOverlayShader* overlayShader = (SSAOMapOverlayShader*)overLayRenderer->GetCurrentShader();
+	overlayShader->SetTextureID(GetSSAOBlurColorAttachmentID());
+
+	delete buffer;
+
+	return overLayRenderer;
+}
+
 void GLSSAO::Begin()
 {
 	//Geometry pass
@@ -127,16 +164,14 @@ void GLSSAO::End()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-unsigned int GLSSAO::GetOcclusionMap()
-{
-	return GetSSAOBlurColorAttachmentID();
-}
+//unsigned int GLSSAO::GetOcclusionMap()
+//{
+//	return GetSSAOBlurColorAttachmentID();
+//}
 
 void GLSSAO::DrawOcclusionMap()
 {
-	Cam2D::GetInstance()->SetProjection();
-	_texture->GetShader()->SetTextureID(GetOcclusionMap());
-	_texture->Draw();
+	_overLayRenderer->Draw();
 }
 
 void GLSSAO::DrawQuad()
@@ -153,10 +188,10 @@ void GLSSAO::DrawBlurQuad()
 
 GLSSAO::~GLSSAO()
 {
-	if(_texture)
+	if(_overLayRenderer)
 	{
-		delete _texture;
-		_texture = nullptr;
+		delete _overLayRenderer;
+		_overLayRenderer = nullptr;
 	}
 
 	if(_noiseTexID)

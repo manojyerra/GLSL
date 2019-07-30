@@ -15,6 +15,7 @@
 #include "SSAOGeometryPassShader.h"
 #include "SSAOShader.h"
 #include "SSAOBlurShader.h"
+#include "SSAOMapOverlayShader.h"
 
 class GLMeshRenderer
 {
@@ -32,6 +33,7 @@ private:
 	SSAOGeometryPassShader* _ssaoGeometryPassShader;
 	SSAOShader* _ssaoShader;
 	SSAOBlurShader* _ssaoBlurShader;
+	SSAOMapOverlayShader* _ssaoMapOverlayShader;
 
 	Shader* _shader;
 
@@ -66,7 +68,8 @@ public:
 		CUBE_GEOMETRY_SHADER,
 		SSAO_GEOMETRY_PASS_SHADER,
 		SSAO_SHADER,
-		SSAO_BLUR_SHADER
+		SSAO_BLUR_SHADER,
+		SSAO_MAP_OVERLAY_SHADER
 	};
 
 	GLMeshRenderer(ModelInfo* meshCreateInfo, int shaderType);

@@ -25,6 +25,7 @@ GLMeshRenderer::GLMeshRenderer(ModelInfo* meshCreateInfo, int shaderType)
 	_ssaoGeometryPassShader = NULL;
 	_ssaoShader = NULL;
 	_ssaoBlurShader = NULL;
+	_ssaoMapOverlayShader = NULL;
 
 	_shader = NULL;
 
@@ -201,6 +202,17 @@ void GLMeshRenderer::SetShader(int shaderType)
 
 		_shader = _ssaoBlurShader;
 	}
+	else if(_shaderType == SSAO_MAP_OVERLAY_SHADER)
+	{
+		if (!_ssaoMapOverlayShader)
+		{
+			_ssaoMapOverlayShader = new SSAOMapOverlayShader();
+			_ssaoMapOverlayShader->SetVertexBufferID(_bufferBuilder->GetVertexBufferID());
+			_ssaoMapOverlayShader->SetUVBufferID(_bufferBuilder->GetUVBufferID());
+		}
+
+		_shader = _ssaoMapOverlayShader;
+	}
 }
 
 Shader* GLMeshRenderer::GetShader(int shaderType)
@@ -248,6 +260,10 @@ Shader* GLMeshRenderer::GetShader(int shaderType)
 	else if (_shaderType == SSAO_BLUR_SHADER)
 	{
 		return _ssaoBlurShader;
+	}
+	else if (_shaderType == SSAO_MAP_OVERLAY_SHADER)
+	{
+		return _ssaoMapOverlayShader;
 	}
 
 	return NULL;
@@ -369,5 +385,11 @@ GLMeshRenderer::~GLMeshRenderer()
 	{
 		delete _ssaoBlurShader;
 		_ssaoBlurShader = NULL;
+	}
+
+	if(_ssaoMapOverlayShader)
+	{
+		delete _ssaoMapOverlayShader;
+		_ssaoMapOverlayShader = NULL;
 	}
 }

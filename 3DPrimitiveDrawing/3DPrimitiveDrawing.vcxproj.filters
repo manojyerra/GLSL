@@ -124,6 +124,9 @@
     <Filter Include="src\GLUtil\Shaders\SSAOBlurShader">
       <UniqueIdentifier>{08162043-8b3d-4f8e-928b-824909766721}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GLUtil\Shaders\SSAOMapOverlayShader">
+      <UniqueIdentifier>{15a8106d-0f95-4918-b726-6be4af28824f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -477,6 +480,9 @@
     <ClCompile Include="src\Common\IO\ModelIO\STLReader.cpp">
       <Filter>src\Common\IO\ModelIO</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\Shaders\SSAOMapOverlayShader\SSAOMapOverlayShader.cpp">
+      <Filter>src\GLUtil\Shaders\SSAOMapOverlayShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -799,6 +805,9 @@
     </ClInclude>
     <ClInclude Include="src\Common\IO\ModelIO\STLReader.h">
       <Filter>src\Common\IO\ModelIO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\Shaders\SSAOMapOverlayShader\SSAOMapOverlayShader.h">
+      <Filter>src\GLUtil\Shaders\SSAOMapOverlayShader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

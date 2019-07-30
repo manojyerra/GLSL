@@ -15,11 +15,13 @@ private:
 
 	GLMeshRenderer* _quadRenderer;
 	GLMeshRenderer* _blurQuadRenderer;
-	GLTexture* _texture;
+	GLMeshRenderer* _overLayRenderer;
 
 	GLMat _modelMat;
 
 	GLMeshRenderer* CreateQuadRenderer(unsigned int shaderType);
+	GLMeshRenderer* CreateOverlayRenderer(float w, float h);
+
 	void GenerateSampleKernelAndNoiseTexture();
 	float lerp(float a, float b, float f);
 	void DrawQuad();
@@ -32,7 +34,7 @@ public:
 	void Begin();
 	void End();
 
-	unsigned int GetOcclusionMap();
+	//unsigned int GetOcclusionMap();
 	void DrawOcclusionMap();
 };
 

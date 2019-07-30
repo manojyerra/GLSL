@@ -7,9 +7,8 @@
 #include "Cylinder.h"
 #include "Cone.h"
 #include "Sphere.h"
-#include "Demo.h"
 #include "GLTexture.h"
-#include "GLSSAO.h"
+#include "Demo.h"
 
 class GameLoop
 {
