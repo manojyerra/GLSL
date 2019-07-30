@@ -36,17 +36,29 @@ GLuint GLMemory::CreateTexture(GLint internalFormat, GLsizei w, GLsizei h, GLenu
 
 GLuint GLMemory::CreateRenderBuffer(GLsizei width, GLsizei height, GLenum internalformat, const char* filePath, long lineNum)
 {
-	unsigned int renderBufferID;
-	glGenRenderbuffers(1, &renderBufferID);
-	glBindRenderbuffer(GL_RENDERBUFFER, renderBufferID);
+	unsigned int bufferID;
+	glGenRenderbuffers(1, &bufferID);
+	glBindRenderbuffer(GL_RENDERBUFFER, bufferID);
 	glRenderbufferStorage(GL_RENDERBUFFER, internalformat, width, height);
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 	GLMemoryInfo memInfo(filePath, lineNum, width*height * 3);
-	std::string str = "RenderBuffer_" + std::to_string(renderBufferID);
+	std::string str = "RenderBuffer_" + std::to_string(bufferID);
 	_memInfoMap.insert(std::make_pair(str, memInfo));
 
-	return renderBufferID;
+	return bufferID;
+}
+
+GLuint GLMemory::CreateFrameBuffer(const char* filePath, long lineNum)
+{
+	unsigned int bufferID = 0;
+	glGenFramebuffers(1, &bufferID);
+
+	GLMemoryInfo memInfo(filePath, lineNum, 1);
+	std::string str = "FrameBuffer_" + std::to_string(bufferID);
+	_memInfoMap.insert(std::make_pair(str, memInfo));
+
+	return bufferID;
 }
 
 void GLMemory::DeleteBuffer(GLuint id)
@@ -85,6 +97,20 @@ void GLMemory::DeleteRenderBuffer(GLuint id)
 	_memInfoMap.erase(key);
 
 	glDeleteRenderbuffers(1, &id);
+	glFinish();
+}
+
+void GLMemory::DeleteFrameBuffer(GLuint id)
+{
+	std::string key = "FrameBuffer_" + std::to_string(id);
+
+	if (_memInfoMap.count(key) <= 0)
+		throw std::exception("Error : FrameBufferID not found.");
+
+	_memInfoMap.erase(key);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glDeleteFramebuffers(1, &id);
 	glFinish();
 }
 

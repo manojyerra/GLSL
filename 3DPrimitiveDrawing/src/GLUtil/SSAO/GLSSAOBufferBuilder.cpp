@@ -28,8 +28,7 @@ GLSSAOBufferBuilder::GLSSAOBufferBuilder(int w, int h)
 
 void GLSSAOBufferBuilder::CreateGBufferFBO(unsigned int w, unsigned int h)
 {
-	unsigned int gBufferFBO;
-	glGenFramebuffers(1, &gBufferFBO);
+	unsigned int gBufferFBO = GLCreateFrameBuffer;
 	glBindFramebuffer(GL_FRAMEBUFFER, gBufferFBO);
 
 	unsigned int gPosition = GLCreateTexture(GL_RGB16F, w, h, GL_RGB, GL_FLOAT, NULL);
@@ -70,8 +69,7 @@ void GLSSAOBufferBuilder::CreateGBufferFBO(unsigned int w, unsigned int h)
 void GLSSAOBufferBuilder::CreateSSAOFBO(unsigned int w, unsigned int h)
 {
 	// SSAO color buffer
-	unsigned int ssaoFBO;
-	glGenFramebuffers(1, &ssaoFBO);
+	unsigned int ssaoFBO = GLCreateFrameBuffer;
 	glBindFramebuffer(GL_FRAMEBUFFER, ssaoFBO);
 
 	unsigned int ssaoColorBuffer = GLCreateTexture(GL_RED, w, h, GL_RGB, GL_FLOAT, NULL);
@@ -90,8 +88,7 @@ void GLSSAOBufferBuilder::CreateSSAOFBO(unsigned int w, unsigned int h)
 
 void GLSSAOBufferBuilder::CreateSSAOBlurFBO(unsigned int w, unsigned int h)
 {
-	unsigned int ssaoBlurFBO;
-	glGenFramebuffers(1, &ssaoBlurFBO);
+	unsigned int ssaoBlurFBO = GLCreateFrameBuffer;
 	glBindFramebuffer(GL_FRAMEBUFFER, ssaoBlurFBO);
 
 	unsigned int ssaoColorBufferBlur = GLCreateTexture(GL_RED, _w, _h, GL_RGB, GL_FLOAT, NULL);
@@ -159,29 +156,18 @@ unsigned int GLSSAOBufferBuilder::GetH()
 
 GLSSAOBufferBuilder::~GLSSAOBufferBuilder()
 {
-	//Delete GBuffer resources
+	//Delete GBuffer frame buffer
 	GLDeleteTexture(_gPosition);
 	GLDeleteTexture(_gNormal);
 	GLDeleteTexture(_gAlbedo);
 	GLDeleteRenderBuffer(_gDepthRenderBufferID);
+	GLDeleteFrameBuffer(_gBufferFBO);
 
-	//Unbind framebuffer and delete GBufferFBO
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glDeleteFramebuffers(1, &_gBufferFBO);
-
-
-	//Delete SSAO framebuffer resources
+	//Delete SSAO frame buffer
 	GLDeleteTexture(_ssaoColorAttachmentID);
+	GLDeleteFrameBuffer(_ssaoFBO);
 
-	//Unbind framebuffer and delete SSAOFBO
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glDeleteFramebuffers(1, &_ssaoFBO);
-
-
-	//Delete SSAO Blur framebuffer resources
+	//Delete SSAO Blur frame buffer
 	GLDeleteTexture(_ssaoBlurColorAttachmentID);
-
-	//Unbind framebuffer and delete SSAOBlurFBO
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glDeleteFramebuffers(1, &_ssaoBlurFBO);
+	GLDeleteFrameBuffer(_ssaoBlurFBO);
 }

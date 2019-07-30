@@ -6,7 +6,7 @@ GLFBO::GLFBO(int w, int h)
 	_w = w;
 	_h = h;
 
-	glGenFramebuffers(1, &_fboID);
+	_fboID = GLCreateFrameBuffer;
 	BindFBO();
 	_texID = CreateEmptyTexture(w, h);
 	AttachTexToFBO(_texID);
@@ -83,7 +83,6 @@ GLFBO::~GLFBO()
 	GLDeleteTexture(_texID);
 	GLDeleteRenderBuffer(_depthBufID);
 
-	//Bind 0, which means render to back buffer, as a result, fb is unbound
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glDeleteFramebuffers(1, &_fboID);
+	//Delete frame buffer
+	GLDeleteFrameBuffer(1, &_fboID);
 }
