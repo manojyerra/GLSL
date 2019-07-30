@@ -9,7 +9,6 @@
 #include "WholeWindowFrame.h"
 #include "SUIActionListener.h"
 #include "FloorVisibilityFrame.h"
-#include "SUI.h"
 
 class Demo : public SUIActionListener
 {

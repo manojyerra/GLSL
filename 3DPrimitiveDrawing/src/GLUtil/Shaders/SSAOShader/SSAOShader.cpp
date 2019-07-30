@@ -1,7 +1,6 @@
 #include "SSAOShader.h"
 #include "ShadersManager.h"
 #include "Cam.h"
-#include "Cam2D.h"
 
 SSAOShader::SSAOShader()
 {

@@ -5,9 +5,9 @@
 #include <string>
 #include <map>
 
-#define GLCreateBuffer(a, b)			GLMemory::CreateBuffer(a, b, __FILE__, __LINE__)
-#define GLCreateTexture(a, b, c, d)		GLMemory::CreateTexture(a, b, c, d, __FILE__, __LINE__)
-#define GLCreateRenderBuffer(a, b, c)	GLMemory::CreateRenderBuffer(a, b, c, __FILE__, __LINE__)
+#define GLCreateBuffer(a, b)					GLMemory::CreateBuffer(a, b, __FILE__, __LINE__)
+#define GLCreateTexture(a, b, c, d, e, f)		GLMemory::CreateTexture(a, b, c, d, e, f, __FILE__, __LINE__)
+#define GLCreateRenderBuffer(a, b, c)			GLMemory::CreateRenderBuffer(a, b, c, __FILE__, __LINE__)
 
 #define GLDeleteBuffer(a)			GLMemory::DeleteBuffer(a)
 #define GLDeleteTexture(a)			GLMemory::DeleteTexture(a)
@@ -40,7 +40,7 @@ private:
 
 public:
 	static GLuint CreateBuffer(GLsizeiptr size, GLvoid* data, const char* filePath, long lineNum);
-	static GLuint CreateTexture(GLsizei width, GLsizei height, unsigned int bytesPP, GLvoid* buffer, const char* filePath, long lineNum);
+	static GLuint CreateTexture(GLint internalFormat, GLsizei w, GLsizei h, GLenum format, GLenum type, GLvoid* buffer, const char* filePath, long lineNum);
 	static GLuint CreateRenderBuffer(GLsizei width, GLsizei height, GLenum internalformat, const char* filePath, long lineNum);
 
 	static void DeleteBuffer(GLuint id);

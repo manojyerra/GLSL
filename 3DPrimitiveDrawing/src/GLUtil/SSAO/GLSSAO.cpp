@@ -2,6 +2,8 @@
 #include "GLBatch.h"
 #include <random>
 #include "Cam2D.h"
+#include "GLMemory.h"
+#include "GLState.h"
 
 GLSSAO::GLSSAO(float w, float h) : GLSSAOBufferBuilder(w, h)
 {
@@ -28,6 +30,9 @@ GLSSAO::GLSSAO(float w, float h) : GLSSAOBufferBuilder(w, h)
 	_blurQuadRenderer = CreateQuadRenderer(GLMeshRenderer::SSAO_BLUR_SHADER);
 	SSAOBlurShader* ssaoBlurShader = (SSAOBlurShader*)_blurQuadRenderer->GetCurrentShader();
 	ssaoBlurShader->SetSSAOInputTexID(GetSSAOColorAttachmentID());
+
+	_texture = new GLTexture(0, 0, w, h);
+	_texture->GetShader()->Set2DCamera(true);
 }
 
 void GLSSAO::GenerateSampleKernelAndNoiseTexture()
@@ -56,13 +61,13 @@ void GLSSAO::GenerateSampleKernelAndNoiseTexture()
 	}
 
 	//TODO: GPU Memory allocation should happen only from GLMemory class. BTW delete the texture in the destructor.
-	glGenTextures(1, &_noiseTexID);
-	glBindTexture(GL_TEXTURE_2D, _noiseTexID);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, 4, 4, 0, GL_RGB, GL_FLOAT, &ssaoNoise[0]);
+
+	_noiseTexID = GLCreateTexture(GL_RGB32F, 4, 4, GL_RGB, GL_FLOAT, &ssaoNoise[0]);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 float GLSSAO::lerp(float a, float b, float f)
@@ -127,6 +132,15 @@ unsigned int GLSSAO::GetOcclusionMap()
 	return GetSSAOBlurColorAttachmentID();
 }
 
+void GLSSAO::DrawOcclusionMap()
+{
+	bool depth = GLState::GLEnable(GL_DEPTH_TEST, false);
+	Cam2D::GetInstance()->SetProjection();
+	_texture->GetShader()->SetTextureID(GetOcclusionMap());
+	_texture->Draw();
+	GLState::GLEnable(GL_DEPTH_TEST, depth);
+}
+
 void GLSSAO::DrawQuad()
 {
 	_quadRenderer->SetModelMatrix(_modelMat.m);
@@ -141,6 +155,17 @@ void GLSSAO::DrawBlurQuad()
 
 GLSSAO::~GLSSAO()
 {
+	if(_texture)
+	{
+		delete _texture;
+		_texture = nullptr;
+	}
+
+	if(_noiseTexID)
+	{
+		GLDeleteTexture(_noiseTexID);
+	}
+
 	if (_quadRenderer)
 	{
 		delete _quadRenderer;

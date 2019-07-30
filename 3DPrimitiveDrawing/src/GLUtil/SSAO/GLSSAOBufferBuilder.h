@@ -14,6 +14,7 @@ private:
 	unsigned int _gPosition;
 	unsigned int _gNormal;
 	unsigned int _gAlbedo;
+	unsigned int _gDepthRenderBufferID;
 
 	unsigned int _ssaoFBO;
 	unsigned int _ssaoColorAttachmentID;

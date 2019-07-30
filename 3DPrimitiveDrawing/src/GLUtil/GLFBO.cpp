@@ -8,7 +8,7 @@ GLFBO::GLFBO(int w, int h)
 
 	glGenFramebuffers(1, &_fboID);
 	BindFBO();
-	_texID = GLCreateTexture(w, h, 3, NULL); //Creating empty texture
+	_texID = CreateEmptyTexture(w, h);
 	AttachTexToFBO(_texID);
 	_depthBufID = CreateDepthBuffer(_w, _h);
 	AttachDepthBufferToFBO(_depthBufID);
@@ -37,7 +37,19 @@ void GLFBO::AttachTexToFBO(unsigned int texID)
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texID, 0);
 }
 
-unsigned int GLFBO::CreateDepthBuffer(int w, int h)
+unsigned int GLFBO::CreateEmptyTexture(unsigned int w, unsigned int h)
+{
+	unsigned int texID = GLCreateTexture(GL_RGB, w, h, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	return texID;
+}
+
+unsigned int GLFBO::CreateDepthBuffer(unsigned int w, unsigned int h)
 {
 	return GLCreateRenderBuffer(w, h, GL_DEPTH_COMPONENT24);
 }

@@ -99,7 +99,20 @@ void GLBufferBuilder::build()
 		unsigned int bytesPP = _imageBuffer->GetBytesPerPixel();
 		GLvoid* buffer = _imageBuffer->GetBuffer();
 
-		_baseTexID = GLCreateTexture(width, height, bytesPP, buffer);
+		if(bytesPP != 4 && bytesPP != 3)
+		{
+			throw new std::exception("\nException : Unsupported texture format.");
+		}
+
+		GLenum format = (bytesPP == 3) ? GL_RGB : GL_RGBA;
+
+		_baseTexID = GLCreateTexture(format, width, height, format, GL_UNSIGNED_BYTE, buffer);
+
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 }
 

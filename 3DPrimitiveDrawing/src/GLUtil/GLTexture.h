@@ -16,6 +16,8 @@ private:
 
 public:
 	GLTexture(const char* texturePath, float x, float y, float w, float h);
+	GLTexture(float x, float y, float w, float h);
+
 	~GLTexture();
 
 	UVShader* GetShader();

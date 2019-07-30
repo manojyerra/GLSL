@@ -1,10 +1,10 @@
-#include "Input.h"
 #ifdef _ENABLE_DEMO
 
+#include "Input.h"
 #include "Demo.h"
 #include "GLMemory.h"
 #include "Cam.h"
-#include "Cam2D.h"
+#include "SUI.h"
 
 Demo::Demo(float sw, float sh)
 {

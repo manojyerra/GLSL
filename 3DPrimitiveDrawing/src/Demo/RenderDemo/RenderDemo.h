@@ -3,7 +3,6 @@
 #ifndef RenderDemo_H
 #define RenderDemo_H
 
-#include "GLSSAOBufferBuilder.h"
 #include "GLMeshRenderer.h"
 #include "Floor.h"
 
@@ -27,7 +26,6 @@ private:
 
 	bool _enableSSAO;
 	GLSSAO* _ssao;
-	GLTexture* _texture;
 
 	ShaderFrame* _shaderFrame;
 	ModelVisibilityFrame* _modelVisibilityFrame;

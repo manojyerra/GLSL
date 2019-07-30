@@ -1,7 +1,10 @@
 #ifndef Platform_H
 #define Platform_H
 
+#if (defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(WIN32) || defined(__MINGW32__))
 #include "Windows.h"
+#endif
+
 #include <GLFW/glfw3.h>
 
 class Platform

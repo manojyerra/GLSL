@@ -1,5 +1,6 @@
 #ifndef Shader_H
 #define Shader_H
+
 class Shader {
 public:
 	virtual void SetAlpha(float alpha) = 0;

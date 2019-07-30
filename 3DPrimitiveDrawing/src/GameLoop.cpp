@@ -4,8 +4,8 @@
 #include "Input.h"
 #include "Cam.h"
 #include "Cam2D.h"
-#include "ObjReader.h"
-#include "GLState.h"
+//#include "ObjReader.h"
+//#include "GLState.h"
 
 GameLoop::GameLoop(float sw, float sh)
 {
@@ -29,7 +29,6 @@ void GameLoop::Update(float deltaTime)
 void GameLoop::Draw()
 {
 	_demo->Draw();
-	return;
 }
 
 void GameLoop::SetScreenSize(float sw, float sh)
@@ -39,6 +38,8 @@ void GameLoop::SetScreenSize(float sw, float sh)
 
 	Cam::GetInstance()->SetScreenSize(_sw, _sh);
 	Cam2D::GetInstance()->SetScreenSize(_sw, _sh);
+
+	_demo->SetScreenSize(_sw, _sh);
 }
 
 GameLoop::~GameLoop()
@@ -54,27 +55,6 @@ GameLoop::~GameLoop()
 	ShadersManager::GetInstance()->DeleteInstance();
 	GLMemory::printMemoryLeaks();
 }
-
-
-//static bool on = false;
-//
-//if (on)
-//{
-//	glDisable(GL_DEPTH_TEST);
-//	Cam2D::GetInstance()->SetProjection();
-//	_texture->GetShader()->SetTextureID(_ssao->GetOcclusionMap());
-//	_texture->Draw();
-//}
-
-//if (Input::IsMouseClicked())
-//{
-//	on = !on;
-
-//	if(on)
-//		printf("\nocclustion is on");
-//	else
-//		printf("\nocclustion is off");
-//}
 
 
 //glm::vec3 v1(0.0f, 0.0f, 0.0f);

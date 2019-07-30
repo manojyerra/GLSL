@@ -2,8 +2,8 @@
 #include "ShadersManager.h"
 #include "Cam.h"
 
-PBRWithTextureShader::PBRWithTextureShader() : PBRShader("shaders/PBRWithTextgureShader/PBRWithTextureShader.vs",
-	"shaders/PBRWithTextgureShader/PBRWithTextureShader.fs")
+PBRWithTextureShader::PBRWithTextureShader() : PBRShader("shaders/PBRWithTextureShader/PBRWithTextureShader.vs",
+	"shaders/PBRWithTextureShader/PBRWithTextureShader.fs")
 {
 	_uvBufferID = 0;
 	_baseTexID = 0;

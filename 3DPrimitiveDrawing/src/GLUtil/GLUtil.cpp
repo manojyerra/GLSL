@@ -1,5 +1,4 @@
 #include "GLUtil.h"
-#include <math.h>
 
 float GLUtil::SW = 0;
 float GLUtil::SH = 0;

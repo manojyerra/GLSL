@@ -1,7 +1,6 @@
 #include "SSAOBlurShader.h"
 #include "ShadersManager.h"
 #include "Cam.h"
-#include "Cam2D.h"
 
 SSAOBlurShader::SSAOBlurShader()
 {

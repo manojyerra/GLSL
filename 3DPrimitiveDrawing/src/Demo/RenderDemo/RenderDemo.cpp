@@ -1,10 +1,10 @@
-#include "GLState.h"
-#include "Cam2D.h"
 #ifdef _ENABLE_DEMO
 
 #include "RenderDemo.h"
 #include "Cam.h"
 #include "ObjReader.h"
+#include "GLState.h"
+#include "Cam2D.h"
 
 RenderDemo::RenderDemo(float sw, float sh)
 {
@@ -24,7 +24,7 @@ RenderDemo::RenderDemo(float sw, float sh)
 
 	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/demo/Teapot"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 2) meshRenderer2 = new GLMeshRenderer(&ObjReader("data/demo/Trike"), GLMeshRenderer::PBR_SHADER);
-	if (_numModels >= 3) meshRenderer3 = new GLMeshRenderer(&ObjReader("data/demo/Teapot"), GLMeshRenderer::PBR_SHADER);
+	if (_numModels >= 3) meshRenderer3 = new GLMeshRenderer(&ObjReader("data/demo/Truck"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 4) meshRenderer4 = new GLMeshRenderer(&ObjReader("data/demo/Plane"), GLMeshRenderer::PBR_WITH_TEXTURE_SHADER);
 	if (_numModels >= 5) meshRenderer5 = new GLMeshRenderer(&ObjReader("data/demo/Teapot"), GLMeshRenderer::PBR_SHADER);
 
@@ -66,10 +66,8 @@ RenderDemo::RenderDemo(float sw, float sh)
 
 	//Begin : SSAO related code...
 
-	_texture = new GLTexture("data/demo/Sample.png", 0, 0, sw, sh);
-	_texture->GetShader()->Set2DCamera(true);
 
-	_enableSSAO = true;
+	_enableSSAO = false;
 	_ssao = new GLSSAO(sw, sh);
 	
 	//End : SSAO related code...
@@ -79,8 +77,17 @@ void RenderDemo::SetScreenSize(float sw, float sh)
 {
 	_sw = sw;
 	_sh = sh;
+
 	_modelVisibilityFrame->SetPos(_sw - _modelVisibilityFrame->GetWidth(), 152);
 	_modelSelectionFrame->SetPos(_sw - _modelSelectionFrame->GetWidth(), 353);
+
+	glViewport(0, 0, _sw, _sh);
+
+	if (_ssao)
+	{
+		delete _ssao;
+		_ssao = new GLSSAO(_sw, _sh);
+	}
 }
 
 void RenderDemo::Draw()
@@ -89,7 +96,6 @@ void RenderDemo::Draw()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	glViewport(0, 0, _sw, _sh);
 	glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -119,11 +125,7 @@ void RenderDemo::Draw()
 
 	if (_enableSSAO)
 	{
-		bool depth = GLState::GLEnable(GL_DEPTH_TEST, false);
-		Cam2D::GetInstance()->SetProjection();
-		_texture->GetShader()->SetTextureID(_ssao->GetOcclusionMap());
-		_texture->Draw();
-		GLState::GLEnable(GL_DEPTH_TEST, depth);
+		_ssao->DrawOcclusionMap();
 	}
 }
 
@@ -210,12 +212,6 @@ void RenderDemo::SetEnableSSAO(bool enable)
 
 RenderDemo::~RenderDemo()
 {
-	if (_texture)
-	{
-		delete _texture;
-		_texture = nullptr;
-	}
-
 	if (_ssao)
 	{
 		delete _ssao;

@@ -210,7 +210,6 @@
     <ClInclude Include="src\GLUtil\SSAO\GLSSAO.h" />
     <ClInclude Include="src\GLUtil\SSAO\GLSSAOBufferBuilder.h" />
     <ClInclude Include="src\Input.h" />
-    <ClInclude Include="src\learnopengl\Camera.h" />
     <ClInclude Include="src\ParticleRenderer\ParticleRenderer.h" />
     <ClInclude Include="src\Platform\Platform.h" />
     <ClInclude Include="src\Shapes2D\Triangle.h" />
@@ -347,10 +346,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>include;glad/include;src;src/Platform;src/Math;src/ParticleRenderer;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/Arrays;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/IO/ModelIO;src/Common/Utils;src/GLUtil;src/GLUtil/SSAO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PBRWithTextureShader;src/GLUtil/Shaders/PhongShader;src/GLUtil/Shaders/PhongWithTextureShader;src/GLUtil/Shaders/CubeGeometryShader;src/GLUtil/Shaders/SSAOGeometryPassShader;src/GLUtil/Shaders/SSAOShader;src/GLUtil/ShaderProgram;src/SUI;src/Demo;src/Demo/ParticlesDemo;src/Demo/RenderDemo;src/Demo/DemoUI;src/GLUtil/Shaders/SSAOBlurShader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;GLFW_INCLUDE_NONE;NOMINMAX;_ENABLE_DEMO;_ENABLE_SUI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;lib/*.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

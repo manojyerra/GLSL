@@ -13,6 +13,18 @@ GLTexture::GLTexture(const char* texturePath, float x, float y, float w, float h
 	GenerateGeometry(texturePath);
 }
 
+GLTexture::GLTexture(float x, float y, float w, float h)
+{
+	_meshRenderer = NULL;
+
+	_modelMat.m[0] = w;
+	_modelMat.m[5] = h;
+	_modelMat.m[12] = x;
+	_modelMat.m[13] = y;
+
+	GenerateGeometry(NULL);
+}
+
 void GLTexture::SetBounds(float x, float y, float w, float h)
 {
 	_modelMat.m[0] = w;
@@ -51,7 +63,10 @@ void GLTexture::GenerateGeometry(const char* texturePath)
 	buffer->glTexCoord2f(1, 0);
 	buffer->glVertex3f(1, 1, 0);
 
-	ImageBuffer* imageBuffer = new ImageBuffer(texturePath);
+	ImageBuffer* imageBuffer = NULL; 
+
+	if(texturePath)
+		imageBuffer = new ImageBuffer(texturePath);
 
 	ModelInfo createInfo;
 	createInfo.SetVertexBuffer(buffer->GetVertexBuffer(), buffer->GetVertexBufferSize());
@@ -62,7 +77,12 @@ void GLTexture::GenerateGeometry(const char* texturePath)
 	_meshRenderer->SetPrimitiveType(GLMeshRenderer::triangleStrip);
 
 	delete buffer;
-	delete imageBuffer;
+
+	if(imageBuffer)
+	{
+		delete imageBuffer;
+		imageBuffer = NULL;
+	}
 }
 
 GLTexture::~GLTexture()

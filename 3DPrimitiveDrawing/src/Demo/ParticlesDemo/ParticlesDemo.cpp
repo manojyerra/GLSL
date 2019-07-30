@@ -51,7 +51,6 @@ void ParticlesDemo::Draw()
 		glEnable(GL_DEPTH_TEST);
 		glClearColor(clearValue, clearValue, clearValue, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glViewport(0, 0, (GLuint)_sw, (GLuint)_sh);
 
 		_floor->Draw();
 
@@ -71,7 +70,6 @@ void ParticlesDemo::Draw()
 			glEnable(GL_DEPTH_TEST);
 			glClearColor(clearValue, clearValue, clearValue, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			glViewport(0, 0, (GLuint)_sw, (GLuint)_sh);
 
 			_floor->Draw();
 
@@ -86,7 +84,6 @@ void ParticlesDemo::Draw()
 
 		glClearColor(clearValue, clearValue, clearValue, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glViewport(0, 0, (GLuint)_sw, (GLuint)_sh);
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_CULL_FACE);
 
@@ -117,6 +114,8 @@ void ParticlesDemo::SetScreenSize(float sw, float sh)
 	}
 
 	_drawAllParticles = true;
+
+	glViewport(0, 0, (GLuint)_sw, (GLuint)_sh);
 }
 
 void ParticlesDemo::SetFloorVisible(bool visible)

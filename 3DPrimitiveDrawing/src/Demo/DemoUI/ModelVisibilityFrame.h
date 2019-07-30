@@ -5,11 +5,8 @@
 
 #include "SUI/SUIFrame.h"
 #include "SUI/SUIActionListener.h"
-#include "SUI/SUIButton.h"
 #include "SUI/SUIBox.h"
 #include "SUI/SUICheckBox.h"
-#include "glm/glm.hpp"
-
 
 class ModelBox {
 public:

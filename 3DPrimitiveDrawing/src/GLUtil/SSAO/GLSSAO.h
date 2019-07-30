@@ -3,9 +3,7 @@
 
 #include "GLSSAOBufferBuilder.h"
 #include "GLMeshRenderer.h"
-#include "ModelInfo.h"
 #include "GLTexture.h"
-#include "GLFBO.h"
 
 class GLSSAO : public GLSSAOBufferBuilder
 {
@@ -17,6 +15,7 @@ private:
 
 	GLMeshRenderer* _quadRenderer;
 	GLMeshRenderer* _blurQuadRenderer;
+	GLTexture* _texture;
 
 	GLMat _modelMat;
 
@@ -34,6 +33,7 @@ public:
 	void End();
 
 	unsigned int GetOcclusionMap();
+	void DrawOcclusionMap();
 };
 
 #endif

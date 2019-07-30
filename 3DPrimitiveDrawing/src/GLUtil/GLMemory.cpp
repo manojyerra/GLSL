@@ -1,5 +1,5 @@
 #include "GLMemory.h"
-#include <Windows.h>
+#include "Platform.h"
 
 std::map<std::string, GLMemoryInfo> GLMemory::_memInfoMap;
 
@@ -18,31 +18,16 @@ GLuint GLMemory::CreateBuffer(GLsizeiptr size, GLvoid* data, const char* filePat
 	return bufferID;
 }
 
-GLuint GLMemory::CreateTexture(GLsizei width, GLsizei height, unsigned int bytesPP, GLvoid* buffer, const char* filePath, long lineNum)
+GLuint GLMemory::CreateTexture(GLint internalFormat, GLsizei w, GLsizei h, GLenum format, GLenum type, GLvoid* buffer, const char* filePath, long lineNum)
 {
 	unsigned int textureID = 0;
 
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, w, h, 0, format, type, buffer);
 
-	if (bytesPP == 4)
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
-	else if (bytesPP == 3)
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, buffer);
-	else if (bytesPP == 1)
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, width, height, 0, GL_RGB8, GL_UNSIGNED_BYTE, buffer);
-	else
-		throw std::exception("Error : Failed to create texuture due to unsupported bytes per pixel");
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	GLMemoryInfo memInfo(filePath, lineNum, width*height*bytesPP);
+	GLMemoryInfo memInfo(filePath, lineNum, w*h*3);
 	std::string str = "Texture_" + std::to_string(textureID);
 	_memInfoMap.insert(std::make_pair(str, memInfo));
 
@@ -51,17 +36,17 @@ GLuint GLMemory::CreateTexture(GLsizei width, GLsizei height, unsigned int bytes
 
 GLuint GLMemory::CreateRenderBuffer(GLsizei width, GLsizei height, GLenum internalformat, const char* filePath, long lineNum)
 {
-	unsigned int rbo;
-	glGenRenderbuffers(1, &rbo);
-	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+	unsigned int renderBufferID;
+	glGenRenderbuffers(1, &renderBufferID);
+	glBindRenderbuffer(GL_RENDERBUFFER, renderBufferID);
 	glRenderbufferStorage(GL_RENDERBUFFER, internalformat, width, height);
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 	GLMemoryInfo memInfo(filePath, lineNum, width*height * 3);
-	std::string str = "RenderBuffer_" + std::to_string(rbo);
+	std::string str = "RenderBuffer_" + std::to_string(renderBufferID);
 	_memInfoMap.insert(std::make_pair(str, memInfo));
 
-	return rbo;
+	return renderBufferID;
 }
 
 void GLMemory::DeleteBuffer(GLuint id)
@@ -105,38 +90,46 @@ void GLMemory::DeleteRenderBuffer(GLuint id)
 
 void GLMemory::printMemoryLeaks()
 {
-#if (defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(WIN32) || defined(__MINGW32__))
-
 	if (!hasMemoryLeaks())
 	{
-		OutputDebugString("\n\nGLMemory: No memory leaks detected.\n\n");
+		Platform::debugPrint("\n\nGLMemory: No memory leaks detected.\n\n");
 		return;
 	}
 
-	char arr[1024];
-	OutputDebugString("\n\nGLMemoryTrace : Begin\n\n");
+	Platform::debugPrint("\n\nGLMemoryTrace : Begin\n\n");
 
 	std::map<std::string, GLMemoryInfo>::iterator itr;
 
 	for (itr = _memInfoMap.begin(); itr != _memInfoMap.end(); ++itr)
 	{
-		sprintf(arr, "\n FileName: %s, LineNumber: %ld", itr->second.fileName.c_str(), itr->second.lineNum);
-		OutputDebugString(arr);
+		Platform::debugPrint("\n FileName: %s, LineNumber: %ld", itr->second.fileName.c_str(), itr->second.lineNum);
 	}
 
-	OutputDebugString("\n\n\nGLMemoryTrace : End\n\n\n");
-
-#else
-
-	for (itr = _memInfoMap.begin(); itr != _memInfoMap.end(); ++itr)
-	{
-		printf("\n FileName: %s, LineNumber: %ld", itr->second.fileName.c_str(), itr->second.lineNum);
-	}
-
-#endif
+	Platform::debugPrint("\n\n\nGLMemoryTrace : End\n\n\n");
 }
 
 bool GLMemory::hasMemoryLeaks()
 {
 	return (_memInfoMap.size() > 0);
 }
+
+
+
+
+
+//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+//if (bytesPP == 4)
+//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+//else if (bytesPP == 3)
+//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, buffer);
+//else if (bytesPP == 1)
+//	glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, width, height, 0, GL_RGB8, GL_UNSIGNED_BYTE, buffer);
+//else
+//	throw std::exception("Error : Failed to create texuture due to unsupported bytes per pixel");
+
+//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+//glBindTexture(GL_TEXTURE_2D, 0);

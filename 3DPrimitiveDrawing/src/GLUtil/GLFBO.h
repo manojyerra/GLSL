@@ -12,8 +12,9 @@ private:
 	unsigned int _h;
 
 	void AttachTexToFBO(unsigned int texID);
-	unsigned int CreateDepthBuffer(int w, int h);
+	unsigned int CreateDepthBuffer(unsigned int w, unsigned int h);
 	void AttachDepthBufferToFBO(unsigned int depthBufferID);
+	unsigned int CreateEmptyTexture(unsigned int w, unsigned int h);
 
 public:
 	GLFBO(int w, int h);
