@@ -21,7 +21,7 @@ OpenGL related tasks
 *) Add camera options in UI for tweaking like ZNear, ZNearWidth and Camera paning and zoom.
 *) Fix current camera issues zoom and pan issues.
 *) Implement camera like First person shooter games.
-
+*) Check how to save memory from SSAO buffers.
 
 How to scale down the model.
 How to avarage normals of obj.
