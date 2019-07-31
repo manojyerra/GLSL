@@ -7,6 +7,7 @@ Tasks for Integration
 *)Check framebuffer issue with multisampling in desktop system which is working properly in my laptop.
 *)Taking screenshots and making video.
 *)Pack below dll files.
+*)Reset to origin and Zoom and Pan and rotate speed for camera.
 
 msvcp140.dll
 msvcp140d.dll
