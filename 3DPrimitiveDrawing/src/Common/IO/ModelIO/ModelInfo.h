@@ -2,6 +2,7 @@
 #define ModelInfo_H
 
 #include "ImageBuffer.h"
+#include "AABB.h"
 
 class ModelInfo
 {
@@ -18,6 +19,9 @@ private:
 	unsigned int _normalBufLen;
 	unsigned int _colorBufLen;
 	unsigned int _indicesBufLen;
+
+protected:
+	AABB bBox;
 
 public:
 	ModelInfo();
@@ -42,6 +46,8 @@ public:
 	virtual unsigned int GetNormalBufferSize();
 	virtual unsigned int GetColorBufferSize();
 	virtual unsigned int GetIndicesBufferSize();
+
+	virtual AABB GetAABB();
 };
 
 #endif

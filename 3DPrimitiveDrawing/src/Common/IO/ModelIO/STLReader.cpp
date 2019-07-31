@@ -25,6 +25,7 @@ void STLReader::ReadSTLFile(std::string folderPath)
 
 	float vx, vy, vz;
 	float nx, ny, nz;
+	bool isFirstVertex = true;
 
 	char* line = NULL;
 
@@ -51,6 +52,26 @@ void STLReader::ReadSTLFile(std::string folderPath)
 
 			_vertexFloatArr->push_back_3(vx, vy, vz);
 			_normalFloatArr->push_back_3(nx, ny, nz);
+
+			if (isFirstVertex)
+			{
+				bBox.minX = bBox.maxX = vx;
+				bBox.minY = bBox.maxY = vy;
+				bBox.minZ = bBox.maxZ = vz;
+
+				isFirstVertex = false;
+			}
+			else
+			{
+				if (vx < bBox.minX)			bBox.minX = vx;
+				else if (vx > bBox.maxX)	bBox.maxX = vx;
+
+				if (vy < bBox.minY)			bBox.minY = vy;
+				else if (vy > bBox.maxY)	bBox.maxY = vy;
+
+				if (vz < bBox.minZ)			bBox.minZ = vz;
+				else if (vz > bBox.maxZ)	bBox.maxZ = vz;
+			}
 		}
 	}
 }

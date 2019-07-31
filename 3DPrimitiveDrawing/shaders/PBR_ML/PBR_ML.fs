@@ -53,7 +53,7 @@ void main()
 {
 	if(vertexVary.x > 0)
 	{
-		discard;
+		//discard;
 	}
 	
 	vec3 lo = vec3(0.0);

@@ -16,6 +16,7 @@
 #include "SSAOShader.h"
 #include "SSAOBlurShader.h"
 #include "SSAOMapOverlayShader.h"
+#include "AABB.h"
 
 class GLMeshRenderer
 {
@@ -41,6 +42,7 @@ private:
 	int _primitiveType;
 
 	GLMat _modelMat;
+	AABB _bBox;
 
 public:
 	GLBufferBuilder* _bufferBuilder;
@@ -72,7 +74,7 @@ public:
 		SSAO_MAP_OVERLAY_SHADER
 	};
 
-	GLMeshRenderer(ModelInfo* meshCreateInfo, int shaderType);
+	GLMeshRenderer(ModelInfo* modelInfo, int shaderType);
 	~GLMeshRenderer();
 
 	void SetModelMatrix(float* mat);

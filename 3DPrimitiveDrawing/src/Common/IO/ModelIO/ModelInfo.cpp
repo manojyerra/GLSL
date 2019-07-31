@@ -64,6 +64,11 @@ unsigned int ModelInfo::GetNormalBufferSize() { return _normalBufLen; }
 unsigned int ModelInfo::GetColorBufferSize() { return _colorBufLen; }
 unsigned int ModelInfo::GetIndicesBufferSize() { return _indicesBufLen;  }
 
+AABB ModelInfo::GetAABB()
+{
+	return bBox;
+}
+
 ModelInfo::~ModelInfo()
 {
 }

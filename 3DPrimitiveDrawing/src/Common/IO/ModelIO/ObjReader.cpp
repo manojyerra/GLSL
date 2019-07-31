@@ -37,6 +37,7 @@ void ObjReader::ReadObjFile(std::string folderPath)
 	VoidPtrArray facesArr(1024 * 1024);
 
 	char* line = NULL;
+	bool isFirstVertex = true;
 
 	while ((line = fileReader.ReadLine()) != NULL)
 	{
@@ -50,6 +51,26 @@ void ObjReader::ReadObjFile(std::string folderPath)
 			{
 				ScanLineUtils::scan_vertex(line, &vx, &vy, &vz);
 				vertexVec.push_back(glm::vec3(vx, vy, vz));
+
+				if(isFirstVertex)
+				{
+					bBox.minX = bBox.maxX = vx;
+					bBox.minY = bBox.maxY = vy;
+					bBox.minZ = bBox.maxZ = vz;
+
+					isFirstVertex = false;
+				}
+				else
+				{
+					if(vx < bBox.minX)			bBox.minX = vx;
+					else if(vx > bBox.maxX)		bBox.maxX = vx;
+
+					if (vy < bBox.minY)			bBox.minY = vy;
+					else if (vy > bBox.maxY)	bBox.maxY = vy;
+
+					if (vz < bBox.minZ)			bBox.minZ = vz;
+					else if (vz > bBox.maxZ)	bBox.maxZ = vz;
+				}
 			}
 			else if (line[0] == 'v' && line[1] == 't')
 			{

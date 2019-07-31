@@ -483,6 +483,9 @@
     <ClCompile Include="src\GLUtil\Shaders\SSAOMapOverlayShader\SSAOMapOverlayShader.cpp">
       <Filter>src\GLUtil\Shaders\SSAOMapOverlayShader</Filter>
     </ClCompile>
+    <ClCompile Include="src\Common\Utils\AABB.cpp">
+      <Filter>src\Common\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -808,6 +811,9 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\Shaders\SSAOMapOverlayShader\SSAOMapOverlayShader.h">
       <Filter>src\GLUtil\Shaders\SSAOMapOverlayShader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Utils\AABB.h">
+      <Filter>src\Common\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
