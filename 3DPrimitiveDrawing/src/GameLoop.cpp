@@ -12,7 +12,7 @@ GameLoop::GameLoop(float sw, float sh)
 
 	_zNear = 0.15f;
 	_zFar = 1000000.0f;
-	_zNearPlaneW = 0.2f;
+	_zNearPlaneW = 0.25f;
 
 	Cam::GetInstance()->Init(sw, sh, _zNear, _zFar, _zNearPlaneW);
 	Cam2D::GetInstance()->Init(sw, sh);

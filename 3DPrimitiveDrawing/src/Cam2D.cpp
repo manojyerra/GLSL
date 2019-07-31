@@ -49,6 +49,8 @@ void Cam2D::SetScreenSize(float sw, float sh)
 	_top = 0.0f;
 	_zNear = 0.0f;
 	_zFar = 1.0f;
+
+	SetProjection();
 }
 
 void Cam2D::SetProjection()

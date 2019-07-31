@@ -13,7 +13,7 @@ RenderDemo::RenderDemo(float sw, float sh)
 
 	_floor = new Floor();
 
-	_numModels = 1;
+	_numModels = 2;
 	_selectedModel = nullptr;
 
 	GLMeshRenderer* meshRenderer1 = nullptr;
@@ -22,13 +22,13 @@ RenderDemo::RenderDemo(float sw, float sh)
 	GLMeshRenderer* meshRenderer4 = nullptr;
 	GLMeshRenderer* meshRenderer5 = nullptr;
 
-	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/BigSize/STLCar"), GLMeshRenderer::PBR_SHADER);
+	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/BigSize/Plane"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 2) meshRenderer2 = new GLMeshRenderer(&ObjReader("data/BigSize/Trike"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 3) meshRenderer3 = new GLMeshRenderer(&ObjReader("data/BigSize/Truck"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 4) meshRenderer4 = new GLMeshRenderer(&STLReader("data/BigSize/STLCar"), GLMeshRenderer::PBR_WITH_TEXTURE_SHADER);
 	if (_numModels >= 5) meshRenderer5 = new GLMeshRenderer(&ObjReader("data/Teapot"), GLMeshRenderer::PBR_SHADER);
 
-	if (meshRenderer1) meshRenderer1->SetPos(0.0f, 0.0f, 0.0f);
+	if (meshRenderer1) meshRenderer1->SetPos(0.0f, 0.0f, -20.0f);
 	if (meshRenderer2) meshRenderer2->SetPos(-8.0f, 0.0f, 0.0f);
 	if (meshRenderer3) meshRenderer3->SetPos(2.0f, -3.0f, 2.0f);
 	if (meshRenderer4) meshRenderer4->SetPos(0.0f, 0.0f, -12.0f);
@@ -65,7 +65,7 @@ RenderDemo::RenderDemo(float sw, float sh)
 	}
 
 	_enableSSAO = false;
-	_ssao = new GLSSAO(sw, sh);
+	_ssao = new GLSSAO(_sw, _sh);
 }
 
 void RenderDemo::SetScreenSize(float sw, float sh)
@@ -73,10 +73,10 @@ void RenderDemo::SetScreenSize(float sw, float sh)
 	_sw = sw;
 	_sh = sh;
 
+	glViewport(0, 0, _sw, _sh);
+
 	_modelVisibilityFrame->SetPos(_sw - _modelVisibilityFrame->GetWidth(), 152);
 	_modelSelectionFrame->SetPos(_sw - _modelSelectionFrame->GetWidth(), 353);
-
-	glViewport(0, 0, _sw, _sh);
 
 	if (_ssao)
 	{

@@ -51,6 +51,9 @@ void Cam::SetScreenSize(float sw, float sh)
 {
 	_sw = sw;
 	_sh = sh;
+
+	SetProjection();
+	SetViewMatrix();
 }
 
 void Cam::SetProjection()
@@ -146,33 +149,43 @@ bool Cam::UpdateCamera()
 
 	if( (Input::IsKeyPressed(Input::KEY_LEFT_SHIFT) || Input::IsKeyPressed(Input::KEY_RIGHT_SHIFT)) && Input::IsMiddleMousePressed())
 	{
-		float dx = (float)(Input::MX - Input::PrevMX);
-		float dy = (float)(Input::MY - Input::PrevMY);
+		if(Input::MX != Input::PrevMX || Input::MY != Input::PrevMY)
+		{
+			float dx = (float)(Input::MX - Input::PrevMX);
+			float dy = (float)(Input::MY - Input::PrevMY);
 
-		float z = _trans.z;
-		if(z < 0)
-			z = -z;
+			float z = _trans.z;
+			if(z < 0)
+				z = -z;
 
-		z /= 3000;
+			z /= 3000;
 
-		_trans.x += dx*z / (_zNearPlaneHalfW * 4.0f);
-		_trans.y += -dy*z / (_zNearPlaneHalfW * 4.0f);
+			if (z < 0.003)
+				z = 0.003;
+
+			_trans.x += dx*z / (_zNearPlaneHalfW * 4.0f);
+			_trans.y += -dy*z / (_zNearPlaneHalfW * 4.0f);
+		}
 
 		_camUpdated = true;
 	}
 	else if((Input::IsKeyPressed(Input::KEY_LEFT_CONTROL) || Input::IsKeyPressed(Input::KEY_RIGHT_CONTROL)) && Input::IsMiddleMousePressed())
 	{
-		//_trans.z += (float)(Input::PrevMY - Input::MY) * 2.0f;
+		if(Input::MY != Input::PrevMY)
+		{
+			float dy = (float)(Input::MY - Input::PrevMY);
 
-		float dy = (float)(Input::MY - Input::PrevMY);
+			float z = _trans.z;
+			if (z < 0)
+				z = -z;
 
-		float z = _trans.z;
-		if (z < 0)
-			z = -z;
+			z /= 300;
 
-		z /= 300;
+			if (z < 0.02)
+				z = 0.02;
 
-		_trans.z += -dy * z;
+			_trans.z += -dy * z;
+		}
 
 		_camUpdated = true;
 	}
@@ -181,8 +194,8 @@ bool Cam::UpdateCamera()
 		float dx = (float)(Input::MX - Input::PrevMX);
 		float dy = (float)(Input::MY - Input::PrevMY);
 
-		_angle.y += dx * 180.0f / (_sw*0.5f);
-		_angle.x += dy * 180.0f / (_sh*0.5f);
+		_angle.y += dx * 0.75f * 180.0f / (_sw*0.5f);
+		_angle.x += dy * 0.75f * 180.0f / (_sh*0.5f);
 
 		_camUpdated = true;
 	}

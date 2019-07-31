@@ -66,10 +66,6 @@ void SSAOMapOverlayShader::SetUniformsAndAttributes()
 {
 	GLuint programID = _shaderProgram->ProgramID();
 
-	float* m = _modelMat.m;
-
-	Cam2D* cam2D = Cam2D::GetInstance();
-	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(cam2D->GetMVP(m)));
 	_shaderProgram->SetUniform1f("alpha", _alpha);
 	_shaderProgram->SetUniform1f("occlusionLevel", _occlusionLevel);
 
