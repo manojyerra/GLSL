@@ -294,13 +294,23 @@ void GLMeshRenderer::SetAlpha(float alpha)
 
 void GLMeshRenderer::Draw()
 {
-
 	if (_shader)
 	{
+		SetShader(BASIC_SHADER);
+
 		_shader->SetModelMatrix(_modelMat.m);
 		_shader->Begin();
+
+		_basicShader->SetColor(glm::vec3(1.0f, 0.0f, 0.0f));
 		_shader->SetUniformsAndAttributes();
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glDrawArrays(_primitiveType, 0, (GLsizei)(_bufferBuilder->GetVertexBufferSize() / 12));
+
+		_basicShader->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+		_shader->SetUniformsAndAttributes();
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glDrawArrays(_primitiveType, 0, (GLsizei)(_bufferBuilder->GetVertexBufferSize() / 12));
+
 		_shader->End();
 	}
 }
