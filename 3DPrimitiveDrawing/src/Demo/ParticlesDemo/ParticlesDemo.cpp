@@ -18,7 +18,7 @@ ParticlesDemo::ParticlesDemo(float sw, float sh)
 	////
 
 	_fbo = new GLFBO((int)_sw, (int)_sh);
-	_texture = new GLTexture("data/demo/Sample.png", 0.0f, 0.0f, _sw, _sh);
+	_texture = new GLTexture("data/Sample.png", 0.0f, 0.0f, _sw, _sh);
 	_texture->GetShader()->Set2DCamera(true);
 
 	_floor = new Floor();

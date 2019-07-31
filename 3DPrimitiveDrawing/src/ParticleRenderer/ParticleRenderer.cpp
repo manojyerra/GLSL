@@ -5,7 +5,7 @@ ParticleRenderer::ParticleRenderer()
 {
 	_modelMat.SetRotation(glm::vec3(0,90,90));
 
-	ParticleReader particleReader("data/demo/Particles");
+	ParticleReader particleReader("data/BigSize/Particles");
 
 	_normalPolyRenderer = new GLMeshRenderer(&particleReader, GLMeshRenderer::CUBE_GEOMETRY_SHADER);
 	_normalPolyRenderer->SetPrimitiveType(GLMeshRenderer::points);
