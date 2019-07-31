@@ -3,8 +3,8 @@
 #ifndef SUIIncludes_H
 #define SUIIncludes_H
 
-#include <gl/gl.h>
 #include <windows.h>
+#include <gl/gl.h>
 
 //#pragma warning( disable : 4996 )
 //#pragma warning( disable : 4995 )

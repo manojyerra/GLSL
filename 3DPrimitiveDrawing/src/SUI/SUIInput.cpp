@@ -2,7 +2,6 @@
 
 #include "SUIInput.h"
 #include "SUIIncludes.h"
-#include "math.h"
 #include "SUIManager.h"
 
 bool SUIInput::PREV_LEFT_BUTTON_DOWN = false;
