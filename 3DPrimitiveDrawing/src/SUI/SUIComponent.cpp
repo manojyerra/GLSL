@@ -2,7 +2,6 @@
 
 #include "SUIComponent.h"
 #include "SUIIncludes.h"
-#include "SUIInput.h"
 
 SUIComponent::SUIComponent(int id)
 {

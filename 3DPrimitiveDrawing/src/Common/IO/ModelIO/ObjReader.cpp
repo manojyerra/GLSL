@@ -13,11 +13,11 @@ ObjReader::ObjReader(std::string folderPath)
 	_uvFloatArr = NULL;
 	_normalFloatArr = NULL;
 
-	long startTime = GetTickCount();
+	long startTime = Platform::GetTimeInMillis();
 	Platform::debugPrint("\nBegin: Loading %s, ", folderPath.c_str());
 	ReadObjFile(_folderPath);
 	LoadTextures(_folderPath);
-	Platform::debugPrint("\nEnd: Loading %s, Load Time : %ld milliseconds\n", folderPath.c_str(), GetTickCount() - startTime);
+	Platform::debugPrint("\nEnd: Loading %s, Load Time : %ld milliseconds\n", folderPath.c_str(), Platform::GetTimeInMillis() - startTime);
 }
 
 void ObjReader::ReadObjFile(std::string folderPath)

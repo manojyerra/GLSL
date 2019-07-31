@@ -13,7 +13,7 @@ int Input::MouseClickY = 0;
 int Input::MouseReleaseX = 0;
 int Input::MouseReleaseY = 0;
 
-bool Input::MOUSE_MOVE = false;
+//bool Input::MOUSE_MOVE = false;
 
 bool Input::PREV_LEFT_BUTTON_DOWN = false;
 bool Input::LEFT_BUTTON_DOWN = false;
@@ -75,41 +75,28 @@ void Input::Update(int mouseX, int mouseY, float deltaTime)
 		timeCountForKeyPress[i] = currKeyStates[i] ? (timeCountForKeyPress[i] + deltaTime) : 0.0f;
 	}
 
-	isMouseClicked = false;
-	isMousePressed = false;
-	isMouseReleased = false;
-	isMouseDoubleClicked = false;
-
 	SCROLL_STATE = SCROLL_STATE_STORE;
 	SCROLL_STATE_STORE = SCROLL_NONE;
 
-	if(PREV_LEFT_BUTTON_DOWN == false && LEFT_BUTTON_DOWN == true)		isMouseClicked = true;
-	else if(PREV_LEFT_BUTTON_DOWN == true && LEFT_BUTTON_DOWN == true)	isMousePressed = true;
-	else if(PREV_LEFT_BUTTON_DOWN == true && LEFT_BUTTON_DOWN == false)	isMouseReleased = true;
+	isMouseDoubleClicked = false;
+	isRightMouseDoubleClicked = false;
+	isMiddleMouseDoubleClicked = false;
+	
+	isMouseClicked = (!PREV_LEFT_BUTTON_DOWN && LEFT_BUTTON_DOWN);
+	isMousePressed = (PREV_LEFT_BUTTON_DOWN && LEFT_BUTTON_DOWN);
+	isMouseReleased = (PREV_LEFT_BUTTON_DOWN && !LEFT_BUTTON_DOWN);
 
 	PREV_LEFT_BUTTON_DOWN = LEFT_BUTTON_DOWN;
 
-
-	isRightMouseClicked = false;
-	isRightMousePressed = false;
-	isRightMouseReleased = false;
-	isRightMouseDoubleClicked = false;
-
-	if(PREV_RIGHT_BUTTON_DOWN == false && RIGHT_BUTTON_DOWN == true)		isRightMouseClicked = true;
-	else if(PREV_RIGHT_BUTTON_DOWN == true && RIGHT_BUTTON_DOWN == true)	isRightMousePressed = true;
-	else if(PREV_RIGHT_BUTTON_DOWN == true && RIGHT_BUTTON_DOWN == false)	isRightMouseReleased = true;
+	isRightMouseClicked = (!PREV_RIGHT_BUTTON_DOWN && RIGHT_BUTTON_DOWN);
+	isRightMousePressed = (PREV_RIGHT_BUTTON_DOWN && RIGHT_BUTTON_DOWN);
+	isRightMouseReleased = (PREV_RIGHT_BUTTON_DOWN && !RIGHT_BUTTON_DOWN);
 
 	PREV_RIGHT_BUTTON_DOWN = RIGHT_BUTTON_DOWN;
 
-
-	isMiddleMouseClicked = false;
-	isMiddleMousePressed = false;
-	isMiddleMouseReleased = false;
-	isMiddleMouseDoubleClicked = false;
-
-	if(PREV_MIDDLE_BUTTON_DOWN == false && MIDDLE_BUTTON_DOWN == true)		isMiddleMouseClicked = true;
-	else if(PREV_MIDDLE_BUTTON_DOWN == true && MIDDLE_BUTTON_DOWN == true)	isMiddleMousePressed = true;
-	else if(PREV_MIDDLE_BUTTON_DOWN == true && MIDDLE_BUTTON_DOWN == false)	isMiddleMouseReleased = true;
+	isMiddleMouseClicked = (!PREV_MIDDLE_BUTTON_DOWN && MIDDLE_BUTTON_DOWN);
+	isMiddleMousePressed = (PREV_MIDDLE_BUTTON_DOWN && MIDDLE_BUTTON_DOWN);
+	isMiddleMouseReleased = (PREV_MIDDLE_BUTTON_DOWN && !MIDDLE_BUTTON_DOWN);
 
 	PREV_MIDDLE_BUTTON_DOWN = MIDDLE_BUTTON_DOWN;
 

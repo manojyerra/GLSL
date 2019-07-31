@@ -1,8 +1,7 @@
 #ifdef _ENABLE_SUI
 
 #include "SUIBatch.h"
-#include "stdio.h"
-#include "string.h"
+#include <string>
 
 SUIBatch::SUIBatch(unsigned int capacity, bool colorDataPresent, bool uvDataPresent, bool normalsDataPresent)
 {

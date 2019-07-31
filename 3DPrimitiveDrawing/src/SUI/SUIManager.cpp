@@ -55,10 +55,10 @@ void SUIManager::Run()
 	Draw();
 }
 
-unsigned int SUIManager::GetTimeInMilliSeconds()
-{
-	return GetTickCount();
-}
+//unsigned int SUIManager::GetTimeInMilliSeconds()
+//{
+//	return GetTickCount();
+//}
 
 
 ///***********************************************************************************************************/////////

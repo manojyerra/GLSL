@@ -11,10 +11,10 @@ STLReader::STLReader(std::string folderPath)
 	_vertexFloatArr = NULL;
 	_normalFloatArr = NULL;
 
-	long startTime = GetTickCount();
+	long startTime = Platform::GetTimeInMillis();
 	Platform::debugPrint("\nBegin: Loading STL file %s, ", folderPath.c_str());
 	ReadSTLFile(_folderPath);
-	Platform::debugPrint("\nEnd: Loading STL file %s, Load Time : %ld milliseconds\n", folderPath.c_str(), GetTickCount() - startTime);
+	Platform::debugPrint("\nEnd: Loading STL file %s, Load Time : %ld milliseconds\n", folderPath.c_str(), Platform::GetTimeInMillis() - startTime);
 }
 
 void STLReader::ReadSTLFile(std::string folderPath)

@@ -4,13 +4,14 @@
 #define SUIManager_H
 
 #include "SUIIncludes.h"
-#include "SUIFrame.h"
-#include "SUIButton.h"
 #include "SUITextField.h"
-#include "SUILabel.h"
-#include "SUICheckBox.h"
 #include "SUIRadioButton.h"
 #include "SUISlider.h"
+#include "SUILabel.h"
+#include "SUIButton.h"
+#include "SUIFrame.h"
+#include "SUICheckBox.h"
+
 
 #include <vector>
 using namespace std;
@@ -47,7 +48,7 @@ public:
 
 	void Run();
 	float GetFPS();
-	unsigned int GetTimeInMilliSeconds();
+	//unsigned int GetTimeInMilliSeconds();
 	bool Contains(float mx, float my);
 
 	float GetWindowWidth();

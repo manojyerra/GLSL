@@ -1,4 +1,4 @@
-#include "GLInclude.h"
+#include "Platform.h"
 #include "GameLoop.h"
 #include "Input.h"
 #include "vld.h"
@@ -10,7 +10,7 @@ GameLoop* gameLoop = NULL;
 
 int main(void)
 {
-	long startTime = GetTickCount();
+	long startTime = Platform::GetTimeInMillis();
 	Platform::debugPrint("\n\nBegin: Loading resources\n\n");
 
 	glfwInit();
@@ -52,7 +52,7 @@ int main(void)
 	double previousTime = glfwGetTime();
 	unsigned int frameCount = 0;
 
-	Platform::debugPrint("\nEnd: Loading resources, Load Time : %ld milliseconds\n\n", GetTickCount() - startTime);
+	Platform::debugPrint("\nEnd: Loading resources, Load Time : %ld milliseconds\n\n", Platform::GetTimeInMillis() - startTime);
 
 	while (!glfwWindowShouldClose(window))
 	{

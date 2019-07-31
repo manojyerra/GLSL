@@ -59,20 +59,20 @@ public:
 
 	static int storeKeyStates[NUM_KEYS];
 
-	static const int MOUSE_CLICK = 4;
-	static const int MOUSE_PRESS = 5;
-	static const int MOUSE_RELEASE = 6;
-	static const int MOUSE_DRAG = 7;
-	static const int MOUSE_DOUBLE_CLICK = 8;
-	static const int MOUSE_WHEEL_UP = 9;
-	static const int MOUSE_WHEEL_DOWN = 10;
+	//static const int MOUSE_CLICK = 4;
+	//static const int MOUSE_PRESS = 5;
+	//static const int MOUSE_RELEASE = 6;
+	//static const int MOUSE_DRAG = 7;
+	//static const int MOUSE_DOUBLE_CLICK = 8;
+	//static const int MOUSE_WHEEL_UP = 9;
+	//static const int MOUSE_WHEEL_DOWN = 10;
 
 	//Mouse ID...
-	static const int MOUSE_NONE = 0;
-	static const int MOUSE_LEFT = 1;
-	static const int MOUSE_MIDDLE = 2;
-	static const int MOUSE_RIGHT = 3;
-	static const int MOUSE_WHEEL = 4;
+	//static const int MOUSE_NONE = 0;
+	//static const int MOUSE_LEFT = 1;
+	//static const int MOUSE_MIDDLE = 2;
+	//static const int MOUSE_RIGHT = 3;
+	//static const int MOUSE_WHEEL = 4;
 
 	static bool LEFT_BUTTON_DOWN;
 	static bool RIGHT_BUTTON_DOWN;
@@ -96,7 +96,7 @@ public:
 	static int MouseReleaseX;
 	static int MouseReleaseY;
 
-	static bool MOUSE_MOVE;
+	//static bool MOUSE_MOVE;
 
 
 	static void Init();
