@@ -110,6 +110,9 @@
     <ClCompile Include="src\GLUtil\SSAO\GLSSAO.cpp" />
     <ClCompile Include="src\GLUtil\SSAO\GLSSAOBufferBuilder.cpp" />
     <ClCompile Include="src\Input.cpp" />
+    <ClCompile Include="src\JsonReader\json_reader.cpp" />
+    <ClCompile Include="src\JsonReader\json_value.cpp" />
+    <ClCompile Include="src\JsonReader\json_writer.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ParticleRenderer\ParticleRenderer.cpp" />
     <ClCompile Include="src\Platform\Platform.cpp" />
@@ -216,6 +219,15 @@
     <ClInclude Include="src\GLUtil\SSAO\GLSSAO.h" />
     <ClInclude Include="src\GLUtil\SSAO\GLSSAOBufferBuilder.h" />
     <ClInclude Include="src\Input.h" />
+    <ClInclude Include="src\JsonReader\json\autolink.h" />
+    <ClInclude Include="src\JsonReader\json\config.h" />
+    <ClInclude Include="src\JsonReader\json\features.h" />
+    <ClInclude Include="src\JsonReader\json\forwards.h" />
+    <ClInclude Include="src\JsonReader\json\json.h" />
+    <ClInclude Include="src\JsonReader\json\reader.h" />
+    <ClInclude Include="src\JsonReader\json\value.h" />
+    <ClInclude Include="src\JsonReader\json\writer.h" />
+    <ClInclude Include="src\JsonReader\json_batchallocator.h" />
     <ClInclude Include="src\ParticleRenderer\ParticleRenderer.h" />
     <ClInclude Include="src\Platform\Platform.h" />
     <ClInclude Include="src\Shapes2D\Triangle.h" />
@@ -249,6 +261,11 @@
     <ClInclude Include="src\SUI\SUIScroller.h" />
     <ClInclude Include="src\SUI\SUISlider.h" />
     <ClInclude Include="src\SUI\SUITextField.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\JsonReader\json_internalarray.inl" />
+    <None Include="src\JsonReader\json_internalmap.inl" />
+    <None Include="src\JsonReader\json_valueiterator.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -352,7 +369,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;glad/include;src;src/Platform;src/Math;src/ParticleRenderer;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/Arrays;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/IO/ModelIO;src/Common/Utils;src/GLUtil;src/GLUtil/SSAO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PBRWithTextureShader;src/GLUtil/Shaders/PhongShader;src/GLUtil/Shaders/PhongWithTextureShader;src/GLUtil/Shaders/CubeGeometryShader;src/GLUtil/Shaders/SSAOGeometryPassShader;src/GLUtil/Shaders/SSAOMapOverlayShader;src/GLUtil/Shaders/SSAOShader;src/GLUtil/ShaderProgram;src/SUI;src/Demo;src/Demo/ParticlesDemo;src/Demo/RenderDemo;src/Demo/DemoUI;src/GLUtil/Shaders/SSAOBlurShader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;glad/include;src;src/Platform;src/Math;src/ParticleRenderer;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/Arrays;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/IO/ModelIO;src/Common/Utils;src/GLUtil;src/GLUtil/SSAO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PBRWithTextureShader;src/GLUtil/Shaders/PhongShader;src/GLUtil/Shaders/PhongWithTextureShader;src/GLUtil/Shaders/CubeGeometryShader;src/GLUtil/Shaders/SSAOGeometryPassShader;src/GLUtil/Shaders/SSAOMapOverlayShader;src/GLUtil/Shaders/SSAOShader;src/GLUtil/ShaderProgram;src/SUI;src/Demo;src/Demo/ParticlesDemo;src/Demo/RenderDemo;src/Demo/DemoUI;src/GLUtil/Shaders/SSAOBlurShader;src/Common/IO/JSONIO;src/Common/IO/JSONIO/json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;GLFW_INCLUDE_NONE;NOMINMAX;_ENABLE_DEMO;_ENABLE_SUI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
