@@ -6,6 +6,16 @@ Tasks for Integration
 *)Why one light is not working for PBR Shader ?
 *)Check framebuffer issue with multisampling in desktop system which is working properly in my laptop.
 *)Taking screenshots and making video.
+*)Pack below dll files.
+
+msvcp140.dll
+msvcp140d.dll
+
+vcruntime140.dll
+vcruntime140d.dll
+
+ucrtbase.dll
+ucrtbased.dll
 
 
 OpenGL related tasks
