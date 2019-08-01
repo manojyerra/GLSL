@@ -75,7 +75,7 @@ int GLMeshManager::GetModelIndexByMousePos(float x, float y)
 	GLubyte data[4];
 	glReadPixels((GLint)x, _sh - (GLint)y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, data);
 
-	unsigned int colorVal = (unsigned int)((data[0] << 24) + (data[1] << 16) + (data[2] << 8) + data[3]);
+	unsigned int colorVal = (unsigned int)((data[2] << 16) + (data[1] << 8) + data[0] );
 
 	_fbo->UnBindFBO();
 

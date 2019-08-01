@@ -83,6 +83,7 @@ void GLMeshRenderer::DrawForPicking(glm::vec3 color)
 		basicShader->SetModelMatrix(_modelMat.m);
 		basicShader->Begin();
 		basicShader->SetUniformsAndAttributes();
+		glDrawArrays(_primitiveType, 0, (GLsizei)(_bufferBuilder->GetVertexBufferSize() / 12));
 		basicShader->End();
 
 		_shaderCreator->SetShader(shaderType);

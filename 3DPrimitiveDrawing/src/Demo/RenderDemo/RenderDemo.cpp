@@ -14,7 +14,7 @@ RenderDemo::RenderDemo(float sw, float sh)
 
 	_floor = new Floor();
 
-	_numModels = 1;
+	_numModels = 5;
 	_selectedModel = nullptr;
 
 	_meshManager = new GLMeshManager(sw, sh);
