@@ -92,11 +92,11 @@ GLMeshRenderer* GLSSAO::CreateQuadRenderer(unsigned int shaderType)
 	buffer.glTexCoord2f(1.0f, 0.0f);
 	buffer.glVertex3f(1.0f, -1.0f, 0.0f);
 
-	ModelInfo modelInfo;
-	modelInfo.SetVertexBuffer(buffer.GetVertexBuffer(), buffer.GetVertexBufferSize());
-	modelInfo.SetUVBuffer(buffer.GetUVBuffer(), buffer.GetUVBufferSize());
+	BaseModelIO BaseModelIO;
+	BaseModelIO.SetVertexBuffer(buffer.GetVertexBuffer(), buffer.GetVertexBufferSize());
+	BaseModelIO.SetUVBuffer(buffer.GetUVBuffer(), buffer.GetUVBufferSize());
 
-	GLMeshRenderer* renderer = new GLMeshRenderer(&modelInfo, shaderType);
+	GLMeshRenderer* renderer = new GLMeshRenderer(&BaseModelIO, shaderType);
 	renderer->SetPrimitiveType(GLMeshRenderer::triangleStrip);
 
 	return renderer;
@@ -120,7 +120,7 @@ GLMeshRenderer* GLSSAO::CreateOverlayRenderer(float w, float h)
 	buffer->glTexCoord2f(1.0f, 0.0f);
 	buffer->glVertex3f(1.0f, -1.0f, 0.0f);
 
-	ModelInfo createInfo;
+	BaseModelIO createInfo;
 	createInfo.SetVertexBuffer(buffer->GetVertexBuffer(), buffer->GetVertexBufferSize());
 	createInfo.SetUVBuffer(buffer->GetUVBuffer(), buffer->GetUVBufferSize());
 

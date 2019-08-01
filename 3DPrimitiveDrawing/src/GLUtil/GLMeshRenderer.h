@@ -2,7 +2,7 @@
 #define GLMeshRenderer_H
 
 #include "GLMat.h"
-#include "ModelInfo.h"
+#include "BaseModelIO.h"
 #include "GLBufferBuilder.h"
 #include "AABB.h"
 #include "ShaderCreator.h"
@@ -29,7 +29,7 @@ public:
 		triangleFan = GL_TRIANGLE_FAN
 	};
 
-	GLMeshRenderer(ModelInfo* modelInfo, int shaderType);
+	GLMeshRenderer(BaseModelIO* BaseModelIO, int shaderType);
 	~GLMeshRenderer();
 
 	void SetModelMatrix(float* mat);

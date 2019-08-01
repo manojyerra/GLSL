@@ -68,7 +68,7 @@ void GLTexture::GenerateGeometry(const char* texturePath)
 	if(texturePath)
 		imageBuffer = new ImageBuffer(texturePath);
 
-	ModelInfo createInfo;
+	BaseModelIO createInfo;
 	createInfo.SetVertexBuffer(buffer->GetVertexBuffer(), buffer->GetVertexBufferSize());
 	createInfo.SetUVBuffer(buffer->GetUVBuffer(), buffer->GetUVBufferSize());
 	createInfo.SetImageBuffer(imageBuffer);

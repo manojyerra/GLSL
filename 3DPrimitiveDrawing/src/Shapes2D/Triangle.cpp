@@ -11,7 +11,7 @@ Triangle::Triangle(glm::vec3& v1, glm::vec3& v2, glm::vec3& v3)
 	buffer->glVertex3f(v2.x, v2.y, v2.z);
 	buffer->glVertex3f(v3.x, v3.y, v3.z);
 
-	ModelInfo createInfo;
+	BaseModelIO createInfo;
 	createInfo.SetVertexBuffer(buffer->GetVertexBuffer(), buffer->GetVertexBufferSize());
 	createInfo.SetColorBuffer(buffer->GetColorBuffer(), buffer->GetColorBufferSize());
 

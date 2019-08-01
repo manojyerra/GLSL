@@ -2,9 +2,9 @@
 #define ObjReader_H
 
 #include "FloatArray.h"
-#include "ModelInfo.h"
+#include "BaseModelIO.h"
 
-class ObjReader : public ModelInfo
+class ObjReader : public BaseModelIO
 {
 private:
 	std::string _filePath;

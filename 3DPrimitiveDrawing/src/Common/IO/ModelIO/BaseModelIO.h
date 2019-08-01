@@ -1,10 +1,10 @@
-#ifndef ModelInfo_H
-#define ModelInfo_H
+#ifndef BaseModelIO_H
+#define BaseModelIO_H
 
 #include "ImageBuffer.h"
 #include "AABB.h"
 
-class ModelInfo
+class BaseModelIO
 {
 private:
 	const char* _vertexBuf;
@@ -24,8 +24,8 @@ protected:
 	AABB bBox;
 
 public:
-	ModelInfo();
-	~ModelInfo();
+	BaseModelIO();
+	~BaseModelIO();
 	
 	virtual void SetVertexBuffer(const char* buf, unsigned int len);
 	virtual void SetUVBuffer(const char* buf, unsigned int len);

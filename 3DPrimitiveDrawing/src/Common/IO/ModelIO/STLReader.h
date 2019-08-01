@@ -2,9 +2,9 @@
 #define STLReader_H
 
 #include "FloatArray.h"
-#include "ModelInfo.h"
+#include "BaseModelIO.h"
 
-class STLReader : public ModelInfo
+class STLReader : public BaseModelIO
 {
 private:
 	std::string _filePath;

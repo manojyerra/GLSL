@@ -4,7 +4,7 @@
 #include "BufferTransformUtils.h"
 #include "ShaderProgramsManager.h"
 #include "Cam.h"
-#include "ModelInfo.h"
+#include "BaseModelIO.h"
 
 Cylinder::Cylinder() : Shape(Shape::CYLINDER)
 {
@@ -247,7 +247,7 @@ void Cylinder::GenerateGeometry()
 		buffer->glVertex3f(radius*cos(nextTheta), -halfLength, radius*sin(nextTheta));
 	}
 
-	ModelInfo createInfo;
+	BaseModelIO createInfo;
 	createInfo.SetVertexBuffer(buffer->GetVertexBuffer(), buffer->GetVertexBufferSize());
 	createInfo.SetColorBuffer(buffer->GetColorBuffer(), buffer->GetColorBufferSize());
 

@@ -157,7 +157,7 @@ void Sphere::GenerateGeometry()
 		}
 	}
 
-	ModelInfo createInfo;
+	BaseModelIO createInfo;
 	createInfo.SetVertexBuffer(buffer->GetVertexBuffer(), buffer->GetVertexBufferSize());
 	createInfo.SetNormalBuffer(buffer->GetNormalBuffer(), buffer->GetNormalBufferSize());
 

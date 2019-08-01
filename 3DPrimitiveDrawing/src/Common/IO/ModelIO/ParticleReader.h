@@ -2,9 +2,9 @@
 #define ParticleReader_H
 
 #include "FileReader.h"
-#include "ModelInfo.h"
+#include "BaseModelIO.h"
 
-class ParticleReader : public ModelInfo
+class ParticleReader : public BaseModelIO
 {
 private:
 	FileReader* _vertexFileReader;

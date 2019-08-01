@@ -1,18 +1,18 @@
 #include "GLMeshRenderer.h"
 #include "GLMemory.h"
 
-GLMeshRenderer::GLMeshRenderer(ModelInfo* modelInfo, int shaderType)
+GLMeshRenderer::GLMeshRenderer(BaseModelIO* BaseModelIO, int shaderType)
 {
 	_bufferBuilder = new GLBufferBuilder();
-	_bufferBuilder->SetVertexBuffer(modelInfo->GetVertexBuffer(), modelInfo->GetVertexBufferSize());
-	_bufferBuilder->SetNormalBuffer(modelInfo->GetNormalBuffer(), modelInfo->GetNormalBufferSize());
-	_bufferBuilder->SetUVBuffer(modelInfo->GetUVBuffer(), modelInfo->GetUVBufferSize());
-	_bufferBuilder->SetColorBuffer(modelInfo->GetColorBuffer(), modelInfo->GetColorBufferSize());
-	_bufferBuilder->SetIndicesBuffer(modelInfo->GetIndicesBuffer(), modelInfo->GetIndicesBufferSize());
-	_bufferBuilder->SetImageBuffer(modelInfo->GetImageBuffer());
+	_bufferBuilder->SetVertexBuffer(BaseModelIO->GetVertexBuffer(), BaseModelIO->GetVertexBufferSize());
+	_bufferBuilder->SetNormalBuffer(BaseModelIO->GetNormalBuffer(), BaseModelIO->GetNormalBufferSize());
+	_bufferBuilder->SetUVBuffer(BaseModelIO->GetUVBuffer(), BaseModelIO->GetUVBufferSize());
+	_bufferBuilder->SetColorBuffer(BaseModelIO->GetColorBuffer(), BaseModelIO->GetColorBufferSize());
+	_bufferBuilder->SetIndicesBuffer(BaseModelIO->GetIndicesBuffer(), BaseModelIO->GetIndicesBufferSize());
+	_bufferBuilder->SetImageBuffer(BaseModelIO->GetImageBuffer());
 	_bufferBuilder->build();
 
-	_bBox = modelInfo->GetAABB();
+	_bBox = BaseModelIO->GetAABB();
 	_bBox.print();
 
 	_primitiveType = triangles;
