@@ -1,7 +1,7 @@
 #include "Sphere.h"
 #include "GLUtil.h"
 #include "BufferTransformUtils.h"
-#include "ShadersManager.h"
+#include "ShaderProgramsManager.h"
 #include "Cam.h"
 #include "MathUtils.h"
 

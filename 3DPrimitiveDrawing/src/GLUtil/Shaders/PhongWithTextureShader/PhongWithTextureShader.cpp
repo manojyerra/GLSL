@@ -1,5 +1,5 @@
 #include "PhongWithTextureShader.h"
-#include "ShadersManager.h"
+#include "ShaderProgramsManager.h"
 #include "Cam.h"
 
 PhongWithTextureShader::PhongWithTextureShader(int shaderType)
@@ -41,7 +41,7 @@ void PhongWithTextureShader::SetShaderType(int shaderType)
 	{
 		if (_perPixelShader == NULL)
 		{
-			_perPixelShader = ShadersManager::GetInstance()->CreateShaderProgram(
+			_perPixelShader = ShaderProgramsManager::GetInstance()->CreateShaderProgram(
 				"shaders/PhongPerPixelWithTextureShader/PhongPerPixelWithTextureShader.vs",
 				"shaders/PhongPerPixelWithTextureShader/PhongPerPixelWithTextureShader.fs");
 		}
@@ -52,7 +52,7 @@ void PhongWithTextureShader::SetShaderType(int shaderType)
 	{
 		if (_perVertexShader == NULL)
 		{
-			_perVertexShader = ShadersManager::GetInstance()->CreateShaderProgram(
+			_perVertexShader = ShaderProgramsManager::GetInstance()->CreateShaderProgram(
 				"shaders/PhongPerVertexWithTextureShader/PhongPerVertexWithTextureShader.vs",
 				"shaders/PhongPerVertexWithTextureShader/PhongPerVertexWithTextureShader.fs");
 		}
@@ -205,13 +205,13 @@ PhongWithTextureShader::~PhongWithTextureShader()
 {
 	if (_perPixelShader)
 	{
-		ShadersManager::GetInstance()->DeleteShaderProgram(_perPixelShader);
+		ShaderProgramsManager::GetInstance()->DeleteShaderProgram(_perPixelShader);
 		_perPixelShader = NULL;
 	}
 
 	if (_perVertexShader)
 	{
-		ShadersManager::GetInstance()->DeleteShaderProgram(_perVertexShader);
+		ShaderProgramsManager::GetInstance()->DeleteShaderProgram(_perVertexShader);
 		_perVertexShader = NULL;
 	}
 

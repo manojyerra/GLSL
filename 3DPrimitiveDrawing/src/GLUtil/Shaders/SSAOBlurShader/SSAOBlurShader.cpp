@@ -1,5 +1,5 @@
 #include "SSAOBlurShader.h"
-#include "ShadersManager.h"
+#include "ShaderProgramsManager.h"
 #include "Cam.h"
 
 SSAOBlurShader::SSAOBlurShader()
@@ -9,7 +9,7 @@ SSAOBlurShader::SSAOBlurShader()
 	_alpha = 1.0f;
 	_ssaoInputTexID = 0;
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram(
+	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram(
 		"shaders/SSAO/SSAOBlurShader/SSAOBlurShader.vs",
 		"shaders/SSAO/SSAOBlurShader/SSAOBlurShader.fs");
 }
@@ -87,7 +87,7 @@ SSAOBlurShader::~SSAOBlurShader()
 {
 	if (_shaderProgram)
 	{
-		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
+		ShaderProgramsManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
 		_shaderProgram = NULL;
 	}
 }

@@ -1,5 +1,5 @@
 #include "BasicShader.h"
-#include "ShadersManager.h"
+#include "ShaderProgramsManager.h"
 #include "Cam.h"
 
 BasicShader::BasicShader()
@@ -9,7 +9,7 @@ BasicShader::BasicShader()
 	_alpha = 1.0f;
 	_color = glm::vec3(0.5f, 0.5f, 0.5f);
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/BasicShader/BasicShader.vs",
+	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram("shaders/BasicShader/BasicShader.vs",
 		"shaders/BasicShader/BasicShader.fs");
 }
 
@@ -69,7 +69,7 @@ BasicShader::~BasicShader()
 {
 	if (_shaderProgram)
 	{
-		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
+		ShaderProgramsManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
 		_shaderProgram = NULL;
 	}
 }

@@ -1,5 +1,5 @@
 #include "UVShader.h"
-#include "ShadersManager.h"
+#include "ShaderProgramsManager.h"
 #include "Cam.h"
 #include "Cam2D.h"
 
@@ -14,7 +14,7 @@ UVShader::UVShader()
 	_alpha = 1.0f;
 	_use2DCam = false;
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/UVShader/UVShader.vs",
+	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram("shaders/UVShader/UVShader.vs",
 		"shaders/UVShader/UVShader.fs");
 }
 
@@ -111,7 +111,7 @@ UVShader::~UVShader()
 {
 	if (_shaderProgram)
 	{
-		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
+		ShaderProgramsManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
 		_shaderProgram = NULL;
 	}
 }

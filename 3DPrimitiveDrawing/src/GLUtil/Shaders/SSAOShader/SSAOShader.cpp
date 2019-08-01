@@ -1,5 +1,5 @@
 #include "SSAOShader.h"
-#include "ShadersManager.h"
+#include "ShaderProgramsManager.h"
 #include "Cam.h"
 
 SSAOShader::SSAOShader()
@@ -16,7 +16,7 @@ SSAOShader::SSAOShader()
 
 	_screenSize = glm::vec2(1280.0f, 720.0f);
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram(
+	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram(
 		"shaders/SSAO/SSAOCalcShader/SSAOCalcShader.vs",
 		"shaders/SSAO/SSAOCalcShader/SSAOCalcShader.fs");
 }
@@ -130,7 +130,7 @@ SSAOShader::~SSAOShader()
 {
 	if (_shaderProgram)
 	{
-		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
+		ShaderProgramsManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
 		_shaderProgram = NULL;
 	}
 }

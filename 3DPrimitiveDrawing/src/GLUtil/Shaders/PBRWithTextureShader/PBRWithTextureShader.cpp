@@ -1,5 +1,5 @@
 #include "PBRWithTextureShader.h"
-#include "ShadersManager.h"
+#include "ShaderProgramsManager.h"
 #include "Cam.h"
 
 PBRWithTextureShader::PBRWithTextureShader() : PBRShader("shaders/PBRWithTextureShader/PBRWithTextureShader.vs",

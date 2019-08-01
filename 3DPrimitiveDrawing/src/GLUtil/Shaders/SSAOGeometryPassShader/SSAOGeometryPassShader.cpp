@@ -1,5 +1,5 @@
 #include "SSAOGeometryPassShader.h"
-#include "ShadersManager.h"
+#include "ShaderProgramsManager.h"
 #include "Cam.h"
 
 SSAOGeometryPassShader::SSAOGeometryPassShader()
@@ -11,7 +11,7 @@ SSAOGeometryPassShader::SSAOGeometryPassShader()
 	_uvBufferID = 0;
 	_alpha = 1.0f;
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram(
+	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram(
 		"shaders/SSAO/GeometryPassShader/GeometryPassShader.vs",
 		"shaders/SSAO/GeometryPassShader/GeometryPassShader.fs");
 }
@@ -108,7 +108,7 @@ SSAOGeometryPassShader::~SSAOGeometryPassShader()
 {
 	if (_shaderProgram)
 	{
-		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
+		ShaderProgramsManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
 		_shaderProgram = NULL;
 	}
 }

@@ -1,5 +1,5 @@
-#ifndef ShadersManager_H
-#define ShadersManager_H
+#ifndef ShaderProgramsManager_H
+#define ShaderProgramsManager_H
 
 #include "ShaderProgram.h"
 #include <string>
@@ -50,17 +50,17 @@ public:
 	}
 };
 
-class ShadersManager
+class ShaderProgramsManager
 {
 private:
-	static ShadersManager* _ref;
+	static ShaderProgramsManager* _ref;
 	map<string, ShaderInfo*> shadersMap;
 
-	ShadersManager();
-	~ShadersManager();
+	ShaderProgramsManager();
+	~ShaderProgramsManager();
 
 public:
-	static ShadersManager* GetInstance();
+	static ShaderProgramsManager* GetInstance();
 
 	ShaderProgram* CreateShaderProgram(string vertexShader, string fragmentShader);
 	ShaderProgram* CreateShaderProgram(string vertexShader, string geometryShader, string fragmentShader);

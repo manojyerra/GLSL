@@ -1,5 +1,5 @@
 #include "PhongShader.h"
-#include "ShadersManager.h"
+#include "ShaderProgramsManager.h"
 #include "Cam.h"
 
 PhongShader::PhongShader(int shaderType)
@@ -39,7 +39,7 @@ void PhongShader::SetShaderType(int shaderType)
 	{
 		if (_perPixelShader == NULL)
 		{
-			_perPixelShader = ShadersManager::GetInstance()->CreateShaderProgram(
+			_perPixelShader = ShaderProgramsManager::GetInstance()->CreateShaderProgram(
 				"shaders/PhongPerPixelShader/PhongPerPixelShader.vs",
 				"shaders/PhongPerPixelShader/PhongPerPixelShader.fs");
 		}
@@ -50,7 +50,7 @@ void PhongShader::SetShaderType(int shaderType)
 	{
 		if (_perVertexShader == NULL)
 		{
-			_perVertexShader = ShadersManager::GetInstance()->CreateShaderProgram(
+			_perVertexShader = ShaderProgramsManager::GetInstance()->CreateShaderProgram(
 				"shaders/PhongPerVertexShader/PhongPerVertexShader.vs",
 				"shaders/PhongPerVertexShader/PhongPerVertexShader.fs");
 		}
@@ -173,13 +173,13 @@ PhongShader::~PhongShader()
 {
 	if (_perPixelShader)
 	{
-		ShadersManager::GetInstance()->DeleteShaderProgram(_perPixelShader);
+		ShaderProgramsManager::GetInstance()->DeleteShaderProgram(_perPixelShader);
 		_perPixelShader = NULL;
 	}
 
 	if (_perVertexShader)
 	{
-		ShadersManager::GetInstance()->DeleteShaderProgram(_perVertexShader);
+		ShaderProgramsManager::GetInstance()->DeleteShaderProgram(_perVertexShader);
 		_perVertexShader = NULL;
 	}
 

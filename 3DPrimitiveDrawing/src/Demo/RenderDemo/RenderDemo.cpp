@@ -13,7 +13,7 @@ RenderDemo::RenderDemo(float sw, float sh)
 
 	_floor = new Floor();
 
-	_numModels = 2;
+	_numModels = 1;
 	_selectedModel = nullptr;
 
 	GLMeshRenderer* meshRenderer1 = nullptr;
@@ -22,8 +22,8 @@ RenderDemo::RenderDemo(float sw, float sh)
 	GLMeshRenderer* meshRenderer4 = nullptr;
 	GLMeshRenderer* meshRenderer5 = nullptr;
 
-	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/BigSize/Plane"), GLMeshRenderer::PBR_SHADER);
-	if (_numModels >= 2) meshRenderer2 = new GLMeshRenderer(&ObjReader("data/BigSize/Trike"), GLMeshRenderer::PBR_SHADER);
+	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&STLReader("data/BigSize/CarScaled"), GLMeshRenderer::PBR_SHADER);
+	if (_numModels >= 2) meshRenderer2 = new GLMeshRenderer(&STLReader("data/BigSize/STLCar"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 3) meshRenderer3 = new GLMeshRenderer(&ObjReader("data/BigSize/Truck"), GLMeshRenderer::PBR_SHADER);
 	if (_numModels >= 4) meshRenderer4 = new GLMeshRenderer(&STLReader("data/BigSize/STLCar"), GLMeshRenderer::PBR_WITH_TEXTURE_SHADER);
 	if (_numModels >= 5) meshRenderer5 = new GLMeshRenderer(&ObjReader("data/Teapot"), GLMeshRenderer::PBR_SHADER);
@@ -104,7 +104,7 @@ void RenderDemo::Draw()
 	{
 		bool depth = GLState::GLEnable(GL_DEPTH_TEST, true);
 		bool blend = GLState::GLEnable(GL_BLEND, false);
-		bool cullFace = GLState::GLEnable(GL_CULL_FACE, false);
+		bool cullFace = GLState::GLEnable(GL_CULL_FACE, true);
 
 		_ssao->Begin();
 		DrawObjectsForSSAO();

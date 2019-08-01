@@ -94,7 +94,7 @@
     <ClCompile Include="src\GLUtil\GLTexture.cpp" />
     <ClCompile Include="src\GLUtil\GLUtil.cpp" />
     <ClCompile Include="src\GLUtil\ShaderProgram\ShaderProgram.cpp" />
-    <ClCompile Include="src\GLUtil\ShaderProgram\ShadersManager.cpp" />
+    <ClCompile Include="src\GLUtil\ShaderProgram\ShaderProgramsManager.cpp" />
     <ClCompile Include="src\GLUtil\Shaders\BasicShader\BasicShader.cpp" />
     <ClCompile Include="src\GLUtil\Shaders\ColorShader\ColorShader.cpp" />
     <ClCompile Include="src\GLUtil\Shaders\CubeGeometryShader\CubeGeometryShader.cpp" />
@@ -202,7 +202,7 @@
     <ClInclude Include="src\GLUtil\GLTexture.h" />
     <ClInclude Include="src\GLUtil\GLUtil.h" />
     <ClInclude Include="src\GLUtil\ShaderProgram\ShaderProgram.h" />
-    <ClInclude Include="src\GLUtil\ShaderProgram\ShadersManager.h" />
+    <ClInclude Include="src\GLUtil\ShaderProgram\ShaderProgramsManager.h" />
     <ClInclude Include="src\GLUtil\Shaders\BasicShader\BasicShader.h" />
     <ClInclude Include="src\GLUtil\Shaders\ColorShader\ColorShader.h" />
     <ClInclude Include="src\GLUtil\Shaders\CubeGeometryShader\CubeGeometryShader.h" />

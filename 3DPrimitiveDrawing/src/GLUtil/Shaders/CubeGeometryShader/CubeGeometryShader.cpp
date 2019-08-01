@@ -1,10 +1,10 @@
 #include "CubeGeometryShader.h"
-#include "ShadersManager.h"
+#include "ShaderProgramsManager.h"
 #include "Cam.h"
 
 CubeGeometryShader::CubeGeometryShader()
 {
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram(
+	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram(
 		"shaders/CubeGeometryShader/CubeGeometryShader.vs",
 		"shaders/CubeGeometryShader/CubeGeometryShader.gs",
 		"shaders/CubeGeometryShader/CubeGeometryShader.fs");
@@ -89,7 +89,7 @@ CubeGeometryShader::~CubeGeometryShader()
 {
 	if(_shaderProgram)
 	{
-		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
+		ShaderProgramsManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
 		_shaderProgram = NULL;
 	}
 }

@@ -321,9 +321,6 @@
     <ClCompile Include="src\GLUtil\ShaderProgram\ShaderProgram.cpp">
       <Filter>src\GLUtil\ShaderProgram</Filter>
     </ClCompile>
-    <ClCompile Include="src\GLUtil\ShaderProgram\ShadersManager.cpp">
-      <Filter>src\GLUtil\ShaderProgram</Filter>
-    </ClCompile>
     <ClCompile Include="src\GLUtil\GLState.cpp">
       <Filter>src\GLUtil</Filter>
     </ClCompile>
@@ -501,6 +498,9 @@
     <ClCompile Include="src\JsonReader\json_writer.cpp">
       <Filter>src\Common\IO\JSONIO</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\ShaderProgram\ShaderProgramsManager.cpp">
+      <Filter>src\GLUtil\ShaderProgram</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -630,9 +630,6 @@
       <Filter>src\GLUtil</Filter>
     </ClInclude>
     <ClInclude Include="src\GLUtil\ShaderProgram\ShaderProgram.h">
-      <Filter>src\GLUtil\ShaderProgram</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GLUtil\ShaderProgram\ShadersManager.h">
       <Filter>src\GLUtil\ShaderProgram</Filter>
     </ClInclude>
     <ClInclude Include="src\GLUtil\GLState.h">
@@ -856,6 +853,9 @@
     </ClInclude>
     <ClInclude Include="src\JsonReader\json_batchallocator.h">
       <Filter>src\Common\IO\JSONIO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\ShaderProgram\ShaderProgramsManager.h">
+      <Filter>src\GLUtil\ShaderProgram</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

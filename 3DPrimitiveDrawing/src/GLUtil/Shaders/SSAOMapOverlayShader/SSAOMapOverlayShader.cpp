@@ -1,5 +1,5 @@
 #include "SSAOMapOverlayShader.h"
-#include "ShadersManager.h"
+#include "ShaderProgramsManager.h"
 #include "Cam2D.h"
 #include "MathUtils.h"
 
@@ -14,7 +14,7 @@ SSAOMapOverlayShader::SSAOMapOverlayShader()
 	_alpha = 1.0f;
 	_occlusionLevel = 0.5f;
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/SSAO/SSAOMapOverlayShader/SSAOMapOverlayShader.vs",
+	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram("shaders/SSAO/SSAOMapOverlayShader/SSAOMapOverlayShader.vs",
 		"shaders/SSAO/SSAOMapOverlayShader/SSAOMapOverlayShader.fs");
 }
 
@@ -104,7 +104,7 @@ SSAOMapOverlayShader::~SSAOMapOverlayShader()
 {
 	if (_shaderProgram)
 	{
-		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
+		ShaderProgramsManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
 		_shaderProgram = NULL;
 	}
 }

@@ -1,5 +1,5 @@
 #include "ColorShader.h"
-#include "ShadersManager.h"
+#include "ShaderProgramsManager.h"
 #include "Cam.h"
 
 ColorShader::ColorShader()
@@ -11,7 +11,7 @@ ColorShader::ColorShader()
 
 	_alpha = 1.0f;
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram("shaders/ColorShader/ColorShader.vs",
+	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram("shaders/ColorShader/ColorShader.vs",
 		"shaders/ColorShader/ColorShader.fs");
 }
 
@@ -85,7 +85,7 @@ ColorShader::~ColorShader()
 {
 	if (_shaderProgram)
 	{
-		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
+		ShaderProgramsManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
 		_shaderProgram = NULL;
 	}
 }

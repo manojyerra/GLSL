@@ -1,6 +1,6 @@
 #include "GameLoop.h"
 #include "GLMemory.h"
-#include "ShadersManager.h"
+#include "ShaderProgramsManager.h"
 #include "Input.h"
 #include "Cam.h"
 #include "Cam2D.h"
@@ -50,7 +50,7 @@ GameLoop::~GameLoop()
 
 	Cam::GetInstance()->DeleteInstance();
 	Cam2D::GetInstance()->DeleteInstance();
-	ShadersManager::GetInstance()->DeleteInstance();
+	ShaderProgramsManager::GetInstance()->DeleteInstance();
 	GLMemory::printMemoryLeaks();
 }
 

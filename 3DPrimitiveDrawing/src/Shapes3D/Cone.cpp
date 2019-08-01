@@ -3,7 +3,7 @@
 #include "GLUtil.h"
 #include "BufferTransformUtils.h"
 #include "Cylinder.h"
-#include "ShadersManager.h"
+#include "ShaderProgramsManager.h"
 #include "Cam.h"
 
 Cone::Cone() : Shape(Shape::CONE)

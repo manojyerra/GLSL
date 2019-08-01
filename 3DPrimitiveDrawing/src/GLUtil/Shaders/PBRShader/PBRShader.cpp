@@ -1,5 +1,5 @@
 #include "PBRShader.h"
-#include "ShadersManager.h"
+#include "ShaderProgramsManager.h"
 #include "Cam.h"
 
 PBRShader::PBRShader()
@@ -38,7 +38,7 @@ void PBRShader::CommonInit(string vertexShaderPath, string fragmentShaderPath)
 	_roughness = 0.3f;
 	_alpha = 1.0f;
 
-	_shaderProgram = ShadersManager::GetInstance()->CreateShaderProgram(vertexShaderPath, fragmentShaderPath);
+	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram(vertexShaderPath, fragmentShaderPath);
 }
 
 void PBRShader::SetVertexBufferID(unsigned int bufferID)
@@ -187,7 +187,7 @@ PBRShader::~PBRShader()
 {
 	if (_shaderProgram)
 	{
-		ShadersManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
+		ShaderProgramsManager::GetInstance()->DeleteShaderProgram(_shaderProgram);
 		_shaderProgram = NULL;
 	}
 }

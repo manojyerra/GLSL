@@ -16,7 +16,7 @@ Demo::Demo(float sw, float sh)
 	SUISetup(sw, sh);
 
 	_rendererDemo = new RenderDemo(sw, sh);
-	//_particleDemo = new ParticlesDemo(sw, sh);
+	_particleDemo = new ParticlesDemo(sw, sh);
 
 	_windowFrame = new WholeWindowFrame(sw - 300.0f, 0.0f, 300.0f, 150.0f, this);
 	_floorFrame = new FloorVisibilityFrame(sw - 300.0f, 555.0f, 300.0f, 100.0f, this);

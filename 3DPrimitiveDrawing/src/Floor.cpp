@@ -1,6 +1,6 @@
 #include "Floor.h"
 #include "GLState.h"
-#include "ShadersManager.h"
+#include "ShaderProgramsManager.h"
 #include "Cam.h"
 #include "GLBatch.h"
 

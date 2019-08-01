@@ -1,24 +1,24 @@
-#include "ShadersManager.h"
+#include "ShaderProgramsManager.h"
 
-ShadersManager* ShadersManager::_ref = NULL;
+ShaderProgramsManager* ShaderProgramsManager::_ref = NULL;
 
-ShadersManager::ShadersManager()
+ShaderProgramsManager::ShaderProgramsManager()
 {
 }
 
-ShadersManager::~ShadersManager()
+ShaderProgramsManager::~ShaderProgramsManager()
 {
 }
 
-ShadersManager* ShadersManager::GetInstance()
+ShaderProgramsManager* ShaderProgramsManager::GetInstance()
 {
 	if (_ref == NULL)
-		_ref = new ShadersManager();
+		_ref = new ShaderProgramsManager();
 
 	return _ref;
 }
 
-ShaderProgram* ShadersManager::CreateShaderProgram(string vertexShader, string fragmentShader)
+ShaderProgram* ShaderProgramsManager::CreateShaderProgram(string vertexShader, string fragmentShader)
 {
 	string key = "";
 	key.append(vertexShader).append(":").append(fragmentShader);
@@ -41,7 +41,7 @@ ShaderProgram* ShadersManager::CreateShaderProgram(string vertexShader, string f
 	return shaderProgram;
 }
 
-ShaderProgram* ShadersManager::CreateShaderProgram(string vertexShader, string geometryShader, string fragmentShader)
+ShaderProgram* ShaderProgramsManager::CreateShaderProgram(string vertexShader, string geometryShader, string fragmentShader)
 {
 	string key = "";
 	key.append(vertexShader).append(":").append(geometryShader).append(":").append(fragmentShader);
@@ -64,7 +64,7 @@ ShaderProgram* ShadersManager::CreateShaderProgram(string vertexShader, string g
 	return shaderProgram;
 }
 
-void ShadersManager::DeleteShaderProgram(ShaderProgram* shaderProgram)
+void ShaderProgramsManager::DeleteShaderProgram(ShaderProgram* shaderProgram)
 {
 	string vertexShader = shaderProgram->GetVertexShaderFilePath();
 	string geometryShader = shaderProgram->GetGeometryShaderFilePath();
@@ -95,7 +95,7 @@ void ShadersManager::DeleteShaderProgram(ShaderProgram* shaderProgram)
 	}
 }
 
-void ShadersManager::DeleteInstance()
+void ShaderProgramsManager::DeleteInstance()
 {
 	if (_ref)
 	{
