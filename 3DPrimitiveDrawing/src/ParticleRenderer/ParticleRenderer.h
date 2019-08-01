@@ -6,8 +6,8 @@
 class ParticleRenderer
 {
 	GLMat _modelMat;
-	GLMeshRenderer* _normalPolyRenderer;
-	GLMeshRenderer* _lowPolyRenderer;
+	GLMeshRenderer* _allParticlesRenderer;
+	GLMeshRenderer* _fewParticlesRenderer;
 
 public:
 	ParticleRenderer();

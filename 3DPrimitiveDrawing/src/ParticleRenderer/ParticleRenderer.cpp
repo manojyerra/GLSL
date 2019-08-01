@@ -7,13 +7,13 @@ ParticleRenderer::ParticleRenderer()
 
 	ParticleReader particleReader("data/BigSize/Particles");
 
-	_normalPolyRenderer = new GLMeshRenderer(&particleReader, GLMeshRenderer::CUBE_GEOMETRY_SHADER);
-	_normalPolyRenderer->SetPrimitiveType(GLMeshRenderer::points);
+	_allParticlesRenderer = new GLMeshRenderer(&particleReader, GLMeshRenderer::CUBE_GEOMETRY_SHADER);
+	_allParticlesRenderer->SetPrimitiveType(GLMeshRenderer::points);
 
 	particleReader.SetRetriveDataType(ParticleReader::DATA_AS_LOW_POLY);
 
-	_lowPolyRenderer = new GLMeshRenderer(&particleReader, GLMeshRenderer::CUBE_GEOMETRY_SHADER);
-	_lowPolyRenderer->SetPrimitiveType(GLMeshRenderer::points);
+	_fewParticlesRenderer = new GLMeshRenderer(&particleReader, GLMeshRenderer::CUBE_GEOMETRY_SHADER);
+	_fewParticlesRenderer->SetPrimitiveType(GLMeshRenderer::points);
 }
 
 void ParticleRenderer::SetPosition(float x, float y, float z)
@@ -23,27 +23,27 @@ void ParticleRenderer::SetPosition(float x, float y, float z)
 
 void ParticleRenderer::DrawAllParticles()
 {
-	_normalPolyRenderer->SetModelMatrix(_modelMat.m);
-	_normalPolyRenderer->Draw();
+	_allParticlesRenderer->SetModelMatrix(_modelMat.m);
+	_allParticlesRenderer->Draw();
 }
 
 void ParticleRenderer::DrawLowPolyParticles()
 {
-	_lowPolyRenderer->SetModelMatrix(_modelMat.m);
-	_lowPolyRenderer->Draw();
+	_fewParticlesRenderer->SetModelMatrix(_modelMat.m);
+	_fewParticlesRenderer->Draw();
 }
 
 ParticleRenderer::~ParticleRenderer()
 {
-	if(_normalPolyRenderer)
+	if(_allParticlesRenderer)
 	{
-		delete _normalPolyRenderer;
-		_normalPolyRenderer = NULL;
+		delete _allParticlesRenderer;
+		_allParticlesRenderer = NULL;
 	}
 
-	if (_lowPolyRenderer)
+	if (_fewParticlesRenderer)
 	{
-		delete _lowPolyRenderer;
-		_lowPolyRenderer = NULL;
+		delete _fewParticlesRenderer;
+		_fewParticlesRenderer = NULL;
 	}
 }
