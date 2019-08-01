@@ -2,9 +2,14 @@
 #include "FileReader.h"
 #include "ImageBuffer.h"
 #include "GameLoop.h"
+#include "Platform.h"
 
 ParticleReader::ParticleReader(std::string folderPath)
 {
+	Platform::debugPrint("\nBegin: Loading particle data.");
+
+	long startTime = Platform::GetTimeInMillis();
+
 	_vertexFileReader = NULL;
 	_colorBuf = NULL;
 	_colorBufLen = 0;
@@ -87,6 +92,8 @@ ParticleReader::ParticleReader(std::string folderPath)
 	_lowPolyColorBuf = colorBuf;
 	_lowPolyColorBufLen = colorBufLen;
 	*/
+
+	Platform::debugPrint("\nEnd: Loading particle data, Load time : %ld", (Platform::GetTimeInMillis()-startTime));
 }
 
 void ParticleReader::GenerateLowPolyData(const char* fileData, unsigned int length)
