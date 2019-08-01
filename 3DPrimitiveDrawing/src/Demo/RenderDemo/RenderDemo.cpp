@@ -13,7 +13,7 @@ RenderDemo::RenderDemo(float sw, float sh)
 
 	_floor = new Floor();
 
-	_numModels = 1;
+	_numModels = 5;
 	_selectedModel = nullptr;
 
 	GLMeshRenderer* meshRenderer1 = nullptr;
@@ -22,11 +22,11 @@ RenderDemo::RenderDemo(float sw, float sh)
 	GLMeshRenderer* meshRenderer4 = nullptr;
 	GLMeshRenderer* meshRenderer5 = nullptr;
 
-	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&STLReader("data/BigSize/CarScaled"), PBR_SHADER);
-	if (_numModels >= 2) meshRenderer2 = new GLMeshRenderer(&STLReader("data/BigSize/STLCar"), PBR_SHADER);
-	if (_numModels >= 3) meshRenderer3 = new GLMeshRenderer(&ObjReader("data/BigSize/Truck"), PBR_SHADER);
-	if (_numModels >= 4) meshRenderer4 = new GLMeshRenderer(&STLReader("data/BigSize/STLCar"), PBR_WITH_TEXTURE_SHADER);
-	if (_numModels >= 5) meshRenderer5 = new GLMeshRenderer(&ObjReader("data/Teapot"), PBR_SHADER);
+	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/BigSize/Plane/objFile.obj"), PBR_SHADER);
+	if (_numModels >= 2) meshRenderer2 = new GLMeshRenderer(&STLReader("data/BigSize/STLCar/stlFile.stl"), PBR_SHADER);
+	if (_numModels >= 3) meshRenderer3 = new GLMeshRenderer(&ObjReader("data/BigSize/Truck/objFile.obj"), PBR_SHADER);
+	if (_numModels >= 4) meshRenderer4 = new GLMeshRenderer(&STLReader("data/BigSize/STLCar/stlFile.stl"), PBR_WITH_TEXTURE_SHADER);
+	if (_numModels >= 5) meshRenderer5 = new GLMeshRenderer(&ObjReader("data/Teapot/objFile.obj"), PBR_SHADER);
 
 	if (meshRenderer1) meshRenderer1->SetPos(0.0f, 0.0f, -20.0f);
 	if (meshRenderer2) meshRenderer2->SetPos(-8.0f, 0.0f, 0.0f);

@@ -3,24 +3,23 @@
 #include "ScanLineUtils.h"
 #include "Platform.h"
 #include "ObjReader.h"
+#include "StringUtils.h"
 
-STLReader::STLReader(std::string folderPath)
+STLReader::STLReader(std::string filePath)
 {
-	_folderPath = folderPath;
+	_filePath = filePath;
 
 	_vertexFloatArr = NULL;
 	_normalFloatArr = NULL;
 
 	long startTime = Platform::GetTimeInMillis();
-	Platform::debugPrint("\nBegin: Loading STL file %s, ", folderPath.c_str());
-	ReadSTLFile(_folderPath);
-	Platform::debugPrint("\nEnd: Loading STL file %s, Load Time : %ld milliseconds\n", folderPath.c_str(), Platform::GetTimeInMillis() - startTime);
+	Platform::debugPrint("\nBegin: Loading STL file %s, ", _filePath.c_str());
+	ReadSTLFile(_filePath);
+	Platform::debugPrint("\nEnd: Loading STL file %s, Load Time : %ld milliseconds\n", _filePath.c_str(), Platform::GetTimeInMillis() - startTime);
 }
 
-void STLReader::ReadSTLFile(std::string folderPath)
+void STLReader::ReadSTLFile(std::string filePath)
 {
-	std::string filePath = folderPath + "/stlFile.stl";
-
 	FileReader fileReader(filePath, "rb");
 
 	float vx, vy, vz;
@@ -78,7 +77,8 @@ void STLReader::ReadSTLFile(std::string folderPath)
 
 void STLReader::WriteBinaryToFile()
 {
-	WriteBinaryToFile(_folderPath);
+	std::string folderPath = StringUtils::getFolderNameFromPath(_filePath);
+	WriteBinaryToFile(folderPath);
 }
 
 void STLReader::WriteBinaryToFile(std::string folderPath)

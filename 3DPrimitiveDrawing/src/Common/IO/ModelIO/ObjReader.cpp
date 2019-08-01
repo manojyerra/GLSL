@@ -3,10 +3,11 @@
 #include "ScanLineUtils.h"
 #include "VoidPtrArray.h"
 #include "Platform.h"
+#include "StringUtils.h"
 
-ObjReader::ObjReader(std::string folderPath)
+ObjReader::ObjReader(std::string filePath)
 {
-	_folderPath = folderPath;
+	_filePath = filePath;
 	_imageBuffer = NULL;
 
 	_vertexFloatArr = NULL;
@@ -14,16 +15,17 @@ ObjReader::ObjReader(std::string folderPath)
 	_normalFloatArr = NULL;
 
 	long startTime = Platform::GetTimeInMillis();
-	Platform::debugPrint("\nBegin: Loading %s, ", folderPath.c_str());
-	ReadObjFile(_folderPath);
-	LoadTextures(_folderPath);
-	Platform::debugPrint("\nEnd: Loading %s, Load Time : %ld milliseconds\n", folderPath.c_str(), Platform::GetTimeInMillis() - startTime);
+	Platform::debugPrint("\nBegin: Loading %s, ", _filePath.c_str());
+	ReadObjFile(_filePath);
+	
+	std::string texturePath = _filePath.substr(0, _filePath.length() - 3).append("png");
+	LoadTextures(texturePath);
+
+	Platform::debugPrint("\nEnd: Loading %s, Load Time : %ld milliseconds\n", _filePath.c_str(), Platform::GetTimeInMillis() - startTime);
 }
 
-void ObjReader::ReadObjFile(std::string folderPath)
+void ObjReader::ReadObjFile(std::string filePath)
 {
-	std::string filePath = folderPath + "/objFile.obj";
-
 	FileReader fileReader(filePath, "rb");
 
 	float vx, vy, vz;
@@ -187,7 +189,8 @@ void ObjReader::ReadObjFile(std::string folderPath)
 
 void ObjReader::WriteBinaryToFile()
 {
-	WriteBinaryToFile(_folderPath);
+	std::string folderPath = StringUtils::getFolderNameFromPath(_filePath);
+	WriteBinaryToFile(folderPath);
 }
 
 void ObjReader::WriteBinaryToFile(std::string folderPath)

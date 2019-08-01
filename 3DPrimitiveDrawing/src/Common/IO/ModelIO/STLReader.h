@@ -7,15 +7,15 @@
 class STLReader : public ModelInfo
 {
 private:
-	std::string _folderPath;
+	std::string _filePath;
 
 	FloatArray* _vertexFloatArr;
 	FloatArray* _normalFloatArr;
 
-	void ReadSTLFile(std::string folderPath);
+	void ReadSTLFile(std::string filePath);
 
 public:
-	STLReader(std::string folderPath);
+	STLReader(std::string filePath);
 
 	const char* GetVertexBuffer() override;
 	const char* GetNormalBuffer() override;

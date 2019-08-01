@@ -75,6 +75,19 @@ bool StringUtils::endsWith(std::string str, std::string checkStr)
 	return true;
 }
 
+std::string StringUtils::getFolderNameFromPath(const std::string str)
+{
+	size_t found;
+	found = str.find_last_of("/\\");
+
+	if (found != -1)
+	{
+		return str.substr(0, found);
+	}
+
+	return ".";
+}
+
 double StringUtils::atof_exp(const char *p)
 {
 	double r = 0.0;

@@ -95,6 +95,12 @@ GLMeshRenderer::~GLMeshRenderer()
 	if (_bufferBuilder)
 	{
 		delete _bufferBuilder;
-		_bufferBuilder = NULL;
+		_bufferBuilder = nullptr;
+	}
+
+	if(_shaderCreator)
+	{
+		delete _shaderCreator;
+		_shaderCreator = nullptr;
 	}
 }

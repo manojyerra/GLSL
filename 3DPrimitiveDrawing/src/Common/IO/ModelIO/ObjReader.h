@@ -7,18 +7,18 @@
 class ObjReader : public ModelInfo
 {
 private:
-	std::string _folderPath;
+	std::string _filePath;
 
 	FloatArray* _vertexFloatArr;
 	FloatArray* _uvFloatArr;
 	FloatArray* _normalFloatArr;
 	ImageBuffer* _imageBuffer;
 
-	void ReadObjFile(std::string folderPath);
-	void LoadTextures(std::string folderPath);
+	void ReadObjFile(std::string filePath);
+	void LoadTextures(std::string filePath);
 
 public:
-	ObjReader(std::string folderPath);
+	ObjReader(std::string filePath);
 
 	const char* GetVertexBuffer() override;
 	const char* GetUVBuffer() override;
