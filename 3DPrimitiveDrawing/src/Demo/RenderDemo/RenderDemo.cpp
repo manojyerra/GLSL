@@ -44,9 +44,9 @@ RenderDemo::RenderDemo(float sw, float sh)
 	_modelVisibilityFrame = new ModelVisibilityFrame(_sw - 300.0f, 152.0f, 300.0f, 200.0f, this);
 	_modelSelectionFrame = new ModelSelectionFrame(_sw - 300.0f, 353.0f, 300.0f, 200.0f, this);
 
-	for (int i = 0; i < _modelVec.size(); i++)
+	for (int i = 0; i < _meshManager->Size(); i++)
 	{
-		glm::vec3 pos = _modelVec[i]->GetPos();
+		glm::vec3 pos = _meshManager->Get(i)->GetPos();
 
 		_modelVisibilityFrame->modelBoxVec[i]->positionModelX->SetDouble(pos.x, 3);
 		_modelVisibilityFrame->modelBoxVec[i]->positionModelY->SetDouble(pos.y, 3);
@@ -106,11 +106,11 @@ void RenderDemo::Draw()
 
 	_floor->Draw();
 
-	for (int i = 0; i < _modelVec.size(); i++)
+	for (int i = 0; i < _meshManager->Size(); i++)
 	{
 		if (_modelVisibilityFrame->modelBoxVec[i]->modelCheckBox->IsSelected())
 		{
-			_modelVec[i]->Draw();
+			_meshManager->Get(i)->Draw();
 		}
 	}
 
@@ -130,14 +130,16 @@ void RenderDemo::Draw()
 
 void RenderDemo::DrawObjectsForSSAO()
 {
-	for (int i = 0; i < _modelVec.size(); i++)
+	for (int i = 0; i < _meshManager->Size(); i++)
 	{
 		if (_modelVisibilityFrame->modelBoxVec[i]->modelCheckBox->IsSelected())
 		{
-			unsigned int shaderType = _modelVec[i]->GetCurrentShaderType();
-			_modelVec[i]->SetShader(SSAO_GEOMETRY_PASS_SHADER);
-			_modelVec[i]->Draw();
-			_modelVec[i]->SetShader(shaderType);
+			GLMeshRenderer* meshRenderer = _meshManager->Get(i);
+
+			unsigned int shaderType = meshRenderer->GetCurrentShaderType();
+			meshRenderer->SetShader(SSAO_GEOMETRY_PASS_SHADER);
+			meshRenderer->Draw();
+			meshRenderer->SetShader(shaderType);
 		}
 	}
 }
@@ -149,28 +151,28 @@ void RenderDemo::actionPerformed(SUIActionEvent e)
 	if (com == _modelSelectionFrame->model)
 	{
 		int selIndex = _modelSelectionFrame->model->GetSelectedIndex();
-		_shaderFrame->SetMeshRenderer(_modelVec[selIndex]);
+		_shaderFrame->SetMeshRenderer(_meshManager->Get(selIndex));
 	}
 	else if(com == _shaderFrame->shaderType && _modelSelectionFrame->applyShaderToAll->IsSelected())
 	{
 		if(_shaderFrame->shaderType->GetSelectedIndex() == 0)
 		{
-			for(int i=0; i< _modelVec.size(); i++)
+			for(int i=0; i< _meshManager->Size(); i++)
 			{
-				_modelVec[i]->SetShader(PBR_SHADER);
+				_meshManager->Get(i)->SetShader(PBR_SHADER);
 			}
 		}
 		else
 		{
-			for (int i = 0; i < _modelVec.size(); i++)
+			for (int i = 0; i < _meshManager->Size(); i++)
 			{
-				_modelVec[i]->SetShader(PHONG_PER_VERTEX_SHADER);
+				_meshManager->Get(i)->SetShader(PHONG_PER_VERTEX_SHADER);
 			}
 		}
 	}
 	else
 	{
-		for (int i = 0; i < _modelVec.size(); i++)
+		for (int i = 0; i < _meshManager->Size(); i++)
 		{
 			ModelBox* box = _modelVisibilityFrame->modelBoxVec[i];
 
@@ -180,7 +182,7 @@ void RenderDemo::actionPerformed(SUIActionEvent e)
 				float y = (float)box->positionModelY->GetDouble();
 				float z = (float)box->positionModelZ->GetDouble();
 
-				_modelVec[i]->SetPos(x, y, z);
+				_meshManager->Get(i)->SetPos(x, y, z);
 				break;
 			}
 		}
@@ -241,14 +243,10 @@ RenderDemo::~RenderDemo()
 		_modelSelectionFrame = NULL;
 	}
 
-	for (int i = 0; i < _modelVec.size(); i++)
+	if(_meshManager)
 	{
-		GLMeshRenderer* model = _modelVec[i];
-		if (model)
-		{
-			delete model;
-			model = NULL;
-		}
+		delete _meshManager;
+		_meshManager = nullptr;
 	}
 }
 

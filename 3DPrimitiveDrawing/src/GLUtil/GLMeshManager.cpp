@@ -4,22 +4,36 @@
 
 GLMeshManager::GLMeshManager(float sw, float sh)
 {
+	_sw = sw;
+	_sh = sh;
+
 	_modelVec.clear();
-	_fbo = new GLFBO(sw, sh);
+	_fbo = new GLFBO(_sw, _sh);
 }
 
 void GLMeshManager::SetScreenSize(float sw, float sh)
 {
+	_sw = sw;
+	_sh = sh;
+
 	if(_fbo)
 	{
 		delete _fbo;
-		_fbo = new GLFBO(sw, sh);
+		_fbo = new GLFBO(_sw, _sh);
 	}
 }
 
 unsigned int GLMeshManager::Size()
 {
 	return _modelVec.size();
+}
+
+GLMeshRenderer* GLMeshManager::Get(unsigned int index)
+{
+	if (index >= 0 && index < _modelVec.size())
+		return _modelVec[index];
+
+	return nullptr;
 }
 
 GLMeshRenderer* GLMeshManager::AddMeshRenderer(std::string path, unsigned int shaderType, unsigned int modelType)
@@ -56,12 +70,26 @@ int GLMeshManager::GetModelIndexByMousePos(float x, float y, float sw, float sh)
 		_modelVec[i]->DrawForPicking(glm::vec3(r, g, b));
 	}
 
+	GLubyte data[4];
+	glReadPixels((GLint)x, _sh - (GLint)y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, data);
 
+	unsigned int colorVal = (unsigned int)((data[0] << 24) + (data[1] << 16) + (data[2] << 8) + data[3]);
 
 	_fbo->UnBindFBO();
+
+	return (colorVal < Size()) ? colorVal : -1;
 }
 
 GLMeshManager::~GLMeshManager()
 {
-	
+	for (int i = 0; i < _modelVec.size(); i++)
+	{
+		GLMeshRenderer* model = _modelVec[i];
+
+		if (model)
+		{
+			delete model;
+			model = NULL;
+		}
+	}
 }

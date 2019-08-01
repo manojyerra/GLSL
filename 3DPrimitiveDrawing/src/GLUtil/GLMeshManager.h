@@ -9,12 +9,15 @@ class GLMeshManager
 private:
 	vector<GLMeshRenderer*> _modelVec;
 	GLFBO* _fbo;
+	float _sw;
+	float _sh;
 
 public:
 	GLMeshManager(float sw, float sh);
 	~GLMeshManager();
 
 	void SetScreenSize(float sw, float sh);
+	GLMeshRenderer* Get(unsigned int index);
 	unsigned int Size();
 
 	GLMeshRenderer* AddMeshRenderer(std::string path, unsigned int shaderType, unsigned int modelType);
