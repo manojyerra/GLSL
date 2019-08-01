@@ -73,7 +73,7 @@ void GLTexture::GenerateGeometry(const char* texturePath)
 	createInfo.SetUVBuffer(buffer->GetUVBuffer(), buffer->GetUVBufferSize());
 	createInfo.SetImageBuffer(imageBuffer);
 
-	_meshRenderer = new GLMeshRenderer(&createInfo, GLMeshRenderer::UV_SHADER);
+	_meshRenderer = new GLMeshRenderer(&createInfo, UV_SHADER);
 	_meshRenderer->SetPrimitiveType(GLMeshRenderer::triangleStrip);
 
 	delete buffer;

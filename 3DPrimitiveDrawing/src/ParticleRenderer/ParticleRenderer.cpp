@@ -7,12 +7,12 @@ ParticleRenderer::ParticleRenderer()
 
 	ParticleReader particleReader("data/BigSize/Particles");
 
-	_allParticlesRenderer = new GLMeshRenderer(&particleReader, GLMeshRenderer::CUBE_GEOMETRY_SHADER);
+	_allParticlesRenderer = new GLMeshRenderer(&particleReader, CUBE_GEOMETRY_SHADER);
 	_allParticlesRenderer->SetPrimitiveType(GLMeshRenderer::points);
 
 	particleReader.SetRetriveDataType(ParticleReader::DATA_AS_LOW_POLY);
 
-	_fewParticlesRenderer = new GLMeshRenderer(&particleReader, GLMeshRenderer::CUBE_GEOMETRY_SHADER);
+	_fewParticlesRenderer = new GLMeshRenderer(&particleReader, CUBE_GEOMETRY_SHADER);
 	_fewParticlesRenderer->SetPrimitiveType(GLMeshRenderer::points);
 }
 

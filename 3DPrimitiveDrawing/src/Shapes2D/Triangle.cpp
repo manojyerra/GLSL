@@ -15,7 +15,7 @@ Triangle::Triangle(glm::vec3& v1, glm::vec3& v2, glm::vec3& v3)
 	createInfo.SetVertexBuffer(buffer->GetVertexBuffer(), buffer->GetVertexBufferSize());
 	createInfo.SetColorBuffer(buffer->GetColorBuffer(), buffer->GetColorBufferSize());
 
-	_meshRenderer = new GLMeshRenderer(&createInfo, GLMeshRenderer::COLOR_SHADER);
+	_meshRenderer = new GLMeshRenderer(&createInfo, COLOR_SHADER);
 
 	delete buffer;
 }

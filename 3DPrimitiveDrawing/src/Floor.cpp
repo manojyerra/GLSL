@@ -66,7 +66,7 @@ void Floor::GenerateGrid(float start, float end, float gap)
 	ModelInfo modelInfo;
 	modelInfo.SetVertexBuffer(glBatch->GetVertexBuffer(), glBatch->GetVertexBufferSize());
 	modelInfo.SetColorBuffer(glBatch->GetColorBuffer(), glBatch->GetColorBufferSize());
-	_gridRenderer = new GLMeshRenderer(&modelInfo, GLMeshRenderer::COLOR_SHADER);
+	_gridRenderer = new GLMeshRenderer(&modelInfo, COLOR_SHADER);
 
 	delete glBatch;
 }
@@ -84,7 +84,7 @@ void Floor::GenerateGridRect(float start, float end)
 	ModelInfo modelInfo;
 	modelInfo.SetVertexBuffer(glBatch->GetVertexBuffer(), glBatch->GetVertexBufferSize());
 
-	_gridRectRenderer = new GLMeshRenderer(&modelInfo, GLMeshRenderer::BASIC_SHADER);
+	_gridRectRenderer = new GLMeshRenderer(&modelInfo, BASIC_SHADER);
 	_gridRectRenderer->SetPrimitiveType(GLMeshRenderer::triangleStrip);
 	BasicShader* shader = (BasicShader*)_gridRectRenderer->GetCurrentShader();
 	shader->SetColor(glm::vec3(130.0f/255.0f, 130.0f / 255.0f, 130.0f / 255.0f));
@@ -125,7 +125,7 @@ void Floor::GenerateSmallGridLines(float start, float end, float gap)
 	ModelInfo modelInfo;
 	modelInfo.SetVertexBuffer(glBatch->GetVertexBuffer(), glBatch->GetVertexBufferSize());
 	modelInfo.SetColorBuffer(glBatch->GetColorBuffer(), glBatch->GetColorBufferSize());
-	_smallGridLinesRenderer = new GLMeshRenderer(&modelInfo, GLMeshRenderer::BASIC_SHADER);
+	_smallGridLinesRenderer = new GLMeshRenderer(&modelInfo, BASIC_SHADER);
 	_smallGridLinesRenderer->SetPrimitiveType(GLMeshRenderer::lines);
 
 	float colorValue = 117.0f / 255.0f;
@@ -172,7 +172,7 @@ void Floor::GenerateGridLines(float start, float end, float gap)
 
 	ModelInfo modelInfo;
 	modelInfo.SetVertexBuffer(glBatch->GetVertexBuffer(), glBatch->GetVertexBufferSize());
-	_gridLinesRenderer = new GLMeshRenderer(&modelInfo, GLMeshRenderer::BASIC_SHADER);
+	_gridLinesRenderer = new GLMeshRenderer(&modelInfo, BASIC_SHADER);
 	_gridLinesRenderer->SetPrimitiveType(GLMeshRenderer::lines);
 
 	float colorValue = 145.0f / 255.0f;
@@ -207,7 +207,7 @@ void Floor::GenerateBigGridLines(float start, float end, float gap)
 
 	ModelInfo modelInfo;
 	modelInfo.SetVertexBuffer(glBatch->GetVertexBuffer(), glBatch->GetVertexBufferSize());
-	_bigGridLinesRenderer = new GLMeshRenderer(&modelInfo, GLMeshRenderer::BASIC_SHADER);
+	_bigGridLinesRenderer = new GLMeshRenderer(&modelInfo, BASIC_SHADER);
 	_bigGridLinesRenderer->SetPrimitiveType(GLMeshRenderer::lines);
 
 	float colorValue = 181.0f / 255.0f;
@@ -237,7 +237,7 @@ void Floor::GenerateAxis(float start, float end)
 	ModelInfo modelInfo;
 	modelInfo.SetVertexBuffer(glBatch->GetVertexBuffer(), glBatch->GetVertexBufferSize());
 	modelInfo.SetColorBuffer(glBatch->GetColorBuffer(), glBatch->GetColorBufferSize());
-	_axisRenderer = new GLMeshRenderer(&modelInfo, GLMeshRenderer::COLOR_SHADER);
+	_axisRenderer = new GLMeshRenderer(&modelInfo, COLOR_SHADER);
 	_axisRenderer->SetPrimitiveType(GLMeshRenderer::lines);
 	_axisRenderer->SetAlpha(0.7f);
 

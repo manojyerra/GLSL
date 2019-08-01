@@ -18,7 +18,7 @@ GLSSAO::GLSSAO(float w, float h) : GLSSAOBufferBuilder(w, h)
 	_ssaoSamples.clear();
 	GenerateSampleKernelAndNoiseTexture();
 
-	_quadRenderer = CreateQuadRenderer(GLMeshRenderer::SSAO_SHADER);
+	_quadRenderer = CreateQuadRenderer(SSAO_SHADER);
 
 	SSAOShader* ssaoShader = (SSAOShader*)_quadRenderer->GetCurrentShader();
 	ssaoShader->SetGPositionTexID(GetGPositionTexID());
@@ -27,7 +27,7 @@ GLSSAO::GLSSAO(float w, float h) : GLSSAOBufferBuilder(w, h)
 	ssaoShader->SetSamples(_ssaoSamples);
 	ssaoShader->SetScreenSize(w, h);
 
-	_blurQuadRenderer = CreateQuadRenderer(GLMeshRenderer::SSAO_BLUR_SHADER);
+	_blurQuadRenderer = CreateQuadRenderer(SSAO_BLUR_SHADER);
 	SSAOBlurShader* ssaoBlurShader = (SSAOBlurShader*)_blurQuadRenderer->GetCurrentShader();
 	ssaoBlurShader->SetSSAOInputTexID(GetSSAOColorAttachmentID());
 
@@ -124,7 +124,7 @@ GLMeshRenderer* GLSSAO::CreateOverlayRenderer(float w, float h)
 	createInfo.SetVertexBuffer(buffer->GetVertexBuffer(), buffer->GetVertexBufferSize());
 	createInfo.SetUVBuffer(buffer->GetUVBuffer(), buffer->GetUVBufferSize());
 
-	GLMeshRenderer* overLayRenderer = new GLMeshRenderer(&createInfo, GLMeshRenderer::SSAO_MAP_OVERLAY_SHADER);
+	GLMeshRenderer* overLayRenderer = new GLMeshRenderer(&createInfo, SSAO_MAP_OVERLAY_SHADER);
 	overLayRenderer->SetPrimitiveType(GLMeshRenderer::triangleStrip);
 
 	SSAOMapOverlayShader* overlayShader = (SSAOMapOverlayShader*)overLayRenderer->GetCurrentShader();

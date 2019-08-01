@@ -161,7 +161,7 @@ void Sphere::GenerateGeometry()
 	createInfo.SetVertexBuffer(buffer->GetVertexBuffer(), buffer->GetVertexBufferSize());
 	createInfo.SetNormalBuffer(buffer->GetNormalBuffer(), buffer->GetNormalBufferSize());
 
-	_meshRenderer = new GLMeshRenderer(&createInfo, GLMeshRenderer::PHONG_PER_PIXEL_SHADER);
+	_meshRenderer = new GLMeshRenderer(&createInfo, PHONG_PER_PIXEL_SHADER);
 
 	delete buffer;
 }

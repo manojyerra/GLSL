@@ -501,6 +501,9 @@
     <ClCompile Include="src\GLUtil\ShaderProgram\ShaderProgramsManager.cpp">
       <Filter>src\GLUtil\ShaderProgram</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\Shaders\ShaderCreator.cpp">
+      <Filter>src\GLUtil\Shaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -856,6 +859,9 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\ShaderProgram\ShaderProgramsManager.h">
       <Filter>src\GLUtil\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\Shaders\ShaderCreator.h">
+      <Filter>src\GLUtil\Shaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

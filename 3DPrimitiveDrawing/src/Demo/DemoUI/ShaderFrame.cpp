@@ -45,7 +45,7 @@ void ShaderFrame::SetMeshRenderer(GLMeshRenderer* mesh)
 {
 	_mesh = mesh;
 	
-	PBRShader* pbrShader = (PBRShader*)_mesh->GetShader(GLMeshRenderer::PBR_SHADER);
+	PBRShader* pbrShader = (PBRShader*)_mesh->GetShader(PBR_SHADER);
 
 	glm::vec3 albedo = pbrShader->GetAlbedo();
 
@@ -203,7 +203,7 @@ void ShaderFrame::actionPerformed(SUIActionEvent e) {
 	if (_mesh == NULL)
 		return;
 
-	PBRShader* pbrShader = (PBRShader*)_mesh->GetShader(GLMeshRenderer::PBR_SHADER);
+	PBRShader* pbrShader = (PBRShader*)_mesh->GetShader(PBR_SHADER);
 	SUIComponent* com = (SUIComponent*)e.GetComponent();
 
 	if (com == shaderType) {
@@ -211,10 +211,10 @@ void ShaderFrame::actionPerformed(SUIActionEvent e) {
 		_renderDemoListener->actionPerformed(e);
 
 		if (shaderType->GetSelectedIndex() == 0) {
-			_mesh->SetShader(GLMeshRenderer::PBR_SHADER);
+			_mesh->SetShader(PBR_SHADER);
 		}
 		else {
-			_mesh->SetShader(GLMeshRenderer::PHONG_PER_VERTEX_SHADER);
+			_mesh->SetShader(PHONG_PER_VERTEX_SHADER);
 		}
 	}
 	else if (com == _materialType) {

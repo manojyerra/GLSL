@@ -22,11 +22,11 @@ RenderDemo::RenderDemo(float sw, float sh)
 	GLMeshRenderer* meshRenderer4 = nullptr;
 	GLMeshRenderer* meshRenderer5 = nullptr;
 
-	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&STLReader("data/BigSize/CarScaled"), GLMeshRenderer::PBR_SHADER);
-	if (_numModels >= 2) meshRenderer2 = new GLMeshRenderer(&STLReader("data/BigSize/STLCar"), GLMeshRenderer::PBR_SHADER);
-	if (_numModels >= 3) meshRenderer3 = new GLMeshRenderer(&ObjReader("data/BigSize/Truck"), GLMeshRenderer::PBR_SHADER);
-	if (_numModels >= 4) meshRenderer4 = new GLMeshRenderer(&STLReader("data/BigSize/STLCar"), GLMeshRenderer::PBR_WITH_TEXTURE_SHADER);
-	if (_numModels >= 5) meshRenderer5 = new GLMeshRenderer(&ObjReader("data/Teapot"), GLMeshRenderer::PBR_SHADER);
+	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&STLReader("data/BigSize/CarScaled"), PBR_SHADER);
+	if (_numModels >= 2) meshRenderer2 = new GLMeshRenderer(&STLReader("data/BigSize/STLCar"), PBR_SHADER);
+	if (_numModels >= 3) meshRenderer3 = new GLMeshRenderer(&ObjReader("data/BigSize/Truck"), PBR_SHADER);
+	if (_numModels >= 4) meshRenderer4 = new GLMeshRenderer(&STLReader("data/BigSize/STLCar"), PBR_WITH_TEXTURE_SHADER);
+	if (_numModels >= 5) meshRenderer5 = new GLMeshRenderer(&ObjReader("data/Teapot"), PBR_SHADER);
 
 	if (meshRenderer1) meshRenderer1->SetPos(0.0f, 0.0f, -20.0f);
 	if (meshRenderer2) meshRenderer2->SetPos(-8.0f, 0.0f, 0.0f);
@@ -146,7 +146,7 @@ void RenderDemo::DrawObjectsForSSAO()
 		if (_modelVisibilityFrame->modelBoxVec[i]->modelCheckBox->IsSelected())
 		{
 			unsigned int shaderType = _modelVec[i]->GetCurrentShaderType();
-			_modelVec[i]->SetShader(GLMeshRenderer::SSAO_GEOMETRY_PASS_SHADER);
+			_modelVec[i]->SetShader(SSAO_GEOMETRY_PASS_SHADER);
 			_modelVec[i]->Draw();
 			_modelVec[i]->SetShader(shaderType);
 		}
@@ -168,14 +168,14 @@ void RenderDemo::actionPerformed(SUIActionEvent e)
 		{
 			for(int i=0; i< _modelVec.size(); i++)
 			{
-				_modelVec[i]->SetShader(GLMeshRenderer::PBR_SHADER);
+				_modelVec[i]->SetShader(PBR_SHADER);
 			}
 		}
 		else
 		{
 			for (int i = 0; i < _modelVec.size(); i++)
 			{
-				_modelVec[i]->SetShader(GLMeshRenderer::PHONG_PER_VERTEX_SHADER);
+				_modelVec[i]->SetShader(PHONG_PER_VERTEX_SHADER);
 			}
 		}
 	}
