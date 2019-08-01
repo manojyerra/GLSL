@@ -84,5 +84,5 @@ GLFBO::~GLFBO()
 	GLDeleteRenderBuffer(_depthBufID);
 
 	//Delete frame buffer
-	GLDeleteFrameBuffer(1, &_fboID);
+	GLDeleteFrameBuffer(_fboID);
 }
