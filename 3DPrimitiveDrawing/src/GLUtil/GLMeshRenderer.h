@@ -15,6 +15,7 @@ private:
 	GLMat _modelMat;
 	AABB _bBox;
 	ShaderCreator* _shaderCreator;
+	bool _visible;
 
 public:
 	GLBufferBuilder* _bufferBuilder;
@@ -43,7 +44,8 @@ public:
 
 	void SetPrimitiveType(int primitiveType);
 	void SetAlpha(float alpha);
-
+	void SetVisible(bool visible);
+	void DrawForPicking(glm::vec3 color);
 	void Draw();
 };
 

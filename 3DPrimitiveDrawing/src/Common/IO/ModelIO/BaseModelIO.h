@@ -24,6 +24,14 @@ protected:
 	AABB bBox;
 
 public:
+	enum
+	{
+		OBJ_MODEL,
+		BINARY_OBJ_MODEL,
+		STL_MODEL,
+		PARTICLE_DATA
+	};
+
 	BaseModelIO();
 	~BaseModelIO();
 	

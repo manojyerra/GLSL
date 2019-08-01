@@ -89,6 +89,7 @@
     <ClCompile Include="src\GLUtil\GLFBO.cpp" />
     <ClCompile Include="src\GLUtil\GLMat.cpp" />
     <ClCompile Include="src\GLUtil\GLMemory.cpp" />
+    <ClCompile Include="src\GLUtil\GLMeshManager.cpp" />
     <ClCompile Include="src\GLUtil\GLMeshRenderer.cpp" />
     <ClCompile Include="src\GLUtil\GLState.cpp" />
     <ClCompile Include="src\GLUtil\GLTexture.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="src\GLUtil\GLInclude.h" />
     <ClInclude Include="src\GLUtil\GLMat.h" />
     <ClInclude Include="src\GLUtil\GLMemory.h" />
+    <ClInclude Include="src\GLUtil\GLMeshManager.h" />
     <ClInclude Include="src\GLUtil\GLMeshRenderer.h" />
     <ClInclude Include="src\GLUtil\GLState.h" />
     <ClInclude Include="src\GLUtil\GLTexture.h" />

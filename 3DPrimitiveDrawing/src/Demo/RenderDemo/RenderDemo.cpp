@@ -16,17 +16,19 @@ RenderDemo::RenderDemo(float sw, float sh)
 	_numModels = 5;
 	_selectedModel = nullptr;
 
+	_meshManager = new GLMeshManager(sw, sh);
+
 	GLMeshRenderer* meshRenderer1 = nullptr;
 	GLMeshRenderer* meshRenderer2 = nullptr;
 	GLMeshRenderer* meshRenderer3 = nullptr;
 	GLMeshRenderer* meshRenderer4 = nullptr;
 	GLMeshRenderer* meshRenderer5 = nullptr;
 
-	if (_numModels >= 1) meshRenderer1 = new GLMeshRenderer(&ObjReader("data/BigSize/Plane/objFile.obj"), PBR_SHADER);
-	if (_numModels >= 2) meshRenderer2 = new GLMeshRenderer(&STLReader("data/BigSize/STLCar/stlFile.stl"), PBR_SHADER);
-	if (_numModels >= 3) meshRenderer3 = new GLMeshRenderer(&ObjReader("data/BigSize/Truck/objFile.obj"), PBR_SHADER);
-	if (_numModels >= 4) meshRenderer4 = new GLMeshRenderer(&STLReader("data/BigSize/STLCar/stlFile.stl"), PBR_WITH_TEXTURE_SHADER);
-	if (_numModels >= 5) meshRenderer5 = new GLMeshRenderer(&ObjReader("data/Teapot/objFile.obj"), PBR_SHADER);
+	if (_numModels >= 1) meshRenderer1 = _meshManager->AddMeshRenderer("data/BigSize/Plane/objFile.obj", PBR_SHADER, BaseModelIO::OBJ_MODEL);
+	if (_numModels >= 2) meshRenderer2 = _meshManager->AddMeshRenderer("data/BigSize/STLCar/stlFile.stl", PBR_SHADER, BaseModelIO::STL_MODEL);
+	if (_numModels >= 3) meshRenderer3 = _meshManager->AddMeshRenderer("data/BigSize/Truck/objFile.obj", PBR_SHADER, BaseModelIO::OBJ_MODEL);
+	if (_numModels >= 4) meshRenderer4 = _meshManager->AddMeshRenderer("data/BigSize/STLCar/stlFile.stl", PBR_WITH_TEXTURE_SHADER, BaseModelIO::STL_MODEL);
+	if (_numModels >= 5) meshRenderer5 = _meshManager->AddMeshRenderer("data/Teapot/objFile.obj", PBR_SHADER, BaseModelIO::OBJ_MODEL);
 
 	if (meshRenderer1) meshRenderer1->SetPos(0.0f, 0.0f, -20.0f);
 	if (meshRenderer2) meshRenderer2->SetPos(-8.0f, 0.0f, 0.0f);
@@ -34,20 +36,7 @@ RenderDemo::RenderDemo(float sw, float sh)
 	if (meshRenderer4) meshRenderer4->SetPos(0.0f, 0.0f, -12.0f);
 	if (meshRenderer5) meshRenderer5->SetPos(12.0f, 0.0f, 0.0f);
 
-	for (int i = 0; i < _numModels; i++)
-	{
-		GLMeshRenderer* meshRenderer = NULL;
-
-		if (i == 0)			meshRenderer = meshRenderer1;
-		else if (i == 1)	meshRenderer = meshRenderer2;
-		else if (i == 2)	meshRenderer = meshRenderer3;
-		else if (i == 3)	meshRenderer = meshRenderer4;
-		else if (i == 4)	meshRenderer = meshRenderer5;
-
-		_modelVec.push_back(meshRenderer);
-	}
-
-	_selectedModel = _modelVec[0];
+	_selectedModel = meshRenderer1;
 
 	_shaderFrame = new ShaderFrame(0.0f, 0.0f, 300.0f, 910.0f, this);
 	_shaderFrame->SetMeshRenderer(_selectedModel);

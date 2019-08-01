@@ -5,6 +5,7 @@
 
 #include "GLMeshRenderer.h"
 #include "Floor.h"
+#include "GLMeshManager.h"
 
 #include "ShaderFrame.h"
 #include "SUIActionListener.h"
@@ -21,7 +22,8 @@ private:
 	int _numModels;
 
 	GLMeshRenderer* _selectedModel;
-	vector<GLMeshRenderer*> _modelVec;
+	GLMeshManager* _meshManager;
+
 	Floor* _floor;
 
 	bool _enableSSAO;

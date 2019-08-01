@@ -2,17 +2,23 @@
 #define GLMeshManager_H
 
 #include "GLMeshRenderer.h"
+#include "GLFBO.h"
 
 class GLMeshManager
 {
 private:
+	vector<GLMeshRenderer*> _modelVec;
+	GLFBO* _fbo;
 
 public:
-	GLMeshManager();
+	GLMeshManager(float sw, float sh);
 	~GLMeshManager();
 
-	GLMeshRenderer* AddMeshRenderer(std::string path, unsigned int shaderType);
+	void SetScreenSize(float sw, float sh);
+	unsigned int Size();
 
+	GLMeshRenderer* AddMeshRenderer(std::string path, unsigned int shaderType, unsigned int modelType);
+	int GetModelIndexByMousePos(float x, float y, float sw, float sh);
 };
 
 #endif

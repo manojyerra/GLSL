@@ -18,6 +18,7 @@ GLMeshRenderer::GLMeshRenderer(BaseModelIO* BaseModelIO, int shaderType)
 	_primitiveType = triangles;
 
 	_shaderCreator = new ShaderCreator(shaderType, _bufferBuilder);
+	_visible = true;
 }
 
 void GLMeshRenderer::SetModelMatrix(float* mat)
@@ -65,28 +66,56 @@ void GLMeshRenderer::SetAlpha(float alpha)
 	_shaderCreator->GetCurrentShader()->SetAlpha(alpha);
 }
 
+void GLMeshRenderer::SetVisible(bool visible)
+{
+	_visible = visible;
+}
+
+void GLMeshRenderer::DrawForPicking(glm::vec3 color)
+{
+	if (_visible)
+	{
+		unsigned int shaderType = _shaderCreator->GetCurrentShaderType();
+
+		_shaderCreator->SetShader(BASIC_SHADER);
+		BasicShader* basicShader = (BasicShader*)_shaderCreator->GetCurrentShader();
+		basicShader->SetColor(color);
+		basicShader->SetModelMatrix(_modelMat.m);
+		basicShader->Begin();
+		basicShader->SetUniformsAndAttributes();
+		basicShader->End();
+
+		_shaderCreator->SetShader(shaderType);
+	}
+}
+
 void GLMeshRenderer::Draw()
 {
-	Shader* shader = _shaderCreator->GetCurrentShader();
-
-	if (shader)
+	if (_visible)
 	{
-		//SetShader(BASIC_SHADER);
+		Shader* shader = _shaderCreator->GetCurrentShader();
 
-		shader->SetModelMatrix(_modelMat.m);
-		shader->Begin();
+		if (shader)
+		{
+			SetShader(BASIC_SHADER);
 
-		//_basicShader->SetColor(glm::vec3(1.0f, 0.0f, 0.0f));
-		//_shader->SetUniformsAndAttributes();
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		//glDrawArrays(_primitiveType, 0, (GLsizei)(_bufferBuilder->GetVertexBufferSize() / 12));
+			shader->SetModelMatrix(_modelMat.m);
+			shader->Begin();
 
-		//_basicShader->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
-		shader->SetUniformsAndAttributes();
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		glDrawArrays(_primitiveType, 0, (GLsizei)(_bufferBuilder->GetVertexBufferSize() / 12));
+			BasicShader* basicShader = (BasicShader*)_shaderCreator->GetShader(BASIC_SHADER);
 
-		shader->End();
+			basicShader->SetColor(glm::vec3(1.0f, 0.0f, 0.0f));
+			shader->SetUniformsAndAttributes();
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			glDrawArrays(_primitiveType, 0, (GLsizei)(_bufferBuilder->GetVertexBufferSize() / 12));
+
+			basicShader->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+			shader->SetUniformsAndAttributes();
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			glDrawArrays(_primitiveType, 0, (GLsizei)(_bufferBuilder->GetVertexBufferSize() / 12));
+
+			shader->End();
+		}
 	}
 }
 

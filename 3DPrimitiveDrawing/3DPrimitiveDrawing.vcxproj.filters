@@ -504,6 +504,9 @@
     <ClCompile Include="src\Common\IO\ModelIO\BaseModelIO.cpp">
       <Filter>src\Common\IO\ModelIO</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\GLMeshManager.cpp">
+      <Filter>src\GLUtil</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -862,6 +865,9 @@
     </ClInclude>
     <ClInclude Include="src\Common\IO\ModelIO\BaseModelIO.h">
       <Filter>src\Common\IO\ModelIO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\GLMeshManager.h">
+      <Filter>src\GLUtil</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
