@@ -21,7 +21,7 @@ public:
 	unsigned int Size();
 
 	GLMeshRenderer* AddMeshRenderer(std::string path, unsigned int shaderType, unsigned int modelType);
-	int GetModelIndexByMousePos(float x, float y, float sw, float sh);
+	int GetModelIndexByMousePos(float x, float y);
 };
 
 #endif

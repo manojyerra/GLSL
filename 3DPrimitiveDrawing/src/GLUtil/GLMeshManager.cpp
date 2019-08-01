@@ -44,17 +44,19 @@ GLMeshRenderer* GLMeshManager::AddMeshRenderer(std::string path, unsigned int sh
 	{
 		ObjReader reader(path);
 		meshRenderer = new GLMeshRenderer(&reader, shaderType);
+		_modelVec.push_back(meshRenderer);
 	}
 	else if (modelType == BaseModelIO::STL_MODEL)
 	{
 		STLReader reader(path);
 		meshRenderer = new GLMeshRenderer(&reader, shaderType);
+		_modelVec.push_back(meshRenderer);
 	}
 
 	return meshRenderer;
 }
 
-int GLMeshManager::GetModelIndexByMousePos(float x, float y, float sw, float sh)
+int GLMeshManager::GetModelIndexByMousePos(float x, float y)
 {
 	_fbo->BindFBO();
 

@@ -1,3 +1,4 @@
+#include "Input.h"
 #ifdef _ENABLE_DEMO
 
 #include "RenderDemo.h"
@@ -13,7 +14,7 @@ RenderDemo::RenderDemo(float sw, float sh)
 
 	_floor = new Floor();
 
-	_numModels = 5;
+	_numModels = 1;
 	_selectedModel = nullptr;
 
 	_meshManager = new GLMeshManager(sw, sh);
@@ -27,7 +28,7 @@ RenderDemo::RenderDemo(float sw, float sh)
 	if (_numModels >= 1) meshRenderer1 = _meshManager->AddMeshRenderer("data/BigSize/Plane/objFile.obj", PBR_SHADER, BaseModelIO::OBJ_MODEL);
 	if (_numModels >= 2) meshRenderer2 = _meshManager->AddMeshRenderer("data/BigSize/STLCar/stlFile.stl", PBR_SHADER, BaseModelIO::STL_MODEL);
 	if (_numModels >= 3) meshRenderer3 = _meshManager->AddMeshRenderer("data/BigSize/Truck/objFile.obj", PBR_SHADER, BaseModelIO::OBJ_MODEL);
-	if (_numModels >= 4) meshRenderer4 = _meshManager->AddMeshRenderer("data/BigSize/STLCar/stlFile.stl", PBR_WITH_TEXTURE_SHADER, BaseModelIO::STL_MODEL);
+	if (_numModels >= 4) meshRenderer4 = _meshManager->AddMeshRenderer("data/BigSize/Trike/objFile.obj", PBR_WITH_TEXTURE_SHADER, BaseModelIO::OBJ_MODEL);
 	if (_numModels >= 5) meshRenderer5 = _meshManager->AddMeshRenderer("data/Teapot/objFile.obj", PBR_SHADER, BaseModelIO::OBJ_MODEL);
 
 	if (meshRenderer1) meshRenderer1->SetPos(0.0f, 0.0f, -20.0f);
@@ -102,6 +103,12 @@ void RenderDemo::Draw()
 		GLState::GLEnable(GL_DEPTH_TEST, depth);
 		GLState::GLEnable(GL_BLEND, blend);
 		GLState::GLEnable(GL_CULL_FACE, cullFace);
+	}
+
+	if (Input::IsMouseClicked())
+	{
+		int index = _meshManager->GetModelIndexByMousePos(Input::MX, Input::MY);
+		printf("\n Index = %d", index);
 	}
 
 	_floor->Draw();
