@@ -5,6 +5,25 @@ Cam* Cam::_ref = NULL;
 
 Cam::Cam()
 {
+	_sw = 0.0f;
+	_sh = 0.0f;
+
+	_zNear = 0.0f;
+	_zFar = 0.0f;
+	_zNearPlaneHalfW = 0.0f;
+
+	_pivot = glm::vec3(0.0f);
+	_trans = glm::vec3(0.0f);
+	_angle = glm::vec3(0.0f);
+
+	_viewType = 0;
+	_isOrtho = false;
+	_camUpdated = false;
+
+	_left = 0.0f;
+	_right = 0.0f;
+	_bottom = 0.0f;
+	_top = 0.0f;
 }
 
 Cam* Cam::GetInstance()
@@ -36,8 +55,8 @@ void Cam::Init(float screenW, float screenH, float zNear, float zFar, float zNea
 	_zNearPlaneHalfW = zNearPlaneW/2.0f;
 
 	_pivot = glm::vec3(0.0f, 0.0f, 0.0f);
-	_trans = glm::vec3(0.0f, -2.046f, -12.0f);
-	_angle = glm::vec3(37.49f, -32.56f, 0);
+	_trans = glm::vec3(0.0f, -2.046f, -12.0f);  //glm::vec3(4.52882051, -0.638403118, -2.66629577);
+	_angle = glm::vec3(37.49f, -32.56f, 0);		//glm::vec3(22.1958828, -16.6776466, 0.0f);
 
 	_viewType = 5;
 	_isOrtho = false;

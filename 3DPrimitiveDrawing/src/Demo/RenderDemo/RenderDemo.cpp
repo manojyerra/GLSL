@@ -25,10 +25,10 @@ RenderDemo::RenderDemo(float sw, float sh)
 	GLMeshRenderer* meshRenderer4 = nullptr;
 	GLMeshRenderer* meshRenderer5 = nullptr;
 
-	if (_numModels >= 1) meshRenderer1 = _meshManager->AddMeshRenderer("data/BigSize/Plane/objFile.obj", PBR_SHADER, BaseModelIO::OBJ_MODEL);
+	if (_numModels >= 1) meshRenderer1 = _meshManager->AddMeshRenderer("data/BigSize/Trike/objFile.obj", PBR_SHADER, BaseModelIO::OBJ_MODEL);
 	if (_numModels >= 2) meshRenderer2 = _meshManager->AddMeshRenderer("data/BigSize/STLCar/stlFile.stl", PBR_SHADER, BaseModelIO::STL_MODEL);
 	if (_numModels >= 3) meshRenderer3 = _meshManager->AddMeshRenderer("data/BigSize/Truck/objFile.obj", PBR_SHADER, BaseModelIO::OBJ_MODEL);
-	if (_numModels >= 4) meshRenderer4 = _meshManager->AddMeshRenderer("data/BigSize/Trike/objFile.obj", PBR_WITH_TEXTURE_SHADER, BaseModelIO::OBJ_MODEL);
+	if (_numModels >= 4) meshRenderer4 = _meshManager->AddMeshRenderer("data/BigSize/Plane/objFile.obj", PBR_WITH_TEXTURE_SHADER, BaseModelIO::OBJ_MODEL);
 	if (_numModels >= 5) meshRenderer5 = _meshManager->AddMeshRenderer("data/Teapot/objFile.obj", PBR_SHADER, BaseModelIO::OBJ_MODEL);
 
 	if (meshRenderer1) meshRenderer1->SetPos(0.0f, 0.0f, -20.0f);
@@ -122,7 +122,7 @@ void RenderDemo::Draw()
 	{
 		if (_modelVisibilityFrame->modelBoxVec[i]->modelCheckBox->IsSelected())
 		{
-			_meshManager->Get(i)->DrawWireFrame();
+			_meshManager->Get(i)->Draw();
 		}
 	}
 

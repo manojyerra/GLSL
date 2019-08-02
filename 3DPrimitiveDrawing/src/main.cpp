@@ -1,9 +1,3 @@
-#include <sstream>
-#include <math.h>
-#include <string>
-#include <iosfwd>
-
-
 #include "Platform.h"
 #include "GameLoop.h"
 #include "Input.h"
@@ -16,8 +10,8 @@ GameLoop* gameLoop = NULL;
 
 int main(void)
 {
-	long startTime = Platform::GetTimeInMillis();
 	Platform::debugPrint("\n\nBegin: Loading resources\n\n");
+	long startTime = Platform::GetTimeInMillis();
 
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -28,7 +22,7 @@ int main(void)
 	glfwWindowHint(GLFW_ALPHA_BITS, 8);
 	glfwWindowHint(GLFW_SRGB_CAPABLE, GLFW_TRUE);
 	//TODO: How to change number of samples runtime and disable/enable sampling runtime ( mainly for while drawing an object ).
-	glfwWindowHint(GLFW_SAMPLES, 16);
+	glfwWindowHint(GLFW_SAMPLES, 8);
 
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
