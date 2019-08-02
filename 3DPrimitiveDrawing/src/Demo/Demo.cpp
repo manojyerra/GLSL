@@ -5,6 +5,7 @@
 #include "GLMemory.h"
 #include "Cam.h"
 #include "SUI.h"
+#include "GLState.h"
 
 Demo::Demo(float sw, float sh)
 {
@@ -34,7 +35,9 @@ void Demo::actionPerformed(SUIActionEvent e)
 	{
 		int index = _windowFrame->demoType->GetSelectedIndex();
 		
-		_rendererDemo->SetVisibleFrames(index == 0);
+		if(_rendererDemo)
+			_rendererDemo->SetVisibleFrames(index == 0);
+
 		_floorFrame->SetVisible(index == 0);
 
 		if(index == 0)
@@ -56,8 +59,8 @@ void Demo::actionPerformed(SUIActionEvent e)
 	}
 	else if (com == _windowFrame->isSSAO) 
 	{
-		//printf("SSAO enabled : %d", _windowFrame->isSSAO->IsSelected());
-		_rendererDemo->SetEnableSSAO(_windowFrame->isSSAO->IsSelected());
+		if (_rendererDemo)
+			_rendererDemo->SetEnableSSAO(_windowFrame->isSSAO->IsSelected());
 	}
 	else if (com == _floorFrame->hideFloor)
 	{
@@ -107,7 +110,9 @@ void Demo::Draw()
 			_particleDemo->Draw();
 	}
 
+	bool multiSample = GLState::GLEnable(GL_MULTISAMPLE, false);
 	SUIDraw();
+	GLState::GLEnable(GL_MULTISAMPLE, multiSample);
 }
 
 void Demo::SetScreenSize(float sw, float sh)

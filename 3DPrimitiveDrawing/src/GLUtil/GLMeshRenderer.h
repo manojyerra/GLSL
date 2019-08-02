@@ -46,6 +46,7 @@ public:
 	void SetAlpha(float alpha);
 	void SetVisible(bool visible);
 	void DrawForPicking(glm::vec3 color);
+	void DrawWireFrame();
 	void Draw();
 };
 

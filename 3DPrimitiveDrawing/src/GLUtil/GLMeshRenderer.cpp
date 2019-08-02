@@ -13,7 +13,6 @@ GLMeshRenderer::GLMeshRenderer(BaseModelIO* BaseModelIO, int shaderType)
 	_bufferBuilder->build();
 
 	_bBox = BaseModelIO->GetAABB();
-	_bBox.print();
 
 	_primitiveType = triangles;
 
@@ -90,6 +89,39 @@ void GLMeshRenderer::DrawForPicking(glm::vec3 color)
 	}
 }
 
+void GLMeshRenderer::DrawWireFrame()
+{
+	if (_visible)
+	{
+		Shader* shader = _shaderCreator->GetCurrentShader();
+
+		if (shader)
+		{
+			unsigned int prevShaderType = GetCurrentShaderType();
+
+			SetShader(BASIC_SHADER);
+			BasicShader* basicShader = (BasicShader*)_shaderCreator->GetShader(BASIC_SHADER);
+
+			basicShader->SetModelMatrix(_modelMat.m);
+			basicShader->Begin();
+
+			basicShader->SetColor(glm::vec3(1.0f, 0.0f, 0.0f));
+			basicShader->SetUniformsAndAttributes();
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			glDrawArrays(_primitiveType, 0, (GLsizei)(_bufferBuilder->GetVertexBufferSize() / 12));
+
+			basicShader->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+			basicShader->SetUniformsAndAttributes();
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			glDrawArrays(_primitiveType, 0, (GLsizei)(_bufferBuilder->GetVertexBufferSize() / 12));
+
+			basicShader->End();
+
+			SetShader(prevShaderType);
+		}
+	}
+}
+
 void GLMeshRenderer::Draw()
 {
 	if (_visible)
@@ -98,23 +130,10 @@ void GLMeshRenderer::Draw()
 
 		if (shader)
 		{
-			SetShader(BASIC_SHADER);
-
 			shader->SetModelMatrix(_modelMat.m);
 			shader->Begin();
-
-			BasicShader* basicShader = (BasicShader*)_shaderCreator->GetShader(BASIC_SHADER);
-
-			basicShader->SetColor(glm::vec3(1.0f, 0.0f, 0.0f));
 			shader->SetUniformsAndAttributes();
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 			glDrawArrays(_primitiveType, 0, (GLsizei)(_bufferBuilder->GetVertexBufferSize() / 12));
-
-			basicShader->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
-			shader->SetUniformsAndAttributes();
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-			glDrawArrays(_primitiveType, 0, (GLsizei)(_bufferBuilder->GetVertexBufferSize() / 12));
-
 			shader->End();
 		}
 	}

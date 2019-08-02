@@ -371,15 +371,15 @@ void ShaderFrame::actionPerformed(SUIActionEvent e) {
 
 			else if (com == lightboxVec[i]->dirX || com == lightboxVec[i]->dirY || com == lightboxVec[i]->dirZ)
 			{
-				printf("\n lightboxVec[%d]->lightDirectionX value = %s", i, lightboxVec[i]->dirX->GetText().c_str());
-				printf("\n lightboxVec[%d]->lightDirectionY value = %s", i, lightboxVec[i]->dirY->GetText().c_str());
-				printf("\n lightboxVec[%d]->lightDirectionY value = %s", i, lightboxVec[i]->dirZ->GetText().c_str());
+				//printf("\n lightboxVec[%d]->lightDirectionX value = %s", i, lightboxVec[i]->dirX->GetText().c_str());
+				//printf("\n lightboxVec[%d]->lightDirectionY value = %s", i, lightboxVec[i]->dirY->GetText().c_str());
+				//printf("\n lightboxVec[%d]->lightDirectionY value = %s", i, lightboxVec[i]->dirZ->GetText().c_str());
 			}
 			else if (com == lightboxVec[i]->colorR || com == lightboxVec[i]->colorG || com == lightboxVec[i]->colorB)
 			{
-				printf("\n lightboxVec[%d]->lightColorR value = %s", i, lightboxVec[i]->colorR->GetText().c_str());
-				printf("\n lightboxVec[%d]->lightColorG value = %s", i, lightboxVec[i]->colorG->GetText().c_str());
-				printf("\n lightboxVec[%d]->lightColorB value = %s", i, lightboxVec[i]->colorB->GetText().c_str());
+				//printf("\n lightboxVec[%d]->lightColorR value = %s", i, lightboxVec[i]->colorR->GetText().c_str());
+				//printf("\n lightboxVec[%d]->lightColorG value = %s", i, lightboxVec[i]->colorG->GetText().c_str());
+				//printf("\n lightboxVec[%d]->lightColorB value = %s", i, lightboxVec[i]->colorB->GetText().c_str());
 			}
 		}
 	}

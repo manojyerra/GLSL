@@ -3,11 +3,11 @@
 
 void Platform::debugPrint(const char * pszFormat, ...)
 {
-
-#if (defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(WIN32) || defined(__MINGW32__))
 	const int MAX_LEN = 10000;
 	char szBuf[MAX_LEN];
 
+#if (defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(WIN32) || defined(__MINGW32__))
+	
 	va_list ap;
 	va_start(ap, pszFormat);
 	vsnprintf_s(szBuf, MAX_LEN, MAX_LEN, pszFormat, ap);
@@ -21,6 +21,8 @@ void Platform::debugPrint(const char * pszFormat, ...)
 	//WideCharToMultiByte(CP_ACP, 0, wszBuf, sizeof(wszBuf), szBuf, sizeof(szBuf), NULL, FALSE);
 	//printf("%s\n", szBuf);
 #endif
+
+	printf("%s",szBuf);
 }
 
 long Platform::GetTimeInMillis()

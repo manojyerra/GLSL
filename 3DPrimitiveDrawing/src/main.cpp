@@ -1,3 +1,9 @@
+#include <sstream>
+#include <math.h>
+#include <string>
+#include <iosfwd>
+
+
 #include "Platform.h"
 #include "GameLoop.h"
 #include "Input.h"

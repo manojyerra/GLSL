@@ -167,9 +167,6 @@ void Floor::GenerateGridLines(float start, float end, float gap)
 		count++;
 	}
 
-	glBatch->glColor3ub(145, 145, 145);
-
-
 	BaseModelIO BaseModelIO;
 	BaseModelIO.SetVertexBuffer(glBatch->GetVertexBuffer(), glBatch->GetVertexBufferSize());
 	_gridLinesRenderer = new GLMeshRenderer(&BaseModelIO, BASIC_SHADER);
@@ -299,7 +296,6 @@ void Floor::Draw()
 {
 	if (_visible)
 	{
-		GLState::GLEnable(GL_LINE_SMOOTH, true);
 		float lineWidth = GLState::GLLineWidth(1.0f);
 		GLboolean blend = GLState::GLEnable(GL_BLEND, true);
 		GLboolean depth = GLState::GLEnable(GL_DEPTH_TEST, true);

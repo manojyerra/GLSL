@@ -1,5 +1,6 @@
 #include "ShaderProgram.h"
 #include "FileReader.h"
+#include "Platform.h"
 
 ShaderProgram::ShaderProgram(std::string vertexShaderFilePath, std::string fragmentShaderFilePath)
 {
@@ -10,12 +11,12 @@ ShaderProgram::ShaderProgram(std::string vertexShaderFilePath, std::string fragm
 
 	_hasGeometryShader = false;
 
-	printf("\nCompiling vertex shader. FilePath : %s\n", vertexShaderFilePath.c_str());
+	Platform::debugPrint("\nCompiling vertex shader. FilePath : %s\n", vertexShaderFilePath.c_str());
 	GLint vertexShaderObj = CompileShader(_vertexShaderPath.c_str(), GL_VERTEX_SHADER);
-	printf("Compiling fragment shader. FilePath : %s\n", fragmentShaderFilePath.c_str());
+	Platform::debugPrint("Compiling fragment shader. FilePath : %s\n", fragmentShaderFilePath.c_str());
 	GLint fragmentShaderObj = CompileShader(_fragmentShaderPath.c_str(), GL_FRAGMENT_SHADER);
 
-	printf("Linking program...\n");
+	Platform::debugPrint("Linking program...");
 	_programID = glCreateProgram();
 	glAttachShader(_programID, vertexShaderObj);
 	glAttachShader(_programID, fragmentShaderObj);
@@ -37,7 +38,7 @@ ShaderProgram::ShaderProgram(std::string vertexShaderFilePath, std::string fragm
 	{
 		std::vector<char> programInfoLog(infoLogLength + 1);
 		glGetProgramInfoLog(_programID, infoLogLength, NULL, &programInfoLog[0]);
-		printf("%s\n", &programInfoLog[0]);
+		Platform::debugPrint("%s\n", &programInfoLog[0]);
 	}
 
 	if (!linkStatus)
@@ -45,7 +46,8 @@ ShaderProgram::ShaderProgram(std::string vertexShaderFilePath, std::string fragm
 		throw std::exception("Linking failed...");
 		exit(0);
 	}
-	printf("\n");
+
+	Platform::debugPrint("  Completed. \n");
 }
 
 ShaderProgram::ShaderProgram(std::string vertexShaderFilePath, std::string geometryShaderFilePath, std::string fragmentShaderFilePath)
@@ -57,19 +59,20 @@ ShaderProgram::ShaderProgram(std::string vertexShaderFilePath, std::string geome
 
 	_hasGeometryShader = true;
 
-	printf("\nCompiling vertex shader. FilePath : %s\n", vertexShaderFilePath.c_str());
+	Platform::debugPrint("\nCompiling vertex shader. FilePath : %s\n", vertexShaderFilePath.c_str());
 	GLint vertexShaderObj = CompileShader(_vertexShaderPath.c_str(), GL_VERTEX_SHADER);
-	printf("Compiling geometry shader. FilePath : %s\n", geometryShaderFilePath.c_str());
+	Platform::debugPrint("Compiling geometry shader. FilePath : %s\n", geometryShaderFilePath.c_str());
 	GLint geometryShaderObj = CompileShader(geometryShaderFilePath.c_str(), GL_GEOMETRY_SHADER);
-	printf("Compiling fragment shader. FilePath : %s\n", fragmentShaderFilePath.c_str());
+	Platform::debugPrint("Compiling fragment shader. FilePath : %s\n", fragmentShaderFilePath.c_str());
 	GLint fragmentShaderObj = CompileShader(_fragmentShaderPath.c_str(), GL_FRAGMENT_SHADER);
 
-	printf("Linking program...\n");
+	Platform::debugPrint("Linking program...");
 	_programID = glCreateProgram();
 	glAttachShader(_programID, vertexShaderObj);
 	glAttachShader(_programID, geometryShaderObj);
 	glAttachShader(_programID, fragmentShaderObj);
 	glLinkProgram(_programID);
+
 
 	GLint linkStatus = GL_FALSE;
 	int infoLogLength = 0;
@@ -89,7 +92,7 @@ ShaderProgram::ShaderProgram(std::string vertexShaderFilePath, std::string geome
 	{
 		std::vector<char> programInfoLog(infoLogLength + 1);
 		glGetProgramInfoLog(_programID, infoLogLength, NULL, &programInfoLog[0]);
-		printf("%s\n", &programInfoLog[0]);
+		Platform::debugPrint("%s\n", &programInfoLog[0]);
 	}
 
 	if (!linkStatus)
@@ -97,7 +100,7 @@ ShaderProgram::ShaderProgram(std::string vertexShaderFilePath, std::string geome
 		throw std::exception("Linking failed...");
 		exit(0);
 	}
-	printf("\n");
+	Platform::debugPrint("  Completed.\n");
 }
 
 bool ShaderProgram::HasGeometryShader()
@@ -155,7 +158,7 @@ GLint ShaderProgram::CompileShader(const char* shaderFilePath, GLenum shaderType
 	glGetShaderInfoLog(shaderObject, compilationLogLength, NULL, &shaderCompileLog[0]);
 
 	if (compilationLogLength > 0)
-		printf("\n%s\n", &shaderCompileLog[0]);
+		Platform::debugPrint("\n%s\n", &shaderCompileLog[0]);
 
 	if (!shaderCompileStatus)
 	{

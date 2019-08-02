@@ -1,5 +1,6 @@
 #include "AABB.h"
 #include <cstdio>
+#include "Platform.h"
 
 AABB::AABB()
 {
@@ -43,7 +44,7 @@ float AABB::CenterZ()
 
 void AABB::print()
 {
-	printf("\n MinX = %f, MaxX = %f, MinY = %f, MaxY = %f, MinZ = %f, MaxZ = %f", minX, maxX, minY, maxY, minZ, maxZ);
+	Platform::debugPrint("\n MinX = %f, MaxX = %f, MinY = %f, MaxY = %f, MinZ = %f, MaxZ = %f", minX, maxX, minY, maxY, minZ, maxZ);
 }
 
 AABB::~AABB()

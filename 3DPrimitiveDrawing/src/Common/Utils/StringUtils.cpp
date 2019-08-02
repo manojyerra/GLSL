@@ -111,7 +111,7 @@ double StringUtils::atof_exp(const char *p)
 		}
 
 		//TODO : check the performance difference between math pow function and std pow function
-		r += f / std::pow(10.0, n);
+		r += f / pow(10.0, n);
 	}
 
 	//for exponential support
@@ -169,7 +169,7 @@ float StringUtils::atof_naive(const char *p) {
 		}
 
 		//TODO : check the performance difference between math function pow and std function pow
-		r += f / std::pow(10.0, n);
+		r += f / pow(10.0, n);
 	}
 	if (neg) {
 		r = -r;

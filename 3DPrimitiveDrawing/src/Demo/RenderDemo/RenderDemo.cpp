@@ -73,6 +73,11 @@ void RenderDemo::SetScreenSize(float sw, float sh)
 		delete _ssao;
 		_ssao = new GLSSAO(_sw, _sh);
 	}
+
+	if (_meshManager)
+	{
+		_meshManager->SetScreenSize(_sw, _sh);
+	}
 }
 
 void RenderDemo::Draw()
@@ -108,7 +113,7 @@ void RenderDemo::Draw()
 	if (Input::IsMouseClicked())
 	{
 		int index = _meshManager->GetModelIndexByMousePos(Input::MX, Input::MY);
-		printf("\n Index = %d", index);
+		Platform::debugPrint("\n Index = %d", index);
 	}
 
 	_floor->Draw();
@@ -117,7 +122,7 @@ void RenderDemo::Draw()
 	{
 		if (_modelVisibilityFrame->modelBoxVec[i]->modelCheckBox->IsSelected())
 		{
-			_meshManager->Get(i)->Draw();
+			_meshManager->Get(i)->DrawWireFrame();
 		}
 	}
 
