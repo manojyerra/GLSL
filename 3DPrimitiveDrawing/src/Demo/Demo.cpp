@@ -96,6 +96,7 @@ void Demo::actionPerformed(SUIActionEvent e)
 
 void Demo::Draw()
 {
+	SUIInput::SCROLL_STATE_STORE = Input::SCROLL_STATE;
 	bool consumed = SUIInput::Update((float)Input::MX, (float)Input::MY, Input::LEFT_BUTTON_DOWN, 1.0f / 30.0f);
 	Input::SetEnable(!consumed);
 
