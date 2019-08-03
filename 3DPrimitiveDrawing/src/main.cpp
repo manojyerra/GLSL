@@ -8,8 +8,11 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 GameLoop* gameLoop = NULL;
 
-int main(void)
+int main(int argc, char** argv)
 {
+	for(int i=0; i<argc; i++)
+		Platform::debugPrint("\nargv = %s", argv[i]);
+
 	Platform::debugPrint("\n\nBegin: Loading resources\n\n");
 	long startTime = Platform::GetTimeInMillis();
 
