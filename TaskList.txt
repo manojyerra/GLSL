@@ -68,3 +68,10 @@ Done:
 *)Fix this waring "warning C4005: 'APIENTRY': macro redefinition"
 *)Allocate gpu memory only from GLMemory.
 *)Load stl file.
+
+
+25.254, 0.23, 0.8
+0.8, 0.23, 25.254
+1.0
+0.3
+
