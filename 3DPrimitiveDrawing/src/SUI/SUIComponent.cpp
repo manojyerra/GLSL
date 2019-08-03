@@ -28,9 +28,9 @@ SUIComponent::SUIComponent(int id)
 	_bgB = 140;
 	_bgA = 255;
 
-	_borderR = 0;
-	_borderG = 0;
-	_borderB = 0;
+	_borderR = 128;
+	_borderG = 128;
+	_borderB = 128;
 	_borderA = 255;
 
 	_borderWidth = 1.0f;

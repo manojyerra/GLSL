@@ -100,8 +100,8 @@ void SUIRadioButton::AddCheckBox(SUICheckBox* checkBox)
 
 void SUIRadioButton::Draw()
 {
-	if(_isBgVisible)
-		DrawBackground();
+	//if(_isBgVisible)
+	//	DrawBackground();
 
 	for(int i=0; i<(int)_elementVec.size(); i++)
 		_elementVec[i]->Draw();

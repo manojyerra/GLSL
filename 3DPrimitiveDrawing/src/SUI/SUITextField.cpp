@@ -59,9 +59,9 @@ void SUITextField::Init(string name, int nameAlignment, SUIActionListener* actio
 	_bgB = 171;
 	_bgA = 255;
 
-	_borderR = 57;
-	_borderG = 57;
-	_borderB = 57;
+	_borderR = 50;
+	_borderG = 50;
+	_borderB = 50;
 	_borderA = 255;
 
 	_mouseListener = NULL;
@@ -184,13 +184,13 @@ double SUITextField::GetDouble()
 
 void SUITextField::Draw()
 {
-	if(_isBgVisible)
-	{
+	//if(_isBgVisible)
+	//{
 		if(Contains((float)SUIInput::MX, (float)SUIInput::MY))
 			DrawBackground(true);
-		else
-			DrawBackground(false);
-	}
+		//else
+		//	DrawBackground(false);
+	//}
 
 	SUIFont::GetInstance()->SetColor(0xffffffff);
 	SUIFont::GetInstance()->Begin();

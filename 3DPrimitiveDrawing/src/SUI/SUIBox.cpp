@@ -31,9 +31,9 @@ void SUIBox::CommonInit(int alignment, float leftMargin, float rightMargin, floa
 	_isOnOffEnable = false;
 	_isBorderVisible = true;
 
-	_titleBgR = 180;
-	_titleBgG = 180;
-	_titleBgB = 180;
+	_titleBgR = 100;
+	_titleBgG = 100;
+	_titleBgB = 100;
 	_titleBgA = 255;
 
 	SetMargin(leftMargin, rightMargin, topMargin, bottomMargin);
@@ -265,8 +265,8 @@ void SUIBox::Draw()
 	if(!_visible)
 		return;
 
-	if(_isBgVisible)
-		DrawBackground();
+	//if(_isBgVisible)
+	//	DrawBackground();
 
 	if(_isOnOffEnable || _name.length() > 0)
 		SUIRect::Draw(_x, _y, _w, (float)TITLE_H, _titleBgR, _titleBgG, _titleBgB, _titleBgA, false);

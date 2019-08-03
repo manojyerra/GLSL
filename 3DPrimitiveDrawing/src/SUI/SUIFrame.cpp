@@ -15,6 +15,7 @@ SUIFrame::SUIFrame(float x, float y, float w, float h, int alignment) : SUICompo
 	_w = w;
 	_h = h;
 
+	_titleBarRect.SetBorderColor(128, 128, 128, 255);
 	_titleBarRect.SetBounds(_x, _y, _w, 22);
 	_dragRect.SetBounds((float)(_x+_w-SLIDER_WIDTH), (float)(_y+_h-SLIDER_WIDTH), (float)SLIDER_WIDTH, (float)SLIDER_WIDTH);
 
@@ -41,9 +42,9 @@ SUIFrame::SUIFrame(float x, float y, float w, float h, int alignment) : SUICompo
 	_miniIconRect.SetBounds(0,0,0,0);
 	_beforeMaxRect.SetBounds(0,0,0,0);
 
-	_bgR = 120;
-	_bgG = 120;
-	_bgB = 120;
+	_bgR = 67;
+	_bgG = 67;
+	_bgB = 67;
 	_bgA = 255;
 
 	_activeBar = NONE;
@@ -586,7 +587,7 @@ void SUIFrame::DrawTitleBar()
 	float horGap = -0.5;
 	float fontSize = SUIFont::GetInstance()->GetFontSize();
 
-	if(_nameAlignment == LEFT)			SUIFont::GetInstance()->DrawFromLeft(_name, _x+1, _y+titleH/2, fontSize);
+	if(_nameAlignment == LEFT)			SUIFont::GetInstance()->DrawFromLeft(_name, _x+3, _y+titleH/2, fontSize);
 	else if(_nameAlignment == RIGHT)	SUIFont::GetInstance()->DrawFromRight(_name, _x+_w+1, _y+titleH/2, fontSize);
 	else								SUIFont::GetInstance()->DrawFromCenter(_name, _x+1+_w/2, _y+titleH/2, fontSize);
 	SUIFont::GetInstance()->End();
@@ -596,10 +597,10 @@ void SUIFrame::DrawTitleBar()
 
 void SUIFrame::DrawMinMaxClose()
 {
-	_minRect.DrawWithoutBorder();
+	//_minRect.DrawWithoutBorder();
 	SUIRect::Draw(_minRect.x+_minRect.w*0.2f, _minRect.y+_minRect.h*0.55f, _minRect.w - _minRect.w*0.4f, 3.0f, 255,255,255,255, false);
 
-	_maxRect.DrawWithoutBorder();
+	//_maxRect.DrawWithoutBorder();
 
 	float xx = _maxRect.x + _maxRect.w*0.2f;
 	float yy = _minRect.y + _minRect.h*0.2f;
@@ -615,11 +616,11 @@ void SUIFrame::DrawMinMaxClose()
 	}
 
 	SUIRect::Draw(xx,yy,ww,hh, 255,255,255,255, false);
-	SUIRect::Draw(xx+2.0f, yy+2.0f, ww-4.0f ,hh-4.0f, _minRect.color[0],_minRect.color[1],_minRect.color[2],_minRect.color[3], false);
+	SUIRect::Draw(xx+2.0f, yy+2.0f, ww-4.0f ,hh-4.0f, 128,128,128,255, false);
 
 	if(_removeCloseOption == false)
 	{
-		_closeRect.DrawWithoutBorder();
+		//_closeRect.DrawWithoutBorder();
 
 		glColor4ub(255,255,255,255);
 		glLineWidth(2.0f);

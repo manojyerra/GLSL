@@ -40,9 +40,9 @@ void SUICheckBox::Init(string name, int nameAlignment, SUIActionListener* action
 	_bgB = 171;
 	_bgA = 255;
 
-	_borderR = 57;
-	_borderG = 57;
-	_borderB = 57;
+	_borderR = 50;
+	_borderG = 50;
+	_borderB = 50;
 	_borderA = 255;
 
 	_actionListener = actionListener;
@@ -81,8 +81,8 @@ void SUICheckBox::SetBoxType(int boxType)
 
 void SUICheckBox::Draw()
 {
-	if(_isBgVisible)
-		DrawBackground();
+	//if(_isBgVisible)
+	//	DrawBackground();
 
 	if(_x+_h < _x+_w)
 	{
@@ -126,7 +126,7 @@ void SUICheckBox::DrawRect(float x, float y, float w, float h)
 	y += verMargin;
 	h -= verMargin*2;
 
-	glColor4ub(66, 66, 66, 255);
+	glColor4ub(100, 100, 100, 255);
 
 	glBegin(GL_TRIANGLE_STRIP);
 	glVertex2f(x,	y);
@@ -157,7 +157,7 @@ void SUICheckBox::DrawCircle(float cx, float cy, float r)
 	else
 		r -= verMargin;
 
-	glColor4ub(66, 66, 66, 255);
+	glColor4ub(100, 100, 100, 255);
 	glBegin(GL_TRIANGLE_FAN);
 	glVertex3f(cx, cy, 0);
 	glVertex3f(cx+r, cy, 0);

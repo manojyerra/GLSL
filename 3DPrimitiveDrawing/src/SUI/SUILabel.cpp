@@ -39,8 +39,8 @@ void SUILabel::Move(float dx, float dy)
 
 void SUILabel::Draw()
 {
-	if(_isBgVisible)
-		DrawBackground();
+	//if(_isBgVisible)
+	//	DrawBackground();
 
 	SUIFont::GetInstance()->SetColor(_fontColor);
 	SUIFont::GetInstance()->Begin();
@@ -56,8 +56,8 @@ void SUILabel::Draw()
 
 	SUIFont::GetInstance()->End();
 
-	if(_isBorderVisible)
-		DrawBorder();
+	//if(_isBorderVisible)
+	//	DrawBorder();
 }
 
 
