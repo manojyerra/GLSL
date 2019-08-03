@@ -9,10 +9,10 @@ SUIScroller::SUIScroller(float x, float y, float w, float h)
 	_bg.SetBounds(x,y,w,h);
 	_bar.SetBounds(_bg.x, _bg.y, _bg.w, 0);
 
-	_bg.SetColor(160, 160, 160, 255);
-	_bg.SetBorderColor(64,64,64,255);
+	_bg.SetColor(62, 62, 62, 255);
+	_bg.SetBorderColor(30,30,30,255);
 
-	_bar.SetColor(130,130,130, 255);
+	_bar.SetColor(102,102,102, 255);
 
 	_viewLength = _bg.h;
 	_totViewLength = 0;

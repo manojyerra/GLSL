@@ -22,10 +22,10 @@ void SUISlider::Init(string name, float minValue, float maxValue, bool isInteger
 	_minValue = minValue;
 	_maxValue = maxValue;
 	_valueBoxRect.SetBounds(0,0,0,0);
-	_valueBoxRect.SetColor(255,122,17,255);
+	_valueBoxRect.SetColor(122,122,17,255);
 
 	_sliderBgRect.SetBounds(0,0,0,0);
-	_sliderBgRect.SetColor(255,3,98,255);
+	//_sliderBgRect.SetColor(105,105,105,255);
 
 	_sliderBgLineRect.SetBounds(0,0,0,0);
 	_sliderBgLineRect.SetColor(100,100,100,255);
@@ -106,12 +106,13 @@ void SUISlider::ResetBounds()
 	//}
 
 	float valueBoxLen = 0;//strLen * fontSize;
-	float sliderLen = _w - (nameLen + valueBoxLen);
+	float pointerHW = _pointerRect.w / 2.0f;
+	float sliderLen = _w - (nameLen + valueBoxLen + 2*pointerHW);
 
 	_valueBoxRect.SetBounds(_x + nameLen+sliderLen, _y, valueBoxLen, _h);
 
-	_sliderBgRect.SetBounds(_x + nameLen, _y, sliderLen, _h);
-	_sliderBgLineRect.SetBounds(_x + nameLen, _y+(_h/2)-1, sliderLen, 2.0f);
+	_sliderBgRect.SetBounds(_x + nameLen + pointerHW, _y, sliderLen, _h);
+	_sliderBgLineRect.SetBounds(_x + nameLen + 12, _y + (_h / 2) - 1, sliderLen, 2.0f);
 
 	SetValue(_currValue);
 	CalcPointerPos();
@@ -170,7 +171,7 @@ void SUISlider::Draw()
 	SUIFont::GetInstance()->HorBorder(_x, _x+_w);
 	float fontSize = SUIFont::GetInstance()->GetFontSize();
 
-	SUIRect::Draw(_x, _y, SUIFont::GetInstance()->GetLength(_name, fontSize), _h, 128,122,128,255, false);
+	SUIRect::Draw(_x, _y, SUIFont::GetInstance()->GetLength(_name, fontSize), _h, 100,100,100,255, false);
 
 	SUIFont::GetInstance()->Begin();
 	SUIFont::GetInstance()->DrawFromLeft(_name, _x+1, _y+_h/2, fontSize);
@@ -183,7 +184,10 @@ void SUISlider::Draw()
 	SUIFont::GetInstance()->End();
 
 	//_sliderBgRect.DrawWithoutBorder();
+	_sliderBgLineRect.x = _sliderBgLineRect.x - _pointerRect.w / 2;
 	_sliderBgLineRect.DrawWithoutBorder();
+	_sliderBgLineRect.x = _sliderBgLineRect.x + _pointerRect.w / 2;
+
 	_pointerRect.DrawWithBorder();
 
 	if(_isBorderVisible)

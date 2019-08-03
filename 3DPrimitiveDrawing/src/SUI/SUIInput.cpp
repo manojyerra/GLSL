@@ -103,7 +103,7 @@ bool SUIInput::Update(float mouseX, float mouseY, bool down, float deltaTime)
 
 	clickTimeCount += deltaTime;
 
-	bool returnVal = SUIManager::GetInstance()->Contains((float)MX, (float)MY);
+	bool returnVal = SUIManager::GetInstance()->Contains((float)MX, (float)MY) || SUIInput::IsMousePressed();
 
 	if(!returnVal)
 	{
