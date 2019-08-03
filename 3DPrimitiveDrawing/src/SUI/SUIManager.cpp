@@ -178,9 +178,10 @@ void SUIManager::Update()
 			_dialogCom->UpdateDialog();
 		else
 		{
+			SUIComponent* tempCom = _dialogCom;
 			SUIEvents eventsVec = _dialogCom->UpdateByInput();
-			FireEvent(_dialogCom, eventsVec);
-			_dialogCom = NULL;
+			FireEvent(tempCom, eventsVec);
+			//_dialogCom = NULL;
 		}
 
 		return;
@@ -241,11 +242,12 @@ void SUIManager::Update()
 			}
 		}
 	}
+
 }
 
 void SUIManager::FireEvent(SUIComponent* com, SUIEvents eventsVec)
 {
-	if(eventsVec.ACTION_PERFORMED == false)
+	if(!com || eventsVec.ACTION_PERFORMED == false)
 		return;
 
 	int id = com->GetComponentID();

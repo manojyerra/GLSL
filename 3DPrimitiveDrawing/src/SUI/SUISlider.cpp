@@ -5,6 +5,7 @@
 #include "SUIFont.h"
 #include "SUIEvents.h"
 #include "SUIInput.h"
+#include "SUIManager.h"
 
 SUISlider::SUISlider(string name, float minValue, float maxValue, bool isIntegerValue, SUIActionListener* actionListener) : SUIComponent(SUIComponent::SLIDER)
 {
@@ -198,17 +199,24 @@ SUIEvents SUISlider::UpdateByInput()
 {
 	SUIEvents eventsVec;
 
-	if(!Contains((float)SUIInput::MX, (float)SUIInput::MY))
+	if(!Contains((float)SUIInput::MX, (float)SUIInput::MY) && !_pointerActive)
 		return eventsVec;
 
 	if(SUIInput::IsMouseClicked() && Contains((float)SUIInput::MX, (float)SUIInput::MY))
+	{
 		_pointerActive = true;
-	else if(SUIInput::IsMouseReleased())
+		SUIManager::GetInstance()->SetDialogCom(this);
+	}
+	else if (SUIInput::IsMouseReleased())
+	{
 		_pointerActive = false;
+		SUIManager::GetInstance()->SetDialogCom(NULL);
+		return eventsVec;
+	}
 
 	bool mousePressed = SUIInput::IsMousePressed();
 
-	if(_pointerActive && mousePressed && Contains((float)SUIInput::MX, (float)SUIInput::MY))
+	if(_pointerActive && mousePressed) // && Contains((float)SUIInput::MX, (float)SUIInput::MY))
 	{
 		float prevCurrVal = (float)_currValue;
 

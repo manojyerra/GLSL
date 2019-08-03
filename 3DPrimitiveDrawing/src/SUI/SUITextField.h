@@ -11,6 +11,7 @@ class SUITextField : public SUIComponent
 {
 private:
 	int _inputType;
+	bool _isActivated;
 
 	SUIActionListener* _actionListener;
 	SUIMouseListener* _mouseListener;

@@ -3,6 +3,7 @@
 #include "SUITextField.h"
 #include "SUIFont.h"
 #include "SUIInput.h"
+#include "SUIManager.h"
 
 SUITextField::SUITextField(string name, int inputType) : SUIComponent(SUIComponent::TEXTFIELD)
 {
@@ -30,6 +31,7 @@ void SUITextField::Init(string name, int nameAlignment, SUIActionListener* actio
 	_nameAlignment = nameAlignment;
 	_actionListener = actionListener;
 	_inputType = inputType;
+	_isActivated = false;
 
 	if(_inputType == INPUT_UNSIGNED_INT)
 	{
@@ -186,8 +188,8 @@ void SUITextField::Draw()
 {
 	//if(_isBgVisible)
 	//{
-		if(Contains((float)SUIInput::MX, (float)SUIInput::MY))
-			DrawBackground(true);
+		//if(Contains((float)SUIInput::MX, (float)SUIInput::MY))
+		//	DrawBackground(true);
 		//else
 		//	DrawBackground(false);
 	//}
@@ -200,9 +202,23 @@ void SUITextField::Draw()
 	float horGap = -0.5;
 	float fontSize = SUIFont::GetInstance()->GetFontSize();
 
-	if(_nameAlignment == LEFT)			SUIFont::GetInstance()->DrawFromLeft(_name, _x+1, _y+_h/2, fontSize);
-	else if(_nameAlignment == RIGHT)	SUIFont::GetInstance()->DrawFromRight(_name, _x+_w+1, _y+_h/2, fontSize);
-	else								SUIFont::GetInstance()->DrawFromCenter(_name, _x+1+_w/2, _y+_h/2, fontSize);
+	if (_isActivated)
+	{
+		DrawBackground(true);
+		_nameAlignment = LEFT;
+		SUIFont::GetInstance()->DrawFromLeft(_name, _x + 1, _y + _h / 2, fontSize);
+		float len = SUIFont::GetInstance()->GetLength(_name, fontSize);
+		SUIRect::Draw(_x+1+len+1, _y+2, 2, _h-4, 32,32,32,255,false);
+	}
+	else
+	{
+		_nameAlignment = CENTER;
+		SUIFont::GetInstance()->DrawFromCenter(_name, _x + 1 + _w / 2, _y + _h / 2, fontSize);
+	}
+
+	//if(_nameAlignment == LEFT)			SUIFont::GetInstance()->DrawFromLeft(_name, _x+1, _y+_h/2, fontSize);
+	//else if(_nameAlignment == RIGHT)	SUIFont::GetInstance()->DrawFromRight(_name, _x+_w+1, _y+_h/2, fontSize);
+	//else								SUIFont::GetInstance()->DrawFromCenter(_name, _x+1+_w/2, _y+_h/2, fontSize);
 
 	SUIFont::GetInstance()->End();
 
@@ -214,22 +230,39 @@ SUIEvents SUITextField::UpdateByInput()
 {
 	SUIEvents eventsVec;
 
-	if(!Contains((float)SUIInput::MX, (float)SUIInput::MY))
-		return eventsVec;
+	//if(!Contains((float)SUIInput::MX, (float)SUIInput::MY))
+	//	return eventsVec;
 
-	int key = SUIInput::GetReleasedKey();
-
-	if (key != 0)
+	if (SUIInput::IsMouseClicked() && Contains((float)SUIInput::MX, (float)SUIInput::MY))
 	{
-		if (key == VK_RETURN)
+		_isActivated = true;
+		SUIManager::GetInstance()->SetDialogCom(this);
+	}
+	else if(SUIInput::IsMouseClicked() && !Contains((float)SUIInput::MX, (float)SUIInput::MY))
+	{
+		_isActivated = false;
+		SUIManager::GetInstance()->SetDialogCom(NULL);
+	}
+
+	if(_isActivated)
+	{
+		int key = SUIInput::GetReleasedKey();
+
+		if (key != 0)
 		{
-			if (_actionListener)
+			if (key == VK_RETURN)
 			{
-				eventsVec.ACTION_PERFORMED = true;
+				if (_actionListener)
+				{
+					eventsVec.ACTION_PERFORMED = true;
+				}
+
+				_isActivated = false;
+				SUIManager::GetInstance()->SetDialogCom(NULL);
 			}
+			else
+				AppendChar(key);
 		}
-		else
-			AppendChar(key);
 	}
 
 	return eventsVec;

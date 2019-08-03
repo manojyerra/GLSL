@@ -69,8 +69,7 @@ bool SUIInput::Update(float mouseX, float mouseY, bool down, float deltaTime)
 	}
 
 	if(PREV_LEFT_BUTTON_DOWN == false && LEFT_BUTTON_DOWN == true)		isMouseClicked = true;
-	else if(PREV_LEFT_BUTTON_DOWN == true && LEFT_BUTTON_DOWN == true)	
-		isMousePressed = true;
+	else if(PREV_LEFT_BUTTON_DOWN == true && LEFT_BUTTON_DOWN == true)	isMousePressed = true;
 	else if(PREV_LEFT_BUTTON_DOWN == true && LEFT_BUTTON_DOWN == false)	isMouseReleased = true;
 
 	PrevMX = MX;
@@ -91,6 +90,8 @@ bool SUIInput::Update(float mouseX, float mouseY, bool down, float deltaTime)
 
 		PrevMX = MX;
 		PrevMY = MY;
+
+		//printf("\nMouse Clicked.");
 	}
 	else if(IsMouseReleased())
 	{
@@ -99,11 +100,18 @@ bool SUIInput::Update(float mouseX, float mouseY, bool down, float deltaTime)
 
 		PrevMX = MX;
 		PrevMY = MY;
+
+		//printf("\nMouse Released.");
 	}
+
+	//if (IsMousePressed())
+	//{
+	//	printf("\nMouse Pressed.");
+	//}
 
 	clickTimeCount += deltaTime;
 
-	bool returnVal = SUIManager::GetInstance()->Contains((float)MX, (float)MY) || SUIInput::IsMousePressed();
+	bool returnVal = SUIManager::GetInstance()->Contains((float)MX, (float)MY) || SUIInput::IsMousePressed() || SUIInput::IsMouseReleased();
 
 	if(!returnVal)
 	{
