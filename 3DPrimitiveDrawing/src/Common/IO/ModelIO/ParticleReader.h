@@ -7,7 +7,10 @@
 class ParticleReader : public BaseModelIO
 {
 private:
-	FileReader* _vertexFileReader;
+	//FileReader* _vertexFileReader;
+	unsigned char* _vertexBuf;
+	unsigned int _vertexBufLen;
+
 	unsigned char* _colorBuf;
 	unsigned int _colorBufLen;
 

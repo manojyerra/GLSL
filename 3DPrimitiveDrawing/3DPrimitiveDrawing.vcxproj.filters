@@ -133,6 +133,9 @@
     <Filter Include="src\Common\IO\JSONIO\json">
       <UniqueIdentifier>{3f3f19d3-575f-4cc8-8587-baaab5cc4073}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Common\IO\ResultFileIO">
+      <UniqueIdentifier>{0ef269b1-6e5e-4859-aed4-571a7a500ff9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -507,6 +510,9 @@
     <ClCompile Include="src\GLUtil\GLMeshManager.cpp">
       <Filter>src\GLUtil</Filter>
     </ClCompile>
+    <ClCompile Include="src\Common\IO\ResultFileIO\ECoatResultReader.cpp">
+      <Filter>src\Common\IO\ResultFileIO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -868,6 +874,9 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\GLMeshManager.h">
       <Filter>src\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO\ResultFileIO\ECoatResultReader.h">
+      <Filter>src\Common\IO\ResultFileIO</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

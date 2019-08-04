@@ -3,6 +3,7 @@
 #include "ImageBuffer.h"
 #include "GameLoop.h"
 #include "Platform.h"
+#include "ECoatResultReader.h"
 
 ParticleReader::ParticleReader(std::string folderPath)
 {
@@ -10,7 +11,7 @@ ParticleReader::ParticleReader(std::string folderPath)
 
 	long startTime = Platform::GetTimeInMillis();
 
-	_vertexFileReader = NULL;
+	//_vertexFileReader = NULL;
 	_colorBuf = NULL;
 	_colorBufLen = 0;
 
@@ -21,13 +22,17 @@ ParticleReader::ParticleReader(std::string folderPath)
 
 	_retriveDataType = DATA_AS_IT_IS;
 
-	if (FileReader::IsFileExists(folderPath + "/vertex.buf"))
-	{
-		_vertexFileReader = new FileReader(folderPath + "/vertex.buf", "rb");
-	}
+	//if (FileReader::IsFileExists(folderPath + "/vertex.buf"))
+	//{
+	//	_vertexFileReader = new FileReader(folderPath + "/vertex.buf", "rb");
+	//}
+
+	ECoatResultReader ecoatReader("data/result.ecoat");
+	_vertexBuf = (unsigned char*)ecoatReader.GetParticleBuffer(10, &_vertexBufLen);
 
 	// Generating color buffer.
-	unsigned int fileLen = _vertexFileReader->GetLength();
+	unsigned int fileLen = _vertexBufLen;
+	//unsigned int fileLen = _vertexFileReader->GetLength();
 	unsigned int vertexCount = fileLen / 12;
 
 	_colorBufLen = vertexCount * 3;
@@ -44,7 +49,8 @@ ParticleReader::ParticleReader(std::string folderPath)
 	}
 
 	// Generating low poly data
-	GenerateLowPolyData(_vertexFileReader->GetData(), _vertexFileReader->GetLength());
+	//GenerateLowPolyData(_vertexFileReader->GetData(), _vertexFileReader->GetLength());
+	GenerateLowPolyData((const char*)_vertexBuf, _vertexBufLen);
 
 	/*
 	unsigned int vertexBufLen = 36;
@@ -99,7 +105,7 @@ ParticleReader::ParticleReader(std::string folderPath)
 void ParticleReader::GenerateLowPolyData(const char* fileData, unsigned int length)
 {
 	const unsigned int BYTES_PER_VERTEX = 12;
-	const unsigned int skipNumVertex = 50;
+	const unsigned int skipNumVertex = 2;
 
 	//Generating low poly vertex data
 	unsigned int bpv = BYTES_PER_VERTEX;
@@ -143,7 +149,8 @@ const char* ParticleReader::GetVertexBuffer()
 {
 	if(_retriveDataType == DATA_AS_IT_IS)
 	{
-		return (const char*)_vertexFileReader->GetData();
+		//return (const char*)_vertexFileReader->GetData();
+		return (const char*)_vertexBuf;
 	}
 	else if(_retriveDataType == DATA_AS_LOW_POLY)
 	{
@@ -171,7 +178,8 @@ unsigned int ParticleReader::GetVertexBufferSize()
 {
 	if (_retriveDataType == DATA_AS_IT_IS)
 	{
-		return _vertexFileReader ? _vertexFileReader->GetLength() : 0;
+		//return _vertexFileReader ? _vertexFileReader->GetLength() : 0;
+		return _vertexBufLen;
 	}
 	else if (_retriveDataType == DATA_AS_LOW_POLY)
 	{
@@ -197,11 +205,11 @@ unsigned int ParticleReader::GetColorBufferSize()
 
 ParticleReader::~ParticleReader()
 {
-	if (_vertexFileReader)
-	{
-		delete _vertexFileReader;
-		_vertexFileReader = NULL;
-	}
+	//if (_vertexFileReader)
+	//{
+	//	delete _vertexFileReader;
+	//	_vertexFileReader = NULL;
+	//}
 
 	if(_colorBuf)
 	{
