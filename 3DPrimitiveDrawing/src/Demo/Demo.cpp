@@ -116,7 +116,7 @@ void Demo::Draw()
 	GLState::GLEnable(GL_MULTISAMPLE, multiSample);
 }
 
-void Demo::SetScreenSize(float sw, float sh)
+void Demo::SetScreenSize(unsigned int sw, unsigned int sh)
 {
 	SUISetWindowSize(sw, sh);
 

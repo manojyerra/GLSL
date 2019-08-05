@@ -9,8 +9,9 @@
 #include "WholeWindowFrame.h"
 #include "SUIActionListener.h"
 #include "FloorVisibilityFrame.h"
+#include "Module.h"
 
-class Demo : public SUIActionListener
+class Demo : public SUIActionListener, public Module
 {
 private:
 	Floor* _floor;
@@ -27,9 +28,9 @@ public:
 	Demo(float sw, float sh);
 	~Demo();
 
-	void SetScreenSize(float sw, float sh);
-	void Update(float deltaTime);
-	void Draw();
+	void SetScreenSize(unsigned int sw, unsigned int sh) override;
+	void Update(float deltaTime) override;
+	void Draw() override;
 };
 
 #endif
