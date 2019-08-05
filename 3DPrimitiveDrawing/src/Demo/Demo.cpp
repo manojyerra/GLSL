@@ -130,6 +130,12 @@ void Demo::SetScreenSize(unsigned int sw, unsigned int sh)
 	_floorFrame->SetPos(sw - _floorFrame->GetWidth(), 555);
 }
 
+void Demo::OnModuleChange(unsigned int sw, unsigned int sh)
+{
+	SetScreenSize(sw, sh);
+	//TODO: Setup the camera values here.
+}
+
 Demo::~Demo()
 {
 	if (_floor != NULL)

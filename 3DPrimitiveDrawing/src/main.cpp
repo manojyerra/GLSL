@@ -1,6 +1,8 @@
 #include "Platform.h"
+#include "GLInclude.h"
 #include "GameLoop.h"
 #include "Input.h"
+#include <string>
 #include "vld.h"
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
@@ -44,7 +46,7 @@ int main(int argc, char** argv)
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		throw new exception("\nError: Failed to initialize OpenGL context.\n");
+		throw new std::exception("\nError: Failed to initialize OpenGL context.\n");
 	}
 
 	glfwSwapInterval(1);

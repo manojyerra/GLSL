@@ -1,31 +1,15 @@
 #ifndef GameLoop_H
 #define GameLoop_H
 
-#include "Floor.h"
-#include "Triangle.h"
-#include "Box.h"
-#include "Cylinder.h"
-#include "Cone.h"
-#include "Sphere.h"
-#include "GLTexture.h"
-#include "Demo.h"
-
 class GameLoop
 {
 private:
-	float _sw;
-	float _sh;
-	float _zNear;
-	float _zFar;
-	float _zNearPlaneW;
-
-	Demo* _demo;
 
 public:
 	GameLoop(float sw, float sh);
 	~GameLoop();
 
-	void SetScreenSize(float sw, float sh);
+	void SetScreenSize(unsigned int sw, unsigned int sh);
 	void Update(float deltaTime);
 	void Draw();
 };

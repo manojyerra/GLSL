@@ -1,57 +1,29 @@
 #include "GameLoop.h"
-#include "GLMemory.h"
-#include "ShaderProgramsManager.h"
-#include "Input.h"
-#include "Cam.h"
-#include "Cam2D.h"
+#include "ModulesManager.h"
 
 GameLoop::GameLoop(float sw, float sh)
-{	
-	_sw = sw;
-	_sh = sh;
-
-	_zNear = 0.15f;
-	_zFar = 1000000.0f;
-	_zNearPlaneW = 0.25f;
-
-	Cam::GetInstance()->Init(sw, sh, _zNear, _zFar, _zNearPlaneW);
-	Cam2D::GetInstance()->Init(sw, sh);
-
-	_demo = new Demo(sw, sh);
+{
+	ModulesManager::GetInstance()->Init(sw, sh, ModulesManager::DEMO_MODULE);
 }
 
 void GameLoop::Update(float deltaTime)
 {
+	ModulesManager::GetInstance()->Update(deltaTime);
 }
 
 void GameLoop::Draw()
 {
-	_demo->Draw();
+	ModulesManager::GetInstance()->Draw();
 }
 
-void GameLoop::SetScreenSize(float sw, float sh)
+void GameLoop::SetScreenSize(unsigned int sw, unsigned int sh)
 {
-	_sw = sw;
-	_sh = sh;
-
-	Cam::GetInstance()->SetScreenSize(_sw, _sh);
-	Cam2D::GetInstance()->SetScreenSize(_sw, _sh);
-
-	_demo->SetScreenSize(_sw, _sh);
+	ModulesManager::GetInstance()->SetScreenSize(sw, sh);
 }
 
 GameLoop::~GameLoop()
 {
-	if(_demo)
-	{
-		delete _demo;
-		_demo = nullptr;
-	}
-
-	Cam::GetInstance()->DeleteInstance();
-	Cam2D::GetInstance()->DeleteInstance();
-	ShaderProgramsManager::GetInstance()->DeleteInstance();
-	GLMemory::printMemoryLeaks();
+	ModulesManager::DeleteInstance();
 }
 
 

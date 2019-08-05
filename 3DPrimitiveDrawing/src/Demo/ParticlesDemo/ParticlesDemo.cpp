@@ -32,6 +32,13 @@ ParticlesDemo::ParticlesDemo(float sw, float sh)
 	if (_particleRendererVec.size() >= 5)	_particleRendererVec[4]->SetPosition(-4, 0, 0);
 
 	_drawAllParticles = true;
+
+	float zNear = 0.15f;
+	float zFar = 1000000.0f;
+	float zNearPlaneW = 0.25f;
+
+	Cam::GetInstance()->Init(sw, sh, zNear, zFar, zNearPlaneW);
+	Cam2D::GetInstance()->Init(sw, sh);
 }
 
 void ParticlesDemo::Draw()

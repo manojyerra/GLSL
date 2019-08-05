@@ -136,6 +136,9 @@
     <Filter Include="src\Common\IO\ResultFileIO">
       <UniqueIdentifier>{0ef269b1-6e5e-4859-aed4-571a7a500ff9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Modules">
+      <UniqueIdentifier>{205d1eec-e7bf-4ae8-8a72-31a8bc35a3bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -510,6 +513,9 @@
     <ClCompile Include="src\Common\IO\ResultFileIO\ECoatResultReader.cpp">
       <Filter>src\Common\IO\ResultFileIO</Filter>
     </ClCompile>
+    <ClCompile Include="src\Modules\ModulesManager.cpp">
+      <Filter>src\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -871,6 +877,12 @@
     </ClInclude>
     <ClInclude Include="src\Common\IO\ResultFileIO\ECoatResultReader.h">
       <Filter>src\Common\IO\ResultFileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\ModulesManager.h">
+      <Filter>src\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\Module.h">
+      <Filter>src\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

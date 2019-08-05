@@ -6,6 +6,7 @@
 #include "ObjReader.h"
 #include "GLState.h"
 #include "STLReader.h"
+#include "Cam2D.h"
 
 RenderDemo::RenderDemo(float sw, float sh)
 {
@@ -56,6 +57,13 @@ RenderDemo::RenderDemo(float sw, float sh)
 
 	_enableSSAO = false;
 	_ssao = new GLSSAO(_sw, _sh);
+
+	float zNear = 0.15f;
+	float zFar = 1000000.0f;
+	float zNearPlaneW = 0.25f;
+
+	Cam::GetInstance()->Init(sw, sh, zNear, zFar, zNearPlaneW);
+	Cam2D::GetInstance()->Init(sw, sh);
 }
 
 void RenderDemo::SetScreenSize(float sw, float sh)

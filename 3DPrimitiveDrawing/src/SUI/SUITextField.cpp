@@ -122,7 +122,7 @@ string SUITextField::GetText()
 void SUITextField::SetInt(int val)
 {
 	if (_inputType != INPUT_INT)
-		throw new exception("Input type mismatch");
+		throw new std::exception("Input type mismatch");
 	
 	char arr[64];
 	sprintf(arr, "%d",val);
@@ -132,7 +132,7 @@ void SUITextField::SetInt(int val)
 int SUITextField::GetInt()
 {
 	if (_inputType != INPUT_INT)
-		throw new exception("Input type mismatch");
+		throw new std::exception("Input type mismatch");
 
 	return atoi(_name.c_str());
 }
@@ -140,7 +140,7 @@ int SUITextField::GetInt()
 void SUITextField::SetUInt(unsigned int val)
 {
 	if(_inputType != INPUT_UNSIGNED_INT)
-		throw new exception("Input type mismatch");
+		throw new std::exception("Input type mismatch");
 
 	char arr[64];
 	sprintf(arr, "%u",val);
@@ -150,7 +150,7 @@ void SUITextField::SetUInt(unsigned int val)
 unsigned int SUITextField::GetUInt()
 {
 	if(_inputType != INPUT_UNSIGNED_INT)
-		throw new exception("Input type mismatch");
+		throw new std::exception("Input type mismatch");
 
 	return (unsigned int)atol(_name.c_str());
 }
@@ -158,7 +158,7 @@ unsigned int SUITextField::GetUInt()
 void SUITextField::SetDouble(double val, int numDecimalsToShow)
 {
 	if (_inputType != INPUT_DOUBLE)
-		throw new exception("Input type mismatch");
+		throw new std::exception("Input type mismatch");
 
 	if(numDecimalsToShow < 0)		numDecimalsToShow = 0;
 	else if(numDecimalsToShow > 6)	numDecimalsToShow = 6;
@@ -179,7 +179,7 @@ void SUITextField::SetDouble(double val, int numDecimalsToShow)
 double SUITextField::GetDouble()
 {
 	if(_inputType != INPUT_DOUBLE)
-		throw new exception("Input type mismatch");
+		throw new std::exception("Input type mismatch");
 
 	return atof(_name.c_str());
 }

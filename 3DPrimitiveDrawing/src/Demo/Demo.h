@@ -29,6 +29,7 @@ public:
 	~Demo();
 
 	void SetScreenSize(unsigned int sw, unsigned int sh) override;
+	void OnModuleChange(unsigned int sw, unsigned int sh) override;
 	void Update(float deltaTime) override;
 	void Draw() override;
 };
