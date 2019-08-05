@@ -2,12 +2,15 @@
 #define ParticleRenderer_H
 
 #include "GLMeshRenderer.h"
+#include "BinaryObjReader.h"
 
 class ParticleRenderer
 {
 	GLMat _modelMat;
 	GLMeshRenderer* _allParticlesRenderer;
 	GLMeshRenderer* _fewParticlesRenderer;
+	GLMeshRenderer* CreateAllParticlesRenderer(BinaryObjReader* binaryObjReader);
+	GLMeshRenderer* CreateFewParticlesRenderer(BinaryObjReader* binaryObjReader);
 
 public:
 	ParticleRenderer();
@@ -16,7 +19,7 @@ public:
 	void SetPosition(float x, float y, float z);
 
 	void DrawAllParticles();
-	void DrawLowPolyParticles();
+	void DrawFewParticles();
 };
 
 #endif

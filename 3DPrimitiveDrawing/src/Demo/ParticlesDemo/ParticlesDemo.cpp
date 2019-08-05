@@ -54,7 +54,7 @@ void ParticlesDemo::Draw()
 
 		for (int i = 0; i < _particleRendererVec.size(); i++)
 		{
-			_particleRendererVec[i]->DrawLowPolyParticles();
+			_particleRendererVec[i]->DrawFewParticles();
 		}
 
 		_drawAllParticles = true;
