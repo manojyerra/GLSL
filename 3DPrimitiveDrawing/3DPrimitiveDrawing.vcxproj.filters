@@ -70,15 +70,6 @@
     <Filter Include="src\GLUtil\Shaders\UVShader">
       <UniqueIdentifier>{15e06e6d-a57e-483b-be07-2fd2af590567}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Demo">
-      <UniqueIdentifier>{a93b7a16-50d6-48bb-a72c-422b7dfdee60}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Demo\ParticlesDemo">
-      <UniqueIdentifier>{fc6a3f49-7990-4d4f-aa33-82890c763eb3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Demo\RenderDemo">
-      <UniqueIdentifier>{df81d527-b302-41c0-b7a6-fdc1ae0874ec}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\GLUtil\Shaders\PhongWithTextureShader">
       <UniqueIdentifier>{b7a07d71-67fa-4eb3-850c-64b92577d6ec}</UniqueIdentifier>
     </Filter>
@@ -102,9 +93,6 @@
     </Filter>
     <Filter Include="src\GLUtil\SSAO">
       <UniqueIdentifier>{29dfbb4e-b5fd-4dc4-933d-a068c66c901f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Demo\DemoUI">
-      <UniqueIdentifier>{20fcf8eb-d80b-4c6f-9604-0d15d466be44}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\glad">
       <UniqueIdentifier>{dda37be1-32a6-4217-825c-1cf0230b5160}</UniqueIdentifier>
@@ -138,6 +126,18 @@
     </Filter>
     <Filter Include="src\Modules">
       <UniqueIdentifier>{205d1eec-e7bf-4ae8-8a72-31a8bc35a3bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Modules\Demo">
+      <UniqueIdentifier>{b83e9d4f-5ea9-42af-8473-cedb0337122f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Modules\Demo\RenderDemo">
+      <UniqueIdentifier>{608abfb1-dc08-4000-b4ad-e021eb4eae23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Modules\Demo\ParticleDemo">
+      <UniqueIdentifier>{3e744cc3-e638-47da-87c0-507c99bad708}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Modules\Demo\DemoUI">
+      <UniqueIdentifier>{3eef91ea-e3b6-4e8e-a68a-5e718ac29f2f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -417,12 +417,6 @@
     <ClCompile Include="src\GLUtil\GLBatch.cpp">
       <Filter>src\GLUtil</Filter>
     </ClCompile>
-    <ClCompile Include="src\Demo\ParticlesDemo\ParticlesDemo.cpp">
-      <Filter>src\Demo\ParticlesDemo</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Demo\RenderDemo\RenderDemo.cpp">
-      <Filter>src\Demo\RenderDemo</Filter>
-    </ClCompile>
     <ClCompile Include="src\GLUtil\Shaders\PhongWithTextureShader\PhongWithTextureShader.cpp">
       <Filter>src\GLUtil\Shaders\PhongWithTextureShader</Filter>
     </ClCompile>
@@ -452,24 +446,6 @@
     </ClCompile>
     <ClCompile Include="src\GLUtil\SSAO\GLSSAOBufferBuilder.cpp">
       <Filter>src\GLUtil\SSAO</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Demo\DemoUI\FloorVisibilityFrame.cpp">
-      <Filter>src\Demo\DemoUI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Demo\DemoUI\ModelSelectionFrame.cpp">
-      <Filter>src\Demo\DemoUI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Demo\DemoUI\ModelVisibilityFrame.cpp">
-      <Filter>src\Demo\DemoUI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Demo\DemoUI\ShaderFrame.cpp">
-      <Filter>src\Demo\DemoUI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Demo\DemoUI\WholeWindowFrame.cpp">
-      <Filter>src\Demo\DemoUI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Demo\Demo.cpp">
-      <Filter>src\Demo</Filter>
     </ClCompile>
     <ClCompile Include="glad\src\glad.c">
       <Filter>src\glad\src</Filter>
@@ -515,6 +491,30 @@
     </ClCompile>
     <ClCompile Include="src\Modules\ModulesManager.cpp">
       <Filter>src\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Demo\Demo.cpp">
+      <Filter>src\Modules\Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Demo\RenderDemo\RenderDemo.cpp">
+      <Filter>src\Modules\Demo\RenderDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Demo\ParticlesDemo\ParticlesDemo.cpp">
+      <Filter>src\Modules\Demo\ParticleDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Demo\DemoUI\FloorVisibilityFrame.cpp">
+      <Filter>src\Modules\Demo\DemoUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Demo\DemoUI\ModelSelectionFrame.cpp">
+      <Filter>src\Modules\Demo\DemoUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Demo\DemoUI\ModelVisibilityFrame.cpp">
+      <Filter>src\Modules\Demo\DemoUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Demo\DemoUI\ShaderFrame.cpp">
+      <Filter>src\Modules\Demo\DemoUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Demo\DemoUI\WholeWindowFrame.cpp">
+      <Filter>src\Modules\Demo\DemoUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -758,12 +758,6 @@
     <ClInclude Include="src\GLUtil\GLBatch.h">
       <Filter>src\GLUtil</Filter>
     </ClInclude>
-    <ClInclude Include="src\Demo\ParticlesDemo\ParticlesDemo.h">
-      <Filter>src\Demo\ParticlesDemo</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Demo\RenderDemo\RenderDemo.h">
-      <Filter>src\Demo\RenderDemo</Filter>
-    </ClInclude>
     <ClInclude Include="src\GLUtil\Shaders\PhongWithTextureShader\PhongWithTextureShader.h">
       <Filter>src\GLUtil\Shaders\PhongWithTextureShader</Filter>
     </ClInclude>
@@ -796,24 +790,6 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\SSAO\GLSSAOBufferBuilder.h">
       <Filter>src\GLUtil\SSAO</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Demo\DemoUI\FloorVisibilityFrame.h">
-      <Filter>src\Demo\DemoUI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Demo\DemoUI\ModelSelectionFrame.h">
-      <Filter>src\Demo\DemoUI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Demo\DemoUI\ModelVisibilityFrame.h">
-      <Filter>src\Demo\DemoUI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Demo\DemoUI\ShaderFrame.h">
-      <Filter>src\Demo\DemoUI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Demo\DemoUI\WholeWindowFrame.h">
-      <Filter>src\Demo\DemoUI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Demo\Demo.h">
-      <Filter>src\Demo</Filter>
     </ClInclude>
     <ClInclude Include="glad\include\glad\glad.h">
       <Filter>src\glad\include\glad</Filter>
@@ -883,6 +859,30 @@
     </ClInclude>
     <ClInclude Include="src\Modules\Module.h">
       <Filter>src\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\Demo\Demo.h">
+      <Filter>src\Modules\Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\Demo\RenderDemo\RenderDemo.h">
+      <Filter>src\Modules\Demo\RenderDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\Demo\ParticlesDemo\ParticlesDemo.h">
+      <Filter>src\Modules\Demo\ParticleDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\Demo\DemoUI\FloorVisibilityFrame.h">
+      <Filter>src\Modules\Demo\DemoUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\Demo\DemoUI\ModelSelectionFrame.h">
+      <Filter>src\Modules\Demo\DemoUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\Demo\DemoUI\ModelVisibilityFrame.h">
+      <Filter>src\Modules\Demo\DemoUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\Demo\DemoUI\ShaderFrame.h">
+      <Filter>src\Modules\Demo\DemoUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\Demo\DemoUI\WholeWindowFrame.h">
+      <Filter>src\Modules\Demo\DemoUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
