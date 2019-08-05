@@ -139,6 +139,9 @@
     <Filter Include="src\Modules\Demo\DemoUI">
       <UniqueIdentifier>{3eef91ea-e3b6-4e8e-a68a-5e718ac29f2f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Modules\ECoatPost">
+      <UniqueIdentifier>{d694ab01-5e0d-4b3a-8a6b-8711e266dcaf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -516,6 +519,12 @@
     <ClCompile Include="src\Modules\Demo\DemoUI\WholeWindowFrame.cpp">
       <Filter>src\Modules\Demo\DemoUI</Filter>
     </ClCompile>
+    <ClCompile Include="src\Modules\ECoatPost\ECoatPost.cpp">
+      <Filter>src\Modules\ECoatPost</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\ECoatPost\TimeLineFrame.cpp">
+      <Filter>src\Modules\ECoatPost</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -883,6 +892,12 @@
     </ClInclude>
     <ClInclude Include="src\Modules\Demo\DemoUI\WholeWindowFrame.h">
       <Filter>src\Modules\Demo\DemoUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\ECoatPost\ECoatPost.h">
+      <Filter>src\Modules\ECoatPost</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\ECoatPost\TimeLineFrame.h">
+      <Filter>src\Modules\ECoatPost</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,11 +9,18 @@ class ParticleRenderer
 	GLMat _modelMat;
 	GLMeshRenderer* _allParticlesRenderer;
 	GLMeshRenderer* _fewParticlesRenderer;
-	GLMeshRenderer* CreateAllParticlesRenderer(BinaryObjReader* binaryObjReader);
-	GLMeshRenderer* CreateFewParticlesRenderer(BinaryObjReader* binaryObjReader);
+
+	GLMeshRenderer* CreateAllParticlesRenderer(char* vertexBuf, unsigned int vertexBufLen);
+	GLMeshRenderer* CreateAllParticlesRenderer(char* vertexBuf, unsigned int vertexBufLen, char* colorBuf, unsigned int colorBufLen);
+
+	GLMeshRenderer* CreateFewParticlesRenderer(char* allParticleVertexBuf, unsigned int allParticleVertexBufLen);
 
 public:
-	ParticleRenderer();
+	ParticleRenderer(std::string filePath);
+	ParticleRenderer(char* vertexBuf, unsigned int vertexBufLen);
+	ParticleRenderer(char* vertexBuf, unsigned int vertexBufLen, char* colorBuf, unsigned int colorBufLen);
+
+
 	~ParticleRenderer();
 
 	void SetPosition(float x, float y, float z);

@@ -6,7 +6,7 @@ class GameLoop
 private:
 
 public:
-	GameLoop(float sw, float sh);
+	GameLoop(float sw, float sh, int argc, char** argv);
 	~GameLoop();
 
 	void SetScreenSize(unsigned int sw, unsigned int sh);

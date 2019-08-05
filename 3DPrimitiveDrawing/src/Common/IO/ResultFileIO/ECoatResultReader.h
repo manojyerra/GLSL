@@ -12,6 +12,9 @@ public:
 	~ECoatResultReader();
 
 	char* GetParticleBuffer(unsigned int frameNum, unsigned int* dataSize);
+	char* GetParticleColorBuffer(unsigned int frameNum, unsigned int* dataSize);
+
+	char* GetParticleBufferWorkpiece(unsigned int frameNum, unsigned int* dataSize);
 };
 
 #endif

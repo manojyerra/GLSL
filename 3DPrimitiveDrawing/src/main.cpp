@@ -12,8 +12,8 @@ GameLoop* gameLoop = NULL;
 
 int main(int argc, char** argv)
 {
-	for(int i=0; i<argc; i++)
-		Platform::debugPrint("\nargv = %s", argv[i]);
+	//for(int i=0; i<argc; i++)
+	//	Platform::debugPrint("\nargv = %s", argv[i]);
 
 	Platform::debugPrint("\n\nBegin: Loading resources\n\n");
 	long startTime = Platform::GetTimeInMillis();
@@ -51,7 +51,7 @@ int main(int argc, char** argv)
 
 	glfwSwapInterval(1);
 
-	gameLoop = new GameLoop((float)sw, (float)sh);
+	gameLoop = new GameLoop((unsigned int)sw, (unsigned int)sh, argc, argv);
 	Input::Init();
 
 	double previousTime = glfwGetTime();

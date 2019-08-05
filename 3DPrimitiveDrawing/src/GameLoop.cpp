@@ -1,9 +1,9 @@
 #include "GameLoop.h"
 #include "ModulesManager.h"
 
-GameLoop::GameLoop(float sw, float sh)
+GameLoop::GameLoop(float sw, float sh, int argc, char** argv)
 {
-	ModulesManager::GetInstance()->Init(sw, sh, ModulesManager::DEMO_MODULE);
+	ModulesManager::GetInstance()->Init(sw, sh, argc, argv, ModulesManager::ECOAT_POST_MODULE);
 }
 
 void GameLoop::Update(float deltaTime)

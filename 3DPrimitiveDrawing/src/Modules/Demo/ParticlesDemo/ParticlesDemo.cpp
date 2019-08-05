@@ -23,7 +23,7 @@ ParticlesDemo::ParticlesDemo(float sw, float sh)
 
 	for (int i = 0; i < _numLoaders; i++)
 	{
-		_particleRendererVec.push_back(new ParticleRenderer());
+		_particleRendererVec.push_back(new ParticleRenderer(""));
 	}
 
 	if (_particleRendererVec.size() >= 2)	_particleRendererVec[1]->SetPosition(2, 0, 0);

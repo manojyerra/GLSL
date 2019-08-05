@@ -1,19 +1,50 @@
 #include "ParticleRenderer.h"
 
-ParticleRenderer::ParticleRenderer()
+ParticleRenderer::ParticleRenderer(std::string filePath)
 {
 	_modelMat.SetRotation(glm::vec3(0,90,90));
 
-	BinaryObjReader binaryObjReader("data/BigSize/Particles");
+	BinaryObjReader binaryObjReader(filePath);
 
-	_allParticlesRenderer = CreateAllParticlesRenderer(&binaryObjReader);
-	_fewParticlesRenderer = CreateFewParticlesRenderer(&binaryObjReader);
+	char* vertexBuf = (char*)binaryObjReader.GetVertexBuffer();
+	unsigned int vertexBufLen = binaryObjReader.GetVertexBufferSize();
+
+	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBuf, vertexBufLen);
+	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBuf, vertexBufLen);
 }
 
-GLMeshRenderer* ParticleRenderer::CreateAllParticlesRenderer(BinaryObjReader* binaryObjReader)
+ParticleRenderer::ParticleRenderer(char* vertexBuf, unsigned int vertexBufLen)
+{
+	_modelMat.SetRotation(glm::vec3(0, 90, 90));
+
+	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBuf, vertexBufLen);
+	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBuf, vertexBufLen);
+}
+
+ParticleRenderer::ParticleRenderer(char* vertexBuf, unsigned int vertexBufLen, char* colorBuf, unsigned int colorBufLen)
+{
+	_modelMat.SetRotation(glm::vec3(0, 90, 90));
+
+	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBuf, vertexBufLen, colorBuf, colorBufLen);
+	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBuf, vertexBufLen);
+}
+
+GLMeshRenderer* ParticleRenderer::CreateAllParticlesRenderer(char* vertexBuf, unsigned int vertexBufLen, char* colorBuf, unsigned int colorBufLen)
+{
+	BaseModelIO modelIO;
+	modelIO.SetVertexBuffer(vertexBuf, vertexBufLen);
+	modelIO.SetColorBuffer((const char*)colorBuf, colorBufLen);
+
+	GLMeshRenderer* meshRenderer = new GLMeshRenderer(&modelIO, CUBE_GEOMETRY_SHADER);
+	meshRenderer->SetPrimitiveType(GLMeshRenderer::points);
+
+	return meshRenderer;
+}
+
+GLMeshRenderer* ParticleRenderer::CreateAllParticlesRenderer(char* allParticleVertexBuf, unsigned int allParticleVertexBufLen)
 {
 	// Generating color buffer.
-	unsigned int fileLen = binaryObjReader->GetVertexBufferSize();
+	unsigned int fileLen = allParticleVertexBufLen;
 	unsigned int vertexCount = fileLen / 12;
 
 	unsigned int colorBufLen = vertexCount * 3;
@@ -28,7 +59,7 @@ GLMeshRenderer* ParticleRenderer::CreateAllParticlesRenderer(BinaryObjReader* bi
 	}
 
 	BaseModelIO modelIO;
-	modelIO.SetVertexBuffer(binaryObjReader->GetVertexBuffer(), binaryObjReader->GetVertexBufferSize());
+	modelIO.SetVertexBuffer(allParticleVertexBuf, allParticleVertexBufLen);
 	modelIO.SetColorBuffer((const char*)colorBuf, colorBufLen);
 
 	GLMeshRenderer* meshRenderer = new GLMeshRenderer(&modelIO, CUBE_GEOMETRY_SHADER);
@@ -39,13 +70,13 @@ GLMeshRenderer* ParticleRenderer::CreateAllParticlesRenderer(BinaryObjReader* bi
 	return meshRenderer;
 }
 
-GLMeshRenderer* ParticleRenderer::CreateFewParticlesRenderer(BinaryObjReader* binaryObjReader)
+GLMeshRenderer* ParticleRenderer::CreateFewParticlesRenderer(char* allParticleVertexBuf, unsigned int allParticleVertexBufLen)
 {
 	const unsigned int BYTES_PER_VERTEX = 12;
 	const unsigned int skipNumVertex = 50;
 
-	unsigned int length = binaryObjReader->GetVertexBufferSize();
-	char* allParticleBuf = (char*)binaryObjReader->GetVertexBuffer();
+	unsigned int length = allParticleVertexBufLen;
+	char* allParticleBuf = allParticleVertexBuf;
 
 	//Generating low poly vertex data
 	unsigned int bpv = BYTES_PER_VERTEX;

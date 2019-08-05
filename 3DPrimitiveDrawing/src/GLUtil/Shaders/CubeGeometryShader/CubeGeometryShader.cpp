@@ -10,7 +10,7 @@ CubeGeometryShader::CubeGeometryShader()
 		"shaders/CubeGeometryShader/CubeGeometryShader.fs");
 
 	_methodNum = 2;
-	_cubeHalfLen = 0.0015f;
+	_cubeHalfLen = 0.00375f/2.0f;
 	_vertexBufferID = 0;
 	_colorBufferID = 0;
 	_alpha = 1.0f;
