@@ -28,8 +28,7 @@ public:
 	{
 		OBJ_MODEL,
 		BINARY_OBJ_MODEL,
-		STL_MODEL,
-		PARTICLE_DATA
+		STL_MODEL
 	};
 
 	BaseModelIO();

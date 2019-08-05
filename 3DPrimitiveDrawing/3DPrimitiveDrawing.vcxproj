@@ -66,7 +66,6 @@
     <ClCompile Include="src\Common\IO\ModelIO\BaseModelIO.cpp" />
     <ClCompile Include="src\Common\IO\ModelIO\BinaryObjReader.cpp" />
     <ClCompile Include="src\Common\IO\ModelIO\ObjReader.cpp" />
-    <ClCompile Include="src\Common\IO\ModelIO\ParticleReader.cpp" />
     <ClCompile Include="src\Common\IO\ModelIO\STLReader.cpp" />
     <ClCompile Include="src\Common\IO\ResultFileIO\ECoatResultReader.cpp" />
     <ClCompile Include="src\Common\Utils\AABB.cpp" />
@@ -176,7 +175,6 @@
     <ClInclude Include="src\Common\IO\ModelIO\BaseModelIO.h" />
     <ClInclude Include="src\Common\IO\ModelIO\BinaryObjReader.h" />
     <ClInclude Include="src\Common\IO\ModelIO\ObjReader.h" />
-    <ClInclude Include="src\Common\IO\ModelIO\ParticleReader.h" />
     <ClInclude Include="src\Common\IO\ModelIO\STLReader.h" />
     <ClInclude Include="src\Common\IO\ResultFileIO\ECoatResultReader.h" />
     <ClInclude Include="src\Common\Utils\AABB.h" />
