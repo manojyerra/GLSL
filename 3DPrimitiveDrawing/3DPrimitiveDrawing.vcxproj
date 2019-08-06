@@ -116,6 +116,7 @@
     <ClCompile Include="src\Modules\Demo\DemoUI\WholeWindowFrame.cpp" />
     <ClCompile Include="src\Modules\Demo\ParticlesDemo\ParticlesDemo.cpp" />
     <ClCompile Include="src\Modules\Demo\RenderDemo\RenderDemo.cpp" />
+    <ClCompile Include="src\Modules\ECoatPost\ECoatColorBar.cpp" />
     <ClCompile Include="src\Modules\ECoatPost\ECoatPost.cpp" />
     <ClCompile Include="src\Modules\ECoatPost\TimeLineFrame.cpp" />
     <ClCompile Include="src\Modules\ModulesManager.cpp" />
@@ -235,6 +236,7 @@
     <ClInclude Include="src\Modules\Demo\DemoUI\WholeWindowFrame.h" />
     <ClInclude Include="src\Modules\Demo\ParticlesDemo\ParticlesDemo.h" />
     <ClInclude Include="src\Modules\Demo\RenderDemo\RenderDemo.h" />
+    <ClInclude Include="src\Modules\ECoatPost\ECoatColorBar.h" />
     <ClInclude Include="src\Modules\ECoatPost\ECoatPost.h" />
     <ClInclude Include="src\Modules\ECoatPost\TimeLineFrame.h" />
     <ClInclude Include="src\Modules\Module.h" />

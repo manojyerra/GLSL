@@ -525,6 +525,9 @@
     <ClCompile Include="src\Modules\ECoatPost\TimeLineFrame.cpp">
       <Filter>src\Modules\ECoatPost</Filter>
     </ClCompile>
+    <ClCompile Include="src\Modules\ECoatPost\ECoatColorBar.cpp">
+      <Filter>src\Common\IO\ResultFileIO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -898,6 +901,9 @@
     </ClInclude>
     <ClInclude Include="src\Modules\ECoatPost\TimeLineFrame.h">
       <Filter>src\Modules\ECoatPost</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\ECoatPost\ECoatColorBar.h">
+      <Filter>src\Common\IO\ResultFileIO</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -43,6 +43,8 @@ public:
 
 	void glColor3ub(GLubyte r, GLubyte g, GLubyte b);
 	void glColor3f(float r, float g, float b);
+	void glColor3f(const glm::vec3& color);
+
 	void glColor(unsigned int color);
 
 	void glTexCoord2f(GLfloat u, GLfloat v);

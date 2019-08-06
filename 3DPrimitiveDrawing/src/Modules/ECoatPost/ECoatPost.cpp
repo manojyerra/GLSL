@@ -34,6 +34,9 @@ ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 
 	glViewport(0, 0, _sw, _sh);
 
+	_ecoatReader = new ECoatResultReader("data/result.ecoat");
+	_colorBar = new ECoatColorBar();
+
 	count = 0;
 }
 
@@ -74,6 +77,8 @@ void ECoatPost::Draw()
 	cam->UpdateCamera();
 
 	_floor->Draw();
+	_colorBar->Draw();
+
 
 	//for (int i = 0; i < _meshManager->Size(); i++)
 	//{
@@ -102,14 +107,11 @@ void ECoatPost::actionPerformed(SUIActionEvent e)
 
 		if (_particleRenderer)
 		{
-			ECoatResultReader ecoatReader("data/result.ecoat");
-
 			unsigned int vertexBufSize;
-			char* vertexBuf = (char*)ecoatReader.GetParticleBufferWorkpiece(1, &vertexBufSize);
+			char* vertexBuf = (char*)_ecoatReader->GetParticleBufferWorkpiece(1, &vertexBufSize);
 
-			/*
 			unsigned int thicknessBufSize;
-			float* thicknessBuf = (float*)ecoatReader.GetParticleColorBuffer(selectedFrameIndex+1, &thicknessBufSize);
+			float* thicknessBuf = (float*)_ecoatReader->GetParticleColorBuffer(selectedFrameIndex+1, &thicknessBufSize);
 			unsigned int numThicknessVals = thicknessBufSize / sizeof(float);
 
 
@@ -145,16 +147,12 @@ void ECoatPost::actionPerformed(SUIActionEvent e)
 			if (_particleRenderer)
 			{
 				delete _particleRenderer;
-
 				_particleRenderer = new ParticleRenderer(vertexBuf, vertexBufSize, colorBuf, colorBufSize);
 			}
-			*/
-
-			_particleRenderer = new ParticleRenderer(vertexBuf, vertexBufSize);
 			
 			free(vertexBuf);
-			//free(colorBuf);
-			//free(thicknessBuf);
+			free(colorBuf);
+			free(thicknessBuf);
 		}
 
 		Platform::debugPrint("\nTime : %ld", Platform::GetTimeInMillis() - startTime);
@@ -179,6 +177,12 @@ ECoatPost::~ECoatPost()
 	{
 		delete _floor;
 		_floor = nullptr;
+	}
+
+	if (_colorBar)
+	{
+		delete _colorBar;
+		_colorBar = nullptr;
 	}
 
 	if (_meshManager)

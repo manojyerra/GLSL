@@ -93,6 +93,13 @@ void GLBatch::glColor3f(float r, float g, float b)
 	_b = (GLubyte)(b*255.0f);
 }
 
+void GLBatch::glColor3f(const glm::vec3& color)
+{
+	_r = (GLubyte)(color.r * 255.0f);
+	_g = (GLubyte)(color.g * 255.0f);
+	_b = (GLubyte)(color.b * 255.0f);
+}
+
 void GLBatch::glTexCoord2f(const glm::vec3& vec)
 {
 	this->glTexCoord2f(vec.x, vec.y);

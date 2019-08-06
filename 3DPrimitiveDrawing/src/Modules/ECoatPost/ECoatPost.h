@@ -7,6 +7,8 @@
 #include "TimeLineFrame.h"
 #include "SUIActionListener.h"
 #include "ParticleRenderer.h"
+#include "ECoatResultReader.h"
+#include "ECoatColorBar.h"
 
 class ECoatPost : public Module, public SUIActionListener
 {
@@ -17,10 +19,12 @@ private:
 	Floor* _floor;
 	GLMeshManager* _meshManager;
 	ParticleRenderer* _particleRenderer;
+	ECoatColorBar* _colorBar;
 
 	//UI related.
 	TimeLineFrame* _timeLineFrame;
 	float count;
+	ECoatResultReader* _ecoatReader;
 
 
 public:

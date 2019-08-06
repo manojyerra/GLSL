@@ -15,6 +15,7 @@ private:
 	ShaderProgram* _shaderProgram;
 
 	GLMat _modelMat;
+	bool _use2DCam;
 
 public:
 	ColorShader();
@@ -22,6 +23,7 @@ public:
 
 	void SetVertexBufferID(unsigned int bufferID);
 	void SetColorBufferID(unsigned int bufferID);
+	void Set2DCamera(bool enable);
 
 	void SetAlpha(float alpha) override;
 	void SetModelMatrix(float* mat) override;
