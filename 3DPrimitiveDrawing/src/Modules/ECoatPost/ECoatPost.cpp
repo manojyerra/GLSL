@@ -36,8 +36,6 @@ ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 
 	_ecoatReader = new ECoatResultReader("data/result.ecoat");
 	_colorBar = new ECoatColorBar();
-
-	count = 0;
 }
 
 void ECoatPost::SetScreenSize(unsigned int sw, unsigned int sh)
@@ -98,62 +96,93 @@ void ECoatPost::actionPerformed(SUIActionEvent e)
 {
 	SUIComponent* com = (SUIComponent*)e.GetComponent();
 
-	if (com == _timeLineFrame->selectedFrame)
+	if (com == _timeLineFrame->nextFrame)
 	{
-		long startTime = Platform::GetTimeInMillis();
-
 		auto selectedFrameIndex = _timeLineFrame->selectedFrame->GetSelectedIndex();
-		count += 0.1;
+		selectedFrameIndex++;
+
+		ApplyContour(selectedFrameIndex + 1);
+
+		_timeLineFrame->selectedFrame->SetSelect(selectedFrameIndex);
+	}
+	else if (com == _timeLineFrame->selectedFrame)
+	{
+		auto selectedFrameIndex = _timeLineFrame->selectedFrame->GetSelectedIndex();
+		ApplyContour(selectedFrameIndex+1);
+	}
+}
+
+void ECoatPost::ApplyContour(int frameNum)
+{
+	long startTime = Platform::GetTimeInMillis();
+
+	if (_particleRenderer)
+	{
+		//unsigned int vertexBufSize;
+		//char* vertexBuf = (char*)_ecoatReader->GetParticleBufferWorkpiece(1, &vertexBufSize);
+
+		unsigned int thicknessBufSize;
+		float* thicknessBuf = (float*)_ecoatReader->GetParticleColorBuffer(frameNum, &thicknessBufSize);
+		unsigned int numThicknessVals = thicknessBufSize / sizeof(float);
+
+		float minThick = 0.0f;
+		float maxThick = 0.000024859f;
+		float totDiffThick = maxThick - minThick;
+
+		_colorBar->SetMinMaxThickness(minThick, maxThick);
+
+		//glm::vec3 sCol(0.0f, 0.0f, 255.0f);
+		//glm::vec3 eCol(255.0f, 0.0f, 0.0f);
+
+		//float totDiffR = eCol.r - sCol.r;
+		//float totDiffG = eCol.g - sCol.g;
+		//float totDiffB = eCol.b - sCol.b;
+
+		//float factorR = totDiffR / totDiffThick;
+		//float factorG = totDiffG / totDiffThick;
+		//float factorB = totDiffB / totDiffThick;
+
+		unsigned int colorBufSize = numThicknessVals * 3;
+		char* colorBuf = (char*)malloc(colorBufSize);
+
+		float* allColorsVecR = _colorBar->allColorsVecR;
+		float* allColorsVecG = _colorBar->allColorsVecG;
+		float* allColorsVecB = _colorBar->allColorsVecB;
+
+		float factor = 1000.0f / totDiffThick;
+
+		for (int i = 0; i < numThicknessVals; i++)
+		{
+			int ii = i * 3;
+
+			int index = (int)((thicknessBuf[i] - minThick) * factor);
+
+			colorBuf[ii + 0] = allColorsVecR[index] * 255;
+			colorBuf[ii + 1] = allColorsVecG[index] * 255;
+			colorBuf[ii + 2] = allColorsVecB[index] * 255;
+
+			//colorBuf[ii + 0] = sCol.r + factorR * thickness;
+			//colorBuf[ii + 1] = sCol.g + factorG * thickness;
+			//colorBuf[ii + 2] = sCol.b + factorB * thickness;
+
+			//float r = 0;
+			//float g = 0;
+			//float b = 0;
+
+			//_colorBar->GetColor(thickness, &r, &g, &b);
+
+			//colorBuf[ii + 0] = r * 255;
+			//colorBuf[ii + 1] = g * 255;
+			//colorBuf[ii + 2] = b * 255;
+		}
 
 		if (_particleRenderer)
 		{
-			unsigned int vertexBufSize;
-			char* vertexBuf = (char*)_ecoatReader->GetParticleBufferWorkpiece(1, &vertexBufSize);
-
-			unsigned int thicknessBufSize;
-			float* thicknessBuf = (float*)_ecoatReader->GetParticleColorBuffer(selectedFrameIndex+1, &thicknessBufSize);
-			unsigned int numThicknessVals = thicknessBufSize / sizeof(float);
-
-
-			glm::vec3 sCol(0.0f, 0.0f, 255.0f);
-			glm::vec3 eCol(255.0f, 0.0f, 0.0f);
-
-			float totDiffR = eCol.r - sCol.r;
-			float totDiffG = eCol.g - sCol.g;
-			float totDiffB = eCol.b - sCol.b;
-
-			float minThick = 0.0f;
-			float maxThick = 0.00002486f;
-			float totDiffThick = maxThick - minThick;
-
-			float factorR = totDiffR / totDiffThick;
-			float factorG = totDiffG / totDiffThick;
-			float factorB = totDiffB / totDiffThick;
-
-			unsigned int colorBufSize = numThicknessVals * 3;
-			char* colorBuf = (char*)malloc(colorBufSize);
-
-			for (int i = 0; i < numThicknessVals; i++)
-			{
-				int ii = i * 3;
-
-				float thickness = thicknessBuf[i];
-				
-				colorBuf[ii + 0] = sCol.r + factorR * thickness;
-				colorBuf[ii + 1] = sCol.g + factorG * thickness;
-				colorBuf[ii + 2] = sCol.b + factorB * thickness;
-			}
-
-			if (_particleRenderer)
-			{
-				delete _particleRenderer;
-				_particleRenderer = new ParticleRenderer(vertexBuf, vertexBufSize, colorBuf, colorBufSize);
-			}
-			
-			free(vertexBuf);
-			free(colorBuf);
-			free(thicknessBuf);
+			_particleRenderer->UpdateColorBuffer(colorBuf, colorBufSize);
 		}
+
+		free(colorBuf);
+		free(thicknessBuf);
 
 		Platform::debugPrint("\nTime : %ld", Platform::GetTimeInMillis() - startTime);
 	}

@@ -125,6 +125,11 @@ void ParticleRenderer::SetPosition(float x, float y, float z)
 	_modelMat.SetPos(x, y, z);
 }
 
+void ParticleRenderer::UpdateColorBuffer(char* colorBuffer, unsigned int colorBufLen)
+{
+	_allParticlesRenderer->UpdateColorBuffer(colorBuffer, colorBufLen);
+}
+
 void ParticleRenderer::DrawAllParticles()
 {
 	_allParticlesRenderer->SetModelMatrix(_modelMat.m);

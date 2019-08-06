@@ -11,9 +11,9 @@ GLuint GLMemory::CreateBuffer(GLsizeiptr size, GLvoid* data, const char* filePat
 	glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	GLMemoryInfo memInfo(filePath, lineNum, size);
-	std::string str = "Buffer_" + std::to_string(bufferID);
-	_memInfoMap.insert(std::make_pair(str, memInfo));
+	//GLMemoryInfo memInfo(filePath, lineNum, size);
+	//std::string str = "Buffer_" + std::to_string(bufferID);
+	//_memInfoMap.insert(std::make_pair(str, memInfo));
 
 	return bufferID;
 }
@@ -63,15 +63,15 @@ GLuint GLMemory::CreateFrameBuffer(const char* filePath, long lineNum)
 
 void GLMemory::DeleteBuffer(GLuint id)
 {
-	std::string key = "Buffer_" + std::to_string(id);
+	//std::string key = "Buffer_" + std::to_string(id);
 
-	if (_memInfoMap.count(key) <= 0)
-		throw std::exception("Error : BufferID not found.");
+	//if (_memInfoMap.count(key) <= 0)
+	//	throw std::exception("Error : BufferID not found.");
 
-	_memInfoMap.erase(key);
+	//_memInfoMap.erase(key);
 
 	glDeleteBuffers(1, &id);
-	glFinish();
+	//glFinish();
 }
 
 void GLMemory::DeleteTexture(GLuint id)

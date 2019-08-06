@@ -24,6 +24,7 @@ public:
 	~ParticleRenderer();
 
 	void SetPosition(float x, float y, float z);
+	void UpdateColorBuffer(char* colorBuffer, unsigned int colorBufLen);
 
 	void DrawAllParticles();
 	void DrawFewParticles();

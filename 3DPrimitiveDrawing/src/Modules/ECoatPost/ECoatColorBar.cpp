@@ -21,19 +21,21 @@ ECoatColorBar::ECoatColorBar()
 
 	_meshRenderer = NULL;
 
-	_allColorsVec.clear();
+	allColorsVecR = new float[_totArrElements + 2];
+	allColorsVecG = new float[_totArrElements + 2];
+	allColorsVecB = new float[_totArrElements + 2];
 
-	for (int i = 0; i < _totArrElements+2; i++)
-	{
-		_allColorsVec.push_back(glm::vec3());
-	}
+	memset(allColorsVecR, 0, (_totArrElements + 2) * sizeof(float));
+	memset(allColorsVecG, 0, (_totArrElements + 2) * sizeof(float));
+	memset(allColorsVecB, 0, (_totArrElements + 2) * sizeof(float));
 
-	int x = 600;
-	int y = 100;
+	int x = 1400;
+	int y = 50;
 	int w = 50;
-	int h = 800;
+	int h = 600;
 
 	GenerateGeometry(x, y, w, h);
+	SetMinMaxThickness(0.0f, 1.0f);
 }
 
 void ECoatColorBar::GenerateGeometry(int x, int y, int w, int h)
@@ -44,20 +46,25 @@ void ECoatColorBar::GenerateGeometry(int x, int y, int w, int h)
 	GLBatch batch(128, true, false, false);
 	batch.glBegin();
 
-	//for (int i = 0; i < numBlocks+1; i++)
-	//{
-	//	float y1 = y + (i * eachRectH);
-	//	
-	//	glm::vec3 col = _mainColorsReverseVec[i];
+	for (int i = 0; i < numBlocks+1; i++)
+	{
+		float y1 = y + (i * eachRectH);
+		glm::vec3 col = _mainColorsReverseVec[i];
 
-	//	batch.glColor3f(col);
-	//	batch.glVertex3f(x, y1, 0);
-	//	batch.glVertex3f(x+w, y1, 0);
-	//}
+		batch.glColor3f(col);
+		batch.glVertex3f(x, y1, 0);
+		batch.glVertex3f(x+w, y1, 0);
+	}
 
+	BaseModelIO baseModeIO;
+	baseModeIO.SetVertexBuffer(batch.GetVertexBuffer(), batch.GetVertexBufferSize());
+	baseModeIO.SetColorBuffer(batch.GetColorBuffer(), batch.GetColorBufferSize());
 
+	_meshRenderer = new GLMeshRenderer(&baseModeIO, COLOR_SHADER);
+	_meshRenderer->SetPrimitiveType(GLMeshRenderer::triangleStrip);
+	ColorShader* colorShader = (ColorShader*)_meshRenderer->GetCurrentShader();
+	colorShader->Set2DCamera(true);
 
-	int totalArraySize = 1000;
 	int eachBlockArrElements = _totArrElements / numBlocks;
 
 	int count = 0;
@@ -77,16 +84,21 @@ void ECoatColorBar::GenerateGeometry(int x, int y, int w, int h)
 		{
 			float colH = i - start;
 
-			float r = colH * rDiff / (float)eachBlockArrElements;
-			float g = colH * gDiff / (float)eachBlockArrElements;
-			float b = colH * bDiff / (float)eachBlockArrElements;
+			float r = col1.r + colH * rDiff / (float)eachBlockArrElements;
+			float g = col1.g + colH * gDiff / (float)eachBlockArrElements;
+			float b = col1.b + colH * bDiff / (float)eachBlockArrElements;
 
 			lastColor = glm::vec3(r, g, b);
-			_allColorsVec[count] = lastColor;
 
-			batch.glColor3f(lastColor);
-			batch.glVertex3f(x, y+count, 0);
-			batch.glVertex3f(x+w, y + count, 0);
+			allColorsVecR[count] = r;
+			allColorsVecG[count] = g;
+			allColorsVecB[count] = b;
+
+			//_allColorsVec[count] = lastColor;
+
+			//batch.glColor3f(lastColor);
+			//batch.glVertex3f(x, y+count, 0);
+			//batch.glVertex3f(x+w, y + count, 0);
 
 			count++;
 		}
@@ -94,20 +106,30 @@ void ECoatColorBar::GenerateGeometry(int x, int y, int w, int h)
 		start = count;
 	}
 
-	for (int i = count; i < _allColorsVec.size(); i++)
+	for (int i = count; i < _totArrElements+2; i++)
 	{
-		_allColorsVec.push_back(lastColor);
+		allColorsVecR[i] = lastColor.r;
+		allColorsVecG[i] = lastColor.g;
+		allColorsVecB[i] = lastColor.b;
 	}
+}
 
+void ECoatColorBar::SetMinMaxThickness(float minThickness, float maxThickness)
+{
+	_minThickness = minThickness;
+	_maxThickness = maxThickness;
 
-	BaseModelIO baseModeIO;
-	baseModeIO.SetVertexBuffer(batch.GetVertexBuffer(), batch.GetVertexBufferSize());
-	baseModeIO.SetColorBuffer(batch.GetColorBuffer(), batch.GetColorBufferSize());
+	_totDiffThickness = _maxThickness - _minThickness;
+}
 
-	_meshRenderer = new GLMeshRenderer(&baseModeIO, COLOR_SHADER);
-	_meshRenderer->SetPrimitiveType(GLMeshRenderer::lines);
-	ColorShader* colorShader = (ColorShader*)_meshRenderer->GetCurrentShader();
-	colorShader->Set2DCamera(true);
+void ECoatColorBar::GetColor(float thickness, float* r, float* g, float* b)
+{
+	float currDiffThick = thickness - _minThickness;
+	int index = (int)(currDiffThick * _totArrElements / _totDiffThickness);
+
+	r[0] = allColorsVecR[index];
+	g[0] = allColorsVecG[index];
+	b[0] = allColorsVecB[index];
 }
 
 void ECoatColorBar::Draw()

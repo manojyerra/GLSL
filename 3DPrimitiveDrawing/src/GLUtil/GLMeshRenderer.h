@@ -30,8 +30,10 @@ public:
 		triangleFan = GL_TRIANGLE_FAN
 	};
 
-	GLMeshRenderer(BaseModelIO* BaseModelIO, int shaderType);
+	GLMeshRenderer(BaseModelIO* baseModelIO, int shaderType);
 	~GLMeshRenderer();
+
+	void UpdateColorBuffer(const GLvoid* buffer, GLsizeiptr len);
 
 	void SetModelMatrix(float* mat);
 	void SetPos(float x, float y, float z);

@@ -48,6 +48,8 @@ public:
 
 	GLsizeiptr GetVertexBufferSize();
 	GLsizeiptr GetIndicesBufferSize();
+
+	void UpdateColorBuffer(const GLvoid* buffer, GLsizeiptr len);
 };
 
 #endif

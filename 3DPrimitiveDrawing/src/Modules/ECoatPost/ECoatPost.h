@@ -23,9 +23,9 @@ private:
 
 	//UI related.
 	TimeLineFrame* _timeLineFrame;
-	float count;
 	ECoatResultReader* _ecoatReader;
 
+	void ApplyContour(int frameNum);
 
 public:
 	ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv);

@@ -52,6 +52,23 @@ GLBufferBuilder* GLBufferBuilder::SetColorBuffer(const GLvoid* buffer, GLsizeipt
 	return this;
 }
 
+void GLBufferBuilder::UpdateColorBuffer(const GLvoid* buffer, GLsizeiptr len)
+{
+	if (_colorBufferID)
+	{
+		GLDeleteBuffer(_colorBufferID);
+		_colorBufferID = 0;
+	}
+
+	if (!_colorBufferID)
+	{
+		_colorBuffer = buffer;
+		_colorBufferLen = len;
+
+		_colorBufferID = GLCreateBuffer(_colorBufferLen, (GLvoid*)_colorBuffer);
+	}
+}
+
 GLBufferBuilder* GLBufferBuilder::SetIndicesBuffer(const GLvoid* buffer, GLsizeiptr len)
 {
 	_indicesBuffer = buffer;
