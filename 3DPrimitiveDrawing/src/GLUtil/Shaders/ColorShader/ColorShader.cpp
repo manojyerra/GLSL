@@ -6,10 +6,6 @@
 ColorShader::ColorShader()
 {
 	_shaderProgram = NULL;
-
-	_vertexBufferID = 0;
-	_colorBufferID = 0;
-
 	_alpha = 1.0f;
 	_use2DCam = false;
 
@@ -20,16 +16,6 @@ ColorShader::ColorShader()
 void ColorShader::Set2DCamera(bool enable)
 {
 	_use2DCam = enable;
-}
-
-void ColorShader::SetVertexBufferID(unsigned int bufferID)
-{
-	_vertexBufferID = bufferID;
-}
-
-void ColorShader::SetColorBufferID(unsigned int bufferID)
-{
-	_colorBufferID = bufferID;
 }
 
 void ColorShader::SetModelMatrix(float* mat)

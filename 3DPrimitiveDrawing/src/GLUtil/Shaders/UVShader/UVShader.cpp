@@ -6,31 +6,11 @@
 UVShader::UVShader()
 {
 	_shaderProgram = NULL;
-
-	_vertexBufferID = 0;
-	_uvBufferID = 0;
-	_textureID = 0;
-
 	_alpha = 1.0f;
 	_use2DCam = false;
 
 	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram("shaders/UVShader/UVShader.vs",
 		"shaders/UVShader/UVShader.fs");
-}
-
-void UVShader::SetVertexBufferID(unsigned int bufferID)
-{
-	_vertexBufferID = bufferID;
-}
-
-void UVShader::SetUVBufferID(unsigned int bufferID)
-{
-	_uvBufferID = bufferID;
-}
-
-void UVShader::SetTextureID(unsigned int textureID)
-{
-	_textureID = textureID;
 }
 
 void UVShader::SetModelMatrix(float* mat)

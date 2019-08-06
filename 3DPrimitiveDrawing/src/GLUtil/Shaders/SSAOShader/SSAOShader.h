@@ -8,9 +8,6 @@
 class SSAOShader : public Shader
 {
 private:
-	unsigned int _vertexBufferID;
-	unsigned int _uvBufferID;
-
 	unsigned int _gPositionTexID;
 	unsigned int _gNormalTexID;
 	unsigned int _noiseTexID;
@@ -29,9 +26,6 @@ public:
 
 	SSAOShader();
 	~SSAOShader();
-
-	void SetVertexBufferID(unsigned int bufferID);
-	void SetUVBufferID(unsigned int bufferID);
 
 	void SetGPositionTexID(unsigned int texID);
 	void SetGNormalTexID(unsigned int texID);

@@ -4,9 +4,6 @@
 
 SSAOShader::SSAOShader()
 {
-	_vertexBufferID = 0;
-	_uvBufferID = 0;
-
 	_gPositionTexID = 0;
 	_gNormalTexID = 0;
 	_noiseTexID = 0;
@@ -19,16 +16,6 @@ SSAOShader::SSAOShader()
 	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram(
 		"shaders/SSAO/SSAOCalcShader/SSAOCalcShader.vs",
 		"shaders/SSAO/SSAOCalcShader/SSAOCalcShader.fs");
-}
-
-void SSAOShader::SetVertexBufferID(unsigned int bufferID)
-{
-	_vertexBufferID = bufferID;
-}
-
-void SSAOShader::SetUVBufferID(unsigned int bufferID)
-{
-	_uvBufferID = bufferID;
 }
 
 void SSAOShader::SetModelMatrix(float* mat)

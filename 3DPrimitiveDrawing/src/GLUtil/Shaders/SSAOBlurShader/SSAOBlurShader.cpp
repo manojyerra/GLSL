@@ -4,24 +4,12 @@
 
 SSAOBlurShader::SSAOBlurShader()
 {
-	_vertexBufferID = 0;
-	_uvBufferID = 0;
 	_alpha = 1.0f;
 	_ssaoInputTexID = 0;
 
 	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram(
 		"shaders/SSAO/SSAOBlurShader/SSAOBlurShader.vs",
 		"shaders/SSAO/SSAOBlurShader/SSAOBlurShader.fs");
-}
-
-void SSAOBlurShader::SetVertexBufferID(unsigned int bufferID)
-{
-	_vertexBufferID = bufferID;
-}
-
-void SSAOBlurShader::SetUVBufferID(unsigned int bufferID)
-{
-	_uvBufferID = bufferID;
 }
 
 void SSAOBlurShader::SetSSAOInputTexID(unsigned int texID)

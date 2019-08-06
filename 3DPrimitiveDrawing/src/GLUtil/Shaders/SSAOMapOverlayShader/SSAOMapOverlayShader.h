@@ -8,9 +8,6 @@
 class SSAOMapOverlayShader : public Shader
 {
 private:
-	unsigned int _vertexBufferID;
-	unsigned int _uvBufferID;
-	unsigned int _textureID;
 	float _alpha;
 	float _occlusionLevel; // 0 to 1
 
@@ -23,11 +20,7 @@ public:
 	SSAOMapOverlayShader();
 	~SSAOMapOverlayShader();
 
-	void SetVertexBufferID(unsigned int bufferID);
-	void SetUVBufferID(unsigned int bufferID);
-	void SetTextureID(unsigned int textureID);
 	void Set2DCamera(bool enable);
-
 	void SetOcclusionLevel(float level);
 	void SetModelMatrix(float* mat) override;
 	void SetAlpha(float alpha) override;

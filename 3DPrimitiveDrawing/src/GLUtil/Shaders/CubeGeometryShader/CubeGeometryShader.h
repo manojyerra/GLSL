@@ -9,9 +9,6 @@ class CubeGeometryShader : public Shader
 {
 private:
 	ShaderProgram* _shaderProgram;
-	unsigned int _vertexBufferID;
-	unsigned int _colorBufferID; 
-
 	int _methodNum;
 	float _cubeHalfLen;
 	float _alpha;
@@ -22,9 +19,6 @@ public:
 	~CubeGeometryShader();
 
 	void SetCubeHalfLen(float cubeHalfLen);
-	void SetVertexBufferID(unsigned int bufferID);
-	void SetColorBufferID(unsigned int bufferID);
-
 	void SetAlpha(float alpha) override;
 	void SetModelMatrix(float* mat) override;
 	void Begin() override;

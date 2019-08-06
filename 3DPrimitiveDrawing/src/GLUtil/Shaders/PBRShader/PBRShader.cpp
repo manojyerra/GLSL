@@ -17,9 +17,6 @@ void PBRShader::CommonInit(string vertexShaderPath, string fragmentShaderPath)
 {
 	_shaderProgram = nullptr;
 
-	_vertexBufferID = 0;
-	_normalBufferID = 0;
-
 	LightInfo lightInfo1(glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(23.47, 21.31, 20.79));
 	LightInfo lightInfo2(glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(23.47, 21.31, 20.79));
 	LightInfo lightInfo3(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(23.47, 21.31, 20.79));
@@ -39,16 +36,6 @@ void PBRShader::CommonInit(string vertexShaderPath, string fragmentShaderPath)
 	_alpha = 1.0f;
 
 	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram(vertexShaderPath, fragmentShaderPath);
-}
-
-void PBRShader::SetVertexBufferID(unsigned int bufferID)
-{
-	_vertexBufferID = bufferID;
-}
-
-void PBRShader::SetNormalBufferID(unsigned int bufferID)
-{
-	_normalBufferID = bufferID;
 }
 
 void PBRShader::SetModelMatrix(float* mat)

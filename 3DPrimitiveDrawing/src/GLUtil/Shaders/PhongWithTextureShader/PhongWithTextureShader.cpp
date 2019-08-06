@@ -10,11 +10,6 @@ PhongWithTextureShader::PhongWithTextureShader(int shaderType)
 	_perVertexShader = NULL;
 	_shaderProgram = NULL;
 
-	_vertexBufferID = 0;
-	_normalBufferID = 0;
-	_uvBufferID = 0;
-	_baseTexID = 0;
-
 	GLfloat Ka[] = { 0.05375f,	0.05f,	0.06625f,	1.0f };
 	GLfloat Kd[] = { 0.18275f,	0.17f,	0.22525f,	1.0f };
 	GLfloat Ks[] = { 0.33274f,	0.32f,	0.34643f,	1.0f };
@@ -59,26 +54,6 @@ void PhongWithTextureShader::SetShaderType(int shaderType)
 
 		_shaderProgram = _perVertexShader;
 	}
-}
-
-void PhongWithTextureShader::SetVertexBufferID(unsigned int bufferID)
-{
-	_vertexBufferID = bufferID;
-}
-
-void PhongWithTextureShader::SetNormalBufferID(unsigned int bufferID)
-{
-	_normalBufferID = bufferID;
-}
-
-void PhongWithTextureShader::SetUVBufferID(unsigned int bufferID)
-{
-	_uvBufferID = bufferID;
-}
-
-void PhongWithTextureShader::SetBaseTexID(unsigned int texID)
-{
-	_baseTexID = texID;
 }
 
 void PhongWithTextureShader::SetModelMatrix(float* mat)
@@ -134,9 +109,9 @@ void PhongWithTextureShader::Begin()
 
 void PhongWithTextureShader::SetUniformsAndAttributes()
 {
-	if (_uvBufferID && _baseTexID)
+	if (_uvBufferID && _textureID)
 	{
-		glBindTexture(GL_TEXTURE_2D, _baseTexID);
+		glBindTexture(GL_TEXTURE_2D, _textureID);
 	}
 
 	Cam* cam = Cam::GetInstance();
@@ -156,7 +131,7 @@ void PhongWithTextureShader::SetUniformsAndAttributes()
 	_shaderProgram->SetUniform4f("specular", _Ks[0], _Ks[1], _Ks[2], _Ks[3]);
 	_shaderProgram->SetUniform1f("shininess", _Se);
 
-	if (_uvBufferID && _baseTexID)
+	if (_uvBufferID && _textureID)
 	{
 		GLuint uvLoc = glGetAttribLocation(programID, "uv");
 		glEnableVertexAttribArray(uvLoc);
@@ -182,7 +157,7 @@ void PhongWithTextureShader::End()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	if (_uvBufferID && _baseTexID)
+	if (_uvBufferID && _textureID)
 	{
 		glBindTexture(GL_TEXTURE_2D, 0);
 		GLuint uvLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "uv");

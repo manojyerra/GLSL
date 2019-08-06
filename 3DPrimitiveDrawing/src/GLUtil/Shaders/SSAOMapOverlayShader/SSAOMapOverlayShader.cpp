@@ -7,10 +7,6 @@ SSAOMapOverlayShader::SSAOMapOverlayShader()
 {
 	_shaderProgram = NULL;
 
-	_vertexBufferID = 0;
-	_uvBufferID = 0;
-	_textureID = 0;
-
 	_alpha = 1.0f;
 	_occlusionLevel = 0.5f;
 
@@ -21,21 +17,6 @@ SSAOMapOverlayShader::SSAOMapOverlayShader()
 void SSAOMapOverlayShader::SetOcclusionLevel(float level)
 {
 	_occlusionLevel = MathUtils::MinMax(level, 0.0f, 1.0f);
-}
-
-void SSAOMapOverlayShader::SetVertexBufferID(unsigned int bufferID)
-{
-	_vertexBufferID = bufferID;
-}
-
-void SSAOMapOverlayShader::SetUVBufferID(unsigned int bufferID)
-{
-	_uvBufferID = bufferID;
-}
-
-void SSAOMapOverlayShader::SetTextureID(unsigned int textureID)
-{
-	_textureID = textureID;
 }
 
 void SSAOMapOverlayShader::SetModelMatrix(float* mat)

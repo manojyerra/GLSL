@@ -4,18 +4,11 @@
 
 BasicShader::BasicShader()
 {
-	_vertexBufferID = 0;
-
 	_alpha = 1.0f;
 	_color = glm::vec3(0.5f, 0.5f, 0.5f);
 
 	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram("shaders/BasicShader/BasicShader.vs",
 		"shaders/BasicShader/BasicShader.fs");
-}
-
-void BasicShader::SetVertexBufferID(unsigned int bufferID)
-{
-	_vertexBufferID = bufferID;
 }
 
 void BasicShader::SetModelMatrix(float* mat)

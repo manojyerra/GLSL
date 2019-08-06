@@ -11,8 +11,6 @@ CubeGeometryShader::CubeGeometryShader()
 
 	_methodNum = 2;
 	_cubeHalfLen = 0.00375f/2.0f;
-	_vertexBufferID = 0;
-	_colorBufferID = 0;
 	_alpha = 1.0f;
 }
 
@@ -29,16 +27,6 @@ void CubeGeometryShader::SetAlpha(float alpha)
 void CubeGeometryShader::SetModelMatrix(float* mat)
 {
 	_modelMat.Copy(mat);
-}
-
-void CubeGeometryShader::SetVertexBufferID(unsigned int bufferID)
-{
-	_vertexBufferID = bufferID;
-}
-
-void CubeGeometryShader::SetColorBufferID(unsigned int bufferID)
-{
-	_colorBufferID = bufferID;
 }
 
 void CubeGeometryShader::Begin()

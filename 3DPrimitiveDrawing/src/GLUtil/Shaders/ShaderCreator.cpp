@@ -90,7 +90,7 @@ void ShaderCreator::SetShader(int shaderType)
 			_phongWithTexPerVertexShader->SetVertexBufferID(_bufferBuilder->GetVertexBufferID());
 			_phongWithTexPerVertexShader->SetNormalBufferID(_bufferBuilder->GetNormalBufferID());
 			_phongWithTexPerVertexShader->SetUVBufferID(_bufferBuilder->GetUVBufferID());
-			_phongWithTexPerVertexShader->SetBaseTexID(_bufferBuilder->GetBaseTexID());
+			_phongWithTexPerVertexShader->SetTextureID(_bufferBuilder->GetBaseTexID());
 		}
 
 		_shader = _phongWithTexPerVertexShader;
@@ -103,7 +103,7 @@ void ShaderCreator::SetShader(int shaderType)
 			_phongWithTexPerPixelShader->SetVertexBufferID(_bufferBuilder->GetVertexBufferID());
 			_phongWithTexPerPixelShader->SetNormalBufferID(_bufferBuilder->GetNormalBufferID());
 			_phongWithTexPerPixelShader->SetUVBufferID(_bufferBuilder->GetUVBufferID());
-			_phongWithTexPerPixelShader->SetBaseTexID(_bufferBuilder->GetBaseTexID());
+			_phongWithTexPerPixelShader->SetTextureID(_bufferBuilder->GetBaseTexID());
 		}
 
 		_shader = _phongWithTexPerPixelShader;
@@ -127,7 +127,7 @@ void ShaderCreator::SetShader(int shaderType)
 			_pbrWithTextureShader->SetVertexBufferID(_bufferBuilder->GetVertexBufferID());
 			_pbrWithTextureShader->SetNormalBufferID(_bufferBuilder->GetNormalBufferID());
 			_pbrWithTextureShader->SetUVBufferID(_bufferBuilder->GetUVBufferID());
-			_pbrWithTextureShader->SetBaseTexID(_bufferBuilder->GetBaseTexID());
+			_pbrWithTextureShader->SetTextureID(_bufferBuilder->GetBaseTexID());
 		}
 
 		_shader = _pbrWithTextureShader;

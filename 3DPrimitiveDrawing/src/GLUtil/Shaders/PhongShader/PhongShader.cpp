@@ -10,9 +10,6 @@ PhongShader::PhongShader(int shaderType)
 	_perVertexShader = NULL;
 	_shaderProgram = NULL;
 
-	_vertexBufferID = 0;
-	_normalBufferID = 0;
-
 	GLfloat Ka[] = { 0.05375f,	0.05f,	0.06625f,	1.0f };
 	GLfloat Kd[] = { 0.18275f,	0.17f,	0.22525f,	1.0f };
 	GLfloat Ks[] = { 0.33274f,	0.32f,	0.34643f,	1.0f };
@@ -57,16 +54,6 @@ void PhongShader::SetShaderType(int shaderType)
 
 		_shaderProgram = _perVertexShader;
 	}
-}
-
-void PhongShader::SetVertexBufferID(unsigned int bufferID)
-{
-	_vertexBufferID = bufferID;
-}
-
-void PhongShader::SetNormalBufferID(unsigned int bufferID)
-{
-	_normalBufferID = bufferID;
 }
 
 void PhongShader::SetModelMatrix(float* mat)

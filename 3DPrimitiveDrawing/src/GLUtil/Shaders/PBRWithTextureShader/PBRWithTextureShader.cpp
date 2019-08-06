@@ -5,22 +5,9 @@
 PBRWithTextureShader::PBRWithTextureShader() : PBRShader("shaders/PBRWithTextureShader/PBRWithTextureShader.vs",
 	"shaders/PBRWithTextureShader/PBRWithTextureShader.fs")
 {
-	_uvBufferID = 0;
-	_baseTexID = 0;
-
 	_albedo = glm::vec3(0.5893, 0.2075, 0.0415);
 	_metallic = 1.0f;
 	_roughness = 0.23f;
-}
-
-void PBRWithTextureShader::SetUVBufferID(unsigned int bufferID)
-{
-	_uvBufferID = bufferID;
-}
-
-void PBRWithTextureShader::SetBaseTexID(unsigned int texID)
-{
-	_baseTexID = texID;
 }
 
 void PBRWithTextureShader::Begin()
@@ -30,9 +17,9 @@ void PBRWithTextureShader::Begin()
 
 void PBRWithTextureShader::SetUniformsAndAttributes()
 {
-	if (_uvBufferID && _baseTexID)
+	if (_uvBufferID && _textureID)
 	{
-		glBindTexture(GL_TEXTURE_2D, _baseTexID);
+		glBindTexture(GL_TEXTURE_2D, _textureID);
 	}
 
 	Cam* cam = Cam::GetInstance();
@@ -68,7 +55,7 @@ void PBRWithTextureShader::SetUniformsAndAttributes()
 	_shaderProgram->SetUniform1f("roughness", _roughness);
 	_shaderProgram->SetUniform1f("alpha", _alpha);
 
-	if (_uvBufferID && _baseTexID)
+	if (_uvBufferID && _textureID)
 	{
 		GLuint uvLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "uv");
 		glEnableVertexAttribArray(uvLoc);
@@ -94,7 +81,7 @@ void PBRWithTextureShader::End()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	if (_uvBufferID && _baseTexID)
+	if (_uvBufferID && _textureID)
 	{
 		glBindTexture(GL_TEXTURE_2D, 0);
 		GLuint uvLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "uv");

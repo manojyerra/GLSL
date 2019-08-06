@@ -12,9 +12,6 @@ using namespace std;
 class PhongShader : public Shader
 {
 private:
-	unsigned int _vertexBufferID;
-	unsigned int _normalBufferID;
-
 	glm::vec3 lightPos;
 	float _Ka[4];
 	float _Kd[4];
@@ -39,9 +36,6 @@ public:
 	~PhongShader();
 
 	void SetShaderType(int shaderType);
-
-	void SetVertexBufferID(unsigned int bufferID);
-	void SetNormalBufferID(unsigned int bufferID);
 	void SetModelMatrix(float* mat);
 
 	void SetLightPos(float x, float y, float z);

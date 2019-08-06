@@ -30,9 +30,6 @@ public:
 class PBRShader : public Shader
 {
 protected:
-	unsigned int _vertexBufferID;
-	unsigned int _normalBufferID;
-
 	std::map<std::string, LightInfo> _lightMap;
 	
 	glm::vec3 _albedo;
@@ -50,8 +47,6 @@ public:
 	virtual ~PBRShader();
 
 	void CommonInit(std::string vertexShaderPath, std::string fragmentShaderPath);
-	void SetVertexBufferID(unsigned int bufferID);
-	void SetNormalBufferID(unsigned int bufferID);
 	void SetAlbedo(glm::vec3& albedo);
 	void SetMetallic(float metallic);
 	void SetRoughness(float roughness);

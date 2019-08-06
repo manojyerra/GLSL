@@ -9,7 +9,6 @@
 class BasicShader : public Shader
 {
 private:
-	unsigned int _vertexBufferID;
 	glm::vec3 _color;
 	float _alpha;
 
@@ -20,9 +19,7 @@ public:
 	BasicShader();
 	~BasicShader();
 
-	void SetVertexBufferID(unsigned int bufferID);
 	void SetColor(glm::vec3 color);
-
 	void SetModelMatrix(float* mat) override;
 	void SetAlpha(float alpha) override;
 	void Begin() override;

@@ -25,7 +25,11 @@ TimeLineFrame::TimeLineFrame(float x, float y, float w, float h, int numberOfFra
 	animationBox->SetOn(true);
 
 	nextFrame = new SUIButton("Next Frame");
+	nextFrame->AddActionListener(action_listener);
+
 	previousFrame = new SUIButton("Previous Frame");
+	previousFrame->AddActionListener(action_listener);
+
 	animationRow1Box->AddButton(nextFrame);
 	animationRow1Box->AddButton(previousFrame);
 

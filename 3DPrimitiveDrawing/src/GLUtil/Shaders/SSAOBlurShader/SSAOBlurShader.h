@@ -8,8 +8,6 @@
 class SSAOBlurShader : public Shader
 {
 private:
-	unsigned int _vertexBufferID;
-	unsigned int _uvBufferID;
 	float _alpha;
 	GLMat _modelMat;
 	unsigned int _ssaoInputTexID;
@@ -20,10 +18,7 @@ public:
 	SSAOBlurShader();
 	~SSAOBlurShader();
 
-	void SetVertexBufferID(unsigned int bufferID);
-	void SetUVBufferID(unsigned int bufferID);
 	void SetSSAOInputTexID(unsigned int texID);
-
 	void SetModelMatrix(float* mat) override;
 	void SetAlpha(float alpha) override;
 	void Begin() override;

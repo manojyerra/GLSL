@@ -5,30 +5,11 @@
 SSAOGeometryPassShader::SSAOGeometryPassShader()
 {
 	_shaderProgram = nullptr;
-
-	_vertexBufferID = 0;
-	_normalBufferID = 0;
-	_uvBufferID = 0;
 	_alpha = 1.0f;
 
 	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram(
 		"shaders/SSAO/GeometryPassShader/GeometryPassShader.vs",
 		"shaders/SSAO/GeometryPassShader/GeometryPassShader.fs");
-}
-
-void SSAOGeometryPassShader::SetVertexBufferID(unsigned int bufferID)
-{
-	_vertexBufferID = bufferID;
-}
-
-void SSAOGeometryPassShader::SetNormalBufferID(unsigned int bufferID)
-{
-	_normalBufferID = bufferID;
-}
-
-void SSAOGeometryPassShader::SetUVBufferID(unsigned int bufferID)
-{
-	_uvBufferID = bufferID;
 }
 
 void SSAOGeometryPassShader::SetModelMatrix(float* mat)
