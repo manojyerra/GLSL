@@ -1,6 +1,8 @@
 #ifndef AABB_H
 #define AABB_H
 
+#include "glm/glm.hpp"
+
 class AABB
 {
 private:
@@ -22,6 +24,8 @@ public:
 	float CenterX();
 	float CenterY();
 	float CenterZ();
+
+	glm::vec3 Center();
 
 	void print();
 };

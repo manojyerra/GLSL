@@ -63,6 +63,9 @@
     <ClCompile Include="src\Common\IO\ImageIO\PNG\zlib\trees.c" />
     <ClCompile Include="src\Common\IO\ImageIO\PNG\zlib\uncompr.c" />
     <ClCompile Include="src\Common\IO\ImageIO\PNG\zlib\zutil.c" />
+    <ClCompile Include="src\Common\IO\JSONIO\json_reader.cpp" />
+    <ClCompile Include="src\Common\IO\JSONIO\json_value.cpp" />
+    <ClCompile Include="src\Common\IO\JSONIO\json_writer.cpp" />
     <ClCompile Include="src\Common\IO\ModelIO\BaseModelIO.cpp" />
     <ClCompile Include="src\Common\IO\ModelIO\BinaryObjReader.cpp" />
     <ClCompile Include="src\Common\IO\ModelIO\ObjReader.cpp" />
@@ -103,9 +106,6 @@
     <ClCompile Include="src\GLUtil\SSAO\GLSSAO.cpp" />
     <ClCompile Include="src\GLUtil\SSAO\GLSSAOBufferBuilder.cpp" />
     <ClCompile Include="src\Input.cpp" />
-    <ClCompile Include="src\JsonReader\json_reader.cpp" />
-    <ClCompile Include="src\JsonReader\json_value.cpp" />
-    <ClCompile Include="src\JsonReader\json_writer.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Modules\Demo\Demo.cpp" />
     <ClCompile Include="src\Modules\Demo\DemoUI\FloorVisibilityFrame.cpp" />
@@ -115,6 +115,9 @@
     <ClCompile Include="src\Modules\Demo\DemoUI\WholeWindowFrame.cpp" />
     <ClCompile Include="src\Modules\Demo\ParticlesDemo\ParticlesDemo.cpp" />
     <ClCompile Include="src\Modules\Demo\RenderDemo\RenderDemo.cpp" />
+    <ClCompile Include="src\Modules\ECoatPost\ECoatAssetsBuilder.cpp" />
+    <ClCompile Include="src\Modules\ECoatPost\ECoatAssetsReader.cpp" />
+    <ClCompile Include="src\Modules\ECoatPost\ECoatColorBar.cpp" />
     <ClCompile Include="src\Modules\ECoatPost\ECoatPost.cpp" />
     <ClCompile Include="src\Modules\ECoatPost\ECoatResultReader.cpp" />
     <ClCompile Include="src\Modules\ECoatPost\TimeLineFrame.cpp" />
@@ -175,6 +178,15 @@
     <ClInclude Include="src\Common\IO\ImageIO\PNG\zlib\zconf.h" />
     <ClInclude Include="src\Common\IO\ImageIO\PNG\zlib\zlib.h" />
     <ClInclude Include="src\Common\IO\ImageIO\PNG\zlib\zutil.h" />
+    <ClInclude Include="src\Common\IO\JSONIO\json\autolink.h" />
+    <ClInclude Include="src\Common\IO\JSONIO\json\config.h" />
+    <ClInclude Include="src\Common\IO\JSONIO\json\features.h" />
+    <ClInclude Include="src\Common\IO\JSONIO\json\forwards.h" />
+    <ClInclude Include="src\Common\IO\JSONIO\json\json.h" />
+    <ClInclude Include="src\Common\IO\JSONIO\json\reader.h" />
+    <ClInclude Include="src\Common\IO\JSONIO\json\value.h" />
+    <ClInclude Include="src\Common\IO\JSONIO\json\writer.h" />
+    <ClInclude Include="src\Common\IO\JSONIO\json_batchallocator.h" />
     <ClInclude Include="src\Common\IO\ModelIO\BaseModelIO.h" />
     <ClInclude Include="src\Common\IO\ModelIO\BinaryObjReader.h" />
     <ClInclude Include="src\Common\IO\ModelIO\ObjReader.h" />
@@ -217,15 +229,6 @@
     <ClInclude Include="src\GLUtil\SSAO\GLSSAO.h" />
     <ClInclude Include="src\GLUtil\SSAO\GLSSAOBufferBuilder.h" />
     <ClInclude Include="src\Input.h" />
-    <ClInclude Include="src\JsonReader\json\autolink.h" />
-    <ClInclude Include="src\JsonReader\json\config.h" />
-    <ClInclude Include="src\JsonReader\json\features.h" />
-    <ClInclude Include="src\JsonReader\json\forwards.h" />
-    <ClInclude Include="src\JsonReader\json\json.h" />
-    <ClInclude Include="src\JsonReader\json\reader.h" />
-    <ClInclude Include="src\JsonReader\json\value.h" />
-    <ClInclude Include="src\JsonReader\json\writer.h" />
-    <ClInclude Include="src\JsonReader\json_batchallocator.h" />
     <ClInclude Include="src\Modules\Demo\Demo.h" />
     <ClInclude Include="src\Modules\Demo\DemoUI\FloorVisibilityFrame.h" />
     <ClInclude Include="src\Modules\Demo\DemoUI\ModelSelectionFrame.h" />
@@ -234,6 +237,9 @@
     <ClInclude Include="src\Modules\Demo\DemoUI\WholeWindowFrame.h" />
     <ClInclude Include="src\Modules\Demo\ParticlesDemo\ParticlesDemo.h" />
     <ClInclude Include="src\Modules\Demo\RenderDemo\RenderDemo.h" />
+    <ClInclude Include="src\Modules\ECoatPost\ECoatAssetsBuilder.h" />
+    <ClInclude Include="src\Modules\ECoatPost\ECoatAssetsReader.h" />
+    <ClInclude Include="src\Modules\ECoatPost\ECoatColorBar.h" />
     <ClInclude Include="src\Modules\ECoatPost\ECoatPost.h" />
     <ClInclude Include="src\Modules\ECoatPost\ECoatResultReader.h" />
     <ClInclude Include="src\Modules\ECoatPost\TimeLineFrame.h" />
@@ -274,9 +280,9 @@
     <ClInclude Include="src\SUI\SUITextField.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\JsonReader\json_internalarray.inl" />
-    <None Include="src\JsonReader\json_internalmap.inl" />
-    <None Include="src\JsonReader\json_valueiterator.inl" />
+    <None Include="src\Common\IO\JSONIO\json_internalarray.inl" />
+    <None Include="src\Common\IO\JSONIO\json_internalmap.inl" />
+    <None Include="src\Common\IO\JSONIO\json_valueiterator.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -348,7 +354,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;include/HDF5;glad/include;src;src/Platform;src/Math;src/ParticleRenderer;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/Arrays;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/IO/ModelIO;src/Common/Utils;src/GLUtil;src/GLUtil/SSAO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PBRWithTextureShader;src/GLUtil/Shaders/PhongShader;src/GLUtil/Shaders/PhongWithTextureShader;src/GLUtil/Shaders/CubeGeometryShader;src/GLUtil/Shaders/SSAOGeometryPassShader;src/GLUtil/Shaders/SSAOMapOverlayShader;src/GLUtil/Shaders/SSAOShader;src/GLUtil/ShaderProgram;src/SUI;src/Modules;src/Modules/ECoatPost;src/Modules/Demo;src/Modules/Demo/ParticlesDemo;src/Modules/Demo/RenderDemo;src/Modules/Demo/DemoUI;src/GLUtil/Shaders/SSAOBlurShader;src/Common/IO/JSONIO;src/Common/IO/JSONIO/json;src/Common/IO/ResultFileIO;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;include/HDF5;glad/include;src;src/Platform;src/Math;src/ParticleRenderer;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/Arrays;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/IO/ModelIO;src/Common/Utils;src/GLUtil;src/GLUtil/SSAO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PBRWithTextureShader;src/GLUtil/Shaders/PhongShader;src/GLUtil/Shaders/PhongWithTextureShader;src/GLUtil/Shaders/CubeGeometryShader;src/GLUtil/Shaders/SSAOGeometryPassShader;src/GLUtil/Shaders/SSAOMapOverlayShader;src/GLUtil/Shaders/SSAOShader;src/GLUtil/ShaderProgram;src/SUI;src/Modules;src/Modules/ECoatPost;src/Modules/Demo;src/Modules/Demo/ParticlesDemo;src/Modules/Demo/RenderDemo;src/Modules/Demo/DemoUI;src/GLUtil/Shaders/SSAOBlurShader;src/Common/IO/JSONIO;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;GLFW_INCLUDE_NONE;NOMINMAX;H5_BUILT_AS_DYNAMIC_LIB;_ENABLE_DEMO;_ENABLE_SUI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>

@@ -3,6 +3,12 @@
 FileReader::FileReader(std::string filePath, std::string readMode)
 {
 	fp = fopen(filePath.c_str(), readMode.c_str());
+
+	if (fp == nullptr)
+	{
+		throw new std::exception("Exception: File not found.");
+	}
+
 	pos = 0;
 	length = 0;
 	buf = NULL;

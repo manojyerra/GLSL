@@ -41,6 +41,11 @@ glm::vec3 GLMeshRenderer::GetPos()
 	return glm::vec3(_modelMat.m[12], _modelMat.m[13], _modelMat.m[14]);
 }
 
+AABB GLMeshRenderer::GetAABB()
+{
+	return _bBox;
+}
+
 void GLMeshRenderer::SetShader(int shaderType)
 {
 	_shaderCreator->SetShader(shaderType);
@@ -139,7 +144,10 @@ void GLMeshRenderer::Draw()
 			shader->SetModelMatrix(_modelMat.m);
 			shader->Begin();
 			shader->SetUniformsAndAttributes();
-			glDrawArrays(_primitiveType, 0, (GLsizei)(_bufferBuilder->GetVertexBufferSize() / 12));
+
+			unsigned int vertexCount = _bufferBuilder->GetVertexBufferSize() / 12;
+
+			glDrawArrays(_primitiveType, 0, (GLsizei)(vertexCount));
 			shader->End();
 		}
 	}

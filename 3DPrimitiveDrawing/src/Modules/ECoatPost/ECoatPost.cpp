@@ -20,21 +20,21 @@ ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 	Cam2D::GetInstance()->Init(_sw, _sh);
 
 	_meshManager = new GLMeshManager(_sw, _sh);
-	_meshManager->AddMeshRenderer("data/BigSize/Trike/objFile.obj", PBR_SHADER, BaseModelIO::OBJ_MODEL);
 
-	_timeLineFrame = new TimeLineFrame(0, 0, 300, 700, 80, this);
-
+	_assetsBuilder = new ECoatAssetsBuilder(&ECoatAssetsReader("AdvancedRenderer_JLR_ECoating.json"), _meshManager);
+	_resultReader = _assetsBuilder->GetResultReader();
 	_colorBar = new ECoatColorBar();
-	_ecoatReader = new ECoatResultReader("data/result_fine.ecoat");
+
+	_timeLineFrame = new TimeLineFrame(0, 0, 300, 700, _resultReader->GetFrameCount(), this);
 
 	unsigned int dataSize;
-	char* vertexBuf = _ecoatReader->GetParticleBufferWorkpiece(1, &dataSize);
+	char* vertexBuf = _resultReader->GetParticleBufferWorkpiece(1, &dataSize);
 
 	_particleRenderer = new ParticleRenderer(vertexBuf, dataSize);
 
 	free(vertexBuf);
 
-	//ApplyContour(1);
+	ApplyContour(1);
 
 	SetScreenSize(_sw, _sh);
 }
@@ -76,12 +76,11 @@ void ECoatPost::Draw()
 	cam->UpdateCamera();
 
 	_floor->Draw();
-	_colorBar->Draw();
 
-	//for (int i = 0; i < _meshManager->Size(); i++)
-	//{
-	//	_meshManager->Get(i)->Draw();
-	//}
+	for (int i = 0; i < _meshManager->Size(); i++)
+	{
+		_meshManager->Get(i)->Draw();
+	}
 
 	glDisable(GL_CULL_FACE);
 
@@ -91,6 +90,7 @@ void ECoatPost::Draw()
 	}
 
 	_particleRenderer->DrawAllParticles();
+	_colorBar->Draw();
 }
 
 void ECoatPost::actionPerformed(SUIActionEvent e)
@@ -119,7 +119,7 @@ void ECoatPost::ApplyContour(int frameNum)
 
 	if (_particleRenderer)
 	{
-		FrameInfo frameInfo = _ecoatReader->GetParticleColorBuffer(frameNum);
+		FrameInfo frameInfo = _resultReader->GetParticleColorBuffer(frameNum);
 
 		float minThick = frameInfo.minThickness;
 		float maxThick = frameInfo.maxThickness;
@@ -150,7 +150,13 @@ void ECoatPost::ApplyContour(int frameNum)
 
 		if (_particleRenderer)
 		{
+			glm::vec3 carCenter = _assetsBuilder->GetSolid()->GetAABB().Center();
+			glm::vec3 particleCenter = _particleRenderer->_center;
+
+			glm::vec3 delta = carCenter - particleCenter;
+
 			_particleRenderer->UpdateColorBuffer(colorBuf, colorBufSize);
+			_particleRenderer->SetPosition(delta.x, delta.y, delta.z);
 		}
 
 		free(colorBuf);

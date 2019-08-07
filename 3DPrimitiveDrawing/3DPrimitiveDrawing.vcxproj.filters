@@ -115,12 +115,6 @@
     <Filter Include="src\GLUtil\Shaders\SSAOMapOverlayShader">
       <UniqueIdentifier>{15a8106d-0f95-4918-b726-6be4af28824f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Common\IO\JSONIO">
-      <UniqueIdentifier>{e2f3c36b-5c8f-4664-8d59-54579c6fc2e1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Common\IO\JSONIO\json">
-      <UniqueIdentifier>{3f3f19d3-575f-4cc8-8587-baaab5cc4073}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Modules">
       <UniqueIdentifier>{205d1eec-e7bf-4ae8-8a72-31a8bc35a3bb}</UniqueIdentifier>
     </Filter>
@@ -138,6 +132,12 @@
     </Filter>
     <Filter Include="src\Modules\ECoatPost">
       <UniqueIdentifier>{d694ab01-5e0d-4b3a-8a6b-8711e266dcaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\IO\JSONIO">
+      <UniqueIdentifier>{290365a5-d221-4186-a1d8-77b101cca38a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common\IO\JSONIO\json">
+      <UniqueIdentifier>{02cfb8dd-68af-4381-89e9-74b2e5e3d08b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -465,15 +465,6 @@
     <ClCompile Include="src\Common\Utils\AABB.cpp">
       <Filter>src\Common\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="src\JsonReader\json_reader.cpp">
-      <Filter>src\Common\IO\JSONIO</Filter>
-    </ClCompile>
-    <ClCompile Include="src\JsonReader\json_value.cpp">
-      <Filter>src\Common\IO\JSONIO</Filter>
-    </ClCompile>
-    <ClCompile Include="src\JsonReader\json_writer.cpp">
-      <Filter>src\Common\IO\JSONIO</Filter>
-    </ClCompile>
     <ClCompile Include="src\GLUtil\ShaderProgram\ShaderProgramsManager.cpp">
       <Filter>src\GLUtil\ShaderProgram</Filter>
     </ClCompile>
@@ -520,6 +511,24 @@
       <Filter>src\Modules\ECoatPost</Filter>
     </ClCompile>
     <ClCompile Include="src\Modules\ECoatPost\ECoatResultReader.cpp">
+      <Filter>src\Modules\ECoatPost</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\ECoatPost\ECoatAssetsReader.cpp">
+      <Filter>src\Modules\ECoatPost</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\IO\JSONIO\json_reader.cpp">
+      <Filter>src\Common\IO\JSONIO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\IO\JSONIO\json_value.cpp">
+      <Filter>src\Common\IO\JSONIO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\IO\JSONIO\json_writer.cpp">
+      <Filter>src\Common\IO\JSONIO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\ECoatPost\ECoatColorBar.cpp">
+      <Filter>src\Modules\ECoatPost</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\ECoatPost\ECoatAssetsBuilder.cpp">
       <Filter>src\Modules\ECoatPost</Filter>
     </ClCompile>
   </ItemGroup>
@@ -818,33 +827,6 @@
     <ClInclude Include="src\Common\Utils\AABB.h">
       <Filter>src\Common\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="src\JsonReader\json\autolink.h">
-      <Filter>src\Common\IO\JSONIO\json</Filter>
-    </ClInclude>
-    <ClInclude Include="src\JsonReader\json\config.h">
-      <Filter>src\Common\IO\JSONIO\json</Filter>
-    </ClInclude>
-    <ClInclude Include="src\JsonReader\json\features.h">
-      <Filter>src\Common\IO\JSONIO\json</Filter>
-    </ClInclude>
-    <ClInclude Include="src\JsonReader\json\forwards.h">
-      <Filter>src\Common\IO\JSONIO\json</Filter>
-    </ClInclude>
-    <ClInclude Include="src\JsonReader\json\json.h">
-      <Filter>src\Common\IO\JSONIO\json</Filter>
-    </ClInclude>
-    <ClInclude Include="src\JsonReader\json\reader.h">
-      <Filter>src\Common\IO\JSONIO\json</Filter>
-    </ClInclude>
-    <ClInclude Include="src\JsonReader\json\value.h">
-      <Filter>src\Common\IO\JSONIO\json</Filter>
-    </ClInclude>
-    <ClInclude Include="src\JsonReader\json\writer.h">
-      <Filter>src\Common\IO\JSONIO\json</Filter>
-    </ClInclude>
-    <ClInclude Include="src\JsonReader\json_batchallocator.h">
-      <Filter>src\Common\IO\JSONIO</Filter>
-    </ClInclude>
     <ClInclude Include="src\GLUtil\ShaderProgram\ShaderProgramsManager.h">
       <Filter>src\GLUtil\ShaderProgram</Filter>
     </ClInclude>
@@ -896,15 +878,51 @@
     <ClInclude Include="src\Modules\ECoatPost\ECoatResultReader.h">
       <Filter>src\Modules\ECoatPost</Filter>
     </ClInclude>
+    <ClInclude Include="src\Modules\ECoatPost\ECoatAssetsReader.h">
+      <Filter>src\Modules\ECoatPost</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO\JSONIO\json_batchallocator.h">
+      <Filter>src\Common\IO\JSONIO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO\JSONIO\json\autolink.h">
+      <Filter>src\Common\IO\JSONIO\json</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO\JSONIO\json\config.h">
+      <Filter>src\Common\IO\JSONIO\json</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO\JSONIO\json\features.h">
+      <Filter>src\Common\IO\JSONIO\json</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO\JSONIO\json\forwards.h">
+      <Filter>src\Common\IO\JSONIO\json</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO\JSONIO\json\json.h">
+      <Filter>src\Common\IO\JSONIO\json</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO\JSONIO\json\reader.h">
+      <Filter>src\Common\IO\JSONIO\json</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO\JSONIO\json\value.h">
+      <Filter>src\Common\IO\JSONIO\json</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO\JSONIO\json\writer.h">
+      <Filter>src\Common\IO\JSONIO\json</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\ECoatPost\ECoatColorBar.h">
+      <Filter>src\Modules\ECoatPost</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\ECoatPost\ECoatAssetsBuilder.h">
+      <Filter>src\Modules\ECoatPost</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\JsonReader\json_internalarray.inl">
+    <None Include="src\Common\IO\JSONIO\json_internalarray.inl">
       <Filter>src\Common\IO\JSONIO</Filter>
     </None>
-    <None Include="src\JsonReader\json_internalmap.inl">
+    <None Include="src\Common\IO\JSONIO\json_internalmap.inl">
       <Filter>src\Common\IO\JSONIO</Filter>
     </None>
-    <None Include="src\JsonReader\json_valueiterator.inl">
+    <None Include="src\Common\IO\JSONIO\json_valueiterator.inl">
       <Filter>src\Common\IO\JSONIO</Filter>
     </None>
   </ItemGroup>

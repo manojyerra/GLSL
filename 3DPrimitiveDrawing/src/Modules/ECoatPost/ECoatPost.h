@@ -9,6 +9,7 @@
 #include "ParticleRenderer.h"
 #include "ECoatResultReader.h"
 #include "ECoatColorBar.h"
+#include "ECoatAssetsBuilder.h"
 
 class ECoatPost : public Module, public SUIActionListener
 {
@@ -19,11 +20,11 @@ private:
 	Floor* _floor;
 	GLMeshManager* _meshManager;
 	ParticleRenderer* _particleRenderer;
-	ECoatColorBar* _colorBar;
+	ECoatAssetsBuilder* _assetsBuilder;
 
-	//UI related.
+	ECoatColorBar* _colorBar;
 	TimeLineFrame* _timeLineFrame;
-	ECoatResultReader* _ecoatReader;
+	ECoatResultReader* _resultReader;
 
 	void ApplyContour(int frameNum);
 

@@ -39,6 +39,8 @@ public:
 	void SetPos(float x, float y, float z);
 	glm::vec3 GetPos();
 
+	AABB GetAABB();
+
 	void SetShader(int shaderType);
 	Shader* GetShader(int shaderType);
 	Shader* GetCurrentShader();

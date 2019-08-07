@@ -1,6 +1,6 @@
 #include "BufferTransformUtils.h"
 
-glm::vec3 BufferTransformUtils::CalcCenter(float* vertexBuf, int arrSize)
+glm::vec3 BufferTransformUtils::CalcCenter(float* vertexBuf, unsigned int arrSize)
 {
 	float minX = vertexBuf[0];
 	float minY = vertexBuf[1];
