@@ -67,7 +67,6 @@
     <ClCompile Include="src\Common\IO\ModelIO\BinaryObjReader.cpp" />
     <ClCompile Include="src\Common\IO\ModelIO\ObjReader.cpp" />
     <ClCompile Include="src\Common\IO\ModelIO\STLReader.cpp" />
-    <ClCompile Include="src\Common\IO\ResultFileIO\ECoatResultReader.cpp" />
     <ClCompile Include="src\Common\Utils\AABB.cpp" />
     <ClCompile Include="src\Common\Utils\BufferTransformUtils.cpp" />
     <ClCompile Include="src\Common\Utils\MathUtils.cpp" />
@@ -116,8 +115,8 @@
     <ClCompile Include="src\Modules\Demo\DemoUI\WholeWindowFrame.cpp" />
     <ClCompile Include="src\Modules\Demo\ParticlesDemo\ParticlesDemo.cpp" />
     <ClCompile Include="src\Modules\Demo\RenderDemo\RenderDemo.cpp" />
-    <ClCompile Include="src\Modules\ECoatPost\ECoatColorBar.cpp" />
     <ClCompile Include="src\Modules\ECoatPost\ECoatPost.cpp" />
+    <ClCompile Include="src\Modules\ECoatPost\ECoatResultReader.cpp" />
     <ClCompile Include="src\Modules\ECoatPost\TimeLineFrame.cpp" />
     <ClCompile Include="src\Modules\ModulesManager.cpp" />
     <ClCompile Include="src\ParticleRenderer\ParticleRenderer.cpp" />
@@ -180,7 +179,6 @@
     <ClInclude Include="src\Common\IO\ModelIO\BinaryObjReader.h" />
     <ClInclude Include="src\Common\IO\ModelIO\ObjReader.h" />
     <ClInclude Include="src\Common\IO\ModelIO\STLReader.h" />
-    <ClInclude Include="src\Common\IO\ResultFileIO\ECoatResultReader.h" />
     <ClInclude Include="src\Common\Utils\AABB.h" />
     <ClInclude Include="src\Common\Utils\BufferTransformUtils.h" />
     <ClInclude Include="src\Common\Utils\MathUtils.h" />
@@ -236,8 +234,8 @@
     <ClInclude Include="src\Modules\Demo\DemoUI\WholeWindowFrame.h" />
     <ClInclude Include="src\Modules\Demo\ParticlesDemo\ParticlesDemo.h" />
     <ClInclude Include="src\Modules\Demo\RenderDemo\RenderDemo.h" />
-    <ClInclude Include="src\Modules\ECoatPost\ECoatColorBar.h" />
     <ClInclude Include="src\Modules\ECoatPost\ECoatPost.h" />
+    <ClInclude Include="src\Modules\ECoatPost\ECoatResultReader.h" />
     <ClInclude Include="src\Modules\ECoatPost\TimeLineFrame.h" />
     <ClInclude Include="src\Modules\Module.h" />
     <ClInclude Include="src\Modules\ModulesManager.h" />
@@ -382,7 +380,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;include/HDF5;glad/include;src;src/Platform;src/Math;src/ParticleRenderer;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/Arrays;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/IO/ModelIO;src/Common/Utils;src/GLUtil;src/GLUtil/SSAO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PBRWithTextureShader;src/GLUtil/Shaders/PhongShader;src/GLUtil/Shaders/PhongWithTextureShader;src/GLUtil/Shaders/CubeGeometryShader;src/GLUtil/Shaders/SSAOGeometryPassShader;src/GLUtil/Shaders/SSAOMapOverlayShader;src/GLUtil/Shaders/SSAOShader;src/GLUtil/ShaderProgram;src/SUI;src/Modules;src/Modules/ECoatPost;src/Modules/Demo;src/Modules/Demo/ParticlesDemo;src/Modules/Demo/RenderDemo;src/Modules/Demo/DemoUI;src/GLUtil/Shaders/SSAOBlurShader;src/Common/IO/JSONIO;src/Common/IO/JSONIO/json;src/Common/IO/ResultFileIO;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;include/HDF5;glad/include;src;src/Platform;src/Math;src/ParticleRenderer;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/Arrays;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/IO/ModelIO;src/Common/Utils;src/GLUtil;src/GLUtil/SSAO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PBRWithTextureShader;src/GLUtil/Shaders/PhongShader;src/GLUtil/Shaders/PhongWithTextureShader;src/GLUtil/Shaders/CubeGeometryShader;src/GLUtil/Shaders/SSAOGeometryPassShader;src/GLUtil/Shaders/SSAOMapOverlayShader;src/GLUtil/Shaders/SSAOShader;src/GLUtil/ShaderProgram;src/SUI;src/Modules;src/Modules/ECoatPost;src/Modules/Demo;src/Modules/Demo/ParticlesDemo;src/Modules/Demo/RenderDemo;src/Modules/Demo/DemoUI;src/GLUtil/Shaders/SSAOBlurShader;src/Common/IO/JSONIO;src/Common/IO/JSONIO/json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;GLFW_INCLUDE_NONE;NOMINMAX;H5_BUILT_AS_DYNAMIC_LIB;_ENABLE_DEMO;_ENABLE_SUI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

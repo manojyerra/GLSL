@@ -121,9 +121,6 @@
     <Filter Include="src\Common\IO\JSONIO\json">
       <UniqueIdentifier>{3f3f19d3-575f-4cc8-8587-baaab5cc4073}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Common\IO\ResultFileIO">
-      <UniqueIdentifier>{0ef269b1-6e5e-4859-aed4-571a7a500ff9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Modules">
       <UniqueIdentifier>{205d1eec-e7bf-4ae8-8a72-31a8bc35a3bb}</UniqueIdentifier>
     </Filter>
@@ -489,9 +486,6 @@
     <ClCompile Include="src\GLUtil\GLMeshManager.cpp">
       <Filter>src\GLUtil</Filter>
     </ClCompile>
-    <ClCompile Include="src\Common\IO\ResultFileIO\ECoatResultReader.cpp">
-      <Filter>src\Common\IO\ResultFileIO</Filter>
-    </ClCompile>
     <ClCompile Include="src\Modules\ModulesManager.cpp">
       <Filter>src\Modules</Filter>
     </ClCompile>
@@ -525,8 +519,8 @@
     <ClCompile Include="src\Modules\ECoatPost\TimeLineFrame.cpp">
       <Filter>src\Modules\ECoatPost</Filter>
     </ClCompile>
-    <ClCompile Include="src\Modules\ECoatPost\ECoatColorBar.cpp">
-      <Filter>src\Common\IO\ResultFileIO</Filter>
+    <ClCompile Include="src\Modules\ECoatPost\ECoatResultReader.cpp">
+      <Filter>src\Modules\ECoatPost</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -863,9 +857,6 @@
     <ClInclude Include="src\GLUtil\GLMeshManager.h">
       <Filter>src\GLUtil</Filter>
     </ClInclude>
-    <ClInclude Include="src\Common\IO\ResultFileIO\ECoatResultReader.h">
-      <Filter>src\Common\IO\ResultFileIO</Filter>
-    </ClInclude>
     <ClInclude Include="src\Modules\ModulesManager.h">
       <Filter>src\Modules</Filter>
     </ClInclude>
@@ -902,8 +893,8 @@
     <ClInclude Include="src\Modules\ECoatPost\TimeLineFrame.h">
       <Filter>src\Modules\ECoatPost</Filter>
     </ClInclude>
-    <ClInclude Include="src\Modules\ECoatPost\ECoatColorBar.h">
-      <Filter>src\Common\IO\ResultFileIO</Filter>
+    <ClInclude Include="src\Modules\ECoatPost\ECoatResultReader.h">
+      <Filter>src\Modules\ECoatPost</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
