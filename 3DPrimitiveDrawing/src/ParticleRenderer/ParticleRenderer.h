@@ -11,16 +11,16 @@ class ParticleRenderer
 	GLMeshRenderer* _fewParticlesRenderer;
 
 	GLMeshRenderer* CreateAllParticlesRenderer(char* vertexBuf, unsigned int vertexBufLen);
-	GLMeshRenderer* CreateAllParticlesRenderer(char* vertexBuf, unsigned int vertexBufLen, char* colorBuf, unsigned int colorBufLen);
-
 	GLMeshRenderer* CreateFewParticlesRenderer(char* allParticleVertexBuf, unsigned int allParticleVertexBufLen);
+
+	static const unsigned int BYTES_PER_VERTEX = 12;
+	static const unsigned int BYTES_PER_COLOR = 3;
+	unsigned int _skipNumVertex;
 
 public:
 	ParticleRenderer(std::string filePath);
 	ParticleRenderer(char* vertexBuf, unsigned int vertexBufLen);
-	ParticleRenderer(char* vertexBuf, unsigned int vertexBufLen, char* colorBuf, unsigned int colorBufLen);
-
-
+	//ParticleRenderer(char* vertexBuf, unsigned int vertexBufLen, char* colorBuf, unsigned int colorBufLen);
 	~ParticleRenderer();
 
 	void SetPosition(float x, float y, float z);
@@ -32,6 +32,8 @@ public:
 
 #endif
 
+
+//GLMeshRenderer* CreateAllParticlesRenderer(char* vertexBuf, unsigned int vertexBufLen, char* colorBuf, unsigned int colorBufLen);
 
 //class Tuple
 //{

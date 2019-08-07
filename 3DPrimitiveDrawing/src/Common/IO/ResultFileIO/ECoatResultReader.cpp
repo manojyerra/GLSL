@@ -7,10 +7,10 @@ ECoatResultReader::ECoatResultReader(std::string resultFilePath)
 		throw new std::exception("Exception : Invalid H5File");
 	}
 
-	_h5File = new H5::H5File(resultFilePath.c_str(), H5F_ACC_RDWR);	
+	_h5File = new H5::H5File(resultFilePath.c_str(), H5F_ACC_RDWR);
 }
 
-char* ECoatResultReader::GetParticleBuffer(unsigned int frameNum, unsigned int* dataSize)
+FrameInfo ECoatResultReader::GetParticleBuffer(unsigned int frameNum)
 {
 	H5::Group stepsGroup = _h5File->openGroup("Steps");
 
@@ -54,18 +54,31 @@ char* ECoatResultReader::GetParticleBuffer(unsigned int frameNum, unsigned int* 
 
 	dataSet.read(vertexData, H5::PredType::NATIVE_FLOAT, memSpace, dataSpace);
 
+	FrameInfo frameInfo;
+	frameInfo.buffer = (char*)vertexData;
+	frameInfo.bufferSize = (unsigned int)rows * cols * sizeof(float);
+	frameInfo.rot.x = ReadFloatAttributes(&singleStepGroup, "rotation-x");
+	frameInfo.rot.y = ReadFloatAttributes(&singleStepGroup, "rotation-y");
+	frameInfo.rot.z = ReadFloatAttributes(&singleStepGroup, "rotation-z");
+	frameInfo.trans.x = ReadFloatAttributes(&singleStepGroup, "translation-x");
+	frameInfo.trans.y = ReadFloatAttributes(&singleStepGroup, "translation-y");
+	frameInfo.trans.z = ReadFloatAttributes(&singleStepGroup, "translation-z");
+	frameInfo.cellSize.x = ReadFloatAttributes(&singleStepGroup, "cellsize-x");
+	frameInfo.cellSize.y = ReadFloatAttributes(&singleStepGroup, "cellsize-y");
+	frameInfo.cellSize.z = ReadFloatAttributes(&singleStepGroup, "cellsize-z");
+	frameInfo.minThickness = ReadFloatAttributes(&singleStepGroup, "min-thickness");
+	frameInfo.maxThickness = ReadFloatAttributes(&singleStepGroup, "max-thickness");
+
 	memSpace.close();
 	dataSpace.close();
 	dataSet.close();
 	particleGroup.close();
 	singleStepGroup.close();
 
-	dataSize[0] = rows*cols*sizeof(float);
-
-	return (char*)vertexData;
+	return frameInfo;
 }
 
-char* ECoatResultReader::GetParticleColorBuffer(unsigned int frameNum, unsigned int* dataSize)
+FrameInfo ECoatResultReader::GetParticleColorBuffer(unsigned int frameNum)
 {
 	H5::Group stepsGroup = _h5File->openGroup("Steps");
 
@@ -109,15 +122,28 @@ char* ECoatResultReader::GetParticleColorBuffer(unsigned int frameNum, unsigned 
 
 	dataSet.read(thicknessBuf, H5::PredType::NATIVE_FLOAT, memSpace, dataSpace);
 
+	FrameInfo frameInfo;
+	frameInfo.buffer = (char*)thicknessBuf;
+	frameInfo.bufferSize = (unsigned int)memSize;
+	frameInfo.rot.x = ReadFloatAttributes(&singleStepGroup, "rotation-x");
+	frameInfo.rot.y = ReadFloatAttributes(&singleStepGroup, "rotation-y");
+	frameInfo.rot.z = ReadFloatAttributes(&singleStepGroup, "rotation-z");
+	frameInfo.trans.x = ReadFloatAttributes(&singleStepGroup, "translation-x");
+	frameInfo.trans.y = ReadFloatAttributes(&singleStepGroup, "translation-y");
+	frameInfo.trans.z = ReadFloatAttributes(&singleStepGroup, "translation-z");
+	frameInfo.cellSize.x = ReadFloatAttributes(&singleStepGroup, "cellsize-x");
+	frameInfo.cellSize.y = ReadFloatAttributes(&singleStepGroup, "cellsize-y");
+	frameInfo.cellSize.z = ReadFloatAttributes(&singleStepGroup, "cellsize-z");
+	frameInfo.minThickness = ReadFloatAttributes(&singleStepGroup, "min-thickness");
+	frameInfo.maxThickness = ReadFloatAttributes(&singleStepGroup, "max-thickness");
+
 	memSpace.close();
 	dataSpace.close();
 	dataSet.close();
 	particleGroup.close();
 	singleStepGroup.close();
 
-	dataSize[0] = memSize;
-
-	return thicknessBuf;
+	return frameInfo;
 }
 
 char* ECoatResultReader::GetParticleBufferWorkpiece(unsigned int frameNum, unsigned int* dataSize)
@@ -171,6 +197,23 @@ char* ECoatResultReader::GetParticleBufferWorkpiece(unsigned int frameNum, unsig
 	dataSize[0] = rows * cols * sizeof(float);
 
 	return vertexData;
+}
+
+float ECoatResultReader::ReadFloatAttributes(H5::Group* group, const std::string& attr_name)
+{
+	double value;
+
+	if (group->attrExists(attr_name.c_str()))
+	{
+		// get the dataspace associated with the attribute
+		H5::Attribute attr = group->openAttribute(attr_name.c_str());
+		H5::DataSpace dataspace = attr.getSpace();
+		attr.read(attr.getDataType(), &value);
+		dataspace.close();
+		attr.close();
+	}
+
+	return static_cast<float>(value);
 }
 
 ECoatResultReader::~ECoatResultReader()

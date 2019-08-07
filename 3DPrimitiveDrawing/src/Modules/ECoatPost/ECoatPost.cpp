@@ -22,20 +22,21 @@ ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 	_meshManager = new GLMeshManager(_sw, _sh);
 	_meshManager->AddMeshRenderer("data/BigSize/Trike/objFile.obj", PBR_SHADER, BaseModelIO::OBJ_MODEL);
 
-	_timeLineFrame = new TimeLineFrame(0, 0, 300, 700, 305, this);
+	_timeLineFrame = new TimeLineFrame(0, 0, 300, 700, 80, this);
 
-	ECoatResultReader ecoatReader("data/result.ecoat");
+	_colorBar = new ECoatColorBar();
+	_ecoatReader = new ECoatResultReader("data/result_fine.ecoat");
+
 	unsigned int dataSize;
-	char* vertexBuf = ecoatReader.GetParticleBufferWorkpiece(1, &dataSize);
+	char* vertexBuf = _ecoatReader->GetParticleBufferWorkpiece(1, &dataSize);
 
 	_particleRenderer = new ParticleRenderer(vertexBuf, dataSize);
 
 	free(vertexBuf);
 
-	glViewport(0, 0, _sw, _sh);
+	//ApplyContour(1);
 
-	_ecoatReader = new ECoatResultReader("data/result.ecoat");
-	_colorBar = new ECoatColorBar();
+	SetScreenSize(_sw, _sh);
 }
 
 void ECoatPost::SetScreenSize(unsigned int sw, unsigned int sh)
@@ -77,11 +78,11 @@ void ECoatPost::Draw()
 	_floor->Draw();
 	_colorBar->Draw();
 
-
 	//for (int i = 0; i < _meshManager->Size(); i++)
 	//{
 	//	_meshManager->Get(i)->Draw();
 	//}
+
 	glDisable(GL_CULL_FACE);
 
 	//if (Cam::GetInstance()->IsCameraUpdated())
@@ -118,29 +119,13 @@ void ECoatPost::ApplyContour(int frameNum)
 
 	if (_particleRenderer)
 	{
-		//unsigned int vertexBufSize;
-		//char* vertexBuf = (char*)_ecoatReader->GetParticleBufferWorkpiece(1, &vertexBufSize);
+		FrameInfo frameInfo = _ecoatReader->GetParticleColorBuffer(frameNum);
 
-		unsigned int thicknessBufSize;
-		float* thicknessBuf = (float*)_ecoatReader->GetParticleColorBuffer(frameNum, &thicknessBufSize);
-		unsigned int numThicknessVals = thicknessBufSize / sizeof(float);
-
-		float minThick = 0.0f;
-		float maxThick = 0.000024859f;
+		float minThick = frameInfo.minThickness;
+		float maxThick = frameInfo.maxThickness;
 		float totDiffThick = maxThick - minThick;
-
-		_colorBar->SetMinMaxThickness(minThick, maxThick);
-
-		//glm::vec3 sCol(0.0f, 0.0f, 255.0f);
-		//glm::vec3 eCol(255.0f, 0.0f, 0.0f);
-
-		//float totDiffR = eCol.r - sCol.r;
-		//float totDiffG = eCol.g - sCol.g;
-		//float totDiffB = eCol.b - sCol.b;
-
-		//float factorR = totDiffR / totDiffThick;
-		//float factorG = totDiffG / totDiffThick;
-		//float factorB = totDiffB / totDiffThick;
+		unsigned int numThicknessVals = frameInfo.bufferSize / sizeof(float);
+		float* thicknessBuf = (float*)frameInfo.buffer;
 
 		unsigned int colorBufSize = numThicknessVals * 3;
 		char* colorBuf = (char*)malloc(colorBufSize);
@@ -149,6 +134,7 @@ void ECoatPost::ApplyContour(int frameNum)
 		float* allColorsVecG = _colorBar->allColorsVecG;
 		float* allColorsVecB = _colorBar->allColorsVecB;
 
+		//TODO: 1000.0f should be taken from ColorBar class.
 		float factor = 1000.0f / totDiffThick;
 
 		for (int i = 0; i < numThicknessVals; i++)
@@ -160,20 +146,6 @@ void ECoatPost::ApplyContour(int frameNum)
 			colorBuf[ii + 0] = allColorsVecR[index] * 255;
 			colorBuf[ii + 1] = allColorsVecG[index] * 255;
 			colorBuf[ii + 2] = allColorsVecB[index] * 255;
-
-			//colorBuf[ii + 0] = sCol.r + factorR * thickness;
-			//colorBuf[ii + 1] = sCol.g + factorG * thickness;
-			//colorBuf[ii + 2] = sCol.b + factorB * thickness;
-
-			//float r = 0;
-			//float g = 0;
-			//float b = 0;
-
-			//_colorBar->GetColor(thickness, &r, &g, &b);
-
-			//colorBuf[ii + 0] = r * 255;
-			//colorBuf[ii + 1] = g * 255;
-			//colorBuf[ii + 2] = b * 255;
 		}
 
 		if (_particleRenderer)
@@ -220,3 +192,37 @@ ECoatPost::~ECoatPost()
 		_meshManager = nullptr;
 	}
 }
+
+
+
+//
+//glm::vec3 sCol(0.0f, 0.0f, 255.0f);
+//glm::vec3 eCol(255.0f, 0.0f, 0.0f);
+//
+//float totDiffR = eCol.r - sCol.r;
+//float totDiffG = eCol.g - sCol.g;
+//float totDiffB = eCol.b - sCol.b;
+//
+//float factorR = totDiffR / totDiffThick;
+//float factorG = totDiffG / totDiffThick;
+//float factorB = totDiffB / totDiffThick;
+//
+//for (int i = 0; i < numThicknessVals; i++)
+//{
+//	int ii = i * 3;
+//
+//	colorBuf[ii + 0] = sCol.r + factorR * thickness;
+//	colorBuf[ii + 1] = sCol.g + factorG * thickness;
+//	colorBuf[ii + 2] = sCol.b + factorB * thickness;
+//
+//	float r = 0;
+//	float g = 0;
+//	float b = 0;
+//
+//	_colorBar->GetColor(thickness, &r, &g, &b);
+//
+//	colorBuf[ii + 0] = r * 255;
+//	colorBuf[ii + 1] = g * 255;
+//	colorBuf[ii + 2] = b * 255;
+//}
+//
