@@ -44,6 +44,14 @@ const unsigned int* UIntArray::getArray()
 	return (unsigned int*)_arr;
 }
 
+void UIntArray::print()
+{
+	for (int i = 0; i < _size; i++)
+	{
+		printf("\n%d", _arr[i]);
+	}
+}
+
 UIntArray::~UIntArray()
 {
 	if(_arr)

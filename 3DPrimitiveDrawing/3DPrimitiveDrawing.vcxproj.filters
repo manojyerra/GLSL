@@ -531,6 +531,9 @@
     <ClCompile Include="src\Modules\ECoatPost\ECoatAssetsBuilder.cpp">
       <Filter>src\Modules\ECoatPost</Filter>
     </ClCompile>
+    <ClCompile Include="src\Modules\ECoatPost\ContourMap.cpp">
+      <Filter>src\Modules\ECoatPost</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -912,6 +915,9 @@
       <Filter>src\Modules\ECoatPost</Filter>
     </ClInclude>
     <ClInclude Include="src\Modules\ECoatPost\ECoatAssetsBuilder.h">
+      <Filter>src\Modules\ECoatPost</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\ECoatPost\ContourMap.h">
       <Filter>src\Modules\ECoatPost</Filter>
     </ClInclude>
   </ItemGroup>

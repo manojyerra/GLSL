@@ -42,6 +42,21 @@ float AABB::CenterZ()
 	return (minZ + maxZ) / 2.0f;
 }
 
+float AABB::W()
+{
+	return (maxX - minX);
+}
+
+float AABB::H()
+{
+	return (maxY - minY);
+}
+
+float AABB::D()
+{
+	return (maxZ - minZ);
+}
+
 glm::vec3 AABB::Center()
 {
 	float cx = (minX + maxX) / 2.0f;
@@ -49,6 +64,16 @@ glm::vec3 AABB::Center()
 	float cz = (minZ + maxZ) / 2.0f;
 
 	return glm::vec3(cx, cy, cz);
+}
+
+glm::vec3 AABB::Min()
+{
+	return glm::vec3(minX, minY, minZ);
+}
+
+glm::vec3 AABB::Max()
+{
+	return glm::vec3(maxX, maxY, maxZ);
 }
 
 void AABB::print()

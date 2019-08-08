@@ -115,6 +115,7 @@
     <ClCompile Include="src\Modules\Demo\DemoUI\WholeWindowFrame.cpp" />
     <ClCompile Include="src\Modules\Demo\ParticlesDemo\ParticlesDemo.cpp" />
     <ClCompile Include="src\Modules\Demo\RenderDemo\RenderDemo.cpp" />
+    <ClCompile Include="src\Modules\ECoatPost\ContourMap.cpp" />
     <ClCompile Include="src\Modules\ECoatPost\ECoatAssetsBuilder.cpp" />
     <ClCompile Include="src\Modules\ECoatPost\ECoatAssetsReader.cpp" />
     <ClCompile Include="src\Modules\ECoatPost\ECoatColorBar.cpp" />
@@ -237,6 +238,7 @@
     <ClInclude Include="src\Modules\Demo\DemoUI\WholeWindowFrame.h" />
     <ClInclude Include="src\Modules\Demo\ParticlesDemo\ParticlesDemo.h" />
     <ClInclude Include="src\Modules\Demo\RenderDemo\RenderDemo.h" />
+    <ClInclude Include="src\Modules\ECoatPost\ContourMap.h" />
     <ClInclude Include="src\Modules\ECoatPost\ECoatAssetsBuilder.h" />
     <ClInclude Include="src\Modules\ECoatPost\ECoatAssetsReader.h" />
     <ClInclude Include="src\Modules\ECoatPost\ECoatColorBar.h" />

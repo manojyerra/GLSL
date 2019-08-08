@@ -28,6 +28,8 @@ private:
 
 	void ApplyContour(int frameNum);
 	void SetGLStates();
+	char* GetParticleColorBuf(int frameNum, unsigned int* bufSize);
+	GLMeshRenderer* _carBody;
 
 public:
 	ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv);

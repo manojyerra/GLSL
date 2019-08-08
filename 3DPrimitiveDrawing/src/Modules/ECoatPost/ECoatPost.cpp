@@ -4,6 +4,9 @@
 #include "ParticleRenderer.h"
 #include "ECoatResultReader.h"
 #include "Input.h"
+#include "ContourMap.h"
+#include "ObjReader.h"
+#include "STLReader.h"
 
 ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 {
@@ -28,8 +31,38 @@ ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 
 	_timeLineFrame = new TimeLineFrame(0, 0, 300, 700, _resultReader->GetFrameCount(), this);
 
+
+
+
 	unsigned int dataSize;
 	char* vertexBuf = _resultReader->GetParticleBufferWorkpiece(1, &dataSize);
+	
+
+
+	STLReader reader("AdvancedRendererInputFiles/checkedAuto_solidMesh_exported.stl");
+
+	float* stlVertexArr = (float*)reader.GetVertexBuffer();
+	unsigned int stlVertexArrSize = reader.GetVertexBufferSize() / 4;
+	unsigned int stlVertexCount = reader.GetVertexBufferSize() / 12;
+
+	unsigned int stlColorBufLen = stlVertexCount * 3;
+	unsigned char* stlColorBuf = (unsigned char*)malloc(stlColorBufLen);
+	memset(stlColorBuf, '\0', stlColorBufLen);
+
+	
+	float* parVertexArr = (float*)vertexBuf;
+	unsigned int parVertexArrSize = dataSize / 4;
+
+	unsigned int parColorBufLen = 0;
+	unsigned char* parColorBuf = (unsigned char*)GetParticleColorBuf(305, &parColorBufLen);
+
+	ContourMap colorMap(stlVertexArr, stlVertexArrSize, stlColorBuf, stlColorBufLen, parVertexArr, parVertexArrSize, parColorBuf, parColorBufLen);
+
+	BaseModelIO modelIO;
+	modelIO.SetVertexBuffer(reader.GetVertexBuffer(), reader.GetVertexBufferSize());
+	modelIO.SetColorBuffer((const char*)stlColorBuf, stlColorBufLen);
+
+	_carBody = new GLMeshRenderer(&modelIO, COLOR_SHADER);
 
 	_particleRenderer = new ParticleRenderer(vertexBuf, dataSize);
 
@@ -83,6 +116,8 @@ void ECoatPost::Draw()
 	{
 		_meshManager->Get(i)->Draw();
 	}
+
+	_carBody->Draw();
 
 	_particleRenderer->DrawAllParticles();
 	_colorBar->Draw();
@@ -159,6 +194,42 @@ void ECoatPost::ApplyContour(int frameNum)
 
 		Platform::debugPrint("\nTime : %ld", Platform::GetTimeInMillis() - startTime);
 	}
+}
+
+char* ECoatPost::GetParticleColorBuf(int frameNum, unsigned int* bufSize)
+{
+	FrameInfo frameInfo = _resultReader->GetParticleColorBuffer(frameNum);
+
+	float minThick = frameInfo.minThickness;
+	float maxThick = frameInfo.maxThickness;
+	float totDiffThick = maxThick - minThick;
+	unsigned int numThicknessVals = frameInfo.bufferSize / sizeof(float);
+	float* thicknessBuf = (float*)frameInfo.buffer;
+
+	unsigned int colorBufSize = numThicknessVals * 3;
+	char* colorBuf = (char*)malloc(colorBufSize);
+
+	float* allColorsVecR = _colorBar->allColorsVecR;
+	float* allColorsVecG = _colorBar->allColorsVecG;
+	float* allColorsVecB = _colorBar->allColorsVecB;
+
+	//TODO: 1000.0f should be taken from ColorBar class.
+	float factor = 1000.0f / totDiffThick;
+
+	for (int i = 0; i < numThicknessVals; i++)
+	{
+		int ii = i * 3;
+		int index = (int)((thicknessBuf[i] - minThick) * factor);
+
+		colorBuf[ii + 0] = allColorsVecR[index] * 255;
+		colorBuf[ii + 1] = allColorsVecG[index] * 255;
+		colorBuf[ii + 2] = allColorsVecB[index] * 255;
+	}
+
+	free(thicknessBuf);
+	bufSize[0] = colorBufSize;
+
+	return colorBuf;
 }
 
 ECoatPost::~ECoatPost()

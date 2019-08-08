@@ -9,11 +9,11 @@ ECoatAssetsBuilder::ECoatAssetsBuilder(ECoatAssetsReader* assetsReader, GLMeshMa
 	_sourcesVec.clear();
 	_resultReader = nullptr;
 
-	std::string solidPath = assetsReader->GetSolid();
-	if (solidPath.length() > 0)
-	{
-		_solid = meshMgr->AddMeshRenderer(solidPath, PBR_SHADER, BaseModelIO::STL_MODEL);
-	}
+	//std::string solidPath = assetsReader->GetSolid();
+	//if (solidPath.length() > 0)
+	//{
+	//	_solid = meshMgr->AddMeshRenderer(solidPath, PBR_SHADER, BaseModelIO::STL_MODEL);
+	//}
 
 	//std::string fluidPath = assetsReader->GetFluid();
 	//if (fluidPath.length() > 0)

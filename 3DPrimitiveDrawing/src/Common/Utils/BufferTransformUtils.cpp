@@ -24,6 +24,31 @@ glm::vec3 BufferTransformUtils::CalcCenter(float* vertexBuf, unsigned int arrSiz
 	return glm::vec3((minX + maxX)/2.0f, (minY + maxY)/2.0f, (minZ + maxZ)/2.0f);
 }
 
+AABB BufferTransformUtils::CalcAABB(float* vertexBuf, unsigned int arrSize)
+{
+	float minX = vertexBuf[0];
+	float minY = vertexBuf[1];
+	float minZ = vertexBuf[2];
+
+	float maxX = vertexBuf[0];
+	float maxY = vertexBuf[1];
+	float maxZ = vertexBuf[2];
+
+	for (int i = 3; i < arrSize; i += 3)
+	{
+		if (vertexBuf[i + 0] < minX)	minX = vertexBuf[i + 0];
+		if (vertexBuf[i + 1] < minY)	minY = vertexBuf[i + 1];
+		if (vertexBuf[i + 2] < minZ)	minZ = vertexBuf[i + 2];
+
+		if (vertexBuf[i + 0] > maxX)	maxX = vertexBuf[i + 0];
+		if (vertexBuf[i + 1] > maxY)	maxY = vertexBuf[i + 1];
+		if (vertexBuf[i + 2] > maxZ)	maxZ = vertexBuf[i + 2];
+	}
+
+	AABB bBox(minX, maxX, minY, maxY, minZ, maxZ);
+	return bBox;
+}
+
 void BufferTransformUtils::CalcMinMaxPoints(std::vector<glm::vec3>* points3D, glm::vec3* min, glm::vec3* max)
 {
 	float minX = points3D->at(0).x;

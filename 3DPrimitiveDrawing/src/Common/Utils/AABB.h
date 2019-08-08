@@ -25,7 +25,13 @@ public:
 	float CenterY();
 	float CenterZ();
 
+	float W();
+	float H();
+	float D();
+
 	glm::vec3 Center();
+	glm::vec3 Min();
+	glm::vec3 Max();
 
 	void print();
 };

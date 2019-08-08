@@ -6,11 +6,12 @@ class UIntArray
 private:
 	unsigned int _capacity;
 	unsigned int _size;
-	unsigned int* _arr;
 	
 	void ReCreateMem();
 
 public:
+	unsigned int* _arr;
+
 	UIntArray(unsigned int capacity);
 	~UIntArray();
 
@@ -20,6 +21,7 @@ public:
 	unsigned int capacity();
 
 	const unsigned int* getArray();
+	void print();
 };
 
 #endif
