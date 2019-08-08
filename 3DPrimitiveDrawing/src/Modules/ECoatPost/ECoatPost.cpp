@@ -10,7 +10,7 @@ ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 	_sw = sw;
 	_sh = sh;
 
-	_floor = new Floor();
+	SetGLStates();
 
 	float zNear = 0.15f;
 	float zFar = 1000000.0f;
@@ -19,6 +19,7 @@ ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 	Cam::GetInstance()->Init(_sw, _sh, zNear, zFar, zNearPlaneW);
 	Cam2D::GetInstance()->Init(_sw, _sh);
 
+	_floor = new Floor();
 	_meshManager = new GLMeshManager(_sw, _sh);
 
 	_assetsBuilder = new ECoatAssetsBuilder(&ECoatAssetsReader("AdvancedRenderer_JLR_ECoating.json"), _meshManager);
@@ -50,23 +51,24 @@ void ECoatPost::SetScreenSize(unsigned int sw, unsigned int sh)
 	Cam2D::GetInstance()->SetScreenSize(_sw, _sh);
 }
 
-void ECoatPost::OnModuleChange(unsigned int sw, unsigned int sh)
-{
-
-}
-
-void ECoatPost::Update(float deltaTime) 
-{
-
-}
-
-void ECoatPost::Draw()
+void ECoatPost::SetGLStates()
 {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
 
+void ECoatPost::OnModuleChange(unsigned int sw, unsigned int sh)
+{
+}
+
+void ECoatPost::Update(float deltaTime) 
+{
+}
+
+void ECoatPost::Draw()
+{
 	glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -80,13 +82,6 @@ void ECoatPost::Draw()
 	for (int i = 0; i < _meshManager->Size(); i++)
 	{
 		_meshManager->Get(i)->Draw();
-	}
-
-	glDisable(GL_CULL_FACE);
-
-	//if (Cam::GetInstance()->IsCameraUpdated())
-	{
-		//_particleRenderer->DrawFewParticles();
 	}
 
 	_particleRenderer->DrawAllParticles();
@@ -151,7 +146,7 @@ void ECoatPost::ApplyContour(int frameNum)
 		if (_particleRenderer)
 		{
 			glm::vec3 carCenter = _assetsBuilder->GetSolid()->GetAABB().Center();
-			glm::vec3 particleCenter = _particleRenderer->_center;
+			glm::vec3 particleCenter = _particleRenderer->GetBBoxCenter();
 
 			glm::vec3 delta = carCenter - particleCenter;
 

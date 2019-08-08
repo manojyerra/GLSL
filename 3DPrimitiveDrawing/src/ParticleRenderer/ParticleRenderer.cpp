@@ -1,15 +1,17 @@
 #include "ParticleRenderer.h"
 #include "Cam.h"
+#include "BufferTransformUtils.h"
 
 ParticleRenderer::ParticleRenderer(std::string filePath)
 {
 	_skipNumVertex = 50;
-	_modelMat.SetRotation(glm::vec3(0,90,90));
 
 	BinaryObjReader binaryObjReader(filePath);
 
 	char* vertexBuf = (char*)binaryObjReader.GetVertexBuffer();
 	unsigned int vertexBufLen = binaryObjReader.GetVertexBufferSize();
+
+	_bBoxCenter = BufferTransformUtils::CalcCenter((float*)vertexBuf, vertexBufLen / 4);
 
 	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBuf, vertexBufLen);
 	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBuf, vertexBufLen);
@@ -18,7 +20,7 @@ ParticleRenderer::ParticleRenderer(std::string filePath)
 ParticleRenderer::ParticleRenderer(char* vertexBuf, unsigned int vertexBufLen)
 {
 	_skipNumVertex = 50;
-	_modelMat.SetRotation(glm::vec3(0, 90, 90));
+	_bBoxCenter = BufferTransformUtils::CalcCenter((float*)vertexBuf, vertexBufLen / 4);
 
 	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBuf, vertexBufLen);
 	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBuf, vertexBufLen);
@@ -54,7 +56,7 @@ GLMeshRenderer* ParticleRenderer::CreateFewParticlesRenderer(char* highPolyVerBu
 	unsigned char* lowPolyVertexBuf = (unsigned char*)malloc(lowPolyVerBufLen);
 
 	unsigned int hIndex = 0; // high poly array index
-	for (unsigned int i = 0; i < lowPolyVerCount; i += bytesPVer)
+	for (unsigned int i = 0; i < lowPolyVerBufLen; i += bytesPVer)
 	{
 		memcpy(&lowPolyVertexBuf[i], &highPolyVerBuf[hIndex], bytesPVer);
 		hIndex += skipBytes;
@@ -64,7 +66,7 @@ GLMeshRenderer* ParticleRenderer::CreateFewParticlesRenderer(char* highPolyVerBu
 	//Generating low poly color data
 	unsigned int lowPolyColorBufLen = lowPolyVerCount * BYTES_PER_COLOR;
 	unsigned char* lowPolyColorBuf = (unsigned char*)malloc(lowPolyColorBufLen);
-	memset(lowPolyColorBuf, 128, lowPolyColorBufLen);
+	memset(lowPolyColorBuf, 0, lowPolyColorBufLen);
 
 	BaseModelIO modelIO;
 	modelIO.SetVertexBuffer((const char*)lowPolyVertexBuf, lowPolyVerBufLen);
@@ -84,6 +86,11 @@ void ParticleRenderer::SetPosition(float x, float y, float z)
 	_modelMat.SetPos(x, y, z);
 }
 
+glm::vec3 ParticleRenderer::GetBBoxCenter()
+{
+	return _bBoxCenter;
+}
+
 void ParticleRenderer::UpdateColorBuffer(char* highPolyColorBuf, unsigned int highPolyColorBufLen)
 {
 	_allParticlesRenderer->UpdateColorBuffer(highPolyColorBuf, highPolyColorBufLen);
@@ -97,7 +104,7 @@ void ParticleRenderer::UpdateColorBuffer(char* highPolyColorBuf, unsigned int hi
 	unsigned int skipBytes = _skipNumVertex * bytesPColor;
 	unsigned int hIndex = 0; // high poly array index
 
-	for (unsigned int i = 0; i < lowPolyColorCount; i += bytesPColor)
+	for (unsigned int i = 0; i < lowPolyColorBufLen; i += bytesPColor)
 	{
 		memcpy(&lowPolyColorBuf[i], &highPolyColorBuf[hIndex], bytesPColor);
 		hIndex += skipBytes;
@@ -110,16 +117,8 @@ void ParticleRenderer::UpdateColorBuffer(char* highPolyColorBuf, unsigned int hi
 
 void ParticleRenderer::DrawAllParticles()
 {
-	if (Cam::GetInstance()->IsCameraUpdated())
-	{
-		_fewParticlesRenderer->SetModelMatrix(_modelMat.m);
-		_fewParticlesRenderer->Draw();
-	}
-	else
-	{
-		_allParticlesRenderer->SetModelMatrix(_modelMat.m);
-		_allParticlesRenderer->Draw();
-	}
+	_allParticlesRenderer->SetModelMatrix(_modelMat.m);
+	_allParticlesRenderer->Draw();
 }
 
 void ParticleRenderer::DrawFewParticles()

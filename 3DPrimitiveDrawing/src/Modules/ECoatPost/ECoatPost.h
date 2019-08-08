@@ -27,6 +27,7 @@ private:
 	ECoatResultReader* _resultReader;
 
 	void ApplyContour(int frameNum);
+	void SetGLStates();
 
 public:
 	ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv);

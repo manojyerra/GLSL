@@ -13,11 +13,11 @@ RenderDemo::RenderDemo(float sw, float sh)
 	_sw = sw;
 	_sh = sh;
 
-	_floor = new Floor();
-
 	_numModels = 1;
 	_selectedModel = nullptr;
 
+	SetGLStates();
+	_floor = new Floor();
 	_meshManager = new GLMeshManager(sw, sh);
 
 	GLMeshRenderer* meshRenderer1 = nullptr;
@@ -66,6 +66,14 @@ RenderDemo::RenderDemo(float sw, float sh)
 	Cam2D::GetInstance()->Init(sw, sh);
 }
 
+void RenderDemo::SetGLStates()
+{
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
 void RenderDemo::SetScreenSize(float sw, float sh)
 {
 	_sw = sw;
@@ -90,11 +98,6 @@ void RenderDemo::SetScreenSize(float sw, float sh)
 
 void RenderDemo::Draw()
 {
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 	glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

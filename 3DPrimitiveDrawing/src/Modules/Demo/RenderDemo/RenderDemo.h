@@ -34,6 +34,7 @@ private:
 	ModelSelectionFrame* _modelSelectionFrame;
 
 	void DrawObjectsForSSAO();
+	void SetGLStates();
 
 public:
 	RenderDemo(float sw, float sh);

@@ -3,19 +3,21 @@
 
 #include "GLMeshRenderer.h"
 #include "BinaryObjReader.h"
+#include "glm/glm.hpp"
 
 class ParticleRenderer
 {
 	GLMat _modelMat;
 	GLMeshRenderer* _allParticlesRenderer;
 	GLMeshRenderer* _fewParticlesRenderer;
-
-	GLMeshRenderer* CreateAllParticlesRenderer(char* vertexBuf, unsigned int vertexBufLen);
-	GLMeshRenderer* CreateFewParticlesRenderer(char* allParticleVertexBuf, unsigned int allParticleVertexBufLen);
+	unsigned int _skipNumVertex;
+	glm::vec3 _bBoxCenter;
 
 	static const unsigned int BYTES_PER_VERTEX = 12;
 	static const unsigned int BYTES_PER_COLOR = 3;
-	unsigned int _skipNumVertex;
+
+	GLMeshRenderer* CreateAllParticlesRenderer(char* vertexBuf, unsigned int vertexBufLen);
+	GLMeshRenderer* CreateFewParticlesRenderer(char* allParticleVertexBuf, unsigned int allParticleVertexBufLen);
 
 public:
 	ParticleRenderer(std::string filePath);
@@ -25,6 +27,7 @@ public:
 
 	void SetPosition(float x, float y, float z);
 	void UpdateColorBuffer(char* colorBuffer, unsigned int colorBufLen);
+	glm::vec3 GetBBoxCenter();
 
 	void DrawAllParticles();
 	void DrawFewParticles();

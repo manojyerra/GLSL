@@ -3,6 +3,7 @@
 #include "ParticlesDemo.h"
 #include "Cam.h"
 #include "Cam2D.h"
+#include "GLState.h"
 
 ParticlesDemo::ParticlesDemo(float sw, float sh)
 {
@@ -43,7 +44,8 @@ ParticlesDemo::ParticlesDemo(float sw, float sh)
 
 void ParticlesDemo::Draw()
 {
-	glDisable(GL_CULL_FACE);
+	//TODO: Find what is the reason for disabling the cull face while drawing particles.
+	bool cullFaceForDraw = GLState::GLEnable(GL_CULL_FACE, false);
 
 	float clearValue = 110.0f / 255.0f;
 
@@ -53,7 +55,6 @@ void ParticlesDemo::Draw()
 
 	if (Cam::GetInstance()->IsCameraUpdated())
 	{
-		glEnable(GL_DEPTH_TEST);
 		glClearColor(clearValue, clearValue, clearValue, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -72,7 +73,6 @@ void ParticlesDemo::Draw()
 		{
 			_fbo->BindFBO();
 
-			glEnable(GL_DEPTH_TEST);
 			glClearColor(clearValue, clearValue, clearValue, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -89,8 +89,6 @@ void ParticlesDemo::Draw()
 
 		glClearColor(clearValue, clearValue, clearValue, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glDisable(GL_DEPTH_TEST);
-		glDisable(GL_CULL_FACE);
 
 		Cam2D::GetInstance()->SetProjection();
 
@@ -98,8 +96,14 @@ void ParticlesDemo::Draw()
 		_texture->GetShader()->SetTextureID(_fbo->GetTextureID());
 		_texture->GetShader()->Set2DCamera(true);
 
+		bool depthTest = GLState::GLEnable(GL_DEPTH_TEST, false);
+		bool cullFace = GLState::GLEnable(GL_CULL_FACE, false);
 		_texture->Draw();
+		GLState::GLEnable(GL_DEPTH_TEST, depthTest);
+		GLState::GLEnable(GL_CULL_FACE, cullFace);
 	}
+
+	GLState::GLEnable(GL_CULL_FACE, cullFaceForDraw);
 }
 
 void ParticlesDemo::SetScreenSize(float sw, float sh)

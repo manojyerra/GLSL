@@ -1,6 +1,6 @@
 #include "ECoatColorBar.h"
 #include "GLBatch.h"
-
+#include "GLState.h"
 
 ECoatColorBar::ECoatColorBar()
 {
@@ -136,11 +136,13 @@ void ECoatColorBar::Draw()
 {
 	if (_meshRenderer)
 	{
-		glDisable(GL_DEPTH_TEST);
-		glDisable(GL_CULL_FACE);
+		bool depth = GLState::GLEnable(GL_DEPTH_TEST, false);
+		bool cullFace = GLState::GLEnable(GL_CULL_FACE, false);
+
 		_meshRenderer->Draw();
-		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_CULL_FACE);
+
+		GLState::GLEnable(GL_DEPTH_TEST, depth);
+		GLState::GLEnable(GL_CULL_FACE, cullFace);
 	}
 }
 
