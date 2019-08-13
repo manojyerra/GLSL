@@ -32,6 +32,7 @@ public:
 	glm::vec3 Center();
 	glm::vec3 Min();
 	glm::vec3 Max();
+	glm::vec3 Size();
 
 	void print();
 };

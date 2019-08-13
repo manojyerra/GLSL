@@ -3,6 +3,7 @@
 
 #include "glm/glm.hpp"
 #include "AABB.h"
+#include "AABBD.h"
 #include <vector>
 
 class BufferTransformUtils
@@ -10,6 +11,8 @@ class BufferTransformUtils
 public:
 	static glm::vec3 CalcCenter(float* vertexBuf, unsigned int arrSize);
 	static AABB CalcAABB(float* vertexBuf, unsigned int arrSize);
+	static AABBD CalcAABBD(double* vertexBuf, unsigned long arrSize);
+
 	static void CalcMinMaxPoints(std::vector<glm::vec3>* point3D, glm::vec3* min, glm::vec3* max);
 
 	static void RotateBufXYZ(float* vertexBuf, int arrSize, float xAng, float yAng, float zAng);

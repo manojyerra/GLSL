@@ -76,6 +76,11 @@ glm::vec3 AABB::Max()
 	return glm::vec3(maxX, maxY, maxZ);
 }
 
+glm::vec3 AABB::Size()
+{
+	return glm::vec3(maxX - minX, maxY - minY, maxZ - minZ);
+}
+
 void AABB::print()
 {
 	Platform::debugPrint("\n MinX = %f, MaxX = %f, MinY = %f, MaxY = %f, MinZ = %f, MaxZ = %f", minX, maxX, minY, maxY, minZ, maxZ);
@@ -83,5 +88,4 @@ void AABB::print()
 
 AABB::~AABB()
 {
-	
 }
