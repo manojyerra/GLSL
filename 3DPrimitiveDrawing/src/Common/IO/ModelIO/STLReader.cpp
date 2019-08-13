@@ -34,20 +34,16 @@ void STLReader::ReadSTLFile(std::string filePath)
 
 	while ((line = fileReader.ReadLine()) != NULL)
 	{
-		int i = 0;
-
-		while (line[i] == ' ')
-		{
-			i++;
-		}
+		int i = -1;
+		while (line[++i] == ' ');
 
 		if (line[i] == 'f')
 		{
-			ScanLineUtils::scan_vertex(line, i+13, &nx, &ny, &nz);
+			ScanLineUtils::scan_vertex(line, i+12, &nx, &ny, &nz);
 		}
 		else if(line[i] == 'v')
 		{
-			ScanLineUtils::scan_vertex(line, i+7, &vx, &vy, &vz);
+			ScanLineUtils::scan_vertex(line, i+6, &vx, &vy, &vz);
 
 			_vertexFloatArr->push_back_3(vx, vy, vz);
 			_normalFloatArr->push_back_3(nx, ny, nz);
@@ -73,6 +69,8 @@ void STLReader::ReadSTLFile(std::string filePath)
 			}
 		}
 	}
+
+
 }
 
 void STLReader::WriteBinaryToFile()
