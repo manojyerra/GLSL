@@ -139,6 +139,9 @@
     <Filter Include="src\Common\IO\JSONIO\json">
       <UniqueIdentifier>{02cfb8dd-68af-4381-89e9-74b2e5e3d08b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Common\Utils\MathUtils">
+      <UniqueIdentifier>{234d8a4a-4901-4346-a177-d90c709bf61b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -423,9 +426,6 @@
     <ClCompile Include="src\GLUtil\Shaders\PBRWithTextureShader\PBRWithTextureShader.cpp">
       <Filter>src\GLUtil\Shaders\PBRWithTextureShader</Filter>
     </ClCompile>
-    <ClCompile Include="src\Common\Utils\MathUtils.cpp">
-      <Filter>src\Common\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="src\GLUtil\GLBufferBuilder.cpp">
       <Filter>src\GLUtil</Filter>
     </ClCompile>
@@ -533,6 +533,12 @@
     </ClCompile>
     <ClCompile Include="src\Modules\ECoatPost\ContourMap.cpp">
       <Filter>src\Modules\ECoatPost</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\Utils\AABBD.cpp">
+      <Filter>src\Common\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\Utils\MathUtils\MathUtils.cpp">
+      <Filter>src\Common\Utils\MathUtils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -782,9 +788,6 @@
     <ClInclude Include="src\GLUtil\Shaders\PBRWithTextureShader\PBRWithTextureShader.h">
       <Filter>src\GLUtil\Shaders\PBRWithTextureShader</Filter>
     </ClInclude>
-    <ClInclude Include="src\Common\Utils\MathUtils.h">
-      <Filter>src\Common\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="src\GLUtil\GLInclude.h">
       <Filter>src\GLUtil</Filter>
     </ClInclude>
@@ -919,6 +922,12 @@
     </ClInclude>
     <ClInclude Include="src\Modules\ECoatPost\ContourMap.h">
       <Filter>src\Modules\ECoatPost</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Utils\AABBD.h">
+      <Filter>src\Common\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Utils\MathUtils\MathUtils.h">
+      <Filter>src\Common\Utils\MathUtils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
