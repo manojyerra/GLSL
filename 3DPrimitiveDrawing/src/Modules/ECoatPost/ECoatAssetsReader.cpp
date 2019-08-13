@@ -8,7 +8,7 @@ ECoatAssetsReader::ECoatAssetsReader(const std::string& filePath)
 	_solid = "";
 	_fluid = "";
 	_sourcesVec.clear();
-	_result = "";
+ 	_result = "";
 
 	std::ifstream input(filePath);
 	
@@ -27,7 +27,6 @@ ECoatAssetsReader::ECoatAssetsReader(const std::string& filePath)
 			_solid = solidValArr[(unsigned int)0].asString();
 	}
 
-
 	Json::Value fluidValArr = root["Fluids"];
 
 	if (fluidValArr.isArray())
@@ -38,7 +37,6 @@ ECoatAssetsReader::ECoatAssetsReader(const std::string& filePath)
 		if (fluidValArr.size() == 1)
 			_fluid = fluidValArr[(unsigned int)0].asString();
 	}
-
 
 	Json::Value result = root["Result"];
 

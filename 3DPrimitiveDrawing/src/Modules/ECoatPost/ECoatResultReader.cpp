@@ -154,6 +154,11 @@ FrameInfo ECoatResultReader::GetParticleColorBuffer(unsigned int frameNum)
 
 char* ECoatResultReader::GetParticleBufferWorkpiece(unsigned int frameNum, unsigned int* dataSize)
 {
+	return GetParticleBufferWorkpiece(frameNum, dataSize, H5::PredType::NATIVE_FLOAT);
+}
+
+char* ECoatResultReader::GetParticleBufferWorkpiece(unsigned int frameNum, unsigned int* dataSize, H5::PredType dataType)
+{
 	H5::Group workPieceGroup = _h5File->openGroup("Workpiece");
 
 	if (!H5::IdComponent::isValid(workPieceGroup.getId()))
@@ -169,9 +174,9 @@ char* ECoatResultReader::GetParticleBufferWorkpiece(unsigned int frameNum, unsig
 	H5::Group particleGroup = workPieceGroup.openGroup("Particle");
 	H5::DataSet dataSet = particleGroup.openDataSet("position");
 
+	//size_t floatSize = dataSet.getFloatType().getSize();
 	if (dataSet.getTypeClass() != H5T_FLOAT)
 	{
-		//size_t floatSize = dataSet.getFloatType().getSize();
 		throw new std::exception("Exception : Invalid dataset type");
 	}
 
@@ -190,10 +195,23 @@ char* ECoatResultReader::GetParticleBufferWorkpiece(unsigned int frameNum, unsig
 
 	H5::DataSpace memSpace(numDimentions, arrInfo);
 
-	unsigned int vertexBufSize = rows * cols * sizeof(float);
-	char* vertexData = (char*)malloc(vertexBufSize);
+	unsigned int vertexBufSize = 0;
 
-	dataSet.read(vertexData, H5::PredType::NATIVE_FLOAT, memSpace, dataSpace);
+	if (dataType == H5::PredType::NATIVE_FLOAT)
+	{
+		vertexBufSize = rows * cols * sizeof(float);
+	}
+	else if(dataType == H5::PredType::NATIVE_DOUBLE)
+	{
+		vertexBufSize = rows * cols * sizeof(double);
+	}
+	else
+	{
+		throw new std::exception("Exception: Unsupported data type.");
+	}
+
+	char* vertexData = (char*)malloc(vertexBufSize);
+	dataSet.read(vertexData, dataType, memSpace, dataSpace);
 
 	memSpace.close();
 	dataSpace.close();

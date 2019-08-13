@@ -29,6 +29,8 @@ public:
 	FrameInfo GetParticleColorBuffer(unsigned int frameNum);
 
 	char* GetParticleBufferWorkpiece(unsigned int frameNum, unsigned int* dataSize);
+	char* GetParticleBufferWorkpiece(unsigned int frameNum, unsigned int* dataSize, H5::PredType dataType);
+
 	unsigned int GetFrameCount();
 };
 
