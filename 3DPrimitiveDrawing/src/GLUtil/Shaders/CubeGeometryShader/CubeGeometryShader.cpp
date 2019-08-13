@@ -9,8 +9,8 @@ CubeGeometryShader::CubeGeometryShader()
 		"shaders/CubeGeometryShader/CubeGeometryShader.gs",
 		"shaders/CubeGeometryShader/CubeGeometryShader.fs");
 
-	_methodNum = 2;
-	_cubeHalfLen = 0.00375f/2.0f;
+	//_methodNum = 2;
+	_cubeHalfLen = 0.0015f;
 	_alpha = 1.0f;
 }
 
@@ -42,7 +42,7 @@ void CubeGeometryShader::SetUniformsAndAttributes()
 	_shaderProgram->SetUniformMatrix3fv("normalMat", glm::value_ptr(cam->GetNormalMat(_modelMat.m)));
 	_shaderProgram->SetUniformMatrix4fv("modelViewMat", glm::value_ptr(cam->GetModelViewMat(_modelMat.m)));
 	_shaderProgram->SetUniform1f("hLen", _cubeHalfLen);
-	_shaderProgram->SetUniform1i("methodNum", _methodNum);
+	//_shaderProgram->SetUniform1i("methodNum", _methodNum);
 
 	GLuint colorLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "color");
 	glEnableVertexAttribArray(colorLoc);

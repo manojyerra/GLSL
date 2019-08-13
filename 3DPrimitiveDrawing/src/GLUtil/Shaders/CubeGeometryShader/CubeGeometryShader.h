@@ -9,7 +9,7 @@ class CubeGeometryShader : public Shader
 {
 private:
 	ShaderProgram* _shaderProgram;
-	int _methodNum;
+	//int _methodNum;
 	float _cubeHalfLen;
 	float _alpha;
 	GLMat _modelMat;

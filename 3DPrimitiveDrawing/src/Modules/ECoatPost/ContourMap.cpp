@@ -10,53 +10,51 @@ ContourMap::ContourMap(float* stlVertexArr, unsigned int stlVertexArrSize,
 	unsigned char* parColorBuf, unsigned int parColorBufLen)
 
 {
-	//FloatArray* particleBuf = new FloatArray();
+	this->parVertexArr = parVertexArr;
 
-	//particleBuf->push_back_3(0.00, 0.00, 1.0);
-	//particleBuf->push_back_3(1.60, 2.40, 0.0);
-	//particleBuf->push_back_3(2.20, 1.70, 0.0);
-	//particleBuf->push_back_3(4.10, 1.60, 0.0);
-	//particleBuf->push_back_3(4.30, 1.90, 0.0);
-	//particleBuf->push_back_3(4.10, 2.80, 0.0);
-	//particleBuf->push_back_3(5.20, 1.20, 0.0);
-	//particleBuf->push_back_3(7.20, 0.80, 0.0);
-	//particleBuf->push_back_3(7.80, 1.60, 0.0);
-	//particleBuf->push_back_3(7.80, 1.90, 0.0);
-	//particleBuf->push_back_3(9.00, 4.00, -1.0);
-
-	//parVertexArr = (float*)particleBuf->getArray();
-	//parVertexArrSize = particleBuf->size();
-
-
-	//Pushing particles indices to cells (3 dimention array)
+	long startTime = Platform::GetTimeInMillis();
 
 	AABB particleBBox = BufferTransformUtils::CalcAABB(parVertexArr, parVertexArrSize);
 	AABB stlBBox = BufferTransformUtils::CalcAABB(stlVertexArr, stlVertexArrSize);
 
-	glm::vec3 moveParticle(particleBBox.Center() - particleBBox.Min());
-	glm::vec3 moveSTL(stlBBox.Center() - stlBBox.Min());
+	glm::vec3 moveParticle(particleBBox.Min());
+	glm::vec3 moveSTL(stlBBox.Min());
 
-	BufferTransformUtils::Add(parVertexArr, parVertexArrSize, moveParticle);
-	BufferTransformUtils::Add(stlVertexArr, stlVertexArrSize, moveSTL);
+	BufferTransformUtils::Subtract(parVertexArr, parVertexArrSize, moveParticle);
+	BufferTransformUtils::Subtract(stlVertexArr, stlVertexArrSize, moveSTL);
 
-	float w = particleBBox.W();
-	float h = particleBBox.H();
-	float d = particleBBox.D();
+	glm::vec3 parBBoxSize = particleBBox.Size();
+	glm::vec3 stlBBoxSize = stlBBox.Size();
 
-	float sw = stlBBox.W();
-	float sh = stlBBox.H();
-	float sd = stlBBox.D();
+	particleBBox = BufferTransformUtils::CalcAABB(parVertexArr, parVertexArrSize);
+	stlBBox = BufferTransformUtils::CalcAABB(stlVertexArr, stlVertexArrSize);
+
+	parBBoxSize = particleBBox.Size();
+	stlBBoxSize = stlBBox.Size();
+
+	glm::vec3 parCen = particleBBox.Center();
+	glm::vec3 stlCen = stlBBox.Center();
+	glm::vec3 parCenMove(stlCen - parCen);
+
+	BufferTransformUtils::Add(parVertexArr, parVertexArrSize, parCenMove);
+
+	particleBBox = BufferTransformUtils::CalcAABB(parVertexArr, parVertexArrSize);
+
+	printf("\nTime taken for buffer transform: %ld", Platform::GetTimeInMillis() - startTime);
+	startTime = Platform::GetTimeInMillis();
+
+	//////////////
 
 
-	double vol = w * h * d;
+	double vol = parBBoxSize.x * parBBoxSize.y * parBBoxSize.z;
 
-	double totBoxes = 100*100*100;
+	double totBoxes = 300*300*300;
 	float boxVol = (float)(vol / totBoxes);
 	float boxLen = pow(boxVol, 1.0f/3.0f);
 
-	unsigned int numCols = (w / boxLen) + 2;
-	unsigned int numRows = (h / boxLen) + 2;
-	unsigned int numDeps = (d / boxLen) + 2;
+	unsigned int numCols = (parBBoxSize.x / boxLen) + 1;
+	unsigned int numRows = (parBBoxSize.y / boxLen) + 1;
+	unsigned int numDeps = (parBBoxSize.z / boxLen) + 1;
 
 	UIntArray** cells = new UIntArray*[numCols* numRows * numDeps];
 	memset(cells, '\0', numCols * numRows * numDeps * sizeof(void*));
@@ -84,29 +82,18 @@ ContourMap::ContourMap(float* stlVertexArr, unsigned int stlVertexArrSize,
 		}
 	}
 
-	/*
-	for (int row = 0; row < numRows; row++)
-	{
-		for (int col = 0; col < numCols; col++)
-		{
-			int index = row * numCols + col;
-			UIntArray* cell = cells[index];
+	printf("\nTime taken for pushing particles to cells : %ld",Platform::GetTimeInMillis() - startTime);
+	startTime = Platform::GetTimeInMillis();
 
-			if (cell)
-			{
-				printf("\n[%d,%d] ", col, row);
-				cell->print();
-			}
-			else
-			{
-				printf("\nNULL");
-			}
-		}
-	}
-	*/
-
+	int blackCount = 0;
 
 	int stlNumVertex = stlVertexArrSize / 3;
+	unsigned char lastColor[3];
+	lastColor[0] = 0;
+	lastColor[1] = 0;
+	lastColor[2] = 0;
+
+	int rad = 1;
 
 	for (int i = 0; i < stlNumVertex; i++)
 	{
@@ -114,69 +101,112 @@ ContourMap::ContourMap(float* stlVertexArr, unsigned int stlVertexArrSize,
 		float y = stlVertexArr[i * 3 + 1];
 		float z = stlVertexArr[i * 3 + 2];
 
-		unsigned int col = x / boxLen;
-		unsigned int row = y / boxLen;
-		unsigned int dep = z / boxLen;
+		glm::vec3 vertex(x, y, z);
 
-		int index = dep * (numRows * numCols) + row * numCols + col;
-		UIntArray* cell = cells[index];
+		int cellCol = x / boxLen;
+		int cellRow = y / boxLen;
+		int cellDep = z / boxLen;
 
-		//TODO: Ideally it should not be null as every vertex should have one particle.
-		if (cell != nullptr) 
+		int nearParIndex = -1;
+		float minDist = -1.0f;
+
+		for (int dep = cellDep - rad; dep <= cellDep + rad; dep++)
 		{
-			unsigned int numEleInCell = cell->size();
+			if (dep < 0 || dep >= numDeps)
+				continue;
 
-			if (numEleInCell == 1)
+			for (int row = cellRow - rad; row <= cellRow + rad; row++)
 			{
-				unsigned int particleIndex = cell->_arr[0];
+				if (row < 0 || row >= numRows)
+					continue;
 
-				stlColorBuf[i * 3 + 0] = parColorBuf[particleIndex * 3 + 0];
-				stlColorBuf[i * 3 + 1] = parColorBuf[particleIndex * 3 + 1];
-				stlColorBuf[i * 3 + 2] = parColorBuf[particleIndex * 3 + 2];
-			}
-			else
-			{
-				unsigned int particleIndex = cell->_arr[0];
-
-				float nearPX = parVertexArr[particleIndex * 3 + 0];
-				float nearPY = parVertexArr[particleIndex * 3 + 1];
-				float nearPZ = parVertexArr[particleIndex * 3 + 2];
-
-				float minDist = (nearPX - x) * (nearPX - x) + (nearPY - y) * (nearPY - y) + (nearPZ - z) * (nearPZ - z);
-
-				unsigned int nearParticleIndex = particleIndex;
-
-				for (int arrI = 1; arrI < numEleInCell; arrI++)
+				for (int col = cellCol - rad; col <= cellCol + rad; col++)
 				{
-					particleIndex = cell->_arr[arrI];
+					if (col < 0 || col >= numCols)
+						continue;
 
-					float px = parVertexArr[particleIndex * 3 + 0];
-					float py = parVertexArr[particleIndex * 3 + 1];
-					float pz = parVertexArr[particleIndex * 3 + 2];
+					int cellIndex = dep * (numRows * numCols) + row * numCols + col;
+					UIntArray* cell = cells[cellIndex];
 
-					float dist = (px - x) * (px - x) + (py - y) * (py - y) + (pz - z) * (pz - z);
+					float dist = 0.0f;
+					int parIndex = -1;
 
-					if (dist < minDist)
+					FindNearestParticle(cell, vertex, &dist, &parIndex);
+
+					if (nearParIndex == -1 || dist < minDist)
 					{
-						minDist = dist;
-						nearParticleIndex = particleIndex;
+						if (parIndex != -1)
+						{
+							minDist = dist;
+							nearParIndex = parIndex;
+						}
 					}
 				}
-
-				stlColorBuf[i * 3 + 0] = parColorBuf[nearParticleIndex * 3 + 0];
-				stlColorBuf[i * 3 + 1] = parColorBuf[nearParticleIndex * 3 + 1];
-				stlColorBuf[i * 3 + 2] = parColorBuf[nearParticleIndex * 3 + 2];
-
-				printf("\nNear ParticlePos : %f, %f, %f", nearPX, nearPY, nearPZ);
 			}
 		}
+
+		if(nearParIndex != -1)
+		{
+			stlColorBuf[i * 3 + 0] = lastColor[0] = parColorBuf[nearParIndex * 3 + 0];
+			stlColorBuf[i * 3 + 1] = lastColor[1] = parColorBuf[nearParIndex * 3 + 1];
+			stlColorBuf[i * 3 + 2] = lastColor[2] = parColorBuf[nearParIndex * 3 + 2];
+		}
+		else
+		{			
+			stlColorBuf[i * 3 + 0] = lastColor[0];
+			stlColorBuf[i * 3 + 1] = lastColor[1];
+			stlColorBuf[i * 3 + 2] = lastColor[2];
+
+			blackCount++;
+		}
+	}
+
+	printf("\nTime taken for fetching color to vertex: %ld", Platform::GetTimeInMillis() - startTime);
+	printf("\nBlack count : %d", blackCount);
+}
+
+
+void ContourMap::FindNearestParticle(UIntArray* cell, glm::vec3& ver, float* _minDist, int* _nearParIndex)
+{
+	//TODO: Ideally it should not be null as every vertex should have one particle.
+	if (cell != nullptr)
+	{
+		unsigned int cellElementsSize = cell->size();
+		unsigned int* cellElements = (unsigned int*)cell->getArray();
+		unsigned int nearestParIndex = -1;
+		float minDist = 0.0f;
+
+		for (int i = 0; i < cellElementsSize; i++)
+		{
+			unsigned int parIndex = cellElements[i];
+
+			float parX = parVertexArr[parIndex * 3 + 0];
+			float parY = parVertexArr[parIndex * 3 + 1];
+			float parZ = parVertexArr[parIndex * 3 + 2];
+
+			float dx = (parX - ver.x);
+			float dy = (parY - ver.y);
+			float dz = (parZ - ver.z);
+
+			float dist = dx*dx + dy*dy + dz*dz;
+
+			if (dist < minDist || i == 0)
+			{
+				minDist = dist;
+				nearestParIndex = parIndex;
+			}
+		}
+
+		_minDist[0] = minDist;
+		_nearParIndex[0] = nearestParIndex;
 	}
 }
 
 ContourMap::~ContourMap()
 {
-
 }
+
+
 
 /*
 
@@ -206,5 +236,25 @@ particleBuf->push_back_3(7.20, 0.80, 0.0);
 particleBuf->push_back_3(7.80, 1.60, 0.0);
 particleBuf->push_back_3(7.80, 1.90, 0.0);
 particleBuf->push_back_3(9.00, 4.00, 0.0);
+
+
+for (int row = 0; row < numRows; row++)
+{
+	for (int col = 0; col < numCols; col++)
+	{
+		int index = row * numCols + col;
+		UIntArray* cell = cells[index];
+
+		if (cell)
+		{
+			printf("\n[%d,%d] ", col, row);
+			cell->print();
+		}
+		else
+		{
+			printf("\nNULL");
+		}
+	}
+}
 
 */
