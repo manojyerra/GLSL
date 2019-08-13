@@ -176,22 +176,25 @@ void ScanLineUtils::scanFace_V(char* str, int* x, int* y, int* z)
 
 void ScanLineUtils::scan_vertex(char* str, int startPos, float* x, float* y, float* z)
 {
-	//string line = "aaaa -2.227210 3.102950 -6.477872";
+	//std::string line = "aaaa    -2.227210 3.102950   -6.477872";
 	//str = (char*)line.c_str();
 
 	int i = startPos;
-	int s = i;
 
+	while (str[++i] == ' ');
+	int s = i;
 	while (str[++i] != ' ');
 	str[i] = '\0';
 	x[0] = StringUtils::atof_exp(&str[s]);
 
-	s = i + 1;
+	while (str[++i] == ' ');
+	s = i;
 	while (str[++i] != ' ');
 	str[i] = '\0';
 	y[0] = StringUtils::atof_exp(&str[s]);
 
-	s = i + 1;
+	while (str[++i] == ' ');
+	s = i;
 	do { i++; } while (str[i] != '\0' && str[i] != '\r');
 	str[i] = '\0';
 	z[0] = StringUtils::atof_exp(&str[s]);

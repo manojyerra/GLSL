@@ -8,9 +8,9 @@ private:
 	unsigned int _size;
 	
 	void ReCreateMem();
+	unsigned int* _arr;
 
 public:
-	unsigned int* _arr;
 
 	UIntArray(unsigned int capacity);
 	~UIntArray();

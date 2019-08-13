@@ -123,19 +123,19 @@ double StringUtils::atof_exp(const char *p)
 
 		if(*p >= '0' && *p <= '9')
 		{
-			unsigned int expNum = atoi(p);
+			unsigned int expNum = atoi_naive(p);
 			r *= pow(10, expNum);
 		}
 		else if (*p == '+')
 		{
 			++p;
-			unsigned int expNum = atoi(p);
+			unsigned int expNum = atoi_naive(p);
 			r *= pow(10, expNum);
 		}
 		else if (*p == '-')
 		{
 			++p;
-			unsigned int expNum = atoi(p);
+			unsigned int expNum = atoi_naive(p);
 			r /= pow(10, expNum);
 		}
 	}

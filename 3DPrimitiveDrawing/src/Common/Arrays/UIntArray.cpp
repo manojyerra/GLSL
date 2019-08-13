@@ -11,7 +11,7 @@ UIntArray::UIntArray(unsigned int capacity)
 
 void UIntArray::ReCreateMem()
 {
-	int newCapacity = 3 * _capacity;
+	int newCapacity = 2 * _capacity;
 	unsigned int* newArr = new unsigned int[newCapacity];
 	memcpy(newArr, _arr, _capacity*4);
 	delete[] _arr;
