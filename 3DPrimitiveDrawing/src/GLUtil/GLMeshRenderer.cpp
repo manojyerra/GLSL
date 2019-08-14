@@ -146,8 +146,8 @@ void GLMeshRenderer::Draw()
 			shader->SetUniformsAndAttributes();
 
 			unsigned int vertexCount = _bufferBuilder->GetVertexBufferSize() / 12;
-
 			glDrawArrays(_primitiveType, 0, (GLsizei)(vertexCount));
+
 			shader->End();
 		}
 	}
