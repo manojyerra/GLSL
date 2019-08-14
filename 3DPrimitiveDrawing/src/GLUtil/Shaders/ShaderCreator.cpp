@@ -4,17 +4,23 @@ ShaderCreator::ShaderCreator(unsigned int shaderType, GLBufferBuilder* bufferBui
 {
 	_basicShader = NULL;
 	_colorShader = NULL;
+	_uvShader = NULL;
+	_cubeGeometryShader = NULL;
+
 	_phongPerVertexShader = NULL;
 	_phongPerPixelShader = NULL;
+	_phongColorShader = NULL;
 	_phongWithTexPerVertexShader = NULL;
+	_phongWithTexPerPixelShader = NULL;
+
 	_pbrShader = NULL;
-	_pbrWithTextureShader = NULL;
 	_pbrColorShader = NULL;
-	_cubeGeometryShader = NULL;
-	_ssaoGeometryPassShader = NULL;
+	_pbrWithTextureShader = NULL;
+
 	_ssaoShader = NULL;
 	_ssaoBlurShader = NULL;
 	_ssaoMapOverlayShader = NULL;
+	_ssaoGeometryPassShader = NULL;
 
 	_shader = NULL;
 
@@ -82,6 +88,18 @@ void ShaderCreator::SetShader(int shaderType)
 		}
 
 		_shader = _phongPerPixelShader;
+	}
+	else if (_shaderType == PHONG_COLOR_SHADER)
+	{
+		if (!_phongColorShader)
+		{
+			_phongColorShader = new PhongColorShader();
+			_phongColorShader->SetVertexBufferID(_bufferBuilder->GetVertexBufferID());
+			_phongColorShader->SetColorBufferID(_bufferBuilder->GetColorBufferID());
+			_phongColorShader->SetNormalBufferID(_bufferBuilder->GetNormalBufferID());
+		}
+
+		_shader = _phongColorShader;
 	}
 	else if (_shaderType == PHONG_WITH_TEXTURE_PER_VERTEX_SHADER)
 	{
@@ -216,6 +234,12 @@ Shader* ShaderCreator::GetShader(int shaderType)
 	{
 		return _uvShader;
 	}
+	else if (_shaderType == CUBE_GEOMETRY_SHADER)
+	{
+		return _cubeGeometryShader;
+	}
+
+
 	else if (_shaderType == PHONG_PER_VERTEX_SHADER)
 	{
 		return _phongPerVertexShader;
@@ -224,6 +248,20 @@ Shader* ShaderCreator::GetShader(int shaderType)
 	{
 		return _phongPerPixelShader;
 	}
+	else if (_shaderType == PHONG_COLOR_SHADER)
+	{
+		return _phongColorShader;
+	}
+	else if (_shaderType == PHONG_WITH_TEXTURE_PER_VERTEX_SHADER)
+	{
+		return _phongWithTexPerVertexShader;
+	}
+	else if (_shaderType == PHONG_WITH_TEXTURE_PER_PIXEL_SHADER)
+	{
+		return _phongWithTexPerPixelShader;
+	}
+
+
 	else if (_shaderType == PBR_SHADER)
 	{
 		return _pbrShader;
@@ -236,10 +274,8 @@ Shader* ShaderCreator::GetShader(int shaderType)
 	{
 		return _pbrColorShader;
 	}
-	else if (_shaderType == CUBE_GEOMETRY_SHADER)
-	{
-		return _cubeGeometryShader;
-	}
+
+
 	else if (_shaderType == SSAO_GEOMETRY_PASS_SHADER)
 	{
 		return _ssaoGeometryPassShader;
@@ -272,7 +308,6 @@ unsigned int ShaderCreator::GetCurrentShaderType()
 
 ShaderCreator::~ShaderCreator()
 {
-
 	if (_basicShader)
 	{
 		delete _basicShader;
@@ -290,6 +325,13 @@ ShaderCreator::~ShaderCreator()
 		delete _uvShader;
 		_uvShader = NULL;
 	}
+
+	if (_cubeGeometryShader)
+	{
+		delete _cubeGeometryShader;
+		_cubeGeometryShader = NULL;
+	}
+
 
 	if (_phongPerVertexShader)
 	{
@@ -315,6 +357,7 @@ ShaderCreator::~ShaderCreator()
 		_phongWithTexPerPixelShader = NULL;
 	}
 
+
 	if (_pbrShader)
 	{
 		delete _pbrShader;
@@ -333,17 +376,6 @@ ShaderCreator::~ShaderCreator()
 		_pbrColorShader = NULL;
 	}
 
-	if (_cubeGeometryShader)
-	{
-		delete _cubeGeometryShader;
-		_cubeGeometryShader = NULL;
-	}
-
-	if (_ssaoGeometryPassShader)
-	{
-		delete _ssaoGeometryPassShader;
-		_ssaoGeometryPassShader = NULL;
-	}
 
 	if (_ssaoShader)
 	{
@@ -361,5 +393,11 @@ ShaderCreator::~ShaderCreator()
 	{
 		delete _ssaoMapOverlayShader;
 		_ssaoMapOverlayShader = NULL;
+	}
+
+	if (_ssaoGeometryPassShader)
+	{
+		delete _ssaoGeometryPassShader;
+		_ssaoGeometryPassShader = NULL;
 	}
 }

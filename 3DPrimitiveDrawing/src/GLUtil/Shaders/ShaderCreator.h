@@ -6,6 +6,7 @@
 #include "UVShader.h"
 #include "PhongShader.h"
 #include "PhongWithTextureShader.h"
+#include "PhongColorShader.h"
 #include "PBRShader.h"
 #include "PBRWithTextureShader.h"
 #include "PBRColorShader.h"
@@ -24,6 +25,7 @@ enum {
 	PHONG_PER_PIXEL_SHADER,
 	PHONG_WITH_TEXTURE_PER_VERTEX_SHADER,
 	PHONG_WITH_TEXTURE_PER_PIXEL_SHADER,
+	PHONG_COLOR_SHADER,
 	PBR_SHADER,
 	PBR_WITH_TEXTURE_SHADER,
 	PBR_COLOR_SHADER,
@@ -40,18 +42,19 @@ private:
 	BasicShader* _basicShader;
 	ColorShader* _colorShader;
 	UVShader* _uvShader;
+	CubeGeometryShader* _cubeGeometryShader;
 	PhongShader* _phongPerVertexShader;
 	PhongShader* _phongPerPixelShader;
+	PhongColorShader* _phongColorShader;
 	PhongWithTextureShader* _phongWithTexPerVertexShader;
 	PhongWithTextureShader* _phongWithTexPerPixelShader;
 	PBRShader* _pbrShader;
-	PBRWithTextureShader* _pbrWithTextureShader;
 	PBRColorShader* _pbrColorShader;
-	CubeGeometryShader* _cubeGeometryShader;
-	SSAOGeometryPassShader* _ssaoGeometryPassShader;
+	PBRWithTextureShader* _pbrWithTextureShader;
 	SSAOShader* _ssaoShader;
 	SSAOBlurShader* _ssaoBlurShader;
 	SSAOMapOverlayShader* _ssaoMapOverlayShader;
+	SSAOGeometryPassShader* _ssaoGeometryPassShader;
 
 	Shader* _shader;
 	int _shaderType;
