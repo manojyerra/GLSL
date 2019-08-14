@@ -142,6 +142,9 @@
     <Filter Include="src\Common\Utils\MathUtils">
       <UniqueIdentifier>{234d8a4a-4901-4346-a177-d90c709bf61b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GLUtil\Shaders\PBRColorShader">
+      <UniqueIdentifier>{33e1a1ff-fe80-435d-a5f3-cedd00e2fe02}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -540,6 +543,9 @@
     <ClCompile Include="src\Common\Utils\MathUtils\MathUtils.cpp">
       <Filter>src\Common\Utils\MathUtils</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\Shaders\PBRColorShader\PBRColorShader.cpp">
+      <Filter>src\GLUtil\Shaders\PBRColorShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -928,6 +934,9 @@
     </ClInclude>
     <ClInclude Include="src\Common\Utils\MathUtils\MathUtils.h">
       <Filter>src\Common\Utils\MathUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\Shaders\PBRColorShader\PBRColorShader.h">
+      <Filter>src\GLUtil\Shaders\PBRColorShader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

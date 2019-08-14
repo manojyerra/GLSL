@@ -20,6 +20,10 @@ public:
 		_textureID = 0;
 	}
 
+	virtual ~Shader()
+	{
+	}
+
 	virtual void SetAlpha(float alpha) = 0;
 	virtual void SetModelMatrix(float* mat) = 0;
 	virtual void Begin() = 0;

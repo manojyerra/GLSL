@@ -18,16 +18,13 @@ class ECoatResultReader
 {
 private:
 	H5::H5File* _h5File;
-
 	float ReadFloatAttributes(H5::Group* group, const std::string& attr_name);
 
 public:
 	ECoatResultReader(std::string resultFilePath);
 	~ECoatResultReader();
 
-	FrameInfo GetParticleBuffer(unsigned int frameNum);
-	FrameInfo GetParticleColorBuffer(unsigned int frameNum);
-
+	FrameInfo GetThicknessBuffer(unsigned int frameNum);
 	char* GetParticleBufferWorkpiece(unsigned int frameNum, unsigned int* dataSize);
 	char* GetParticleBufferWorkpiece(unsigned int frameNum, unsigned int* dataSize, H5::PredType dataType);
 
@@ -35,3 +32,7 @@ public:
 };
 
 #endif
+
+
+//FrameInfo GetParticleBuffer(unsigned int frameNum);
+

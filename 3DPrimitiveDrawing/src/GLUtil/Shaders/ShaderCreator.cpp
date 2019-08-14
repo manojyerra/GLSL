@@ -9,6 +9,7 @@ ShaderCreator::ShaderCreator(unsigned int shaderType, GLBufferBuilder* bufferBui
 	_phongWithTexPerVertexShader = NULL;
 	_pbrShader = NULL;
 	_pbrWithTextureShader = NULL;
+	_pbrColorShader = NULL;
 	_cubeGeometryShader = NULL;
 	_ssaoGeometryPassShader = NULL;
 	_ssaoShader = NULL;
@@ -132,6 +133,18 @@ void ShaderCreator::SetShader(int shaderType)
 
 		_shader = _pbrWithTextureShader;
 	}
+	else if (_shaderType == PBR_COLOR_SHADER)
+	{
+		if (!_pbrColorShader)
+		{
+			_pbrColorShader = new PBRColorShader();
+			_pbrColorShader->SetVertexBufferID(_bufferBuilder->GetVertexBufferID());
+			_pbrColorShader->SetNormalBufferID(_bufferBuilder->GetNormalBufferID());
+			_pbrColorShader->SetColorBufferID(_bufferBuilder->GetColorBufferID());
+		}
+
+		_shader = _pbrColorShader;
+	}
 	else if (_shaderType == CUBE_GEOMETRY_SHADER)
 	{
 		if (!_cubeGeometryShader)
@@ -218,6 +231,10 @@ Shader* ShaderCreator::GetShader(int shaderType)
 	else if (_shaderType == PBR_WITH_TEXTURE_SHADER)
 	{
 		return _pbrWithTextureShader;
+	}
+	else if (_shaderType == PBR_COLOR_SHADER)
+	{
+		return _pbrColorShader;
 	}
 	else if (_shaderType == CUBE_GEOMETRY_SHADER)
 	{
@@ -308,6 +325,12 @@ ShaderCreator::~ShaderCreator()
 	{
 		delete _pbrWithTextureShader;
 		_pbrWithTextureShader = NULL;
+	}
+
+	if (_pbrColorShader)
+	{
+		delete _pbrColorShader;
+		_pbrColorShader = NULL;
 	}
 
 	if (_cubeGeometryShader)
