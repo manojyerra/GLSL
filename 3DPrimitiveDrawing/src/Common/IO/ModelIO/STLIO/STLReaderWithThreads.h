@@ -50,9 +50,11 @@ public:
 		_vertexFloatArr = new FloatArray(initSize * 4);
 		_normalFloatArr = new FloatArray(initSize * 4);
 
+		char** linesArr = (char**)_linesVec->getArray();
+
 		for(int i=_startI; i<=_endI; i++ )
 		{
-			char* line = (char*)_linesVec->get(i);
+			char* line = linesArr[i]; //(char*)_linesVec->get(i);
 
 			if (line[0] == 'f')
 			{
