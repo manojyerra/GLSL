@@ -29,6 +29,11 @@ void VoidPtrArray::push_back(void* val)
 	_size++;
 }
 
+void* VoidPtrArray::get(int index)
+{
+	return _arr[index];
+}
+
 unsigned int VoidPtrArray::size()
 {
 	return _size;

@@ -25,6 +25,8 @@ public:
 	void push_back_2(const glm::vec3& vec);
 	void push_back_3(const glm::vec3& vec);
 	
+	void Append(FloatArray* floatArr);
+
 	unsigned int size();
 	unsigned int capacity();
 

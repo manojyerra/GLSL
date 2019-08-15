@@ -95,6 +95,22 @@ void FloatArray::push_back_3(const glm::vec3& vec)
 	_size += 3;
 }
 
+void FloatArray::Append(FloatArray* floatArr)
+{
+	unsigned int appendSize = floatArr->size();
+
+	if (appendSize + _size >= _capacity)
+	{
+		addCapacity(appendSize);
+	}
+
+	float* appendArr = (float*)floatArr->getArray();
+
+	memcpy(&_arr[_size], appendArr, appendSize*4);
+
+	_size += appendSize;
+}
+
 unsigned int FloatArray::size()
 {
 	return _size;

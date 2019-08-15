@@ -15,6 +15,7 @@ public:
 	~VoidPtrArray();
 
 	void push_back(void* val);
+	void* get(int index);
 	
 	unsigned int size();
 	unsigned int capacity();
