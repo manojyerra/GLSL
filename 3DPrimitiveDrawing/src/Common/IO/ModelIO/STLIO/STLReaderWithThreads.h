@@ -13,11 +13,10 @@ private:
 	FloatArray* _vertexFloatArr;
 	FloatArray* _normalFloatArr;
 	VoidPtrArray* _linesVec;
-	AABB bBox;
+	AABB _bBox;
 
 	unsigned int _startI;
 	unsigned int _endI;
-	bool _isRunning;
 
 public:
 	STLScanLines(VoidPtrArray* linesVec, unsigned int startI, unsigned int endI)
@@ -29,8 +28,6 @@ public:
 
 		_vertexFloatArr = nullptr;
 		_normalFloatArr = nullptr;
-
-		_isRunning = false;
 	}
 
 	FloatArray* GetVertexArrary()
@@ -45,8 +42,6 @@ public:
 
 	void run()
 	{
-		_isRunning = true;
-
 		float vx, vy, vz;
 		float nx, ny, nz;
 		bool isFirstVertex = true;
@@ -72,32 +67,25 @@ public:
 
 				if (isFirstVertex)
 				{
-					bBox.minX = bBox.maxX = vx;
-					bBox.minY = bBox.maxY = vy;
-					bBox.minZ = bBox.maxZ = vz;
+					_bBox.minX = _bBox.maxX = vx;
+					_bBox.minY = _bBox.maxY = vy;
+					_bBox.minZ = _bBox.maxZ = vz;
 
 					isFirstVertex = false;
 				}
 				else
 				{
-					if (vx < bBox.minX)			bBox.minX = vx;
-					else if (vx > bBox.maxX)	bBox.maxX = vx;
+					if (vx < _bBox.minX)		_bBox.minX = vx;
+					else if (vx > _bBox.maxX)	_bBox.maxX = vx;
 
-					if (vy < bBox.minY)			bBox.minY = vy;
-					else if (vy > bBox.maxY)	bBox.maxY = vy;
+					if (vy < _bBox.minY)		_bBox.minY = vy;
+					else if (vy >_bBox.maxY)	_bBox.maxY = vy;
 
-					if (vz < bBox.minZ)			bBox.minZ = vz;
-					else if (vz > bBox.maxZ)	bBox.maxZ = vz;
+					if (vz < _bBox.minZ)		_bBox.minZ = vz;
+					else if (vz > _bBox.maxZ)	_bBox.maxZ = vz;
 				}
 			}
 		}
-
-		_isRunning = false;
-	}
-
-	bool IsRunning()
-	{
-		return _isRunning;
 	}
 
 	~STLScanLines()
