@@ -14,10 +14,8 @@ STLReaderWithThreads::STLReaderWithThreads(std::string filePath)
 	_vertexFloatArr = nullptr;
 	_normalFloatArr = nullptr;
 	
-	Timer timer("\nBegin: Loading STL(With Threads) file "+_filePath.c_str());
+	//Platform::debugPrint("\nBegin: Loading STL(With Threads) file %s, ", _filePath.c_str());	
 	ReadSTLFile(_filePath);
-	timer.Stop("Load time for stl from STLReaderWithThread : ");
-
 	//Platform::debugPrint("\nEnd: Loading STL(With Threads) file %s, Load Time : %ld milliseconds\n", _filePath.c_str(), Platform::GetTimeInMillis() - startTime);
 }
 
@@ -165,13 +163,19 @@ STLReaderWithThreads::~STLReaderWithThreads()
 	if (_vertexFloatArr)
 	{
 		delete _vertexFloatArr;
-		_vertexFloatArr = NULL;
+		_vertexFloatArr = nullptr;
 	}
 
 	if (_normalFloatArr)
 	{
 		delete _normalFloatArr;
-		_normalFloatArr = NULL;
+		_normalFloatArr = nullptr;
+	}
+
+	if (_linesVec)
+	{
+		delete _linesVec;
+		_linesVec = nullptr;
 	}
 }
 

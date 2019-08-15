@@ -116,30 +116,6 @@ public:
 	}
 };
 
-class Timer
-{
-private:
-	long startTime;
-
-public:
-	Timer()
-	{
-		startTime = Platform::GetTimeInMillis();
-	}
-
-	Timer(const char* str)
-	{
-		startTime = Platform::GetTimeInMillis();
-		Platform::debugPrint("\n%s", str);
-	}
-
-	void Stop(const char* str)
-	{
-		long timeTaken = Platform::GetTimeInMillis() - startTime;
-		printf("\n%s : %ld", str, timeTaken);
-	}
-};
-
 class STLReaderWithThreads : public BaseModelIO
 {
 private:
@@ -167,3 +143,28 @@ public:
 };
 
 #endif
+
+
+//class Timer
+//{
+//private:
+//	long startTime;
+//
+//public:
+//	Timer()
+//	{
+//		startTime = Platform::GetTimeInMillis();
+//	}
+//
+//	Timer(const char* str)
+//	{
+//		startTime = Platform::GetTimeInMillis();
+//		Platform::debugPrint("\n%s", str);
+//	}
+//
+//	void Stop(const char* str)
+//	{
+//		long timeTaken = Platform::GetTimeInMillis() - startTime;
+//		printf("\n%s : %ld", str, timeTaken);
+//	}
+//};

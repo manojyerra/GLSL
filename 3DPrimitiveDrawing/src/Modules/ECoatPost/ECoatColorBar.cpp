@@ -151,6 +151,24 @@ ECoatColorBar::~ECoatColorBar()
 	if (_meshRenderer)
 	{
 		delete _meshRenderer;
-		_meshRenderer = NULL;
+		_meshRenderer = nullptr;
+	}
+
+	if (allColorsVecR)
+	{
+		delete[] allColorsVecR;
+		allColorsVecR = nullptr;
+	}
+
+	if (allColorsVecG)
+	{
+		delete[] allColorsVecG;
+		allColorsVecG = nullptr;
+	}
+
+	if (allColorsVecB)
+	{
+		delete[] allColorsVecB;
+		allColorsVecB = nullptr;
 	}
 }

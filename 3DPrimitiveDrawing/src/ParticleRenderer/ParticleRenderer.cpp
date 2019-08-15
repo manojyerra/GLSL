@@ -48,25 +48,25 @@ GLMeshRenderer* ParticleRenderer::CreateFewParticlesRenderer(char* highPolyVerBu
 {
 	//Generating low poly vertex data
 	unsigned int bytesPVer = BYTES_PER_VERTEX;
-	unsigned int skipBytes = _skipNumVertex * bytesPVer;
 	
 	unsigned int highPolyVerCount = highPolyVerBufLen / bytesPVer;
 	unsigned int lowPolyVerCount = highPolyVerCount / (_skipNumVertex+1);
 	unsigned int lowPolyVerBufLen = lowPolyVerCount * bytesPVer;
 	unsigned char* lowPolyVertexBuf = (unsigned char*)malloc(lowPolyVerBufLen);
 
+	unsigned int skipBytes = (_skipNumVertex+1) * bytesPVer;
 	unsigned int hIndex = 0; // high poly array index
+
 	for (unsigned int i = 0; i < lowPolyVerBufLen; i += bytesPVer)
 	{
 		memcpy(&lowPolyVertexBuf[i], &highPolyVerBuf[hIndex], bytesPVer);
 		hIndex += skipBytes;
 	}
 
-
 	//Generating low poly color data
 	unsigned int lowPolyColorBufLen = lowPolyVerCount * BYTES_PER_COLOR;
 	unsigned char* lowPolyColorBuf = (unsigned char*)malloc(lowPolyColorBufLen);
-	memset(lowPolyColorBuf, 0, lowPolyColorBufLen);
+	memset(lowPolyColorBuf, 255, lowPolyColorBufLen);
 
 	BaseModelIO modelIO;
 	modelIO.SetVertexBuffer((const char*)lowPolyVertexBuf, lowPolyVerBufLen);
@@ -101,7 +101,7 @@ void ParticleRenderer::UpdateColorBuffer(char* highPolyColorBuf, unsigned int hi
 	unsigned int lowPolyColorBufLen = lowPolyColorCount * bytesPColor;
 	unsigned char* lowPolyColorBuf = (unsigned char*)malloc(lowPolyColorBufLen);
 
-	unsigned int skipBytes = _skipNumVertex * bytesPColor;
+	unsigned int skipBytes = (_skipNumVertex+1) * bytesPColor;
 	unsigned int hIndex = 0; // high poly array index
 
 	for (unsigned int i = 0; i < lowPolyColorBufLen; i += bytesPColor)

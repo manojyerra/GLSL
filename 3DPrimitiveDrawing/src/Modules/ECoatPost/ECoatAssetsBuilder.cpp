@@ -31,7 +31,13 @@ ECoatAssetsBuilder::ECoatAssetsBuilder(ECoatAssetsReader* assetsReader, GLMeshMa
 	//	_sourcesVec.push_back(meshRenderer);
 	//}
 
-	std::string resultPath = assetsReader->GetResult();
+	//std::string resultPath = assetsReader->GetResult();
+	//if (resultPath.length() > 0)
+	//{
+	//	_resultReader = new ECoatResultReader(resultPath);
+	//}
+
+	std::string resultPath = "result_fine.ecoat";
 	if (resultPath.length() > 0)
 	{
 		_resultReader = new ECoatResultReader(resultPath);

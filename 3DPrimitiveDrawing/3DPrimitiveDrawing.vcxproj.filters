@@ -552,6 +552,9 @@
     <ClCompile Include="src\GLUtil\Shaders\PhongColorShader\PhongColorShader.cpp">
       <Filter>src\GLUtil\Shaders\PhongColorShader</Filter>
     </ClCompile>
+    <ClCompile Include="src\Common\IO\ModelIO\STLReaderWithThreads.cpp">
+      <Filter>src\Common\IO\ModelIO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -946,6 +949,9 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\Shaders\PhongColorShader\PhongColorShader.h">
       <Filter>src\GLUtil\Shaders\PhongColorShader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO\ModelIO\STLReaderWithThreads.h">
+      <Filter>src\Common\IO\ModelIO</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
