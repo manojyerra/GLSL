@@ -28,7 +28,8 @@ public:
 	{
 		OBJ_MODEL,
 		BINARY_OBJ_MODEL,
-		STL_MODEL
+		STL_MODEL,
+		STL_MODEL_WITH_THREADS
 	};
 
 	BaseModelIO();

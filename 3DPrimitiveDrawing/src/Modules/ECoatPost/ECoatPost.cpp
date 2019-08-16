@@ -7,13 +7,12 @@
 #include "ContourMap.h"
 #include "ObjReader.h"
 #include "STLReader.h"
+#include "STLReaderWithThreads.h"
 
 ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 {
 	_sw = sw;
 	_sh = sh;
-
-	SetGLStates();
 
 	float zNear = 0.15f;
 	float zFar = 1000000.0f;
@@ -21,6 +20,17 @@ ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 
 	Cam::GetInstance()->Init(_sw, _sh, zNear, zFar, zNearPlaneW);
 	Cam2D::GetInstance()->Init(_sw, _sh);
+
+	SetGLStates();
+	SetScreenSize(_sw, _sh);
+
+	//Begin: Default initialization 
+	_floor = nullptr;
+	_meshManager = nullptr;
+	_carBody = nullptr;
+	_assetsBuilder = nullptr;
+	//End: Default initialization 
+
 
 	_floor = new Floor();
 	_meshManager = new GLMeshManager(_sw, _sh);
@@ -31,46 +41,38 @@ ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 
 	_timeLineFrame = new TimeLineFrame(0, 0, 300, 700, _resultReader->GetFrameCount(), this);
 
+	//STLReaderWithThreads reader("AdvancedRendererInputFiles/checkedAuto_solidMesh_exported.stl");
+	//STLReaderWithThreads reader("data/OpelGlandX.stl");
 
+	//float* stlVertexArr = (float*)reader.GetVertexBuffer();
+	//unsigned int stlVertexArrSize = reader.GetVertexBufferSize() / 4;
+	//unsigned int stlVertexCount = reader.GetVertexBufferSize() / 12;
 
+	//unsigned int stlColorBufLen = stlVertexCount * 3;
+	//unsigned char* stlColorBuf = (unsigned char*)malloc(stlColorBufLen);
+	//memset(stlColorBuf, '\0', stlColorBufLen);
 
-	unsigned int dataSize;
-	char* vertexBuf = _resultReader->GetParticleBufferWorkpiece(1, &dataSize);
+	//unsigned int parVertexBufSize;
+	//char* parVertexBuf = _resultReader->GetParticleBufferWorkpiece(1, &parVertexBufSize);
+
+	//unsigned int parColorBufLen = 0;
+	//unsigned char* parColorBuf = (unsigned char*)GetParticleColorBuf(80, &parColorBufLen);
+
+	////ContourMap colorMap(stlVertexArr, stlVertexArrSize, stlColorBuf, stlColorBufLen, (float*)parVertexBuf, parVertexBufSize / 4, parColorBuf, parColorBufLen);
+
+	//BaseModelIO modelIO;
+	//modelIO.SetVertexBuffer(reader.GetVertexBuffer(), reader.GetVertexBufferSize());
+	//modelIO.SetNormalBuffer(reader.GetNormalBuffer(), reader.GetNormalBufferSize());
+	////modelIO.SetColorBuffer((const char*)stlColorBuf, stlColorBufLen);
+
+	//_carBody = new GLMeshRenderer(&modelIO, PBR_SHADER);
+
+	//_particleRenderer = new ParticleRenderer(parVertexBuf, parVertexBufSize);
+	//_particleRenderer->SetDrawAs(ParticleRenderer::DRAW_AS_SPHERES);
+
+	//free(parVertexBuf);
 	
-
-
-	STLReader reader("AdvancedRendererInputFiles/checkedAuto_solidMesh_exported.stl");
-
-	float* stlVertexArr = (float*)reader.GetVertexBuffer();
-	unsigned int stlVertexArrSize = reader.GetVertexBufferSize() / 4;
-	unsigned int stlVertexCount = reader.GetVertexBufferSize() / 12;
-
-	unsigned int stlColorBufLen = stlVertexCount * 3;
-	unsigned char* stlColorBuf = (unsigned char*)malloc(stlColorBufLen);
-	memset(stlColorBuf, '\0', stlColorBufLen);
-
-	
-	float* parVertexArr = (float*)vertexBuf;
-	unsigned int parVertexArrSize = dataSize / 4;
-
-	unsigned int parColorBufLen = 0;
-	unsigned char* parColorBuf = (unsigned char*)GetParticleColorBuf(305, &parColorBufLen);
-
-	ContourMap colorMap(stlVertexArr, stlVertexArrSize, stlColorBuf, stlColorBufLen, parVertexArr, parVertexArrSize, parColorBuf, parColorBufLen);
-
-	BaseModelIO modelIO;
-	modelIO.SetVertexBuffer(reader.GetVertexBuffer(), reader.GetVertexBufferSize());
-	modelIO.SetColorBuffer((const char*)stlColorBuf, stlColorBufLen);
-
-	_carBody = new GLMeshRenderer(&modelIO, COLOR_SHADER);
-
-	_particleRenderer = new ParticleRenderer(vertexBuf, dataSize);
-
-	free(vertexBuf);
-
-	ApplyContour(1);
-
-	SetScreenSize(_sw, _sh);
+	//ApplyContour(80);
 }
 
 void ECoatPost::SetScreenSize(unsigned int sw, unsigned int sh)
@@ -87,7 +89,7 @@ void ECoatPost::SetScreenSize(unsigned int sw, unsigned int sh)
 void ECoatPost::SetGLStates()
 {
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
+	glDisable(GL_CULL_FACE);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
@@ -109,7 +111,7 @@ void ECoatPost::Draw()
 	cam->SetPerspectiveProjection();
 	cam->SetViewMatrix();
 	cam->UpdateCamera();
-
+	 
 	_floor->Draw();
 
 	for (int i = 0; i < _meshManager->Size(); i++)
@@ -117,10 +119,10 @@ void ECoatPost::Draw()
 		_meshManager->Get(i)->Draw();
 	}
 
-	_carBody->Draw();
-
-	_particleRenderer->DrawAllParticles();
 	_colorBar->Draw();
+
+	//_carBody->Draw();
+	//_particleRenderer->DrawAllParticles();
 }
 
 void ECoatPost::actionPerformed(SUIActionEvent e)
@@ -149,7 +151,7 @@ void ECoatPost::ApplyContour(int frameNum)
 
 	if (_particleRenderer)
 	{
-		FrameInfo frameInfo = _resultReader->GetParticleColorBuffer(frameNum);
+		FrameInfo frameInfo = _resultReader->GetThicknessBuffer(frameNum);
 
 		float minThick = frameInfo.minThickness;
 		float maxThick = frameInfo.maxThickness;
@@ -180,25 +182,25 @@ void ECoatPost::ApplyContour(int frameNum)
 
 		if (_particleRenderer)
 		{
-			glm::vec3 carCenter = _assetsBuilder->GetSolid()->GetAABB().Center();
-			glm::vec3 particleCenter = _particleRenderer->GetBBoxCenter();
+			//glm::vec3 carCenter = _assetsBuilder->GetSolid()->GetAABB().Center();
+			//glm::vec3 particleCenter = _particleRenderer->GetBBoxCenter();
 
-			glm::vec3 delta = carCenter - particleCenter;
+			//glm::vec3 delta = carCenter - particleCenter;
 
 			_particleRenderer->UpdateColorBuffer(colorBuf, colorBufSize);
-			_particleRenderer->SetPosition(delta.x, delta.y, delta.z);
+			//_particleRenderer->SetPosition(delta.x, delta.y, delta.z);
 		}
 
 		free(colorBuf);
 		free(thicknessBuf);
-
-		Platform::debugPrint("\nTime : %ld", Platform::GetTimeInMillis() - startTime);
 	}
+
+	Platform::debugPrint("\nTime for applying contour : %ld", Platform::GetTimeInMillis() - startTime);
 }
 
 char* ECoatPost::GetParticleColorBuf(int frameNum, unsigned int* bufSize)
 {
-	FrameInfo frameInfo = _resultReader->GetParticleColorBuffer(frameNum);
+	FrameInfo frameInfo = _resultReader->GetThicknessBuffer(frameNum);
 
 	float minThick = frameInfo.minThickness;
 	float maxThick = frameInfo.maxThickness;
@@ -218,9 +220,9 @@ char* ECoatPost::GetParticleColorBuf(int frameNum, unsigned int* bufSize)
 
 	for (int i = 0; i < numThicknessVals; i++)
 	{
-		int ii = i * 3;
 		int index = (int)((thicknessBuf[i] - minThick) * factor);
 
+		int ii = i * 3;
 		colorBuf[ii + 0] = allColorsVecR[index] * 255;
 		colorBuf[ii + 1] = allColorsVecG[index] * 255;
 		colorBuf[ii + 2] = allColorsVecB[index] * 255;
@@ -262,6 +264,18 @@ ECoatPost::~ECoatPost()
 	{
 		delete _meshManager;
 		_meshManager = nullptr;
+	}
+
+	if (_carBody)
+	{
+		delete _carBody;
+		_carBody = nullptr;
+	}
+
+	if (_assetsBuilder)
+	{
+		delete _assetsBuilder;
+		_assetsBuilder = nullptr;
 	}
 }
 

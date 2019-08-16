@@ -27,17 +27,6 @@ ECoatAssetsReader::ECoatAssetsReader(const std::string& filePath)
 			_solid = solidValArr[(unsigned int)0].asString();
 	}
 
-	Json::Value fluidValArr = root["Fluids"];
-
-	if (fluidValArr.isArray())
-	{
-		if (fluidValArr.size() > 1)
-			throw new std::exception("Exception: Unsupported number of fluids.");
-
-		if (fluidValArr.size() == 1)
-			_fluid = fluidValArr[(unsigned int)0].asString();
-	}
-
 	Json::Value result = root["Result"];
 
 	if (!result.isString())
@@ -53,6 +42,17 @@ ECoatAssetsReader::ECoatAssetsReader(const std::string& filePath)
 		for (unsigned int i = 0; i < sourcesArr.size(); i++) {
 			_sourcesVec.push_back(sourcesArr[i].asString());
 		}
+	}
+
+	Json::Value fluidValArr = root["Fluids"];
+
+	if (fluidValArr.isArray())
+	{
+		if (fluidValArr.size() > 1)
+			throw new std::exception("Exception: Unsupported number of fluids.");
+
+		if (fluidValArr.size() == 1)
+			_fluid = fluidValArr[(unsigned int)0].asString();
 	}
 }
 

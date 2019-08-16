@@ -1,6 +1,7 @@
 #include "GLMeshManager.h"
 #include "ObjReader.h"
 #include "STLReader.h"
+#include "STLReaderWithThreads.h"
 
 GLMeshManager::GLMeshManager(float sw, float sh)
 {
@@ -49,6 +50,12 @@ GLMeshRenderer* GLMeshManager::AddMeshRenderer(std::string path, unsigned int sh
 	else if (modelType == BaseModelIO::STL_MODEL)
 	{
 		STLReader reader(path);
+		meshRenderer = new GLMeshRenderer(&reader, shaderType);
+		_modelVec.push_back(meshRenderer);
+	}
+	else if (modelType == BaseModelIO::STL_MODEL_WITH_THREADS)
+	{
+		STLReaderWithThreads reader(path);
 		meshRenderer = new GLMeshRenderer(&reader, shaderType);
 		_modelVec.push_back(meshRenderer);
 	}

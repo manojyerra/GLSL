@@ -14,47 +14,83 @@ ContourMap::ContourMap(float* stlVertexArr, unsigned int stlVertexArrSize,
 
 	long startTime = Platform::GetTimeInMillis();
 
-	AABB particleBBox = BufferTransformUtils::CalcAABB(parVertexArr, parVertexArrSize);
+	/*
+	AABB parBBox = BufferTransformUtils::CalcAABB(parVertexArr, parVertexArrSize);
 	AABB stlBBox = BufferTransformUtils::CalcAABB(stlVertexArr, stlVertexArrSize);
 
-	glm::vec3 moveParticle(particleBBox.Min());
-	glm::vec3 moveSTL(stlBBox.Min());
+	BufferTransformUtils::Subtract(parVertexArr, parVertexArrSize, parBBox.Min());
+	BufferTransformUtils::Subtract(stlVertexArr, stlVertexArrSize, stlBBox.Min());
 
-	BufferTransformUtils::Subtract(parVertexArr, parVertexArrSize, moveParticle);
-	BufferTransformUtils::Subtract(stlVertexArr, stlVertexArrSize, moveSTL);
-
-	glm::vec3 parBBoxSize = particleBBox.Size();
-	glm::vec3 stlBBoxSize = stlBBox.Size();
-
-	particleBBox = BufferTransformUtils::CalcAABB(parVertexArr, parVertexArrSize);
+	parBBox = BufferTransformUtils::CalcAABB(parVertexArr, parVertexArrSize);
 	stlBBox = BufferTransformUtils::CalcAABB(stlVertexArr, stlVertexArrSize);
 
-	parBBoxSize = particleBBox.Size();
-	stlBBoxSize = stlBBox.Size();
-
-	glm::vec3 parCen = particleBBox.Center();
+	glm::vec3 parCen = parBBox.Center();
 	glm::vec3 stlCen = stlBBox.Center();
 	glm::vec3 parCenMove(stlCen - parCen);
 
 	BufferTransformUtils::Add(parVertexArr, parVertexArrSize, parCenMove);
 
-	particleBBox = BufferTransformUtils::CalcAABB(parVertexArr, parVertexArrSize);
+	parBBox = BufferTransformUtils::CalcAABB(parVertexArr, parVertexArrSize);
 
 	printf("\nTime taken for buffer transform: %ld", Platform::GetTimeInMillis() - startTime);
 	startTime = Platform::GetTimeInMillis();
 
-	//////////////
 
+	double totBoxes = 300 * 300 * 300;
 
-	double vol = parBBoxSize.x * parBBoxSize.y * parBBoxSize.z;
-
-	double totBoxes = 300*300*300;
+	double vol = parBBox.w * parBBox.h * parBBox.d;
 	float boxVol = (float)(vol / totBoxes);
-	float boxLen = pow(boxVol, 1.0f/3.0f);
+	float boxLen = pow(boxVol, 1.0f / 3.0f);
 
-	unsigned int numCols = (parBBoxSize.x / boxLen) + 1;
-	unsigned int numRows = (parBBoxSize.y / boxLen) + 1;
-	unsigned int numDeps = (parBBoxSize.z / boxLen) + 1;
+	parBBox.AddMargin(boxLen * 5);
+
+	BufferTransformUtils::Subtract(parVertexArr, parVertexArrSize, parBBox.Min());
+	BufferTransformUtils::Subtract(stlVertexArr, stlVertexArrSize, parBBox.Min());
+
+	//vol = parBBox.w * parBBox.h * parBBox.d;
+	//boxVol = (float)(vol / totBoxes);
+	//boxLen = pow(boxVol, 1.0f / 3.0f);
+
+	unsigned int numCols = (parBBox.w / boxLen) + 5;
+	unsigned int numRows = (parBBox.h / boxLen) + 5;
+	unsigned int numDeps = (parBBox.d / boxLen) + 5;
+
+	*/
+
+
+	//Finding bounding boxes of stl and particle data.
+	AABB parBBox = BufferTransformUtils::CalcAABB(parVertexArr, parVertexArrSize);
+	AABB stlBBox = BufferTransformUtils::CalcAABB(stlVertexArr, stlVertexArrSize);
+
+	//Moving particle center to stl center.
+	glm::vec3 parCenMove(stlBBox.Center() - parBBox.Center());
+	BufferTransformUtils::Add(parVertexArr, parVertexArrSize, parCenMove);
+
+	//Now find the bounding box of stl and particle data again.
+	parBBox = BufferTransformUtils::CalcAABB(parVertexArr, parVertexArrSize);
+	stlBBox = BufferTransformUtils::CalcAABB(stlVertexArr, stlVertexArrSize);
+
+	AABB cellsBBox;
+	cellsBBox.Set(&parBBox, &stlBBox);
+
+	double totBoxes = 300 * 300 * 300;
+	double vol = cellsBBox.w * cellsBBox.h * cellsBBox.d;
+	float boxVol = (float)(vol / totBoxes);
+	float boxLen = pow(boxVol, 1.0f / 3.0f);
+
+	cellsBBox.AddMargin(boxLen*5);
+
+	vol = cellsBBox.w * cellsBBox.h * cellsBBox.d;
+	boxVol = (float)(vol / totBoxes);
+	boxLen = pow(boxVol, 1.0f / 3.0f);
+
+	BufferTransformUtils::Subtract(parVertexArr, parVertexArrSize, cellsBBox.Min());
+	BufferTransformUtils::Subtract(stlVertexArr, stlVertexArrSize, cellsBBox.Min());
+
+	unsigned int numCols = (cellsBBox.w / boxLen) + 5;
+	unsigned int numRows = (cellsBBox.h / boxLen) + 5;
+	unsigned int numDeps = (cellsBBox.d / boxLen) + 5;
+
 
 	UIntArray** cells = new UIntArray*[numCols* numRows * numDeps];
 	memset(cells, '\0', numCols * numRows * numDeps * sizeof(void*));

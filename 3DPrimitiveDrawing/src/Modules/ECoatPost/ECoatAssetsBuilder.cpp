@@ -9,39 +9,38 @@ ECoatAssetsBuilder::ECoatAssetsBuilder(ECoatAssetsReader* assetsReader, GLMeshMa
 	_sourcesVec.clear();
 	_resultReader = nullptr;
 
-	//std::string solidPath = assetsReader->GetSolid();
-	//if (solidPath.length() > 0)
-	//{
-	//	_solid = meshMgr->AddMeshRenderer(solidPath, PBR_SHADER, BaseModelIO::STL_MODEL);
-	//}
+	std::string solidPath = assetsReader->GetSolid();
+	if (solidPath.length() > 0)
+	{
+		_solid = meshMgr->AddMeshRenderer(solidPath, PBR_SHADER, BaseModelIO::STL_MODEL_WITH_THREADS);
+	}
 
-	//std::string fluidPath = assetsReader->GetFluid();
-	//if (fluidPath.length() > 0)
-	//{
-	//	_fluid = meshMgr->AddMeshRenderer(fluidPath, BASIC_SHADER, BaseModelIO::STL_MODEL);
-	//	BasicShader* basicShader = (BasicShader*)_fluid->GetCurrentShader();
-	//	basicShader->SetAlpha(0.5);
-	//	basicShader->SetColorBufferID(0.5);
-	//}
+	std::vector<std::string> sourcesPathVec = assetsReader->GetSources();
+	for (int i = 0; i < (int)sourcesPathVec.size(); i++)
+	{
+		GLMeshRenderer* meshRenderer = meshMgr->AddMeshRenderer(sourcesPathVec[i], PBR_SHADER, BaseModelIO::STL_MODEL_WITH_THREADS);
+		_sourcesVec.push_back(meshRenderer);
+	}
 
-	//std::vector<std::string> sourcesPathVec = assetsReader->GetSources();
-	//for (int i = 0; i < (int)sourcesPathVec.size(); i++)
-	//{
-	//	GLMeshRenderer* meshRenderer = meshMgr->AddMeshRenderer(sourcesPathVec[i], PBR_SHADER, BaseModelIO::STL_MODEL);
-	//	_sourcesVec.push_back(meshRenderer);
-	//}
+	std::string fluidPath = assetsReader->GetFluid();
+	if (fluidPath.length() > 0)
+	{
+		_fluid = meshMgr->AddMeshRenderer(fluidPath, BASIC_SHADER, BaseModelIO::STL_MODEL_WITH_THREADS);
+		BasicShader* basicShader = (BasicShader*)_fluid->GetCurrentShader();
+		basicShader->SetAlpha(0.5);
+	}
 
-	//std::string resultPath = assetsReader->GetResult();
-	//if (resultPath.length() > 0)
-	//{
-	//	_resultReader = new ECoatResultReader(resultPath);
-	//}
-
-	std::string resultPath = "result_fine.ecoat";
+	std::string resultPath = assetsReader->GetResult();
 	if (resultPath.length() > 0)
 	{
 		_resultReader = new ECoatResultReader(resultPath);
 	}
+
+	//std::string resultPath = "result_fine.ecoat";
+	//if (resultPath.length() > 0)
+	//{
+	//	_resultReader = new ECoatResultReader(resultPath);
+	//}
 }
 
 GLMeshRenderer* ECoatAssetsBuilder::GetSolid()
