@@ -24,13 +24,12 @@ public:
 	{
 		DRAW_AS_CUBES,
 		DRAW_AS_QUADS,
+		DRAW_AS_SPHERES,
 		DRAW_AS_POINTS
 	};
 
-
 	ParticleRenderer(std::string filePath);
 	ParticleRenderer(char* vertexBuf, unsigned int vertexBufLen);
-	//ParticleRenderer(char* vertexBuf, unsigned int vertexBufLen, char* colorBuf, unsigned int colorBufLen);
 	~ParticleRenderer();
 
 	void SetDrawAs(int drawAs);
@@ -44,28 +43,3 @@ public:
 };
 
 #endif
-
-
-//GLMeshRenderer* CreateAllParticlesRenderer(char* vertexBuf, unsigned int vertexBufLen, char* colorBuf, unsigned int colorBufLen);
-
-//class Tuple
-//{
-//public:
-//	float x;
-//	float y;
-//	float z;
-//
-//	Tuple(float x, float y, float z)
-//	{
-//		this->x = x;
-//		this->y = y;
-//		this->z = z;
-//	}
-//
-//	bool operator ==(const Tuple& obj) const
-//	{
-//		return ((int)(x * 1000) == (int)(obj.x * 1000) &&
-//			(int)(y * 1000) == (int)(obj.y * 1000) &&
-//			(int)(z * 1000) == (int)(obj.z * 1000));
-//	}
-//};

@@ -154,6 +154,9 @@
     <Filter Include="src\GLUtil\Shaders\QuadGeometryShader">
       <UniqueIdentifier>{1c2f970c-7efd-44c0-8337-789bd0ba8289}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GLUtil\Shaders\SphereGeometryShader">
+      <UniqueIdentifier>{0426fd9f-05c6-414b-9c92-507427d7569a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -564,6 +567,9 @@
     <ClCompile Include="src\GLUtil\Shaders\QuadGeometryShader\QuadGeometryShader.cpp">
       <Filter>src\GLUtil\Shaders\QuadGeometryShader</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\Shaders\SphereGeometryShader\SphereGeometryShader.cpp">
+      <Filter>src\GLUtil\Shaders\SphereGeometryShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -964,6 +970,9 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\Shaders\QuadGeometryShader\QuadGeometryShader.h">
       <Filter>src\GLUtil\Shaders\QuadGeometryShader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\Shaders\SphereGeometryShader\SphereGeometryShader.h">
+      <Filter>src\GLUtil\Shaders\SphereGeometryShader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
