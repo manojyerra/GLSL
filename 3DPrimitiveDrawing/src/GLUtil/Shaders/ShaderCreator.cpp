@@ -6,6 +6,7 @@ ShaderCreator::ShaderCreator(unsigned int shaderType, GLBufferBuilder* bufferBui
 	_colorShader = NULL;
 	_uvShader = NULL;
 	_cubeGeometryShader = NULL;
+	_quadGeometryShader = NULL;
 
 	_phongPerVertexShader = NULL;
 	_phongPerPixelShader = NULL;
@@ -174,6 +175,17 @@ void ShaderCreator::SetShader(int shaderType)
 
 		_shader = _cubeGeometryShader;
 	}
+	else if (_shaderType == QUAD_GEOMETRY_SHADER)
+	{
+		if (!_quadGeometryShader)
+		{
+			_quadGeometryShader = new QuadGeometryShader();
+			_quadGeometryShader->SetVertexBufferID(_bufferBuilder->GetVertexBufferID());
+			_quadGeometryShader->SetColorBufferID(_bufferBuilder->GetColorBufferID());
+		}
+
+		_shader = _quadGeometryShader;
+	}
 	else if (_shaderType == SSAO_GEOMETRY_PASS_SHADER)
 	{
 		if (!_ssaoGeometryPassShader)
@@ -237,6 +249,10 @@ Shader* ShaderCreator::GetShader(int shaderType)
 	else if (_shaderType == CUBE_GEOMETRY_SHADER)
 	{
 		return _cubeGeometryShader;
+	}
+	else if (_shaderType == QUAD_GEOMETRY_SHADER)
+	{
+		return _quadGeometryShader;
 	}
 
 
@@ -332,6 +348,11 @@ ShaderCreator::~ShaderCreator()
 		_cubeGeometryShader = NULL;
 	}
 
+	if (_quadGeometryShader)
+	{
+		delete _quadGeometryShader;
+		_quadGeometryShader = NULL;
+	}
 
 	if (_phongPerVertexShader)
 	{

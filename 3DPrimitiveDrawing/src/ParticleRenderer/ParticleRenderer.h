@@ -20,10 +20,20 @@ class ParticleRenderer
 	GLMeshRenderer* CreateFewParticlesRenderer(char* allParticleVertexBuf, unsigned int allParticleVertexBufLen);
 
 public:
+	enum
+	{
+		DRAW_AS_CUBES,
+		DRAW_AS_QUADS,
+		DRAW_AS_POINTS
+	};
+
+
 	ParticleRenderer(std::string filePath);
 	ParticleRenderer(char* vertexBuf, unsigned int vertexBufLen);
 	//ParticleRenderer(char* vertexBuf, unsigned int vertexBufLen, char* colorBuf, unsigned int colorBufLen);
 	~ParticleRenderer();
+
+	void SetDrawAs(int drawAs);
 
 	void SetPosition(float x, float y, float z);
 	void UpdateColorBuffer(char* colorBuffer, unsigned int colorBufLen);

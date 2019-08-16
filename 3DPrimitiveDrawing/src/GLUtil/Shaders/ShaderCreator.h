@@ -11,6 +11,7 @@
 #include "PBRWithTextureShader.h"
 #include "PBRColorShader.h"
 #include "CubeGeometryShader.h"
+#include "QuadGeometryShader.h"
 #include "SSAOGeometryPassShader.h"
 #include "SSAOShader.h"
 #include "SSAOBlurShader.h"
@@ -30,6 +31,7 @@ enum {
 	PBR_WITH_TEXTURE_SHADER,
 	PBR_COLOR_SHADER,
 	CUBE_GEOMETRY_SHADER,
+	QUAD_GEOMETRY_SHADER,
 	SSAO_GEOMETRY_PASS_SHADER,
 	SSAO_SHADER,
 	SSAO_BLUR_SHADER,
@@ -43,6 +45,7 @@ private:
 	ColorShader* _colorShader;
 	UVShader* _uvShader;
 	CubeGeometryShader* _cubeGeometryShader;
+	QuadGeometryShader* _quadGeometryShader;
 	PhongShader* _phongPerVertexShader;
 	PhongShader* _phongPerPixelShader;
 	PhongColorShader* _phongColorShader;

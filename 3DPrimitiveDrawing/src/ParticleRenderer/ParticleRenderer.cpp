@@ -26,6 +26,34 @@ ParticleRenderer::ParticleRenderer(char* vertexBuf, unsigned int vertexBufLen)
 	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBuf, vertexBufLen);
 }
 
+void ParticleRenderer::SetDrawAs(int drawAs)
+{
+	if (drawAs == DRAW_AS_CUBES)
+	{
+		_allParticlesRenderer->SetShader(CUBE_GEOMETRY_SHADER);
+		_fewParticlesRenderer->SetShader(CUBE_GEOMETRY_SHADER);
+
+		_allParticlesRenderer->SetPrimitiveType(GLMeshRenderer::points);
+		_fewParticlesRenderer->SetPrimitiveType(GLMeshRenderer::points);
+	}
+	else if (drawAs == DRAW_AS_POINTS)
+	{
+		_allParticlesRenderer->SetShader(COLOR_SHADER);
+		_fewParticlesRenderer->SetShader(COLOR_SHADER);
+
+		_allParticlesRenderer->SetPrimitiveType(GLMeshRenderer::points);
+		_fewParticlesRenderer->SetPrimitiveType(GLMeshRenderer::points);
+	}
+	else if (drawAs == DRAW_AS_QUADS)
+	{
+		_allParticlesRenderer->SetShader(QUAD_GEOMETRY_SHADER);
+		_fewParticlesRenderer->SetShader(QUAD_GEOMETRY_SHADER);
+
+		_allParticlesRenderer->SetPrimitiveType(GLMeshRenderer::points);
+		_fewParticlesRenderer->SetPrimitiveType(GLMeshRenderer::points);
+	}
+}
+
 GLMeshRenderer* ParticleRenderer::CreateAllParticlesRenderer(char* allParticleVertexBuf, unsigned int allParticleVertexBufLen)
 {
 	unsigned int colorBufLen = allParticleVertexBufLen/4;

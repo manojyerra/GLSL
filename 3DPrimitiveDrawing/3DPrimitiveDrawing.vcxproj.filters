@@ -151,6 +151,9 @@
     <Filter Include="src\Common\IO\ModelIO\STLIO">
       <UniqueIdentifier>{bab4e0e6-29da-4d51-b6ad-4c4c5b3a6f31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GLUtil\Shaders\QuadGeometryShader">
+      <UniqueIdentifier>{1c2f970c-7efd-44c0-8337-789bd0ba8289}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -558,6 +561,9 @@
     <ClCompile Include="src\Common\IO\ModelIO\STLIO\STLReaderWithThreads.cpp">
       <Filter>src\Common\IO\ModelIO\STLIO</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\Shaders\QuadGeometryShader\QuadGeometryShader.cpp">
+      <Filter>src\GLUtil\Shaders\QuadGeometryShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLFBO.h">
@@ -955,6 +961,9 @@
     </ClInclude>
     <ClInclude Include="src\Common\IO\ModelIO\STLIO\STLReaderWithThreads.h">
       <Filter>src\Common\IO\ModelIO\STLIO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\Shaders\QuadGeometryShader\QuadGeometryShader.h">
+      <Filter>src\GLUtil\Shaders\QuadGeometryShader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
