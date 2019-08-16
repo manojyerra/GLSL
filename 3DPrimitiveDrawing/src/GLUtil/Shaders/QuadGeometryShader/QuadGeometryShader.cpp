@@ -1,39 +1,39 @@
-#include "CubeGeometryShader.h"
+#include "QuadGeometryShader.h"
 #include "ShaderProgramsManager.h"
 #include "Cam.h"
 
-CubeGeometryShader::CubeGeometryShader()
+QuadGeometryShader::QuadGeometryShader()
 {
 	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram(
-		"shaders/CubeGeometryShader/CubeGeometryShader.vs",
-		"shaders/CubeGeometryShader/CubeGeometryShader.gs",
-		"shaders/CubeGeometryShader/CubeGeometryShader.fs");
+		"shaders/QuadGeometryShader/QuadGeometryShader.vs",
+		"shaders/QuadGeometryShader/QuadGeometryShader.gs",
+		"shaders/QuadGeometryShader/QuadGeometryShader.fs");
 
 	_halfLen = 0.0015f;
 	_alpha = 1.0f;
 }
 
-void CubeGeometryShader::SetCubeHalfLen(float cubeHalfLen)
+void QuadGeometryShader::SetCubeHalfLen(float cubeHalfLen)
 {
 	_halfLen = cubeHalfLen;
 }
 
-void CubeGeometryShader::SetAlpha(float alpha)
+void QuadGeometryShader::SetAlpha(float alpha)
 {
 	_alpha = alpha;
 }
 
-void CubeGeometryShader::SetModelMatrix(float* mat)
+void QuadGeometryShader::SetModelMatrix(float* mat)
 {
 	_modelMat.Copy(mat);
 }
 
-void CubeGeometryShader::Begin()
+void QuadGeometryShader::Begin()
 {
 	_shaderProgram->Begin();
 }
 
-void CubeGeometryShader::SetUniformsAndAttributes()
+void QuadGeometryShader::SetUniformsAndAttributes()
 {
 	Cam* cam = Cam::GetInstance();
 
@@ -55,7 +55,7 @@ void CubeGeometryShader::SetUniformsAndAttributes()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void CubeGeometryShader::End()
+void QuadGeometryShader::End()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -71,7 +71,7 @@ void CubeGeometryShader::End()
 	_shaderProgram->End();
 }
 
-CubeGeometryShader::~CubeGeometryShader()
+QuadGeometryShader::~QuadGeometryShader()
 {
 	if(_shaderProgram)
 	{

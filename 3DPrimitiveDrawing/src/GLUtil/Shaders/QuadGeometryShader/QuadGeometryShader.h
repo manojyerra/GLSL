@@ -1,11 +1,11 @@
-#ifndef CubeGeometryShader_H
-#define CubeGeometryShader_H
+#ifndef QuadGeometryShader_H
+#define QuadGeometryShader_H
 
 #include "Shader.h"
 #include "ShaderProgram.h"
 #include "GLMat.h"
 
-class CubeGeometryShader : public Shader
+class QuadGeometryShader : public Shader
 {
 private:
 	ShaderProgram* _shaderProgram;
@@ -14,8 +14,8 @@ private:
 	GLMat _modelMat;
 
 public:
-	CubeGeometryShader();
-	~CubeGeometryShader();
+	QuadGeometryShader();
+	~QuadGeometryShader();
 
 	void SetCubeHalfLen(float cubeHalfLen);
 	void SetAlpha(float alpha) override;
