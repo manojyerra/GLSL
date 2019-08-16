@@ -148,6 +148,9 @@
     <Filter Include="src\GLUtil\Shaders\PhongColorShader">
       <UniqueIdentifier>{20a9d389-afab-4925-8ee3-cdf09fb085f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Common\IO\ModelIO\STLIO">
+      <UniqueIdentifier>{bab4e0e6-29da-4d51-b6ad-4c4c5b3a6f31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -462,9 +465,6 @@
     <ClCompile Include="src\GLUtil\Shaders\SSAOBlurShader\SSAOBlurShader.cpp">
       <Filter>src\GLUtil\Shaders\SSAOBlurShader</Filter>
     </ClCompile>
-    <ClCompile Include="src\Common\IO\ModelIO\STLReader.cpp">
-      <Filter>src\Common\IO\ModelIO</Filter>
-    </ClCompile>
     <ClCompile Include="src\GLUtil\Shaders\SSAOMapOverlayShader\SSAOMapOverlayShader.cpp">
       <Filter>src\GLUtil\Shaders\SSAOMapOverlayShader</Filter>
     </ClCompile>
@@ -552,8 +552,11 @@
     <ClCompile Include="src\GLUtil\Shaders\PhongColorShader\PhongColorShader.cpp">
       <Filter>src\GLUtil\Shaders\PhongColorShader</Filter>
     </ClCompile>
-    <ClCompile Include="src\Common\IO\ModelIO\STLReaderWithThreads.cpp">
-      <Filter>src\Common\IO\ModelIO</Filter>
+    <ClCompile Include="src\Common\IO\ModelIO\STLIO\STLReader.cpp">
+      <Filter>src\Common\IO\ModelIO\STLIO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\IO\ModelIO\STLIO\STLReaderWithThreads.cpp">
+      <Filter>src\Common\IO\ModelIO\STLIO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -839,9 +842,6 @@
     <ClInclude Include="src\GLUtil\Shaders\SSAOBlurShader\SSAOBlurShader.h">
       <Filter>src\GLUtil\Shaders\SSAOBlurShader</Filter>
     </ClInclude>
-    <ClInclude Include="src\Common\IO\ModelIO\STLReader.h">
-      <Filter>src\Common\IO\ModelIO</Filter>
-    </ClInclude>
     <ClInclude Include="src\GLUtil\Shaders\SSAOMapOverlayShader\SSAOMapOverlayShader.h">
       <Filter>src\GLUtil\Shaders\SSAOMapOverlayShader</Filter>
     </ClInclude>
@@ -950,8 +950,11 @@
     <ClInclude Include="src\GLUtil\Shaders\PhongColorShader\PhongColorShader.h">
       <Filter>src\GLUtil\Shaders\PhongColorShader</Filter>
     </ClInclude>
-    <ClInclude Include="src\Common\IO\ModelIO\STLReaderWithThreads.h">
-      <Filter>src\Common\IO\ModelIO</Filter>
+    <ClInclude Include="src\Common\IO\ModelIO\STLIO\STLReader.h">
+      <Filter>src\Common\IO\ModelIO\STLIO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\IO\ModelIO\STLIO\STLReaderWithThreads.h">
+      <Filter>src\Common\IO\ModelIO\STLIO</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -69,8 +69,8 @@
     <ClCompile Include="src\Common\IO\ModelIO\BaseModelIO.cpp" />
     <ClCompile Include="src\Common\IO\ModelIO\BinaryObjReader.cpp" />
     <ClCompile Include="src\Common\IO\ModelIO\ObjReader.cpp" />
-    <ClCompile Include="src\Common\IO\ModelIO\STLReader.cpp" />
-    <ClCompile Include="src\Common\IO\ModelIO\STLReaderWithThreads.cpp" />
+    <ClCompile Include="src\Common\IO\ModelIO\STLIO\STLReader.cpp" />
+    <ClCompile Include="src\Common\IO\ModelIO\STLIO\STLReaderWithThreads.cpp" />
     <ClCompile Include="src\Common\Utils\AABB.cpp" />
     <ClCompile Include="src\Common\Utils\AABBD.cpp" />
     <ClCompile Include="src\Common\Utils\BufferTransformUtils.cpp" />
@@ -195,8 +195,8 @@
     <ClInclude Include="src\Common\IO\ModelIO\BaseModelIO.h" />
     <ClInclude Include="src\Common\IO\ModelIO\BinaryObjReader.h" />
     <ClInclude Include="src\Common\IO\ModelIO\ObjReader.h" />
-    <ClInclude Include="src\Common\IO\ModelIO\STLReader.h" />
-    <ClInclude Include="src\Common\IO\ModelIO\STLReaderWithThreads.h" />
+    <ClInclude Include="src\Common\IO\ModelIO\STLIO\STLReader.h" />
+    <ClInclude Include="src\Common\IO\ModelIO\STLIO\STLReaderWithThreads.h" />
     <ClInclude Include="src\Common\Utils\AABB.h" />
     <ClInclude Include="src\Common\Utils\AABBD.h" />
     <ClInclude Include="src\Common\Utils\BufferTransformUtils.h" />
@@ -364,7 +364,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;include/HDF5;glad/include;src;src/Platform;src/Math;src/ParticleRenderer;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/Arrays;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/IO/ModelIO;src/Common/Utils;src/GLUtil;src/GLUtil/SSAO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PBRColorShader;src/GLUtil/Shaders/PBRWithTextureShader;src/GLUtil/Shaders/PhongShader;src/GLUtil/Shaders/PhongColorShader;src/GLUtil/Shaders/PhongWithTextureShader;src/GLUtil/Shaders/CubeGeometryShader;src/GLUtil/Shaders/SSAOGeometryPassShader;src/GLUtil/Shaders/SSAOMapOverlayShader;src/GLUtil/Shaders/SSAOShader;src/GLUtil/ShaderProgram;src/SUI;src/Modules;src/Modules/ECoatPost;src/Modules/Demo;src/Modules/Demo/ParticlesDemo;src/Modules/Demo/RenderDemo;src/Modules/Demo/DemoUI;src/GLUtil/Shaders/SSAOBlurShader;src/Common/IO/JSONIO;src/Common/Utils/MathUtils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;include/HDF5;glad/include;src;src/Platform;src/Math;src/ParticleRenderer;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/Arrays;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/IO/ModelIO/STLIO;src/Common/IO/ModelIO;src/Common/Utils;src/GLUtil;src/GLUtil/SSAO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PBRColorShader;src/GLUtil/Shaders/PBRWithTextureShader;src/GLUtil/Shaders/PhongShader;src/GLUtil/Shaders/PhongColorShader;src/GLUtil/Shaders/PhongWithTextureShader;src/GLUtil/Shaders/CubeGeometryShader;src/GLUtil/Shaders/SSAOGeometryPassShader;src/GLUtil/Shaders/SSAOMapOverlayShader;src/GLUtil/Shaders/SSAOShader;src/GLUtil/ShaderProgram;src/SUI;src/Modules;src/Modules/ECoatPost;src/Modules/Demo;src/Modules/Demo/ParticlesDemo;src/Modules/Demo/RenderDemo;src/Modules/Demo/DemoUI;src/GLUtil/Shaders/SSAOBlurShader;src/Common/IO/JSONIO;src/Common/Utils/MathUtils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;GLFW_INCLUDE_NONE;NOMINMAX;H5_BUILT_AS_DYNAMIC_LIB;_ENABLE_DEMO;_ENABLE_SUI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>
@@ -396,7 +396,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;include/HDF5;glad/include;src;src/Platform;src/Math;src/ParticleRenderer;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/Arrays;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/IO/ModelIO;src/Common/Utils;src/GLUtil;src/GLUtil/SSAO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PBRColorShader;src/GLUtil/Shaders/PBRWithTextureShader;src/GLUtil/Shaders/PhongShader;src/GLUtil/Shaders/PhongColorShader;src/GLUtil/Shaders/PhongWithTextureShader;src/GLUtil/Shaders/CubeGeometryShader;src/GLUtil/Shaders/SSAOGeometryPassShader;src/GLUtil/Shaders/SSAOMapOverlayShader;src/GLUtil/Shaders/SSAOShader;src/GLUtil/ShaderProgram;src/SUI;src/Modules;src/Modules/ECoatPost;src/Modules/Demo;src/Modules/Demo/ParticlesDemo;src/Modules/Demo/RenderDemo;src/Modules/Demo/DemoUI;src/GLUtil/Shaders/SSAOBlurShader;src/Common/IO/JSONIO;src/Common/Utils/MathUtils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;include/HDF5;glad/include;src;src/Platform;src/Math;src/ParticleRenderer;src/Shapes2D;src/Shapes3D;src/Util;src/Util/Arrays;src/Common;src/Common/Arrays;src/Common/IO;src/Common/IO/FileIO;src/Common/IO/ImageIO;src/Common/IO/ImageIO/PNG;src/Common/IO/ModelIO/STLIO;src/Common/IO/ModelIO;src/Common/Utils;src/GLUtil;src/GLUtil/SSAO;src/GLUtil/Shaders;src/GLUtil/Shaders/BasicShader;src/GLUtil/Shaders/ColorShader;src/GLUtil/Shaders/UVShader;src/GLUtil/Shaders/PBRShader;src/GLUtil/Shaders/PBRColorShader;src/GLUtil/Shaders/PBRWithTextureShader;src/GLUtil/Shaders/PhongShader;src/GLUtil/Shaders/PhongColorShader;src/GLUtil/Shaders/PhongWithTextureShader;src/GLUtil/Shaders/CubeGeometryShader;src/GLUtil/Shaders/SSAOGeometryPassShader;src/GLUtil/Shaders/SSAOMapOverlayShader;src/GLUtil/Shaders/SSAOShader;src/GLUtil/ShaderProgram;src/SUI;src/Modules;src/Modules/ECoatPost;src/Modules/Demo;src/Modules/Demo/ParticlesDemo;src/Modules/Demo/RenderDemo;src/Modules/Demo/DemoUI;src/GLUtil/Shaders/SSAOBlurShader;src/Common/IO/JSONIO;src/Common/Utils/MathUtils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;GLFW_INCLUDE_NONE;NOMINMAX;H5_BUILT_AS_DYNAMIC_LIB;_ENABLE_DEMO;_ENABLE_SUI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
