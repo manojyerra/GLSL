@@ -9,30 +9,19 @@ Tasks for Integration
 *)Pack below dll files.
 *)Reset to origin and Zoom and Pan and rotate speed for camera.
 
-msvcp140.dll
-msvcp140d.dll
-
-vcruntime140.dll
-vcruntime140d.dll
-
-ucrtbase.dll
-ucrtbased.dll
-
 
 OpenGL related tasks
 --------------------
-*) Work on wireframe.
 *) Add tranformation features in GLMeshRenderer class. Add initially uniform scaling, later check non-uniform scaling and how normals getting effected.
-*) Blend issue
 *) Need long as data type wherever allocating memory. Like GLBatch, GLMemory, GLBufferBuilder, Arrays 
 *) While reading obj model data with scan line, we are reading it as float while scaning line, 
    but if the precision is more do we need to use double and in the opengl also do we need to use double ?
 *) Think about zfighting properly with below questions. Precision depends on which things ?
    which things are constants for one vertex ?
 *) Add camera options in UI for tweaking like ZNear, ZNearWidth and Camera paning and zoom.
-*) Fix current camera issues zoom and pan issues.
 *) Implement camera like First person shooter games.
 *) Check how to save memory from SSAO buffers.
+
 
 How to scale down the model.
 How to avarage normals of obj.
@@ -55,7 +44,6 @@ Other
 -----
 *) Create release library for PNG
 *) Make release build.
-*) Add JSON reader/writer.
 
 
 Done:
@@ -68,10 +56,8 @@ Done:
 *)Fix this waring "warning C4005: 'APIENTRY': macro redefinition"
 *)Allocate gpu memory only from GLMemory.
 *)Load stl file.
-
-
-25.254, 0.23, 0.8
-0.8, 0.23, 25.254
-1.0
-0.3
+*) Add JSON reader/writer.
+*) Fix current camera issues zoom and pan issues.
+*) Work on wireframe.
+*) Blend issue
 
