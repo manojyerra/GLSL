@@ -6,6 +6,7 @@
 #include "SUI.h"
 #include "GLState.h"
 #include "Input.h"
+#include "GLFBOManager.h"
 
 ModulesManager* ModulesManager::_ref = nullptr;
 
@@ -32,6 +33,8 @@ void ModulesManager::Init(unsigned int sw, unsigned int sh, int argc, char** arg
 	_argc = argc;
 	_argv = argv;
 
+	GLFBOManager::GetInstance()->Init(sw, sh);
+
 	SetModule(moduleID);
 	SUISetup(sw, sh);
 }
@@ -44,17 +47,6 @@ ModulesManager* ModulesManager::GetInstance()
 	}
 
 	return _ref;
-}
-
-void ModulesManager::SetScreenSize(unsigned int sw, unsigned int sh)
-{
-	_sw = sw;
-	_sh = sh;
-
-	if (_module)
-	{
-		_module->SetScreenSize(sw, sh);
-	}
 }
 
 void ModulesManager::SetModule(unsigned int moduleID)
@@ -86,6 +78,17 @@ void ModulesManager::SetModule(unsigned int moduleID)
 
 	//TODO: Implement onModuleChange method in every module. 
 	//Take care of camera and screen size changes.
+}
+
+void ModulesManager::SetScreenSize(unsigned int sw, unsigned int sh)
+{
+	_sw = sw;
+	_sh = sh;
+
+	if (_module)
+	{
+		_module->SetScreenSize(sw, sh);
+	}
 }
 
 void ModulesManager::Update(float deltaTime)
@@ -142,6 +145,7 @@ ModulesManager::~ModulesManager()
 	Cam::DeleteInstance();
 	Cam2D::DeleteInstance();
 
-	ShaderProgramsManager::GetInstance()->DeleteInstance();
+	GLFBOManager::DeleteInstance();
+	ShaderProgramsManager::DeleteInstance();
 	GLMemory::printMemoryLeaks();
 }
