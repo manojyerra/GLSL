@@ -3,11 +3,13 @@
 #include "Cam2D.h"
 #include "ParticleRenderer.h"
 #include "ECoatResultReader.h"
+#include "GLFBOManager.h"
 #include "Input.h"
 #include "ContourMap.h"
 #include "ObjReader.h"
 #include "STLReader.h"
 #include "STLReaderWithThreads.h"
+#include "GLState.h"
 
 ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 {
@@ -52,11 +54,11 @@ ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 	//unsigned char* stlColorBuf = (unsigned char*)malloc(stlColorBufLen);
 	//memset(stlColorBuf, '\0', stlColorBufLen);
 
-	//unsigned int parVertexBufSize;
-	//char* parVertexBuf = _resultReader->GetParticleBufferWorkpiece(1, &parVertexBufSize);
+	unsigned int parVertexBufSize;
+	char* parVertexBuf = _resultReader->GetParticleBufferWorkpiece(1, &parVertexBufSize);
 
-	//unsigned int parColorBufLen = 0;
-	//unsigned char* parColorBuf = (unsigned char*)GetParticleColorBuf(80, &parColorBufLen);
+	unsigned int parColorBufLen = 0;
+	unsigned char* parColorBuf = (unsigned char*)GetParticleColorBuf(80, &parColorBufLen);
 
 	////ContourMap colorMap(stlVertexArr, stlVertexArrSize, stlColorBuf, stlColorBufLen, (float*)parVertexBuf, parVertexBufSize / 4, parColorBuf, parColorBufLen);
 
@@ -67,11 +69,14 @@ ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 
 	//_carBody = new GLMeshRenderer(&modelIO, PBR_SHADER);
 
-	//_particleRenderer = new ParticleRenderer(parVertexBuf, parVertexBufSize);
-	//_particleRenderer->SetDrawAs(ParticleRenderer::DRAW_AS_SPHERES);
+	_particleRenderer = new ParticleRenderer(parVertexBuf, parVertexBufSize);
+	_particleRenderer->SetDrawAs(ParticleRenderer::DRAW_AS_CUBES);
 
-	//free(parVertexBuf);
-	
+	free(parVertexBuf);
+
+	_texture = new GLTexture(0.0f, 0.0f, _sw, _sh);
+	_needAllParticlesDraw = true;
+
 	//ApplyContour(80);
 }
 
@@ -104,31 +109,74 @@ void ECoatPost::Update(float deltaTime)
 
 void ECoatPost::Draw()
 {
-	glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	Cam* cam = Cam::GetInstance();
 	cam->SetPerspectiveProjection();
 	cam->SetViewMatrix();
 	cam->UpdateCamera();
-	 
-	_floor->Draw();
 
+	if (cam->IsCameraUpdated() || _needAllParticlesDraw)
+	{
+		GLFBOManager::GetInstance()->BindDefaultMSFBO();
+
+		glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		if(cam->IsCameraUpdated())
+		{
+			DrawObjects(false);
+			_needAllParticlesDraw = true;
+		}
+		else
+		{
+			DrawObjects(true);
+			_needAllParticlesDraw = false;
+		}
+
+		GLFBOManager::GetInstance()->UnBindDefaultMSFBO();	
+	}
+
+	//Draw on default framebuffer
+	glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	Cam2D::GetInstance()->SetProjection();
+
+	_texture->SetBounds(0, 0, _sw, _sh);
+	_texture->GetShader()->SetTextureID(GLFBOManager::GetInstance()->GetDefaultMSFBOTexID());
+	_texture->GetShader()->Set2DCamera(true);
+
+	bool depthTest = GLState::GLEnable(GL_DEPTH_TEST, false);
+	bool cullFace = GLState::GLEnable(GL_CULL_FACE, false);
+	_texture->Draw();
+	GLState::GLEnable(GL_DEPTH_TEST, depthTest);
+	GLState::GLEnable(GL_CULL_FACE, cullFace);
+}
+
+void ECoatPost::DrawObjects(bool drawAllParticles)
+{
 	if (Input::IsMouseClicked())
 	{
 		int index = _meshManager->GetModelIndexByMousePos(Input::MX, Input::MY);
 		printf("\nModel index from GLMeshManager = %d", index);
 	}
 
+	_floor->Draw();
+
 	for (int i = 0; i < _meshManager->Size(); i++)
 	{
 		_meshManager->Get(i)->Draw();
 	}
 
-	_colorBar->Draw();
+	if(drawAllParticles)
+	{
+		_particleRenderer->DrawAllParticles();
+	}
+	else
+	{
+		_particleRenderer->DrawFewParticles();
+	}
 
-	//_carBody->Draw();
-	//_particleRenderer->DrawAllParticles();
+	_colorBar->Draw();
 }
 
 void ECoatPost::actionPerformed(SUIActionEvent e)

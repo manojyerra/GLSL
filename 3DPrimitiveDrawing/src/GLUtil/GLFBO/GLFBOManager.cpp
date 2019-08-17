@@ -5,6 +5,10 @@ GLFBOManager* GLFBOManager::_ref = nullptr;
 
 GLFBOManager::GLFBOManager()
 {
+	_sw = 0;
+	_sh = 0;
+	_defaultFBO = nullptr;
+	_defaultMSFBO = nullptr;
 }
 
 GLFBOManager* GLFBOManager::GetInstance()
@@ -39,6 +43,12 @@ void GLFBOManager::SetScreenSize(int sw, int sh)
 		}
 
 		_defaultFBO = new GLFBO(_sw, _sh);
+
+		if (_defaultMSFBO)
+		{
+			delete _defaultMSFBO;
+			_defaultMSFBO = new GLMSFBO(_sw, _sh);
+		}
 	}
 }
 
@@ -50,6 +60,30 @@ void GLFBOManager::BindDefaultFBO()
 void GLFBOManager::UnBindDefaultFBO()
 {
 	_defaultFBO->UnBindFBO();
+}
+
+unsigned int GLFBOManager::GetDefaultFBOTexID()
+{
+	return _defaultFBO->GetTextureID();
+}
+
+void GLFBOManager::BindDefaultMSFBO()
+{
+	if(!_defaultMSFBO)
+		_defaultMSFBO = new GLMSFBO(_sw, _sh);
+
+	_defaultMSFBO->BindFBO();
+}
+
+void GLFBOManager::UnBindDefaultMSFBO()
+{
+	if (_defaultMSFBO)
+		_defaultMSFBO->UnBindFBO();
+}
+
+unsigned int GLFBOManager::GetDefaultMSFBOTexID()
+{
+	return _defaultMSFBO->GetTextureID();
 }
 
 void GLFBOManager::DeleteInstance()
@@ -67,5 +101,11 @@ GLFBOManager::~GLFBOManager()
 	{
 		delete _defaultFBO;
 		_defaultFBO = nullptr;
+	}
+
+	if (_defaultMSFBO)
+	{
+		delete _defaultMSFBO;
+		_defaultMSFBO = nullptr;
 	}
 }
