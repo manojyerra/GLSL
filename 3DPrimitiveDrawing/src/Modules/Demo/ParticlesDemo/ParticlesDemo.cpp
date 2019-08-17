@@ -16,7 +16,7 @@ ParticlesDemo::ParticlesDemo(float sw, float sh)
 	_numLoaders = 1;
 	_particleRendererVec.clear();
 
-	_fbo = new GLFBO((int)_sw, (int)_sh);
+	_fbo = new GLMSFBO((int)_sw, (int)_sh);
 	_texture = new GLTexture(0.0f, 0.0f, _sw, _sh);
 	_texture->GetShader()->Set2DCamera(true);
 
@@ -24,7 +24,7 @@ ParticlesDemo::ParticlesDemo(float sw, float sh)
 
 	for (int i = 0; i < _numLoaders; i++)
 	{
-		_particleRendererVec.push_back(new ParticleRenderer(""));
+		_particleRendererVec.push_back(new ParticleRenderer("data/BigSize/Particles"));
 	}
 
 	if (_particleRendererVec.size() >= 2)	_particleRendererVec[1]->SetPosition(2, 0, 0);
@@ -119,7 +119,7 @@ void ParticlesDemo::SetScreenSize(float sw, float sh)
 
 	if (!_fbo)
 	{
-		_fbo = new GLFBO((int)_sw, (int)_sh);
+		_fbo = new GLMSFBO((int)_sw, (int)_sh);
 	}
 
 	_drawAllParticles = true;

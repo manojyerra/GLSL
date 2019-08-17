@@ -65,6 +65,21 @@ GLuint GLMemory::CreateRenderBuffer(GLsizei width, GLsizei height, GLenum intern
 	return bufferID;
 }
 
+GLuint GLMemory::CreateMSRenderBuffer(GLsizei width, GLsizei height, GLenum internalformat, const char* filePath, long lineNum)
+{
+	unsigned int bufferID;
+	glGenRenderbuffers(1, &bufferID);
+	glBindRenderbuffer(GL_RENDERBUFFER, bufferID);
+	glRenderbufferStorageMultisample(GL_RENDERBUFFER, 8, internalformat, width, height);
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+	GLMemoryInfo memInfo(filePath, lineNum, width * height * 3);
+	std::string str = "RenderBuffer_" + std::to_string(bufferID);
+	_memInfoMap.insert(std::make_pair(str, memInfo));
+
+	return bufferID;
+}
+
 GLuint GLMemory::CreateFrameBuffer(const char* filePath, long lineNum)
 {
 	unsigned int bufferID = 0;

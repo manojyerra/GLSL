@@ -5,6 +5,7 @@
 
 #include "Floor.h"
 #include "GLFBO.h"
+#include "GLMSFBO.h"
 #include "GLTexture.h"
 #include "ParticleRenderer.h"
 #include <vector>
@@ -19,7 +20,7 @@ private:
 	std::vector<ParticleRenderer*> _particleRendererVec;
 
 	Floor* _floor;
-	GLFBO* _fbo;
+	GLMSFBO* _fbo;
 	GLTexture* _texture;
 	bool _drawAllParticles;
 

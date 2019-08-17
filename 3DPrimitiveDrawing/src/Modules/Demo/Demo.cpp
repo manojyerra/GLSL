@@ -96,9 +96,9 @@ void Demo::actionPerformed(SUIActionEvent e)
 
 void Demo::Draw()
 {
-	SUIInput::SCROLL_STATE_STORE = Input::SCROLL_STATE;
-	bool consumed = SUIInput::Update((float)Input::MX, (float)Input::MY, Input::LEFT_BUTTON_DOWN, 1.0f / 30.0f);
-	Input::SetEnable(!consumed);
+	//SUIInput::SCROLL_STATE_STORE = Input::SCROLL_STATE;
+	//bool consumed = SUIInput::Update((float)Input::MX, (float)Input::MY, Input::LEFT_BUTTON_DOWN, 1.0f / 30.0f);
+	//Input::SetEnable(!consumed);
 
 	if (_windowFrame->GetDemoIndex() == 0)
 	{
@@ -111,9 +111,9 @@ void Demo::Draw()
 			_particleDemo->Draw();
 	}
 
-	bool multiSample = GLState::GLEnable(GL_MULTISAMPLE, false);
-	SUIDraw();
-	GLState::GLEnable(GL_MULTISAMPLE, multiSample);
+	//bool multiSample = GLState::GLEnable(GL_MULTISAMPLE, false);
+	//SUIDraw();
+	//GLState::GLEnable(GL_MULTISAMPLE, multiSample);
 }
 
 void Demo::SetScreenSize(unsigned int sw, unsigned int sh)

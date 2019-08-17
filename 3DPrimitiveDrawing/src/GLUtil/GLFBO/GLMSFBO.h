@@ -26,6 +26,7 @@ public:
 	void UnBindFBO();
 	unsigned int GetTextureID();
 	bool isFBOCreated();
+	bool isMSFBOCreated();
 
 	unsigned int GetW();
 	unsigned int GetH();
