@@ -576,6 +576,9 @@
     <ClCompile Include="src\GLUtil\GLFBO\GLMSFBO.cpp">
       <Filter>src\GLUtil\GLFBO</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\GLFBO\GLFBOManager.cpp">
+      <Filter>src\GLUtil\GLFBO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLMat.h">
@@ -981,6 +984,9 @@
       <Filter>src\GLUtil\GLFBO</Filter>
     </ClInclude>
     <ClInclude Include="src\GLUtil\GLFBO\GLMSFBO.h">
+      <Filter>src\GLUtil\GLFBO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\GLFBO\GLFBOManager.h">
       <Filter>src\GLUtil\GLFBO</Filter>
     </ClInclude>
   </ItemGroup>
