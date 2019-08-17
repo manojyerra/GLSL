@@ -8,7 +8,6 @@ class GLMeshManager
 {
 private:
 	vector<GLMeshRenderer*> _modelVec;
-	GLFBO* _fbo;
 	float _sw;
 	float _sh;
 

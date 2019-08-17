@@ -2,6 +2,7 @@
 #include "ObjReader.h"
 #include "STLReader.h"
 #include "STLReaderWithThreads.h"
+#include "GLFBOManager.h"
 
 GLMeshManager::GLMeshManager(float sw, float sh)
 {
@@ -9,19 +10,12 @@ GLMeshManager::GLMeshManager(float sw, float sh)
 	_sh = sh;
 
 	_modelVec.clear();
-	_fbo = new GLFBO(_sw, _sh);
 }
 
 void GLMeshManager::SetScreenSize(float sw, float sh)
 {
 	_sw = sw;
 	_sh = sh;
-
-	if(_fbo)
-	{
-		delete _fbo;
-		_fbo = new GLFBO(_sw, _sh);
-	}
 }
 
 unsigned int GLMeshManager::Size()
@@ -65,7 +59,7 @@ GLMeshRenderer* GLMeshManager::AddMeshRenderer(std::string path, unsigned int sh
 
 int GLMeshManager::GetModelIndexByMousePos(float x, float y)
 {
-	_fbo->BindFBO();
+	GLFBOManager::GetInstance()->BindDefaultFBO();
 
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -84,7 +78,7 @@ int GLMeshManager::GetModelIndexByMousePos(float x, float y)
 
 	unsigned int colorVal = (unsigned int)((data[2] << 16) + (data[1] << 8) + data[0] );
 
-	_fbo->UnBindFBO();
+	GLFBOManager::GetInstance()->UnBindDefaultFBO();
 
 	return (colorVal < Size()) ? colorVal : -1;
 }
