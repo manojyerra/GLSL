@@ -157,13 +157,13 @@
     <Filter Include="src\GLUtil\Shaders\SphereGeometryShader">
       <UniqueIdentifier>{0426fd9f-05c6-414b-9c92-507427d7569a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GLUtil\GLFBO">
+      <UniqueIdentifier>{7ee6eae6-200b-44bd-af14-bb96b57dd3e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GLUtil\GLFBO.cpp">
-      <Filter>src\GLUtil</Filter>
     </ClCompile>
     <ClCompile Include="src\GLUtil\GLMat.cpp">
       <Filter>src\GLUtil</Filter>
@@ -570,11 +570,11 @@
     <ClCompile Include="src\GLUtil\Shaders\SphereGeometryShader\SphereGeometryShader.cpp">
       <Filter>src\GLUtil\Shaders\SphereGeometryShader</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\GLFBO\GLFBO.cpp">
+      <Filter>src\GLUtil\GLFBO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\GLUtil\GLFBO.h">
-      <Filter>src\GLUtil</Filter>
-    </ClInclude>
     <ClInclude Include="src\GLUtil\GLMat.h">
       <Filter>src\GLUtil</Filter>
     </ClInclude>
@@ -973,6 +973,9 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\Shaders\SphereGeometryShader\SphereGeometryShader.h">
       <Filter>src\GLUtil\Shaders\SphereGeometryShader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\GLFBO\GLFBO.h">
+      <Filter>src\GLUtil\GLFBO</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,6 @@ ContourMap::ContourMap(float* stlVertexArr, unsigned int stlVertexArrSize,
 	unsigned char* stlColorBuf, unsigned int stlColorBufLen,
 	float* parVertexArr, unsigned int parVertexArrSize,
 	unsigned char* parColorBuf, unsigned int parColorBufLen)
-
 {
 	this->parVertexArr = parVertexArr;
 
