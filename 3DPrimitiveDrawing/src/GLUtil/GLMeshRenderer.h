@@ -11,6 +11,7 @@ class GLMeshRenderer
 {
 private:
 	int _primitiveType;
+	float _alpha;
 
 	GLMat _modelMat;
 	AABB _bBox;

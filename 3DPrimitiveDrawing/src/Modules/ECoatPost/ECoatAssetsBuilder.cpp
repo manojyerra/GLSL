@@ -26,8 +26,7 @@ ECoatAssetsBuilder::ECoatAssetsBuilder(ECoatAssetsReader* assetsReader, GLMeshMa
 	if (fluidPath.length() > 0)
 	{
 		_fluid = meshMgr->AddMeshRenderer(fluidPath, BASIC_SHADER, BaseModelIO::STL_MODEL_WITH_THREADS);
-		BasicShader* basicShader = (BasicShader*)_fluid->GetCurrentShader();
-		basicShader->SetAlpha(0.5);
+		_fluid->SetAlpha(0.4f);
 	}
 
 	std::string resultPath = assetsReader->GetResult();

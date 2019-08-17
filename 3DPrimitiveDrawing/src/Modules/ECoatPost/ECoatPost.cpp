@@ -114,6 +114,12 @@ void ECoatPost::Draw()
 	 
 	_floor->Draw();
 
+	if (Input::IsMouseClicked())
+	{
+		int index = _meshManager->GetModelIndexByMousePos(Input::MX, Input::MY);
+		printf("\nModel index from GLMeshManager = %d", index);
+	}
+
 	for (int i = 0; i < _meshManager->Size(); i++)
 	{
 		_meshManager->Get(i)->Draw();

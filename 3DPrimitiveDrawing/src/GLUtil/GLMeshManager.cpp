@@ -95,10 +95,4 @@ GLMeshManager::~GLMeshManager()
 			model = NULL;
 		}
 	}
-
-	if (_fbo)
-	{
-		delete _fbo;
-		_fbo = NULL;
-	}
 }

@@ -18,6 +18,7 @@ GLMeshRenderer::GLMeshRenderer(BaseModelIO* baseModelIO, int shaderType)
 
 	_shaderCreator = new ShaderCreator(shaderType, _bufferBuilder);
 	_visible = true;
+	_alpha = 1.0f;
 }
 
 void GLMeshRenderer::UpdateColorBuffer(const GLvoid* buffer, GLsizeiptr len)
@@ -73,7 +74,7 @@ void GLMeshRenderer::SetPrimitiveType(int primitiveType)
 
 void GLMeshRenderer::SetAlpha(float alpha)
 {
-	_shaderCreator->GetCurrentShader()->SetAlpha(alpha);
+	_alpha = alpha;
 }
 
 void GLMeshRenderer::SetVisible(bool visible)
@@ -83,7 +84,7 @@ void GLMeshRenderer::SetVisible(bool visible)
 
 void GLMeshRenderer::DrawForPicking(glm::vec3 color)
 {
-	if (_visible)
+	if (_visible && _alpha == 1.0f)
 	{
 		unsigned int shaderType = _shaderCreator->GetCurrentShaderType();
 
@@ -141,6 +142,7 @@ void GLMeshRenderer::Draw()
 
 		if (shader)
 		{
+			shader->SetAlpha(_alpha);
 			shader->SetModelMatrix(_modelMat.m);
 			shader->Begin();
 			shader->SetUniformsAndAttributes();
