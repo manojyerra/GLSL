@@ -83,6 +83,7 @@
     <ClCompile Include="src\GLUtil\GLBatch.cpp" />
     <ClCompile Include="src\GLUtil\GLBufferBuilder.cpp" />
     <ClCompile Include="src\GLUtil\GLFBO\GLFBO.cpp" />
+    <ClCompile Include="src\GLUtil\GLFBO\GLMSFBO.cpp" />
     <ClCompile Include="src\GLUtil\GLMat.cpp" />
     <ClCompile Include="src\GLUtil\GLMemory.cpp" />
     <ClCompile Include="src\GLUtil\GLMeshManager.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="src\GLUtil\GLBatch.h" />
     <ClInclude Include="src\GLUtil\GLBufferBuilder.h" />
     <ClInclude Include="src\GLUtil\GLFBO\GLFBO.h" />
+    <ClInclude Include="src\GLUtil\GLFBO\GLMSFBO.h" />
     <ClInclude Include="src\GLUtil\GLInclude.h" />
     <ClInclude Include="src\GLUtil\GLMat.h" />
     <ClInclude Include="src\GLUtil\GLMemory.h" />

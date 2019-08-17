@@ -34,6 +34,22 @@ GLuint GLMemory::CreateTexture(GLint internalFormat, GLsizei w, GLsizei h, GLenu
 	return textureID;
 }
 
+GLuint GLMemory::CreateMSTexture(GLint internalFormat, GLsizei w, GLsizei h, const char* filePath, long lineNum)
+{
+	unsigned int textureID = 0;
+
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, textureID);
+	glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, 8, internalFormat, w, h, GL_TRUE);
+	glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
+
+	GLMemoryInfo memInfo(filePath, lineNum, w * h * 3);
+	std::string str = "Texture_" + std::to_string(textureID);
+	_memInfoMap.insert(std::make_pair(str, memInfo));
+
+	return textureID;
+}
+
 GLuint GLMemory::CreateRenderBuffer(GLsizei width, GLsizei height, GLenum internalformat, const char* filePath, long lineNum)
 {
 	unsigned int bufferID;

@@ -7,6 +7,7 @@
 
 #define GLCreateBuffer(a, b)					GLMemory::CreateBuffer(a, b, __FILE__, __LINE__)
 #define GLCreateTexture(a, b, c, d, e, f)		GLMemory::CreateTexture(a, b, c, d, e, f, __FILE__, __LINE__)
+#define GLCreateMSTexture(a, b, c)				GLMemory::CreateMSTexture(a, b, c, __FILE__, __LINE__)
 #define GLCreateRenderBuffer(a, b, c)			GLMemory::CreateRenderBuffer(a, b, c, __FILE__, __LINE__)
 #define GLCreateFrameBuffer						GLMemory::CreateFrameBuffer(__FILE__, __LINE__)
 
@@ -43,6 +44,7 @@ private:
 public:
 	static GLuint CreateBuffer(GLsizeiptr size, GLvoid* data, const char* filePath, long lineNum);
 	static GLuint CreateTexture(GLint internalFormat, GLsizei w, GLsizei h, GLenum format, GLenum type, GLvoid* buffer, const char* filePath, long lineNum);
+	static GLuint CreateMSTexture(GLint internalFormat, GLsizei w, GLsizei h, const char* filePath, long lineNum);
 	static GLuint CreateRenderBuffer(GLsizei width, GLsizei height, GLenum internalformat, const char* filePath, long lineNum);
 	static GLuint CreateFrameBuffer(const char* filePath, long lineNum);
 
