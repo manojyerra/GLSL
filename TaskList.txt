@@ -1,8 +1,10 @@
 Tasks for Integration
 ---------------------
+*)Check for multisampled FBO support. Based on that decide enable/disable glfw window multi sampling.
+*)Limiting of FPS.
 *)Setup postprocessing project
+*)Read tranformation values from HDF5 file and apply it on car model or particle data.
 *)Project should run in linux
-*)Load HDF5 for loading contour and particle data.
 *)Why one light is not working for PBR Shader ?
 *)Check framebuffer issue with multisampling in desktop system which is working properly in my laptop.
 *)Taking screenshots and making video.
@@ -61,4 +63,4 @@ Done:
 *) Fix current camera issues zoom and pan issues.
 *) Work on wireframe.
 *) Blend issue
-
+*)Load HDF5 for loading contour and particle data.
