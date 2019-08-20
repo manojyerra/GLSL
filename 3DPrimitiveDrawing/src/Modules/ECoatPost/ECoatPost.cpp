@@ -43,7 +43,7 @@ ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 
 	_timeLineFrame = new TimeLineFrame(0, 0, 300, 700, _resultReader->GetFrameCount(), this);
 
-	//STLReaderWithThreads reader("AdvancedRendererInputFiles/checkedAuto_solidMesh_exported.stl");
+	STLReaderWithThreads reader("AdvancedRendererInputFiles/checkedAuto_solidMesh_exported.stl");
 	//STLReaderWithThreads reader("data/OpelGlandX.stl");
 
 	//float* stlVertexArr = (float*)reader.GetVertexBuffer();
@@ -60,6 +60,34 @@ ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 	unsigned int parColorBufLen = 0;
 	unsigned char* parColorBuf = (unsigned char*)GetParticleColorBuf(80, &parColorBufLen);
 
+	unsigned int parTriIDBufSize;
+	char* parTriIDBuf = _resultReader->GetTriangleIDBufferWorkpiece(1, &parTriIDBufSize);
+
+	//Begin : Generate particle normals data
+
+	float* stlNormalsArr = (float*)reader.GetNormalBuffer();
+	unsigned int stlNormalArrSize = reader.GetNormalBufferSize() / 4;
+
+	unsigned int* triIDArr = (unsigned int*)parTriIDBuf;
+	unsigned int numTriIDS = parTriIDBufSize / 4;
+
+	float* parNormalArr = (float*)malloc(parVertexBufSize);
+	memset(parNormalArr, '\0', parVertexBufSize);
+
+	for (int i = 0; i < numTriIDS; i++)
+	{
+		unsigned int triID = triIDArr[i];
+		
+		int stlNorIndex = triID * 9;
+		int parNorIndex = i * 3;
+		parNormalArr[parNorIndex + 0] = stlNormalsArr[stlNorIndex + 0];
+		parNormalArr[parNorIndex + 1] = stlNormalsArr[stlNorIndex + 1];
+		parNormalArr[parNorIndex + 2] = stlNormalsArr[stlNorIndex + 2];
+	}
+
+	//End : Generate particle normals data
+
+
 	////ContourMap colorMap(stlVertexArr, stlVertexArrSize, stlColorBuf, stlColorBufLen, (float*)parVertexBuf, parVertexBufSize / 4, parColorBuf, parColorBufLen);
 
 	//BaseModelIO modelIO;
@@ -69,9 +97,10 @@ ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 
 	//_carBody = new GLMeshRenderer(&modelIO, PBR_SHADER);
 
-	_particleRenderer = new ParticleRenderer(parVertexBuf, parVertexBufSize);
-	_particleRenderer->SetDrawAs(ParticleRenderer::DRAW_AS_CUBES);
-
+	_particleRenderer = new ParticleRenderer(parVertexBuf, parVertexBufSize,
+											(char*)parNormalArr, parVertexBufSize);
+	//_particleRenderer->SetDrawAs(ParticleRenderer::DRAW_AS_CUBES);
+	_particleRenderer->UpdateColorBuffer((char*)parColorBuf, parColorBufLen);
 	free(parVertexBuf);
 
 	_texture = new GLTexture(0.0f, 0.0f, _sw, _sh);
@@ -162,19 +191,19 @@ void ECoatPost::DrawObjects(bool drawAllParticles)
 
 	_floor->Draw();
 
-	for (int i = 0; i < _meshManager->Size(); i++)
-	{
-		_meshManager->Get(i)->Draw();
-	}
+	//for (int i = 0; i < _meshManager->Size(); i++)
+	//{
+	//	_meshManager->Get(i)->Draw();
+	//}
 
-	if(drawAllParticles)
+	//if(drawAllParticles)
 	{
 		_particleRenderer->DrawAllParticles();
 	}
-	else
-	{
-		_particleRenderer->DrawFewParticles();
-	}
+	//else
+	//{
+	//	_particleRenderer->DrawFewParticles();
+	//}
 
 	_colorBar->Draw();
 }

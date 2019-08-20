@@ -5,6 +5,7 @@
 AABB::AABB()
 {
 	minX = maxX = minY = maxY = minZ = maxZ = 0.0f;
+	w = h = d = 0.0f;
 }
 
 AABB::AABB(float minX, float maxX, float minY, float maxY, float minZ, float maxZ)
@@ -15,6 +16,10 @@ AABB::AABB(float minX, float maxX, float minY, float maxY, float minZ, float max
 	this->maxY = maxY;
 	this->minZ = minZ;
 	this->maxZ = maxZ;
+
+	w = maxX - minX;
+	h = maxY - minY;
+	d = maxZ - minZ;
 }
 
 void AABB::Set(float minX, float maxX, float minY, float maxY, float minZ, float maxZ)
@@ -25,6 +30,59 @@ void AABB::Set(float minX, float maxX, float minY, float maxY, float minZ, float
 	this->maxY = maxY;
 	this->minZ = minZ;
 	this->maxZ = maxZ;
+
+	w = maxX - minX;
+	h = maxY - minY;
+	d = maxZ - minZ;
+}
+
+void AABB::Set(AABB* b1, AABB* b2)
+{
+	this->minX = b1->minX < b2->minX ? b1->minX : b2->minX;
+	this->minY = b1->minY < b2->minY ? b1->minY : b2->minY;
+	this->minZ = b1->minZ < b2->minZ ? b1->minZ : b2->minZ;
+
+	this->maxX = b1->maxX > b2->maxX ? b1->maxX : b2->maxX;
+	this->maxY = b1->maxY > b2->maxY ? b1->maxY : b2->maxY;
+	this->maxZ = b1->maxZ > b2->maxZ ? b1->maxZ : b2->maxZ;
+
+	w = maxX - minX;
+	h = maxY - minY;
+	d = maxZ - minZ;
+}
+
+void AABB::AddMarginByPercent(float percent)
+{
+	float dw = w * percent / 100.0f;
+	float dh = h * percent / 100.0f;
+	float dd = d * percent / 100.0f;
+
+	minX -= dw / 2.0f;
+	minY -= dh / 2.0f;
+	minZ -= dd / 2.0f;
+
+	maxX += dw / 2.0f;
+	maxY += dh / 2.0f;
+	maxZ += dd / 2.0f;
+
+	w = maxX - minX;
+	h = maxY - minY;
+	d = maxZ - minZ;
+}
+
+void AABB::AddMargin(float len)
+{
+	minX -= len / 2.0f;
+	minY -= len / 2.0f;
+	minZ -= len / 2.0f;
+
+	maxX += len / 2.0f;
+	maxY += len / 2.0f;
+	maxZ += len / 2.0f;
+
+	w = maxX - minX;
+	h = maxY - minY;
+	d = maxZ - minZ;
 }
 
 float AABB::CenterX()
@@ -40,21 +98,6 @@ float AABB::CenterY()
 float AABB::CenterZ()
 {
 	return (minZ + maxZ) / 2.0f;
-}
-
-float AABB::W()
-{
-	return (maxX - minX);
-}
-
-float AABB::H()
-{
-	return (maxY - minY);
-}
-
-float AABB::D()
-{
-	return (maxZ - minZ);
 }
 
 glm::vec3 AABB::Center()
@@ -78,7 +121,7 @@ glm::vec3 AABB::Max()
 
 glm::vec3 AABB::Size()
 {
-	return glm::vec3(maxX - minX, maxY - minY, maxZ - minZ);
+	return glm::vec3(w, h, d);
 }
 
 void AABB::print()

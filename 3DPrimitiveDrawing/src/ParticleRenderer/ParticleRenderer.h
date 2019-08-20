@@ -19,6 +19,11 @@ class ParticleRenderer
 	GLMeshRenderer* CreateAllParticlesRenderer(char* vertexBuf, unsigned int vertexBufLen);
 	GLMeshRenderer* CreateFewParticlesRenderer(char* allParticleVertexBuf, unsigned int allParticleVertexBufLen);
 
+	GLMeshRenderer* CreateAllParticlesRenderer(char* vertexBuf, unsigned int vertexBufLen, 
+												char* normalBuf, unsigned int normalBufSize);
+	GLMeshRenderer* CreateFewParticlesRenderer(char* allParticleVertexBuf, unsigned int allParticleVertexBufLen, 
+												char* normalBuf, unsigned int normalBufSize);
+
 public:
 	enum
 	{
@@ -29,7 +34,9 @@ public:
 	};
 
 	ParticleRenderer(std::string filePath);
-	ParticleRenderer(char* vertexBuf, unsigned int vertexBufLen);
+	ParticleRenderer(char* vertexBuf, unsigned int vertexBufSize);
+	ParticleRenderer(char* vertexBuf, unsigned int vertexBufSize, char* normalBuf, unsigned int normalBufSize);
+
 	~ParticleRenderer();
 
 	void SetDrawAs(int drawAs);

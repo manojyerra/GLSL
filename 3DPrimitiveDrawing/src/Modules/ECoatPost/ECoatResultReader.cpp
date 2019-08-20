@@ -156,6 +156,62 @@ char* ECoatResultReader::GetParticleBufferWorkpiece(unsigned int frameNum, unsig
 	return vertexData;
 }
 
+char* ECoatResultReader::GetTriangleIDBufferWorkpiece(unsigned int frameNum, unsigned int* dataSize)
+{
+	H5::Group workPieceGroup = _h5File->openGroup("Workpiece");
+
+	if (!H5::IdComponent::isValid(workPieceGroup.getId()))
+	{
+		throw new std::exception("Exception : Invalid Group");
+	}
+
+	if (frameNum <= 0 || frameNum > workPieceGroup.getNumObjs())
+	{
+		throw new std::exception("Exception : Invalid frame number");
+	}
+
+	H5::Group particleGroup = workPieceGroup.openGroup("Particle");
+	H5::DataSet dataSet = particleGroup.openDataSet("triangle-ids");
+
+	//size_t floatSize = dataSet.getFloatType().getSize();
+	//32-bit integer (From the HDF5 file )
+	if (dataSet.getTypeClass() != H5T_INTEGER)
+	{
+		throw new std::exception("Exception : Invalid dataset type");
+	}
+
+	H5::DataSpace dataSpace = dataSet.getSpace();
+	int numDimentions = dataSpace.getSimpleExtentNdims();
+
+	if (numDimentions != 2)
+	{
+		throw new std::exception("Exception : Unsupported array dimention");
+	}
+
+	hsize_t arrInfo[2];
+	int ndims = dataSpace.getSimpleExtentDims(arrInfo, NULL);
+	unsigned int rows = arrInfo[0];
+	unsigned int cols = arrInfo[1];
+
+	H5::DataSpace memSpace(numDimentions, arrInfo);
+
+	unsigned int vertexBufSize = rows * cols * sizeof(int);
+
+	char* vertexData = (char*)malloc(vertexBufSize);
+	dataSet.read(vertexData, H5::PredType::NATIVE_INT32, memSpace, dataSpace);
+
+	memSpace.close();
+	dataSpace.close();
+	dataSet.close();
+	particleGroup.close();
+	workPieceGroup.close();
+
+	dataSize[0] = vertexBufSize;
+
+	return vertexData;
+
+}
+
 float ECoatResultReader::ReadFloatAttributes(H5::Group* group, const std::string& attr_name)
 {
 	double value = 0.0;

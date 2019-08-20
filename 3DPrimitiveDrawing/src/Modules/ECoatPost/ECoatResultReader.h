@@ -27,6 +27,7 @@ public:
 	FrameInfo GetThicknessBuffer(unsigned int frameNum);
 	char* GetParticleBufferWorkpiece(unsigned int frameNum, unsigned int* dataSize);
 	char* GetParticleBufferWorkpiece(unsigned int frameNum, unsigned int* dataSize, H5::PredType dataType);
+	char* GetTriangleIDBufferWorkpiece(unsigned int frameNum, unsigned int* dataSize);
 
 	unsigned int GetFrameCount();
 };

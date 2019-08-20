@@ -15,21 +15,25 @@ public:
 	float minZ;
 	float maxZ;
 
+	float w;
+	float h;
+	float d;
+
 	AABB();
 	AABB(float minX, float maxX, float minY, float maxY, float minZ, float maxZ);
 	~AABB();
 
 	void Set(float minX, float maxX, float minY, float maxY, float minZ, float maxZ);
+	void Set(AABB* b1, AABB* b2);
+	void AddMarginByPercent(float percent);
+	void AddMargin(float len);
+
+	glm::vec3 Center();
 
 	float CenterX();
 	float CenterY();
 	float CenterZ();
 
-	float W();
-	float H();
-	float D();
-
-	glm::vec3 Center();
 	glm::vec3 Min();
 	glm::vec3 Max();
 	glm::vec3 Size();

@@ -1,8 +1,35 @@
 #include "GameLoop.h"
 #include "ModulesManager.h"
+#include "FileReader.h"
 
 GameLoop::GameLoop(float sw, float sh, int argc, char** argv)
 {
+	//FileReader fr("data/triangle-Ids.txt", "rb");
+
+	//char* line = nullptr;
+	//unsigned int min = -1;
+	//unsigned int max = -1;
+
+	//while ( (line = fr.ReadLine()) != nullptr)
+	//{
+	//	unsigned int num = atoi(line);
+
+	//	if (num < min || min == -1)
+	//	{
+	//		min = num;
+	//	}
+
+	//	if (num == 123)
+	//	{
+	//		printf("aaa");
+	//	}
+
+	//	if (num > max || max == -1)
+	//	{
+	//		max = num;
+	//	}
+	//}
+
 	ModulesManager::GetInstance()->Init(sw, sh, argc, argv, ModulesManager::ECOAT_POST_MODULE);
 }
 
