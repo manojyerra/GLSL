@@ -26,10 +26,11 @@ private:
 	GLMeshManager* _meshManager;
 	ParticleRenderer* _particleRenderer;
 
+	TimeLineFrame* _timeLineFrame;
+	ColorBar* _colorBar;
+
 	ECoatResultReader* _resultReader;
 	ECoatAssetsBuilder* _assetsBuilder;
-	ColorBar* _colorBar;
-	TimeLineFrame* _timeLineFrame;
 
 	void ApplyContour(int frameNum);
 	void SetGLStates();
