@@ -573,14 +573,14 @@
     <ClCompile Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatAssetsReader.cpp">
       <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatColorBar.cpp">
-      <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
-    </ClCompile>
     <ClCompile Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatResultReader.cpp">
       <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
     </ClCompile>
     <ClCompile Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatPostProcessing.cpp">
       <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\ESSModules\ECoatColorBar.cpp">
+      <Filter>src\Modules\ESSModules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -983,14 +983,14 @@
     <ClInclude Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatAssetsReader.h">
       <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatColorBar.h">
-      <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
-    </ClInclude>
     <ClInclude Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatResultReader.h">
       <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
     </ClInclude>
     <ClInclude Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatPostProcessing.h">
       <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\ESSModules\ECoatColorBar.h">
+      <Filter>src\Modules\ESSModules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
