@@ -11,14 +11,14 @@ ECoatParticleDataMgr::ECoatParticleDataMgr(ECoatAssetsBuilder* assetsBuilder, Co
 	BufferInfo parVerBufInfo = _resultFileReader->GetParticleBufferWorkpiece(1);
 	BufferInfo parNorBufInfo = GenerateNormals(_assetsBuilder->GetSolidSTLReader());
 
-	_particleRenderer = new ParticleRenderer(&parVerBufInfo);
+	_particleRenderer = new ParticleRenderer(&parVerBufInfo, &parNorBufInfo);
 	ApplyContour(1);
 }
 
 BufferInfo ECoatParticleDataMgr::GenerateNormals(STLReader* stlReader)
 {
 	BufferInfo triIDBufInfo = _resultFileReader->GetTriangleIDBufferWorkpiece(1);
-	float* triIDArr = (float*)triIDBufInfo.buffer;
+	unsigned int* triIDArr = (unsigned int*)triIDBufInfo.buffer;
 	unsigned int numTriIDS = triIDBufInfo.size / 4;
 
 	float* stlNormalsArr = (float*)stlReader->GetNormalBuffer();

@@ -127,7 +127,7 @@ GLMeshRenderer* ParticleRenderer::CreateAllParticlesRenderer(BufferInfo* vertexB
 	modelIO.SetNormalBuffer(normalBufInfo->buffer, normalBufInfo->size);
 	modelIO.SetColorBuffer((const char*)colorBuf, colorBufLen);
 
-	GLMeshRenderer* meshRenderer = new GLMeshRenderer(&modelIO, CUBE_GEOMETRY_SHADER);
+	GLMeshRenderer* meshRenderer = new GLMeshRenderer(&modelIO, PBR_COLOR_SHADER);
 	meshRenderer->SetPrimitiveType(GLMeshRenderer::points);
 
 	free(colorBuf);
@@ -169,7 +169,8 @@ void ParticleRenderer::UpdateColorBuffer(char* highPolyColorBuf, unsigned int hi
 		hIndex += skipBytes;
 	}
 
-	_fewParticlesRenderer->UpdateColorBuffer(lowPolyColorBuf, lowPolyColorBufLen);
+	if(_fewParticlesRenderer)
+		_fewParticlesRenderer->UpdateColorBuffer(lowPolyColorBuf, lowPolyColorBufLen);
 
 	free(lowPolyColorBuf);
 }
@@ -189,6 +190,10 @@ void ParticleRenderer::DrawFewParticles()
 	{
 		_fewParticlesRenderer->SetModelMatrix(_modelMat.m);
 		_fewParticlesRenderer->Draw();
+	}
+	else
+	{
+		DrawAllParticles();
 	}
 }
 
