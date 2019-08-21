@@ -123,8 +123,8 @@
     <ClCompile Include="src\Modules\Demo\DemoUI\WholeWindowFrame.cpp" />
     <ClCompile Include="src\Modules\Demo\ParticlesDemo\ParticlesDemo.cpp" />
     <ClCompile Include="src\Modules\Demo\RenderDemo\RenderDemo.cpp" />
+    <ClCompile Include="src\Modules\ESSModules\ColorBar.cpp" />
     <ClCompile Include="src\Modules\ESSModules\ContourMap.cpp" />
-    <ClCompile Include="src\Modules\ESSModules\ECoatColorBar.cpp" />
     <ClCompile Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatAssetsBuilder.cpp" />
     <ClCompile Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatAssetsReader.cpp" />
     <ClCompile Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatPostProcessing.cpp" />
@@ -254,8 +254,8 @@
     <ClInclude Include="src\Modules\Demo\DemoUI\WholeWindowFrame.h" />
     <ClInclude Include="src\Modules\Demo\ParticlesDemo\ParticlesDemo.h" />
     <ClInclude Include="src\Modules\Demo\RenderDemo\RenderDemo.h" />
+    <ClInclude Include="src\Modules\ESSModules\ColorBar.h" />
     <ClInclude Include="src\Modules\ESSModules\ContourMap.h" />
-    <ClInclude Include="src\Modules\ESSModules\ECoatColorBar.h" />
     <ClInclude Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatAssetsBuilder.h" />
     <ClInclude Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatAssetsReader.h" />
     <ClInclude Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatPostProcessing.h" />

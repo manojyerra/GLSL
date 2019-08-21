@@ -9,7 +9,7 @@
 #include "SUIActionListener.h"
 #include "ParticleRenderer.h"
 #include "ECoatResultReader.h"
-#include "ECoatColorBar.h"
+#include "ColorBar.h"
 #include "ECoatAssetsBuilder.h"
 
 class ECoatPostProcessing : public Module, public SUIActionListener
@@ -28,7 +28,7 @@ private:
 
 	ECoatResultReader* _resultReader;
 	ECoatAssetsBuilder* _assetsBuilder;
-	ECoatColorBar* _colorBar;
+	ColorBar* _colorBar;
 	TimeLineFrame* _timeLineFrame;
 
 	void ApplyContour(int frameNum);

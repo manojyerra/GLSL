@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 #include "GLMeshRenderer.h"
 
-class ECoatColorBar
+class ColorBar
 {
 private:
 	//std::vector<glm::vec3> _allColorsVec;
@@ -29,8 +29,8 @@ public:
 	float* allColorsVecG;
 	float* allColorsVecB;
 
-	ECoatColorBar();
-	~ECoatColorBar();
+	ColorBar();
+	~ColorBar();
 
 	void SetMinMaxThickness(float minThickness, float maxThickness);
 	void GetColor(float thickness, float* r, float* g, float* b);

@@ -1,8 +1,8 @@
-#include "ECoatColorBar.h"
+#include "ColorBar.h"
 #include "GLBatch.h"
 #include "GLState.h"
 
-ECoatColorBar::ECoatColorBar()
+ColorBar::ColorBar()
 {
 	_totColors = 4;
 	_totArrElements = 1000;
@@ -38,7 +38,7 @@ ECoatColorBar::ECoatColorBar()
 	SetMinMaxThickness(0.0f, 1.0f);
 }
 
-void ECoatColorBar::GenerateGeometry(int x, int y, int w, int h)
+void ColorBar::GenerateGeometry(int x, int y, int w, int h)
 {
 	int numBlocks = _mainColorsReverseVec.size() - 1;
 	float eachRectH = (float)h / (float)numBlocks;
@@ -114,7 +114,7 @@ void ECoatColorBar::GenerateGeometry(int x, int y, int w, int h)
 	}
 }
 
-void ECoatColorBar::SetMinMaxThickness(float minThickness, float maxThickness)
+void ColorBar::SetMinMaxThickness(float minThickness, float maxThickness)
 {
 	_minThickness = minThickness;
 	_maxThickness = maxThickness;
@@ -122,7 +122,7 @@ void ECoatColorBar::SetMinMaxThickness(float minThickness, float maxThickness)
 	_totDiffThickness = _maxThickness - _minThickness;
 }
 
-void ECoatColorBar::GetColor(float thickness, float* r, float* g, float* b)
+void ColorBar::GetColor(float thickness, float* r, float* g, float* b)
 {
 	float currDiffThick = thickness - _minThickness;
 	int index = (int)(currDiffThick * _totArrElements / _totDiffThickness);
@@ -132,7 +132,7 @@ void ECoatColorBar::GetColor(float thickness, float* r, float* g, float* b)
 	b[0] = allColorsVecB[index];
 }
 
-void ECoatColorBar::Draw()
+void ColorBar::Draw()
 {
 	if (_meshRenderer)
 	{
@@ -146,7 +146,7 @@ void ECoatColorBar::Draw()
 	}
 }
 
-ECoatColorBar::~ECoatColorBar()
+ColorBar::~ColorBar()
 {
 	if (_meshRenderer)
 	{
