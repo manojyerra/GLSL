@@ -38,25 +38,25 @@ ParticleRenderer::ParticleRenderer(char* vertexBuf, unsigned int vertexBufSize,
 
 void ParticleRenderer::SetDrawAs(int drawAs)
 {
-	if (drawAs == DRAW_AS_CUBES)
-	{
-		_allParticlesRenderer->SetShader(CUBE_GEOMETRY_SHADER);
-		_fewParticlesRenderer->SetShader(CUBE_GEOMETRY_SHADER);
-	}
-	else if (drawAs == DRAW_AS_POINTS)
+	if (drawAs == DRAW_AS_POINTS)
 	{
 		_allParticlesRenderer->SetShader(COLOR_SHADER);
 		_fewParticlesRenderer->SetShader(COLOR_SHADER);
 	}
-	else if (drawAs == DRAW_AS_QUADS)
+	else if (drawAs == DRAW_AS_CUBES)
 	{
-		_allParticlesRenderer->SetShader(QUAD_GEOMETRY_SHADER);
-		_fewParticlesRenderer->SetShader(QUAD_GEOMETRY_SHADER);
+		_allParticlesRenderer->SetShader(CUBE_GEOMETRY_SHADER);
+		_fewParticlesRenderer->SetShader(CUBE_GEOMETRY_SHADER);
 	}
 	else if (drawAs == DRAW_AS_SPHERES)
 	{
 		_allParticlesRenderer->SetShader(SPHERE_GEOMETRY_SHADER);
 		_fewParticlesRenderer->SetShader(SPHERE_GEOMETRY_SHADER);
+	}
+	else if (drawAs == DRAW_AS_QUADS)
+	{
+		_allParticlesRenderer->SetShader(QUAD_GEOMETRY_SHADER);
+		_fewParticlesRenderer->SetShader(QUAD_GEOMETRY_SHADER);
 	}
 }
 

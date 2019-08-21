@@ -71,6 +71,8 @@ ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 	unsigned int* triIDArr = (unsigned int*)parTriIDBuf;
 	unsigned int numTriIDS = parTriIDBufSize / 4;
 
+	long startTime = Platform::GetTimeInMillis();
+
 	float* parNormalArr = (float*)malloc(parVertexBufSize);
 	memset(parNormalArr, '\0', parVertexBufSize);
 
@@ -80,10 +82,15 @@ ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 		
 		int stlNorIndex = triID * 9;
 		int parNorIndex = i * 3;
-		parNormalArr[parNorIndex + 0] = stlNormalsArr[stlNorIndex + 0];
-		parNormalArr[parNorIndex + 1] = stlNormalsArr[stlNorIndex + 1];
-		parNormalArr[parNorIndex + 2] = stlNormalsArr[stlNorIndex + 2];
+		
+		//parNormalArr[parNorIndex + 0] = stlNormalsArr[stlNorIndex + 0];
+		//parNormalArr[parNorIndex + 1] = stlNormalsArr[stlNorIndex + 1];
+		//parNormalArr[parNorIndex + 2] = stlNormalsArr[stlNorIndex + 2];
+
+		memcpy(&parNormalArr[parNorIndex], &stlNormalsArr[stlNorIndex], 12);
 	}
+
+	printf("\nTimeTaken for copying normals: %ld", (Platform::GetTimeInMillis()-startTime));
 
 	//End : Generate particle normals data
 
@@ -93,14 +100,13 @@ ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 	//BaseModelIO modelIO;
 	//modelIO.SetVertexBuffer(reader.GetVertexBuffer(), reader.GetVertexBufferSize());
 	//modelIO.SetNormalBuffer(reader.GetNormalBuffer(), reader.GetNormalBufferSize());
-	////modelIO.SetColorBuffer((const char*)stlColorBuf, stlColorBufLen);
+	//modelIO.SetColorBuffer((const char*)stlColorBuf, stlColorBufLen);
 
 	//_carBody = new GLMeshRenderer(&modelIO, PBR_SHADER);
 
-	_particleRenderer = new ParticleRenderer(parVertexBuf, parVertexBufSize,
-											(char*)parNormalArr, parVertexBufSize);
-	//_particleRenderer->SetDrawAs(ParticleRenderer::DRAW_AS_CUBES);
+	_particleRenderer = new ParticleRenderer(parVertexBuf, parVertexBufSize, (char*)parNormalArr, parVertexBufSize);
 	_particleRenderer->UpdateColorBuffer((char*)parColorBuf, parColorBufLen);
+
 	free(parVertexBuf);
 
 	_texture = new GLTexture(0.0f, 0.0f, _sw, _sh);
@@ -152,7 +158,7 @@ void ECoatPost::Draw()
 
 		if(cam->IsCameraUpdated())
 		{
-			DrawObjects(false);
+			DrawObjects(true);
 			_needAllParticlesDraw = true;
 		}
 		else
@@ -189,21 +195,21 @@ void ECoatPost::DrawObjects(bool drawAllParticles)
 		printf("\nModel index from GLMeshManager = %d", index);
 	}
 
-	_floor->Draw();
+	//_floor->Draw();
 
 	//for (int i = 0; i < _meshManager->Size(); i++)
 	//{
 	//	_meshManager->Get(i)->Draw();
 	//}
 
-	//if(drawAllParticles)
+	if(drawAllParticles)
 	{
 		_particleRenderer->DrawAllParticles();
 	}
-	//else
-	//{
-	//	_particleRenderer->DrawFewParticles();
-	//}
+	else
+	{
+		_particleRenderer->DrawFewParticles();
+	}
 
 	_colorBar->Draw();
 }
