@@ -132,3 +132,59 @@ void main(void)
 	
 	
 //"AdvancedRendererInputFiles/checkedAuto_solidMesh_exported.stl"
+
+
+
+
+void ECoatParticleDataMgr::ApplyContour(int frameNum)
+{
+	long startTime = Platform::GetTimeInMillis();
+
+	if (_particleRenderer)
+	{
+		FrameInfo frameInfo = _resultFileReader->GetThicknessBuffer(frameNum);
+
+		float minThick = frameInfo.minThickness;
+		float maxThick = frameInfo.maxThickness;
+		float totDiffThick = maxThick - minThick;
+		unsigned int numThicknessVals = frameInfo.bufferSize / sizeof(float);
+		float* thicknessBuf = (float*)frameInfo.buffer;
+
+		unsigned int colorBufSize = numThicknessVals * 3;
+		char* colorBuf = (char*)malloc(colorBufSize);
+
+		float* allColorsVecR = _colorBar->allColorsVecR;
+		float* allColorsVecG = _colorBar->allColorsVecG;
+		float* allColorsVecB = _colorBar->allColorsVecB;
+
+		//TODO: 1000.0f should be taken from ColorBar class.
+		float factor = 1000.0f / totDiffThick;
+
+		for (int i = 0; i < numThicknessVals; i++)
+		{
+			int ii = i * 3;
+
+			int index = (int)((thicknessBuf[i] - minThick) * factor);
+
+			colorBuf[ii + 0] = allColorsVecR[index] * 255;
+			colorBuf[ii + 1] = allColorsVecG[index] * 255;
+			colorBuf[ii + 2] = allColorsVecB[index] * 255;
+		}
+
+		if (_particleRenderer)
+		{
+			//glm::vec3 carCenter = _assetsBuilder->GetSolid()->GetAABB().Center();
+			//glm::vec3 particleCenter = _particleRenderer->GetBBoxCenter();
+
+			//glm::vec3 delta = carCenter - particleCenter;
+
+			_particleRenderer->UpdateColorBuffer(colorBuf, colorBufSize);
+			//_particleRenderer->SetPosition(delta.x, delta.y, delta.z);
+		}
+
+		free(colorBuf);
+		free(thicknessBuf);
+	}
+
+	Platform::debugPrint("\nTime for applying contour : %ld", Platform::GetTimeInMillis() - startTime);
+}
