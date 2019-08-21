@@ -3,6 +3,7 @@
 
 #include "GLMeshRenderer.h"
 #include "BinaryObjReader.h"
+#include "BufferInfo.h"
 #include "glm/glm.hpp"
 
 class ParticleRenderer
@@ -16,13 +17,11 @@ class ParticleRenderer
 	static const unsigned int BYTES_PER_VERTEX = 12;
 	static const unsigned int BYTES_PER_COLOR = 3;
 
-	GLMeshRenderer* CreateAllParticlesRenderer(char* vertexBuf, unsigned int vertexBufLen);
-	GLMeshRenderer* CreateFewParticlesRenderer(char* allParticleVertexBuf, unsigned int allParticleVertexBufLen);
+	GLMeshRenderer* CreateAllParticlesRenderer(BufferInfo* vertexBufInfo);
+	GLMeshRenderer* CreateFewParticlesRenderer(BufferInfo* allParVerBufInfo);
 
-	GLMeshRenderer* CreateAllParticlesRenderer(char* vertexBuf, unsigned int vertexBufLen, 
-												char* normalBuf, unsigned int normalBufSize);
-	GLMeshRenderer* CreateFewParticlesRenderer(char* allParticleVertexBuf, unsigned int allParticleVertexBufLen, 
-												char* normalBuf, unsigned int normalBufSize);
+	GLMeshRenderer* CreateAllParticlesRenderer(BufferInfo* vertexBufInfo, BufferInfo* normalBufInfo);
+	GLMeshRenderer* CreateFewParticlesRenderer(BufferInfo* allParVerBufInfo, BufferInfo* normalBufInfo);
 
 public:
 	enum
@@ -34,8 +33,8 @@ public:
 	};
 
 	ParticleRenderer(std::string filePath);
-	ParticleRenderer(char* vertexBuf, unsigned int vertexBufSize);
-	ParticleRenderer(char* vertexBuf, unsigned int vertexBufSize, char* normalBuf, unsigned int normalBufSize);
+	ParticleRenderer(BufferInfo* vertexBufInfo);
+	ParticleRenderer(BufferInfo* vertexBufInfo, BufferInfo* normalBufInfo);
 
 	~ParticleRenderer();
 

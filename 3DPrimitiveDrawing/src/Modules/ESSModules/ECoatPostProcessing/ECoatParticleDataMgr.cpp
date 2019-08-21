@@ -5,11 +5,13 @@ ECoatParticleDataMgr::ECoatParticleDataMgr(ECoatAssetsBuilder* assetsBuilder, Co
 {
 	_assetsBuilder = assetsBuilder;
 	_colorBar = colorBar;
+	_particleRenderer = nullptr;
 	_resultFileReader = _assetsBuilder->GetResultReader();
 
 	BufferInfo parVerBufInfo = _resultFileReader->GetParticleBufferWorkpiece(1);
+	BufferInfo parNorBufInfo = GenerateNormals(_assetsBuilder->GetSolidSTLReader());
 
-	_particleRenderer = new ParticleRenderer(parVerBufInfo.buffer, parVerBufInfo.size);
+	_particleRenderer = new ParticleRenderer(&parVerBufInfo);
 	ApplyContour(1);
 }
 

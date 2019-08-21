@@ -13,27 +13,26 @@ ParticleRenderer::ParticleRenderer(std::string filePath)
 
 	_bBoxCenter = BufferTransformUtils::CalcCenter((float*)vertexBuf, vertexBufLen / 4);
 
-	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBuf, vertexBufLen);
-	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBuf, vertexBufLen);
+	_allParticlesRenderer = CreateAllParticlesRenderer(&BufferInfo(vertexBuf, vertexBufLen));
+	_fewParticlesRenderer = CreateFewParticlesRenderer(&BufferInfo(vertexBuf, vertexBufLen));
 }
 
-ParticleRenderer::ParticleRenderer(char* vertexBuf, unsigned int vertexBufSize)
+ParticleRenderer::ParticleRenderer(BufferInfo* vertexBufInfo)
 {
 	_skipNumVertex = 50;
-	_bBoxCenter = BufferTransformUtils::CalcCenter((float*)vertexBuf, vertexBufSize / 4);
+	_bBoxCenter = BufferTransformUtils::CalcCenter((float*)vertexBufInfo->buffer, vertexBufInfo->size / 4);
 
-	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBuf, vertexBufSize);
-	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBuf, vertexBufSize);
+	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBufInfo);
+	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBufInfo);
 }
 
-ParticleRenderer::ParticleRenderer(char* vertexBuf, unsigned int vertexBufSize, 
-									char* normalBuf, unsigned int normalBufSize)
+ParticleRenderer::ParticleRenderer(BufferInfo* vertexBufInfo, BufferInfo* normalBufInfo)
 {
 	_skipNumVertex = 50;
-	_bBoxCenter = BufferTransformUtils::CalcCenter((float*)vertexBuf, vertexBufSize / 4);
+	_bBoxCenter = BufferTransformUtils::CalcCenter((float*)vertexBufInfo->buffer, vertexBufInfo->size / 4);
 
-	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBuf, vertexBufSize, normalBuf, normalBufSize);
-	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBuf, vertexBufSize, normalBuf, normalBufSize);
+	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBufInfo, normalBufInfo);
+	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBufInfo, normalBufInfo);
 }
 
 void ParticleRenderer::SetDrawAs(int drawAs)
@@ -60,14 +59,14 @@ void ParticleRenderer::SetDrawAs(int drawAs)
 	}
 }
 
-GLMeshRenderer* ParticleRenderer::CreateAllParticlesRenderer(char* allParticleVertexBuf, unsigned int allParticleVertexBufLen)
+GLMeshRenderer* ParticleRenderer::CreateAllParticlesRenderer(BufferInfo* allParVerBufInfo)
 {
-	unsigned int colorBufLen = allParticleVertexBufLen/4;
+	unsigned int colorBufLen = allParVerBufInfo->size /4;
 	unsigned char* colorBuf = (unsigned char*)malloc(colorBufLen);
 	memset(colorBuf, 128, colorBufLen);
 
 	BaseModelIO modelIO;
-	modelIO.SetVertexBuffer(allParticleVertexBuf, allParticleVertexBufLen);
+	modelIO.SetVertexBuffer(allParVerBufInfo->buffer, allParVerBufInfo->size);
 	modelIO.SetColorBuffer((const char*)colorBuf, colorBufLen);
 
 	GLMeshRenderer* meshRenderer = new GLMeshRenderer(&modelIO, CUBE_GEOMETRY_SHADER);
@@ -78,18 +77,20 @@ GLMeshRenderer* ParticleRenderer::CreateAllParticlesRenderer(char* allParticleVe
 	return meshRenderer;
 }
 
-GLMeshRenderer* ParticleRenderer::CreateFewParticlesRenderer(char* highPolyVerBuf, unsigned int highPolyVerBufLen)
+GLMeshRenderer* ParticleRenderer::CreateFewParticlesRenderer(BufferInfo* highPolyVerBufInfo)
 {
 	//Generating low poly vertex data
 	unsigned int bytesPVer = BYTES_PER_VERTEX;
 	
-	unsigned int highPolyVerCount = highPolyVerBufLen / bytesPVer;
+	unsigned int highPolyVerCount = highPolyVerBufInfo->size / bytesPVer;
 	unsigned int lowPolyVerCount = highPolyVerCount / (_skipNumVertex+1);
 	unsigned int lowPolyVerBufLen = lowPolyVerCount * bytesPVer;
 	unsigned char* lowPolyVertexBuf = (unsigned char*)malloc(lowPolyVerBufLen);
 
 	unsigned int skipBytes = (_skipNumVertex+1) * bytesPVer;
 	unsigned int hIndex = 0; // high poly array index
+
+	char* highPolyVerBuf = highPolyVerBufInfo->buffer;
 
 	for (unsigned int i = 0; i < lowPolyVerBufLen; i += bytesPVer)
 	{
@@ -115,16 +116,15 @@ GLMeshRenderer* ParticleRenderer::CreateFewParticlesRenderer(char* highPolyVerBu
 	return meshRenderer;
 }
 
-GLMeshRenderer* ParticleRenderer::CreateAllParticlesRenderer(char* vertexBuf, unsigned int vertexBufSize, 
-													char* normalBuf, unsigned int normalBufSize)
+GLMeshRenderer* ParticleRenderer::CreateAllParticlesRenderer(BufferInfo* vertexBufInfo, BufferInfo* normalBufInfo)
 {
-	unsigned int colorBufLen = vertexBufSize / 4;
+	unsigned int colorBufLen = vertexBufInfo->size / 4;
 	unsigned char* colorBuf = (unsigned char*)malloc(colorBufLen);
 	memset(colorBuf, 128, colorBufLen);
 
 	BaseModelIO modelIO;
-	modelIO.SetVertexBuffer(vertexBuf, vertexBufSize);
-	modelIO.SetNormalBuffer(normalBuf, normalBufSize);
+	modelIO.SetVertexBuffer(vertexBufInfo->buffer, vertexBufInfo->size);
+	modelIO.SetNormalBuffer(normalBufInfo->buffer, normalBufInfo->size);
 	modelIO.SetColorBuffer((const char*)colorBuf, colorBufLen);
 
 	GLMeshRenderer* meshRenderer = new GLMeshRenderer(&modelIO, CUBE_GEOMETRY_SHADER);
@@ -135,7 +135,7 @@ GLMeshRenderer* ParticleRenderer::CreateAllParticlesRenderer(char* vertexBuf, un
 	return meshRenderer;
 }
 
-GLMeshRenderer* ParticleRenderer::CreateFewParticlesRenderer(char* allParticleVertexBuf, unsigned int allParticleVertexBufLen, char* normalBuf, unsigned int normalBufferSize)
+GLMeshRenderer* ParticleRenderer::CreateFewParticlesRenderer(BufferInfo* allParVerBufInfo, BufferInfo* normalBufInfo)
 {
 	return NULL;
 }
@@ -154,24 +154,24 @@ void ParticleRenderer::UpdateColorBuffer(char* highPolyColorBuf, unsigned int hi
 {
 	_allParticlesRenderer->UpdateColorBuffer(highPolyColorBuf, highPolyColorBufLen);
 	
-	//unsigned int bytesPColor = BYTES_PER_COLOR;
-	//unsigned int highPolyColorCount = highPolyColorBufLen / bytesPColor;
-	//unsigned int lowPolyColorCount = highPolyColorCount / (_skipNumVertex + 1);
-	//unsigned int lowPolyColorBufLen = lowPolyColorCount * bytesPColor;
-	//unsigned char* lowPolyColorBuf = (unsigned char*)malloc(lowPolyColorBufLen);
+	unsigned int bytesPColor = BYTES_PER_COLOR;
+	unsigned int highPolyColorCount = highPolyColorBufLen / bytesPColor;
+	unsigned int lowPolyColorCount = highPolyColorCount / (_skipNumVertex + 1);
+	unsigned int lowPolyColorBufLen = lowPolyColorCount * bytesPColor;
+	unsigned char* lowPolyColorBuf = (unsigned char*)malloc(lowPolyColorBufLen);
 
-	//unsigned int skipBytes = (_skipNumVertex+1) * bytesPColor;
-	//unsigned int hIndex = 0; // high poly array index
+	unsigned int skipBytes = (_skipNumVertex+1) * bytesPColor;
+	unsigned int hIndex = 0; // high poly array index
 
-	//for (unsigned int i = 0; i < lowPolyColorBufLen; i += bytesPColor)
-	//{
-	//	memcpy(&lowPolyColorBuf[i], &highPolyColorBuf[hIndex], bytesPColor);
-	//	hIndex += skipBytes;
-	//}
+	for (unsigned int i = 0; i < lowPolyColorBufLen; i += bytesPColor)
+	{
+		memcpy(&lowPolyColorBuf[i], &highPolyColorBuf[hIndex], bytesPColor);
+		hIndex += skipBytes;
+	}
 
-	//_fewParticlesRenderer->UpdateColorBuffer(lowPolyColorBuf, lowPolyColorBufLen);
+	_fewParticlesRenderer->UpdateColorBuffer(lowPolyColorBuf, lowPolyColorBufLen);
 
-	//free(lowPolyColorBuf);
+	free(lowPolyColorBuf);
 }
 
 void ParticleRenderer::DrawAllParticles()
