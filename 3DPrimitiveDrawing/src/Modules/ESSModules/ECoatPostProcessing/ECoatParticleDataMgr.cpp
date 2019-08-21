@@ -7,17 +7,39 @@ ECoatParticleDataMgr::ECoatParticleDataMgr(ECoatAssetsBuilder* assetsBuilder, Co
 	_colorBar = colorBar;
 	_resultFileReader = _assetsBuilder->GetResultReader();
 
-	unsigned int parVertexBufSize;
-	char* parVertexBuf = _resultFileReader->GetParticleBufferWorkpiece(1, &parVertexBufSize);
+	BufferInfo parVerBufInfo = _resultFileReader->GetParticleBufferWorkpiece(1);
 
-	//unsigned int parTriIDBufSize;
-	//char* parTriIDBuf = _resultFileReader->GetTriangleIDBufferWorkpiece(1, &parTriIDBufSize);
-
-	_particleRenderer = new ParticleRenderer(parVertexBuf, parVertexBufSize);
+	_particleRenderer = new ParticleRenderer(parVerBufInfo.buffer, parVerBufInfo.size);
 	ApplyContour(1);
+}
 
-	free(parVertexBuf);
-	//free(parTriIDBuf);
+BufferInfo ECoatParticleDataMgr::GenerateNormals(STLReader* stlReader)
+{
+	BufferInfo triIDBufInfo = _resultFileReader->GetTriangleIDBufferWorkpiece(1);
+	float* triIDArr = (float*)triIDBufInfo.buffer;
+	unsigned int numTriIDS = triIDBufInfo.size / 4;
+
+	float* stlNormalsArr = (float*)stlReader->GetNormalBuffer();
+	unsigned int stlNormalArrSize = stlReader->GetNormalBufferSize() / 4;
+
+	float* parNormalArr = (float*)malloc(stlReader->GetVertexBufferSize());
+	memset(parNormalArr, '\0', stlReader->GetVertexBufferSize());
+
+	for (int i = 0; i < numTriIDS; i++)
+	{
+		unsigned int triID = triIDArr[i];
+
+		int stlNorIndex = triID * 9;
+		int parNorIndex = i * 3;
+
+		//parNormalArr[parNorIndex + 0] = stlNormalsArr[stlNorIndex + 0];
+		//parNormalArr[parNorIndex + 1] = stlNormalsArr[stlNorIndex + 1];
+		//parNormalArr[parNorIndex + 2] = stlNormalsArr[stlNorIndex + 2];
+
+		memcpy(&parNormalArr[parNorIndex], &stlNormalsArr[stlNorIndex], 12);
+	}
+
+	return BufferInfo((char*)parNormalArr, stlReader->GetVertexBufferSize());
 }
 
 void ECoatParticleDataMgr::ApplyContour(int frameNum)
@@ -103,10 +125,10 @@ ECoatParticleDataMgr::~ECoatParticleDataMgr()
 	unsigned int parColorBufLen = 0;
 	unsigned char* parColorBuf = (unsigned char*)GetParticleColorBuf(80, &parColorBufLen);
 
+	//Begin : Generate particle normals data
+
 	unsigned int parTriIDBufSize;
 	char* parTriIDBuf = _resultReader->GetTriangleIDBufferWorkpiece(1, &parTriIDBufSize);
-
-	//Begin : Generate particle normals data
 
 	float* stlNormalsArr = (float*)reader.GetNormalBuffer();
 	unsigned int stlNormalArrSize = reader.GetNormalBufferSize() / 4;

@@ -2,6 +2,7 @@
 #define ECoatResultReader_H
 #include <H5Cpp.h>
 #include "glm/vec3.hpp"
+#include "BufferInfo.h"
 
 class FrameInfo {
 public:
@@ -25,9 +26,9 @@ public:
 	~ECoatResultReader();
 
 	FrameInfo GetThicknessBuffer(unsigned int frameNum);
-	char* GetParticleBufferWorkpiece(unsigned int frameNum, unsigned int* dataSize);
-	char* GetParticleBufferWorkpiece(unsigned int frameNum, unsigned int* dataSize, H5::PredType dataType);
-	char* GetTriangleIDBufferWorkpiece(unsigned int frameNum, unsigned int* dataSize);
+	BufferInfo GetParticleBufferWorkpiece(unsigned int frameNum);
+	BufferInfo GetParticleBufferWorkpiece(unsigned int frameNum, H5::PredType dataType);
+	BufferInfo GetTriangleIDBufferWorkpiece(unsigned int frameNum);
 
 	unsigned int GetTotalFrameCount();
 };

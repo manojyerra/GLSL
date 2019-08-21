@@ -84,12 +84,12 @@ FrameInfo ECoatResultReader::GetThicknessBuffer(unsigned int frameNum)
 	return frameInfo;
 }
 
-char* ECoatResultReader::GetParticleBufferWorkpiece(unsigned int frameNum, unsigned int* dataSize)
+BufferInfo ECoatResultReader::GetParticleBufferWorkpiece(unsigned int frameNum)
 {
-	return GetParticleBufferWorkpiece(frameNum, dataSize, H5::PredType::NATIVE_FLOAT);
+	return GetParticleBufferWorkpiece(frameNum, H5::PredType::NATIVE_FLOAT);
 }
 
-char* ECoatResultReader::GetParticleBufferWorkpiece(unsigned int frameNum, unsigned int* dataSize, H5::PredType dataType)
+BufferInfo ECoatResultReader::GetParticleBufferWorkpiece(unsigned int frameNum, H5::PredType dataType)
 {
 	H5::Group workPieceGroup = _h5File->openGroup("Workpiece");
 
@@ -130,17 +130,9 @@ char* ECoatResultReader::GetParticleBufferWorkpiece(unsigned int frameNum, unsig
 	unsigned int vertexBufSize = 0;
 
 	if (dataType == H5::PredType::NATIVE_FLOAT)
-	{
 		vertexBufSize = rows * cols * sizeof(float);
-	}
-	else if(dataType == H5::PredType::NATIVE_DOUBLE)
-	{
-		vertexBufSize = rows * cols * sizeof(double);
-	}
-	else
-	{
+	else	
 		throw new std::exception("Exception: Unsupported data type.");
-	}
 
 	char* vertexData = (char*)malloc(vertexBufSize);
 	dataSet.read(vertexData, dataType, memSpace, dataSpace);
@@ -151,12 +143,10 @@ char* ECoatResultReader::GetParticleBufferWorkpiece(unsigned int frameNum, unsig
 	particleGroup.close();
 	workPieceGroup.close();
 
-	dataSize[0] = vertexBufSize;
-
-	return vertexData;
+	return BufferInfo(vertexData, vertexBufSize);
 }
 
-char* ECoatResultReader::GetTriangleIDBufferWorkpiece(unsigned int frameNum, unsigned int* dataSize)
+BufferInfo ECoatResultReader::GetTriangleIDBufferWorkpiece(unsigned int frameNum)
 {
 	H5::Group workPieceGroup = _h5File->openGroup("Workpiece");
 
@@ -206,10 +196,7 @@ char* ECoatResultReader::GetTriangleIDBufferWorkpiece(unsigned int frameNum, uns
 	particleGroup.close();
 	workPieceGroup.close();
 
-	dataSize[0] = vertexBufSize;
-
-	return vertexData;
-
+	return BufferInfo(vertexData, vertexBufSize);
 }
 
 float ECoatResultReader::ReadFloatAttributes(H5::Group* group, const std::string& attr_name)

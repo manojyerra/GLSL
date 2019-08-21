@@ -73,6 +73,7 @@
     <ClCompile Include="src\Common\IO\ModelIO\STLIO\STLReaderWithThreads.cpp" />
     <ClCompile Include="src\Common\Utils\AABB.cpp" />
     <ClCompile Include="src\Common\Utils\AABBD.cpp" />
+    <ClCompile Include="src\Common\Utils\BufferInfo.cpp" />
     <ClCompile Include="src\Common\Utils\BufferTransformUtils.cpp" />
     <ClCompile Include="src\Common\Utils\MathUtils\MathUtils.cpp" />
     <ClCompile Include="src\Common\Utils\RandomColor.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="src\Common\IO\ModelIO\STLIO\STLReaderWithThreads.h" />
     <ClInclude Include="src\Common\Utils\AABB.h" />
     <ClInclude Include="src\Common\Utils\AABBD.h" />
+    <ClInclude Include="src\Common\Utils\BufferInfo.h" />
     <ClInclude Include="src\Common\Utils\BufferTransformUtils.h" />
     <ClInclude Include="src\Common\Utils\MathUtils\MathUtils.h" />
     <ClInclude Include="src\Common\Utils\RandomColor.h" />
