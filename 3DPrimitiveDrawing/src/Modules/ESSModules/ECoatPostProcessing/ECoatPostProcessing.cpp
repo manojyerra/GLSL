@@ -1,4 +1,4 @@
-#include "ECoatPost.h"
+#include "ECoatPostProcessing.h"
 #include "Cam.h"
 #include "Cam2D.h"
 #include "ParticleRenderer.h"
