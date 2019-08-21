@@ -20,6 +20,8 @@ public:
 	unsigned int Size();
 
 	GLMeshRenderer* AddMeshRenderer(std::string path, unsigned int shaderType, unsigned int modelType);
+	GLMeshRenderer* AddMeshRenderer(BaseModelIO* modelIO, unsigned int shaderType);
+
 	int GetModelIndexByMousePos(float x, float y);
 };
 

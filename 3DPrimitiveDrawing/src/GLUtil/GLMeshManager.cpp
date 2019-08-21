@@ -57,6 +57,14 @@ GLMeshRenderer* GLMeshManager::AddMeshRenderer(std::string path, unsigned int sh
 	return meshRenderer;
 }
 
+GLMeshRenderer* GLMeshManager::AddMeshRenderer(BaseModelIO* modelIO, unsigned int shaderType)
+{
+	GLMeshRenderer* meshRenderer = new GLMeshRenderer(modelIO, shaderType);
+	_modelVec.push_back(meshRenderer);
+
+	return meshRenderer;
+}
+
 int GLMeshManager::GetModelIndexByMousePos(float x, float y)
 {
 	GLFBOManager::GetInstance()->BindDefaultFBO();

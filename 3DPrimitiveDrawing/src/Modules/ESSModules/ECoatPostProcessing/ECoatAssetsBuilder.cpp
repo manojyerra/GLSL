@@ -5,6 +5,7 @@
 ECoatAssetsBuilder::ECoatAssetsBuilder(ECoatAssetsReader* assetsReader, GLMeshManager* meshMgr)
 {
 	_solid = nullptr;
+	_solidSTLReader = nullptr;
 	_fluid = nullptr;
 	_sourcesVec.clear();
 	_resultReader = nullptr;
@@ -12,7 +13,8 @@ ECoatAssetsBuilder::ECoatAssetsBuilder(ECoatAssetsReader* assetsReader, GLMeshMa
 	std::string solidPath = assetsReader->GetSolid();
 	if (solidPath.length() > 0)
 	{
-		_solid = meshMgr->AddMeshRenderer(solidPath, PBR_SHADER, BaseModelIO::STL_MODEL_WITH_THREADS);
+		_solidSTLReader = new STLReader(solidPath);
+		_solid = meshMgr->AddMeshRenderer(_solidSTLReader, PBR_SHADER);
 	}
 
 	std::vector<std::string> sourcesPathVec = assetsReader->GetSources();
@@ -47,6 +49,11 @@ GLMeshRenderer* ECoatAssetsBuilder::GetSolid()
 	return _solid;
 }
 
+STLReader* ECoatAssetsBuilder::GetSolidSTLReader()
+{
+	return _solidSTLReader;
+}
+
 GLMeshRenderer* ECoatAssetsBuilder::GetFluid()
 {
 	return _fluid;
@@ -68,5 +75,11 @@ ECoatAssetsBuilder::~ECoatAssetsBuilder()
 	{
 		delete _resultReader;
 		_resultReader = nullptr;
+	}
+
+	if (_solidSTLReader)
+	{
+		delete _solidSTLReader;
+		_solidSTLReader = nullptr;
 	}
 }

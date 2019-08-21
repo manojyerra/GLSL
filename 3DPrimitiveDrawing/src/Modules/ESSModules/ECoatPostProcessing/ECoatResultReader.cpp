@@ -7,7 +7,7 @@ ECoatResultReader::ECoatResultReader(std::string resultFilePath)
 		throw new std::exception("Exception : Invalid H5File");
 	}
 
-	_h5File = new H5::H5File(resultFilePath.c_str(), H5F_ACC_RDWR);
+	_h5File = new H5::H5File(resultFilePath.c_str(), H5F_ACC_RDONLY);
 }
 
 unsigned int ECoatResultReader::GetTotalFrameCount()
