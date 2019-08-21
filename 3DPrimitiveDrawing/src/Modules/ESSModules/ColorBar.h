@@ -8,8 +8,6 @@
 class ColorBar
 {
 private:
-	//std::vector<glm::vec3> _allColorsVec;
-
 	unsigned int _totArrElements;
 
 	unsigned int _totColors;
