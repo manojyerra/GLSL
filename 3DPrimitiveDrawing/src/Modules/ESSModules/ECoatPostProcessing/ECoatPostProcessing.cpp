@@ -11,7 +11,7 @@
 #include "STLReaderWithThreads.h"
 #include "GLState.h"
 
-ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
+ECoatPostProcessing::ECoatPostProcessing(unsigned int sw, unsigned int sh, int argc, char** argv)
 {
 	_sw = sw;
 	_sh = sh;
@@ -115,7 +115,7 @@ ECoatPost::ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv)
 	//ApplyContour(80);
 }
 
-void ECoatPost::SetScreenSize(unsigned int sw, unsigned int sh)
+void ECoatPostProcessing::SetScreenSize(unsigned int sw, unsigned int sh)
 {
 	_sw = sw;
 	_sh = sh;
@@ -126,7 +126,7 @@ void ECoatPost::SetScreenSize(unsigned int sw, unsigned int sh)
 	Cam2D::GetInstance()->SetScreenSize(_sw, _sh);
 }
 
-void ECoatPost::SetGLStates()
+void ECoatPostProcessing::SetGLStates()
 {
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_CULL_FACE);
@@ -134,15 +134,15 @@ void ECoatPost::SetGLStates()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void ECoatPost::OnModuleChange(unsigned int sw, unsigned int sh)
+void ECoatPostProcessing::OnModuleChange(unsigned int sw, unsigned int sh)
 {
 }
 
-void ECoatPost::Update(float deltaTime) 
+void ECoatPostProcessing::Update(float deltaTime)
 {
 }
 
-void ECoatPost::Draw()
+void ECoatPostProcessing::Draw()
 {
 	Cam* cam = Cam::GetInstance();
 	cam->SetPerspectiveProjection();
@@ -187,7 +187,7 @@ void ECoatPost::Draw()
 	GLState::GLEnable(GL_CULL_FACE, cullFace);
 }
 
-void ECoatPost::DrawObjects(bool drawAllParticles)
+void ECoatPostProcessing::DrawObjects(bool drawAllParticles)
 {
 	if (Input::IsMouseClicked())
 	{
@@ -214,7 +214,7 @@ void ECoatPost::DrawObjects(bool drawAllParticles)
 	_colorBar->Draw();
 }
 
-void ECoatPost::actionPerformed(SUIActionEvent e)
+void ECoatPostProcessing::actionPerformed(SUIActionEvent e)
 {
 	SUIComponent* com = (SUIComponent*)e.GetComponent();
 
@@ -234,7 +234,7 @@ void ECoatPost::actionPerformed(SUIActionEvent e)
 	}
 }
 
-void ECoatPost::ApplyContour(int frameNum)
+void ECoatPostProcessing::ApplyContour(int frameNum)
 {
 	long startTime = Platform::GetTimeInMillis();
 
@@ -287,7 +287,7 @@ void ECoatPost::ApplyContour(int frameNum)
 	Platform::debugPrint("\nTime for applying contour : %ld", Platform::GetTimeInMillis() - startTime);
 }
 
-char* ECoatPost::GetParticleColorBuf(int frameNum, unsigned int* bufSize)
+char* ECoatPostProcessing::GetParticleColorBuf(int frameNum, unsigned int* bufSize)
 {
 	FrameInfo frameInfo = _resultReader->GetThicknessBuffer(frameNum);
 
@@ -323,7 +323,7 @@ char* ECoatPost::GetParticleColorBuf(int frameNum, unsigned int* bufSize)
 	return colorBuf;
 }
 
-ECoatPost::~ECoatPost()
+ECoatPostProcessing::~ECoatPostProcessing()
 {
 	if (_particleRenderer)
 	{

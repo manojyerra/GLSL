@@ -4,7 +4,7 @@
 
 GameLoop::GameLoop(float sw, float sh, int argc, char** argv)
 {
-	ModulesManager::GetInstance()->Init(sw, sh, argc, argv, ModulesManager::ECOAT_POST_MODULE);
+	ModulesManager::GetInstance()->Init(sw, sh, argc, argv, ModulesManager::ECOAT_POST_PROCESSING_MODULE);
 }
 
 void GameLoop::Update(float deltaTime)

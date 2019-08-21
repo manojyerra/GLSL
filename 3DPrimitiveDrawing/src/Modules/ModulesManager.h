@@ -3,7 +3,7 @@
 
 #include "Module.h"
 #include "Demo.h"
-#include "ECoatPost.h"
+#include "ECoatPostProcessing.h"
 
 class ModulesManager
 {
@@ -14,7 +14,7 @@ private:
 	char** _argv;
 
 	Demo* _demo;
-	ECoatPost* _ecoatPost;
+	ECoatPostProcessing* _ecoatPost;
 
 	Module* _module;
 	unsigned  int _moduleID;
@@ -27,7 +27,7 @@ public:
 	enum
 	{
 		DEMO_MODULE,
-		ECOAT_POST_MODULE
+		ECOAT_POST_PROCESSING_MODULE
 	};
 
 	void Init(unsigned int sw, unsigned int sh, int argc, char** argv, unsigned int moduleID);

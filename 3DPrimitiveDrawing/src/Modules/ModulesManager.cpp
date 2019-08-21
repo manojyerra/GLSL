@@ -62,11 +62,11 @@ void ModulesManager::SetModule(unsigned int moduleID)
 
 		_module = _demo;
 	}
-	else if (_moduleID == ECOAT_POST_MODULE)
+	else if (_moduleID == ECOAT_POST_PROCESSING_MODULE)
 	{
 		if (!_ecoatPost)
 		{
-			_ecoatPost = new ECoatPost(_sw, _sh, _argc, _argv);
+			_ecoatPost = new ECoatPostProcessing(_sw, _sh, _argc, _argv);
 		}
 
 		_module = _ecoatPost;

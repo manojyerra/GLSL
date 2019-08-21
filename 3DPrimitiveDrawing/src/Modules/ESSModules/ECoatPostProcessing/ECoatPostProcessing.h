@@ -12,7 +12,7 @@
 #include "ECoatColorBar.h"
 #include "ECoatAssetsBuilder.h"
 
-class ECoatPost : public Module, public SUIActionListener
+class ECoatPostProcessing : public Module, public SUIActionListener
 {
 private:
 	float _sw;
@@ -37,8 +37,8 @@ private:
 	void DrawObjects(bool drawAllParticles);
 
 public:
-	ECoatPost(unsigned int sw, unsigned int sh, int argc, char** argv);
-	~ECoatPost();
+	ECoatPostProcessing(unsigned int sw, unsigned int sh, int argc, char** argv);
+	~ECoatPostProcessing();
 
 	void SetScreenSize(unsigned int sw, unsigned int sh) override;
 	void OnModuleChange(unsigned int sw, unsigned int sh) override;

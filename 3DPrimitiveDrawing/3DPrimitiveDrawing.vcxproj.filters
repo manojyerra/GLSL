@@ -130,9 +130,6 @@
     <Filter Include="src\Modules\Demo\DemoUI">
       <UniqueIdentifier>{3eef91ea-e3b6-4e8e-a68a-5e718ac29f2f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Modules\ECoatPost">
-      <UniqueIdentifier>{d694ab01-5e0d-4b3a-8a6b-8711e266dcaf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Common\IO\JSONIO">
       <UniqueIdentifier>{290365a5-d221-4186-a1d8-77b101cca38a}</UniqueIdentifier>
     </Filter>
@@ -159,6 +156,12 @@
     </Filter>
     <Filter Include="src\GLUtil\GLFBO">
       <UniqueIdentifier>{7ee6eae6-200b-44bd-af14-bb96b57dd3e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Modules\ESSModules">
+      <UniqueIdentifier>{248cc7db-00b3-40cf-8226-00e510bd3ed2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Modules\ESSModules\ECoatPostProcessing">
+      <UniqueIdentifier>{15242e79-444c-45bc-847e-c6dead4488fa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -516,18 +519,6 @@
     <ClCompile Include="src\Modules\Demo\DemoUI\WholeWindowFrame.cpp">
       <Filter>src\Modules\Demo\DemoUI</Filter>
     </ClCompile>
-    <ClCompile Include="src\Modules\ECoatPost\ECoatPost.cpp">
-      <Filter>src\Modules\ECoatPost</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Modules\ECoatPost\TimeLineFrame.cpp">
-      <Filter>src\Modules\ECoatPost</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Modules\ECoatPost\ECoatResultReader.cpp">
-      <Filter>src\Modules\ECoatPost</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Modules\ECoatPost\ECoatAssetsReader.cpp">
-      <Filter>src\Modules\ECoatPost</Filter>
-    </ClCompile>
     <ClCompile Include="src\Common\IO\JSONIO\json_reader.cpp">
       <Filter>src\Common\IO\JSONIO</Filter>
     </ClCompile>
@@ -536,15 +527,6 @@
     </ClCompile>
     <ClCompile Include="src\Common\IO\JSONIO\json_writer.cpp">
       <Filter>src\Common\IO\JSONIO</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Modules\ECoatPost\ECoatColorBar.cpp">
-      <Filter>src\Modules\ECoatPost</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Modules\ECoatPost\ECoatAssetsBuilder.cpp">
-      <Filter>src\Modules\ECoatPost</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Modules\ECoatPost\ContourMap.cpp">
-      <Filter>src\Modules\ECoatPost</Filter>
     </ClCompile>
     <ClCompile Include="src\Common\Utils\AABBD.cpp">
       <Filter>src\Common\Utils</Filter>
@@ -578,6 +560,27 @@
     </ClCompile>
     <ClCompile Include="src\GLUtil\GLFBO\GLFBOManager.cpp">
       <Filter>src\GLUtil\GLFBO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\ESSModules\ContourMap.cpp">
+      <Filter>src\Modules\ESSModules</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\ESSModules\TimeLineFrame.cpp">
+      <Filter>src\Modules\ESSModules</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatAssetsBuilder.cpp">
+      <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatAssetsReader.cpp">
+      <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatColorBar.cpp">
+      <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatResultReader.cpp">
+      <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatPostProcessing.cpp">
+      <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -908,18 +911,6 @@
     <ClInclude Include="src\Modules\Demo\DemoUI\WholeWindowFrame.h">
       <Filter>src\Modules\Demo\DemoUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\Modules\ECoatPost\ECoatPost.h">
-      <Filter>src\Modules\ECoatPost</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Modules\ECoatPost\TimeLineFrame.h">
-      <Filter>src\Modules\ECoatPost</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Modules\ECoatPost\ECoatResultReader.h">
-      <Filter>src\Modules\ECoatPost</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Modules\ECoatPost\ECoatAssetsReader.h">
-      <Filter>src\Modules\ECoatPost</Filter>
-    </ClInclude>
     <ClInclude Include="src\Common\IO\JSONIO\json_batchallocator.h">
       <Filter>src\Common\IO\JSONIO</Filter>
     </ClInclude>
@@ -946,15 +937,6 @@
     </ClInclude>
     <ClInclude Include="src\Common\IO\JSONIO\json\writer.h">
       <Filter>src\Common\IO\JSONIO\json</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Modules\ECoatPost\ECoatColorBar.h">
-      <Filter>src\Modules\ECoatPost</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Modules\ECoatPost\ECoatAssetsBuilder.h">
-      <Filter>src\Modules\ECoatPost</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Modules\ECoatPost\ContourMap.h">
-      <Filter>src\Modules\ECoatPost</Filter>
     </ClInclude>
     <ClInclude Include="src\Common\Utils\AABBD.h">
       <Filter>src\Common\Utils</Filter>
@@ -988,6 +970,27 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\GLFBO\GLFBOManager.h">
       <Filter>src\GLUtil\GLFBO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\ESSModules\ContourMap.h">
+      <Filter>src\Modules\ESSModules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\ESSModules\TimeLineFrame.h">
+      <Filter>src\Modules\ESSModules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatAssetsBuilder.h">
+      <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatAssetsReader.h">
+      <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatColorBar.h">
+      <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatResultReader.h">
+      <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatPostProcessing.h">
+      <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
