@@ -23,15 +23,12 @@ ECoatParticleDataMgr::ECoatParticleDataMgr(ECoatAssetsBuilder* assetsBuilder, Co
 void ECoatParticleDataMgr::ApplyContour(int frameNum)
 {
 	long startTime = Platform::GetTimeInMillis();
-
 	unsigned int colorBufSize = 0;
 	unsigned char* colorBuf = (unsigned char*)GetParticleColorBuf(frameNum, &colorBufSize);
-
+	
 	_particleRenderer->UpdateColorBuffer((char*)colorBuf, colorBufSize);
-
 	free(colorBuf);
-
-	Platform::debugPrint("\nTime for applying contour : %ld", Platform::GetTimeInMillis() - startTime);
+	Platform::debugPrint("\nTime for applying contour : %ld milliseconds", Platform::GetTimeInMillis() - startTime);
 }
 
 char* ECoatParticleDataMgr::GetParticleColorBuf(int frameNum, unsigned int* bufSize)

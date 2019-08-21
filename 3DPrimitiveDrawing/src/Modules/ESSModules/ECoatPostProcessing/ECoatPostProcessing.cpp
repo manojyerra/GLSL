@@ -203,4 +203,10 @@ ECoatPostProcessing::~ECoatPostProcessing()
 		delete _assetsBuilder;
 		_assetsBuilder = nullptr;
 	}
+
+	if (_texture)
+	{
+		delete _texture;
+		_texture = nullptr;
+	}
 }
