@@ -1,28 +1,28 @@
-	//FileReader fr("data/triangle-Ids.txt", "rb");
+//FileReader fr("data/triangle-Ids.txt", "rb");
 
-	//char* line = nullptr;
-	//unsigned int min = -1;
-	//unsigned int max = -1;
+//char* line = nullptr;
+//unsigned int min = -1;
+//unsigned int max = -1;
 
-	//while ( (line = fr.ReadLine()) != nullptr)
-	//{
-	//	unsigned int num = atoi(line);
+//while ( (line = fr.ReadLine()) != nullptr)
+//{
+//	unsigned int num = atoi(line);
 
-	//	if (num < min || min == -1)
-	//	{
-	//		min = num;
-	//	}
+//	if (num < min || min == -1)
+//	{
+//		min = num;
+//	}
 
-	//	if (num == 123)
-	//	{
-	//		printf("aaa");
-	//	}
+//	if (num == 123)
+//	{
+//		printf("aaa");
+//	}
 
-	//	if (num > max || max == -1)
-	//	{
-	//		max = num;
-	//	}
-	//}
+//	if (num > max || max == -1)
+//	{
+//		max = num;
+//	}
+//}
 
 max = 3214993
 min = 0
@@ -188,3 +188,42 @@ void ECoatParticleDataMgr::ApplyContour(int frameNum)
 
 	Platform::debugPrint("\nTime for applying contour : %ld", Platform::GetTimeInMillis() - startTime);
 }
+
+
+
+
+
+
+
+
+//
+//glm::vec3 sCol(0.0f, 0.0f, 255.0f);
+//glm::vec3 eCol(255.0f, 0.0f, 0.0f);
+//
+//float totDiffR = eCol.r - sCol.r;
+//float totDiffG = eCol.g - sCol.g;
+//float totDiffB = eCol.b - sCol.b;
+//
+//float factorR = totDiffR / totDiffThick;
+//float factorG = totDiffG / totDiffThick;
+//float factorB = totDiffB / totDiffThick;
+//
+//for (int i = 0; i < numThicknessVals; i++)
+//{
+//	int ii = i * 3;
+//
+//	colorBuf[ii + 0] = sCol.r + factorR * thickness;
+//	colorBuf[ii + 1] = sCol.g + factorG * thickness;
+//	colorBuf[ii + 2] = sCol.b + factorB * thickness;
+//
+//	float r = 0;
+//	float g = 0;
+//	float b = 0;
+//
+//	_colorBar->GetColor(thickness, &r, &g, &b);
+//
+//	colorBuf[ii + 0] = r * 255;
+//	colorBuf[ii + 1] = g * 255;
+//	colorBuf[ii + 2] = b * 255;
+//}
+//

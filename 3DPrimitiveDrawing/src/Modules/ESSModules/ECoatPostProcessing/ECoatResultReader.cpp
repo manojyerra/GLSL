@@ -10,7 +10,7 @@ ECoatResultReader::ECoatResultReader(std::string resultFilePath)
 	_h5File = new H5::H5File(resultFilePath.c_str(), H5F_ACC_RDWR);
 }
 
-unsigned int ECoatResultReader::GetFrameCount()
+unsigned int ECoatResultReader::GetTotalFrameCount()
 {
 	H5::Group stepsGroup = _h5File->openGroup("Steps");
 	return stepsGroup.getNumObjs();

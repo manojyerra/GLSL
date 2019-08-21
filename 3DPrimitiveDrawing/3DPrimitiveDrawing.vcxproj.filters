@@ -582,6 +582,9 @@
     <ClCompile Include="src\Modules\ESSModules\ColorBar.cpp">
       <Filter>src\Modules\ESSModules</Filter>
     </ClCompile>
+    <ClCompile Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatParticleDataMgr.cpp">
+      <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLMat.h">
@@ -991,6 +994,9 @@
     </ClInclude>
     <ClInclude Include="src\Modules\ESSModules\ColorBar.h">
       <Filter>src\Modules\ESSModules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatParticleDataMgr.h">
+      <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

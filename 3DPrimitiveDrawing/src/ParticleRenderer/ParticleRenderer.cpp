@@ -176,14 +176,20 @@ void ParticleRenderer::UpdateColorBuffer(char* highPolyColorBuf, unsigned int hi
 
 void ParticleRenderer::DrawAllParticles()
 {
-	_allParticlesRenderer->SetModelMatrix(_modelMat.m);
-	_allParticlesRenderer->Draw();
+	if(_allParticlesRenderer)
+	{
+		_allParticlesRenderer->SetModelMatrix(_modelMat.m);
+		_allParticlesRenderer->Draw();
+	}
 }
 
 void ParticleRenderer::DrawFewParticles()
 {
-	//_fewParticlesRenderer->SetModelMatrix(_modelMat.m);
-	//_fewParticlesRenderer->Draw();
+	if(_fewParticlesRenderer)
+	{
+		_fewParticlesRenderer->SetModelMatrix(_modelMat.m);
+		_fewParticlesRenderer->Draw();
+	}
 }
 
 ParticleRenderer::~ParticleRenderer()

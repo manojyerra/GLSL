@@ -32,7 +32,7 @@ public:
 
 	void SetMinMaxThickness(float minThickness, float maxThickness);
 	void GetColor(float thickness, float* r, float* g, float* b);
-
+	unsigned int GetTotNumColors();
 	void Draw();
 };
 

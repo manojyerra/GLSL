@@ -38,6 +38,11 @@ ColorBar::ColorBar()
 	SetMinMaxThickness(0.0f, 1.0f);
 }
 
+unsigned int ColorBar::GetTotNumColors()
+{
+	return _totArrElements;
+}
+
 void ColorBar::GenerateGeometry(int x, int y, int w, int h)
 {
 	int numBlocks = _mainColorsReverseVec.size() - 1;

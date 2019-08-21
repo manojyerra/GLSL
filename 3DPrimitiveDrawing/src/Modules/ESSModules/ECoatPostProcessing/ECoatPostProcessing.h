@@ -7,7 +7,7 @@
 #include "GLTexture.h"
 #include "TimeLineFrame.h"
 #include "SUIActionListener.h"
-#include "ParticleRenderer.h"
+#include "ECoatParticleDataMgr.h"
 #include "ECoatResultReader.h"
 #include "ColorBar.h"
 #include "ECoatAssetsBuilder.h"
@@ -17,24 +17,23 @@ class ECoatPostProcessing : public Module, public SUIActionListener
 private:
 	float _sw;
 	float _sh;
-	
-	GLTexture* _texture;
 	bool _needAllParticlesDraw;
+
+	GLTexture* _texture;
 
 	Floor* _floor;
 	GLMeshRenderer* _carBody;
 	GLMeshManager* _meshManager;
-	ParticleRenderer* _particleRenderer;
+	ECoatParticleDataMgr* _particleMgr;
 
-	TimeLineFrame* _timeLineFrame;
 	ColorBar* _colorBar;
+	TimeLineFrame* _timeLineFrame;
 
-	ECoatResultReader* _resultReader;
 	ECoatAssetsBuilder* _assetsBuilder;
+	ECoatAssetsBuilder* _resultFileReader;
 
-	void ApplyContour(int frameNum);
+
 	void SetGLStates();
-	char* GetParticleColorBuf(int frameNum, unsigned int* bufSize);
 	void DrawObjects(bool drawAllParticles);
 
 public:

@@ -29,7 +29,7 @@ public:
 	char* GetParticleBufferWorkpiece(unsigned int frameNum, unsigned int* dataSize, H5::PredType dataType);
 	char* GetTriangleIDBufferWorkpiece(unsigned int frameNum, unsigned int* dataSize);
 
-	unsigned int GetFrameCount();
+	unsigned int GetTotalFrameCount();
 };
 
 #endif

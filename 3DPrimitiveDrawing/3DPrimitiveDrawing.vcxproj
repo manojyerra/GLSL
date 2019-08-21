@@ -127,6 +127,7 @@
     <ClCompile Include="src\Modules\ESSModules\ContourMap.cpp" />
     <ClCompile Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatAssetsBuilder.cpp" />
     <ClCompile Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatAssetsReader.cpp" />
+    <ClCompile Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatParticleDataMgr.cpp" />
     <ClCompile Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatPostProcessing.cpp" />
     <ClCompile Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatResultReader.cpp" />
     <ClCompile Include="src\Modules\ESSModules\TimeLineFrame.cpp" />
@@ -258,6 +259,7 @@
     <ClInclude Include="src\Modules\ESSModules\ContourMap.h" />
     <ClInclude Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatAssetsBuilder.h" />
     <ClInclude Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatAssetsReader.h" />
+    <ClInclude Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatParticleDataMgr.h" />
     <ClInclude Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatPostProcessing.h" />
     <ClInclude Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatResultReader.h" />
     <ClInclude Include="src\Modules\ESSModules\TimeLineFrame.h" />

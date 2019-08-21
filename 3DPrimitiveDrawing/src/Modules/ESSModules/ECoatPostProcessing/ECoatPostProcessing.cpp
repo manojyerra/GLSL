@@ -31,6 +31,7 @@ ECoatPostProcessing::ECoatPostProcessing(unsigned int sw, unsigned int sh, int a
 	_meshManager = nullptr;
 	_carBody = nullptr;
 	_assetsBuilder = nullptr;
+	_particleMgr = nullptr;
 	//End: Default initialization 
 
 
@@ -38,81 +39,13 @@ ECoatPostProcessing::ECoatPostProcessing(unsigned int sw, unsigned int sh, int a
 	_meshManager = new GLMeshManager(_sw, _sh);
 
 	_assetsBuilder = new ECoatAssetsBuilder(&ECoatAssetsReader("AdvancedRenderer_JLR_ECoating.json"), _meshManager);
-	_resultReader = _assetsBuilder->GetResultReader();
 	_colorBar = new ColorBar();
+	_timeLineFrame = new TimeLineFrame(0, 0, 300, 700, _assetsBuilder->GetResultReader()->GetTotalFrameCount(), this);
 
-	_timeLineFrame = new TimeLineFrame(0, 0, 300, 700, _resultReader->GetFrameCount(), this);
-
-	STLReaderWithThreads reader("AdvancedRendererInputFiles/checkedAuto_solidMesh_exported.stl");
-	//STLReaderWithThreads reader("data/OpelGlandX.stl");
-
-	//float* stlVertexArr = (float*)reader.GetVertexBuffer();
-	//unsigned int stlVertexArrSize = reader.GetVertexBufferSize() / 4;
-	//unsigned int stlVertexCount = reader.GetVertexBufferSize() / 12;
-
-	//unsigned int stlColorBufLen = stlVertexCount * 3;
-	//unsigned char* stlColorBuf = (unsigned char*)malloc(stlColorBufLen);
-	//memset(stlColorBuf, '\0', stlColorBufLen);
-
-	unsigned int parVertexBufSize;
-	char* parVertexBuf = _resultReader->GetParticleBufferWorkpiece(1, &parVertexBufSize);
-
-	unsigned int parColorBufLen = 0;
-	unsigned char* parColorBuf = (unsigned char*)GetParticleColorBuf(80, &parColorBufLen);
-
-	unsigned int parTriIDBufSize;
-	char* parTriIDBuf = _resultReader->GetTriangleIDBufferWorkpiece(1, &parTriIDBufSize);
-
-	//Begin : Generate particle normals data
-
-	float* stlNormalsArr = (float*)reader.GetNormalBuffer();
-	unsigned int stlNormalArrSize = reader.GetNormalBufferSize() / 4;
-
-	unsigned int* triIDArr = (unsigned int*)parTriIDBuf;
-	unsigned int numTriIDS = parTriIDBufSize / 4;
-
-	long startTime = Platform::GetTimeInMillis();
-
-	float* parNormalArr = (float*)malloc(parVertexBufSize);
-	memset(parNormalArr, '\0', parVertexBufSize);
-
-	for (int i = 0; i < numTriIDS; i++)
-	{
-		unsigned int triID = triIDArr[i];
-		
-		int stlNorIndex = triID * 9;
-		int parNorIndex = i * 3;
-		
-		//parNormalArr[parNorIndex + 0] = stlNormalsArr[stlNorIndex + 0];
-		//parNormalArr[parNorIndex + 1] = stlNormalsArr[stlNorIndex + 1];
-		//parNormalArr[parNorIndex + 2] = stlNormalsArr[stlNorIndex + 2];
-
-		memcpy(&parNormalArr[parNorIndex], &stlNormalsArr[stlNorIndex], 12);
-	}
-
-	printf("\nTimeTaken for copying normals: %ld", (Platform::GetTimeInMillis()-startTime));
-
-	//End : Generate particle normals data
-
-
-	////ContourMap colorMap(stlVertexArr, stlVertexArrSize, stlColorBuf, stlColorBufLen, (float*)parVertexBuf, parVertexBufSize / 4, parColorBuf, parColorBufLen);
-
-	//BaseModelIO modelIO;
-	//modelIO.SetVertexBuffer(reader.GetVertexBuffer(), reader.GetVertexBufferSize());
-	//modelIO.SetNormalBuffer(reader.GetNormalBuffer(), reader.GetNormalBufferSize());
-	//modelIO.SetColorBuffer((const char*)stlColorBuf, stlColorBufLen);
-
-	//_carBody = new GLMeshRenderer(&modelIO, PBR_SHADER);
-
-	_particleRenderer = new ParticleRenderer(parVertexBuf, parVertexBufSize, (char*)parNormalArr, parVertexBufSize);
-	_particleRenderer->UpdateColorBuffer((char*)parColorBuf, parColorBufLen);
-
-	free(parVertexBuf);
+	_particleMgr = new ECoatParticleDataMgr(_assetsBuilder, _colorBar);
 
 	_texture = new GLTexture(0.0f, 0.0f, _sw, _sh);
 	_needAllParticlesDraw = true;
-
-	//ApplyContour(80);
 }
 
 void ECoatPostProcessing::SetScreenSize(unsigned int sw, unsigned int sh)
@@ -158,7 +91,7 @@ void ECoatPostProcessing::Draw()
 
 		if(cam->IsCameraUpdated())
 		{
-			DrawObjects(true);
+			DrawObjects(false);
 			_needAllParticlesDraw = true;
 		}
 		else
@@ -202,14 +135,7 @@ void ECoatPostProcessing::DrawObjects(bool drawAllParticles)
 	//	_meshManager->Get(i)->Draw();
 	//}
 
-	if(drawAllParticles)
-	{
-		_particleRenderer->DrawAllParticles();
-	}
-	else
-	{
-		_particleRenderer->DrawFewParticles();
-	}
+	_particleMgr->Draw(drawAllParticles);
 
 	_colorBar->Draw();
 }
@@ -223,112 +149,23 @@ void ECoatPostProcessing::actionPerformed(SUIActionEvent e)
 		auto selectedFrameIndex = _timeLineFrame->selectedFrame->GetSelectedIndex();
 		selectedFrameIndex++;
 
-		ApplyContour(selectedFrameIndex + 1);
+		_particleMgr->ApplyContour(selectedFrameIndex + 1);
 
 		_timeLineFrame->selectedFrame->SetSelect(selectedFrameIndex);
 	}
 	else if (com == _timeLineFrame->selectedFrame)
 	{
 		auto selectedFrameIndex = _timeLineFrame->selectedFrame->GetSelectedIndex();
-		ApplyContour(selectedFrameIndex+1);
+		_particleMgr->ApplyContour(selectedFrameIndex+1);
 	}
-}
-
-void ECoatPostProcessing::ApplyContour(int frameNum)
-{
-	long startTime = Platform::GetTimeInMillis();
-
-	if (_particleRenderer)
-	{
-		FrameInfo frameInfo = _resultReader->GetThicknessBuffer(frameNum);
-
-		float minThick = frameInfo.minThickness;
-		float maxThick = frameInfo.maxThickness;
-		float totDiffThick = maxThick - minThick;
-		unsigned int numThicknessVals = frameInfo.bufferSize / sizeof(float);
-		float* thicknessBuf = (float*)frameInfo.buffer;
-
-		unsigned int colorBufSize = numThicknessVals * 3;
-		char* colorBuf = (char*)malloc(colorBufSize);
-
-		float* allColorsVecR = _colorBar->allColorsVecR;
-		float* allColorsVecG = _colorBar->allColorsVecG;
-		float* allColorsVecB = _colorBar->allColorsVecB;
-
-		//TODO: 1000.0f should be taken from ColorBar class.
-		float factor = 1000.0f / totDiffThick;
-
-		for (int i = 0; i < numThicknessVals; i++)
-		{
-			int ii = i * 3;
-
-			int index = (int)((thicknessBuf[i] - minThick) * factor);
-
-			colorBuf[ii + 0] = allColorsVecR[index] * 255;
-			colorBuf[ii + 1] = allColorsVecG[index] * 255;
-			colorBuf[ii + 2] = allColorsVecB[index] * 255;
-		}
-
-		if (_particleRenderer)
-		{
-			//glm::vec3 carCenter = _assetsBuilder->GetSolid()->GetAABB().Center();
-			//glm::vec3 particleCenter = _particleRenderer->GetBBoxCenter();
-
-			//glm::vec3 delta = carCenter - particleCenter;
-
-			_particleRenderer->UpdateColorBuffer(colorBuf, colorBufSize);
-			//_particleRenderer->SetPosition(delta.x, delta.y, delta.z);
-		}
-
-		free(colorBuf);
-		free(thicknessBuf);
-	}
-
-	Platform::debugPrint("\nTime for applying contour : %ld", Platform::GetTimeInMillis() - startTime);
-}
-
-char* ECoatPostProcessing::GetParticleColorBuf(int frameNum, unsigned int* bufSize)
-{
-	FrameInfo frameInfo = _resultReader->GetThicknessBuffer(frameNum);
-
-	float minThick = frameInfo.minThickness;
-	float maxThick = frameInfo.maxThickness;
-	float totDiffThick = maxThick - minThick;
-	unsigned int numThicknessVals = frameInfo.bufferSize / sizeof(float);
-	float* thicknessBuf = (float*)frameInfo.buffer;
-
-	unsigned int colorBufSize = numThicknessVals * 3;
-	char* colorBuf = (char*)malloc(colorBufSize);
-
-	float* allColorsVecR = _colorBar->allColorsVecR;
-	float* allColorsVecG = _colorBar->allColorsVecG;
-	float* allColorsVecB = _colorBar->allColorsVecB;
-
-	//TODO: 1000.0f should be taken from ColorBar class.
-	float factor = 1000.0f / totDiffThick;
-
-	for (int i = 0; i < numThicknessVals; i++)
-	{
-		int index = (int)((thicknessBuf[i] - minThick) * factor);
-
-		int ii = i * 3;
-		colorBuf[ii + 0] = allColorsVecR[index] * 255;
-		colorBuf[ii + 1] = allColorsVecG[index] * 255;
-		colorBuf[ii + 2] = allColorsVecB[index] * 255;
-	}
-
-	free(thicknessBuf);
-	bufSize[0] = colorBufSize;
-
-	return colorBuf;
 }
 
 ECoatPostProcessing::~ECoatPostProcessing()
 {
-	if (_particleRenderer)
+	if (_particleMgr)
 	{
-		delete _particleRenderer;
-		_particleRenderer = NULL;
+		delete _particleMgr;
+		_particleMgr = NULL;
 	}
 
 	if (_timeLineFrame)
@@ -367,37 +204,3 @@ ECoatPostProcessing::~ECoatPostProcessing()
 		_assetsBuilder = nullptr;
 	}
 }
-
-
-
-//
-//glm::vec3 sCol(0.0f, 0.0f, 255.0f);
-//glm::vec3 eCol(255.0f, 0.0f, 0.0f);
-//
-//float totDiffR = eCol.r - sCol.r;
-//float totDiffG = eCol.g - sCol.g;
-//float totDiffB = eCol.b - sCol.b;
-//
-//float factorR = totDiffR / totDiffThick;
-//float factorG = totDiffG / totDiffThick;
-//float factorB = totDiffB / totDiffThick;
-//
-//for (int i = 0; i < numThicknessVals; i++)
-//{
-//	int ii = i * 3;
-//
-//	colorBuf[ii + 0] = sCol.r + factorR * thickness;
-//	colorBuf[ii + 1] = sCol.g + factorG * thickness;
-//	colorBuf[ii + 2] = sCol.b + factorB * thickness;
-//
-//	float r = 0;
-//	float g = 0;
-//	float b = 0;
-//
-//	_colorBar->GetColor(thickness, &r, &g, &b);
-//
-//	colorBuf[ii + 0] = r * 255;
-//	colorBuf[ii + 1] = g * 255;
-//	colorBuf[ii + 2] = b * 255;
-//}
-//
