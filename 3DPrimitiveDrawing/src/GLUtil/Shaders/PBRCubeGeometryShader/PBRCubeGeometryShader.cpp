@@ -5,7 +5,7 @@
 PBRCubeGeometryShader::PBRCubeGeometryShader()
 {
 	_metallic = 1.0f;
-	_roughness = 0.3f;
+	_roughness = 0.23f;
 	_halfLen = 0.00375f / 2.0f;
 
 	LightInfo lightInfo1(glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(23.47, 21.31, 20.79));

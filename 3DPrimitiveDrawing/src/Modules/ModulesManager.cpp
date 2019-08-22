@@ -89,6 +89,8 @@ void ModulesManager::SetScreenSize(unsigned int sw, unsigned int sh)
 	{
 		_module->SetScreenSize(sw, sh);
 	}
+
+	GLFBOManager::GetInstance()->SetScreenSize(sw, sh);
 }
 
 void ModulesManager::Update(float deltaTime)

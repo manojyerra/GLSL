@@ -137,7 +137,7 @@ void ECoatPostProcessing::DrawObjects(bool drawAllParticles)
 
 	_particleMgr->Draw(drawAllParticles);
 
-	_colorBar->Draw();
+	//_colorBar->Draw();
 }
 
 void ECoatPostProcessing::actionPerformed(SUIActionEvent e)

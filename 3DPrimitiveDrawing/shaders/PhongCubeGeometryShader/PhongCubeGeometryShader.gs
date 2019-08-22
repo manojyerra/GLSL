@@ -1,7 +1,7 @@
 #version 450
 
 layout ( points ) in;
-layout ( triangle_strip, max_vertices = 24) out;
+layout ( triangle_strip, max_vertices = 16) out;
 
 layout (location = 0) in vec3 inColor[];
 layout (location = 0) out vec3 outColor;
@@ -13,94 +13,53 @@ void main(void)
 {		
 	vec4 pos = gl_in[0].gl_Position;
 	
-	outColor = inColor[0];	
+	float xPVe = pos.x + hLen;
+	float xNVe = pos.x - hLen;
+	float yPVe = pos.y + hLen;
+	float yNVe = pos.y - hLen;
+	float zPVe = pos.z + hLen;
+	float zNVe = pos.z - hLen;
 	
-	//front face
-	vec4 pos1 = vec4(pos.x - hLen, pos.y + hLen, pos.z + hLen, 1.0);
-	vec4 pos2 = vec4(pos.x + hLen, pos.y + hLen, pos.z + hLen, 1.0);
-	vec4 pos3 = vec4(pos.x - hLen, pos.y - hLen, pos.z + hLen, 1.0);
-	vec4 pos4 = vec4(pos.x + hLen, pos.y - hLen, pos.z + hLen, 1.0);
-
-	//outColor = CalcFragColor(pos1, vec3(0.0, 0.0, 1.0));
+	outColor = inColor[0];
+		
+	vec4 pos1 = vec4(xNVe, yPVe, zPVe, 1.0);
+	vec4 pos2 = vec4(xPVe, yPVe, zPVe, 1.0);
+	vec4 pos3 = vec4(xNVe, yNVe, zPVe, 1.0);
+	vec4 pos4 = vec4(xPVe, yNVe, zPVe, 1.0);
+	vec4 pos5 = vec4(xNVe, yNVe, zNVe, 1.0);
+	vec4 pos6 = vec4(xPVe, yNVe, zNVe, 1.0);
+	vec4 pos7 = vec4(xNVe, yPVe, zNVe, 1.0);
+	vec4 pos8 = vec4(xPVe, yPVe, zNVe, 1.0);
 
 	gl_Position = mvp * pos1; EmitVertex();
 	gl_Position = mvp * pos2; EmitVertex();
 	gl_Position = mvp * pos3; EmitVertex();
 	gl_Position = mvp * pos4; EmitVertex();
-	EndPrimitive();
+	gl_Position = mvp * pos5; EmitVertex();
+	gl_Position = mvp * pos6; EmitVertex();
+	gl_Position = mvp * pos7; EmitVertex();
+	gl_Position = mvp * pos8; EmitVertex();
 
-	
-	//back face
-	pos1 = vec4(pos.x - hLen, pos.y + hLen, pos.z - hLen, 1.0);
-	pos2 = vec4(pos.x + hLen, pos.y + hLen, pos.z - hLen, 1.0);
-	pos3 = vec4(pos.x - hLen, pos.y - hLen, pos.z - hLen, 1.0);
-	pos4 = vec4(pos.x + hLen, pos.y - hLen, pos.z - hLen, 1.0);
-
-	//outColor = CalcFragColor(pos1, vec3(0.0, 0.0, -1.0));
-
-	gl_Position = mvp * pos1; EmitVertex();
-	gl_Position = mvp * pos2; EmitVertex();
-	gl_Position = mvp * pos3; EmitVertex();
-	gl_Position = mvp * pos4; EmitVertex();
-	EndPrimitive();
-
-	
-	//left face
-	pos1 = vec4(pos.x - hLen, pos.y + hLen, pos.z + hLen, 1.0);
-	pos2 = vec4(pos.x - hLen, pos.y + hLen, pos.z - hLen, 1.0);
-	pos3 = vec4(pos.x - hLen, pos.y - hLen, pos.z + hLen, 1.0);
-	pos4 = vec4(pos.x - hLen, pos.y - hLen, pos.z - hLen, 1.0);
-
-	//outColor = CalcFragColor(pos1, vec3(-1.0, 0.0, 0.0));
-
-	gl_Position = mvp * pos1; EmitVertex();
-	gl_Position = mvp * pos2; EmitVertex();
-	gl_Position = mvp * pos3; EmitVertex();
-	gl_Position = mvp * pos4; EmitVertex();
-	EndPrimitive();
-	
-
-	//right face
-	pos1 = vec4(pos.x + hLen, pos.y + hLen, pos.z + hLen, 1.0);
-	pos2 = vec4(pos.x + hLen, pos.y + hLen, pos.z - hLen, 1.0);
-	pos3 = vec4(pos.x + hLen, pos.y - hLen, pos.z + hLen, 1.0);
-	pos4 = vec4(pos.x + hLen, pos.y - hLen, pos.z - hLen, 1.0);
-
-	//outColor = CalcFragColor(pos1, vec3(1.0, 0.0, 0.0));
-
-	gl_Position = mvp * pos1; EmitVertex();
-	gl_Position = mvp * pos2; EmitVertex();
-	gl_Position = mvp * pos3; EmitVertex();
-	gl_Position = mvp * pos4; EmitVertex();
-	EndPrimitive();
-
-	
-	//bottom face
-	pos1 = vec4(pos.x - hLen, pos.y - hLen, pos.z + hLen, 1.0);
-	pos2 = vec4(pos.x + hLen, pos.y - hLen, pos.z + hLen, 1.0);
-	pos3 = vec4(pos.x - hLen, pos.y - hLen, pos.z - hLen, 1.0);
-	pos4 = vec4(pos.x + hLen, pos.y - hLen, pos.z - hLen, 1.0);
-
-	//outColor = CalcFragColor(pos1, vec3(0.0, -1.0, 0.0));
-
-	gl_Position = mvp * pos1; EmitVertex();
-	gl_Position = mvp * pos2; EmitVertex();
-	gl_Position = mvp * pos3; EmitVertex();
-	gl_Position = mvp * pos4; EmitVertex();
 	EndPrimitive();
 
 
-	//top face
-	pos1 = vec4(pos.x - hLen, pos.y + hLen, pos.z + hLen, 1.0);
-	pos2 = vec4(pos.x + hLen, pos.y + hLen, pos.z + hLen, 1.0);
-	pos3 = vec4(pos.x - hLen, pos.y + hLen, pos.z - hLen, 1.0);
-	pos4 = vec4(pos.x + hLen, pos.y + hLen, pos.z - hLen, 1.0);
-
-	//outColor = CalcFragColor(pos1, vec3(0.0, 1.0, 0.0));
+	pos1 = vec4(xNVe, yNVe, zPVe, 1.0);
+	pos2 = vec4(xNVe, yNVe, zNVe, 1.0);
+	pos3 = vec4(xNVe, yPVe, zPVe, 1.0);
+	pos4 = vec4(xNVe, yPVe, zNVe, 1.0);
+	pos5 = vec4(xPVe, yPVe, zPVe, 1.0);
+	pos6 = vec4(xPVe, yPVe, zNVe, 1.0);
+	pos7 = vec4(xPVe, yNVe, zPVe, 1.0);
+	pos8 = vec4(xPVe, yNVe, zNVe, 1.0);
 
 	gl_Position = mvp * pos1; EmitVertex();
 	gl_Position = mvp * pos2; EmitVertex();
 	gl_Position = mvp * pos3; EmitVertex();
 	gl_Position = mvp * pos4; EmitVertex();
+	gl_Position = mvp * pos5; EmitVertex();
+	gl_Position = mvp * pos6; EmitVertex();
+	gl_Position = mvp * pos7; EmitVertex();
+	gl_Position = mvp * pos8; EmitVertex();
+
 	EndPrimitive();
 }

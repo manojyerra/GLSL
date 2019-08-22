@@ -23,8 +23,8 @@ vec3 CalcFragColor(vec4 diffuse)
 	float shininess = 38.4;
 
 	vec4 Iamb = ambient;
-	vec4 Idiff = diffuse * max(abs(dot(N,L)), 0.0);
-	vec4 Ispec = specular * pow(max(dot(R,E),0.0), shininess*0.3);
+	vec4 Idiff = diffuse * max(abs(dot(R,E)), 0.3);
+	vec4 Ispec = specular * pow(max(dot(R,E),0.3), shininess*0.3);
 
 	return vec3(Iamb + Idiff + Ispec);
 }

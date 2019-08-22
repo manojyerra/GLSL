@@ -124,7 +124,7 @@ void Cam::SetViewMatrix()
 	viewMat.translatef(_trans.x, _trans.y, _trans.z);
 	viewMat.rotatef(_angle.x, 1, 0, 0);
 	viewMat.rotatef(_angle.y, 0, 1, 0);
-	//viewMat.rotatef(-90, 1, 0, 0);
+	viewMat.rotatef(-90, 1, 0, 0);
 	viewMat.translatef(-_pivot.x, -_pivot.y, -_pivot.z);
 }
 

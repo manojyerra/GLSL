@@ -1,6 +1,7 @@
 #include "ParticleRenderer.h"
 #include "Cam.h"
 #include "BufferTransformUtils.h"
+#include "Platform.h"
 
 ParticleRenderer::ParticleRenderer(std::string filePath)
 {
@@ -175,8 +176,28 @@ void ParticleRenderer::DrawAllParticles()
 {
 	if(_allParticlesRenderer)
 	{
-		_allParticlesRenderer->SetModelMatrix(_modelMat.m);
+		//_allParticlesRenderer->SetShader(PBR_CUBE_GEOMETRY_SHADER);
+		//_allParticlesRenderer->SetModelMatrix(_modelMat.m);
+		//_allParticlesRenderer->Draw();
+
+		//GLMat mat1(_modelMat.m);
+		//mat1.m[13] += 1.5;
+		//mat1.m[14] += 1.5;
+
+		//_allParticlesRenderer->SetShader(PHONG_CUBE_GEOMETRY_SHADER);
+		//_allParticlesRenderer->SetModelMatrix(mat1.m);
+		//_allParticlesRenderer->Draw();
+
+		GLMat mat2(_modelMat.m);
+		//mat2.m[13] -= 1.5;
+		//mat2.m[14] += 1.5;
+
+		long startTime = Platform::GetTimeInMillis();
+		_allParticlesRenderer->SetShader(CUBE_GEOMETRY_SHADER);
+		_allParticlesRenderer->SetModelMatrix(mat2.m);
 		_allParticlesRenderer->Draw();
+		glFinish();
+		printf("\nTimeForCUBE_GEOMETRY_SHADER %ld", (Platform::GetTimeInMillis()-startTime));
 	}
 }
 
