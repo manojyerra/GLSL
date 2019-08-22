@@ -31,8 +31,8 @@ ParticleRenderer::ParticleRenderer(BufferInfo* vertexBufInfo, BufferInfo* normal
 	_skipNumVertex = 50;
 	_bBoxCenter = BufferTransformUtils::CalcCenter((float*)vertexBufInfo->buffer, vertexBufInfo->size / 4);
 
-	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBufInfo, normalBufInfo, PHONG_COLOR_SHADER);
-	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBufInfo, normalBufInfo, PHONG_COLOR_SHADER);
+	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBufInfo, normalBufInfo, PHONG_CUBE_GEOMETRY_SHADER);
+	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBufInfo, normalBufInfo, PHONG_CUBE_GEOMETRY_SHADER);
 }
 
 GLMeshRenderer* ParticleRenderer::CreateAllParticlesRenderer(BufferInfo* vertexBufInfo, BufferInfo* normalBufInfo, int shaderID)
@@ -44,7 +44,7 @@ GLMeshRenderer* ParticleRenderer::CreateAllParticlesRenderer(BufferInfo* vertexB
 	BaseModelIO modelIO;
 	modelIO.SetVertexBufferInfo(vertexBufInfo);
 	modelIO.SetColorBuffer((const char*)colorBuf, colorBufLen);
-	if (normalBufInfo)
+	if (normalBufInfo && normalBufInfo->HasData())
 		modelIO.SetNormalBufferInfo(normalBufInfo);
 
 	GLMeshRenderer* meshRenderer = new GLMeshRenderer(&modelIO, shaderID);
@@ -69,7 +69,7 @@ GLMeshRenderer* ParticleRenderer::CreateFewParticlesRenderer(BufferInfo* highPol
 	modelIO.SetColorBufferInfo(&lowPolyColorBufInfo);
 	modelIO.SetNormalBufferInfo(&lowPolyNormalBufInfo);
 
-	GLMeshRenderer* meshRenderer = new GLMeshRenderer(&modelIO, CUBE_GEOMETRY_SHADER);
+	GLMeshRenderer* meshRenderer = new GLMeshRenderer(&modelIO, shaderID);
 	meshRenderer->SetPrimitiveType(GLMeshRenderer::points);
 
 	free(lowPolyVerBufInfo.buffer);

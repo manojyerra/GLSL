@@ -7,5 +7,5 @@ uniform float alpha;
 
 void main(void)
 {
-	outColor = vec4(inColor, alpha );
+	outColor = vec4(inColor, alpha);
 }

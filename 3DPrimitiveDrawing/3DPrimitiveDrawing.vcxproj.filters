@@ -163,6 +163,9 @@
     <Filter Include="src\Modules\ESSModules\ECoatPostProcessing">
       <UniqueIdentifier>{15242e79-444c-45bc-847e-c6dead4488fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GLUtil\Shaders\PhongCubeGeometryShader">
+      <UniqueIdentifier>{08c5bd98-64b6-4b53-8eea-a1e1283e5d0d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -588,6 +591,9 @@
     <ClCompile Include="src\Common\Utils\BufferInfo.cpp">
       <Filter>src\Common\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\Shaders\PhongCubeGeometryShader\PhongCubeGeometryShader.cpp">
+      <Filter>src\GLUtil\Shaders\PhongCubeGeometryShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLMat.h">
@@ -1003,6 +1009,9 @@
     </ClInclude>
     <ClInclude Include="src\Common\Utils\BufferInfo.h">
       <Filter>src\Common\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\Shaders\PhongCubeGeometryShader\PhongCubeGeometryShader.h">
+      <Filter>src\GLUtil\Shaders\PhongCubeGeometryShader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

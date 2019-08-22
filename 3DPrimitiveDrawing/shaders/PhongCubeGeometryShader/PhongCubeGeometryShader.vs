@@ -6,12 +6,12 @@ in vec3 color;
 
 layout (location = 0) out vec3 outColor;
 
-uniform mat4 modelView;
+uniform mat4 modelViewMat;
 uniform mat3 normalMat;
 
 vec3 CalcFragColor(vec4 diffuse)
 {
-	vec3 V = vec3( modelView * vertex );
+	vec3 V = vec3( modelViewMat * vertex );
 	vec3 N = normalize( normalMat * normal );	
 
 	vec3 L = normalize(-V);
