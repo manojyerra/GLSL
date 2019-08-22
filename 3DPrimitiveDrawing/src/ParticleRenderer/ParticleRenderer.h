@@ -17,11 +17,11 @@ class ParticleRenderer
 	static const unsigned int BYTES_PER_VERTEX = 12;
 	static const unsigned int BYTES_PER_COLOR = 3;
 
-	GLMeshRenderer* CreateAllParticlesRenderer(BufferInfo* vertexBufInfo);
-	GLMeshRenderer* CreateFewParticlesRenderer(BufferInfo* allParVerBufInfo);
+	BufferInfo GenerateLowPolyVertexBuf(BufferInfo* highPolyVerBufInfo);
+	BufferInfo GenerateLowPolyColorBuf(BufferInfo* lowPolyVerBufInfo);
 
-	GLMeshRenderer* CreateAllParticlesRenderer(BufferInfo* vertexBufInfo, BufferInfo* normalBufInfo);
-	GLMeshRenderer* CreateFewParticlesRenderer(BufferInfo* allParVerBufInfo, BufferInfo* normalBufInfo);
+	GLMeshRenderer* CreateAllParticlesRenderer(BufferInfo* vertexBufInfo, BufferInfo* normalBufInfo, int shaderID);
+	GLMeshRenderer* CreateFewParticlesRenderer(BufferInfo* highPolyVerBufInfo, BufferInfo* highPolyNormalBufInfo, int shaderID);
 
 public:
 	enum

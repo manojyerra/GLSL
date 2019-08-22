@@ -18,6 +18,16 @@ public:
 		this->buffer = buffer;
 		this->size = size;
 	}
+
+	bool IsEmpty()
+	{
+		return (buffer == nullptr || size == 0);
+	}
+
+	bool HasData()
+	{
+		return (buffer != nullptr && size > 0);
+	}
 };
 
 #endif

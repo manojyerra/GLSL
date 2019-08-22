@@ -11,37 +11,53 @@ ECoatParticleDataMgr::ECoatParticleDataMgr(ECoatAssetsBuilder* assetsBuilder, Co
 	BufferInfo parVerBufInfo = _resultFileReader->GetParticleBufferWorkpiece(1);
 	BufferInfo parNorBufInfo = GenerateNormals(_assetsBuilder->GetSolidSTLReader());
 
-	_particleRenderer = new ParticleRenderer(&parVerBufInfo, &parNorBufInfo);
+	if(parNorBufInfo.HasData())
+		_particleRenderer = new ParticleRenderer(&parVerBufInfo, &parNorBufInfo);
+	else
+		_particleRenderer = new ParticleRenderer(&parVerBufInfo);
+
 	ApplyContour(1);
 }
 
 BufferInfo ECoatParticleDataMgr::GenerateNormals(STLReader* stlReader)
 {
-	BufferInfo triIDBufInfo = _resultFileReader->GetTriangleIDBufferWorkpiece(1);
-	unsigned int* triIDArr = (unsigned int*)triIDBufInfo.buffer;
-	unsigned int numTriIDS = triIDBufInfo.size / 4;
+	BufferInfo parNormalBuf;
 
-	float* stlNormalsArr = (float*)stlReader->GetNormalBuffer();
-	unsigned int stlNormalArrSize = stlReader->GetNormalBufferSize() / 4;
-
-	float* parNormalArr = (float*)malloc(stlReader->GetVertexBufferSize());
-	memset(parNormalArr, '\0', stlReader->GetVertexBufferSize());
-
-	for (int i = 0; i < numTriIDS; i++)
+	if (stlReader)
 	{
-		unsigned int triID = triIDArr[i];
+		BufferInfo triIDBufInfo = _resultFileReader->GetTriangleIDBufferWorkpiece(1);
 
-		int stlNorIndex = triID * 9;
-		int parNorIndex = i * 3;
+		if (triIDBufInfo.HasData())
+		{
+			unsigned int* triIDArr = (unsigned int*)triIDBufInfo.buffer;
+			unsigned int numTriIDS = triIDBufInfo.size / 4;
 
-		//parNormalArr[parNorIndex + 0] = stlNormalsArr[stlNorIndex + 0];
-		//parNormalArr[parNorIndex + 1] = stlNormalsArr[stlNorIndex + 1];
-		//parNormalArr[parNorIndex + 2] = stlNormalsArr[stlNorIndex + 2];
+			float* stlNormalsArr = (float*)stlReader->GetNormalBuffer();
+			unsigned int stlNormalArrSize = stlReader->GetNormalBufferSize() / 4;
 
-		memcpy(&parNormalArr[parNorIndex], &stlNormalsArr[stlNorIndex], 12);
+			float* parNormalArr = (float*)malloc(stlReader->GetVertexBufferSize());
+			memset(parNormalArr, '\0', stlReader->GetVertexBufferSize());
+
+			for (int i = 0; i < numTriIDS; i++)
+			{
+				unsigned int triID = triIDArr[i];
+
+				int stlNorIndex = triID * 9;
+				int parNorIndex = i * 3;
+
+				//parNormalArr[parNorIndex + 0] = stlNormalsArr[stlNorIndex + 0];
+				//parNormalArr[parNorIndex + 1] = stlNormalsArr[stlNorIndex + 1];
+				//parNormalArr[parNorIndex + 2] = stlNormalsArr[stlNorIndex + 2];
+
+				memcpy(&parNormalArr[parNorIndex], &stlNormalsArr[stlNorIndex], 12);
+			}
+
+			parNormalBuf.buffer = (char*)parNormalArr;
+			parNormalBuf.size = stlReader->GetVertexBufferSize();
+		}
 	}
 
-	return BufferInfo((char*)parNormalArr, stlReader->GetVertexBufferSize());
+	return parNormalBuf;
 }
 
 void ECoatParticleDataMgr::ApplyContour(int frameNum)

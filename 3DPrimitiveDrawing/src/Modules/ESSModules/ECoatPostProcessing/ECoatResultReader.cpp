@@ -1,4 +1,5 @@
 #include "ECoatResultReader.h"
+#include "Platform.h"
 
 ECoatResultReader::ECoatResultReader(std::string resultFilePath)
 {
@@ -58,7 +59,9 @@ FrameInfo ECoatResultReader::GetThicknessBuffer(unsigned int frameNum)
 	unsigned int memSize = rows * sizeof(float);
 	char* thicknessBuf = (char*)malloc(memSize);
 
+	long startTime = Platform::GetTimeInMillis();
 	dataSet.read(thicknessBuf, H5::PredType::NATIVE_FLOAT, memSpace, dataSpace);
+	printf("\n TimeToRead_HDF5 : %ld", Platform::GetTimeInMillis()-startTime);
 
 	FrameInfo frameInfo;
 	frameInfo.buffer = (char*)thicknessBuf;
@@ -149,7 +152,7 @@ BufferInfo ECoatResultReader::GetParticleBufferWorkpiece(unsigned int frameNum, 
 BufferInfo ECoatResultReader::GetTriangleIDBufferWorkpiece(unsigned int frameNum)
 {
 	H5::Group workPieceGroup = _h5File->openGroup("Workpiece");
-
+	
 	if (!H5::IdComponent::isValid(workPieceGroup.getId()))
 	{
 		throw new std::exception("Exception : Invalid Group");
@@ -161,6 +164,14 @@ BufferInfo ECoatResultReader::GetTriangleIDBufferWorkpiece(unsigned int frameNum
 	}
 
 	H5::Group particleGroup = workPieceGroup.openGroup("Particle");
+
+	if (!particleGroup.nameExists("triangle-ids"))
+	{
+		particleGroup.close();
+		workPieceGroup.close();
+		return BufferInfo();
+	}
+
 	H5::DataSet dataSet = particleGroup.openDataSet("triangle-ids");
 
 	//size_t floatSize = dataSet.getFloatType().getSize();
@@ -296,3 +307,20 @@ ECoatResultReader::~ECoatResultReader()
 //
 //	return frameInfo;
 //}
+
+
+//_h5File = new H5::H5File(resultFilePath.c_str(), H5F_ACC_RDONLY);
+//H5::FileAccPropList pList = _h5File->getAccessPlist();
+//
+//int mdc_nelmts = 0;
+//size_t rdcc_nelmts = 0;
+//size_t rdcc_nbytes = 0;
+//double rdcc_w0 = 0;
+//
+//pList.getCache(mdc_nelmts, rdcc_nelmts, rdcc_nbytes, rdcc_w0);
+//pList.setCache(0, 0, 0, 0);
+//
+//_h5File->close();
+//delete _h5File;
+//
+//_h5File = new H5::H5File(resultFilePath.c_str(), H5F_ACC_RDONLY, H5::FileCreatPropList::DEFAULT, pList);

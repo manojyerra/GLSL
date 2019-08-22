@@ -51,6 +51,12 @@ void BaseModelIO::SetImageBuffer(ImageBuffer* imageBuf)
 	_imageBuf = imageBuf;
 }
 
+void BaseModelIO::SetVertexBufferInfo(BufferInfo* buf) { SetVertexBuffer(buf->buffer, buf->size); }
+void BaseModelIO::SetUVBufferInfo(BufferInfo* buf) { SetUVBuffer(buf->buffer, buf->size); }
+void BaseModelIO::SetNormalBufferInfo(BufferInfo* buf) { SetNormalBuffer(buf->buffer, buf->size); }
+void BaseModelIO::SetColorBufferInfo(BufferInfo* buf) { SetColorBuffer(buf->buffer, buf->size); }
+void BaseModelIO::SetIndicesBufferInfo(BufferInfo* buf) { SetIndicesBuffer(buf->buffer, buf->size); }
+
 const char* BaseModelIO::GetVertexBuffer() { return _vertexBuf; }
 const char* BaseModelIO::GetUVBuffer() { return _uvBuf; }
 const char* BaseModelIO::GetNormalBuffer() { return _normalBuf; }

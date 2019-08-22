@@ -3,6 +3,7 @@
 
 #include "ImageBuffer.h"
 #include "AABB.h"
+#include "BufferInfo.h"
 
 class BaseModelIO
 {
@@ -41,6 +42,12 @@ public:
 	virtual void SetColorBuffer(const char* buf, unsigned int len);
 	virtual void SetIndicesBuffer(const char* buf, unsigned int len);
 	virtual void SetImageBuffer(ImageBuffer* imageBuf);
+
+	virtual void SetVertexBufferInfo(BufferInfo* buf);
+	virtual void SetUVBufferInfo(BufferInfo* buf);
+	virtual void SetNormalBufferInfo(BufferInfo* buf);
+	virtual void SetColorBufferInfo(BufferInfo* buf);
+	virtual void SetIndicesBufferInfo(BufferInfo* buf);
 
 	virtual const char* GetVertexBuffer();
 	virtual const char* GetUVBuffer();
