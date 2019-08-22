@@ -4,7 +4,6 @@
 
 SSAOBlurShader::SSAOBlurShader()
 {
-	_alpha = 1.0f;
 	_ssaoInputTexID = 0;
 
 	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram(
@@ -15,16 +14,6 @@ SSAOBlurShader::SSAOBlurShader()
 void SSAOBlurShader::SetSSAOInputTexID(unsigned int texID)
 {
 	_ssaoInputTexID = texID;
-}
-
-void SSAOBlurShader::SetModelMatrix(float* mat)
-{
-	_modelMat.Copy(mat);
-}
-
-void SSAOBlurShader::SetAlpha(float alpha)
-{
-	_alpha = alpha;
 }
 
 void SSAOBlurShader::Begin()

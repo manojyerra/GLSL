@@ -23,8 +23,6 @@ PhongWithTextureShader::PhongWithTextureShader(int shaderType)
 
 	_Se = 38.4f;
 
-	_alpha = 1.0f;
-
 	SetShaderType(_shaderType);
 }
 
@@ -54,11 +52,6 @@ void PhongWithTextureShader::SetShaderType(int shaderType)
 
 		_shaderProgram = _perVertexShader;
 	}
-}
-
-void PhongWithTextureShader::SetModelMatrix(float* mat)
-{
-	_modelMat.Copy(mat);
 }
 
 void PhongWithTextureShader::SetLightPos(float x, float y, float z)
@@ -95,11 +88,6 @@ void PhongWithTextureShader::SetSpecularColor(float r, float g, float b, float a
 void PhongWithTextureShader::SetShininess(float shininess)
 {
 	_Se = shininess;
-}
-
-void PhongWithTextureShader::SetAlpha(float alpha)
-{
-	_alpha = alpha;
 }
 
 void PhongWithTextureShader::Begin()

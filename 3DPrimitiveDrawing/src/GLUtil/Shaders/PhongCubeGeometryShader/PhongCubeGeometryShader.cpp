@@ -10,22 +10,11 @@ PhongCubeGeometryShader::PhongCubeGeometryShader()
 		"shaders/PhongCubeGeometryShader/PhongCubeGeometryShader.fs");
 
 	_halfLen = 0.00375f/2.0f;
-	_alpha = 1.0f;
 }
 
 void PhongCubeGeometryShader::SetCubeHalfLen(float cubeHalfLen)
 {
 	_halfLen = cubeHalfLen;
-}
-
-void PhongCubeGeometryShader::SetAlpha(float alpha)
-{
-	_alpha = alpha;
-}
-
-void PhongCubeGeometryShader::SetModelMatrix(float* mat)
-{
-	_modelMat.Copy(mat);
 }
 
 void PhongCubeGeometryShader::Begin()

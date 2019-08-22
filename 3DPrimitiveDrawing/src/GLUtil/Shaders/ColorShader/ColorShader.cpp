@@ -6,7 +6,6 @@
 ColorShader::ColorShader()
 {
 	_shaderProgram = NULL;
-	_alpha = 1.0f;
 	_use2DCam = false;
 
 	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram("shaders/ColorShader/ColorShader.vs",
@@ -16,16 +15,6 @@ ColorShader::ColorShader()
 void ColorShader::Set2DCamera(bool enable)
 {
 	_use2DCam = enable;
-}
-
-void ColorShader::SetModelMatrix(float* mat)
-{
-	_modelMat.Copy(mat);
-}
-
-void ColorShader::SetAlpha(float alpha)
-{
-	_alpha = alpha;
 }
 
 void ColorShader::Begin()

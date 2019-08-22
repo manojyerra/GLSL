@@ -4,22 +4,9 @@
 
 SSAOGeometryPassShader::SSAOGeometryPassShader()
 {
-	_shaderProgram = nullptr;
-	_alpha = 1.0f;
-
 	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram(
 		"shaders/SSAO/GeometryPassShader/GeometryPassShader.vs",
 		"shaders/SSAO/GeometryPassShader/GeometryPassShader.fs");
-}
-
-void SSAOGeometryPassShader::SetModelMatrix(float* mat)
-{
-	_modelMat.Copy(mat);
-}
-
-void SSAOGeometryPassShader::SetAlpha(float alpha)
-{
-	_alpha = alpha;
 }
 
 void SSAOGeometryPassShader::Begin()

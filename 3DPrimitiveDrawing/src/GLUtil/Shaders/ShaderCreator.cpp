@@ -2,30 +2,31 @@
 
 ShaderCreator::ShaderCreator(unsigned int shaderType, GLBufferBuilder* bufferBuilder)
 {
-	_basicShader = NULL;
-	_colorShader = NULL;
-	_uvShader = NULL;
-	_cubeGeometryShader = NULL;
-	_phongCubeGeometryShader = NULL;
-	_quadGeometryShader = NULL;
-	_sphereGeometryShader = NULL;
+	_basicShader = nullptr;
+	_colorShader = nullptr;
+	_uvShader = nullptr;
+	_cubeGeometryShader = nullptr;
+	_phongCubeGeometryShader = nullptr;
+	_pbrCubeGeometryShader = nullptr;
+	_quadGeometryShader = nullptr;
+	_sphereGeometryShader = nullptr;
 
-	_phongPerVertexShader = NULL;
-	_phongPerPixelShader = NULL;
-	_phongColorShader = NULL;
-	_phongWithTexPerVertexShader = NULL;
-	_phongWithTexPerPixelShader = NULL;
+	_phongPerVertexShader = nullptr;
+	_phongPerPixelShader = nullptr;
+	_phongColorShader = nullptr;
+	_phongWithTexPerVertexShader = nullptr;
+	_phongWithTexPerPixelShader = nullptr;
 
-	_pbrShader = NULL;
-	_pbrColorShader = NULL;
-	_pbrWithTextureShader = NULL;
+	_pbrShader = nullptr;
+	_pbrColorShader = nullptr;
+	_pbrWithTextureShader = nullptr;
 
-	_ssaoShader = NULL;
-	_ssaoBlurShader = NULL;
-	_ssaoMapOverlayShader = NULL;
-	_ssaoGeometryPassShader = NULL;
+	_ssaoShader = nullptr;
+	_ssaoBlurShader = nullptr;
+	_ssaoMapOverlayShader = nullptr;
+	_ssaoGeometryPassShader = nullptr;
 
-	_shader = NULL;
+	_shader = nullptr;
 
 	_shaderType = shaderType;
 	_bufferBuilder = bufferBuilder;
@@ -189,6 +190,18 @@ void ShaderCreator::SetShader(int shaderType)
 
 		_shader = _phongCubeGeometryShader;
 	}
+	else if (_shaderType == PBR_CUBE_GEOMETRY_SHADER)
+	{
+		if (!_pbrCubeGeometryShader)
+		{
+			_pbrCubeGeometryShader = new PBRCubeGeometryShader();
+			_pbrCubeGeometryShader->SetVertexBufferID(_bufferBuilder->GetVertexBufferID());
+			_pbrCubeGeometryShader->SetNormalBufferID(_bufferBuilder->GetNormalBufferID());
+			_pbrCubeGeometryShader->SetColorBufferID(_bufferBuilder->GetColorBufferID());
+		}
+
+		_shader = _pbrCubeGeometryShader;
+	}
 	else if (_shaderType == QUAD_GEOMETRY_SHADER)
 	{
 		if (!_quadGeometryShader)
@@ -278,6 +291,10 @@ Shader* ShaderCreator::GetShader(int shaderType)
 	else if (_shaderType == PHONG_CUBE_GEOMETRY_SHADER)
 	{
 		return _phongCubeGeometryShader;
+	}
+	else if (_shaderType == PBR_CUBE_GEOMETRY_SHADER)
+	{
+		return _pbrCubeGeometryShader;
 	}
 	else if (_shaderType == QUAD_GEOMETRY_SHADER)
 	{
@@ -385,6 +402,12 @@ ShaderCreator::~ShaderCreator()
 	{
 		delete _phongCubeGeometryShader;
 		_phongCubeGeometryShader = NULL;
+	}
+
+	if (_pbrCubeGeometryShader)
+	{
+		delete _pbrCubeGeometryShader;
+		_pbrCubeGeometryShader = NULL;
 	}
 
 	if (_quadGeometryShader)

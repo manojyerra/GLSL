@@ -10,22 +10,11 @@ QuadGeometryShader::QuadGeometryShader()
 		"shaders/QuadGeometryShader/QuadGeometryShader.fs");
 
 	_halfLen = 0.0015f;
-	_alpha = 1.0f;
 }
 
 void QuadGeometryShader::SetCubeHalfLen(float cubeHalfLen)
 {
 	_halfLen = cubeHalfLen;
-}
-
-void QuadGeometryShader::SetAlpha(float alpha)
-{
-	_alpha = alpha;
-}
-
-void QuadGeometryShader::SetModelMatrix(float* mat)
-{
-	_modelMat.Copy(mat);
 }
 
 void QuadGeometryShader::Begin()

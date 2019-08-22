@@ -35,11 +35,9 @@ protected:
 	glm::vec3 _albedo;
 	float _metallic;
 	float _roughness;
-	float _alpha;
 
 	ShaderProgram* _shaderProgram;
 	int _shaderType;
-	GLMat _modelMat;
 
 public:
 	PBRShader();
@@ -60,8 +58,6 @@ public:
 	void AddLight(std::string lightName, LightInfo lightInfo);
 	void RemoveLight(std::string lightName);
 
-	void SetModelMatrix(float* mat) override;
-	void SetAlpha(float alpha) override;
 	void Begin() override;
 	void SetUniformsAndAttributes() override;
 	void End() override;

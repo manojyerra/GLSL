@@ -18,15 +18,11 @@ private:
 	float _Ks[4];
 	float _Se;
 
-	float _alpha;
-
 	ShaderProgram* _perPixelShader;
 	ShaderProgram* _perVertexShader;
 	ShaderProgram* _shaderProgram;
 
 	int _shaderType;
-
-	GLMat _modelMat;
 
 public:
 	static const int PER_PIXEL_SHADER = 1;
@@ -36,7 +32,6 @@ public:
 	~PhongShader();
 
 	void SetShaderType(int shaderType);
-	void SetModelMatrix(float* mat);
 
 	void SetLightPos(float x, float y, float z);
 	void SetAmbientColor(float r, float g, float b, float a);
@@ -44,7 +39,6 @@ public:
 	void SetSpecularColor(float r, float g, float b, float a);
 	void SetShininess(float shininess);
 
-	void SetAlpha(float alpha) override;
 	void Begin() override;
 	void SetUniformsAndAttributes() override;
 	void End() override;

@@ -10,22 +10,11 @@ SphereGeometryShader::SphereGeometryShader()
 		"shaders/SphereGeometryShader/SphereGeometryShader.fs");
 
 	_halfLen = 0.0015f;
-	_alpha = 1.0f;
 }
 
 void SphereGeometryShader::SetCubeHalfLen(float cubeHalfLen)
 {
 	_halfLen = cubeHalfLen;
-}
-
-void SphereGeometryShader::SetAlpha(float alpha)
-{
-	_alpha = alpha;
-}
-
-void SphereGeometryShader::SetModelMatrix(float* mat)
-{
-	_modelMat.Copy(mat);
 }
 
 void SphereGeometryShader::Begin()

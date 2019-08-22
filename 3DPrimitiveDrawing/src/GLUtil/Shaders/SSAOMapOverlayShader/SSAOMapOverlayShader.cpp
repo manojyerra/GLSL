@@ -6,8 +6,6 @@
 SSAOMapOverlayShader::SSAOMapOverlayShader()
 {
 	_shaderProgram = NULL;
-
-	_alpha = 1.0f;
 	_occlusionLevel = 0.5f;
 
 	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram("shaders/SSAO/SSAOMapOverlayShader/SSAOMapOverlayShader.vs",
@@ -17,16 +15,6 @@ SSAOMapOverlayShader::SSAOMapOverlayShader()
 void SSAOMapOverlayShader::SetOcclusionLevel(float level)
 {
 	_occlusionLevel = MathUtils::MinMax(level, 0.0f, 1.0f);
-}
-
-void SSAOMapOverlayShader::SetModelMatrix(float* mat)
-{
-	_modelMat.Copy(mat);
-}
-
-void SSAOMapOverlayShader::SetAlpha(float alpha)
-{
-	_alpha = alpha;
 }
 
 void SSAOMapOverlayShader::Set2DCamera(bool enable)

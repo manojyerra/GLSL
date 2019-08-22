@@ -18,16 +18,10 @@ PhongColorShader::PhongColorShader()
 	}
 
 	_Se = 38.4f;
-	_alpha = 1.0f;
 
 	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram(
 		"shaders/PhongColorShader/PhongColorShader.vs",
 		"shaders/PhongColorShader/PhongColorShader.fs");
-}
-
-void PhongColorShader::SetModelMatrix(float* mat)
-{
-	_modelMat.Copy(mat);
 }
 
 void PhongColorShader::SetLightPos(float x, float y, float z)
@@ -56,11 +50,6 @@ void PhongColorShader::SetSpecularColor(float r, float g, float b, float a)
 void PhongColorShader::SetShininess(float shininess)
 {
 	_Se = shininess;
-}
-
-void PhongColorShader::SetAlpha(float alpha)
-{
-	_alpha = alpha;
 }
 
 void PhongColorShader::Begin()

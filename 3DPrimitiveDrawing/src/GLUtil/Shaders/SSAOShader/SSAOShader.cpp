@@ -7,25 +7,12 @@ SSAOShader::SSAOShader()
 	_gPositionTexID = 0;
 	_gNormalTexID = 0;
 	_noiseTexID = 0;
-
-	_shaderProgram = nullptr;
-	_alpha = 1.0f;
-
 	_screenSize = glm::vec2(1280.0f, 720.0f);
+	_shaderProgram = nullptr;
 
 	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram(
 		"shaders/SSAO/SSAOCalcShader/SSAOCalcShader.vs",
 		"shaders/SSAO/SSAOCalcShader/SSAOCalcShader.fs");
-}
-
-void SSAOShader::SetModelMatrix(float* mat)
-{
-	_modelMat.Copy(mat);
-}
-
-void SSAOShader::SetAlpha(float alpha)
-{
-	_alpha = alpha;
 }
 
 void SSAOShader::SetGPositionTexID(unsigned int texID)

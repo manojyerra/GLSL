@@ -1,6 +1,8 @@
 #ifndef Shader_H
 #define Shader_H
 
+#include "GLMat.h"
+
 class Shader 
 {
 protected:
@@ -10,6 +12,9 @@ protected:
 	unsigned int _uvBufferID;
 	unsigned int _textureID;
 
+	float _alpha;
+	GLMat _modelMat;
+
 public:
 	Shader()
 	{
@@ -18,14 +23,23 @@ public:
 		_normalBufferID = 0;
 		_uvBufferID = 0;
 		_textureID = 0;
+		_alpha = 1.0f;
 	}
 
 	virtual ~Shader()
 	{
 	}
 
-	virtual void SetAlpha(float alpha) = 0;
-	virtual void SetModelMatrix(float* mat) = 0;
+	void SetAlpha(float alpha)
+	{
+		_alpha = alpha;
+	}
+
+	void SetModelMatrix(float* mat)
+	{
+		_modelMat.Copy(mat);
+	}
+
 	virtual void Begin() = 0;
 	virtual void SetUniformsAndAttributes() = 0;
 	virtual void End() = 0;

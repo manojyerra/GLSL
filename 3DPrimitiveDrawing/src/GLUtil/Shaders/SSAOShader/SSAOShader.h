@@ -18,9 +18,6 @@ private:
 
 	glm::vec2 _screenSize;
 
-	float _alpha;
-	GLMat _modelMat;
-
 public:
 	static const int NUM_SAMPLES = 128;
 
@@ -35,9 +32,6 @@ public:
 
 	void SetSamples(std::vector<glm::vec3> samples);
 
-	void SetModelMatrix(float* mat);
-
-	void SetAlpha(float alpha) override;
 	void Begin() override;
 	void SetUniformsAndAttributes() override;
 	void End() override;

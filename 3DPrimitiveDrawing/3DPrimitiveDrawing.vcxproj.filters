@@ -166,6 +166,9 @@
     <Filter Include="src\GLUtil\Shaders\PhongCubeGeometryShader">
       <UniqueIdentifier>{08c5bd98-64b6-4b53-8eea-a1e1283e5d0d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GLUtil\Shaders\PBRCubeGeometryShader">
+      <UniqueIdentifier>{217b9e5d-50c9-40fe-a04c-b1d455bd4d40}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -594,6 +597,9 @@
     <ClCompile Include="src\GLUtil\Shaders\PhongCubeGeometryShader\PhongCubeGeometryShader.cpp">
       <Filter>src\GLUtil\Shaders\PhongCubeGeometryShader</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\Shaders\PBRCubeGeometryShader\PBRCubeGeometryShader.cpp">
+      <Filter>src\GLUtil\Shaders\PBRCubeGeometryShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLMat.h">
@@ -1012,6 +1018,9 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\Shaders\PhongCubeGeometryShader\PhongCubeGeometryShader.h">
       <Filter>src\GLUtil\Shaders\PhongCubeGeometryShader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\Shaders\PBRCubeGeometryShader\PBRCubeGeometryShader.h">
+      <Filter>src\GLUtil\Shaders\PBRCubeGeometryShader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

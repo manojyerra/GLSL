@@ -6,21 +6,10 @@
 UVShader::UVShader()
 {
 	_shaderProgram = NULL;
-	_alpha = 1.0f;
 	_use2DCam = false;
 
 	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram("shaders/UVShader/UVShader.vs",
 		"shaders/UVShader/UVShader.fs");
-}
-
-void UVShader::SetModelMatrix(float* mat)
-{
-	_modelMat.Copy(mat);
-}
-
-void UVShader::SetAlpha(float alpha)
-{
-	_alpha = alpha;
 }
 
 void UVShader::Set2DCamera(bool enable)

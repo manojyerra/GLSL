@@ -8,12 +8,8 @@
 class SSAOMapOverlayShader : public Shader
 {
 private:
-	float _alpha;
 	float _occlusionLevel; // 0 to 1
-
 	ShaderProgram* _shaderProgram;
-
-	GLMat _modelMat;
 	bool _use2DCam;
 
 public:
@@ -22,8 +18,6 @@ public:
 
 	void Set2DCamera(bool enable);
 	void SetOcclusionLevel(float level);
-	void SetModelMatrix(float* mat) override;
-	void SetAlpha(float alpha) override;
 	void Begin() override;
 	void SetUniformsAndAttributes() override;
 	void End() override;

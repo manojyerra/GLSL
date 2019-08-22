@@ -31,8 +31,8 @@ ParticleRenderer::ParticleRenderer(BufferInfo* vertexBufInfo, BufferInfo* normal
 	_skipNumVertex = 50;
 	_bBoxCenter = BufferTransformUtils::CalcCenter((float*)vertexBufInfo->buffer, vertexBufInfo->size / 4);
 
-	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBufInfo, normalBufInfo, PHONG_CUBE_GEOMETRY_SHADER);
-	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBufInfo, normalBufInfo, PHONG_CUBE_GEOMETRY_SHADER);
+	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBufInfo, normalBufInfo, PBR_CUBE_GEOMETRY_SHADER);
+	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBufInfo, normalBufInfo, PBR_CUBE_GEOMETRY_SHADER);
 }
 
 GLMeshRenderer* ParticleRenderer::CreateAllParticlesRenderer(BufferInfo* vertexBufInfo, BufferInfo* normalBufInfo, int shaderID)

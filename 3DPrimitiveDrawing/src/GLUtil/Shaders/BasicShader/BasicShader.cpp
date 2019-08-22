@@ -4,21 +4,10 @@
 
 BasicShader::BasicShader()
 {
-	_alpha = 1.0f;
 	_color = glm::vec3(0.5f, 0.5f, 0.5f);
 
 	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram("shaders/BasicShader/BasicShader.vs",
 		"shaders/BasicShader/BasicShader.fs");
-}
-
-void BasicShader::SetModelMatrix(float* mat)
-{
-	_modelMat.Copy(mat);
-}
-
-void BasicShader::SetAlpha(float alpha)
-{
-	_alpha = alpha;
 }
 
 void BasicShader::SetColor(glm::vec3 color)
