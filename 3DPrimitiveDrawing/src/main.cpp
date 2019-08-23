@@ -12,22 +12,14 @@ GameLoop* gameLoop = NULL;
 
 int main(int argc, char** argv)
 {
-	//for(int i=0; i<argc; i++)
-	//	Platform::debugPrint("\nargv = %s", argv[i]);
-
 	Platform::debugPrint("\n\nBegin: Loading resources\n\n");
 	long startTime = Platform::GetTimeInMillis();
 
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //supported from 3.3 version
-
-	//glfwWindowHint(GLFW_DEPTH_BITS, 24);
-	//glfwWindowHint(GLFW_ALPHA_BITS, 8);
-	//glfwWindowHint(GLFW_SRGB_CAPABLE, GLFW_TRUE);
-	//TODO: How to change number of samples runtime and disable/enable sampling runtime ( mainly for while drawing an object ).
-	//glfwWindowHint(GLFW_SAMPLES, 8);
+	glfwWindowHint(GLFW_ALPHA_BITS, 0);
+	glfwWindowHint(GLFW_STENCIL_BITS, 0);
 
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
@@ -169,3 +161,15 @@ glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 glfwMaximizeWindow(window);
 std::cout << glGetString(GL_VERSION) << std::endl;
 */
+
+
+//for(int i=0; i<argc; i++)
+//	Platform::debugPrint("\nargv = %s", argv[i]);
+
+//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //supported from 3.3 version
+//glfwWindowHint(GLFW_DEPTH_BITS, 24);
+//glfwWindowHint(GLFW_ALPHA_BITS, 8);
+//glfwWindowHint(GLFW_SRGB_CAPABLE, GLFW_TRUE);
+//TODO: How to change number of samples runtime and disable/enable sampling runtime ( mainly for while drawing an object ).
+//glfwWindowHint(GLFW_SAMPLES, 8);
+
