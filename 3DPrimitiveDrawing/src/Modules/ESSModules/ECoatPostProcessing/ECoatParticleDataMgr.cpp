@@ -16,6 +16,9 @@ ECoatParticleDataMgr::ECoatParticleDataMgr(ECoatAssetsBuilder* assetsBuilder, Co
 	else
 		_particleRenderer = new ParticleRenderer(&parVerBufInfo);
 
+	free(parVerBufInfo.buffer);
+	free(parNorBufInfo.buffer);
+
 	ApplyContour(1);
 }
 
@@ -54,6 +57,8 @@ BufferInfo ECoatParticleDataMgr::GenerateNormals(BaseModelIO* stlReader)
 
 			parNormalBuf.buffer = (char*)parNormalArr;
 			parNormalBuf.size = stlReader->GetVertexBufferSize();
+
+			free(triIDBufInfo.buffer);
 		}
 	}
 
@@ -67,6 +72,7 @@ void ECoatParticleDataMgr::ApplyContour(int frameNum)
 	unsigned char* colorBuf = (unsigned char*)GetParticleColorBuf(frameNum, &colorBufSize);
 	
 	_particleRenderer->UpdateColorBuffer((char*)colorBuf, colorBufSize);
+
 	free(colorBuf);
 	Platform::debugPrint("\nTime for applying contour : %ld milliseconds", Platform::GetTimeInMillis() - startTime);
 }
