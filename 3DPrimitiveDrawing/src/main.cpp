@@ -3,6 +3,8 @@
 #include "GameLoop.h"
 #include "Input.h"
 #include <string>
+#include <chrono>
+#include <thread>
 #include "vld.h"
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
@@ -48,11 +50,15 @@ int main(int argc, char** argv)
 
 	double previousTime = glfwGetTime();
 	unsigned int frameCount = 0;
+	float limitFPSTo = 60.0f;
+	unsigned int timeForLimitFPS = (unsigned int)(1000.0f / limitFPSTo);
 
 	Platform::debugPrint("\nEnd: Loading resources, Load Time : %ld milliseconds\n\n", Platform::GetTimeInMillis() - startTime);
 
 	while (!glfwWindowShouldClose(window))
 	{
+		double startTime = glfwGetTime();
+
 		glfwPollEvents();
 
 		for (int i = 0; i <Input::NUM_KEYS; i++)
@@ -73,7 +79,7 @@ int main(int argc, char** argv)
 
 		if(deltaTime > 0.5)
 		{
-			frameCount = (unsigned int)(frameCount*1.0 / deltaTime);
+			frameCount = (unsigned int)(frameCount*1.0f / deltaTime);
 			char arr[128];
 			sprintf(arr, "FPS : %d", frameCount);
 			glfwSetWindowTitle(window, arr);
@@ -81,6 +87,12 @@ int main(int argc, char** argv)
 			frameCount = 0;
 			previousTime = currentTime;
 		}
+
+		unsigned int timeTakenInMillis = (unsigned int)((glfwGetTime() - startTime) * 1000.0f);
+		unsigned int sleepTimeInMillis = timeForLimitFPS - timeTakenInMillis;
+
+		if(sleepTimeInMillis > 1)
+			std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<long> (sleepTimeInMillis) ));
 	}
 
 	if (gameLoop)
