@@ -14,6 +14,8 @@ private:
 	unsigned int _w;
 	unsigned int _h;
 
+	unsigned int _numSamples;
+
 
 	void AttachDepthBufferToFBO(unsigned int depthBufferID);
 	unsigned int CreateEmptyTexture(unsigned int w, unsigned int h);

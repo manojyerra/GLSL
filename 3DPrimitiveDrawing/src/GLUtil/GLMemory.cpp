@@ -34,13 +34,13 @@ GLuint GLMemory::CreateTexture(GLint internalFormat, GLsizei w, GLsizei h, GLenu
 	return textureID;
 }
 
-GLuint GLMemory::CreateMSTexture(GLint internalFormat, GLsizei w, GLsizei h, const char* filePath, long lineNum)
+GLuint GLMemory::CreateMSTexture(int numSamples, GLint internalFormat, GLsizei w, GLsizei h, const char* filePath, long lineNum)
 {
 	unsigned int textureID = 0;
 
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, textureID);
-	glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, 8, internalFormat, w, h, GL_TRUE);
+	glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, numSamples, internalFormat, w, h, GL_TRUE);
 	glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
 
 	GLMemoryInfo memInfo(filePath, lineNum, w * h * 3);
@@ -65,12 +65,12 @@ GLuint GLMemory::CreateRenderBuffer(GLsizei width, GLsizei height, GLenum intern
 	return bufferID;
 }
 
-GLuint GLMemory::CreateMSRenderBuffer(GLsizei width, GLsizei height, GLenum internalformat, const char* filePath, long lineNum)
+GLuint GLMemory::CreateMSRenderBuffer(int numSamples, GLsizei width, GLsizei height, GLenum internalformat, const char* filePath, long lineNum)
 {
 	unsigned int bufferID;
 	glGenRenderbuffers(1, &bufferID);
 	glBindRenderbuffer(GL_RENDERBUFFER, bufferID);
-	glRenderbufferStorageMultisample(GL_RENDERBUFFER, 8, internalformat, width, height);
+	glRenderbufferStorageMultisample(GL_RENDERBUFFER, numSamples, internalformat, width, height);
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 	GLMemoryInfo memInfo(filePath, lineNum, width * height * 3);

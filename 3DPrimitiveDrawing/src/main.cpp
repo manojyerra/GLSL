@@ -25,7 +25,7 @@ int main(int argc, char** argv)
 
 	//glfwWindowHint(GLFW_DEPTH_BITS, 24);
 	//glfwWindowHint(GLFW_ALPHA_BITS, 8);
-	glfwWindowHint(GLFW_SRGB_CAPABLE, GLFW_TRUE);
+	//glfwWindowHint(GLFW_SRGB_CAPABLE, GLFW_TRUE);
 	//TODO: How to change number of samples runtime and disable/enable sampling runtime ( mainly for while drawing an object ).
 	//glfwWindowHint(GLFW_SAMPLES, 8);
 

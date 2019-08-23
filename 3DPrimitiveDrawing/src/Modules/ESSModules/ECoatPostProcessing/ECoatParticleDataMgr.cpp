@@ -19,7 +19,7 @@ ECoatParticleDataMgr::ECoatParticleDataMgr(ECoatAssetsBuilder* assetsBuilder, Co
 	ApplyContour(1);
 }
 
-BufferInfo ECoatParticleDataMgr::GenerateNormals(STLReader* stlReader)
+BufferInfo ECoatParticleDataMgr::GenerateNormals(BaseModelIO* stlReader)
 {
 	BufferInfo parNormalBuf;
 

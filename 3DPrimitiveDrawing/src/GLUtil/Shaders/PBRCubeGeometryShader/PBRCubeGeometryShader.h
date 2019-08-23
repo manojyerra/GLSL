@@ -6,9 +6,9 @@
 class PBRCubeGeometryShader : public Shader
 {
 private:
-	float _metallic = 1.0f;
-	float _roughness = 0.3f;
-	float _halfLen = 0.00375f / 2.0f;
+	float _metallic;
+	float _roughness;
+	float _halfLen;
 	std::map<std::string, LightInfo> _lightMap;
 
 	ShaderProgram* _shaderProgram;

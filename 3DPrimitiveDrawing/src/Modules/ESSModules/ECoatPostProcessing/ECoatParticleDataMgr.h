@@ -6,6 +6,7 @@
 #include "ParticleRenderer.h"
 #include "ColorBar.h"
 #include "BufferInfo.h"
+#include "BaseModelIO.h"
 
 class ECoatParticleDataMgr
 {
@@ -16,7 +17,7 @@ private:
 
 	ParticleRenderer* _particleRenderer;
 	char* GetParticleColorBuf(int frameNum, unsigned int* bufSize);
-	BufferInfo GenerateNormals(STLReader* stlReader);
+	BufferInfo GenerateNormals(BaseModelIO* stlReader);
 
 public:
 	ECoatParticleDataMgr(ECoatAssetsBuilder* resultFileReader, ColorBar* colorBar);

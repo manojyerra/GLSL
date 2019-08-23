@@ -1,5 +1,4 @@
 #include "ECoatAssetsBuilder.h"
-#include "STLReader.h"
 #include "GLMeshManager.h"
 
 ECoatAssetsBuilder::ECoatAssetsBuilder(ECoatAssetsReader* assetsReader, GLMeshManager* meshMgr)
@@ -13,7 +12,7 @@ ECoatAssetsBuilder::ECoatAssetsBuilder(ECoatAssetsReader* assetsReader, GLMeshMa
 	std::string solidPath = assetsReader->GetSolid();
 	if (solidPath.length() > 0)
 	{
-		_solidSTLReader = new STLReader(solidPath);
+		_solidSTLReader = new STLReaderWithThreads(solidPath);
 		_solid = meshMgr->AddMeshRenderer(_solidSTLReader, PBR_SHADER);
 	}
 
@@ -49,7 +48,7 @@ GLMeshRenderer* ECoatAssetsBuilder::GetSolid()
 	return _solid;
 }
 
-STLReader* ECoatAssetsBuilder::GetSolidSTLReader()
+BaseModelIO* ECoatAssetsBuilder::GetSolidSTLReader()
 {
 	return _solidSTLReader;
 }
