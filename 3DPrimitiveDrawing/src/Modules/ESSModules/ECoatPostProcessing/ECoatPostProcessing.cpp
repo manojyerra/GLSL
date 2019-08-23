@@ -57,6 +57,8 @@ void ECoatPostProcessing::SetScreenSize(unsigned int sw, unsigned int sh)
 
 	Cam::GetInstance()->SetScreenSize(_sw, _sh);
 	Cam2D::GetInstance()->SetScreenSize(_sw, _sh);
+
+	_needAllParticlesDraw = true;
 }
 
 void ECoatPostProcessing::SetGLStates()

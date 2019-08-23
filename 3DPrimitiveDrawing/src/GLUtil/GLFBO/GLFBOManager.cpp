@@ -27,6 +27,7 @@ void GLFBOManager::Init(int sw, int sh)
 	_sh = sh;
 
 	_defaultFBO = new GLFBO(_sw, _sh);
+	_defaultMSFBO = new GLMSFBO(_sw, _sh);
 }
 
 void GLFBOManager::SetScreenSize(int sw, int sh)
@@ -69,9 +70,6 @@ unsigned int GLFBOManager::GetDefaultFBOTexID()
 
 void GLFBOManager::BindDefaultMSFBO()
 {
-	if(!_defaultMSFBO)
-		_defaultMSFBO = new GLMSFBO(_sw, _sh);
-
 	_defaultMSFBO->BindFBO();
 }
 

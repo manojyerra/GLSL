@@ -16,6 +16,8 @@ ParticleRenderer::ParticleRenderer(std::string filePath)
 
 	_allParticlesRenderer = CreateAllParticlesRenderer(&BufferInfo(vertexBuf, vertexBufLen), nullptr, CUBE_GEOMETRY_SHADER);
 	_fewParticlesRenderer = CreateFewParticlesRenderer(&BufferInfo(vertexBuf, vertexBufLen), nullptr, CUBE_GEOMETRY_SHADER);
+
+	//_modelMat.SetRotation(glm::vec3(0, 90, 90));
 }
 
 ParticleRenderer::ParticleRenderer(BufferInfo* vertexBufInfo)
@@ -32,8 +34,8 @@ ParticleRenderer::ParticleRenderer(BufferInfo* vertexBufInfo, BufferInfo* normal
 	_skipNumVertex = 50;
 	_bBoxCenter = BufferTransformUtils::CalcCenter((float*)vertexBufInfo->buffer, vertexBufInfo->size / 4);
 
-	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBufInfo, normalBufInfo, PBR_CUBE_GEOMETRY_SHADER);
-	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBufInfo, normalBufInfo, PBR_CUBE_GEOMETRY_SHADER);
+	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBufInfo, normalBufInfo, PHONG_CUBE_GEOMETRY_SHADER);
+	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBufInfo, normalBufInfo, PHONG_CUBE_GEOMETRY_SHADER);
 }
 
 GLMeshRenderer* ParticleRenderer::CreateAllParticlesRenderer(BufferInfo* vertexBufInfo, BufferInfo* normalBufInfo, int shaderID)
@@ -177,27 +179,26 @@ void ParticleRenderer::DrawAllParticles()
 	if(_allParticlesRenderer)
 	{
 		//_allParticlesRenderer->SetShader(PBR_CUBE_GEOMETRY_SHADER);
-		//_allParticlesRenderer->SetModelMatrix(_modelMat.m);
-		//_allParticlesRenderer->Draw();
+		_allParticlesRenderer->SetModelMatrix(_modelMat.m);
+		_allParticlesRenderer->Draw();
 
 		//GLMat mat1(_modelMat.m);
-		//mat1.m[13] += 1.5;
-		//mat1.m[14] += 1.5;
+		//mat1.m[13] -= 1.0;
 
 		//_allParticlesRenderer->SetShader(PHONG_CUBE_GEOMETRY_SHADER);
 		//_allParticlesRenderer->SetModelMatrix(mat1.m);
 		//_allParticlesRenderer->Draw();
 
-		GLMat mat2(_modelMat.m);
-		//mat2.m[13] -= 1.5;
-		//mat2.m[14] += 1.5;
+		//GLMat mat2(_modelMat.m);
+		//mat2.m[13] += 1.0;
+		////mat2.m[14] += 1.5;
 
-		long startTime = Platform::GetTimeInMillis();
-		_allParticlesRenderer->SetShader(CUBE_GEOMETRY_SHADER);
-		_allParticlesRenderer->SetModelMatrix(mat2.m);
-		_allParticlesRenderer->Draw();
-		glFinish();
-		printf("\nTimeForCUBE_GEOMETRY_SHADER %ld", (Platform::GetTimeInMillis()-startTime));
+		//long startTime = Platform::GetTimeInMillis();
+		//_allParticlesRenderer->SetShader(CUBE_GEOMETRY_SHADER);
+		//_allParticlesRenderer->SetModelMatrix(_modelMat.m);
+		//_allParticlesRenderer->Draw();
+		//glFinish();
+		//printf("\nTimeForCUBE_GEOMETRY_SHADER %ld", (Platform::GetTimeInMillis()-startTime));
 	}
 }
 
@@ -228,25 +229,3 @@ ParticleRenderer::~ParticleRenderer()
 		_fewParticlesRenderer = NULL;
 	}
 }
-
-
-//GLMeshRenderer* ParticleRenderer::CreateAllParticlesRenderer(char* vertexBuf, unsigned int vertexBufLen, char* colorBuf, unsigned int colorBufLen)
-//{
-//	BaseModelIO modelIO;
-//	modelIO.SetVertexBuffer(vertexBuf, vertexBufLen);
-//	modelIO.SetColorBuffer((const char*)colorBuf, colorBufLen);
-//
-//	GLMeshRenderer* meshRenderer = new GLMeshRenderer(&modelIO, CUBE_GEOMETRY_SHADER);
-//	meshRenderer->SetPrimitiveType(GLMeshRenderer::points);
-//
-//	return meshRenderer;
-//}
-
-
-//ParticleRenderer::ParticleRenderer(char* vertexBuf, unsigned int vertexBufLen, char* colorBuf, unsigned int colorBufLen)
-//{
-//	_modelMat.SetRotation(glm::vec3(0, 90, 90));
-//
-//	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBuf, vertexBufLen, colorBuf, colorBufLen);
-//	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBuf, vertexBufLen);
-//}
