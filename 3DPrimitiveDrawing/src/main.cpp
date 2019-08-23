@@ -22,6 +22,8 @@ int main(int argc, char** argv)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 	glfwWindowHint(GLFW_ALPHA_BITS, 0);
 	glfwWindowHint(GLFW_STENCIL_BITS, 0);
+	//TODO: Check how to change number of samples at runtime.
+	//glfwWindowHint(GLFW_SAMPLES, 8);
 
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
@@ -161,27 +163,3 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	Input::SCROLL_STATE_STORE = (yoffset < 0) ? Input::SCROLL_DOWN : Input::SCROLL_UP;
 }
-
-
-
-/*
-glfwWindowHint(GLFW_RED_BITS, mode->redBits);
-glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
-glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
-glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
-glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-glfwMaximizeWindow(window);
-std::cout << glGetString(GL_VERSION) << std::endl;
-*/
-
-
-//for(int i=0; i<argc; i++)
-//	Platform::debugPrint("\nargv = %s", argv[i]);
-
-//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //supported from 3.3 version
-//glfwWindowHint(GLFW_DEPTH_BITS, 24);
-//glfwWindowHint(GLFW_ALPHA_BITS, 8);
-//glfwWindowHint(GLFW_SRGB_CAPABLE, GLFW_TRUE);
-//TODO: How to change number of samples runtime and disable/enable sampling runtime ( mainly for while drawing an object ).
-//glfwWindowHint(GLFW_SAMPLES, 8);
-
