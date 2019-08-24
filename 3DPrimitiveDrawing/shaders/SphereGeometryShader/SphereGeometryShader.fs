@@ -6,6 +6,7 @@ layout (location = 2) in vec3 inCenPos;
 
 layout (location = 0) out vec4 outColor;
 
+uniform float alpha;
 uniform float radiusPow2;
 
 void main(void)
@@ -20,6 +21,6 @@ void main(void)
 	else
 	{
 		float factor = 1.0 - dist / radiusPow2;
-		outColor = vec4(inColor*factor, 1.0);
+		outColor = vec4(inColor*factor, alpha);
 	}
 }
