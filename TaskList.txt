@@ -45,7 +45,30 @@ SUI Related tasks
 Other
 -----
 *) Create release library for PNG
-*) Make release build.
+
+
+Need for the release:
+--------------------- 
+*) Apply transformation to carbody.
+*) Drawing anode back faces with lighting.
+*) UIFrame width should be some percentage ( may be 20% to 25% ) of the main window.
+*) Remove maximize and close buttons from UIFrame.
+*) Change focus color of UIFrame as text is not clearly visible.
+*) Limit resizing of UIFrame to only vertical.
+*) Add size limits to GLFW window.
+*) Add Setting up the alpha value from all the shaders. (cross check it).
+
+
+
+Later:
+------
+*) Create GLFW window with GL_RGB pixel format.
+*) Disable HDF5 chunking and check any performance improvement.
+*) Implement loggers. Check in pega code or in the internet for better design.
+*) Implement FBO and MSFBO by excluding UIFrame.
+*) SSAO buffer and SSAO blur buffer type should be unsigned byte.
+*) Default window y position should start from 0.
+*) Take post processing senario like CarBody STL, Particle Data with positions, thickness,and check the memory allocation 
 
 
 Done:
@@ -63,4 +86,16 @@ Done:
 *) Fix current camera issues zoom and pan issues.
 *) Work on wireframe.
 *) Blend issue
-*)Load HDF5 for loading contour and particle data.
+*) Load HDF5 for loading contour and particle data.
+*) Check the performance of HDF5 IO by adding cache memory like 3GB
+*) Reduce multisampling to 6 and check render performance.
+*) Have one variable for number of samples in GLFBOManager.
+*) Remove glFinish() on deletion of gpu data.
+*) NeedAllParticleRendering should be true on screen size change.
+*) Check adding image filters for GLMSFBO gives any better quality ? ( no )
+*) Create GLFBO and GLMSFBO with GL_RGB pixel format.
+*) Use only one FBO for picking objects and picking the color of contours.
+*) Check how much memory taking with WindowCreation, GLFBO, GLMSFBO. [max it will be 250 MB]
+*) Limit FPS to 60.
+*) UIFrame not updating based on onSizeChange.
+*) Make release build.
