@@ -172,6 +172,16 @@ void SUIComponent::SetWidth(float w)
 	_w = w;
 }
 
+void SUIComponent::SetX(float x)
+{
+	_x = x;
+}
+
+void SUIComponent::SetY(float y)
+{
+	_y = y;
+}
+
 void SUIComponent::SetPos(float x, float y)
 {
 	_x = x;

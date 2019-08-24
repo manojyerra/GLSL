@@ -105,6 +105,8 @@ public:
 	void SetBorderColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 	void SetBorderVisible(bool visible);
 
+	void SetX(float x);
+	void SetY(float y);
 	void SetPos(float x, float y);
 	void SetWidth(float w);
 

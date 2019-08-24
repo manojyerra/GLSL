@@ -81,7 +81,7 @@ int main(int argc, char** argv)
 
 		if(deltaTime > 0.5)
 		{
-			frameCount = (unsigned int)(frameCount*1.0f / deltaTime);
+			frameCount = (unsigned int)((double)frameCount / deltaTime);
 			char arr[128];
 			sprintf(arr, "FPS : %d", frameCount);
 			glfwSetWindowTitle(window, arr);
