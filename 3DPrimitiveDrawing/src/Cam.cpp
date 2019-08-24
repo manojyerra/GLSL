@@ -58,6 +58,9 @@ void Cam::Init(float screenW, float screenH, float zNear, float zFar, float zNea
 	_trans = glm::vec3(0.0f, -2.046f, -12.0f);  //glm::vec3(4.52882051, -0.638403118, -2.66629577);
 	_angle = glm::vec3(37.49f, -32.56f, 0);		//glm::vec3(22.1958828, -16.6776466, 0.0f);
 
+	_trans = glm::vec3(0.643999934, 0.908000112, -7.29293013);
+	_angle = glm::vec3(16.9017620, -86.3283539, 0.000000000);
+
 	_viewType = 5;
 	_isOrtho = false;
 	_camUpdated = false;

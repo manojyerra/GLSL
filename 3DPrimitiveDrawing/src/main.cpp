@@ -33,7 +33,7 @@ int main(int argc, char** argv)
 	int sx = (int)((mode->width - sw) / 2.0f);
 	int sy = (int)((mode->height - sh) / 2.0f);
 
-	GLFWwindow* window = glfwCreateWindow(sw, sh, "GLFW Window", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(sw, sh, "", NULL, NULL);
 	glfwSetWindowPos(window, sx, sy);
 	glfwMakeContextCurrent(window);
 	glfwSetMouseButtonCallback(window, mouse_button_callback);

@@ -9,9 +9,13 @@
 
 class Platform
 {
+private:
+	static char* _title;
+
 public:
 	static void debugPrint(const char * pszFormat, ...);
 	static long GetTimeInMillis();
+	static void SetWindowTitle(char* title);
 };
 
 #endif

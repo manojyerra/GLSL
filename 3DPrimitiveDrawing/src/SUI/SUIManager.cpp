@@ -14,8 +14,9 @@ void SUIManager::Setup(float windowWidth, float windowHeight)
 	_windowWidth = windowWidth;
 	_windowHeight = windowHeight;
 
+	_statusBarVisible = true;
 	_statusBarRect.SetColor(64,64,64,200);
-	_statusBarRect.SetBounds(0,_windowHeight*0.935f,_windowWidth,_windowHeight*0.065f);
+	_statusBarRect.SetBounds(-1,_windowHeight*0.955f,_windowWidth+2,_windowHeight*0.045f);
 
 	SUIInput::Init();
 }
@@ -42,7 +43,7 @@ void SUIManager::SetWindowSize(float windowWidth, float windowHeight)
 	_windowWidth = windowWidth;
 	_windowHeight = windowHeight;
 
-	_statusBarRect.SetBounds(0, _windowHeight*0.935f, _windowWidth, _windowHeight*0.065f);
+	_statusBarRect.SetBounds(-1, _windowHeight * 0.955f, _windowWidth+2, _windowHeight * 0.045f);
 }
 
 float SUIManager::GetWindowWidth()						{	return _windowWidth;					}
@@ -125,6 +126,11 @@ void SUIManager::CheckForResetBounds()
 				_framesVec[i]->ResetBounds();
 		}
 	}
+}
+
+void SUIManager::SetStatusBarVisible(bool visible)
+{
+	_statusBarVisible = visible;
 }
 
 bool SUIManager::Contains(float mx, float my)
@@ -362,7 +368,8 @@ void SUIManager::Draw()
 	if(_dialogCom != NULL)
 		_dialogCom->DrawDialog();
 
-	_statusBarRect.DrawWithBorder();
+	if(_statusBarVisible)
+		_statusBarRect.DrawWithBorder();
 
 	float iConY = _statusBarRect.y;
 	float iConH = _statusBarRect.h;
@@ -382,7 +389,7 @@ void SUIManager::Draw()
 			float w = iConW-2*marginH;
 			float h = iConH-2*marginV;
 
-			SUIRect::Draw(x, y, w, h, 160,160,160,255, false);
+			SUIRect::Draw(x, y, w, h, 115, 115, 115, 255, false);
 			SUIRect::Draw(x, y, w, h, 0,0,0,255, true);
 			SUIRect::Draw(x+2, y+2, w-4, h-4, 0,0,0,255, true);
 			count++;
@@ -396,7 +403,7 @@ void SUIManager::Draw()
 				SUIFont::GetInstance()->DrawFromLeft(_framesVec[i]->GetName(), x+4, y+h/2, fontSize);
 			else
 			{
-				string name = _framesVec[i]->GetName().substr(0,5);
+				string name = _framesVec[i]->GetName().substr(0,3);
 				name.append("...");
 				SUIFont::GetInstance()->DrawFromLeft(name, x+4, y+h/2, fontSize);
 			}

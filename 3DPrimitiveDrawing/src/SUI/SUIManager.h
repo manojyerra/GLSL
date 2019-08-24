@@ -28,6 +28,7 @@ private:
 	SUIRect _statusBarRect;
 	SUIComponent* _dialogCom;
 	bool _newFrameAdded;
+	bool _statusBarVisible;
 	static const int STATUS_BAR_H = 30;
 
 	SUIManager();
@@ -50,6 +51,7 @@ public:
 	float GetFPS();
 	//unsigned int GetTimeInMilliSeconds();
 	bool Contains(float mx, float my);
+	void SetStatusBarVisible(bool visible);
 
 	float GetWindowWidth();
 	float GetWindowHeight();

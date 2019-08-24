@@ -1,6 +1,8 @@
 #include "Platform.h"
 #include <stdio.h>
 
+char* Platform::_title = nullptr;
+
 void Platform::debugPrint(const char * pszFormat, ...)
 {
 	const int MAX_LEN = 10000;
@@ -33,4 +35,9 @@ long Platform::GetTimeInMillis()
 #else
 	return 0;
 #endif
+}
+
+void Platform::SetWindowTitle(char* title)
+{
+	_title = title;
 }

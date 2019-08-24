@@ -582,7 +582,7 @@ void SUIFrame::Draw()
 void SUIFrame::DrawTitleBar()
 {
 	if(_focusGain)
-		_titleBarRect.SetColor(200, 200, 200,255);
+		_titleBarRect.SetColor(140, 140, 140,255);
 	else
 		_titleBarRect.SetColor(100, 100, 100,255);
 

@@ -6,7 +6,7 @@
 TimeLineFrame::TimeLineFrame(float x, float y, float w, float h, int numberOfFrames, SUIActionListener* action_listener)
 {
 	_frame = new SUIFrame(x, y, w, h, SUIFrame::V_ALIGNMENT);
-	_frame->SetName("Frame Selection", SUIFrame::LEFT);
+	_frame->SetName("Options Explorer", SUIFrame::LEFT);
 	_frame->SetRemoveCloseOption(true);
 	_frame->SetRemoveMaximizedOption(true);
 
