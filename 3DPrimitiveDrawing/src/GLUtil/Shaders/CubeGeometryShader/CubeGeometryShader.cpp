@@ -30,6 +30,7 @@ void CubeGeometryShader::SetUniformsAndAttributes()
 	_shaderProgram->SetUniformMatrix3fv("normalMat", glm::value_ptr(cam->GetNormalMat(_modelMat.m)));
 	_shaderProgram->SetUniformMatrix4fv("modelViewMat", glm::value_ptr(cam->GetModelViewMat(_modelMat.m)));
 	_shaderProgram->SetUniform1f("hLen", _halfLen);
+	_shaderProgram->SetUniform1f("alpha", _alpha);
 
 	if(_colorBufferID)
 	{

@@ -90,6 +90,8 @@ void ModulesManager::SetScreenSize(unsigned int sw, unsigned int sh)
 		_module->SetScreenSize(sw, sh);
 	}
 
+	SUISetWindowSize(sw, sh);
+
 	GLFBOManager::GetInstance()->SetScreenSize(sw, sh);
 }
 

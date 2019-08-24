@@ -29,6 +29,7 @@ void QuadGeometryShader::SetUniformsAndAttributes()
 	_shaderProgram->SetUniformMatrix4fv("projMat", glm::value_ptr(cam->GetProjMat()));
 	_shaderProgram->SetUniformMatrix3fv("normalMat", glm::value_ptr(cam->GetNormalMat(_modelMat.m)));
 	_shaderProgram->SetUniformMatrix4fv("modelViewMat", glm::value_ptr(cam->GetModelViewMat(_modelMat.m)));
+	_shaderProgram->SetUniform1f("alpha", _alpha);
 	_shaderProgram->SetUniform1f("hLen", _halfLen);
 
 	GLuint colorLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "color");

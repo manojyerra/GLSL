@@ -16,16 +16,6 @@ ECoatPostProcessing::ECoatPostProcessing(unsigned int sw, unsigned int sh, int a
 	_sw = sw;
 	_sh = sh;
 
-	float zNear = 0.15f;
-	float zFar = 1000000.0f;
-	float zNearPlaneW = 0.25f;
-
-	Cam::GetInstance()->Init(_sw, _sh, zNear, zFar, zNearPlaneW);
-	Cam2D::GetInstance()->Init(_sw, _sh);
-
-	SetGLStates();
-	SetScreenSize(_sw, _sh);
-
 	//Begin: Default initialization 
 	_floor = nullptr;
 	_meshManager = nullptr;
@@ -34,6 +24,14 @@ ECoatPostProcessing::ECoatPostProcessing(unsigned int sw, unsigned int sh, int a
 	_particleMgr = nullptr;
 	//End: Default initialization 
 
+	float zNear = 0.15f;
+	float zFar = 1000000.0f;
+	float zNearPlaneW = 0.25f;
+
+	Cam::GetInstance()->Init(_sw, _sh, zNear, zFar, zNearPlaneW);
+	Cam2D::GetInstance()->Init(_sw, _sh);
+
+	SetGLStates();
 
 	_floor = new Floor();
 	_meshManager = new GLMeshManager(_sw, _sh);
@@ -46,6 +44,8 @@ ECoatPostProcessing::ECoatPostProcessing(unsigned int sw, unsigned int sh, int a
 
 	_texture = new GLTexture(0.0f, 0.0f, _sw, _sh);
 	_needAllParticlesDraw = true;
+
+	SetScreenSize(_sw, _sh);
 }
 
 void ECoatPostProcessing::SetScreenSize(unsigned int sw, unsigned int sh)
@@ -57,6 +57,9 @@ void ECoatPostProcessing::SetScreenSize(unsigned int sw, unsigned int sh)
 
 	Cam::GetInstance()->SetScreenSize(_sw, _sh);
 	Cam2D::GetInstance()->SetScreenSize(_sw, _sh);
+
+	if(_timeLineFrame)
+		_timeLineFrame->SetPos(0.0f, 0.0f);
 
 	_needAllParticlesDraw = true;
 }
