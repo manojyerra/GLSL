@@ -34,6 +34,7 @@ SUIFrame::SUIFrame(float x, float y, float w, float h, int alignment) : SUICompo
 	_maxRect.SetColor(175, 175, 175, 255);
 
 	_removeCloseOption = false;
+	_removeMaximizeOption = false;
 
 	SetBoundsToMinMaxClose();
 
@@ -136,6 +137,12 @@ void SUIFrame::SetMaximized(bool val)
 void SUIFrame::SetRemoveCloseOption(bool remove)
 {
 	_removeCloseOption = remove;
+	SetBoundsToMinMaxClose();
+}
+
+void SUIFrame::SetRemoveMaximizedOption(bool remove)
+{
+	_removeMaximizeOption = remove;
 	SetBoundsToMinMaxClose();
 }
 
@@ -391,6 +398,10 @@ void SUIFrame::SetBoundsToMinMaxClose()
 		_closeRect.w = 0;
 
 	_maxRect.SetBounds(_closeRect.x-_closeRect.w,	startY, width, height);
+
+	if (_removeMaximizeOption)
+		_maxRect.w = 0;
+
 	_minRect.SetBounds(_maxRect.x-_maxRect.w,		startY, width, height);
 }
 
@@ -615,8 +626,11 @@ void SUIFrame::DrawMinMaxClose()
 		hh -= 2.0f;
 	}
 
-	SUIRect::Draw(xx,yy,ww,hh, 255,255,255,255, false);
-	SUIRect::Draw(xx+2.0f, yy+2.0f, ww-4.0f ,hh-4.0f, 128,128,128,255, false);
+	if (!_removeMaximizeOption)
+	{
+		SUIRect::Draw(xx,yy,ww,hh, 255,255,255,255, false);
+		SUIRect::Draw(xx+2.0f, yy+2.0f, ww-4.0f ,hh-4.0f, 128,128,128,255, false);
+	}
 
 	if(_removeCloseOption == false)
 	{
@@ -635,9 +649,11 @@ void SUIFrame::DrawMinMaxClose()
 
 	glLineWidth(1.0f);
 	_minRect.DrawBorder();
-	_maxRect.DrawBorder();
+
+	if(!_removeMaximizeOption)
+		_maxRect.DrawBorder();
 	
-	if(_removeCloseOption == false)
+	if(!_removeCloseOption)
 		_closeRect.DrawBorder();
 }
 

@@ -24,6 +24,7 @@ private:
 	SUIRect _closeRect;
 
 	bool _removeCloseOption;
+	bool _removeMaximizeOption;
 
 	bool _isMinimized;
 	bool _isMaximized;
@@ -76,6 +77,7 @@ public:
 	void SetMinimized(bool val);
 	void SetMaximized(bool val);
 	void SetRemoveCloseOption(bool remove);
+	void SetRemoveMaximizedOption(bool remove);
 
 	SUIEvents UpdateByInput();
 	void Move(float dx, float dy);

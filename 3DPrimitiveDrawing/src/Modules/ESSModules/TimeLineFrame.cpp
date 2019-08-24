@@ -7,6 +7,8 @@ TimeLineFrame::TimeLineFrame(float x, float y, float w, float h, int numberOfFra
 {
 	_frame = new SUIFrame(x, y, w, h, SUIFrame::V_ALIGNMENT);
 	_frame->SetName("Frame Selection", SUIFrame::LEFT);
+	_frame->SetRemoveCloseOption(true);
+	_frame->SetRemoveMaximizedOption(true);
 
 	SUIBox* animationBox = new SUIBox(SUIBox::V_ALIGNMENT);
 	animationBox->SetMargin(5, 5, 10, 5);
