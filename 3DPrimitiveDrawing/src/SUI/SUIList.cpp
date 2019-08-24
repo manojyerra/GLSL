@@ -15,14 +15,14 @@ SUIList::SUIList(int elementsToShow) : SUIComponent(SUI_LIST)
 	_isBgVisible = true;
 	_selectedIndex = -1;
 
-	_selectedColor[0] = 180;
-	_selectedColor[1] = 190;
-	_selectedColor[2] = 255;
+	_selectedColor[0] = 45;
+	_selectedColor[1] = 45;
+	_selectedColor[2] = 45;
 	_selectedColor[3] = 255;
 	
-	_nonSelectedColor[0] = 200;
-	_nonSelectedColor[1] = 200;
-	_nonSelectedColor[2] = 200;
+	_nonSelectedColor[0] = 64;
+	_nonSelectedColor[1] = 64;
+	_nonSelectedColor[2] = 64;
 	_nonSelectedColor[3] = 255;
 
 	_bgR = 255;
@@ -290,69 +290,39 @@ void SUIList::DisableScissor()
 
 void SUIList::Draw()
 {
-	GLboolean isScissorEnable = false;
-	GLint scissorBox[4];
-
-	glGetBooleanv(GL_SCISSOR_TEST, &isScissorEnable);
-	glGetIntegerv(GL_SCISSOR_BOX, scissorBox);
-
-	float localY1 = _y;
-	float localY2 = localY1 + (GLsizei)_h+1;
-
-	if(!_isDisableFrameScissor)
-	{
-		float frameScissorY1 = SUIManager::GetInstance()->GetWindowHeight() - (scissorBox[1] + scissorBox[3]);
-		float frameScissorY2 = frameScissorY1 + scissorBox[3];
-
-		if(frameScissorY2 < localY1)
-			return;
-
-		if(localY1 < frameScissorY1)
-			localY1 = frameScissorY1;
-
-		if(localY2 > frameScissorY2)
-			localY2 = frameScissorY2;
-	}
-
-	glEnable(GL_SCISSOR_TEST);
-
-	//AppInfo* appInfo = AppInfo::GetInstance();
-	//int newScX = appInfo->viewX + appInfo->viewW * (_x-1) / appInfo->baseWindowW;
-	//int newScY = appInfo->viewY + appInfo->viewH * localY1 / appInfo->baseWindowH;
-	//int newScW = appInfo->viewW * (_w+2) / appInfo->baseWindowW;
-	//int newScH = appInfo->viewH * (localY2-localY1) / appInfo->baseWindowH;
-
-	//glScissor(newScX, (GLint)(appInfo->currWindowH-newScY-newScH), newScW, newScH);
-
-	float windowW = SUIManager::GetInstance()->GetWindowWidth();
-	float windowH = SUIManager::GetInstance()->GetWindowHeight();
-
-	float viewX = 0;
-	float viewY = 0;
-	float viewW = windowW;
-	float viewH = windowH;
-
-	float baseWindowW = windowW;
-	float baseWindowH = windowH;
-
-	float currWindowH = windowH;
-
-	int newScX = (int)(viewX + viewW * (_x-1) / baseWindowW);
-	int newScY = (int)(viewY + viewH * localY1 / baseWindowH);
-	int newScW = (int)(viewW * (_w+2) / baseWindowW);
-	int newScH = (int)(viewH * (localY2-localY1) / baseWindowH);
-
-	glScissor(newScX, (GLint)(currWindowH-newScY-newScH), newScW, newScH);
-	
-
-	//glScissor((GLint)(_x-1), (GLint)(SUIManager::GetInstance()->GetWindowHeight() - localY2), (GLsizei)(_w+2), localY2-localY1);
-
 	if(_isBgVisible)
 		DrawBackground();
 
-	for(int i=0; i<(int)_elementsVec.size(); i++)
+	if(_elementsVec.size() > 0)
 	{
-		_elementsVec[i]->Draw();
+		int i = 0;
+		int eleH = _elementsVec[i]->GetH();
+
+		for ( ; i < (int)_elementsVec.size(); i++)
+		{
+			if (_elementsVec[i]->GetY() > _y-eleH + 1)
+			{
+				break;
+			}
+		}
+
+		int eleStartY = _y;
+		int eleCount = 0;
+
+		for ( ; i < (int)_elementsVec.size(); i++)
+		{
+			int eleY = eleStartY + eleCount * eleH;
+
+			if (eleY+eleH > _y+_h+1)
+				break;
+
+			int oldY = _elementsVec[i]->GetY();
+			_elementsVec[i]->SetY(eleY);
+			_elementsVec[i]->Draw();
+			//_elementsVec[i]->SetY(oldY);
+
+			eleCount++;
+		}
 	}
 
 	if(_scroller)
@@ -360,16 +330,6 @@ void SUIList::Draw()
 
 	if(_isBorderVisible)
 		DrawBorder();
-
-
-	//Reset Scissor state
-
-	if(isScissorEnable)
-		glEnable(GL_SCISSOR_TEST);
-	else
-		glDisable(GL_SCISSOR_TEST);
-
-	glScissor(scissorBox[0], scissorBox[1], scissorBox[2], scissorBox[3]);
 }
 
 #endif

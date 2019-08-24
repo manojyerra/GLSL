@@ -5,10 +5,10 @@
 
 #include "SUI/SUIFrame.h"
 #include "SUI/SUIActionListener.h"
-#include "SUI/SUIRadioButton.h"
 #include "SUI/SUICheckBox.h"
 #include "SUI/SUIButton.h"
 #include "SUI/SUITextField.h"
+#include "SUI/SUIList.h"
 
 class TimeLineFrame
 {
@@ -21,8 +21,8 @@ public:
 	SUIButton* playAnimation;
 	SUIButton* stopAnimation;
 	SUITextField* particleSize;
-	SUIRadioButton* selectedFrame;
-	
+	SUIList* selectedFrame;
+
 	TimeLineFrame(float x, float y, float w, float h, int numberOfFrames, SUIActionListener* actionListener);
 	~TimeLineFrame();
 

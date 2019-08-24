@@ -60,16 +60,19 @@ TimeLineFrame::TimeLineFrame(float x, float y, float w, float h, int numberOfFra
 	timeLineBox->SetOnOffEnable(true);
 	timeLineBox->SetOn(true);
 
-	selectedFrame = new SUIRadioButton(SUIRadioButton::V_ALIGNMENT);
+	selectedFrame = new SUIList(20);
+	selectedFrame->SetBgVisible(false);
+	selectedFrame->SetSelectColor(45, 45, 45, 255);
+	selectedFrame->SetNonSelectColor(64, 64, 64, 255);
 
 	for (int i = 0; i < numberOfFrames; i++) {
-		selectedFrame->AddCheckBox(new SUICheckBox(std::to_string(i + 1), SUICheckBox::LEFT));
+		selectedFrame->Add(std::to_string(i + 1));
 	}
 
 	selectedFrame->AddActionListener(action_listener);
 	selectedFrame->SetSelect(0);
 
-	timeLineBox->AddRadioButton(selectedFrame);
+	timeLineBox->AddList(selectedFrame);
 	timeLineBox->SetBgVisible(true);
 	timeLineBox->SetBgColor(64, 64, 64, 255);
 
