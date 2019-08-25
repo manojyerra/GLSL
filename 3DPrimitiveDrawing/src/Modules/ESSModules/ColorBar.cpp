@@ -2,7 +2,7 @@
 #include "GLBatch.h"
 #include "GLState.h"
 
-ColorBar::ColorBar()
+ColorBar::ColorBar(int sw, int sh)
 {
 	_totColors = 4;
 	_totArrElements = 1000;
@@ -29,12 +29,12 @@ ColorBar::ColorBar()
 	memset(allColorsVecG, 0, (_totArrElements + 2) * sizeof(float));
 	memset(allColorsVecB, 0, (_totArrElements + 2) * sizeof(float));
 
-	int x = 1400;
-	int y = 50;
-	int w = 50;
-	int h = 600;
+	_w = 50;
+	_h = 600;
 
-	GenerateGeometry(x, y, w, h);
+	GenerateGeometry(_w, _h);
+	CalcPosition((float)sw, (float)sh);
+
 	SetMinMaxThickness(0.0f, 1.0f);
 }
 
@@ -43,8 +43,24 @@ unsigned int ColorBar::GetTotNumColors()
 	return _totArrElements;
 }
 
-void ColorBar::GenerateGeometry(int x, int y, int w, int h)
+void ColorBar::CalcPosition(float sw, float sh)
 {
+	_x = sw * 0.85f;
+	_y = (sh - _h) / 2.0f;
+
+	_meshRenderer->SetPos(_x, _y, 0);
+}
+
+void ColorBar::OnSizeChange(int sw, int sh)
+{
+	CalcPosition((float)sw, (float)sh);
+}
+
+void ColorBar::GenerateGeometry(int w, int h)
+{
+	int x = 0;
+	int y = 0;
+
 	int numBlocks = _mainColorsReverseVec.size() - 1;
 	float eachRectH = (float)h / (float)numBlocks;
 

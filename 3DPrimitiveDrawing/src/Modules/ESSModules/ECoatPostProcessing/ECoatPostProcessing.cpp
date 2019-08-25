@@ -42,7 +42,7 @@ ECoatPostProcessing::ECoatPostProcessing(unsigned int sw, unsigned int sh, int a
 	_meshManager = new GLMeshManager(_sw, _sh);
 
 	_assetsBuilder = new ECoatAssetsBuilder(&ECoatAssetsReader("AdvancedRenderer_JLR_ECoating.json"), _meshManager);
-	_colorBar = new ColorBar();
+	_colorBar = new ColorBar(_sw, _sh);
 	_timeLineFrame = new TimeLineFrame(0, 0, 330, 700, _assetsBuilder->GetResultReader()->GetTotalFrameCount(), this);
 
 	_particleMgr = new ECoatParticleDataMgr(_assetsBuilder, _colorBar);
@@ -65,6 +65,8 @@ void ECoatPostProcessing::SetScreenSize(unsigned int sw, unsigned int sh)
 
 	if(_timeLineFrame)
 		_timeLineFrame->SetPos(0.0f, 0.0f);
+
+	_colorBar->OnSizeChange(sw, sh);
 
 	_needAllParticlesDraw = true;
 }
