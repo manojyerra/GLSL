@@ -169,6 +169,9 @@
     <Filter Include="src\GLUtil\Shaders\PBRCubeGeometryShader">
       <UniqueIdentifier>{217b9e5d-50c9-40fe-a04c-b1d455bd4d40}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatUI">
+      <UniqueIdentifier>{7db6da92-7b27-4589-9e63-0b9d80c87304}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">

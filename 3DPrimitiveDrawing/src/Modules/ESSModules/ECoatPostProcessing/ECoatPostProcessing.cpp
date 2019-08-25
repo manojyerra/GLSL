@@ -161,9 +161,24 @@ void ECoatPostProcessing::actionPerformed(SUIActionEvent e)
 		int selectedFrameIndex = _timeLineFrame->selectedFrame->GetSelectedIndex();
 		selectedFrameIndex++;
 
-		_particleMgr->ApplyContour(selectedFrameIndex + 1);
-		_timeLineFrame->selectedFrame->SetSelect(selectedFrameIndex);
-		_needAllParticlesDraw = true;
+		if (selectedFrameIndex < _timeLineFrame->selectedFrame->Size())
+		{
+			_particleMgr->ApplyContour(selectedFrameIndex + 1);
+			_timeLineFrame->selectedFrame->SetSelect(selectedFrameIndex);
+			_needAllParticlesDraw = true;
+		}
+	}
+	else if (com == _timeLineFrame->previousFrame)
+	{
+		int selectedFrameIndex = _timeLineFrame->selectedFrame->GetSelectedIndex();
+		selectedFrameIndex--;
+
+		if (selectedFrameIndex >= 0)
+		{
+			_particleMgr->ApplyContour(selectedFrameIndex + 1);
+			_timeLineFrame->selectedFrame->SetSelect(selectedFrameIndex);
+			_needAllParticlesDraw = true;
+		}
 	}
 	else if (com == _timeLineFrame->selectedFrame)
 	{
