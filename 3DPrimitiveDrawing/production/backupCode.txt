@@ -1,31 +1,45 @@
-//FileReader fr("data/triangle-Ids.txt", "rb");
 
-//char* line = nullptr;
-//unsigned int min = -1;
-//unsigned int max = -1;
+Totla triangles in STL file               : ‭32,15,090‬
+Totla unique triangles ids in result file : 10,29,771
 
-//while ( (line = fr.ReadLine()) != nullptr)
-//{
-//	unsigned int num = atoi(line);
+Max triangle id in result file            : 32,14,993
+Min triangle id in result file            : 0
 
-//	if (num < min || min == -1)
-//	{
-//		min = num;
-//	}
+////////////////////////////////////////////////
+#include "FileReader.h"
+#include <set>
 
-//	if (num == 123)
-//	{
-//		printf("aaa");
-//	}
+FileReader fr("data/triangle-Ids.txt", "rb");
 
-//	if (num > max || max == -1)
-//	{
-//		max = num;
-//	}
-//}
+char* line = nullptr;
+unsigned int min = -1;
+unsigned int max = -1;
 
-max = 3214993
-min = 0
+set<unsigned int> uniqueTriIDS;
+
+while ( (line = fr.ReadLine()) != nullptr)
+{
+	unsigned int num = atoi(line);
+
+	uniqueTriIDS.insert(num);
+
+	if (num < min || min == -1)
+	{
+		min = num;
+	}
+
+	if (num > max || max == -1)
+	{
+		max = num;
+	}
+}
+
+printf("\nTotal unique triangle ids : %d", uniqueTriIDS.size());
+////////////////////////////////////////////////
+
+
+
+
 normal float array size = 28935810
 number of normals  = 28935810/3 = 9445270
 number of triangles = 9445270/3 = 3215090

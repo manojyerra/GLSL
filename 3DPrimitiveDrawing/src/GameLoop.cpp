@@ -1,6 +1,5 @@
 #include "GameLoop.h"
 #include "ModulesManager.h"
-#include "FileReader.h"
 
 GameLoop::GameLoop(float sw, float sh, int argc, char** argv)
 {
