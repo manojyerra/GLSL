@@ -28,8 +28,8 @@ int main(int argc, char** argv)
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
 
-	int sw = (int)(mode->width*0.85f);
-	int sh = (int)(mode->height*0.85f);
+	int sw = (int)(mode->width * 0.85f);
+	int sh = (int)(mode->height * 0.85f);
 	int sx = (int)((mode->width - sw) / 2.0f);
 	int sy = (int)((mode->height - sh) / 2.0f);
 
@@ -52,7 +52,7 @@ int main(int argc, char** argv)
 
 	double previousTime = glfwGetTime();
 	unsigned int frameCount = 0;
-	float limitFPSTo = 60.0f;
+	float limitFPSTo = 70.0f;
 	unsigned int timeForLimitFPS = (unsigned int)(1000.0f / limitFPSTo);
 
 	Platform::debugPrint("\nEnd: Loading resources, Load Time : %ld milliseconds\n\n", Platform::GetTimeInMillis() - startTime);
@@ -63,7 +63,7 @@ int main(int argc, char** argv)
 
 		glfwPollEvents();
 
-		for (int i = 0; i <Input::NUM_KEYS; i++)
+		for (int i = 0; i < Input::NUM_KEYS; i++)
 			Input::storeKeyStates[i] = glfwGetKey(window, i);
 
 		double xpos, ypos;
@@ -79,7 +79,7 @@ int main(int argc, char** argv)
 		double currentTime = glfwGetTime();
 		double deltaTime = currentTime - previousTime;
 
-		if(deltaTime > 0.5)
+		if (deltaTime > 0.5)
 		{
 			frameCount = (unsigned int)((double)frameCount / deltaTime);
 			char arr[128];
@@ -90,11 +90,13 @@ int main(int argc, char** argv)
 			previousTime = currentTime;
 		}
 
-		unsigned int timeTakenInMillis = (unsigned int)((glfwGetTime() - startTime) * 1000.0f);
-		unsigned int sleepTimeInMillis = timeForLimitFPS - timeTakenInMillis;
+		int timeTakenInMillis = (int)((glfwGetTime() - startTime) * 1000.0f);
+		int sleepTimeInMillis = timeForLimitFPS - timeTakenInMillis;
 
-		if(sleepTimeInMillis > 1)
-			std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<long> (sleepTimeInMillis) ));
+		if (sleepTimeInMillis > 1 && timeTakenInMillis >= 0)
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<long> (sleepTimeInMillis)));
+		}
 	}
 
 	if (gameLoop)
