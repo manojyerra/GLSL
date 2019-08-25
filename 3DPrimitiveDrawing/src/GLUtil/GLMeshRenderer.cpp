@@ -37,6 +37,11 @@ void GLMeshRenderer::SetPos(float x, float y, float z)
 	_modelMat.SetPos(x, y, z);
 }
 
+void GLMeshRenderer::SetRot(float xRot, float yRot, float zRot)
+{
+	_modelMat.SetRotation(xRot, yRot, zRot);
+}
+
 glm::vec3 GLMeshRenderer::GetPos()
 {
 	return glm::vec3(_modelMat.m[12], _modelMat.m[13], _modelMat.m[14]);

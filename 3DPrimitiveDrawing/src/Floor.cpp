@@ -73,7 +73,7 @@ void Floor::GenerateGrid(float start, float end, float gap)
 
 void Floor::GenerateGridRect(float start, float end)
 {
-	auto glBatch = new GLBatch(100, false, false, false);
+	GLBatch* glBatch = new GLBatch(100, false, false, false);
 
 	glBatch->glBegin();
 	glBatch->glVertex3f(start, 0, -end);
@@ -86,6 +86,7 @@ void Floor::GenerateGridRect(float start, float end)
 
 	_gridRectRenderer = new GLMeshRenderer(&BaseModelIO, BASIC_SHADER);
 	_gridRectRenderer->SetPrimitiveType(GLMeshRenderer::triangleStrip);
+
 	BasicShader* shader = (BasicShader*)_gridRectRenderer->GetCurrentShader();
 	shader->SetColor(glm::vec3(130.0f/255.0f, 130.0f / 255.0f, 130.0f / 255.0f));
 
@@ -94,7 +95,7 @@ void Floor::GenerateGridRect(float start, float end)
 
 void Floor::GenerateSmallGridLines(float start, float end, float gap)
 {
-	auto glBatch = new GLBatch(100, false, false, false);
+	GLBatch* glBatch = new GLBatch(100, false, false, false);
 	glBatch->glBegin();
 
 	int count = 0;
@@ -137,7 +138,7 @@ void Floor::GenerateSmallGridLines(float start, float end, float gap)
 
 void Floor::GenerateGridLines(float start, float end, float gap)
 {
-	auto glBatch = new GLBatch(100, false, false, false);
+	GLBatch* glBatch = new GLBatch(100, false, false, false);
 	
 	glBatch->glBegin();
 
@@ -181,7 +182,7 @@ void Floor::GenerateGridLines(float start, float end, float gap)
 
 void Floor::GenerateBigGridLines(float start, float end, float gap)
 {
-	auto glBatch = new GLBatch(100, false, false, false);
+	GLBatch* glBatch = new GLBatch(100, false, false, false);
 	glBatch->glBegin();
 
 	for (int i = (int)start; i <= end; i += (int)gap)
@@ -290,6 +291,16 @@ void Floor::ShowOnlyGridLines(bool onlyGridLines)
 {
 	_gridVisible = !onlyGridLines;
 	_smallGridLinesVisible = !onlyGridLines;
+}
+
+void Floor::SetRotation(float xRot, float yRot, float zRot)
+{
+	_gridRenderer->SetRot(xRot, yRot, zRot);
+	_gridRectRenderer->SetRot(xRot, yRot, zRot);
+	_smallGridLinesRenderer->SetRot(xRot, yRot, zRot);
+	_gridLinesRenderer->SetRot(xRot, yRot, zRot);
+	_bigGridLinesRenderer->SetRot(xRot, yRot, zRot);
+	_axisRenderer->SetRot(xRot, yRot, zRot);
 }
 
 void Floor::Draw()

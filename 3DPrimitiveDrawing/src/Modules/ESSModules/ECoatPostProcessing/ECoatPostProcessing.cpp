@@ -29,16 +29,19 @@ ECoatPostProcessing::ECoatPostProcessing(unsigned int sw, unsigned int sh, int a
 	float zNearPlaneW = 0.25f;
 
 	Cam::GetInstance()->Init(_sw, _sh, zNear, zFar, zNearPlaneW);
+	Cam::GetInstance()->SetEnableZUpRot(true);
 	Cam2D::GetInstance()->Init(_sw, _sh);
 
 	SetGLStates();
 
 	_floor = new Floor();
+	_floor->SetRotation(90.0f, 0.0f, 0.0f);
+
 	_meshManager = new GLMeshManager(_sw, _sh);
 
 	_assetsBuilder = new ECoatAssetsBuilder(&ECoatAssetsReader("AdvancedRenderer_JLR_ECoating.json"), _meshManager);
 	_colorBar = new ColorBar();
-	_timeLineFrame = new TimeLineFrame(0, 0, 300, 700, _assetsBuilder->GetResultReader()->GetTotalFrameCount(), this);
+	_timeLineFrame = new TimeLineFrame(0, 0, 330, 700, _assetsBuilder->GetResultReader()->GetTotalFrameCount(), this);
 
 	_particleMgr = new ECoatParticleDataMgr(_assetsBuilder, _colorBar);
 
@@ -67,7 +70,7 @@ void ECoatPostProcessing::SetScreenSize(unsigned int sw, unsigned int sh)
 void ECoatPostProcessing::SetGLStates()
 {
 	glEnable(GL_DEPTH_TEST);
-	glDisable(GL_CULL_FACE);
+	glEnable(GL_CULL_FACE);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
@@ -133,16 +136,16 @@ void ECoatPostProcessing::DrawObjects(bool drawAllParticles)
 		printf("\nModel index from GLMeshManager = %d", index);
 	}
 
-	//_floor->Draw();
-
-	//for (int i = 0; i < _meshManager->Size(); i++)
-	//{
-	//	_meshManager->Get(i)->Draw();
-	//}
+	_floor->Draw();
 
 	_particleMgr->Draw(drawAllParticles);
 
-	//_colorBar->Draw();
+	for (int i = 0; i < _meshManager->Size(); i++)
+	{
+		_meshManager->Get(i)->Draw();
+	}
+
+	_colorBar->Draw();
 }
 
 void ECoatPostProcessing::actionPerformed(SUIActionEvent e)

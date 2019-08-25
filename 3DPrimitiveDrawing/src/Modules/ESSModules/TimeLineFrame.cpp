@@ -9,6 +9,7 @@ TimeLineFrame::TimeLineFrame(float x, float y, float w, float h, int numberOfFra
 	_frame->SetName("Options Explorer", SUIFrame::LEFT);
 	_frame->SetRemoveCloseOption(true);
 	_frame->SetRemoveMaximizedOption(true);
+	_frame->SetMinWidthLimit(w);
 
 	SUIBox* animationBox = new SUIBox(SUIBox::V_ALIGNMENT);
 	animationBox->SetMargin(5, 5, 10, 5);

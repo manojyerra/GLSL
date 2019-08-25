@@ -15,9 +15,16 @@ SUIFrame::SUIFrame(float x, float y, float w, float h, int alignment) : SUICompo
 	_w = w;
 	_h = h;
 
+	_minWidthLimit = -1;
+	_maxWidthLimit = -1;
+	_minHeightLimit = -1;
+	_maxHeightLimit = -1;
+
 	_titleBarRect.SetBorderColor(128, 128, 128, 255);
 	_titleBarRect.SetBounds(_x, _y, _w, 22);
 	_dragRect.SetBounds((float)(_x+_w-SLIDER_WIDTH), (float)(_y+_h-SLIDER_WIDTH), (float)SLIDER_WIDTH, (float)SLIDER_WIDTH);
+	_enableHorDrag = true;
+	_enableVerDrag = true;
 
 	_alignment = alignment;
 	_elementVec.clear();
@@ -146,6 +153,40 @@ void SUIFrame::SetRemoveMaximizedOption(bool remove)
 	SetBoundsToMinMaxClose();
 }
 
+void SUIFrame::SetEnableHorDrag(bool enableHorDrag)
+{
+	_enableHorDrag = enableHorDrag;
+}
+
+void SUIFrame::SetEnableVerDrag(bool enableVerDrag)
+{
+	_enableVerDrag = enableVerDrag;
+}
+
+void SUIFrame::SetMinWidthLimit(float width)
+{
+	_minWidthLimit = width;
+	SetBounds(_x, _y, _w, _h);
+}
+
+void SUIFrame::SetMaxWidthLimit(float width)
+{
+	_maxWidthLimit = width;
+	SetBounds(_x, _y, _w, _h);
+}
+
+void SUIFrame::SetMinHeightLimit(float height)
+{
+	_minHeightLimit = height;
+	SetBounds(_x, _y, _w, _h);
+}
+
+void SUIFrame::SetMaxHeightLimit(float height)
+{
+	_maxHeightLimit = height;
+	SetBounds(_x, _y, _w, _h);
+}
+
 void SUIFrame::Add(SUIComponent* com)
 {
 	_elementVec.push_back(com);
@@ -207,6 +248,26 @@ void SUIFrame::SetBounds(float x, float y, float w, float h)
 	_y = y;
 	_w = w;
 	_h = h;
+
+	if (_minWidthLimit > 0 && _w < _minWidthLimit)
+	{
+		_w = _minWidthLimit;
+	}
+
+	if (_maxWidthLimit > 0 && _w > _maxWidthLimit)
+	{
+		_w = _maxWidthLimit;
+	}
+
+	if (_minHeightLimit > 0 && _h < _minHeightLimit)
+	{
+		_h = _minHeightLimit;
+	}
+
+	if (_maxHeightLimit > 0 && _h > _maxHeightLimit)
+	{
+		_h = _maxHeightLimit;
+	}
 }
 
 SUIComponent* SUIFrame::getComponentAt(float x, float y)
@@ -297,7 +358,7 @@ SUIEvents SUIFrame::UpdateByInput()
 	{
 		if(_activeBar == DRAGGER)
 		{
-			if(!_isMaximized)
+			if(!_isMaximized && (_enableHorDrag || _enableVerDrag))
 			{
 				float draggerNewX = SUIInput::MX - _dxOnActive;
 				float draggerNewY = SUIInput::MY - _dyOnActive;
@@ -308,7 +369,18 @@ SUIEvents SUIFrame::UpdateByInput()
 				float frameNewW = draggerRBX - _x;
 				float frameNewH = draggerRBY - _y;
 
-				SetBounds(_x, _y, frameNewW, frameNewH);
+				if (_enableHorDrag && _enableVerDrag)
+				{
+					SetBounds(_x, _y, frameNewW, frameNewH);
+				}
+				else if (_enableHorDrag)
+				{
+					SetBounds(_x, _y, frameNewW, _h);
+				}
+				else if (_enableVerDrag)
+				{
+					SetBounds(_x, _y, _w, frameNewH);
+				}
 			}
 		}
 		else if(_activeBar == TITLE_BAR)

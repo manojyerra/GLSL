@@ -371,7 +371,7 @@ void GLMat::SetPos(float x, float y, float z)
 	m[14] = z;
 }
 
-void GLMat::SetPos(glm::vec3 pos)
+void GLMat::SetPos(glm::vec3& pos)
 {
 	m[12] = pos.x;
 	m[13] = pos.y;
@@ -392,7 +392,7 @@ glm::vec3 GLMat::GetRotation()
 	return newMat.GetEulerXYZRot_In_Degrees();
 }
 
-void GLMat::SetRotation(glm::vec3 rot)
+void GLMat::SetRotation(float xRot, float yRot, float zRot)
 {
 	glm::vec3 scale = GetScale();
 	RemoveScale();
@@ -400,12 +400,17 @@ void GLMat::SetRotation(glm::vec3 rot)
 	GLMat newMat;
 
 	newMat.translatef(m[12], m[13], m[14]);
-	newMat.rotatef(rot.z, 0, 0, 1);
-	newMat.rotatef(rot.y, 0, 1, 0);
-	newMat.rotatef(rot.x, 1, 0, 0);
+	newMat.rotatef(zRot, 0, 0, 1);
+	newMat.rotatef(yRot, 0, 1, 0);
+	newMat.rotatef(xRot, 1, 0, 0);
 	newMat.scalef(scale.x, scale.y, scale.z);
 
 	Copy(newMat.m);
+}
+
+void GLMat::SetRotation(glm::vec3& rot)
+{
+	SetRotation(rot.x, rot.y, rot.z);
 }
 
 void GLMat::AddTransInWorld(float x, float y, float z)

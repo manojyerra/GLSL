@@ -39,6 +39,7 @@ public:
 	void SetModelMatrix(float* mat);
 	void SetPos(float x, float y, float z);
 	glm::vec3 GetPos();
+	void SetRot(float xRot, float yRot, float zRot);
 
 	AABB GetAABB();
 

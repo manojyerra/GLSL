@@ -53,6 +53,7 @@ public:
 	void SetGridLinesVisible(bool linesVisible);
 	void SetGridType(int gridType);
 	void ShowOnlyGridLines(bool onlyGridLines);
+	void SetRotation(float xRot, float yRot, float zRot);
 
 	void Draw();
 };

@@ -37,10 +37,11 @@ public:
 	void SetScale(glm::vec3 scale);
 
 	void SetPos(float x, float y, float z);
-	void SetPos(glm::vec3 pos);
+	void SetPos(glm::vec3& pos);
 	glm::vec3 GetPos();
 	glm::vec3 GetRotation();
-	void SetRotation(glm::vec3 rot);
+	void SetRotation(float xRot, float yRot, float zRot);
+	void SetRotation(glm::vec3& rot);
 
 	void AddTransInWorld(float x, float y, float z);
 	void AddTransInLocal(char axis, float move);

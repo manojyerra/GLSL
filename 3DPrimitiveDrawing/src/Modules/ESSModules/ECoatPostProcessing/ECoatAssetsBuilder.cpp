@@ -26,7 +26,9 @@ ECoatAssetsBuilder::ECoatAssetsBuilder(ECoatAssetsReader* assetsReader, GLMeshMa
 	std::string fluidPath = assetsReader->GetFluid();
 	if (fluidPath.length() > 0)
 	{
-		_fluid = meshMgr->AddMeshRenderer(fluidPath, BASIC_SHADER, BaseModelIO::STL_MODEL_WITH_THREADS);
+		_fluid = meshMgr->AddMeshRenderer(fluidPath, PHONG_PER_VERTEX_SHADER, BaseModelIO::STL_MODEL_WITH_THREADS);
+		PhongShader* phongShader = (PhongShader*)_fluid->GetCurrentShader();
+		phongShader->SetDiffuseColor(1.0, 1.0f, 1.0f, 1.0f);
 		_fluid->SetAlpha(0.4f);
 	}
 

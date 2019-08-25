@@ -18,10 +18,17 @@ private:
 
 	SUIRect _titleBarRect;
 	SUIRect _dragRect;
+	bool _enableHorDrag;
+	bool _enableVerDrag;
 
 	SUIRect _minRect;
 	SUIRect _maxRect;
 	SUIRect _closeRect;
+
+	float _minWidthLimit;
+	float _maxWidthLimit;
+	float _minHeightLimit;
+	float _maxHeightLimit;
 
 	bool _removeCloseOption;
 	bool _removeMaximizeOption;
@@ -32,8 +39,6 @@ private:
 	SUIRect _miniIconRect;
 
 	bool _focusGain;
-
-
 
 	//Scroller realted...
 	SUIScroller* _scroller;
@@ -78,6 +83,14 @@ public:
 	void SetMaximized(bool val);
 	void SetRemoveCloseOption(bool remove);
 	void SetRemoveMaximizedOption(bool remove);
+	void SetEnableHorDrag(bool enableHorDrag);
+	void SetEnableVerDrag(bool enableVerDrag);
+
+	void SetMinWidthLimit(float width);
+	void SetMaxWidthLimit(float width);
+
+	void SetMinHeightLimit(float height);
+	void SetMaxHeightLimit(float height);
 
 	SUIEvents UpdateByInput();
 	void Move(float dx, float dy);

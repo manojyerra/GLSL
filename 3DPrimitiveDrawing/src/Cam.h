@@ -21,6 +21,7 @@ private:
 	glm::vec3 _pivot;
 	glm::vec3 _angle;
 	glm::vec3 _trans;
+	bool _zUpRot;
 
 	bool _isOrtho;
 
@@ -61,7 +62,7 @@ public:
 	void SetPivot(glm::vec3 pivotPoint);
 	void SetTrans(glm::vec3 trans);
 	void SetRot(glm::vec3 rot);
-
+	void SetEnableZUpRot(bool zUpRot);
 	glm::vec3 GetTrans();
 
 	void SetFrontView();

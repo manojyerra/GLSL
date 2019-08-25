@@ -2,6 +2,7 @@
 #include "Cam.h"
 #include "BufferTransformUtils.h"
 #include "Platform.h"
+#include "GLState.h"
 
 ParticleRenderer::ParticleRenderer(std::string filePath)
 {
@@ -16,8 +17,6 @@ ParticleRenderer::ParticleRenderer(std::string filePath)
 
 	_allParticlesRenderer = CreateAllParticlesRenderer(&BufferInfo(vertexBuf, vertexBufLen), nullptr, CUBE_GEOMETRY_SHADER);
 	_fewParticlesRenderer = CreateFewParticlesRenderer(&BufferInfo(vertexBuf, vertexBufLen), nullptr, CUBE_GEOMETRY_SHADER);
-
-	//_modelMat.SetRotation(glm::vec3(0, 90, 90));
 }
 
 ParticleRenderer::ParticleRenderer(BufferInfo* vertexBufInfo)
@@ -167,6 +166,22 @@ void ParticleRenderer::SetDrawAs(int drawAs)
 void ParticleRenderer::SetPosition(float x, float y, float z)
 {
 	_modelMat.SetPos(x, y, z);
+	_allParticlesRenderer->SetModelMatrix(_modelMat.m);
+	_fewParticlesRenderer->SetModelMatrix(_modelMat.m);
+}
+
+void ParticleRenderer::SetPosition(glm::vec3& pos)
+{
+	_modelMat.SetPos(pos);
+	_allParticlesRenderer->SetModelMatrix(_modelMat.m);
+	_fewParticlesRenderer->SetModelMatrix(_modelMat.m);
+}
+
+void ParticleRenderer::SetRotation(glm::vec3& rot)
+{
+	_modelMat.SetRotation(rot);
+	_allParticlesRenderer->SetModelMatrix(_modelMat.m);
+	_fewParticlesRenderer->SetModelMatrix(_modelMat.m);
 }
 
 glm::vec3 ParticleRenderer::GetBBoxCenter()
@@ -178,8 +193,8 @@ void ParticleRenderer::DrawAllParticles()
 {
 	if(_allParticlesRenderer)
 	{
+		bool cullEnable = GLState::GLEnable(GL_CULL_FACE, false);
 		//_allParticlesRenderer->SetShader(PBR_CUBE_GEOMETRY_SHADER);
-		_allParticlesRenderer->SetModelMatrix(_modelMat.m);
 		_allParticlesRenderer->Draw();
 
 		//GLMat mat1(_modelMat.m);
@@ -199,6 +214,8 @@ void ParticleRenderer::DrawAllParticles()
 		//_allParticlesRenderer->Draw();
 		//glFinish();
 		//printf("\nTimeForCUBE_GEOMETRY_SHADER %ld", (Platform::GetTimeInMillis()-startTime));
+
+		GLState::GLEnable(GL_CULL_FACE, cullEnable);
 	}
 }
 
@@ -206,12 +223,9 @@ void ParticleRenderer::DrawFewParticles()
 {
 	if(_fewParticlesRenderer)
 	{
-		_fewParticlesRenderer->SetModelMatrix(_modelMat.m);
+		bool cullEnable = GLState::GLEnable(GL_CULL_FACE, false);
 		_fewParticlesRenderer->Draw();
-	}
-	else
-	{
-		DrawAllParticles();
+		GLState::GLEnable(GL_CULL_FACE, cullEnable);
 	}
 }
 

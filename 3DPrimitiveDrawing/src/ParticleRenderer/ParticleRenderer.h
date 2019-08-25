@@ -40,7 +40,11 @@ public:
 
 	void SetDrawAs(int drawAs);
 
+	void SetPosition(glm::vec3& pos);
 	void SetPosition(float x, float y, float z);
+
+	void SetRotation(glm::vec3& rot);
+
 	void UpdateColorBuffer(char* colorBuffer, unsigned int colorBufLen);
 	glm::vec3 GetBBoxCenter();
 
