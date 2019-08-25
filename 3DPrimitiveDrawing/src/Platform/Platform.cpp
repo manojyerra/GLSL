@@ -29,15 +29,21 @@ void Platform::debugPrint(const char * pszFormat, ...)
 
 long Platform::GetTimeInMillis()
 {
-#if (defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(WIN32) || defined(__MINGW32__))
-	return GetTickCount();
-	//return 0;
-#else
-	return 0;
-#endif
+//#if (defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(WIN32) || defined(__MINGW32__))
+//	return GetTickCount();
+//#else
+//	return 0;
+//#endif
+
+	return (long)(glfwGetTime() * 1000.0f);
 }
 
-void Platform::SetWindowTitle(char* title)
+void Platform::SetWindowTitle(const char* title)
 {
-	_title = title;
+	_title = (char*)title;
+}
+
+char* Platform::GetWindowTitle()
+{
+	return _title;
 }

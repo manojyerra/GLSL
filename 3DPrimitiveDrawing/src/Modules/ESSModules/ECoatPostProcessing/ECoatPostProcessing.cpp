@@ -28,6 +28,8 @@ ECoatPostProcessing::ECoatPostProcessing(unsigned int sw, unsigned int sh, int a
 	float zFar = 1000000.0f;
 	float zNearPlaneW = 0.25f;
 
+	Platform::SetWindowTitle("ECoat Post Processing");
+
 	Cam::GetInstance()->Init(_sw, _sh, zNear, zFar, zNearPlaneW);
 	Cam::GetInstance()->SetEnableZUpRot(true);
 	Cam2D::GetInstance()->Init(_sw, _sh);

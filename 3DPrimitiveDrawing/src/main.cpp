@@ -83,7 +83,7 @@ int main(int argc, char** argv)
 		{
 			frameCount = (unsigned int)((double)frameCount / deltaTime);
 			char arr[128];
-			sprintf(arr, "FPS : %d", frameCount);
+			sprintf(arr, "%s [FPS : %d]", Platform::GetWindowTitle(), frameCount);
 			glfwSetWindowTitle(window, arr);
 
 			frameCount = 0;

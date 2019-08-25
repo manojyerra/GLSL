@@ -15,7 +15,8 @@ private:
 public:
 	static void debugPrint(const char * pszFormat, ...);
 	static long GetTimeInMillis();
-	static void SetWindowTitle(char* title);
+	static void SetWindowTitle(const char* title);
+	static char* GetWindowTitle();
 };
 
 #endif
