@@ -189,3 +189,12 @@ unsigned int StringUtils::atoi_naive(const char * p)
 	}
 	return x;
 }
+
+std::string StringUtils::doubleToScientificStr(double val)
+{
+	char buffer[128];
+	memset(buffer, '\0', sizeof(buffer));
+	snprintf(buffer, sizeof(buffer), "%g", val);
+	std::string str(buffer);
+	return str;
+}

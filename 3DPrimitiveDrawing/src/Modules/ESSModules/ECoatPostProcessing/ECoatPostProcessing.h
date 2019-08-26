@@ -32,6 +32,8 @@ private:
 	ECoatAssetsBuilder* _assetsBuilder;
 	ECoatAssetsBuilder* _resultFileReader;
 
+	bool _showThickness;
+	double _selectedThickness;
 
 	void SetGLStates();
 	void DrawObjects(bool drawAllParticles);

@@ -9,7 +9,7 @@
 #include "SUIBatch.h"
 using namespace std;
 
-class StringInfo
+class SUIStringInfo
 {
 public:
 	string text;
@@ -22,13 +22,13 @@ public:
 };
 
 
-class LetterInfo
+class SUILetterInfo
 {
 public:
 	float x,y,w,h,u,v,cw,ch;
 
-	LetterInfo(){}
-	~LetterInfo(){}
+	SUILetterInfo(){}
+	~SUILetterInfo(){}
 
 	void SetBounds(float xx, float yy, float ww, float hh)
 	{
@@ -54,7 +54,7 @@ private:
 	SUIFont();
 	~SUIFont();
 
-	vector<LetterInfo*> _normalFontVec;
+	vector<SUILetterInfo*> _normalFontVec;
 
 	float _unitWidth;
 	int _r,_g,_b,_a;
@@ -87,7 +87,7 @@ public:
 	void SetColor(unsigned int color);
 
 	float GetFontSize();
-	float GetLength(string text, float fontSize);
+	float GetLength(string& text, float fontSize);
 
 	void HorBorder(float x1, float x2);
 
@@ -97,11 +97,11 @@ public:
 	void Begin();
 	//void Draw(int number,	float xPos, float yPos, float fontSize);
 	//void Draw(char ch,		float xPos, float yPos, float fontSize);
-	void Draw(string text,	float xPos, float yPos, float fontSize);
+	void Draw(string& text,	float xPos, float yPos, float fontSize);
 
-	void DrawFromLeft(string text, float xPos, float yPos, float fontSize);
-	void DrawFromRight(string text, float xPos, float yPos, float fontSize);
-	void DrawFromCenter(string text, float xPos, float yPos, float fontSize);
+	void DrawFromLeft(string& text, float xPos, float yPos, float fontSize);
+	void DrawFromRight(string& text, float xPos, float yPos, float fontSize);
+	void DrawFromCenter(string& text, float xPos, float yPos, float fontSize);
 	void End();
 
 	void FillUVInfo_21();

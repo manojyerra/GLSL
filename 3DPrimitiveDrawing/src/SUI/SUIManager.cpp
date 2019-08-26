@@ -400,7 +400,10 @@ void SUIManager::Draw()
 			float horGap = -0.5f;
 			float fontSize = SUIFont::GetInstance()->GetFontSize();
 			if(_framesVec[i]->GetName().size() <= 5)
-				SUIFont::GetInstance()->DrawFromLeft(_framesVec[i]->GetName(), x+4, y+h/2, fontSize);
+			{
+				string name = _framesVec[i]->GetName();
+				SUIFont::GetInstance()->DrawFromLeft(name, x+4, y+h/2, fontSize);
+			}
 			else
 			{
 				string name = _framesVec[i]->GetName().substr(0,3);

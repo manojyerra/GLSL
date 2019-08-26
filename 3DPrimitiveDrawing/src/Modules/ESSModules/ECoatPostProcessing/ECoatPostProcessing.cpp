@@ -10,6 +10,7 @@
 #include "STLReader.h"
 #include "STLReaderWithThreads.h"
 #include "GLState.h"
+#include "StringUtils.h"
 
 ECoatPostProcessing::ECoatPostProcessing(unsigned int sw, unsigned int sh, int argc, char** argv)
 {
@@ -49,6 +50,9 @@ ECoatPostProcessing::ECoatPostProcessing(unsigned int sw, unsigned int sh, int a
 
 	_texture = new GLTexture(0.0f, 0.0f, _sw, _sh);
 	_needAllParticlesDraw = true;
+
+	_showThickness = false;
+	_selectedThickness = 0.0;
 
 	SetScreenSize(_sw, _sh);
 }
@@ -102,12 +106,19 @@ void ECoatPostProcessing::Draw()
 
 		if (clickedOnCarBody)
 		{
-			printf("\n clicked on carbody : %d, %d, %d", color[0], color[1], color[2]);
+			double thickness = _colorBar->GetValue(color[0], color[1], color[2]);
+			std::string thicknessStr = StringUtils::doubleToScientificStr(thickness);
+			printf("\n clicked on carbody : %d, %d, %d, Thickness = %s ", color[0], color[1], color[2], thicknessStr.c_str());
+			_showThickness = true;
 		}
 		else
 		{
 			printf("\n Not clicked on carbody...");
 		}
+	}
+	else if (Input::IsMouseClicked())
+	{
+		_showThickness = false;
 	}
 
 	if (cam->IsCameraUpdated() || _needAllParticlesDraw)
@@ -158,6 +169,11 @@ void ECoatPostProcessing::DrawObjects(bool drawAllParticles)
 	//{
 	//	_meshManager->Get(i)->Draw();
 	//}
+
+	if (_showThickness)
+	{
+
+	}
 
 	_colorBar->Draw();
 }

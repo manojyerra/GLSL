@@ -15,6 +15,8 @@ public:
 	static float atof_naive(const char *p);
 	static unsigned int atoi_naive(const char * p);
 	static double atof_exp(const char *s);
+
+	static std::string doubleToScientificStr(double val);
 };
 
 #endif

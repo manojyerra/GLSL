@@ -97,7 +97,7 @@ SUIFont::SUIFont()
 	_textureID = 0;
 
 	for(int i=0; i<=126; i++)
-		_normalFontVec.push_back(new LetterInfo());
+		_normalFontVec.push_back(new SUILetterInfo());
 	
 	FillUVInfo_Verdana_plain_12();
 
@@ -155,7 +155,7 @@ void SUIFont::HorBorder(float x1, float x2)
 	_borderX2 = x2;
 }
 
-float SUIFont::GetLength(string text, float fontSize)
+float SUIFont::GetLength(string& text, float fontSize)
 {
 	float x=0;
 
@@ -202,24 +202,24 @@ void SUIFont::Begin()
 	}
 }
 
-void SUIFont::DrawFromLeft(string text, float xPos, float yPos, float fontSize)
+void SUIFont::DrawFromLeft(string& text, float xPos, float yPos, float fontSize)
 {
 	Draw(text, xPos, yPos-fontSize/2, fontSize);
 }
 
-void SUIFont::DrawFromRight(string text, float xPos, float yPos, float fontSize)
+void SUIFont::DrawFromRight(string& text, float xPos, float yPos, float fontSize)
 {
 	float length = (float)GetLength(text, fontSize);
 	Draw(text, xPos-length, yPos-fontSize/2, fontSize);
 }
 
-void SUIFont::DrawFromCenter(string text, float xPos, float yPos, float fontSize)
+void SUIFont::DrawFromCenter(string& text, float xPos, float yPos, float fontSize)
 {
 	float length = (float)GetLength(text, fontSize);
 	Draw(text, xPos-length/2, yPos-fontSize/2, fontSize);
 }
 
-void SUIFont::Draw(string text, float xPos, float yPos, float fontSize)
+void SUIFont::Draw(string& text, float xPos, float yPos, float fontSize)
 {
 	glColor4ub(_r,_g,_b,_a);
 
@@ -239,7 +239,7 @@ void SUIFont::Draw(string text, float xPos, float yPos, float fontSize)
 
 			//if(xx >= _borderX1 && xx+ww <= _borderX2)
 			{
-				LetterInfo* lf = _normalFontVec[index];
+				SUILetterInfo* lf = _normalFontVec[index];
 
 				if(_enableBatch)
 				{

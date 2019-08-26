@@ -35,10 +35,18 @@ ColorBar::ColorBar(int sw, int sh)
 	GenerateGeometry(_w, _h);
 	CalcPosition((float)sw, (float)sh);
 
-	SetMinMaxThickness(0.0f, 1.0f);
+	SetMinMax(0.0, 1.0);
 }
 
-unsigned int ColorBar::GetTotNumColors()
+void ColorBar::SetMinMax(double min, double max)
+{
+	_minVal = min;
+	_maxVal = max;
+
+	_totDiff = _maxVal - _minVal;
+}
+
+int ColorBar::GetTotNumColors()
 {
 	return _totArrElements;
 }
@@ -135,22 +143,48 @@ void ColorBar::GenerateGeometry(int w, int h)
 	}
 }
 
-void ColorBar::SetMinMaxThickness(float minThickness, float maxThickness)
+void ColorBar::GetColor(double val, float* r, float* g, float* b)
 {
-	_minThickness = minThickness;
-	_maxThickness = maxThickness;
-
-	_totDiffThickness = _maxThickness - _minThickness;
-}
-
-void ColorBar::GetColor(float thickness, float* r, float* g, float* b)
-{
-	float currDiffThick = thickness - _minThickness;
-	int index = (int)(currDiffThick * _totArrElements / _totDiffThickness);
+	double currDiff = val - _minVal;
+	int index = (int)(currDiff * _totArrElements / _totDiff);
 
 	r[0] = allColorsVecR[index];
 	g[0] = allColorsVecG[index];
 	b[0] = allColorsVecB[index];
+}
+
+double ColorBar::GetValue(unsigned char r, unsigned char g, unsigned char b)
+{
+	return GetValue((float)r / 255.0f, (float)g / 255.0f, (float)b / 255.0f);
+}
+
+double ColorBar::GetValue(float r, float g, float b)
+{
+	float diffR = fabs(allColorsVecR[0] - r);
+	float diffG = fabs(allColorsVecG[0] - g);
+	float diffB = fabs(allColorsVecB[0] - b);
+
+	float minDiff = diffR + diffG + diffB;
+	int minIndex = 0;
+
+	for (int i = 1; i < _totArrElements; i++)
+	{
+		diffR = fabs(allColorsVecR[i] - r);
+		diffG = fabs(allColorsVecG[i] - g);
+		diffB = fabs(allColorsVecB[i] - b);
+
+		float diff = diffR + diffG + diffB;
+
+		if (diff < minDiff)
+		{
+			minDiff = diff;
+			minIndex = i;
+		}
+	}
+
+	double val =  _minVal + (double)minIndex * _totDiff / (double)_totArrElements;
+
+	return val;
 }
 
 void ColorBar::Draw()

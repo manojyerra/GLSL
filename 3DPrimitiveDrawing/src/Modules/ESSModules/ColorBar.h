@@ -8,15 +8,15 @@
 class ColorBar
 {
 private:
-	unsigned int _totArrElements;
+	int _totArrElements;
 
-	unsigned int _totColors;
+	int _totColors;
 	std::vector<glm::vec3> _mainColorsVec;
 	std::vector<glm::vec3> _mainColorsReverseVec;
 
-	float _minThickness;
-	float _maxThickness;
-	float _totDiffThickness;
+	double _minVal;
+	double _maxVal;
+	double _totDiff;
 
 	float _x;
 	float _y;
@@ -37,9 +37,12 @@ public:
 	~ColorBar();
 
 	void OnSizeChange(int sw, int sh);
-	void SetMinMaxThickness(float minThickness, float maxThickness);
-	void GetColor(float thickness, float* r, float* g, float* b);
-	unsigned int GetTotNumColors();
+	void SetMinMax(double min, double max);
+	void GetColor(double val, float* r, float* g, float* b);
+	double GetValue(float r, float g, float b);
+	double GetValue(unsigned char r, unsigned char g, unsigned char b);
+	int GetTotNumColors();
+
 	void Draw();
 };
 

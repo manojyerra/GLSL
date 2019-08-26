@@ -115,6 +115,8 @@ char* ECoatParticleDataMgr::GetParticleColorBuf(int frameNum, unsigned int* bufS
 	unsigned int numThicknessVals = frameInfo.bufferSize / sizeof(float);
 	float* thicknessBuf = (float*)frameInfo.buffer;
 
+	_colorBar->SetMinMax(minThick, maxThick);
+
 	unsigned int colorBufSize = numThicknessVals * 3;
 	char* colorBuf = (char*)malloc(colorBufSize);
 
