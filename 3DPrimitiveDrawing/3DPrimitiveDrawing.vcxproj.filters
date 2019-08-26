@@ -172,6 +172,9 @@
     <Filter Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatUI">
       <UniqueIdentifier>{7db6da92-7b27-4589-9e63-0b9d80c87304}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GLUtil\Shaders\CubeGeometryShaderForPicking">
+      <UniqueIdentifier>{6a75180c-d2f3-4e83-8c45-f89b7727072f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -603,6 +606,9 @@
     <ClCompile Include="src\GLUtil\Shaders\PBRCubeGeometryShader\PBRCubeGeometryShader.cpp">
       <Filter>src\GLUtil\Shaders\PBRCubeGeometryShader</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\Shaders\CubeGeometryShaderForPicking\CubeGeometryShaderForPicking.cpp">
+      <Filter>src\GLUtil\Shaders\CubeGeometryShaderForPicking</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLMat.h">
@@ -1024,6 +1030,9 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\Shaders\PBRCubeGeometryShader\PBRCubeGeometryShader.h">
       <Filter>src\GLUtil\Shaders\PBRCubeGeometryShader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\Shaders\CubeGeometryShaderForPicking\CubeGeometryShaderForPicking.h">
+      <Filter>src\GLUtil\Shaders\CubeGeometryShaderForPicking</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
