@@ -1,8 +1,12 @@
 #include "ECoatParticleDataMgr.h"
 #include "Platform.h"
+#include "GLFBOManager.h"
 
-ECoatParticleDataMgr::ECoatParticleDataMgr(ECoatAssetsBuilder* assetsBuilder, ColorBar* colorBar)
+ECoatParticleDataMgr::ECoatParticleDataMgr(int sw, int sh, ECoatAssetsBuilder* assetsBuilder, ColorBar* colorBar)
 {
+	_sw = sw;
+	_sh = sh;
+
 	_assetsBuilder = assetsBuilder;
 	_colorBar = colorBar;
 	_particleRenderer = nullptr;
@@ -63,6 +67,30 @@ BufferInfo ECoatParticleDataMgr::GenerateNormals(BaseModelIO* stlReader)
 	}
 
 	return parNormalBuf;
+}
+
+void ECoatParticleDataMgr::OnSizeChange(int sw, int sh)
+{
+	_sw = sw;
+	_sh = sh;
+}
+
+bool ECoatParticleDataMgr::GetParticleColor(float mx, float my, unsigned char* color)
+{
+	GLFBOManager::GetInstance()->BindDefaultFBO();
+
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	_particleRenderer->DrawForPicking();
+
+	glReadPixels((GLint)mx, _sh - (GLint)my, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, color);
+
+	GLFBOManager::GetInstance()->UnBindDefaultFBO();
+
+	bool isWhite = (color[0] == 255 && color[1] == 255 && color[2] == 255);
+
+	return !isWhite;
 }
 
 void ECoatParticleDataMgr::ApplyContour(int frameNum)

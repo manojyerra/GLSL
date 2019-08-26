@@ -1,33 +1,32 @@
-#include "CubeGeometryShader.h"
+#include "CubeGeometryShaderForPicking.h"
 #include "ShaderProgramsManager.h"
 #include "Cam.h"
 
-CubeGeometryShader::CubeGeometryShader()
+CubeGeometryShaderForPicking::CubeGeometryShaderForPicking()
 {
 	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram(
-		"shaders/CubeGeometryShader/CubeGeometryShader.vs",
-		"shaders/CubeGeometryShader/CubeGeometryShader.gs",
-		"shaders/CubeGeometryShader/CubeGeometryShader.fs");
+		"shaders/CubeGeometryShaderForPicking/CubeGeometryShaderForPicking.vs",
+		"shaders/CubeGeometryShaderForPicking/CubeGeometryShaderForPicking.gs",
+		"shaders/CubeGeometryShaderForPicking/CubeGeometryShaderForPicking.fs");
 
 	_halfLen = 0.00375f/2.0f;
 }
 
-void CubeGeometryShader::SetCubeHalfLen(float cubeHalfLen)
+void CubeGeometryShaderForPicking::SetCubeHalfLen(float cubeHalfLen)
 {
 	_halfLen = cubeHalfLen;
 }
 
-void CubeGeometryShader::Begin()
+void CubeGeometryShaderForPicking::Begin()
 {
 	_shaderProgram->Begin();
 }
 
-void CubeGeometryShader::SetUniformsAndAttributes()
+void CubeGeometryShaderForPicking::SetUniformsAndAttributes()
 {
 	Cam* cam = Cam::GetInstance();
 
 	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(cam->GetMVP(_modelMat.m)));
-	_shaderProgram->SetUniformMatrix3fv("normalMat", glm::value_ptr(cam->GetNormalMat(_modelMat.m)));
 	_shaderProgram->SetUniformMatrix4fv("modelViewMat", glm::value_ptr(cam->GetModelViewMat(_modelMat.m)));
 	_shaderProgram->SetUniform1f("hLen", _halfLen);
 	_shaderProgram->SetUniform1f("alpha", _alpha);
@@ -48,7 +47,7 @@ void CubeGeometryShader::SetUniformsAndAttributes()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void CubeGeometryShader::End()
+void CubeGeometryShaderForPicking::End()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -64,7 +63,7 @@ void CubeGeometryShader::End()
 	_shaderProgram->End();
 }
 
-CubeGeometryShader::~CubeGeometryShader()
+CubeGeometryShaderForPicking::~CubeGeometryShaderForPicking()
 {
 	if(_shaderProgram)
 	{

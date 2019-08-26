@@ -189,6 +189,15 @@ glm::vec3 ParticleRenderer::GetBBoxCenter()
 	return _bBoxCenter;
 }
 
+void ParticleRenderer::DrawForPicking()
+{
+	unsigned int shaderType = _allParticlesRenderer->GetCurrentShaderType();
+
+	_allParticlesRenderer->SetShader(CUBE_GEOMETRY_SHADER_FOR_PICKING);
+	_allParticlesRenderer->Draw();
+	_allParticlesRenderer->SetShader(shaderType);
+}
+
 void ParticleRenderer::DrawAllParticles()
 {
 	if(_allParticlesRenderer)

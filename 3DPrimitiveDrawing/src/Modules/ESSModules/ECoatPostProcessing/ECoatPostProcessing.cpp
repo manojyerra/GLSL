@@ -45,7 +45,7 @@ ECoatPostProcessing::ECoatPostProcessing(unsigned int sw, unsigned int sh, int a
 	_colorBar = new ColorBar(_sw, _sh);
 	_timeLineFrame = new TimeLineFrame(0, 0, 330, 700, _assetsBuilder->GetResultReader()->GetTotalFrameCount(), this);
 
-	_particleMgr = new ECoatParticleDataMgr(_assetsBuilder, _colorBar);
+	_particleMgr = new ECoatParticleDataMgr(_sw, _sh, _assetsBuilder, _colorBar);
 
 	_texture = new GLTexture(0.0f, 0.0f, _sw, _sh);
 	_needAllParticlesDraw = true;
@@ -67,6 +67,7 @@ void ECoatPostProcessing::SetScreenSize(unsigned int sw, unsigned int sh)
 		_timeLineFrame->SetPos(0.0f, 0.0f);
 
 	_colorBar->OnSizeChange(sw, sh);
+	_particleMgr->OnSizeChange(sw, sh);
 
 	_needAllParticlesDraw = true;
 }
@@ -93,6 +94,21 @@ void ECoatPostProcessing::Draw()
 	cam->SetPerspectiveProjection();
 	cam->SetViewMatrix();
 	cam->UpdateCamera();
+
+	if ((Input::IsKeyPressed(Input::KEY_LEFT_ALT) || Input::IsKeyPressed(Input::KEY_RIGHT_ALT)) && Input::IsMouseClicked())
+	{
+		unsigned char color[4];
+		bool clickedOnCarBody = _particleMgr->GetParticleColor(Input::MX, Input::MY, color);
+
+		if (clickedOnCarBody)
+		{
+			printf("\n clicked on carbody : %d, %d, %d", color[0], color[1], color[2]);
+		}
+		else
+		{
+			printf("\n Not clicked on carbody...");
+		}
+	}
 
 	if (cam->IsCameraUpdated() || _needAllParticlesDraw)
 	{
@@ -134,20 +150,14 @@ void ECoatPostProcessing::Draw()
 
 void ECoatPostProcessing::DrawObjects(bool drawAllParticles)
 {
-	if (Input::IsMouseClicked())
-	{
-		int index = _meshManager->GetModelIndexByMousePos(Input::MX, Input::MY);
-		printf("\nModel index from GLMeshManager = %d", index);
-	}
-
 	_floor->Draw();
 
 	_particleMgr->Draw(drawAllParticles);
 
-	for (int i = 0; i < _meshManager->Size(); i++)
-	{
-		_meshManager->Get(i)->Draw();
-	}
+	//for (int i = 0; i < _meshManager->Size(); i++)
+	//{
+	//	_meshManager->Get(i)->Draw();
+	//}
 
 	_colorBar->Draw();
 }
@@ -238,3 +248,10 @@ ECoatPostProcessing::~ECoatPostProcessing()
 		_texture = nullptr;
 	}
 }
+
+
+	//else if (Input::IsMouseClicked())
+	//{
+	//	int index = _meshManager->GetModelIndexByMousePos(Input::MX, Input::MY);
+	//	printf("\nModel index from GLMeshManager = %d", index);
+	//}

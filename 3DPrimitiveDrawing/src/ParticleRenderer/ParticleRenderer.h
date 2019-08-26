@@ -48,6 +48,7 @@ public:
 	void UpdateColorBuffer(char* colorBuffer, unsigned int colorBufLen);
 	glm::vec3 GetBBoxCenter();
 
+	void DrawForPicking();
 	void DrawAllParticles();
 	void DrawFewParticles();
 };

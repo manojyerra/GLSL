@@ -18,11 +18,15 @@ private:
 	ParticleRenderer* _particleRenderer;
 	char* GetParticleColorBuf(int frameNum, unsigned int* bufSize);
 	BufferInfo GenerateNormals(BaseModelIO* stlReader);
+	int _sw;
+	int _sh;
 
 public:
-	ECoatParticleDataMgr(ECoatAssetsBuilder* resultFileReader, ColorBar* colorBar);
+	ECoatParticleDataMgr(int sw, int sh, ECoatAssetsBuilder* resultFileReader, ColorBar* colorBar);
 	~ECoatParticleDataMgr();
 
+	void OnSizeChange(int sw, int sh);
+	bool GetParticleColor(float mx, float my, unsigned char* color);
 	void ApplyContour(int frameNum);
 	void Draw(bool drawAllParticles);
 };
