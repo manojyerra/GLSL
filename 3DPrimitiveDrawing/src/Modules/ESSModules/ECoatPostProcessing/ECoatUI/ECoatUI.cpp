@@ -1,9 +1,7 @@
-#ifdef _ENABLE_DEMO
-
-#include "TimeLineFrame.h"
+#include "ECoatUI.h"
 #include "SUI/SUIBox.h"
 
-TimeLineFrame::TimeLineFrame(float x, float y, float w, float h, int numberOfFrames, SUIActionListener* action_listener)
+ECoatUI::ECoatUI(float x, float y, float w, float h, int numberOfFrames, SUIActionListener* action_listener)
 {
 	_frame = new SUIFrame(x, y, w, h, SUIFrame::V_ALIGNMENT);
 	_frame->SetName("Options Explorer", SUIFrame::LEFT);
@@ -84,33 +82,32 @@ TimeLineFrame::TimeLineFrame(float x, float y, float w, float h, int numberOfFra
 	_frame->Add(timeLineBox);
 }
 
-void TimeLineFrame::SetPos(float x, float y)
+void ECoatUI::SetPos(float x, float y)
 {
 	_frame->SetPos(x, y);
 	_frame->ResetBounds();
 }
 
-float TimeLineFrame::GetWidth()
+float ECoatUI::GetWidth()
 {
 	return _frame->GetW();
 }
 
-int TimeLineFrame::GetSelectedFrameIndex()
+int ECoatUI::GetSelectedFrameIndex()
 {
 	return selectedFrame->GetSelectedIndex();
 }
 
-void TimeLineFrame::SetVisible(bool visible)
+void ECoatUI::SetVisible(bool visible)
 {
 	_frame->SetVisible(visible);
 }
 
-TimeLineFrame::~TimeLineFrame() {
+ECoatUI::~ECoatUI() 
+{
 	if (_frame)
 	{
 		delete _frame;
 		_frame = NULL;
 	}
 }
-
-#endif

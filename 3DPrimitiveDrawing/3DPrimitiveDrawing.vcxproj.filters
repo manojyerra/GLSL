@@ -576,9 +576,6 @@
     <ClCompile Include="src\Modules\ESSModules\ContourMap.cpp">
       <Filter>src\Modules\ESSModules</Filter>
     </ClCompile>
-    <ClCompile Include="src\Modules\ESSModules\TimeLineFrame.cpp">
-      <Filter>src\Modules\ESSModules</Filter>
-    </ClCompile>
     <ClCompile Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatAssetsBuilder.cpp">
       <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
     </ClCompile>
@@ -611,6 +608,9 @@
     </ClCompile>
     <ClCompile Include="src\GLUtil\GLFont.cpp">
       <Filter>src\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatUI\ECoatUI.cpp">
+      <Filter>src\Modules\ESSModules\ECoatPostProcessing\ECoatUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1004,9 +1004,6 @@
     <ClInclude Include="src\Modules\ESSModules\ContourMap.h">
       <Filter>src\Modules\ESSModules</Filter>
     </ClInclude>
-    <ClInclude Include="src\Modules\ESSModules\TimeLineFrame.h">
-      <Filter>src\Modules\ESSModules</Filter>
-    </ClInclude>
     <ClInclude Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatAssetsBuilder.h">
       <Filter>src\Modules\ESSModules\ECoatPostProcessing</Filter>
     </ClInclude>
@@ -1039,6 +1036,9 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\GLFont.h">
       <Filter>src\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\ESSModules\ECoatPostProcessing\ECoatUI\ECoatUI.h">
+      <Filter>src\Modules\ESSModules\ECoatPostProcessing\ECoatUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

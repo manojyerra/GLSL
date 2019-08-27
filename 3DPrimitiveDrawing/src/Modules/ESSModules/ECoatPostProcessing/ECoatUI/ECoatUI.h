@@ -1,7 +1,5 @@
-#ifdef _ENABLE_DEMO
-
-#ifndef TimeLineFrame_H
-#define TimeLineFrame_H
+#ifndef ECoatUI_H
+#define ECoatUI_H
 
 #include "SUI/SUIFrame.h"
 #include "SUI/SUIActionListener.h"
@@ -10,7 +8,7 @@
 #include "SUI/SUITextField.h"
 #include "SUI/SUIList.h"
 
-class TimeLineFrame
+class ECoatUI
 {
 private:
 	SUIFrame* _frame;
@@ -23,8 +21,8 @@ public:
 	SUITextField* particleSize;
 	SUIList* selectedFrame;
 
-	TimeLineFrame(float x, float y, float w, float h, int numberOfFrames, SUIActionListener* actionListener);
-	~TimeLineFrame();
+	ECoatUI(float x, float y, float w, float h, int numberOfFrames, SUIActionListener* actionListener);
+	~ECoatUI();
 
 	void SetPos(float x, float y);
 
@@ -32,6 +30,4 @@ public:
 	int GetSelectedFrameIndex();
 	void SetVisible(bool visible);
 };
-#endif
-
 #endif
