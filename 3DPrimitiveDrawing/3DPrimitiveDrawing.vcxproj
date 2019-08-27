@@ -86,6 +86,7 @@
     <ClCompile Include="src\GLUtil\GLFBO\GLFBO.cpp" />
     <ClCompile Include="src\GLUtil\GLFBO\GLFBOManager.cpp" />
     <ClCompile Include="src\GLUtil\GLFBO\GLMSFBO.cpp" />
+    <ClCompile Include="src\GLUtil\GLFont.cpp" />
     <ClCompile Include="src\GLUtil\GLMat.cpp" />
     <ClCompile Include="src\GLUtil\GLMemory.cpp" />
     <ClCompile Include="src\GLUtil\GLMeshManager.cpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="src\GLUtil\GLFBO\GLFBO.h" />
     <ClInclude Include="src\GLUtil\GLFBO\GLFBOManager.h" />
     <ClInclude Include="src\GLUtil\GLFBO\GLMSFBO.h" />
+    <ClInclude Include="src\GLUtil\GLFont.h" />
     <ClInclude Include="src\GLUtil\GLInclude.h" />
     <ClInclude Include="src\GLUtil\GLMat.h" />
     <ClInclude Include="src\GLUtil\GLMemory.h" />

@@ -34,6 +34,7 @@ private:
 
 	bool _showThickness;
 	double _selectedThickness;
+	glm::ivec2 _posForThickness;
 
 	void SetGLStates();
 	void DrawObjects(bool drawAllParticles);

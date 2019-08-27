@@ -198,3 +198,28 @@ std::string StringUtils::doubleToScientificStr(double val)
 	std::string str(buffer);
 	return str;
 }
+
+std::string StringUtils::doubleToStr(double val, int numDecimals)
+{
+	if (numDecimals < 0)		numDecimals = 0;
+	else if (numDecimals > 10)	numDecimals = 10;
+
+	char arr[64];
+	memset(arr, '\0', sizeof(arr));
+
+	if (numDecimals == 0)			snprintf(arr, sizeof(arr), "%.0lf", val);
+	else if (numDecimals == 1)		snprintf(arr, sizeof(arr), "%.1lf", val);
+	else if (numDecimals == 2)		snprintf(arr, sizeof(arr), "%.2lf", val);
+	else if (numDecimals == 3)		snprintf(arr, sizeof(arr), "%.3lf", val);
+	else if (numDecimals == 4)		snprintf(arr, sizeof(arr), "%.4lf", val);
+	else if (numDecimals == 5)		snprintf(arr, sizeof(arr), "%.5lf", val);
+	else if (numDecimals == 6)		snprintf(arr, sizeof(arr), "%.6lf", val);
+	else if (numDecimals == 7)		snprintf(arr, sizeof(arr), "%.7lf", val);
+	else if (numDecimals == 8)		snprintf(arr, sizeof(arr), "%.8lf", val);
+	else if (numDecimals == 9)		snprintf(arr, sizeof(arr), "%.9lf", val);
+	else if (numDecimals == 10)		snprintf(arr, sizeof(arr), "%.10lf", val);
+
+	std::string str(arr);
+
+	return str;
+}

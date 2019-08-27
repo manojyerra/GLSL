@@ -11,6 +11,7 @@
 #include "STLReaderWithThreads.h"
 #include "GLState.h"
 #include "StringUtils.h"
+#include "GLFont.h"
 
 ECoatPostProcessing::ECoatPostProcessing(unsigned int sw, unsigned int sh, int argc, char** argv)
 {
@@ -106,10 +107,15 @@ void ECoatPostProcessing::Draw()
 
 		if (clickedOnCarBody)
 		{
-			double thickness = _colorBar->GetValue(color[0], color[1], color[2]);
-			std::string thicknessStr = StringUtils::doubleToScientificStr(thickness);
+			_selectedThickness = _colorBar->GetValue(color[0], color[1], color[2]);
+
+			std::string thicknessStr = StringUtils::doubleToScientificStr(_selectedThickness);
 			printf("\n clicked on carbody : %d, %d, %d, Thickness = %s ", color[0], color[1], color[2], thicknessStr.c_str());
+			
 			_showThickness = true;
+			_posForThickness.x = Input::MX;
+			_posForThickness.y = Input::MY;
+			_needAllParticlesDraw = true;
 		}
 		else
 		{
@@ -170,12 +176,16 @@ void ECoatPostProcessing::DrawObjects(bool drawAllParticles)
 	//	_meshManager->Get(i)->Draw();
 	//}
 
+	_colorBar->Draw();
+
 	if (_showThickness)
 	{
-
+		std::string thicknessStr = StringUtils::doubleToStr(_selectedThickness, 8);
+		GLFont::GetInstance()->Begin();
+		GLFont::GetInstance()->DrawFromLeft(thicknessStr, _posForThickness.x, _posForThickness.y, 19);
+		GLFont::GetInstance()->End();
+		_showThickness = false;
 	}
-
-	_colorBar->Draw();
 }
 
 void ECoatPostProcessing::actionPerformed(SUIActionEvent e)

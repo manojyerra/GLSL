@@ -1,6 +1,7 @@
 #include "ColorBar.h"
 #include "GLBatch.h"
 #include "GLState.h"
+#include "GLFont.h"
 
 ColorBar::ColorBar(int sw, int sh)
 {

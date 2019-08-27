@@ -7,9 +7,15 @@ UVShader::UVShader()
 {
 	_shaderProgram = NULL;
 	_use2DCam = false;
+	_alphaAsRGB = false;
 
 	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram("shaders/UVShader/UVShader.vs",
 		"shaders/UVShader/UVShader.fs");
+}
+
+void UVShader::SetAlphaAsRGB(bool alphaAsRGB)
+{
+	_alphaAsRGB = alphaAsRGB;
 }
 
 void UVShader::Set2DCamera(bool enable)
@@ -44,6 +50,7 @@ void UVShader::SetUniformsAndAttributes()
 	}
 
 	_shaderProgram->SetUniform1f("alpha", _alpha);
+	_shaderProgram->SetUniform1i("alphaAsRGB", _alphaAsRGB);
 
 	if (_uvBufferID)
 	{

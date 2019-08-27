@@ -609,6 +609,9 @@
     <ClCompile Include="src\GLUtil\Shaders\CubeGeometryShaderForPicking\CubeGeometryShaderForPicking.cpp">
       <Filter>src\GLUtil\Shaders\CubeGeometryShaderForPicking</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLUtil\GLFont.cpp">
+      <Filter>src\GLUtil</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLUtil\GLMat.h">
@@ -1033,6 +1036,9 @@
     </ClInclude>
     <ClInclude Include="src\GLUtil\Shaders\CubeGeometryShaderForPicking\CubeGeometryShaderForPicking.h">
       <Filter>src\GLUtil\Shaders\CubeGeometryShaderForPicking</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLUtil\GLFont.h">
+      <Filter>src\GLUtil</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -17,6 +17,7 @@ public:
 	static double atof_exp(const char *s);
 
 	static std::string doubleToScientificStr(double val);
+	static std::string doubleToStr(double val, int numDecimals);
 };
 
 #endif
