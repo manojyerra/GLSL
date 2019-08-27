@@ -5,6 +5,8 @@
 #include "BinaryObjReader.h"
 #include "BufferInfo.h"
 #include "glm/glm.hpp"
+#include "AABB.h"
+
 
 class ParticleRenderer
 {
@@ -12,7 +14,7 @@ class ParticleRenderer
 	GLMeshRenderer* _allParticlesRenderer;
 	GLMeshRenderer* _fewParticlesRenderer;
 	unsigned int _skipNumVertex;
-	glm::vec3 _bBoxCenter;
+	AABB _bBox;
 
 	static const unsigned int BYTES_PER_VERTEX = 12;
 	static const unsigned int BYTES_PER_COLOR = 3;
@@ -46,7 +48,7 @@ public:
 	void SetRotation(glm::vec3& rot);
 
 	void UpdateColorBuffer(char* colorBuffer, unsigned int colorBufLen);
-	glm::vec3 GetBBoxCenter();
+	AABB GetBBoxCenter();
 
 	void DrawForPicking();
 	void DrawAllParticles();

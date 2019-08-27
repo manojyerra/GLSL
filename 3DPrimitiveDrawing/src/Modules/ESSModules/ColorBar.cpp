@@ -2,6 +2,7 @@
 #include "GLBatch.h"
 #include "GLState.h"
 #include "GLFont.h"
+#include "StringUtils.h"
 
 ColorBar::ColorBar(int sw, int sh)
 {
@@ -196,6 +197,34 @@ void ColorBar::Draw()
 		bool cullFace = GLState::GLEnable(GL_CULL_FACE, false);
 
 		_meshRenderer->Draw();
+
+		GLFont::GetInstance()->Begin();
+
+		std::string title = "Thickness (Micron)";
+		GLFont::GetInstance()->DrawFromCenter(title, _x + _w/2.0f, _y-50, 19);
+
+
+		float totValues = 10.0f;
+
+		for (int i = 0; i <= (int)totValues; i++)
+		{
+			float deltaH = (float)i* _h / totValues;
+			double val = _minVal + (_h- deltaH) * _totDiff / _h;
+
+			if (i == 0)
+			{
+				val = _maxVal;
+			}
+			else if (i == totValues)
+			{
+				val = _minVal;
+			}
+
+			std::string valStr = StringUtils::doubleToStr(val, 8);
+			//std::string valStr = StringUtils::doubleToScientificStr(val);
+			GLFont::GetInstance()->DrawFromLeft(valStr, _x+_w, _y + deltaH, 19);
+		}
+		GLFont::GetInstance()->End();
 
 		GLState::GLEnable(GL_DEPTH_TEST, depth);
 		GLState::GLEnable(GL_CULL_FACE, cullFace);

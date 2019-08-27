@@ -139,8 +139,8 @@ char* ECoatParticleDataMgr::GetParticleColorBuf(int frameNum, unsigned int* bufS
 	bufSize[0] = colorBufSize;
 	free(thicknessBuf);
 
-	//_particleRenderer->SetPosition(frameInfo.trans);
-	//_particleRenderer->SetRotation(frameInfo.rot);
+	_particleRenderer->SetPosition(frameInfo.trans);
+	_particleRenderer->SetRotation(frameInfo.rot);
 
 	return colorBuf;
 }

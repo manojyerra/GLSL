@@ -121,7 +121,7 @@ GLFont::GLFont()
 	_borderX1 = 0;
 	_borderX2 = 0;
 
-	_horGap = 0;
+	_horGap = -2;
 
 	_data = new GLBatch(1024, true, true, false);
 	_shaderProgram = ShaderProgramsManager::GetInstance()->CreateShaderProgram("shaders/UVShader/UVShader.vs",
@@ -194,9 +194,6 @@ void GLFont::End()
 	glBufferData(GL_ARRAY_BUFFER, _data->GetUVBufferSize(), _data->GetUVBuffer(), GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	bool depthTest = GLState::GLEnable(GL_DEPTH_TEST, false);
-	bool cullFace = GLState::GLEnable(GL_CULL_FACE, false);
-
 	_shaderProgram->Begin();
 
 	_shaderProgram->SetUniform1i("textureID", 0);
@@ -226,9 +223,6 @@ void GLFont::End()
 	glDisableVertexAttribArray(vertexLoc);
 
 	_shaderProgram->End();
-
-	GLState::GLEnable(GL_DEPTH_TEST, depthTest);
-	GLState::GLEnable(GL_CULL_FACE, cullFace);
 }
 
 void GLFont::DrawFromLeft(std::string& text, float xPos, float yPos, float fontSize)
@@ -371,7 +365,7 @@ void GLFont::FillUVInfoFromTexture()
 	u[(int)'o'] = 242; v[(int)'o'] = 304; cw[(int)'o'] = 14; ch[(int)'o'] = 19;
 	u[(int)'p'] = 260; v[(int)'p'] = 304; cw[(int)'p'] = 15; ch[(int)'p'] = 19;
 	u[(int)'q'] = 279; v[(int)'q'] = 304; cw[(int)'q'] = 14; ch[(int)'q'] = 19;
-	u[(int)'r'] = 297; v[(int)'r'] = 304; cw[(int)'r'] = 11; ch[(int)'r'] = 19;
+	u[(int)'r'] = 297; v[(int)'r'] = 304; cw[(int)'r'] = 12; ch[(int)'r'] = 19;
 	u[(int)'s'] = 312; v[(int)'s'] = 304; cw[(int)'s'] = 11; ch[(int)'s'] = 19;
 	u[(int)'t'] = 328; v[(int)'t'] = 304; cw[(int)'t'] = 11; ch[(int)'t'] = 19;
 	u[(int)'u'] = 343; v[(int)'u'] = 304; cw[(int)'u'] = 14; ch[(int)'u'] = 19;
@@ -422,6 +416,11 @@ void GLFont::FillUVInfoFromTexture()
 	u[(int)'>'] = 442; v[(int)'>'] = 361; cw[(int)'>'] = 12; ch[(int)'>'] = 19;
 	u[(int)'/'] = 455; v[(int)'/'] = 361; cw[(int)'/'] = 14; ch[(int)'/'] = 19;
 	u[(int)'?'] = 473; v[(int)'?'] = 361; cw[(int)'?'] = 12; ch[(int)'?'] = 19;
+
+	for (int i = 0; i < 127; i++)
+	{
+		v[i] -= 270;
+	}
 }
 
 void GLFont::FillUVInfo_Verdana_plain_12()

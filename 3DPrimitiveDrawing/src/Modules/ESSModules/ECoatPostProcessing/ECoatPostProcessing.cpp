@@ -167,24 +167,30 @@ void ECoatPostProcessing::Draw()
 
 void ECoatPostProcessing::DrawObjects(bool drawAllParticles)
 {
-	_floor->Draw();
+	//_floor->Draw();
 
 	_particleMgr->Draw(drawAllParticles);
 
-	//for (int i = 0; i < _meshManager->Size(); i++)
-	//{
-	//	_meshManager->Get(i)->Draw();
-	//}
+	for (int i = 0; i < _meshManager->Size(); i++)
+	{
+		_meshManager->Get(i)->Draw();
+	}
 
 	_colorBar->Draw();
 
 	if (_showThickness)
 	{
+		bool depthTest = GLState::GLEnable(GL_DEPTH_TEST, false);
+		bool cullFace = GLState::GLEnable(GL_CULL_FACE, false);
+
 		std::string thicknessStr = StringUtils::doubleToStr(_selectedThickness, 8);
 		GLFont::GetInstance()->Begin();
 		GLFont::GetInstance()->DrawFromLeft(thicknessStr, _posForThickness.x, _posForThickness.y, 19);
 		GLFont::GetInstance()->End();
 		_showThickness = false;
+
+		GLState::GLEnable(GL_DEPTH_TEST, depthTest);
+		GLState::GLEnable(GL_CULL_FACE, cullFace);
 	}
 }
 

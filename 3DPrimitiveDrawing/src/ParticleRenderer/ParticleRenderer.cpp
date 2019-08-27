@@ -13,7 +13,7 @@ ParticleRenderer::ParticleRenderer(std::string filePath)
 	char* vertexBuf = (char*)binaryObjReader.GetVertexBuffer();
 	unsigned int vertexBufLen = binaryObjReader.GetVertexBufferSize();
 
-	_bBoxCenter = BufferTransformUtils::CalcCenter((float*)vertexBuf, vertexBufLen / 4);
+	_bBox = BufferTransformUtils::CalcAABB((float*)vertexBuf, vertexBufLen / 4);
 
 	_allParticlesRenderer = CreateAllParticlesRenderer(&BufferInfo(vertexBuf, vertexBufLen), nullptr, CUBE_GEOMETRY_SHADER);
 	_fewParticlesRenderer = CreateFewParticlesRenderer(&BufferInfo(vertexBuf, vertexBufLen), nullptr, CUBE_GEOMETRY_SHADER);
@@ -22,7 +22,10 @@ ParticleRenderer::ParticleRenderer(std::string filePath)
 ParticleRenderer::ParticleRenderer(BufferInfo* vertexBufInfo)
 {
 	_skipNumVertex = 50;
-	_bBoxCenter = BufferTransformUtils::CalcCenter((float*)vertexBufInfo->buffer, vertexBufInfo->size / 4);
+	_bBox = BufferTransformUtils::CalcAABB((float*)vertexBufInfo->buffer, vertexBufInfo->size / 4);
+
+	glm::vec3 move(-_bBox.w / 2, _bBox.h / 2, _bBox.d / 2);
+	BufferTransformUtils::Add((float*)vertexBufInfo->buffer, vertexBufInfo->size / 4, move);
 
 	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBufInfo, nullptr, CUBE_GEOMETRY_SHADER);
 	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBufInfo, nullptr, CUBE_GEOMETRY_SHADER);
@@ -31,7 +34,10 @@ ParticleRenderer::ParticleRenderer(BufferInfo* vertexBufInfo)
 ParticleRenderer::ParticleRenderer(BufferInfo* vertexBufInfo, BufferInfo* normalBufInfo)
 {
 	_skipNumVertex = 50;
-	_bBoxCenter = BufferTransformUtils::CalcCenter((float*)vertexBufInfo->buffer, vertexBufInfo->size / 4);
+	_bBox = BufferTransformUtils::CalcAABB((float*)vertexBufInfo->buffer, vertexBufInfo->size / 4);
+
+	glm::vec3 move(-_bBox.w / 2, _bBox.h / 2, _bBox.d / 2);
+	BufferTransformUtils::Add((float*)vertexBufInfo->buffer, vertexBufInfo->size / 4, move);
 
 	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBufInfo, normalBufInfo, PHONG_CUBE_GEOMETRY_SHADER);
 	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBufInfo, normalBufInfo, PHONG_CUBE_GEOMETRY_SHADER);
@@ -172,9 +178,7 @@ void ParticleRenderer::SetPosition(float x, float y, float z)
 
 void ParticleRenderer::SetPosition(glm::vec3& pos)
 {
-	_modelMat.SetPos(pos);
-	_allParticlesRenderer->SetModelMatrix(_modelMat.m);
-	_fewParticlesRenderer->SetModelMatrix(_modelMat.m);
+	SetPosition(pos.x, pos.y, pos.z);
 }
 
 void ParticleRenderer::SetRotation(glm::vec3& rot)
@@ -184,9 +188,9 @@ void ParticleRenderer::SetRotation(glm::vec3& rot)
 	_fewParticlesRenderer->SetModelMatrix(_modelMat.m);
 }
 
-glm::vec3 ParticleRenderer::GetBBoxCenter()
+AABB ParticleRenderer::GetBBoxCenter()
 {
-	return _bBoxCenter;
+	return _bBox;
 }
 
 void ParticleRenderer::DrawForPicking()
