@@ -59,7 +59,7 @@ int main(int argc, char** argv)
 
 	while (!glfwWindowShouldClose(window))
 	{
-		double startTime = glfwGetTime();
+		long frameStartTimeInMillis = Platform::GetTimeInMillis();
 
 		glfwPollEvents();
 
@@ -90,7 +90,7 @@ int main(int argc, char** argv)
 			previousTime = currentTime;
 		}
 
-		int timeTakenInMillis = (int)((glfwGetTime() - startTime) * 1000.0f);
+		int timeTakenInMillis = Platform::GetTimeInMillis() - frameStartTimeInMillis;
 		int sleepTimeInMillis = timeForLimitFPS - timeTakenInMillis;
 
 		if (sleepTimeInMillis > 1 && timeTakenInMillis >= 0)
