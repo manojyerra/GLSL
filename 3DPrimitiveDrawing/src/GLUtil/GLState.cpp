@@ -55,3 +55,11 @@ GLenum GLState::GLDepthFunc(GLenum val)
 	glDepthFunc(val);
 	return returnVal;
 }
+
+GLenum GLState::GLCullFace(GLenum val)
+{
+	int returnVal = 0;
+	glGetIntegerv(GL_CULL_FACE, &returnVal);
+	glCullFace(val);
+	return returnVal;
+}

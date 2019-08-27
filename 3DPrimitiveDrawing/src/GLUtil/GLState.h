@@ -14,6 +14,7 @@ public:
 	static GLfloat GLLineWidth(GLfloat width);
 	static GLfloat GLPointSize(GLfloat val);
 	static GLenum GLDepthFunc(GLenum val);
+	static GLenum GLCullFace(GLenum val);
 };
 
 #endif

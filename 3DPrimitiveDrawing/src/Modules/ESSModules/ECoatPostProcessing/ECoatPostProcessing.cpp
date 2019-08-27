@@ -131,7 +131,7 @@ void ECoatPostProcessing::Draw()
 	{
 		GLFBOManager::GetInstance()->BindDefaultMSFBO();
 
-		glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
+		glClearColor(0.3,0.3,0.35,1.0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		if(cam->IsCameraUpdated())
@@ -149,7 +149,7 @@ void ECoatPostProcessing::Draw()
 	}
 
 	//Draw on default framebuffer
-	glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
+	glClearColor(0.3, 0.3, 0.35, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Cam2D::GetInstance()->SetProjection();
@@ -171,9 +171,32 @@ void ECoatPostProcessing::DrawObjects(bool drawAllParticles)
 
 	_particleMgr->Draw(drawAllParticles);
 
-	for (int i = 0; i < _meshManager->Size(); i++)
+	//for (int i = 0; i < _meshManager->Size(); i++)
+	//{
+	//	_meshManager->Get(i)->Draw();
+	//}
+
+	std::vector<GLMeshRenderer*>* sources = _assetsBuilder->GetSources();
+
+	for (int i = 0; i < sources->size(); i++)
 	{
-		_meshManager->Get(i)->Draw();
+		sources->at(i)->Draw();
+	}
+
+	//GLMeshRenderer* solid = _assetsBuilder->GetSolid();
+	//if (solid)
+	//{
+	//	solid->Draw();
+	//}
+
+	GLMeshRenderer* fluid = _assetsBuilder->GetFluid();
+	if (fluid)
+	{
+		bool culling = GLState::GLEnable(GL_CULL_FACE, true);
+		GLenum cullFace = GLState::GLCullFace(GL_FRONT);
+		fluid->Draw();
+		GLState::GLCullFace(cullFace);
+		GLState::GLEnable(GL_CULL_FACE, culling);
 	}
 
 	_colorBar->Draw();
