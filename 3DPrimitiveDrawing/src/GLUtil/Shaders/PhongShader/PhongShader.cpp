@@ -22,6 +22,7 @@ PhongShader::PhongShader(int shaderType)
 	}
 
 	_Se = 38.4f;
+	_invertNormal = false;
 
 	SetShaderType(_shaderType);
 }
@@ -90,6 +91,11 @@ void PhongShader::SetShininess(float shininess)
 	_Se = shininess;
 }
 
+void PhongShader::SetInvertNormal(bool invertNormal)
+{
+	_invertNormal = invertNormal;
+}
+
 void PhongShader::Begin()
 {
 	_shaderProgram->Begin();
@@ -107,6 +113,7 @@ void PhongShader::SetUniformsAndAttributes()
 	_shaderProgram->SetUniformMatrix4fv("modelView", glm::value_ptr(cam->GetModelViewMat(m)));
 	_shaderProgram->SetUniformMatrix3fv("normalMat", glm::value_ptr(cam->GetNormalMat(m)));
 	_shaderProgram->SetUniform1f("alpha", _alpha);
+	_shaderProgram->SetUniform1i("invertNormal", _invertNormal);
 
 	_shaderProgram->SetUniform3f("lightPos", lightPos.x, lightPos.y, lightPos.z);
 	_shaderProgram->SetUniform4f("ambient", _Ka[0], _Ka[1], _Ka[2], _Ka[3]);

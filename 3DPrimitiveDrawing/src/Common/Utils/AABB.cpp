@@ -100,6 +100,17 @@ float AABB::CenterZ()
 	return (minZ + maxZ) / 2.0f;
 }
 
+void AABB::Translate(glm::vec3 trans)
+{
+	minX += trans.x;
+	minY += trans.y;
+	minZ += trans.z;
+
+	maxX += trans.x;
+	maxY += trans.y;
+	maxZ += trans.z;
+}
+
 glm::vec3 AABB::Center()
 {
 	float cx = (minX + maxX) / 2.0f;

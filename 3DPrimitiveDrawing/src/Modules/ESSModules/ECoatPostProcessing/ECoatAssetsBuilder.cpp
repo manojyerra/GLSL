@@ -6,8 +6,10 @@ ECoatAssetsBuilder::ECoatAssetsBuilder(ECoatAssetsReader* assetsReader, GLMeshMa
 	_solid = nullptr;
 	_solidSTLReader = nullptr;
 	_fluid = nullptr;
-	_sourcesVec.clear();
+	_sourcesVec = nullptr;
 	_resultReader = nullptr;
+
+	_sourcesVec = new vector<GLMeshRenderer*>();
 
 	std::string solidPath = assetsReader->GetSolid();
 	if (solidPath.length() > 0)
@@ -16,11 +18,14 @@ ECoatAssetsBuilder::ECoatAssetsBuilder(ECoatAssetsReader* assetsReader, GLMeshMa
 		_solid = meshMgr->AddMeshRenderer(_solidSTLReader, PBR_SHADER);
 	}
 
+	glm::vec3 albedo;
 	std::vector<std::string> sourcesPathVec = assetsReader->GetSources();
 	for (int i = 0; i < (int)sourcesPathVec.size(); i++)
 	{
 		GLMeshRenderer* meshRenderer = meshMgr->AddMeshRenderer(sourcesPathVec[i], PBR_SHADER, BaseModelIO::STL_MODEL_WITH_THREADS);
-		_sourcesVec.push_back(meshRenderer);
+		PBRShader* pbrShader = (PBRShader*)meshRenderer->GetCurrentShader();
+		pbrShader->SetMeterialProps(albedo = glm::vec3(1.0f, 0.31f, 0.41f), 1.0f, 0.20f);
+		_sourcesVec->push_back(meshRenderer);
 	}
 
 	std::string fluidPath = assetsReader->GetFluid();
@@ -28,7 +33,8 @@ ECoatAssetsBuilder::ECoatAssetsBuilder(ECoatAssetsReader* assetsReader, GLMeshMa
 	{
 		_fluid = meshMgr->AddMeshRenderer(fluidPath, PHONG_PER_VERTEX_SHADER, BaseModelIO::STL_MODEL_WITH_THREADS);
 		PhongShader* phongShader = (PhongShader*)_fluid->GetCurrentShader();
-		phongShader->SetDiffuseColor(1.0, 1.0f, 1.0f, 1.0f);
+		phongShader->SetDiffuseColor(0.5, 0.5f, 1.0f, 1.0f);
+		phongShader->SetInvertNormal(true);
 		_fluid->SetAlpha(0.4f);
 	}
 
@@ -37,12 +43,6 @@ ECoatAssetsBuilder::ECoatAssetsBuilder(ECoatAssetsReader* assetsReader, GLMeshMa
 	{
 		_resultReader = new ECoatResultReader(resultPath);
 	}
-
-	//std::string resultPath = "result_fine.ecoat";
-	//if (resultPath.length() > 0)
-	//{
-	//	_resultReader = new ECoatResultReader(resultPath);
-	//}
 }
 
 GLMeshRenderer* ECoatAssetsBuilder::GetSolid()
@@ -60,7 +60,7 @@ GLMeshRenderer* ECoatAssetsBuilder::GetFluid()
 	return _fluid;
 }
 
-std::vector<GLMeshRenderer*> ECoatAssetsBuilder::GetSources()
+std::vector<GLMeshRenderer*>* ECoatAssetsBuilder::GetSources()
 {
 	return _sourcesVec;
 }
@@ -83,4 +83,21 @@ ECoatAssetsBuilder::~ECoatAssetsBuilder()
 		delete _solidSTLReader;
 		_solidSTLReader = nullptr;
 	}
+
+	if (_sourcesVec)
+	{
+		delete _sourcesVec;
+		_sourcesVec = nullptr;
+	}
 }
+
+
+//if (i == 0) pbrShader->SetMeterialProps(albedo = glm::vec3(1.0f, 0.31f, 0.41f), 1.0f, 0.20f);
+//if (i == 1) pbrShader->SetMeterialProps(albedo = glm::vec3(0.41f, 1.0f, 0.31f), 1.0f, 0.20f);
+//if (i == 2) pbrShader->SetMeterialProps(albedo = glm::vec3(0.41f, 0.31f, 1.0f), 1.0f, 0.20f);
+//if (i == 3) pbrShader->SetMeterialProps(albedo = glm::vec3(0.31f, 0.41f, 1.0f), 1.0f, 0.20f);
+//if (i == 4) pbrShader->SetMeterialProps(albedo = glm::vec3(0.8f, 0.05f, 0.28f), 1.0f, 0.25f);
+//if (i == 5) pbrShader->SetMeterialProps(albedo = glm::vec3(0.28f, 0.8f, 0.05f), 1.0f, 0.25f);
+//if (i == 6) pbrShader->SetMeterialProps(albedo = glm::vec3(0.28f, 0.05f, 0.8f), 1.0f, 0.25f);
+//if (i == 7) pbrShader->SetMeterialProps(albedo = glm::vec3(0.05f, 0.8f, 0.28f), 1.0f, 0.25f);
+//if (i == 8) pbrShader->SetMeterialProps(albedo = glm::vec3(0.05f, 0.28f, 0.8f), 1.0f, 0.25f);

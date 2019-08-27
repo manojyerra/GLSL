@@ -17,6 +17,7 @@ private:
 	float _Kd[4];
 	float _Ks[4];
 	float _Se;
+	bool _invertNormal;
 
 	ShaderProgram* _perPixelShader;
 	ShaderProgram* _perVertexShader;
@@ -38,6 +39,7 @@ public:
 	void SetDiffuseColor(float r, float g, float b, float a);
 	void SetSpecularColor(float r, float g, float b, float a);
 	void SetShininess(float shininess);
+	void SetInvertNormal(bool invertNormal);
 
 	void Begin() override;
 	void SetUniformsAndAttributes() override;

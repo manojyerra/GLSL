@@ -55,7 +55,7 @@ int ColorBar::GetTotNumColors()
 
 void ColorBar::CalcPosition(float sw, float sh)
 {
-	_x = sw * 0.85f;
+	_x = sw * 0.87f;
 	_y = (sh - _h) / 2.0f;
 
 	_meshRenderer->SetPos(_x, _y, 0);
@@ -201,8 +201,7 @@ void ColorBar::Draw()
 		GLFont::GetInstance()->Begin();
 
 		std::string title = "Thickness (Micron)";
-		GLFont::GetInstance()->DrawFromCenter(title, _x + _w/2.0f, _y-50, 19);
-
+		GLFont::GetInstance()->DrawFromCenter(title, _x + _w/2.0f, _y-40, 19);
 
 		float totValues = 10.0f;
 

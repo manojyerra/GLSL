@@ -9,6 +9,7 @@ uniform vec4 ambient;
 uniform vec4 diffuse;
 uniform vec4 specular;
 uniform float shininess;
+uniform bool invertNormal;
 
 layout (location = 0) in vec4 vertex;
 layout (location = 1) in vec3 normal;
@@ -31,7 +32,12 @@ void CalcFragColor(vec3 V, vec3 N)
 void main(void)
 {
 	vec3 V1 = vec3( modelView * vertex );
-	vec3 N1 = normalize( normalMat * normal );
+	
+	vec3 finalNormal = normal;
+	if(invertNormal)
+		finalNormal = -normal;
+	
+	vec3 N1 = normalize( normalMat * finalNormal );
 	
 	CalcFragColor(V1, N1);
 

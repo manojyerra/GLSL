@@ -13,7 +13,7 @@ private:
 	GLMeshRenderer* _solid;
 	STLReaderWithThreads* _solidSTLReader;
 	GLMeshRenderer* _fluid;
-	std::vector<GLMeshRenderer*> _sourcesVec;
+	std::vector<GLMeshRenderer*>* _sourcesVec;
 	ECoatResultReader* _resultReader;
 
 public:
@@ -23,7 +23,7 @@ public:
 	GLMeshRenderer* GetSolid();
 	BaseModelIO* GetSolidSTLReader();
 	GLMeshRenderer* GetFluid();
-	std::vector<GLMeshRenderer*> GetSources();
+	std::vector<GLMeshRenderer*>* GetSources();
 	ECoatResultReader* GetResultReader();
 };
 

@@ -203,7 +203,7 @@ void GLFont::End()
 	Cam2D* cam2D = Cam2D::GetInstance();
 	_shaderProgram->SetUniformMatrix4fv("mvp", glm::value_ptr(cam2D->GetMVP(_modelMat.m)));
 	_shaderProgram->SetUniform1f("alpha", 1.0f);
-	_shaderProgram->SetUniform1i("alphaAsRGB", true);
+	_shaderProgram->SetUniform1i("alphaFromTex", true);
 
 	GLuint uvLoc = glGetAttribLocation(_shaderProgram->ProgramID(), "uv");
 	glEnableVertexAttribArray(uvLoc);
@@ -366,7 +366,7 @@ void GLFont::FillUVInfoFromTexture()
 	u[(int)'p'] = 260; v[(int)'p'] = 304; cw[(int)'p'] = 15; ch[(int)'p'] = 19;
 	u[(int)'q'] = 279; v[(int)'q'] = 304; cw[(int)'q'] = 14; ch[(int)'q'] = 19;
 	u[(int)'r'] = 297; v[(int)'r'] = 304; cw[(int)'r'] = 12; ch[(int)'r'] = 19;
-	u[(int)'s'] = 312; v[(int)'s'] = 304; cw[(int)'s'] = 11; ch[(int)'s'] = 19;
+	u[(int)'s'] = 312; v[(int)'s'] = 304; cw[(int)'s'] = 12; ch[(int)'s'] = 19;
 	u[(int)'t'] = 328; v[(int)'t'] = 304; cw[(int)'t'] = 11; ch[(int)'t'] = 19;
 	u[(int)'u'] = 343; v[(int)'u'] = 304; cw[(int)'u'] = 14; ch[(int)'u'] = 19;
 	u[(int)'v'] = 361; v[(int)'v'] = 304; cw[(int)'v'] = 14; ch[(int)'v'] = 19;

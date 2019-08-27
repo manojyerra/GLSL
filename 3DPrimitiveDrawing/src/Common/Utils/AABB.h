@@ -34,6 +34,8 @@ public:
 	float CenterY();
 	float CenterZ();
 
+	void Translate(glm::vec3 trans);
+
 	glm::vec3 Min();
 	glm::vec3 Max();
 	glm::vec3 Size();

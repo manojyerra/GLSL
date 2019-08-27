@@ -5,18 +5,16 @@ layout(location = 0) out vec4 outColor;
 
 uniform sampler2D textureID;
 uniform float alpha;
-uniform bool alphaAsRGB;
+uniform bool alphaFromTex;
 
 void main (void)  
 {
-	outColor = texture2D(textureID, uv_vary);
-
-	if(alphaAsRGB)
+	if(alphaFromTex)
 	{
-		//outColor = vec4(outColor.a, outColor.a, outColor.a, 1.0);
+		outColor = texture2D(textureID, uv_vary);
 	}
 	else
 	{
-		outColor = vec4( outColor.rgb, alpha);
+		outColor = vec4(texture2D(textureID, uv_vary).rgb, alpha);
 	}
 }

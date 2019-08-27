@@ -22,10 +22,12 @@ ParticleRenderer::ParticleRenderer(std::string filePath)
 ParticleRenderer::ParticleRenderer(BufferInfo* vertexBufInfo)
 {
 	_skipNumVertex = 50;
+
 	_bBox = BufferTransformUtils::CalcAABB((float*)vertexBufInfo->buffer, vertexBufInfo->size / 4);
 
 	glm::vec3 move(-_bBox.w / 2, _bBox.h / 2, _bBox.d / 2);
 	BufferTransformUtils::Add((float*)vertexBufInfo->buffer, vertexBufInfo->size / 4, move);
+	_bBox.Translate(move);
 
 	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBufInfo, nullptr, CUBE_GEOMETRY_SHADER);
 	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBufInfo, nullptr, CUBE_GEOMETRY_SHADER);
@@ -34,10 +36,12 @@ ParticleRenderer::ParticleRenderer(BufferInfo* vertexBufInfo)
 ParticleRenderer::ParticleRenderer(BufferInfo* vertexBufInfo, BufferInfo* normalBufInfo)
 {
 	_skipNumVertex = 50;
+
 	_bBox = BufferTransformUtils::CalcAABB((float*)vertexBufInfo->buffer, vertexBufInfo->size / 4);
 
 	glm::vec3 move(-_bBox.w / 2, _bBox.h / 2, _bBox.d / 2);
 	BufferTransformUtils::Add((float*)vertexBufInfo->buffer, vertexBufInfo->size / 4, move);
+	_bBox.Translate(move);
 
 	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBufInfo, normalBufInfo, PHONG_CUBE_GEOMETRY_SHADER);
 	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBufInfo, normalBufInfo, PHONG_CUBE_GEOMETRY_SHADER);
