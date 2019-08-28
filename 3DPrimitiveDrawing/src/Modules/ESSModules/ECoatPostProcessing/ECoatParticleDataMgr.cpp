@@ -81,6 +81,11 @@ void ECoatParticleDataMgr::OnSizeChange(int sw, int sh)
 	_sh = sh;
 }
 
+glm::vec3 ECoatParticleDataMgr::GetBBoxCenter()
+{
+	return _particleRenderer->GetBBox().Center();
+}
+
 bool ECoatParticleDataMgr::GetParticleColor(float mx, float my, unsigned char* color)
 {
 	GLFBOManager::GetInstance()->BindDefaultFBO();

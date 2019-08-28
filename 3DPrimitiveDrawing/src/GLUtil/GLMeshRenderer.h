@@ -47,6 +47,7 @@ public:
 	Shader* GetShader(int shaderType);
 	Shader* GetCurrentShader();
 	unsigned int GetCurrentShaderType();
+	bool IsVisible();
 
 	void SetPrimitiveType(int primitiveType);
 	void SetAlpha(float alpha);

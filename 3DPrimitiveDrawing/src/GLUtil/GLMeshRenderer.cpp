@@ -72,6 +72,11 @@ unsigned int GLMeshRenderer::GetCurrentShaderType()
 	return _shaderCreator->GetCurrentShaderType();
 }
 
+bool GLMeshRenderer::IsVisible()
+{
+	return _visible;
+}
+
 void GLMeshRenderer::SetPrimitiveType(int primitiveType)
 {
 	_primitiveType = primitiveType;

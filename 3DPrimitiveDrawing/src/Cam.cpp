@@ -69,6 +69,13 @@ void Cam::Init(float screenW, float screenH, float zNear, float zFar, float zNea
 	SetViewMatrix();
 }
 
+void Cam::ResetToInitialPos()
+{
+	_pivot = glm::vec3(0.0f, 0.0f, 0.0f);
+	_trans = glm::vec3(0.0f, -1.5f, -25.0f);
+	_angle = glm::vec3(23.49f, -90.0f, 0);
+}
+
 void Cam::SetScreenSize(float sw, float sh)
 {
 	_sw = sw;

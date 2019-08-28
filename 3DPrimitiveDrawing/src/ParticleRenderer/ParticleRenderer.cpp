@@ -192,7 +192,7 @@ void ParticleRenderer::SetRotation(glm::vec3& rot)
 	_fewParticlesRenderer->SetModelMatrix(_modelMat.m);
 }
 
-AABB ParticleRenderer::GetBBoxCenter()
+AABB ParticleRenderer::GetBBox()
 {
 	return _bBox;
 }

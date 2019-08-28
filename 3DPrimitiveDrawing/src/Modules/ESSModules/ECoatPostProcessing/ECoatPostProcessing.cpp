@@ -114,8 +114,7 @@ void ECoatPostProcessing::Draw()
 			printf("\n clicked on carbody : %d, %d, %d, Thickness = %s ", color[0], color[1], color[2], thicknessStr.c_str());
 			
 			_showThickness = true;
-			_posForThickness.x = Input::MX;
-			_posForThickness.y = Input::MY;
+			_posForThickness = glm::ivec2(Input::MX, Input::MY);
 			_needAllParticlesDraw = true;
 		}
 		else
@@ -182,7 +181,7 @@ void ECoatPostProcessing::DrawObjects(bool drawAllParticles)
 	}
 
 	GLMeshRenderer* fluid = _assetsBuilder->GetFluid();
-	if (fluid)
+	if (fluid && fluid->IsVisible())
 	{
 		bool culling = GLState::GLEnable(GL_CULL_FACE, true);
 		GLenum cullFace = GLState::GLCullFace(GL_FRONT);
@@ -277,6 +276,62 @@ void ECoatPostProcessing::actionPerformed(SUIActionEvent e)
 	}
 
 	///////////////End : Visibility Settings /////////////////////////////
+
+	else if (com == _timeLineFrame->camBox->fontView)
+	{
+		Cam::GetInstance()->SetRightView();
+		_needAllParticlesDraw = true;
+	}
+	else if (com == _timeLineFrame->camBox->backView)
+	{
+		Cam::GetInstance()->SetLeftView();
+		_needAllParticlesDraw = true;
+	}
+	else if (com == _timeLineFrame->camBox->leftView)
+	{
+		Cam::GetInstance()->SetFrontView();
+		_needAllParticlesDraw = true;
+	}
+	else if (com == _timeLineFrame->camBox->rightView)
+	{
+		Cam::GetInstance()->SetBackView();
+		_needAllParticlesDraw = true;
+	}
+	else if (com == _timeLineFrame->camBox->topView)
+	{
+		Cam::GetInstance()->SetTopView();
+		_needAllParticlesDraw = true;
+	}
+	else if (com == _timeLineFrame->camBox->bottomView)
+	{
+		Cam::GetInstance()->SetBottomView();
+		_needAllParticlesDraw = true;
+	}
+	else if (com == _timeLineFrame->camBox->changeView)
+	{
+		Cam::GetInstance()->ChangeView();
+		_needAllParticlesDraw = true;
+	}
+	else if (com == _timeLineFrame->camBox->resetPos)
+	{
+		Cam::GetInstance()->ResetToInitialPos();
+		_needAllParticlesDraw = true;
+	}
+	else if (com == _timeLineFrame->camBox->pivotRadioBtn)
+	{
+		int selectedIndex = _timeLineFrame->camBox->pivotRadioBtn->GetSelectedIndex();
+
+		if(selectedIndex == 0)
+		{
+			Cam::GetInstance()->SetPivot(glm::vec3(0.0f, 0.0f, 0.0f));
+		}
+		else if (selectedIndex == 1)
+		{
+			Cam::GetInstance()->SetPivot(_particleMgr->GetBBoxCenter());
+		}
+
+		_needAllParticlesDraw = true;
+	}
 }
 
 ECoatPostProcessing::~ECoatPostProcessing()

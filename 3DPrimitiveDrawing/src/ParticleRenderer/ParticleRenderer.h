@@ -48,7 +48,7 @@ public:
 	void SetRotation(glm::vec3& rot);
 
 	void UpdateColorBuffer(char* colorBuffer, unsigned int colorBufLen);
-	AABB GetBBoxCenter();
+	AABB GetBBox();
 
 	void DrawForPicking();
 	void DrawAllParticles();

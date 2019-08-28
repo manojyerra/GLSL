@@ -78,11 +78,13 @@ ECoatUI::ECoatUI(float x, float y, float w, float h, int numberOfFrames, SUIActi
 	timeLineBox->SetBgColor(64, 64, 64, 255);
 
 	visibilityBox = CreateVisibilityBox(action_listener);
+	camBox = CreateCameraBox(action_listener);
 
 	_frame->Add(animationBox);
 	_frame->Add(particleSizeBox);
 	_frame->Add(timeLineBox);
 	_frame->Add(visibilityBox->GetBox());
+	_frame->Add(camBox->GetBox());
 }
 
 VisibilityBox* ECoatUI::CreateVisibilityBox(SUIActionListener* action_listener)
@@ -108,6 +110,52 @@ VisibilityBox* ECoatUI::CreateVisibilityBox(SUIActionListener* action_listener)
 	visibilityBox->colorBar->SetSelect(true);
 
 	return visibilityBox;
+}
+
+CameraBox* ECoatUI::CreateCameraBox(SUIActionListener* action_listener)
+{
+	SUIBox* box = new SUIBox(SUIBox::V_ALIGNMENT);
+	box->SetMargin(5, 5, 10, 5);
+	box->SetName("Camera Settings", SUIBox::LEFT);
+	box->SetOnOffEnable(true);
+	box->SetOn(true);
+
+	CameraBox* camBox = new CameraBox(box);
+
+	SUIBox* viewBox = new SUIBox(SUIBox::V_ALIGNMENT);
+	viewBox->SetMargin(5, 5, 5, 0);
+	viewBox->SetName("View", SUIBox::LEFT);
+	viewBox->SetOnOffEnable(true);
+	viewBox->SetOn(true);
+
+	viewBox->AddButton(camBox->fontView = new SUIButton("Front View", action_listener));
+	viewBox->AddButton(camBox->backView = new SUIButton("Back View", action_listener));
+	viewBox->AddButton(camBox->leftView = new SUIButton("Left View", action_listener));
+	viewBox->AddButton(camBox->rightView = new SUIButton("Right View", action_listener));
+	viewBox->AddButton(camBox->topView = new SUIButton("Top View", action_listener));
+	viewBox->AddButton(camBox->bottomView = new SUIButton("Bottom View", action_listener));
+	viewBox->AddButton(camBox->changeView = new SUIButton("Change View", action_listener));
+
+	SUIBox* pivotBox = new SUIBox(SUIBox::V_ALIGNMENT);
+	pivotBox->SetMargin(5, 5, 5, 5);
+	pivotBox->SetName("Pivot", SUIBox::LEFT);
+	pivotBox->SetOnOffEnable(true);
+	pivotBox->SetOn(true);
+
+	pivotBox->AddRadioButton(camBox->pivotRadioBtn = new SUIRadioButton(SUIRadioButton::V_ALIGNMENT));
+	camBox->pivotRadioBtn->AddCheckBox(new SUICheckBox("Origin As Pivot",SUICheckBox::LEFT));
+	camBox->pivotRadioBtn->AddCheckBox(new SUICheckBox("Solid As Pivot", SUICheckBox::LEFT));
+	camBox->pivotRadioBtn->AddActionListener(action_listener);
+	camBox->pivotRadioBtn->SetSelect(0);
+
+	camBox->resetPos = new SUIButton("Reset Position", action_listener);
+	camBox->resetPos->SetMargin(5, 5, 5, 0);
+
+	box->AddButton(camBox->resetPos);
+	box->AddBox(viewBox);
+	box->AddBox(pivotBox);
+	
+	return camBox;
 }
 
 void ECoatUI::SetPos(float x, float y)

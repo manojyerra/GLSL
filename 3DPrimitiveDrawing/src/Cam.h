@@ -72,6 +72,7 @@ public:
 	void SetTopView();
 	void SetBottomView();
 	void ChangeView();
+	void ResetToInitialPos();
 };
 
 #endif
