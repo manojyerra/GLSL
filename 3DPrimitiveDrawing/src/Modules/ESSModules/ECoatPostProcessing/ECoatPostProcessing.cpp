@@ -222,6 +222,7 @@ void ECoatPostProcessing::actionPerformed(SUIActionEvent e)
 		{
 			_particleMgr->ApplyContour(selectedFrameIndex + 1);
 			_timeLineFrame->selectedFrame->SetSelect(selectedFrameIndex);
+			UpdateSolidPivot();
 			_needAllParticlesDraw = true;
 		}
 	}
@@ -234,6 +235,7 @@ void ECoatPostProcessing::actionPerformed(SUIActionEvent e)
 		{
 			_particleMgr->ApplyContour(selectedFrameIndex + 1);
 			_timeLineFrame->selectedFrame->SetSelect(selectedFrameIndex);
+			UpdateSolidPivot();
 			_needAllParticlesDraw = true;
 		}
 	}
@@ -241,6 +243,7 @@ void ECoatPostProcessing::actionPerformed(SUIActionEvent e)
 	{
 		auto selectedFrameIndex = _timeLineFrame->selectedFrame->GetSelectedIndex();
 		_particleMgr->ApplyContour(selectedFrameIndex+1);
+		UpdateSolidPivot();
 		_needAllParticlesDraw = true;
 	}
 
@@ -315,22 +318,27 @@ void ECoatPostProcessing::actionPerformed(SUIActionEvent e)
 	else if (com == _timeLineFrame->camBox->resetPos)
 	{
 		Cam::GetInstance()->ResetToInitialPos();
+		_timeLineFrame->camBox->pivotRadioBtn->SetSelect(0);
 		_needAllParticlesDraw = true;
 	}
 	else if (com == _timeLineFrame->camBox->pivotRadioBtn)
 	{
-		int selectedIndex = _timeLineFrame->camBox->pivotRadioBtn->GetSelectedIndex();
-
-		if(selectedIndex == 0)
-		{
-			Cam::GetInstance()->SetPivot(glm::vec3(0.0f, 0.0f, 0.0f));
-		}
-		else if (selectedIndex == 1)
-		{
-			Cam::GetInstance()->SetPivot(_particleMgr->GetBBoxCenter());
-		}
-
+		UpdateSolidPivot();
 		_needAllParticlesDraw = true;
+	}
+}
+
+void ECoatPostProcessing::UpdateSolidPivot()
+{
+	int selectedIndex = _timeLineFrame->camBox->pivotRadioBtn->GetSelectedIndex();
+
+	if (selectedIndex == 0)
+	{
+		Cam::GetInstance()->SetPivot(glm::vec3(0.0f, 0.0f, 0.0f));
+	}
+	else if (selectedIndex == 1)
+	{
+		Cam::GetInstance()->SetPivot(_particleMgr->GetBBoxCenterAfterTransform());
 	}
 }
 

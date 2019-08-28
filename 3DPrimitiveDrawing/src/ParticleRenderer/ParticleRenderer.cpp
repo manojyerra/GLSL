@@ -192,9 +192,12 @@ void ParticleRenderer::SetRotation(glm::vec3& rot)
 	_fewParticlesRenderer->SetModelMatrix(_modelMat.m);
 }
 
-AABB ParticleRenderer::GetBBox()
+glm::vec3 ParticleRenderer::GetBBoxCenterAfterTransform()
 {
-	return _bBox;
+	glm::vec4 center = glm::vec4(_bBox.Center(), 1.0f);
+	glm::mat4 mat = glm::make_mat4(_modelMat.m);
+	glm::vec3 result = glm::vec3(mat * center);
+	return result;
 }
 
 void ParticleRenderer::DrawForPicking()

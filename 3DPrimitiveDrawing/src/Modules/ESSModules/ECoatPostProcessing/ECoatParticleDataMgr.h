@@ -28,8 +28,8 @@ public:
 	~ECoatParticleDataMgr();
 
 	void SetVisible(bool visible);
+	glm::vec3 GetBBoxCenterAfterTransform();
 	void OnSizeChange(int sw, int sh);
-	glm::vec3 GetBBoxCenter();
 	bool GetParticleColor(float mx, float my, unsigned char* color);
 	void ApplyContour(int frameNum);
 	void Draw(bool drawAllParticles);

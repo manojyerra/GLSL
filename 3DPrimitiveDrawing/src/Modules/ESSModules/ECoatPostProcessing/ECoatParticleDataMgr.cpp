@@ -75,15 +75,15 @@ void ECoatParticleDataMgr::SetVisible(bool visible)
 	_visible = visible;
 }
 
+glm::vec3 ECoatParticleDataMgr::GetBBoxCenterAfterTransform()
+{
+	return _particleRenderer->GetBBoxCenterAfterTransform();
+}
+
 void ECoatParticleDataMgr::OnSizeChange(int sw, int sh)
 {
 	_sw = sw;
 	_sh = sh;
-}
-
-glm::vec3 ECoatParticleDataMgr::GetBBoxCenter()
-{
-	return _particleRenderer->GetBBox().Center();
 }
 
 bool ECoatParticleDataMgr::GetParticleColor(float mx, float my, unsigned char* color)

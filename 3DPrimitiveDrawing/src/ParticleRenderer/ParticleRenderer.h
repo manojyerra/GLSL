@@ -44,11 +44,10 @@ public:
 
 	void SetPosition(glm::vec3& pos);
 	void SetPosition(float x, float y, float z);
-
 	void SetRotation(glm::vec3& rot);
+	glm::vec3 GetBBoxCenterAfterTransform();
 
 	void UpdateColorBuffer(char* colorBuffer, unsigned int colorBufLen);
-	AABB GetBBox();
 
 	void DrawForPicking();
 	void DrawAllParticles();

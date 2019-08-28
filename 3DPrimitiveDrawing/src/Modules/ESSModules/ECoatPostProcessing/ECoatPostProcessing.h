@@ -39,6 +39,7 @@ private:
 
 	void SetGLStates();
 	void DrawObjects(bool drawAllParticles);
+	void UpdateSolidPivot();
 
 public:
 	ECoatPostProcessing(unsigned int sw, unsigned int sh, int argc, char** argv);
