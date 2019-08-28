@@ -16,9 +16,11 @@ public:
 	~UIntArray();
 
 	void push_back(unsigned int val);
+	unsigned int get(int index);
 	
 	unsigned int size();
 	unsigned int capacity();
+	void clear();
 
 	const unsigned int* getArray();
 	void print();

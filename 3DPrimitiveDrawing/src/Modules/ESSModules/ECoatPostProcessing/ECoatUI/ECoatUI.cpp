@@ -77,9 +77,37 @@ ECoatUI::ECoatUI(float x, float y, float w, float h, int numberOfFrames, SUIActi
 	timeLineBox->SetBgVisible(true);
 	timeLineBox->SetBgColor(64, 64, 64, 255);
 
+	visibilityBox = CreateVisibilityBox(action_listener);
+
 	_frame->Add(animationBox);
 	_frame->Add(particleSizeBox);
 	_frame->Add(timeLineBox);
+	_frame->Add(visibilityBox->GetBox());
+}
+
+VisibilityBox* ECoatUI::CreateVisibilityBox(SUIActionListener* action_listener)
+{
+	SUIBox* box = new SUIBox(SUIBox::V_ALIGNMENT);
+	box->SetMargin(5, 5, 10, 5);
+	box->SetName("Visibility", SUIBox::LEFT);
+	box->SetOnOffEnable(true);
+	box->SetOn(true);
+
+	VisibilityBox* visibilityBox = new VisibilityBox(box);
+
+	box->AddCheckBox( visibilityBox->floor = new SUICheckBox("Floor", SUICheckBox::LEFT, action_listener));
+	box->AddCheckBox( visibilityBox->fluid = new SUICheckBox("Fluid", SUICheckBox::LEFT, action_listener));
+	box->AddCheckBox( visibilityBox->anodes = new SUICheckBox("Anodes", SUICheckBox::LEFT, action_listener));
+	box->AddCheckBox( visibilityBox->solid = new SUICheckBox("Solid", SUICheckBox::LEFT, action_listener));
+	box->AddCheckBox( visibilityBox->colorBar = new SUICheckBox("Color Bar", SUICheckBox::LEFT, action_listener));
+
+	visibilityBox->floor->SetSelect(true);
+	visibilityBox->fluid->SetSelect(true);
+	visibilityBox->anodes->SetSelect(true);
+	visibilityBox->solid->SetSelect(true);
+	visibilityBox->colorBar->SetSelect(true);
+
+	return visibilityBox;
 }
 
 void ECoatUI::SetPos(float x, float y)

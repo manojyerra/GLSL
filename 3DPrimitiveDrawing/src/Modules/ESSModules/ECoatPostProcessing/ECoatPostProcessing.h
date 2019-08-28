@@ -18,6 +18,7 @@ private:
 	float _sw;
 	float _sh;
 	bool _needAllParticlesDraw;
+	bool _drawAnodes;
 
 	GLTexture* _texture;
 

@@ -22,6 +22,7 @@ private:
 	float _y;
 	float _w;
 	float _h;
+	bool _visible;
 
 	GLMeshRenderer* _meshRenderer;
 
@@ -36,6 +37,7 @@ public:
 	ColorBar(int sw, int sh);
 	~ColorBar();
 
+	void SetVisible(bool visible);
 	void OnSizeChange(int sw, int sh);
 	void SetMinMax(double min, double max);
 	void GetColor(double val, float* r, float* g, float* b);

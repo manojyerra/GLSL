@@ -6,6 +6,7 @@ ECoatParticleDataMgr::ECoatParticleDataMgr(int sw, int sh, ECoatAssetsBuilder* a
 {
 	_sw = sw;
 	_sh = sh;
+	_visible = true;
 
 	_assetsBuilder = assetsBuilder;
 	_colorBar = colorBar;
@@ -67,6 +68,11 @@ BufferInfo ECoatParticleDataMgr::GenerateNormals(BaseModelIO* stlReader)
 	}
 
 	return parNormalBuf;
+}
+
+void ECoatParticleDataMgr::SetVisible(bool visible)
+{
+	_visible = visible;
 }
 
 void ECoatParticleDataMgr::OnSizeChange(int sw, int sh)
@@ -147,10 +153,13 @@ char* ECoatParticleDataMgr::GetParticleColorBuf(int frameNum, unsigned int* bufS
 
 void ECoatParticleDataMgr::Draw(bool drawAllParticles)
 {
-	if(drawAllParticles)
-		_particleRenderer->DrawAllParticles();
-	else
-		_particleRenderer->DrawFewParticles();
+	if(_visible)
+	{
+		if(drawAllParticles)
+			_particleRenderer->DrawAllParticles();
+		else
+			_particleRenderer->DrawFewParticles();
+	}
 }
 
 ECoatParticleDataMgr::~ECoatParticleDataMgr()

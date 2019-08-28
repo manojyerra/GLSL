@@ -24,6 +24,7 @@ ECoatPostProcessing::ECoatPostProcessing(unsigned int sw, unsigned int sh, int a
 	_carBody = nullptr;
 	_assetsBuilder = nullptr;
 	_particleMgr = nullptr;
+	_drawAnodes = true;
 	//End: Default initialization 
 
 	float zNear = 0.15f;
@@ -167,27 +168,18 @@ void ECoatPostProcessing::Draw()
 
 void ECoatPostProcessing::DrawObjects(bool drawAllParticles)
 {
-	//_floor->Draw();
+	_floor->Draw();
 
 	_particleMgr->Draw(drawAllParticles);
 
-	//for (int i = 0; i < _meshManager->Size(); i++)
-	//{
-	//	_meshManager->Get(i)->Draw();
-	//}
-
-	std::vector<GLMeshRenderer*>* sources = _assetsBuilder->GetSources();
-
-	for (int i = 0; i < sources->size(); i++)
+	if(_drawAnodes)
 	{
-		sources->at(i)->Draw();
+		std::vector<GLMeshRenderer*>* sources = _assetsBuilder->GetSources();
+		for (int i = 0; i < sources->size(); i++)
+		{
+			sources->at(i)->Draw();
+		}
 	}
-
-	//GLMeshRenderer* solid = _assetsBuilder->GetSolid();
-	//if (solid)
-	//{
-	//	solid->Draw();
-	//}
 
 	GLMeshRenderer* fluid = _assetsBuilder->GetFluid();
 	if (fluid)
@@ -220,6 +212,7 @@ void ECoatPostProcessing::DrawObjects(bool drawAllParticles)
 void ECoatPostProcessing::actionPerformed(SUIActionEvent e)
 {
 	SUIComponent* com = (SUIComponent*)e.GetComponent();
+	string comName = com->GetName();
 
 	if (com == _timeLineFrame->nextFrame)
 	{
@@ -251,6 +244,39 @@ void ECoatPostProcessing::actionPerformed(SUIActionEvent e)
 		_particleMgr->ApplyContour(selectedFrameIndex+1);
 		_needAllParticlesDraw = true;
 	}
+
+	///////////////Begin : Visibility Settings /////////////////////////////
+
+	else if (com == _timeLineFrame->visibilityBox->floor)
+	{
+		_floor->SetVisible(_timeLineFrame->visibilityBox->floor->IsSelected());
+		_needAllParticlesDraw = true;
+	}
+	else if (com == _timeLineFrame->visibilityBox->fluid)
+	{
+		bool isSelected = _timeLineFrame->visibilityBox->fluid->IsSelected();
+		_assetsBuilder->GetFluid()->SetVisible(isSelected);
+		_needAllParticlesDraw = true;
+	}
+	else if (com == _timeLineFrame->visibilityBox->anodes)
+	{
+		_drawAnodes = _timeLineFrame->visibilityBox->anodes->IsSelected();
+		_needAllParticlesDraw = true;
+	}
+	else if (com == _timeLineFrame->visibilityBox->solid)
+	{
+		bool isSelected = _timeLineFrame->visibilityBox->solid->IsSelected();
+		_particleMgr->SetVisible(isSelected);
+		_needAllParticlesDraw = true;
+	}
+	else if (com == _timeLineFrame->visibilityBox->colorBar)
+	{
+		bool isSelected = _timeLineFrame->visibilityBox->colorBar->IsSelected();
+		_colorBar->SetVisible(isSelected);
+		_needAllParticlesDraw = true;
+	}
+
+	///////////////End : Visibility Settings /////////////////////////////
 }
 
 ECoatPostProcessing::~ECoatPostProcessing()

@@ -29,6 +29,11 @@ void UIntArray::push_back(unsigned int val)
 	_size++;
 }
 
+unsigned int UIntArray::get(int index)
+{
+	return _arr[index];
+}
+
 unsigned int UIntArray::size()
 {
 	return _size;
@@ -37,6 +42,11 @@ unsigned int UIntArray::size()
 unsigned int UIntArray::capacity()
 {
 	return _capacity;
+}
+
+void UIntArray::clear()
+{
+	_size = 0;
 }
 
 const unsigned int* UIntArray::getArray()

@@ -181,12 +181,12 @@ void ShaderProgram::SetUniformMatrix3fv(const char* str, const float* mat)
 	glUniformMatrix3fv(location, 1, GL_FALSE, mat);
 }
 
-void ShaderProgram::SetUniformMatrix4fv(const char* str, glm::mat4 mat)
+void ShaderProgram::SetUniformMatrix4fv(const char* str, glm::mat4& mat)
 {
 	SetUniformMatrix4fv(str, glm::value_ptr(mat));
 }
 
-void ShaderProgram::SetUniformMatrix3fv(const char* str, glm::mat3 mat)
+void ShaderProgram::SetUniformMatrix3fv(const char* str, glm::mat3& mat)
 {
 	SetUniformMatrix3fv(str, glm::value_ptr(mat));
 }
@@ -216,17 +216,17 @@ void ShaderProgram::SetUniform1i(const char* str, int val)
 	glUniform1i(glGetUniformLocation(_programID, str), val);
 }
 
-void ShaderProgram::SetUniform4f(const char* str, glm::vec4 vec)
+void ShaderProgram::SetUniform4f(const char* str, glm::vec4& vec)
 {
 	SetUniform4f(str, vec.x, vec.y, vec.z, vec.w);
 }
 
-void ShaderProgram::SetUniform3f(const char* str, glm::vec3 vec)
+void ShaderProgram::SetUniform3f(const char* str, glm::vec3& vec)
 {
 	SetUniform3f(str, vec.x, vec.y, vec.z);
 }
 
-void ShaderProgram::SetUniform2f(const char* str, glm::vec2 vec)
+void ShaderProgram::SetUniform2f(const char* str, glm::vec2& vec)
 {
 	SetUniform2f(str, vec.x, vec.y);
 }
@@ -244,12 +244,12 @@ void ShaderProgram::SetUniformMatrix3fv(GLint location, const float* mat)
 	glUniformMatrix3fv(location, 1, GL_FALSE, mat);
 }
 
-void ShaderProgram::SetUniformMatrix4fv(GLint location, glm::mat4 mat)
+void ShaderProgram::SetUniformMatrix4fv(GLint location, glm::mat4& mat)
 {
 	SetUniformMatrix4fv(location, glm::value_ptr(mat));
 }
 
-void ShaderProgram::SetUniformMatrix3fv(GLint location, glm::mat3 mat)
+void ShaderProgram::SetUniformMatrix3fv(GLint location, glm::mat3& mat)
 {
 	SetUniformMatrix3fv(location, glm::value_ptr(mat));
 }
@@ -279,17 +279,17 @@ void ShaderProgram::SetUniform1i(GLint location, int val)
 	glUniform1i(location, val);
 }
 
-void ShaderProgram::SetUniform4f(GLint location, glm::vec4 vec)
+void ShaderProgram::SetUniform4f(GLint location, glm::vec4& vec)
 {
 	SetUniform4f(location, vec.x, vec.y, vec.z, vec.w);
 }
 
-void ShaderProgram::SetUniform3f(GLint location, glm::vec3 vec)
+void ShaderProgram::SetUniform3f(GLint location, glm::vec3& vec)
 {
 	SetUniform3f(location, vec.x, vec.y, vec.z);
 }
 
-void ShaderProgram::SetUniform2f(GLint location, glm::vec2 vec)
+void ShaderProgram::SetUniform2f(GLint location, glm::vec2& vec)
 {
 	SetUniform2f(location, vec.x, vec.y);
 }

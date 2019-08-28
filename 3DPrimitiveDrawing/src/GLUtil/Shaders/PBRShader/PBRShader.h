@@ -4,6 +4,7 @@
 #include "ShaderProgram.h"
 #include "GLMat.h"
 #include "Shader.h"
+#include "UIntArray.h"
 #include <map>
 
 #include <vector>
@@ -38,6 +39,27 @@ protected:
 
 	ShaderProgram* _shaderProgram;
 	int _shaderType;
+
+
+	////////////////////////////
+	GLint _mvpLoc;
+	GLint _modelViewMatLoc;
+	GLint _normalMatLoc;
+
+	GLint _numLightsLoc;
+	GLint _albedoLoc;
+	GLint _metallicLoc;
+	GLint _roughnessLoc;
+	GLint _alphaLoc;
+
+	GLuint _normalLoc;
+	GLuint _vertexLoc;
+
+	UIntArray* _lightDirLocArr;
+	UIntArray* _lightColLocArr;
+	///////////////////////////
+
+	void GenerateShaderLocations();
 
 public:
 	PBRShader();

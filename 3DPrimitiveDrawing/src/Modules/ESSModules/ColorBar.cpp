@@ -8,6 +8,7 @@ ColorBar::ColorBar(int sw, int sh)
 {
 	_totColors = 4;
 	_totArrElements = 1000;
+	_visible = true;
 	
 	_mainColorsVec.push_back(glm::vec3(0.0, 0.0, 1.0)); //blue
 	_mainColorsVec.push_back(glm::vec3(0.0, 1.0, 1.0)); //cyan
@@ -59,6 +60,11 @@ void ColorBar::CalcPosition(float sw, float sh)
 	_y = (sh - _h) / 2.0f;
 
 	_meshRenderer->SetPos(_x, _y, 0);
+}
+
+void ColorBar::SetVisible(bool visible)
+{
+	_visible = visible;
 }
 
 void ColorBar::OnSizeChange(int sw, int sh)
@@ -191,7 +197,7 @@ double ColorBar::GetValue(float r, float g, float b)
 
 void ColorBar::Draw()
 {
-	if (_meshRenderer)
+	if (_visible && _meshRenderer)
 	{
 		bool depth = GLState::GLEnable(GL_DEPTH_TEST, false);
 		bool cullFace = GLState::GLEnable(GL_CULL_FACE, false);
