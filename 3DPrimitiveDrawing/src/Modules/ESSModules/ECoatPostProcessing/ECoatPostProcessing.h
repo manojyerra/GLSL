@@ -5,7 +5,7 @@
 #include "Module.h"
 #include "GLMeshManager.h"
 #include "GLTexture.h"
-#include "TimeLineFrame.h"
+#include "ECoatUI.h"
 #include "SUIActionListener.h"
 #include "ECoatParticleDataMgr.h"
 #include "ECoatResultReader.h"
@@ -27,7 +27,7 @@ private:
 	ECoatParticleDataMgr* _particleMgr;
 
 	ColorBar* _colorBar;
-	TimeLineFrame* _timeLineFrame;
+	ECoatUI* _timeLineFrame;
 
 	ECoatAssetsBuilder* _assetsBuilder;
 	ECoatAssetsBuilder* _resultFileReader;

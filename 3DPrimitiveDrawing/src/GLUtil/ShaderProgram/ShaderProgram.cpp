@@ -231,6 +231,81 @@ void ShaderProgram::SetUniform2f(const char* str, glm::vec2 vec)
 	SetUniform2f(str, vec.x, vec.y);
 }
 
+//////////////// Location based methods ////////////////
+
+
+void ShaderProgram::SetUniformMatrix4fv(GLint location, const float* mat)
+{
+	glUniformMatrix4fv(location, 1, GL_FALSE, mat);
+}
+
+void ShaderProgram::SetUniformMatrix3fv(GLint location, const float* mat)
+{
+	glUniformMatrix3fv(location, 1, GL_FALSE, mat);
+}
+
+void ShaderProgram::SetUniformMatrix4fv(GLint location, glm::mat4 mat)
+{
+	SetUniformMatrix4fv(location, glm::value_ptr(mat));
+}
+
+void ShaderProgram::SetUniformMatrix3fv(GLint location, glm::mat3 mat)
+{
+	SetUniformMatrix3fv(location, glm::value_ptr(mat));
+}
+
+void ShaderProgram::SetUniform4f(GLint location, float v1, float v2, float v3, float v4)
+{
+	glUniform4f(location, v1, v2, v3, v4);
+}
+
+void ShaderProgram::SetUniform3f(GLint location, float v1, float v2, float v3)
+{
+	glUniform3f(location, v1, v2, v3);
+}
+
+void ShaderProgram::SetUniform2f(GLint location, float v1, float v2)
+{
+	glUniform2f(location, v1, v2);
+}
+
+void ShaderProgram::SetUniform1f(GLint location, const float val)
+{
+	glUniform1f(location, val);
+}
+
+void ShaderProgram::SetUniform1i(GLint location, int val)
+{
+	glUniform1i(location, val);
+}
+
+void ShaderProgram::SetUniform4f(GLint location, glm::vec4 vec)
+{
+	SetUniform4f(location, vec.x, vec.y, vec.z, vec.w);
+}
+
+void ShaderProgram::SetUniform3f(GLint location, glm::vec3 vec)
+{
+	SetUniform3f(location, vec.x, vec.y, vec.z);
+}
+
+void ShaderProgram::SetUniform2f(GLint location, glm::vec2 vec)
+{
+	SetUniform2f(location, vec.x, vec.y);
+}
+
+//////////////////////////////////////////////////////////////////
+
+GLint ShaderProgram::GetUniformLocation(const char* str)
+{
+	return glGetUniformLocation(_programID, str);
+}
+
+GLint ShaderProgram::GetAttribLocation(const char* str)
+{
+	return glGetAttribLocation(_programID, str);
+}
+
 GLuint ShaderProgram::ProgramID()
 {
 	return _programID;

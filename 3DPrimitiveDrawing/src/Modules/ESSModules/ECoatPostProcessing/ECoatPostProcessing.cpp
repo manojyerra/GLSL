@@ -45,7 +45,7 @@ ECoatPostProcessing::ECoatPostProcessing(unsigned int sw, unsigned int sh, int a
 
 	_assetsBuilder = new ECoatAssetsBuilder(&ECoatAssetsReader("AdvancedRenderer_JLR_ECoating.json"), _meshManager);
 	_colorBar = new ColorBar(_sw, _sh);
-	_timeLineFrame = new TimeLineFrame(0, 0, 330, 700, _assetsBuilder->GetResultReader()->GetTotalFrameCount(), this);
+	_timeLineFrame = new ECoatUI(0, 0, 330, 700, _assetsBuilder->GetResultReader()->GetTotalFrameCount(), this);
 
 	_particleMgr = new ECoatParticleDataMgr(_sw, _sh, _assetsBuilder, _colorBar);
 
