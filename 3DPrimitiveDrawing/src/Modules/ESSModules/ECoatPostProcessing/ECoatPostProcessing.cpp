@@ -101,6 +101,11 @@ void ECoatPostProcessing::Draw()
 	cam->SetViewMatrix();
 	cam->UpdateCamera();
 
+	if(Input::IsKeyPressed(Input::KEY_SPACE) || Input::IsKeyReleased(Input::KEY_SPACE))
+	{
+		_needAllParticlesDraw = true;
+	}
+
 	if ((Input::IsKeyPressed(Input::KEY_LEFT_ALT) || Input::IsKeyPressed(Input::KEY_RIGHT_ALT)) && Input::IsMouseClicked())
 	{
 		unsigned char color[4];
@@ -213,6 +218,8 @@ void ECoatPostProcessing::actionPerformed(SUIActionEvent e)
 	SUIComponent* com = (SUIComponent*)e.GetComponent();
 	string comName = com->GetName();
 
+	bool needRefresh = true;
+
 	if (com == _timeLineFrame->nextFrame)
 	{
 		int selectedFrameIndex = _timeLineFrame->selectedFrame->GetSelectedIndex();
@@ -223,7 +230,6 @@ void ECoatPostProcessing::actionPerformed(SUIActionEvent e)
 			_particleMgr->ApplyContour(selectedFrameIndex + 1);
 			_timeLineFrame->selectedFrame->SetSelect(selectedFrameIndex);
 			UpdateSolidPivot();
-			_needAllParticlesDraw = true;
 		}
 	}
 	else if (com == _timeLineFrame->previousFrame)
@@ -236,7 +242,6 @@ void ECoatPostProcessing::actionPerformed(SUIActionEvent e)
 			_particleMgr->ApplyContour(selectedFrameIndex + 1);
 			_timeLineFrame->selectedFrame->SetSelect(selectedFrameIndex);
 			UpdateSolidPivot();
-			_needAllParticlesDraw = true;
 		}
 	}
 	else if (com == _timeLineFrame->selectedFrame)
@@ -244,88 +249,101 @@ void ECoatPostProcessing::actionPerformed(SUIActionEvent e)
 		auto selectedFrameIndex = _timeLineFrame->selectedFrame->GetSelectedIndex();
 		_particleMgr->ApplyContour(selectedFrameIndex+1);
 		UpdateSolidPivot();
-		_needAllParticlesDraw = true;
 	}
 
-	///////////////Begin : Visibility Settings /////////////////////////////
+	/////////////// Visibility Settings /////////////////////////////
 
 	else if (com == _timeLineFrame->visibilityBox->floor)
 	{
 		_floor->SetVisible(_timeLineFrame->visibilityBox->floor->IsSelected());
-		_needAllParticlesDraw = true;
 	}
 	else if (com == _timeLineFrame->visibilityBox->fluid)
 	{
 		bool isSelected = _timeLineFrame->visibilityBox->fluid->IsSelected();
 		_assetsBuilder->GetFluid()->SetVisible(isSelected);
-		_needAllParticlesDraw = true;
 	}
 	else if (com == _timeLineFrame->visibilityBox->anodes)
 	{
 		_drawAnodes = _timeLineFrame->visibilityBox->anodes->IsSelected();
-		_needAllParticlesDraw = true;
 	}
 	else if (com == _timeLineFrame->visibilityBox->solid)
 	{
 		bool isSelected = _timeLineFrame->visibilityBox->solid->IsSelected();
 		_particleMgr->SetVisible(isSelected);
-		_needAllParticlesDraw = true;
 	}
 	else if (com == _timeLineFrame->visibilityBox->colorBar)
 	{
 		bool isSelected = _timeLineFrame->visibilityBox->colorBar->IsSelected();
 		_colorBar->SetVisible(isSelected);
-		_needAllParticlesDraw = true;
 	}
 
-	///////////////End : Visibility Settings /////////////////////////////
+	/////////////// Camera Settings /////////////////////////////
 
 	else if (com == _timeLineFrame->camBox->fontView)
 	{
 		Cam::GetInstance()->SetRightView();
-		_needAllParticlesDraw = true;
 	}
 	else if (com == _timeLineFrame->camBox->backView)
 	{
 		Cam::GetInstance()->SetLeftView();
-		_needAllParticlesDraw = true;
 	}
 	else if (com == _timeLineFrame->camBox->leftView)
 	{
 		Cam::GetInstance()->SetFrontView();
-		_needAllParticlesDraw = true;
 	}
 	else if (com == _timeLineFrame->camBox->rightView)
 	{
 		Cam::GetInstance()->SetBackView();
-		_needAllParticlesDraw = true;
 	}
 	else if (com == _timeLineFrame->camBox->topView)
 	{
 		Cam::GetInstance()->SetTopView();
-		_needAllParticlesDraw = true;
 	}
 	else if (com == _timeLineFrame->camBox->bottomView)
 	{
 		Cam::GetInstance()->SetBottomView();
-		_needAllParticlesDraw = true;
 	}
 	else if (com == _timeLineFrame->camBox->changeView)
 	{
 		Cam::GetInstance()->ChangeView();
-		_needAllParticlesDraw = true;
 	}
 	else if (com == _timeLineFrame->camBox->resetPos)
 	{
 		Cam::GetInstance()->ResetToInitialPos();
 		_timeLineFrame->camBox->pivotRadioBtn->SetSelect(0);
-		_needAllParticlesDraw = true;
 	}
 	else if (com == _timeLineFrame->camBox->pivotRadioBtn)
 	{
+		Cam::GetInstance()->ResetToInitialPos();
 		UpdateSolidPivot();
-		_needAllParticlesDraw = true;
 	}
+
+	//////////////////  Solid Render Options /////////////////
+
+	else if (com == _timeLineFrame->solidRenderBox->radioBtn)
+	{
+		int selectedIndex = _timeLineFrame->solidRenderBox->radioBtn->GetSelectedIndex();
+
+		if (selectedIndex == 0)
+		{
+			_particleMgr->SetDrawAs(ECoatParticleDataMgr::DRAW_AS_CUBES);
+		}
+		else if (selectedIndex == 1)
+		{
+			_particleMgr->SetDrawAs(ECoatParticleDataMgr::DRAW_AS_CUBES_WITH_LIGHTING);
+		}
+		else if (selectedIndex == 2)
+		{
+			_particleMgr->SetDrawAs(ECoatParticleDataMgr::DRAW_AS_STL);
+		}
+	}
+	else
+	{
+		needRefresh = false;
+	}
+
+	if(needRefresh)
+		_needAllParticlesDraw = true;
 }
 
 void ECoatPostProcessing::UpdateSolidPivot()

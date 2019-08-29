@@ -15,6 +15,8 @@ class ParticleRenderer
 	GLMeshRenderer* _fewParticlesRenderer;
 	unsigned int _skipNumVertex;
 	AABB _bBox;
+	bool _hasNormals;
+	float _particleLen;
 
 	static const unsigned int BYTES_PER_VERTEX = 12;
 	static const unsigned int BYTES_PER_COLOR = 3;
@@ -28,10 +30,8 @@ class ParticleRenderer
 public:
 	enum
 	{
-		DRAW_AS_CUBES,
-		DRAW_AS_QUADS,
-		DRAW_AS_SPHERES,
-		DRAW_AS_POINTS
+		CUBES,
+		CUBES_WITH_LIGHTING
 	};
 
 	ParticleRenderer(std::string filePath);
@@ -40,12 +40,17 @@ public:
 
 	~ParticleRenderer();
 
-	void SetDrawAs(int drawAs);
+	bool SetDrawAs(int drawAs);
+	void SetParticleLen(float particleLen);
 
 	void SetPosition(glm::vec3& pos);
 	void SetPosition(float x, float y, float z);
 	void SetRotation(glm::vec3& rot);
+
+	GLMat GetModelMat();
 	glm::vec3 GetBBoxCenterAfterTransform();
+	AABB GetBBox();
+	glm::vec3 GetBBoxCenter();
 
 	void UpdateColorBuffer(char* colorBuffer, unsigned int colorBufLen);
 

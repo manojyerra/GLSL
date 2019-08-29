@@ -52,6 +52,11 @@ AABB GLMeshRenderer::GetAABB()
 	return _bBox;
 }
 
+glm::vec3 GLMeshRenderer::GetBBoxCenter()
+{
+	return _bBox.Center();
+}
+
 void GLMeshRenderer::SetShader(int shaderType)
 {
 	_shaderCreator->SetShader(shaderType);

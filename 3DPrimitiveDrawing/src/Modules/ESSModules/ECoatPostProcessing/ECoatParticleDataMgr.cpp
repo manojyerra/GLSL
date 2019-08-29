@@ -1,12 +1,16 @@
 #include "ECoatParticleDataMgr.h"
 #include "Platform.h"
 #include "GLFBOManager.h"
+#include "Input.h"
 
 ECoatParticleDataMgr::ECoatParticleDataMgr(int sw, int sh, ECoatAssetsBuilder* assetsBuilder, ColorBar* colorBar)
 {
 	_sw = sw;
 	_sh = sh;
 	_visible = true;
+	_drawType = DRAW_AS_CUBES_WITH_LIGHTING;
+	_stlExist = false;
+	_triangleIDsExist = false;
 
 	_assetsBuilder = assetsBuilder;
 	_colorBar = colorBar;
@@ -17,9 +21,15 @@ ECoatParticleDataMgr::ECoatParticleDataMgr(int sw, int sh, ECoatAssetsBuilder* a
 	BufferInfo parNorBufInfo = GenerateNormals(_assetsBuilder->GetSolidSTLReader());
 
 	if(parNorBufInfo.HasData())
+	{
 		_particleRenderer = new ParticleRenderer(&parVerBufInfo, &parNorBufInfo);
+		_drawType = DRAW_AS_CUBES_WITH_LIGHTING;
+	}
 	else
+	{
 		_particleRenderer = new ParticleRenderer(&parVerBufInfo);
+		_drawType = DRAW_AS_CUBES;
+	}
 
 	free(parVerBufInfo.buffer);
 	free(parNorBufInfo.buffer);
@@ -31,40 +41,40 @@ BufferInfo ECoatParticleDataMgr::GenerateNormals(BaseModelIO* stlReader)
 {
 	BufferInfo parNormalBuf;
 
-	if (stlReader)
+	BufferInfo triIDBufInfo = _resultFileReader->GetTriangleIDBufferWorkpiece(1);
+
+	_triangleIDsExist = triIDBufInfo.HasData();
+	_stlExist = (stlReader != nullptr);
+
+	if (_stlExist && _triangleIDsExist)
 	{
-		BufferInfo triIDBufInfo = _resultFileReader->GetTriangleIDBufferWorkpiece(1);
+		unsigned int* triIDArr = (unsigned int*)triIDBufInfo.buffer;
+		unsigned int numTriIDS = triIDBufInfo.size / 4;
 
-		if (triIDBufInfo.HasData())
+		float* stlNormalsArr = (float*)stlReader->GetNormalBuffer();
+		unsigned int stlNormalArrSize = stlReader->GetNormalBufferSize() / 4;
+
+		float* parNormalArr = (float*)malloc(stlReader->GetVertexBufferSize());
+		memset(parNormalArr, '\0', stlReader->GetVertexBufferSize());
+
+		for (int i = 0; i < numTriIDS; i++)
 		{
-			unsigned int* triIDArr = (unsigned int*)triIDBufInfo.buffer;
-			unsigned int numTriIDS = triIDBufInfo.size / 4;
+			unsigned int triID = triIDArr[i];
 
-			float* stlNormalsArr = (float*)stlReader->GetNormalBuffer();
-			unsigned int stlNormalArrSize = stlReader->GetNormalBufferSize() / 4;
+			int stlNorIndex = triID * 9;
+			int parNorIndex = i * 3;
 
-			float* parNormalArr = (float*)malloc(stlReader->GetVertexBufferSize());
-			memset(parNormalArr, '\0', stlReader->GetVertexBufferSize());
+			//parNormalArr[parNorIndex + 0] = stlNormalsArr[stlNorIndex + 0];
+			//parNormalArr[parNorIndex + 1] = stlNormalsArr[stlNorIndex + 1];
+			//parNormalArr[parNorIndex + 2] = stlNormalsArr[stlNorIndex + 2];
 
-			for (int i = 0; i < numTriIDS; i++)
-			{
-				unsigned int triID = triIDArr[i];
-
-				int stlNorIndex = triID * 9;
-				int parNorIndex = i * 3;
-
-				//parNormalArr[parNorIndex + 0] = stlNormalsArr[stlNorIndex + 0];
-				//parNormalArr[parNorIndex + 1] = stlNormalsArr[stlNorIndex + 1];
-				//parNormalArr[parNorIndex + 2] = stlNormalsArr[stlNorIndex + 2];
-
-				memcpy(&parNormalArr[parNorIndex], &stlNormalsArr[stlNorIndex], 12);
-			}
-
-			parNormalBuf.buffer = (char*)parNormalArr;
-			parNormalBuf.size = stlReader->GetVertexBufferSize();
-
-			free(triIDBufInfo.buffer);
+			memcpy(&parNormalArr[parNorIndex], &stlNormalsArr[stlNorIndex], 12);
 		}
+
+		parNormalBuf.buffer = (char*)parNormalArr;
+		parNormalBuf.size = stlReader->GetVertexBufferSize();
+
+		free(triIDBufInfo.buffer);
 	}
 
 	return parNormalBuf;
@@ -73,6 +83,42 @@ BufferInfo ECoatParticleDataMgr::GenerateNormals(BaseModelIO* stlReader)
 void ECoatParticleDataMgr::SetVisible(bool visible)
 {
 	_visible = visible;
+}
+
+void ECoatParticleDataMgr::SetDrawAs(int drawType)
+{
+	if (drawType == DRAW_AS_CUBES)
+	{
+		_drawType = drawType;
+		_particleRenderer->SetDrawAs(ParticleRenderer::CUBES);
+	}
+	else if (drawType == DRAW_AS_CUBES_WITH_LIGHTING)
+	{
+		if(_triangleIDsExist && _stlExist)
+		{
+			_drawType = drawType;
+			_particleRenderer->SetDrawAs(ParticleRenderer::CUBES_WITH_LIGHTING);
+		}
+		else
+		{
+			if (!_triangleIDsExist)
+				Platform::debugPrint("\nError: triangle-ids are not exist in the result file to draw particles as surface.");
+			
+			if (!_stlExist)
+				Platform::debugPrint("\nError: STL file is not exist to draw particles as surface.");
+		}
+	}
+	else if (drawType == DRAW_AS_STL)
+	{
+		if (!_stlExist)
+		{
+			Platform::debugPrint("\nError: STL file is not exist to draw particles as surface.");
+		}
+		else
+		{
+			_drawType = drawType;
+		}
+	}
 }
 
 glm::vec3 ECoatParticleDataMgr::GetBBoxCenterAfterTransform()
@@ -152,6 +198,7 @@ char* ECoatParticleDataMgr::GetParticleColorBuf(int frameNum, unsigned int* bufS
 
 	_particleRenderer->SetPosition(frameInfo.trans);
 	_particleRenderer->SetRotation(frameInfo.rot);
+	_particleRenderer->SetParticleLen(frameInfo.cellSize.x);
 
 	return colorBuf;
 }
@@ -160,10 +207,26 @@ void ECoatParticleDataMgr::Draw(bool drawAllParticles)
 {
 	if(_visible)
 	{
-		if(drawAllParticles)
-			_particleRenderer->DrawAllParticles();
+		if (_drawType == DRAW_AS_STL || Input::IsKeyPressed(Input::KEY_SPACE))
+		{
+			GLMeshRenderer* solid = _assetsBuilder->GetSolid();
+
+			glm::vec3 diff = _particleRenderer->GetBBoxCenter() - solid->GetBBoxCenter();
+
+			GLMat solidMat;
+			solidMat.multMatrixf(_particleRenderer->GetModelMat().m);
+			solidMat.translatef(diff.x, diff.y, diff.z);
+
+			solid->SetModelMatrix(solidMat.m);
+			solid->Draw();
+		}
 		else
-			_particleRenderer->DrawFewParticles();
+		{
+			if (drawAllParticles)
+				_particleRenderer->DrawAllParticles();
+			else
+				_particleRenderer->DrawFewParticles();
+		}
 	}
 }
 

@@ -7,6 +7,8 @@
 ParticleRenderer::ParticleRenderer(std::string filePath)
 {
 	_skipNumVertex = 50;
+	_hasNormals = false;
+	_particleLen = 0.00375;
 
 	BinaryObjReader binaryObjReader(filePath);
 
@@ -17,11 +19,14 @@ ParticleRenderer::ParticleRenderer(std::string filePath)
 
 	_allParticlesRenderer = CreateAllParticlesRenderer(&BufferInfo(vertexBuf, vertexBufLen), nullptr, CUBE_GEOMETRY_SHADER);
 	_fewParticlesRenderer = CreateFewParticlesRenderer(&BufferInfo(vertexBuf, vertexBufLen), nullptr, CUBE_GEOMETRY_SHADER);
+	SetParticleLen(_particleLen);
 }
 
 ParticleRenderer::ParticleRenderer(BufferInfo* vertexBufInfo)
 {
 	_skipNumVertex = 50;
+	_hasNormals = false;
+	_particleLen = 0.00375;
 
 	_bBox = BufferTransformUtils::CalcAABB((float*)vertexBufInfo->buffer, vertexBufInfo->size / 4);
 
@@ -31,11 +36,14 @@ ParticleRenderer::ParticleRenderer(BufferInfo* vertexBufInfo)
 
 	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBufInfo, nullptr, CUBE_GEOMETRY_SHADER);
 	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBufInfo, nullptr, CUBE_GEOMETRY_SHADER);
+	SetParticleLen(_particleLen);
 }
 
 ParticleRenderer::ParticleRenderer(BufferInfo* vertexBufInfo, BufferInfo* normalBufInfo)
 {
 	_skipNumVertex = 50;
+	_hasNormals = true;
+	_particleLen = 0.00375;
 
 	_bBox = BufferTransformUtils::CalcAABB((float*)vertexBufInfo->buffer, vertexBufInfo->size / 4);
 
@@ -45,6 +53,7 @@ ParticleRenderer::ParticleRenderer(BufferInfo* vertexBufInfo, BufferInfo* normal
 
 	_allParticlesRenderer = CreateAllParticlesRenderer(vertexBufInfo, normalBufInfo, PHONG_CUBE_GEOMETRY_SHADER);
 	_fewParticlesRenderer = CreateFewParticlesRenderer(vertexBufInfo, normalBufInfo, PHONG_CUBE_GEOMETRY_SHADER);
+	SetParticleLen(_particleLen);
 }
 
 GLMeshRenderer* ParticleRenderer::CreateAllParticlesRenderer(BufferInfo* vertexBufInfo, BufferInfo* normalBufInfo, int shaderID)
@@ -149,28 +158,50 @@ void ParticleRenderer::UpdateColorBuffer(char* highPolyColorBuf, unsigned int hi
 	free(lowPolyColorBuf);
 }
 
-void ParticleRenderer::SetDrawAs(int drawAs)
+void ParticleRenderer::SetParticleLen(float particleLen)
 {
-	if (drawAs == DRAW_AS_POINTS)
-	{
-		_allParticlesRenderer->SetShader(COLOR_SHADER);
-		_fewParticlesRenderer->SetShader(COLOR_SHADER);
-	}
-	else if (drawAs == DRAW_AS_CUBES)
+	_particleLen = particleLen;
+
+	int shaderID = _allParticlesRenderer->GetCurrentShaderType();
+	Shader* shader = _allParticlesRenderer->GetCurrentShader();
+
+	if (shaderID == PHONG_CUBE_GEOMETRY_SHADER)
+		((PhongCubeGeometryShader*)shader)->SetCubeHalfLen(_particleLen / 2.0f);
+	else if (shaderID == CUBE_GEOMETRY_SHADER)
+		((CubeGeometryShader*)shader)->SetCubeHalfLen(_particleLen);
+
+	shaderID = _fewParticlesRenderer->GetCurrentShaderType();
+	shader = _fewParticlesRenderer->GetCurrentShader();
+
+	if (shaderID == PHONG_CUBE_GEOMETRY_SHADER)
+		((PhongCubeGeometryShader*)shader)->SetCubeHalfLen(_particleLen / 2.0f);
+	else if (shaderID == CUBE_GEOMETRY_SHADER)
+		((CubeGeometryShader*)shader)->SetCubeHalfLen(_particleLen);
+}
+
+bool ParticleRenderer::SetDrawAs(int drawAs)
+{
+	bool retVal = false;
+
+	if (drawAs == CUBES)
 	{
 		_allParticlesRenderer->SetShader(CUBE_GEOMETRY_SHADER);
 		_fewParticlesRenderer->SetShader(CUBE_GEOMETRY_SHADER);
+		SetParticleLen(_particleLen);
+		retVal = true;
 	}
-	else if (drawAs == DRAW_AS_SPHERES)
+	else if (drawAs == CUBES_WITH_LIGHTING)
 	{
-		_allParticlesRenderer->SetShader(SPHERE_GEOMETRY_SHADER);
-		_fewParticlesRenderer->SetShader(SPHERE_GEOMETRY_SHADER);
+		if (_hasNormals)
+		{
+			_allParticlesRenderer->SetShader(PHONG_CUBE_GEOMETRY_SHADER);
+			_fewParticlesRenderer->SetShader(PHONG_CUBE_GEOMETRY_SHADER);
+			SetParticleLen(_particleLen);
+			retVal = true;
+		}
 	}
-	else if (drawAs == DRAW_AS_QUADS)
-	{
-		_allParticlesRenderer->SetShader(QUAD_GEOMETRY_SHADER);
-		_fewParticlesRenderer->SetShader(QUAD_GEOMETRY_SHADER);
-	}
+
+	return retVal;
 }
 
 void ParticleRenderer::SetPosition(float x, float y, float z)
@@ -192,6 +223,21 @@ void ParticleRenderer::SetRotation(glm::vec3& rot)
 	_fewParticlesRenderer->SetModelMatrix(_modelMat.m);
 }
 
+GLMat ParticleRenderer::GetModelMat()
+{
+	return _modelMat;
+}
+
+AABB ParticleRenderer::GetBBox()
+{
+	return _bBox;
+}
+
+glm::vec3 ParticleRenderer::GetBBoxCenter()
+{
+	return _bBox.Center();
+}
+
 glm::vec3 ParticleRenderer::GetBBoxCenterAfterTransform()
 {
 	glm::vec4 center = glm::vec4(_bBox.Center(), 1.0f);
@@ -203,7 +249,6 @@ glm::vec3 ParticleRenderer::GetBBoxCenterAfterTransform()
 void ParticleRenderer::DrawForPicking()
 {
 	unsigned int shaderType = _allParticlesRenderer->GetCurrentShaderType();
-
 	_allParticlesRenderer->SetShader(CUBE_GEOMETRY_SHADER_FOR_PICKING);
 	_allParticlesRenderer->Draw();
 	_allParticlesRenderer->SetShader(shaderType);
@@ -214,27 +259,7 @@ void ParticleRenderer::DrawAllParticles()
 	if(_allParticlesRenderer)
 	{
 		bool cullEnable = GLState::GLEnable(GL_CULL_FACE, false);
-		//_allParticlesRenderer->SetShader(PBR_CUBE_GEOMETRY_SHADER);
 		_allParticlesRenderer->Draw();
-
-		//GLMat mat1(_modelMat.m);
-		//mat1.m[13] -= 1.0;
-
-		//_allParticlesRenderer->SetShader(PHONG_CUBE_GEOMETRY_SHADER);
-		//_allParticlesRenderer->SetModelMatrix(mat1.m);
-		//_allParticlesRenderer->Draw();
-
-		//GLMat mat2(_modelMat.m);
-		//mat2.m[13] += 1.0;
-		////mat2.m[14] += 1.5;
-
-		//long startTime = Platform::GetTimeInMillis();
-		//_allParticlesRenderer->SetShader(CUBE_GEOMETRY_SHADER);
-		//_allParticlesRenderer->SetModelMatrix(_modelMat.m);
-		//_allParticlesRenderer->Draw();
-		//glFinish();
-		//printf("\nTimeForCUBE_GEOMETRY_SHADER %ld", (Platform::GetTimeInMillis()-startTime));
-
 		GLState::GLEnable(GL_CULL_FACE, cullEnable);
 	}
 }

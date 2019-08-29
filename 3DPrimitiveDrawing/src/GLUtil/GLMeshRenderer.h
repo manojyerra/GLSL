@@ -42,6 +42,7 @@ public:
 	void SetRot(float xRot, float yRot, float zRot);
 
 	AABB GetAABB();
+	glm::vec3 GetBBoxCenter();
 
 	void SetShader(int shaderType);
 	Shader* GetShader(int shaderType);

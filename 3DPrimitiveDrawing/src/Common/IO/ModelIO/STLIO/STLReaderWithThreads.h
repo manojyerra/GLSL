@@ -13,7 +13,6 @@ private:
 	FloatArray* _vertexFloatArr;
 	FloatArray* _normalFloatArr;
 	VoidPtrArray* _linesVec;
-	AABB _bBox;
 
 	unsigned int _startI;
 	unsigned int _endI;
@@ -42,9 +41,8 @@ public:
 
 	void run()
 	{
-		float vx, vy, vz;
-		float nx, ny, nz;
-		bool isFirstVertex = true;
+		float vx = 0.0f, vy = 0.0f, vz = 0.0f;
+		float nx = 0.0f, ny = 0.0f, nz = 0.0f;
 
 		unsigned int initSize = 1024 * 1024;
 		_vertexFloatArr = new FloatArray(initSize * 4);
@@ -54,7 +52,7 @@ public:
 
 		for(int i=_startI; i<=_endI; i++ )
 		{
-			char* line = linesArr[i]; //(char*)_linesVec->get(i);
+			char* line = linesArr[i];
 
 			if (line[0] == 'f')
 			{
@@ -66,26 +64,6 @@ public:
 
 				_vertexFloatArr->push_back_3(vx, vy, vz);
 				_normalFloatArr->push_back_3(nx, ny, nz);
-
-				if (isFirstVertex)
-				{
-					_bBox.minX = _bBox.maxX = vx;
-					_bBox.minY = _bBox.maxY = vy;
-					_bBox.minZ = _bBox.maxZ = vz;
-
-					isFirstVertex = false;
-				}
-				else
-				{
-					if (vx < _bBox.minX)		_bBox.minX = vx;
-					else if (vx > _bBox.maxX)	_bBox.maxX = vx;
-
-					if (vy < _bBox.minY)		_bBox.minY = vy;
-					else if (vy >_bBox.maxY)	_bBox.maxY = vy;
-
-					if (vz < _bBox.minZ)		_bBox.minZ = vz;
-					else if (vz > _bBox.maxZ)	_bBox.maxZ = vz;
-				}
 			}
 		}
 	}

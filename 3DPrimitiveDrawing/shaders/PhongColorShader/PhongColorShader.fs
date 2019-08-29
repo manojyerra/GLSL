@@ -21,7 +21,7 @@ void main(void)
 
 	vec4 diffuse = vec4(colorVary, 1.0);
 	vec4 Iamb = ambient;
-	vec4 Idiff = diffuse * max(dot(N,L), 0.0);
+	vec4 Idiff = diffuse * max(abs(dot(N,L)), 0.0);
 	vec4 Ispec = specular * pow(max(dot(R,E),0.0), shininess*0.3);
 
 	outColor = vec4( vec3(Iamb + Idiff + Ispec), alpha );

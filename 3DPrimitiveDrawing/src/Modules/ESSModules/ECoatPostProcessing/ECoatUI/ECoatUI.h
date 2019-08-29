@@ -78,6 +78,27 @@ public:
 };
 
 
+class SolidRenderBox
+{
+private:
+	SUIBox* _box;
+
+public:
+	SUIRadioButton* radioBtn;
+
+	SolidRenderBox(SUIBox* box)
+	{
+		_box = box;
+		radioBtn = nullptr;
+	}
+
+	SUIBox* GetBox()
+	{
+		return _box;
+	}
+};
+
+
 class ECoatUI
 {
 private:
@@ -85,6 +106,7 @@ private:
 
 	VisibilityBox* CreateVisibilityBox(SUIActionListener* action_listener);
 	CameraBox* CreateCameraBox(SUIActionListener* action_listener);
+	SolidRenderBox* CreateSolidRenderBox(SUIActionListener* action_listener);
 
 public:
 	SUIButton* nextFrame;
@@ -93,8 +115,10 @@ public:
 	SUIButton* stopAnimation;
 	SUITextField* particleSize;
 	SUIList* selectedFrame;
+
 	VisibilityBox* visibilityBox;
 	CameraBox* camBox;
+	SolidRenderBox* solidRenderBox;
 
 	ECoatUI(float x, float y, float w, float h, int numberOfFrames, SUIActionListener* actionListener);
 	~ECoatUI();

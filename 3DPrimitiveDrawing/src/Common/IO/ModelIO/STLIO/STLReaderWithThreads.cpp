@@ -5,6 +5,7 @@
 #include "ObjReader.h"
 #include "StringUtils.h"
 #include "VoidPtrArray.h"
+#include "BufferTransformUtils.h"
 #include <thread>
 
 STLReaderWithThreads::STLReaderWithThreads(std::string filePath)
@@ -94,6 +95,8 @@ void STLReaderWithThreads::ReadSTLFile(std::string filePath)
 		_vertexFloatArr->Append(scanLinesVec[i]->GetVertexArrary());
 		_normalFloatArr->Append(scanLinesVec[i]->GetNormalArrary());
 	}
+
+	bBox = BufferTransformUtils::CalcAABB((float*)_vertexFloatArr->getArray(), _vertexFloatArr->size());
 
 	for (int i = 0; i < scanLinesVec.size(); i++)
 	{

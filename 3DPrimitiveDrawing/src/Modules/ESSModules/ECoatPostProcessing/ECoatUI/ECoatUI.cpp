@@ -79,12 +79,14 @@ ECoatUI::ECoatUI(float x, float y, float w, float h, int numberOfFrames, SUIActi
 
 	visibilityBox = CreateVisibilityBox(action_listener);
 	camBox = CreateCameraBox(action_listener);
+	solidRenderBox = CreateSolidRenderBox(action_listener);
 
 	_frame->Add(animationBox);
 	_frame->Add(particleSizeBox);
 	_frame->Add(timeLineBox);
 	_frame->Add(visibilityBox->GetBox());
 	_frame->Add(camBox->GetBox());
+	_frame->Add(solidRenderBox->GetBox());
 }
 
 VisibilityBox* ECoatUI::CreateVisibilityBox(SUIActionListener* action_listener)
@@ -148,7 +150,7 @@ CameraBox* ECoatUI::CreateCameraBox(SUIActionListener* action_listener)
 	camBox->pivotRadioBtn->AddActionListener(action_listener);
 	camBox->pivotRadioBtn->SetSelect(0);
 
-	camBox->resetPos = new SUIButton("Reset Position", action_listener);
+	camBox->resetPos = new SUIButton("Reset", action_listener);
 	camBox->resetPos->SetMargin(5, 5, 5, 0);
 
 	box->AddButton(camBox->resetPos);
@@ -156,6 +158,26 @@ CameraBox* ECoatUI::CreateCameraBox(SUIActionListener* action_listener)
 	box->AddBox(pivotBox);
 	
 	return camBox;
+}
+
+SolidRenderBox* ECoatUI::CreateSolidRenderBox(SUIActionListener* action_listener)
+{
+	SUIBox* box = new SUIBox(SUIBox::V_ALIGNMENT);
+	box->SetMargin(5, 5, 10, 5);
+	box->SetName("Solid Render Options", SUIBox::LEFT);
+	box->SetOnOffEnable(true);
+	box->SetOn(true);
+
+	SolidRenderBox* renderBox = new SolidRenderBox(box);
+	renderBox->radioBtn = new SUIRadioButton(SUIRadioButton::V_ALIGNMENT);
+	renderBox->radioBtn->AddCheckBox(new SUICheckBox("Render As Cubes", SUICheckBox::LEFT));
+	renderBox->radioBtn->AddCheckBox(new SUICheckBox("Render As Particle Surface", SUICheckBox::LEFT));
+	renderBox->radioBtn->AddCheckBox(new SUICheckBox("Render STL", SUICheckBox::LEFT));
+	renderBox->radioBtn->AddActionListener(action_listener);
+
+	box->AddRadioButton(renderBox->radioBtn);
+
+	return renderBox;
 }
 
 void ECoatUI::SetPos(float x, float y)
