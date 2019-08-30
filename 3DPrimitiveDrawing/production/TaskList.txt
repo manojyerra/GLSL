@@ -1,0 +1,109 @@
+Need for the release:
+--------------------- 
+*) Title should be as per module.
+*) Apply transformation to carbody.
+*) Drawing anode back faces with lighting.
+*) Limit resizing of UIFrame to only vertical.
+*) Add size limits to GLFW window.
+*) Create TimelineBox as separate class and other UI will be in the ECoatPostProcessing as ECoatUI
+
+Later:
+------
+*) Create GLFW window with GL_RGB pixel format.
+*) Disable HDF5 chunking and check any performance improvement.
+*) Implement loggers. Check in pega code or in the internet for better design.
+*) Implement FBO and MSFBO by excluding UIFrame.
+*) SSAO buffer and SSAO blur buffer type should be unsigned byte.
+*) Default window y position should start from 0.
+*) Take post processing senario like CarBody STL, Particle Data with positions, thickness,and check the memory allocation 
+*) Remove all unneccessary include headers.
+*) Remove windows specific code.
+*) Remove the UIHud. [ Decision making pending ]
+*) UIFrame width should be some percentage ( may be 20% to 25% ) of the main window. [ not suitable for SUI on all sizes. ]
+
+
+
+Tasks for Integration
+---------------------
+*)Check for multisampled FBO support. Based on that decide enable/disable glfw window multi sampling.
+*)Limiting of FPS.
+*)Setup postprocessing project
+*)Read tranformation values from HDF5 file and apply it on car model or particle data.
+*)Project should run in linux
+*)Why one light is not working for PBR Shader ?
+*)Check framebuffer issue with multisampling in desktop system which is working properly in my laptop.
+*)Taking screenshots and making video.
+*)Pack below dll files.
+*)Reset to origin and Zoom and Pan and rotate speed for camera.
+
+
+OpenGL related tasks
+--------------------
+*) Add tranformation features in GLMeshRenderer class. Add initially uniform scaling, later check non-uniform scaling and how normals getting effected.
+*) Need long as data type wherever allocating memory. Like GLBatch, GLMemory, GLBufferBuilder, Arrays 
+*) While reading obj model data with scan line, we are reading it as float while scaning line, 
+   but if the precision is more do we need to use double and in the opengl also do we need to use double ?
+*) Think about zfighting properly with below questions. Precision depends on which things ?
+   which things are constants for one vertex ?
+*) Add camera options in UI for tweaking like ZNear, ZNearWidth and Camera paning and zoom.
+*) Implement camera like First person shooter games.
+*) Check how to save memory from SSAO buffers.
+
+
+How to scale down the model.
+How to avarage normals of obj.
+How to load obj with meterial properties.
+How to load obj other than triangulate faces.
+Check tiny obj code.
+Load nastran file.
+Catche memory for geometry shader to improve performance.
+Loggers implementation 
+
+
+SUI Related tasks
+-----------------
+*) Implement SUITextField erase functionality with left mouse.
+*) SUITextField should work normally like other textfields.
+*) Send all other inputs like scroll, left mouse, middle mouse to SUI.
+
+
+Other
+-----
+*) Create release library for PNG
+
+
+
+
+
+
+Done:
+-----
+*)Rename GLMeshBuilder to GLBufferBuilder
+*)Add phong per pixel shader with texture
+*)Place ParticleLoader class in proper place. Seperate particle class opengl code and place it in Common/IO folder.
+*)Have GeometryCubeShader class and have loading through GLMeshRenderer
+*)Fix this waring "warning C4005: 'APIENTRY': macro redefinition"
+*)Allocate gpu memory only from GLMemory.
+*)Load stl file.
+*) Add JSON reader/writer.
+*) Fix current camera issues zoom and pan issues.
+*) Work on wireframe.
+*) Blend issue
+*) Load HDF5 for loading contour and particle data.
+*) Check the performance of HDF5 IO by adding cache memory like 3GB
+*) Reduce multisampling to 6 and check render performance.
+*) Have one variable for number of samples in GLFBOManager.
+*) Remove glFinish() on deletion of gpu data.
+*) NeedAllParticleRendering should be true on screen size change.
+*) Check adding image filters for GLMSFBO gives any better quality ? ( no )
+*) Create GLFBO and GLMSFBO with GL_RGB pixel format.
+*) Use only one FBO for picking objects and picking the color of contours.
+*) Check how much memory taking with WindowCreation, GLFBO, GLMSFBO. [max it will be 250 MB]
+*) Limit FPS to 60.
+*) UIFrame not updating based on onSizeChange.
+*) Make release build.
+*) Add Setting up the alpha value from all the shaders. (cross check it).
+*) Remove maximize and close buttons from UIFrame.
+*) Change focus color of UIFrame as text is not clearly visible.
+*) Decrease the UIFrame box size.
+*) Status 
