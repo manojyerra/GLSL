@@ -264,3 +264,42 @@ std::cout << glGetString(GL_VERSION) << std::endl;
 //	colorBuf[ii + 2] = b * 255;
 //}
 //
+
+
+
+#include "glm/glm.hpp"
+
+
+glm::vec3 GetPointOnPlane(glm::vec3 point, glm::vec3 normal)
+{
+	normal = glm::normalize(normal);
+
+	glm::vec3 norOnRot;
+
+	if (normal.x <= normal.y && normal.x <= normal.z)
+	{
+		norOnRot = glm::vec3(normal.x, -normal.z, normal.y);
+	}
+	else if(normal.y <= normal.z)
+	{
+		norOnRot = glm::vec3(normal.z, -normal.y, -normal.x);
+	}
+	else
+	{
+		norOnRot = glm::vec3(-normal.y, normal.x, normal.z);
+	}
+
+	return (point + norOnRot);
+}
+
+GameLoop::GameLoop(float sw, float sh, int argc, char** argv)
+{
+	//glm::vec3 point1 = GetPointOnPlane(glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	//glm::vec3 point2 = GetPointOnPlane(glm::vec3(5, 1, 0), glm::vec3(0, 7, 0));
+	//glm::vec3 point3 = GetPointOnPlane(glm::vec3(0, 0, 0), glm::vec3(1, 0, 0));
+	//glm::vec3 point4 = GetPointOnPlane(glm::vec3(0, 0, 0), glm::vec3(1, 0, 0));
+	//glm::vec3 point5 = GetPointOnPlane(glm::vec3(0, 0, 0), glm::vec3(1, 0, 0));
+	//glm::vec3 point6 = GetPointOnPlane(glm::vec3(0, 0, 0), glm::vec3(1, 0, 0));
+
+	ModulesManager::GetInstance()->Init(sw, sh, argc, argv, ModulesManager::ECOAT_POST_PROCESSING_MODULE);
+}
