@@ -1,3 +1,28 @@
+Need for the release:
+--------------------- 
+*) Title should be as per module.
+*) Apply transformation to carbody.
+*) Drawing anode back faces with lighting.
+*) Limit resizing of UIFrame to only vertical.
+*) Add size limits to GLFW window.
+*) Create TimelineBox as separate class and other UI will be in the ECoatPostProcessing as ECoatUI
+
+Later:
+------
+*) Create GLFW window with GL_RGB pixel format.
+*) Disable HDF5 chunking and check any performance improvement.
+*) Implement loggers. Check in pega code or in the internet for better design.
+*) Implement FBO and MSFBO by excluding UIFrame.
+*) SSAO buffer and SSAO blur buffer type should be unsigned byte.
+*) Default window y position should start from 0.
+*) Take post processing senario like CarBody STL, Particle Data with positions, thickness,and check the memory allocation 
+*) Remove all unneccessary include headers.
+*) Remove windows specific code.
+*) Remove the UIHud. [ Decision making pending ]
+*) UIFrame width should be some percentage ( may be 20% to 25% ) of the main window. [ not suitable for SUI on all sizes. ]
+
+
+
 Tasks for Integration
 ---------------------
 *)Check for multisampled FBO support. Based on that decide enable/disable glfw window multi sampling.
@@ -47,34 +72,12 @@ Other
 *) Create release library for PNG
 
 
-Need for the release:
---------------------- 
-*) Apply transformation to carbody.
-*) Drawing anode back faces with lighting.
-*) UIFrame width should be some percentage ( may be 20% to 25% ) of the main window.
-*) Remove maximize and close buttons from UIFrame.
-*) Change focus color of UIFrame as text is not clearly visible.
-*) Limit resizing of UIFrame to only vertical.
-*) Add size limits to GLFW window.
-*) Add Setting up the alpha value from all the shaders. (cross check it).
 
 
-
-Later:
-------
-*) Create GLFW window with GL_RGB pixel format.
-*) Disable HDF5 chunking and check any performance improvement.
-*) Implement loggers. Check in pega code or in the internet for better design.
-*) Implement FBO and MSFBO by excluding UIFrame.
-*) SSAO buffer and SSAO blur buffer type should be unsigned byte.
-*) Default window y position should start from 0.
-*) Take post processing senario like CarBody STL, Particle Data with positions, thickness,and check the memory allocation 
 
 
 Done:
 -----
-*)Remove all unneccessary include headers.
-*)Remove windows specific code.
 *)Rename GLMeshBuilder to GLBufferBuilder
 *)Add phong per pixel shader with texture
 *)Place ParticleLoader class in proper place. Seperate particle class opengl code and place it in Common/IO folder.
@@ -99,3 +102,8 @@ Done:
 *) Limit FPS to 60.
 *) UIFrame not updating based on onSizeChange.
 *) Make release build.
+*) Add Setting up the alpha value from all the shaders. (cross check it).
+*) Remove maximize and close buttons from UIFrame.
+*) Change focus color of UIFrame as text is not clearly visible.
+*) Decrease the UIFrame box size.
+*) Status 
